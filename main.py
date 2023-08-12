@@ -7412,8 +7412,8 @@ if __name__ == "__main__":
     fishing_spot_stardust_1 = UiElement("fishing spot s1", 900, 490, graphic_dict["fishing_spot_1"])
     fishing_spot_stardust_2 = UiElement("fishing spot s2", 450, 648, graphic_dict["fishing_spot_1"])
 
-    fishing_spot_eldream_1 = UiElement("fishing spot e1", 250, 325, graphic_dict["fishing_spot_1"])
-    fishing_spot_eldream_2 = UiElement("fishing spot e2", 645, 325, graphic_dict["fishing_spot_1"])
+    fishing_spot_eldream_1 = UiElement("fishing spot e1", 250, 335, graphic_dict["fishing_spot_1"])
+    fishing_spot_eldream_2 = UiElement("fishing spot e2", 645, 335, graphic_dict["fishing_spot_1"])
 
     fishing_popup = UiElement("fishing popup", 510, 365, graphic_dict["basic_fish_popup"])
 

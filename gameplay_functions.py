@@ -28,7 +28,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             else:
                 interacted = False
         if player.current_zone == "seldon":
-            if pygame.sprite.spritecollideany(player, interactables_seldon, pygame.sprite.collide_rect_ratio(0.75)):
+            if pygame.sprite.spritecollideany(player, interactables_seldon):
                 interacted = True
             else:
                 interacted = False
@@ -49,13 +49,13 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
         if player.current_zone == "reservoir a":
             if pygame.sprite.spritecollideany(player, dungeon_items):
                 interacted = True
-            if mini_boss_1:
+            elif mini_boss_1:
                 if pygame.sprite.collide_rect(player, chorizon_1):
                     interacted = True
-            if mini_boss_2:
+            elif mini_boss_2:
                 if pygame.sprite.collide_rect(player, chorizon_2):
                     interacted = True
-            if switch_3:
+            elif switch_3:
                 if pygame.sprite.collide_rect(player, dungeon_teleporter):
                     interacted = True
             else:
@@ -71,14 +71,14 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             else:
                 interacted = False
         if player.current_zone == "korlok":
-            if pygame.sprite.spritecollideany(player, interactables_korlok, pygame.sprite.collide_rect_ratio(0.75)):
+            if pygame.sprite.spritecollideany(player, interactables_korlok):
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, forge_entrance):
                 interacted = True
             else:
                 interacted = False
         if player.current_zone == "mines":
-            if pygame.sprite.spritecollideany(player, interactables_mines, pygame.sprite.collide_rect_ratio(0.75)):
+            if pygame.sprite.spritecollideany(player, interactables_mines):
                 interacted = True
             else:
                 interacted = False
@@ -99,7 +99,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             else:
                 interacted = False
         if player.current_zone == "eldream":
-            if pygame.sprite.spritecollideany(player, interactables_eldream, pygame.sprite.collide_rect_ratio(0.75)):
+            if pygame.sprite.spritecollideany(player, interactables_eldream):
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, ectrenos_entrance_rect):
                 interacted = True
@@ -135,7 +135,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, npc_leyre.rect):
                 interacted = True
-            elif pygame.sprite.spritecollideany(player, ectrenos_front_enemies, pygame.sprite.collide_rect_ratio(0.75)):
+            elif pygame.sprite.spritecollideany(player, ectrenos_front_enemies):
                 interacted = True
             else:
                 interacted = False
@@ -144,8 +144,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, npc_leyre.rect):
                 interacted = True
-            elif pygame.sprite.spritecollideany(player, ectrenos_alcove_enemies,
-                                                pygame.sprite.collide_rect_ratio(0.75)):
+            elif pygame.sprite.spritecollideany(player, ectrenos_alcove_enemies):
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, alcove_fishing_rect):
                 interacted = True
@@ -237,7 +236,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             if not pygame.sprite.spritecollideany(player, interactables_nascent):
                 interacted = False
         if player.current_zone == "seldon":
-            if not pygame.sprite.spritecollideany(player, interactables_seldon, pygame.sprite.collide_rect_ratio(0.75)):
+            if not pygame.sprite.spritecollideany(player, interactables_seldon):
                 interacted = False
         if player.current_zone == "stardust":
             if (not pygame.sprite.spritecollideany(player, interactables_stardust) and
@@ -251,13 +250,13 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
         if player.current_zone == "reservoir a":
             if not pygame.sprite.spritecollideany(player, dungeon_items):
                 interacted = False
-            if mini_boss_1:
+            elif mini_boss_1:
                 if not pygame.sprite.collide_rect(player, chorizon_1):
                     interacted = False
-            if mini_boss_2:
+            elif mini_boss_2:
                 if not pygame.sprite.collide_rect(player, chorizon_2):
                     interacted = False
-            if switch_3:
+            elif switch_3:
                 if not pygame.sprite.collide_rect(player, dungeon_teleporter):
                     interacted = False
 
@@ -269,11 +268,11 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
 
         if player.current_zone == "korlok":
-            if (not pygame.sprite.spritecollideany(player, interactables_korlok, pygame.sprite.collide_rect_ratio(0.75))
+            if (not pygame.sprite.spritecollideany(player, interactables_korlok)
                     and not pygame.Rect.colliderect(player.rect, forge_entrance)):
                 interacted = False
         if player.current_zone == "mines":
-            if not pygame.sprite.spritecollideany(player, interactables_mines, pygame.sprite.collide_rect_ratio(0.75)):
+            if not pygame.sprite.spritecollideany(player, interactables_mines):
                 interacted = False
         if player.current_zone == "terra trail":
             if (not pygame.sprite.spritecollideany(player, interactables_terra_trail)
@@ -285,13 +284,12 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     and not pygame.sprite.collide_rect(player, fishing_spot_korlok_2)):
                 interacted = False
         if player.current_zone == "eldream":
-            if (not pygame.sprite.spritecollideany(player, interactables_eldream,
-                                                   pygame.sprite.collide_rect_ratio(0.75))
+            if (not pygame.sprite.spritecollideany(player, interactables_eldream)
                     and not pygame.Rect.colliderect(player.rect, ectrenos_entrance_rect)):
                 interacted = False
         if player.current_zone == "ectrenos":
-            if (not pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect) and not
-            pygame.Rect.colliderect(player.rect, npc_leyre.rect)):
+            if (not pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect)
+                    and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)):
                 interacted = False
         if player.current_zone == "ectrenos right":
             if (not pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance)
@@ -306,14 +304,12 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
         if player.current_zone == "ectrenos front":
             if (not pygame.Rect.colliderect(player.rect, npc_everett.rect)
                     and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)
-                    and not pygame.sprite.spritecollideany(player, ectrenos_front_enemies,
-                                                           pygame.sprite.collide_rect_ratio(0.75))):
+                    and not pygame.sprite.spritecollideany(player, ectrenos_front_enemies)):
                 interacted = False
         if player.current_zone == "ectrenos alcove":
             if (not pygame.Rect.colliderect(player.rect, alcove_ladder_rect)
                     and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)
-                    and not pygame.sprite.spritecollideany(player, ectrenos_alcove_enemies,
-                                                           pygame.sprite.collide_rect_ratio(0.75))
+                    and not pygame.sprite.spritecollideany(player, ectrenos_alcove_enemies)
                     and not pygame.Rect.colliderect(player.rect, alcove_fishing_rect)):
                 interacted = False
         if player.current_zone == "fishing alcove":
@@ -390,9 +386,9 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
 
         if current_zone == "fishing alcove":
             if pygame.sprite.collide_rect(player, spot_1_eldream):
-                spot_1_eldream.update(250, 325, spot_4_img)
+                spot_1_eldream.update(250, 335, spot_4_img)
             if pygame.sprite.collide_rect(player, spot_2_eldream):
-                spot_2_eldream.update(645, 325, spot_4_img)
+                spot_2_eldream.update(645, 335, spot_4_img)
 
         catch_chance = random.randrange(1, 10)
         if fishing_level == 1 or fishing_level == 1.5:
@@ -532,7 +528,7 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
 
         if current_zone == "fishing alcove":
             if pygame.sprite.collide_rect(player, spot_1_eldream):
-                spot_1_eldream.update(250, 325, spot_3_img)
+                spot_1_eldream.update(250, 335, spot_3_img)
                 if player.race == "amuna":
                     if player.gender == "male":
                         player.surf = amuna_m_up
@@ -555,7 +551,7 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                         player.surf = sorae_b_up
                         player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
             if pygame.sprite.collide_rect(player, spot_2_eldream):
-                spot_2_eldream.update(645, 325, spot_3_img)
+                spot_2_eldream.update(645, 335, spot_3_img)
                 if player.race == "amuna":
                     if player.gender == "male":
                         player.surf = amuna_m_up
@@ -1899,28 +1895,28 @@ def attack_enemy(player, mob, sharp_sense_active):
         attack_dict["critical"] = True
         # base critical damage
         if player.offense == 0:
-            damage = 7
+            damage = 8
         if player.offense == 1:
-            damage = 9
+            damage = 10
         if player.offense == 2:
-            damage = 11
+            damage = 12
         if player.offense == 3:
             damage = 14
         if player.offense == 4:
-            damage = 17
+            damage = 16
     else:
         attack_dict["critical"] = False
         # base damage
         if player.offense == 0:
-            damage = 5
+            damage = 6
         if player.offense == 1:
-            damage = 7
+            damage = 8
         if player.offense == 2:
-            damage = 9
+            damage = 10
         if player.offense == 3:
-            damage = 11
+            damage = 12
         if player.offense == 4:
-            damage = 15
+            damage = 14
 
     # increase or decrease damage based on type advantage/disadvantage
     if player.role == "mage":
@@ -2029,11 +2025,11 @@ def attack_player(player, mob, barrier_active):
         attack_dict["critical"] = True
         # base critical damage
         if player.defense == 0:
-            damage = 9
+            damage = 12
         if player.defense == 1:
-            damage = 7
+            damage = 9
         if player.defense == 2:
-            damage = 5
+            damage = 6
         if player.defense == 3:
             damage = 3
         if player.defense == 4:
@@ -2042,11 +2038,11 @@ def attack_player(player, mob, barrier_active):
         attack_dict["critical"] = False
         # base damage
         if player.defense == 0:
-            damage = 7
+            damage = 8
         if player.defense == 1:
-            damage = 5
+            damage = 6
         if player.defense == 2:
-            damage = 3
+            damage = 4
         if player.defense == 3:
             damage = 2
         if player.defense == 4:

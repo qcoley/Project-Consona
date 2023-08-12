@@ -153,7 +153,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
             info_text_2 = ""
             info_text_3 = ""
             info_text_4 = ""
-            if interacted and in_over_world:
+            if interacted and in_over_world and player.quest_progress["can't apothecary it"] < 4:
                 pygame.mixer.find_channel(True).play(sfx_item)
                 player.quest_progress["can't apothecary it"] += 1
                 ore_pick.kill()

@@ -227,7 +227,6 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                 if dreth_cutscenes_not_viewed:
-                    pygame.mixer.music.fadeout(50)
                     cutscene_tic = time.perf_counter()
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(dreth_0, (0, 0))

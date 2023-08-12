@@ -1206,11 +1206,11 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
     # if player isn't currently fishing, periodically update spots for animation
     if not fishing:
         if walk_tic % 2 > 1.75:
-            fishing_spot_1.update(250, 325, graphic_dict["fishing_spot_1"])
-            fishing_spot_2.update(645, 325, graphic_dict["fishing_spot_2"])
+            fishing_spot_1.update(250, 335, graphic_dict["fishing_spot_1"])
+            fishing_spot_2.update(645, 335, graphic_dict["fishing_spot_2"])
         else:
-            fishing_spot_1.update(250, 325, graphic_dict["fishing_spot_2"])
-            fishing_spot_2.update(645, 325, graphic_dict["fishing_spot_1"])
+            fishing_spot_1.update(250, 335, graphic_dict["fishing_spot_2"])
+            fishing_spot_2.update(645, 335, graphic_dict["fishing_spot_1"])
 
     # if player is fishing
     else:
