@@ -50,7 +50,13 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                                                           graphic_dict["sorae_a_fishing_down"],
                                                           graphic_dict["sorae_b_fishing_right"],
                                                           graphic_dict["sorae_b_fishing_down"], previous_surf,
-                                                          fishing_spot_1, fishing_spot_2)
+                                                          fishing_spot_1, fishing_spot_2,
+                                                          graphic_dict["sorae_a_fishing_up"],
+                                                          graphic_dict["sorae_b_fishing_up"],
+                                                          graphic_dict["amuna_m_fishing_up"],
+                                                          graphic_dict["amuna_f_fishing_up"],
+                                                          graphic_dict["nuldar_m_fishing_up"],
+                                                          graphic_dict["nuldar_f_fishing_up"])
         basic_fish_counter = fish_return["basic_fish_counter"]
         better_fish_counter = fish_return["better_fish_counter"]
         even_better_fish_counter = fish_return["even_better_fish_counter"]
@@ -89,9 +95,14 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
     screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-
     try:
         for pet in player.pet:
             if pet.active:

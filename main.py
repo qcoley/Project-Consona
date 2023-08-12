@@ -1349,6 +1349,22 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_female_right_4"]
                     self.x_coordinate += velocity
 
+        if current_zone == "fishing alcove":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            if self.y_coordinate > 525:
+                if self.x_coordinate > 1010:
+                    self.x_coordinate = 1010
+            if self.y_coordinate < 525:
+                if self.x_coordinate > 775:
+                    self.x_coordinate = 775
+            if self.x_coordinate > 775:
+                if self.y_coordinate < 535:
+                    self.y_coordinate = 535
+            if self.y_coordinate <= 405:
+                self.y_coordinate = 405
+            elif self.y_coordinate >= 644:
+                self.y_coordinate = 644
         if current_zone == "rohir":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
@@ -3443,6 +3459,22 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_female_right_4"]
                     self.x_coordinate += velocity
 
+        if current_zone == "fishing alcove":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            if self.y_coordinate > 525:
+                if self.x_coordinate > 1010:
+                    self.x_coordinate = 1010
+            if self.y_coordinate < 525:
+                if self.x_coordinate > 775:
+                    self.x_coordinate = 775
+            if self.x_coordinate > 775:
+                if self.y_coordinate < 535:
+                    self.y_coordinate = 535
+            if self.y_coordinate <= 405:
+                self.y_coordinate = 405
+            elif self.y_coordinate >= 644:
+                self.y_coordinate = 644
         if current_zone == "rohir":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
@@ -5528,6 +5560,22 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_b_right_4"]
                     self.x_coordinate += velocity
 
+        if current_zone == "fishing alcove":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            if self.y_coordinate > 525:
+                if self.x_coordinate > 1010:
+                    self.x_coordinate = 1010
+            if self.y_coordinate < 525:
+                if self.x_coordinate > 775:
+                    self.x_coordinate = 775
+            if self.x_coordinate > 775:
+                if self.y_coordinate < 535:
+                    self.y_coordinate = 535
+            if self.y_coordinate <= 405:
+                self.y_coordinate = 405
+            elif self.y_coordinate >= 644:
+                self.y_coordinate = 644
         if current_zone == "rohir":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
@@ -6316,16 +6364,16 @@ class PlayerSorae(pygame.sprite.Sprite):
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_forge):
-                        if self.y_coordinate > chroma_bridge_forge.y_coordinate:
-                            self.y_coordinate += velocity
-                        if self.y_coordinate < 625:
+                        if self.y_coordinate < chroma_bridge_forge.y_coordinate:
                             self.y_coordinate -= velocity
+                        if self.y_coordinate < 620:
+                            self.y_coordinate += velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_forge):
-                    if self.y_coordinate > chroma_bridge_forge.y_coordinate:
-                        self.y_coordinate += velocity
-                    if self.y_coordinate < 625:
+                    if self.y_coordinate < chroma_bridge_forge.y_coordinate:
                         self.y_coordinate -= velocity
+                    if self.y_coordinate < 620:
+                        self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -7355,14 +7403,17 @@ if __name__ == "__main__":
     water_fish_3 = UiElement("water", 500, 575, graphic_dict["water"])
     water_fish_4 = UiElement("water", 650, 680, graphic_dict["water"])
 
+    water_alcove_1 = UiElement("water", 450, 245, graphic_dict["water"])
+    water_alcove_3 = UiElement("water", 300, 280, graphic_dict["water"])
+
     fishing_spot_korlok_1 = UiElement("fishing spot k1", 740, 410, graphic_dict["fishing_spot_1"])
     fishing_spot_korlok_2 = UiElement("fishing spot k2", 575, 525, graphic_dict["fishing_spot_1"])
 
     fishing_spot_stardust_1 = UiElement("fishing spot s1", 900, 490, graphic_dict["fishing_spot_1"])
     fishing_spot_stardust_2 = UiElement("fishing spot s2", 450, 648, graphic_dict["fishing_spot_1"])
 
-    fishing_spot_eldream_1 = UiElement("fishing spot e1", 740, 410, graphic_dict["fishing_spot_1"])
-    fishing_spot_eldream_2 = UiElement("fishing spot e2", 575, 525, graphic_dict["fishing_spot_1"])
+    fishing_spot_eldream_1 = UiElement("fishing spot e1", 250, 325, graphic_dict["fishing_spot_1"])
+    fishing_spot_eldream_2 = UiElement("fishing spot e2", 645, 325, graphic_dict["fishing_spot_1"])
 
     fishing_popup = UiElement("fishing popup", 510, 365, graphic_dict["basic_fish_popup"])
 
@@ -7987,7 +8038,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -8739,7 +8790,11 @@ if __name__ == "__main__":
                             player.x_coordinate = 425
                             player.y_coordinate = 675
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            chroma_bridge.update(764, 487, graphic_dict["chroma_bridge"])
+                        if player.current_zone == "fishing alcove":
+                            mini_map_overlay.update(915, 596, graphic_dict["ectrenos_mini_map"])
+                            player.x_coordinate = 415
+                            player.y_coordinate = 550
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow":
                             player.x_coordinate = 685
                             player.y_coordinate = 170
@@ -8903,7 +8958,8 @@ if __name__ == "__main__":
                                                                       dungeon_switch_ramps_1, ramps_crate_5,
                                                                       forge_rect, interacted, False,
                                                                       ectrenos_alcove_enemies, alcove_fishing_rect_1,
-                                                                      alcove_fishing_rect_2)
+                                                                      alcove_fishing_rect_2, fishing_spot_eldream_1,
+                                                                      fishing_spot_eldream_2)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9086,7 +9142,9 @@ if __name__ == "__main__":
                                                                                   forge_rect, interacted, True,
                                                                                   ectrenos_alcove_enemies,
                                                                                   alcove_fishing_rect_1,
-                                                                                  alcove_fishing_rect_2)
+                                                                                  alcove_fishing_rect_2,
+                                                                                  fishing_spot_eldream_1,
+                                                                                  fishing_spot_eldream_2)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -11249,8 +11307,8 @@ if __name__ == "__main__":
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, fish_caught,
-                                                                               previous_surf, water_fish_1,
-                                                                               water_fish_3, water_fish_4,
+                                                                               previous_surf, water_alcove_1,
+                                                                               water_alcove_3,
                                                                                fishing_alcove_bg, equipment_screen,
                                                                                offense_meter, defense_meter, staff,
                                                                                sword, bow, npc_garan, weapon_select,
@@ -11273,8 +11331,8 @@ if __name__ == "__main__":
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, fish_caught,
-                                                                               previous_surf, water_fish_1,
-                                                                               water_fish_3, water_fish_4,
+                                                                               previous_surf, water_alcove_1,
+                                                                               water_alcove_3,
                                                                                fishing_alcove_bg, equipment_screen,
                                                                                offense_meter, defense_meter, staff,
                                                                                sword, bow, npc_garan, weapon_select,
@@ -12003,6 +12061,8 @@ if __name__ == "__main__":
                         fishing_popup.update(510, 365, graphic_dict["basic_fish_popup"])
                     elif player.current_zone == "stardust":
                         fishing_popup.update(510, 365, graphic_dict["better_fish_popup"])
+                    elif player.current_zone == "fishing alcove":
+                        fishing_popup.update(510, 365, graphic_dict["best_fish_popup"])
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(fishing_popup.surf, fishing_popup.rect)
                     else:
@@ -18024,7 +18084,6 @@ if __name__ == "__main__":
                             encounter_started = False
                             in_battle = False
                             in_over_world = True
-                            over_world_song_set = False
                             if mini_boss_1:
                                 mini_boss_1 = False
                             if mini_boss_2:

@@ -1190,7 +1190,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
 def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building_music, fishing, walk_tic,
                    fishing_spot_1, fishing_spot_2, graphic_dict, fishing_timer, fishing_level, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, fish_caught, previous_surf,
-                   water_fish_1, water_fish_3, water_fish_4, fishing_alcove_bg, equipment_screen, offense_meter,
+                   water_fish_1, water_fish_3, fishing_alcove_bg, equipment_screen, offense_meter,
                    defense_meter, staff, sword, bow, npc_garan, weapon_select, save_check_window, user_interface,
                    bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4,
                    in_over_world, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
@@ -1203,12 +1203,74 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
+    # if player isn't currently fishing, periodically update spots for animation
+    if not fishing:
+        if walk_tic % 2 > 1.75:
+            fishing_spot_1.update(250, 325, graphic_dict["fishing_spot_1"])
+            fishing_spot_2.update(645, 325, graphic_dict["fishing_spot_2"])
+        else:
+            fishing_spot_1.update(250, 325, graphic_dict["fishing_spot_2"])
+            fishing_spot_2.update(645, 325, graphic_dict["fishing_spot_1"])
+
+    # if player is fishing
+    else:
+        fish_return = gameplay_functions.fishing_function(pygame, fishing_timer, player, player.current_zone,
+                                                          graphic_dict["fishing_spot_3"],
+                                                          graphic_dict["fishing_spot_4"],
+                                                          fishing_spot_1, fishing_spot_2, fishing_level,
+                                                          basic_fish_counter, better_fish_counter,
+                                                          even_better_fish_counter, best_fish_counter, fishing,
+                                                          fish_caught,
+                                                          graphic_dict["amuna_m_fishing_right"],
+                                                          graphic_dict["amuna_m_fishing_down"],
+                                                          graphic_dict["amuna_f_fishing_right"],
+                                                          graphic_dict["amuna_f_fishing_down"],
+                                                          graphic_dict["nuldar_m_fishing_right"],
+                                                          graphic_dict["nuldar_m_fishing_down"],
+                                                          graphic_dict["nuldar_f_fishing_right"],
+                                                          graphic_dict["nuldar_f_fishing_down"],
+                                                          graphic_dict["sorae_a_fishing_right"],
+                                                          graphic_dict["sorae_a_fishing_down"],
+                                                          graphic_dict["sorae_b_fishing_right"],
+                                                          graphic_dict["sorae_b_fishing_down"], previous_surf,
+                                                          fishing_spot_1, fishing_spot_2, fishing_spot_1,
+                                                          fishing_spot_2, graphic_dict["sorae_a_fishing_up"],
+                                                          graphic_dict["sorae_b_fishing_up"],
+                                                          graphic_dict["amuna_m_fishing_up"],
+                                                          graphic_dict["amuna_f_fishing_up"],
+                                                          graphic_dict["nuldar_m_fishing_up"],
+                                                          graphic_dict["nuldar_f_fishing_up"])
+        basic_fish_counter = fish_return["basic_fish_counter"]
+        better_fish_counter = fish_return["better_fish_counter"]
+        even_better_fish_counter = fish_return["even_better_fish_counter"]
+        best_fish_counter = fish_return["best_fish_counter"]
+        fish_caught = fish_return["fish_caught"]
+        fishing = fish_return["fishing"]
+        movement_able = fish_return["movement_able"]
+
+    # water movement animation -------------------------------------------------------------------------
+    if 675 > water_fish_1.x_coordinate > 185:
+        water_fish_1.x_coordinate -= 1
+        water_fish_1.rect.midbottom = (water_fish_1.x_coordinate, water_fish_1.y_coordinate)
+    else:
+        water_fish_1.update(650, water_fish_1.y_coordinate, graphic_dict["water"])
+
+    if 675 > water_fish_3.x_coordinate > 185:
+        water_fish_3.x_coordinate -= 1
+        water_fish_3.rect.midbottom = (water_fish_3.x_coordinate, water_fish_3.y_coordinate)
+    else:
+        water_fish_3.update(650, water_fish_3.y_coordinate, graphic_dict["water"])
+    # --------------------------------------------------------------------------------------------------
+
     screen.blit(fishing_alcove_bg, (0, 0))
+    screen.blit(water_fish_1.surf, water_fish_1.rect)
+    screen.blit(water_fish_3.surf, water_fish_3.rect)
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-
+    screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
+    screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -1229,11 +1291,11 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
         pass
 
     if pygame.Rect.colliderect(player.rect, alcove_rect):
-        interaction_popup.update(410, 675, graphic_dict["popup_interaction"])
+        interaction_popup.update(412, 675, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str("Ectrenos alcove"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (410, 675)
+        interaction_info_rect.center = (412, 675)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         info_text_1 = "Press 'F' key to enter."
@@ -1247,6 +1309,71 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
             player.x_coordinate = 415
             player.y_coordinate = 125
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    if not fishing:
+        if pygame.sprite.collide_rect(player, fishing_spot_1):
+            interaction_popup.update(fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_blue"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if fishing_unlocked:
+                info_text_1 = "Press 'F' key to fish."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "You need to unlock fishing. "
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+
+            # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
+            if interacted and in_over_world and fishing_unlocked:
+                for item in player.items:
+                    if item.name == "eldream bait":
+                        fishing = True
+                        interacted = False
+                        fishing_timer = time.perf_counter()
+                        player.items.remove(item)
+                        previous_surf = player.surf
+                        # to clear popup
+                        fish_caught = False
+                        break
+
+        if pygame.sprite.collide_rect(player, fishing_spot_2):
+            interaction_popup.update(fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_blue"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if fishing_unlocked:
+                info_text_1 = "Press 'F' key to fish."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "You need to unlock fishing. "
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+
+            if interacted and in_over_world and fishing_unlocked:
+                for item in player.items:
+                    if item.name == "eldream bait":
+                        fishing = True
+                        interacted = False
+                        fishing_timer = time.perf_counter()
+                        player.items.remove(item)
+                        previous_surf = player.surf
+                        fish_caught = False
+                        break
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

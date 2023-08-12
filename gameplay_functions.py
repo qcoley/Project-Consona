@@ -20,7 +20,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       ramps_crate_2, ramps_crate_3, ramps_crate_4, overlay_marrow_ramps_west, overlay_marrow_ramps_east,
                       dungeon_chest_ramps, dungeon_switch_ramps_2, erebyth, dungeon_switch_ramps_1, ramps_crate_5,
                       forge_rect, interacted, event, ectrenos_alcove_enemies, alcove_fishing_rect,
-                      alcove_fishing_rect_2):
+                      alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -153,6 +153,10 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "fishing alcove":
             if pygame.Rect.colliderect(player.rect, alcove_fishing_rect_2):
+                interacted = True
+            elif pygame.sprite.collide_rect(player, fishing_spot_eldream_1):
+                interacted = True
+            elif pygame.sprite.collide_rect(player, fishing_spot_eldream_2):
                 interacted = True
             else:
                 interacted = False
@@ -287,7 +291,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "ectrenos":
             if (not pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect) and not
-                    pygame.Rect.colliderect(player.rect, npc_leyre.rect)):
+            pygame.Rect.colliderect(player.rect, npc_leyre.rect)):
                 interacted = False
         if player.current_zone == "ectrenos right":
             if (not pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance)
@@ -313,7 +317,9 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     and not pygame.Rect.colliderect(player.rect, alcove_fishing_rect)):
                 interacted = False
         if player.current_zone == "fishing alcove":
-            if not pygame.Rect.colliderect(player.rect, alcove_fishing_rect_2):
+            if (not pygame.Rect.colliderect(player.rect, alcove_fishing_rect_2)
+                    and not pygame.sprite.collide_rect(player, fishing_spot_eldream_1)
+                    and not pygame.sprite.collide_rect(player, fishing_spot_eldream_2)):
                 interacted = False
         if player.current_zone == "marrow":
             if (not pygame.sprite.spritecollideany(player, ghouls_marrow)
@@ -348,8 +354,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     and not pygame.Rect.colliderect(player.rect, erebyth)):
                 interacted = False
         if player.current_zone == "marrow ramps west end":
-            if (not pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1) and not
-                    pygame.Rect.colliderect(player.rect, ramps_crate_5)):
+            if (not pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1)
+                    and not pygame.Rect.colliderect(player.rect, ramps_crate_5)):
                 interacted = False
         if player.current_zone == "forge" or player.current_zone == "altar":
             if not pygame.Rect.colliderect(player.rect, forge_rect):
@@ -362,7 +368,8 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                      best_fish_counter, fishing, fish_caught, amuna_m_right, amuna_m_down, amuna_f_right, amuna_f_down,
                      nuldar_m_right, nuldar_m_down, nuldar_f_right, nuldar_f_down, sorae_a_right, sorae_a_down,
-                     sorae_b_right, sorae_b_down, previous_surf, spot_1_stardust, spot_2_stardust):
+                     sorae_b_right, sorae_b_down, previous_surf, spot_1_stardust, spot_2_stardust, spot_1_eldream,
+                     spot_2_eldream, sorae_a_up, sorae_b_up, amuna_m_up, amuna_f_up, nuldar_m_up, nuldar_f_up):
     fishing_timer_end = time.perf_counter()
     if fishing_timer_end - fishing_timer >= 3:
 
@@ -381,6 +388,12 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
             if pygame.sprite.collide_rect(player, spot_2_stardust):
                 spot_2_stardust.update(450, 648, spot_4_img)
 
+        if current_zone == "fishing alcove":
+            if pygame.sprite.collide_rect(player, spot_1_eldream):
+                spot_1_eldream.update(250, 325, spot_4_img)
+            if pygame.sprite.collide_rect(player, spot_2_eldream):
+                spot_2_eldream.update(645, 325, spot_4_img)
+
         catch_chance = random.randrange(1, 10)
         if fishing_level == 1 or fishing_level == 1.5:
             if catch_chance > 4:
@@ -388,6 +401,8 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                     basic_fish_counter += 1
                 if current_zone == "stardust":
                     better_fish_counter += 1
+                if current_zone == "fishing alcove":
+                    even_better_fish_counter += 1
                 fish_caught = True
             else:
                 fish_caught = False
@@ -397,6 +412,8 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                     basic_fish_counter += 1
                 if current_zone == "stardust":
                     better_fish_counter += 1
+                if current_zone == "fishing alcove":
+                    even_better_fish_counter += 1
                 fish_caught = True
             else:
                 fish_caught = False
@@ -406,6 +423,8 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                     basic_fish_counter += 1
                 if current_zone == "stardust":
                     better_fish_counter += 1
+                if current_zone == "fishing alcove":
+                    even_better_fish_counter += 1
                 fish_caught = True
             else:
                 fish_caught = False
@@ -509,6 +528,54 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                         player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
                     if player.gender == "female":
                         player.surf = sorae_b_down
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+
+        if current_zone == "fishing alcove":
+            if pygame.sprite.collide_rect(player, spot_1_eldream):
+                spot_1_eldream.update(250, 325, spot_3_img)
+                if player.race == "amuna":
+                    if player.gender == "male":
+                        player.surf = amuna_m_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        player.surf = amuna_f_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "nuldar":
+                    if player.gender == "male":
+                        player.surf = nuldar_m_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        player.surf = nuldar_f_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "sorae":
+                    if player.gender == "male":
+                        player.surf = sorae_a_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        player.surf = sorae_b_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+            if pygame.sprite.collide_rect(player, spot_2_eldream):
+                spot_2_eldream.update(645, 325, spot_3_img)
+                if player.race == "amuna":
+                    if player.gender == "male":
+                        player.surf = amuna_m_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        player.surf = amuna_f_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "nuldar":
+                    if player.gender == "male":
+                        player.surf = nuldar_m_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        player.surf = nuldar_f_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "sorae":
+                    if player.gender == "male":
+                        player.surf = sorae_a_up
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        player.surf = sorae_b_up
                         player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
 
     fishing_return = {"basic_fish_counter": basic_fish_counter, "better_fish_counter": better_fish_counter,

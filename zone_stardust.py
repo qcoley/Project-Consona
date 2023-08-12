@@ -89,7 +89,13 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                           graphic_dict["sorae_a_fishing_down"],
                                                           graphic_dict["sorae_b_fishing_right"],
                                                           graphic_dict["sorae_b_fishing_down"],
-                                                          previous_surf, fishing_spot_1, fishing_spot_2)
+                                                          previous_surf, fishing_spot_1, fishing_spot_2,
+                                                          graphic_dict["sorae_a_fishing_up"],
+                                                          graphic_dict["sorae_b_fishing_up"],
+                                                          graphic_dict["amuna_m_fishing_up"],
+                                                          graphic_dict["amuna_f_fishing_up"],
+                                                          graphic_dict["nuldar_m_fishing_up"],
+                                                          graphic_dict["nuldar_f_fishing_up"])
         basic_fish_counter = fish_return["basic_fish_counter"]
         better_fish_counter = fish_return["better_fish_counter"]
         even_better_fish_counter = fish_return["even_better_fish_counter"]

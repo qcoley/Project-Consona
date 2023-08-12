@@ -51,7 +51,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       flowers, eldream_flowers, interactables_eldream,
-                                                      ectrenos_front_enemies, ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies,
+                                                      ectrenos_front_enemies)
     seldon_enemies = respawned_dict["seldon_enemies"]
     snakes = respawned_dict["snakes"]
     ghouls = respawned_dict["ghouls"]

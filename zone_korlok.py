@@ -31,7 +31,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
-                                                      ectrenos_front_enemies, ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies,
+                                                      ectrenos_front_enemies)
     korlok_enemies = respawned_dict["korlok_enemies"]
     magmons = respawned_dict["magmons"]
 

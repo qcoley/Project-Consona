@@ -50,7 +50,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
-                                                      ectrenos_front_enemies, ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies,
+                                                      ectrenos_front_enemies)
 
     eldream_flowers = respawned_dict["eldream_flowers"]
     interactables_eldream = respawned_dict["interactables_eldream"]
