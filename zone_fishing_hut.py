@@ -127,7 +127,8 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:

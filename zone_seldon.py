@@ -30,7 +30,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     necrola_battle_sprite, osodark_battle_sprite, tree_top_1, tree_top_2, tree_top_3, building_top_1,
                     building_top_2, building_top_3, sfx_item_pickup, sfx_flower, sfx_door, worker_1, worker_tic,
                     worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
-                    stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated):
+                    stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated, basic_fish_counter,
+                    better_fish_counter, even_better_fish_counter, best_fish_counter):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -403,7 +404,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     # pop up notifications for situations like low health or first weapon acquire

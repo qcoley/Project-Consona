@@ -33,6 +33,11 @@ weapon_container = []
 potion_window_container = []
 pets_window_container = []
 fish_window_container = []
+flower_pop_up_window = []
+fish_pop_up_window = []
+
+flower_pop_up_window_text = []
+fish_pop_up_window_text = []
 
 
 # draws elements on screen that have been appended to list by below functions
@@ -129,6 +134,18 @@ def draw_it(screen):
     if len(fish_window_container) > 0:
         for fish_element in fish_window_container:
             screen.blit(fish_element.surf, fish_element.rect)
+    if len(flower_pop_up_window) > 0:
+        for flower_element in flower_pop_up_window:
+            screen.blit(flower_element.surf, flower_element.rect)
+    if len(fish_pop_up_window) > 0:
+        for f_element in fish_pop_up_window:
+            screen.blit(f_element.surf, f_element.rect)
+    if len(flower_pop_up_window_text) > 0:
+        for flower_text in flower_pop_up_window_text:
+            screen.blit(flower_text[0], flower_text[1])
+    if len(fish_pop_up_window_text) > 0:
+        for fish_text in fish_pop_up_window_text:
+            screen.blit(fish_text[0], fish_text[1])
 
 
 def draw_level_up(screen, in_over_world):
@@ -657,22 +674,45 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
 
 
-def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world):
+def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
+                   basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter):
     # get current player rupee count and create surf and rectangle to blit to screen------------------------------------
     text_rupee_surf = font.render(str(player.rupees), True, "black", "light green")
     text_rupee_rect = text_rupee_surf.get_rect()
     text_rupee_rect.center = (1120, 693)
     screen.blit(text_rupee_surf, text_rupee_rect)
-    # seldon flowers ---------------------------------------------------------------------------------------------------
-    flower_seldon_surf = font.render(str(player.flowers_amuna), True, "black", "light yellow")
-    flower_seldon_rect = flower_seldon_surf.get_rect()
-    flower_seldon_rect.center = (1188, 693)
-    screen.blit(flower_seldon_surf, flower_seldon_rect)
-    # eldream flowers --------------------------------------------------------------------------------------------------
-    flower_eldream_surf = font.render(str(player.flowers_sorae), True, "black", "light yellow")
-    flower_eldream_rect = flower_eldream_surf.get_rect()
-    flower_eldream_rect.center = (1248, 693)
-    screen.blit(flower_eldream_surf, flower_eldream_rect)
+    if len(flower_pop_up_window) > 0:
+        # seldon flowers -----------------------------------------------------------------------------------------------
+        flower_seldon_surf = font.render(str(player.flowers_amuna), True, "black", "light yellow")
+        flower_seldon_rect = flower_seldon_surf.get_rect()
+        flower_seldon_rect.center = (1114, 638)
+        flower_pop_up_window_text.append((flower_seldon_surf, flower_seldon_rect))
+        # eldream flowers ----------------------------------------------------------------------------------------------
+        flower_eldream_surf = font.render(str(player.flowers_sorae), True, "black", "light yellow")
+        flower_eldream_rect = flower_eldream_surf.get_rect()
+        flower_eldream_rect.center = (1230, 638)
+        flower_pop_up_window_text.append((flower_eldream_surf, flower_eldream_rect))
+    if len(fish_pop_up_window) > 0:
+        # basic fish ---------------------------------------------------------------------------------------------------
+        basic_fish_surf = font.render(str(basic_fish_counter), True, "black", "light yellow")
+        basic_fish_rect = basic_fish_surf.get_rect()
+        basic_fish_rect.center = (1090, 642)
+        fish_pop_up_window_text.append((basic_fish_surf, basic_fish_rect))
+        # better fish --------------------------------------------------------------------------------------------------
+        better_fish_surf = font.render(str(better_fish_counter), True, "black", "light yellow")
+        better_fish_rect = better_fish_surf.get_rect()
+        better_fish_rect.center = (1145, 642)
+        fish_pop_up_window_text.append((better_fish_surf, better_fish_rect))
+        # even better fish ---------------------------------------------------------------------------------------------
+        even_better_fish_surf = font.render(str(even_better_fish_counter), True, "black", "light yellow")
+        even_better_fish_rect = even_better_fish_surf.get_rect()
+        even_better_fish_rect.center = (1205, 642)
+        fish_pop_up_window_text.append((even_better_fish_surf, even_better_fish_rect))
+        # best fish ----------------------------------------------------------------------------------------------------
+        best_fish_surf = font.render(str(best_fish_counter), True, "black", "light yellow")
+        best_fish_rect = best_fish_surf.get_rect()
+        best_fish_rect.center = (1260, 642)
+        fish_pop_up_window_text.append((best_fish_surf, best_fish_rect))
     # get current player level and create surf and rectangle to blit to screen------------------------------------------
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
     text_level_rect = text_level_surf.get_rect()
@@ -1446,6 +1486,8 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
     inv_14 = pygame.Rect((1095, 615), (50, 50))
     inv_15 = pygame.Rect((1155, 615), (50, 50))
     inv_16 = pygame.Rect((1215, 615), (50, 50))
+    flower_button = pygame.Rect((1150, 670), (65, 65))
+    fish_button = pygame.Rect((1210, 670), (65, 65))
     # shop inventory rects
     shop_inv_1 = pygame.Rect((780, 405), (50, 50))
     shop_inv_2 = pygame.Rect((840, 405), (50, 50))
@@ -1584,21 +1626,27 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 button_highlight.update(1242, 581, graphic_dict["item high"])
                 return True
         elif inv_13.collidepoint(pos):
-            if len(player.items) > 12:
+            if len(player.items) > 12 and len(flower_pop_up_window) == 0 and len(fish_pop_up_window) == 0:
                 button_highlight.update(1062, 641, graphic_dict["item high"])
                 return True
         elif inv_14.collidepoint(pos):
-            if len(player.items) > 13:
+            if len(player.items) > 13 and len(flower_pop_up_window) == 0 and len(fish_pop_up_window) == 0:
                 button_highlight.update(1122, 641, graphic_dict["item high"])
                 return True
         elif inv_15.collidepoint(pos):
-            if len(player.items) > 14:
+            if len(player.items) > 14 and len(flower_pop_up_window) == 0 and len(fish_pop_up_window) == 0:
                 button_highlight.update(1182, 641, graphic_dict["item high"])
                 return True
         elif inv_16.collidepoint(pos):
-            if len(player.items) > 15:
+            if len(player.items) > 15 and len(flower_pop_up_window) == 0 and len(fish_pop_up_window) == 0:
                 button_highlight.update(1242, 641, graphic_dict["item high"])
                 return True
+        elif flower_button.collidepoint(pos):
+            button_highlight.update(1182, 699, graphic_dict["item high"])
+            return True
+        elif fish_button.collidepoint(pos):
+            button_highlight.update(1241, 699, graphic_dict["item high"])
+            return True
         elif armor.collidepoint(pos):
             if len(item_info_window) == 0:
                 if len(sell_info_window) == 0:

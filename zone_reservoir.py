@@ -14,7 +14,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 bandile_battle_sprite, chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan,
                 offense_meter, defense_meter, weapon_select, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_item_rupee, sfx_item_key, sfx_item_potion, sfx_switch, sfx_teleporter,
-                stelli_battle_sprite, chorizon_phase, vanished, vanish_overlay):
+                stelli_battle_sprite, chorizon_phase, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
+                even_better_fish_counter, best_fish_counter):
 
     in_battle = False
 
@@ -286,7 +287,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     # info to return to main loop --------------------------------------------------------------------------------------
@@ -314,7 +316,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
                 weapon_select, pet_energy_window, necrola_battle_sprite, osodark_battle_sprite, sfx_teleporter,
                 sfx_rupee, sfx_gate, directional_arrow, stelli_battle_sprite, vanished, vanish_overlay,
-                sfx_item_potion, Item):
+                sfx_item_potion, Item, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                best_fish_counter):
 
     in_battle = False
 
@@ -534,7 +537,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     # info to return to main loop --------------------------------------------------------------------------------------
@@ -554,7 +558,8 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 button_highlight, reservoir_c_bg, dungeon_chest, reservoir_exit, rock_1, rock_2, gloves_obtained,
                 power_gloves, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, has_key,
                 muchador_lights_on, hearth_stone, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                defense_meter, weapon_select, pet_energy_window, sfx_chest, sfx_rocks):
+                defense_meter, weapon_select, pet_energy_window, sfx_chest, sfx_rocks, basic_fish_counter,
+                better_fish_counter, even_better_fish_counter, best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -716,7 +721,8 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     # info to return to main loop --------------------------------------------------------------------------------------

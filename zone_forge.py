@@ -7,8 +7,9 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                  info_text_1, info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic, in_battle, in_npc_interaction,
                  movement_able, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                 defense_meter, weapon_select, pet_energy_window,  vanished, vanish_overlay, hearth_stone,
-                 chroma_forge, forge_rect, Item, sfx_smelting, overlay_smelting, using_forge, smelted_casing):
+                 defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay, hearth_stone,
+                 chroma_forge, forge_rect, Item, sfx_smelting, overlay_smelting, using_forge, smelted_casing,
+                 basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -99,7 +100,8 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if len(drawing_functions.loot_popup_container) > 0:

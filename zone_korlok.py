@@ -23,7 +23,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
                     worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
-                    bridge_gate, erebyth_defeated, repaired_bg, forge_entrance):
+                    bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
+                    even_better_fish_counter, best_fish_counter):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -456,7 +457,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     # enemy movement updates

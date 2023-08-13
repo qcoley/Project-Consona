@@ -13,7 +13,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     current_npc_interacting, in_npc_interaction, hearth_stone, marrow_attuned, sfx_hearth,
                     marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
                     current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
-                    maydria_star, sub_marrow, sfx_ladder, vanished, vanish_overlay):
+                    maydria_star, sub_marrow, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
+                    better_fish_counter, even_better_fish_counter, best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -225,7 +226,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
@@ -341,7 +343,8 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                     overlay_marrow_west, overlay_marrow_east, overlay_switch, switch_shadow, switch_phase, switch_box,
                     marrow_entrance_bg_open, entrance_music, entrance_npc, entrance_1, entrance_2, entrance_3,
-                    entrance_popup, sfx_switch, hearth_stone, mini_map):
+                    entrance_popup, sfx_switch, hearth_stone, mini_map, basic_fish_counter, better_fish_counter,
+                    even_better_fish_counter, best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -470,7 +473,8 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if switch_phase != "complete":
@@ -553,7 +557,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       overlay_marrow_west, overlay_marrow_east, crate_1, crate_2, ramps_crate_1_got,
                       ramps_crate_2_got, sfx_item_potion, Item, necrola_1, necrola_2, necrola_rect_1, necrola_rect_2,
                       player_battle_sprite, barrier_active, sharp_sense_active, necrola_battle_sprite, in_battle,
-                      current_enemy_battling, sfx_surprise, mini_map, vanished, vanish_overlay):
+                      current_enemy_battling, sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter,
+                      better_fish_counter, even_better_fish_counter, best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -626,7 +631,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if pygame.sprite.collide_rect(player, crate_1):
@@ -773,7 +779,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       overlay_marrow_west, overlay_marrow_east, crate_3, crate_4, ramps_crate_3_got, ramps_crate_4_got,
                       sfx_item_potion, Item, necrola_3, in_battle, necrola_rect_3, player_battle_sprite,
                       barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling,
-                      sfx_surprise, mini_map, vanished, vanish_overlay):
+                      sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
+                      even_better_fish_counter, best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -844,7 +851,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if pygame.sprite.collide_rect(player, crate_3):
@@ -964,7 +972,8 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                      overlay_marrow_west, chroma_bridge, ghoul, ghoul_2, enemy_tic, mini_map):
+                      overlay_marrow_west, chroma_bridge, ghoul, ghoul_2, enemy_tic, mini_map, basic_fish_counter,
+                      better_fish_counter, even_better_fish_counter, best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1028,7 +1037,8 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_west):
@@ -1087,7 +1097,8 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                      overlay_marrow_east, mini_map):
+                      overlay_marrow_east, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                      best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1147,7 +1158,8 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_east):
@@ -1200,7 +1212,8 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, in_npc_interaction,
                           necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle, boss_music,
                           erebyth_battle_sprite, apothis_push, apothis, apothis_popup, apothis_1, apothis_2,
-                          enemy_vanish, mini_map, vanished, vanish_overlay):
+                          enemy_vanish, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
+                          even_better_fish_counter, best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1363,7 +1376,8 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if player.y_coordinate <= 75:
@@ -1418,7 +1432,8 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                           info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                           staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                           switch_1, marrow_switch_phase, main_switch, sfx_switch, flower, crate, crate_got, Item,
-                          sfx_item_key, mini_map):
+                          sfx_item_key, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                          best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1484,7 +1499,8 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if player.y_coordinate <= 75:
@@ -1561,7 +1577,8 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-               Item, in_battle, vanished, vanish_overlay):
+               Item, in_battle, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
+               even_better_fish_counter, best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1622,7 +1639,8 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if player.y_coordinate <= 75:

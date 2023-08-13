@@ -24,7 +24,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite,
                      sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite, critter, right_move, left_move,
                      critter_tic, walk_move, overlay_marrow_west, overlay_marrow_east, entrance_1, entrance_2,
-                     entrance_3, mini_map):
+                     entrance_3, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                     best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -293,7 +294,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if player.x_coordinate < 100 and player.y_coordinate < 175:

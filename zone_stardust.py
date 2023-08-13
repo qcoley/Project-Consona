@@ -399,7 +399,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     screen.blit(xp_bar.surf, xp_bar.rect)
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                     info_text_3, info_text_4, in_over_world)
+                                     info_text_3, info_text_4, in_over_world, basic_fish_counter, better_fish_counter,
+                                     even_better_fish_counter, best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if len(drawing_functions.outpost_window) > 0:

@@ -216,6 +216,8 @@ def load_graphics():
     overlay_enemy_vanish = pygame.image.load(resource_path('resources/art/overlay_enemy_vanish.png')).convert_alpha()
     overlay_smelting = pygame.image.load(resource_path('resources/art/overlay_smelting.png')).convert_alpha()
     overlay_enchanting = pygame.image.load(resource_path('resources/art/overlay_enchanting.png')).convert_alpha()
+    overlay_flower_counts = pygame.image.load(resource_path('resources/art/overlay_flower_counts.png')).convert_alpha()
+    overlay_fish_counts = pygame.image.load(resource_path('resources/art/overlay_fish_counts.png')).convert_alpha()
 
     m_switch = pygame.image.load(resource_path('resources/art/overlay_marrow_switch.png')).convert_alpha()
     m_switch_b = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_blue.png')).convert_alpha()
@@ -259,6 +261,8 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["flower_counts"] = overlay_flower_counts
+    loaded_dict["fish_counts"] = overlay_fish_counts
     loaded_dict["fishing_journal"] = fishing_journal
     loaded_dict["marrow_mini_map"] = marrow_mini_map
     loaded_dict["marrow_mini_map_tower_left"] = mar_mini_t_l
@@ -4710,7 +4714,6 @@ def load_graphics():
     loaded_dict["sorae_b_fishing_right"] = sorae_b_fishing_sheet[0]
     loaded_dict["sorae_b_fishing_down"] = sorae_b_fishing_sheet[1]
     loaded_dict["sorae_b_fishing_up"] = sorae_a_fishing_sheet[2]
-
     # damage overlays --------------------------------------------------------------------------------------------------
     damage_overlays_url = resource_path('resources/art/overlays_damage.png')
     damage_overlays_sheet = sprite_sheet((150, 200), damage_overlays_url)

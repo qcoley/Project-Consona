@@ -7402,20 +7402,22 @@ if __name__ == "__main__":
     water_fish_1 = UiElement("water", 855, 630, graphic_dict["water"])
     water_fish_3 = UiElement("water", 500, 575, graphic_dict["water"])
     water_fish_4 = UiElement("water", 650, 680, graphic_dict["water"])
-
     water_alcove_1 = UiElement("water", 450, 245, graphic_dict["water"])
     water_alcove_3 = UiElement("water", 300, 280, graphic_dict["water"])
 
     fishing_spot_korlok_1 = UiElement("fishing spot k1", 740, 410, graphic_dict["fishing_spot_1"])
     fishing_spot_korlok_2 = UiElement("fishing spot k2", 575, 525, graphic_dict["fishing_spot_1"])
-
     fishing_spot_stardust_1 = UiElement("fishing spot s1", 900, 490, graphic_dict["fishing_spot_1"])
     fishing_spot_stardust_2 = UiElement("fishing spot s2", 450, 648, graphic_dict["fishing_spot_1"])
-
     fishing_spot_eldream_1 = UiElement("fishing spot e1", 250, 335, graphic_dict["fishing_spot_1"])
     fishing_spot_eldream_2 = UiElement("fishing spot e2", 645, 335, graphic_dict["fishing_spot_1"])
 
     fishing_popup = UiElement("fishing popup", 510, 365, graphic_dict["basic_fish_popup"])
+    flower_count_overlay = UiElement("flower counts", 1155, 642, graphic_dict["flower_counts"])
+    fish_count_overlay = UiElement("fish counts", 1155, 642, graphic_dict["fish_counts"])
+
+    flower_button = pygame.Rect((1150, 670), (65, 65))
+    fish_button = pygame.Rect((1210, 670), (65, 65))
 
     eldream_riv_1 = UiElement("eldream river 1", 190, 400, graphic_dict["eldream_river"])
     eldream_riv_2 = UiElement("eldream river 2", 240, 370, graphic_dict["eldream_river"])
@@ -9181,6 +9183,25 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_nede_bark)
                                     info_text_1 = "For the best boy. "
 
+                            if flower_button.collidepoint(pos):
+                                if len(drawing_functions.flower_pop_up_window) == 0:
+                                    drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                                else:
+                                    drawing_functions.flower_pop_up_window.clear()
+                                    drawing_functions.flower_pop_up_window_text.clear()
+                            else:
+                                drawing_functions.flower_pop_up_window.clear()
+                                drawing_functions.flower_pop_up_window_text.clear()
+                            if fish_button.collidepoint(pos):
+                                if len(drawing_functions.fish_pop_up_window) == 0:
+                                    drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                                else:
+                                    drawing_functions.fish_pop_up_window.clear()
+                                    drawing_functions.fish_pop_up_window_text.clear()
+                            else:
+                                drawing_functions.fish_pop_up_window.clear()
+                                drawing_functions.fish_pop_up_window_text.clear()
+
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                              pressed_keys, sfx_button_role)
@@ -9775,7 +9796,9 @@ if __name__ == "__main__":
                                                                       worker_tic, worker_positions, worker_move_tic,
                                                                       quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                       game_window, stelli_battle_sprite, vanished,
-                                                                      vanish_overlay, erebyth_defeated)
+                                                                      vanish_overlay, erebyth_defeated,
+                                                                      basic_fish_counter, better_fish_counter,
+                                                                      even_better_fish_counter, best_fish_counter)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone, over_world_song_set,
@@ -9825,7 +9848,9 @@ if __name__ == "__main__":
                                                                       worker_tic, worker_positions, worker_move_tic,
                                                                       quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                       game_window, stelli_battle_sprite, vanished,
-                                                                      vanish_overlay, erebyth_defeated)
+                                                                      vanish_overlay, erebyth_defeated,
+                                                                      basic_fish_counter, better_fish_counter,
+                                                                      even_better_fish_counter, best_fish_counter)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -9910,7 +9935,9 @@ if __name__ == "__main__":
                                                                       stelli_battle_sprite, vanished, vanish_overlay,
                                                                       worker_delay_tic, overlay_bridge_gate,
                                                                       erebyth_defeated, korlok_district_repaired_bg,
-                                                                      forge_entrance)
+                                                                      forge_entrance, basic_fish_counter,
+                                                                      better_fish_counter, even_better_fish_counter,
+                                                                      best_fish_counter)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -9954,7 +9981,9 @@ if __name__ == "__main__":
                                                                       stelli_battle_sprite, vanished, vanish_overlay,
                                                                       worker_delay_tic, overlay_bridge_gate,
                                                                       erebyth_defeated, korlok_district_repaired_bg,
-                                                                      forge_entrance)
+                                                                      forge_entrance, basic_fish_counter,
+                                                                      better_fish_counter, even_better_fish_counter,
+                                                                      best_fish_counter)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -10037,7 +10066,9 @@ if __name__ == "__main__":
                                                                          critter_tic, walk_move,
                                                                          overlay_marrow_ramps_west,
                                                                          overlay_marrow_ramps_east, entrance_1,
-                                                                         entrance_2, entrance_3, mini_map_overlay)
+                                                                         entrance_2, entrance_3, mini_map_overlay,
+                                                                         basic_fish_counter, better_fish_counter,
+                                                                         even_better_fish_counter, best_fish_counter)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -10088,7 +10119,9 @@ if __name__ == "__main__":
                                                                          critter_tic, walk_move,
                                                                          overlay_marrow_ramps_west,
                                                                          overlay_marrow_ramps_east, entrance_1,
-                                                                         entrance_2, entrance_3, mini_map_overlay)
+                                                                         entrance_2, entrance_3, mini_map_overlay,
+                                                                         basic_fish_counter, better_fish_counter,
+                                                                         even_better_fish_counter, best_fish_counter)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -10148,7 +10181,10 @@ if __name__ == "__main__":
                                                                                npc_noren, npc_boro, npc_maydria,
                                                                                npcs_marrow, task_star_maydria,
                                                                                sub_marrow_rect, sfx_ladder, vanished,
-                                                                               vanish_overlay)
+                                                                               vanish_overlay, basic_fish_counter,
+                                                                               better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -10175,7 +10211,10 @@ if __name__ == "__main__":
                                                                                npc_noren, npc_boro, npc_maydria,
                                                                                npcs_marrow, task_star_maydria,
                                                                                sub_marrow_rect, sfx_ladder, vanished,
-                                                                               vanish_overlay)
+                                                                               vanish_overlay, basic_fish_counter,
+                                                                               better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -10222,7 +10261,10 @@ if __name__ == "__main__":
                                                                                npc_marrow_entrance, entrance_1,
                                                                                entrance_2, entrance_3, entrance_popup,
                                                                                sfx_activate_switch, hearth_stone,
-                                                                               mini_map_overlay)
+                                                                               mini_map_overlay, basic_fish_counter,
+                                                                               better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter)
                     else:
                         marrow_entrance_returned = zone_marrow.marrow_entrance(pygame, game_window, graphic_dict,
                                                                                player, marrow_entrance_bg,
@@ -10247,7 +10289,10 @@ if __name__ == "__main__":
                                                                                npc_marrow_entrance, entrance_1,
                                                                                entrance_2, entrance_3, entrance_popup,
                                                                                sfx_activate_switch, hearth_stone,
-                                                                               mini_map_overlay)
+                                                                               mini_map_overlay, basic_fish_counter,
+                                                                               better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter)
 
                     over_world_song_set = marrow_entrance_returned["over_world_song_set"]
                     interacted = marrow_entrance_returned["interacted"]
@@ -10298,7 +10343,10 @@ if __name__ == "__main__":
                                                                                    current_enemy_battling,
                                                                                    sfx_surprise_attack,
                                                                                    mini_map_overlay, vanished,
-                                                                                   vanish_overlay)
+                                                                                   vanish_overlay, basic_fish_counter,
+                                                                                   better_fish_counter,
+                                                                                   even_better_fish_counter,
+                                                                                   best_fish_counter)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -10329,7 +10377,10 @@ if __name__ == "__main__":
                                                                                    current_enemy_battling,
                                                                                    sfx_surprise_attack,
                                                                                    mini_map_overlay, vanished,
-                                                                                   vanish_overlay)
+                                                                                   vanish_overlay, basic_fish_counter,
+                                                                                   better_fish_counter,
+                                                                                   even_better_fish_counter,
+                                                                                   best_fish_counter)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -10379,7 +10430,10 @@ if __name__ == "__main__":
                                                                                    current_enemy_battling,
                                                                                    sfx_surprise_attack,
                                                                                    mini_map_overlay, vanished,
-                                                                                   vanish_overlay)
+                                                                                   vanish_overlay, basic_fish_counter,
+                                                                                   better_fish_counter,
+                                                                                   even_better_fish_counter,
+                                                                                   best_fish_counter)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -10410,7 +10464,10 @@ if __name__ == "__main__":
                                                                                    current_enemy_battling,
                                                                                    sfx_surprise_attack,
                                                                                    mini_map_overlay, vanished,
-                                                                                   vanish_overlay)
+                                                                                   vanish_overlay, basic_fish_counter,
+                                                                                   better_fish_counter,
+                                                                                   even_better_fish_counter,
+                                                                                   best_fish_counter)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -10455,7 +10512,10 @@ if __name__ == "__main__":
                                                                                    overlay_marrow_ramps_west,
                                                                                    chroma_bridge_ramps, ghoul_ramps,
                                                                                    ghoul_ramps_2, enemy_tic,
-                                                                                   mini_map_overlay)
+                                                                                   mini_map_overlay, basic_fish_counter,
+                                                                                   better_fish_counter,
+                                                                                   even_better_fish_counter,
+                                                                                   best_fish_counter)
                     else:
                         marrow_ramps_west_returned = zone_marrow.marrow_ramps_west(pygame, game_window,
                                                                                    graphic_dict,
@@ -10482,7 +10542,10 @@ if __name__ == "__main__":
                                                                                    overlay_marrow_ramps_west,
                                                                                    chroma_bridge_ramps, ghoul_ramps,
                                                                                    ghoul_ramps_2, enemy_tic,
-                                                                                   mini_map_overlay)
+                                                                                   mini_map_overlay, basic_fish_counter,
+                                                                                   better_fish_counter,
+                                                                                   even_better_fish_counter,
+                                                                                   best_fish_counter)
 
                     over_world_song_set = marrow_ramps_west_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_returned["interacted"]
@@ -10519,7 +10582,10 @@ if __name__ == "__main__":
                                                                                    offense_meter, defense_meter,
                                                                                    weapon_select, pet_energy_window,
                                                                                    overlay_marrow_ramps_east,
-                                                                                   mini_map_overlay)
+                                                                                   mini_map_overlay, basic_fish_counter,
+                                                                                   better_fish_counter,
+                                                                                   even_better_fish_counter,
+                                                                                   best_fish_counter)
                     else:
                         marrow_ramps_east_returned = zone_marrow.marrow_ramps_east(pygame, game_window,
                                                                                    graphic_dict,
@@ -10541,7 +10607,10 @@ if __name__ == "__main__":
                                                                                    offense_meter, defense_meter,
                                                                                    weapon_select, pet_energy_window,
                                                                                    overlay_marrow_ramps_east,
-                                                                                   mini_map_overlay)
+                                                                                   mini_map_overlay, basic_fish_counter,
+                                                                                   better_fish_counter,
+                                                                                   even_better_fish_counter,
+                                                                                   best_fish_counter)
 
                     over_world_song_set = marrow_ramps_east_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_returned["interacted"]
@@ -10585,7 +10654,11 @@ if __name__ == "__main__":
                                                                                            ramps_flower, ramps_crate_5,
                                                                                            ramps_crate_5_got, Item,
                                                                                            sfx_item_key,
-                                                                                           mini_map_overlay)
+                                                                                           mini_map_overlay,
+                                                                                           basic_fish_counter,
+                                                                                           better_fish_counter,
+                                                                                           even_better_fish_counter,
+                                                                                           best_fish_counter)
                     else:
                         marrow_ramps_west_end_returned = zone_marrow.marrow_ramps_west_end(pygame, game_window,
                                                                                            graphic_dict, player,
@@ -10614,7 +10687,11 @@ if __name__ == "__main__":
                                                                                            ramps_flower, ramps_crate_5,
                                                                                            ramps_crate_5_got, Item,
                                                                                            sfx_item_key,
-                                                                                           mini_map_overlay)
+                                                                                           mini_map_overlay,
+                                                                                           basic_fish_counter,
+                                                                                           better_fish_counter,
+                                                                                           even_better_fish_counter,
+                                                                                           best_fish_counter)
 
                     over_world_song_set = marrow_ramps_west_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_end_returned["interacted"]
@@ -10683,7 +10760,11 @@ if __name__ == "__main__":
                                                                                            apothis_2,
                                                                                            overlay_enemy_vanish,
                                                                                            mini_map_overlay, vanished,
-                                                                                           vanish_overlay)
+                                                                                           vanish_overlay,
+                                                                                           basic_fish_counter,
+                                                                                           better_fish_counter,
+                                                                                           even_better_fish_counter,
+                                                                                           best_fish_counter)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -10736,7 +10817,11 @@ if __name__ == "__main__":
                                                                                            apothis_2,
                                                                                            overlay_enemy_vanish,
                                                                                            mini_map_overlay, vanished,
-                                                                                           vanish_overlay)
+                                                                                           vanish_overlay,
+                                                                                           basic_fish_counter,
+                                                                                           better_fish_counter,
+                                                                                           even_better_fish_counter,
+                                                                                           best_fish_counter)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -10773,7 +10858,9 @@ if __name__ == "__main__":
                                                                      npc_tic, movement_able, equipment_screen,
                                                                      staff, sword, bow, npc_garan, offense_meter,
                                                                      defense_meter, weapon_select, pet_energy_window,
-                                                                     Item, in_battle, vanished, vanish_overlay)
+                                                                     Item, in_battle, vanished, vanish_overlay,
+                                                                     basic_fish_counter, better_fish_counter,
+                                                                     even_better_fish_counter, best_fish_counter)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -10785,7 +10872,9 @@ if __name__ == "__main__":
                                                                      npc_tic, movement_able, equipment_screen,
                                                                      staff, sword, bow, npc_garan, offense_meter,
                                                                      defense_meter, weapon_select, pet_energy_window,
-                                                                     Item, in_battle, vanished, vanish_overlay)
+                                                                     Item, in_battle, vanished, vanish_overlay,
+                                                                     basic_fish_counter, better_fish_counter,
+                                                                     even_better_fish_counter, best_fish_counter)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -10844,7 +10933,10 @@ if __name__ == "__main__":
                                                                              sfx_ladder, stelli_battle_sprite,
                                                                              critter_ectrenos_1, critter_right_move,
                                                                              critter_left_move, critter_tic, walk_move,
-                                                                             mini_map_overlay)
+                                                                             mini_map_overlay, basic_fish_counter,
+                                                                             better_fish_counter,
+                                                                             even_better_fish_counter,
+                                                                             best_fish_counter)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -10884,7 +10976,10 @@ if __name__ == "__main__":
                                                                              sfx_ladder, stelli_battle_sprite,
                                                                              critter_ectrenos_1, critter_right_move,
                                                                              critter_left_move, critter_tic, walk_move,
-                                                                             mini_map_overlay)
+                                                                             mini_map_overlay, basic_fish_counter,
+                                                                             better_fish_counter,
+                                                                             even_better_fish_counter,
+                                                                             best_fish_counter)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -10943,7 +11038,10 @@ if __name__ == "__main__":
                                                                              pet_energy_window, npc_leyre, sfx_find,
                                                                              critter_ectrenos_2, critter_right_move,
                                                                              critter_left_move, critter_tic, walk_move,
-                                                                             altar_entrance, mini_map_overlay)
+                                                                             altar_entrance, mini_map_overlay,
+                                                                             basic_fish_counter, better_fish_counter,
+                                                                             even_better_fish_counter,
+                                                                             best_fish_counter)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -10971,7 +11069,10 @@ if __name__ == "__main__":
                                                                              pet_energy_window, npc_leyre, sfx_find,
                                                                              critter_ectrenos_2, critter_right_move,
                                                                              critter_left_move, critter_tic, walk_move,
-                                                                             altar_entrance, mini_map_overlay)
+                                                                             altar_entrance, mini_map_overlay,
+                                                                             basic_fish_counter, better_fish_counter,
+                                                                             even_better_fish_counter,
+                                                                             best_fish_counter)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -11029,7 +11130,10 @@ if __name__ == "__main__":
                                                                                ectrenos_inn_entrance, pet_energy_window,
                                                                                npc_leyre, sfx_find, critter_ectrenos_3,
                                                                                critter_right_move, critter_left_move,
-                                                                               critter_tic, walk_move, mini_map_overlay)
+                                                                               critter_tic, walk_move, mini_map_overlay,
+                                                                               basic_fish_counter, better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter)
                     else:
                         ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_right_bg,
@@ -11055,7 +11159,10 @@ if __name__ == "__main__":
                                                                                ectrenos_inn_entrance, pet_energy_window,
                                                                                npc_leyre, sfx_find, critter_ectrenos_3,
                                                                                critter_right_move, critter_left_move,
-                                                                               critter_tic, walk_move, mini_map_overlay)
+                                                                               critter_tic, walk_move, mini_map_overlay,
+                                                                               basic_fish_counter, better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -11130,7 +11237,10 @@ if __name__ == "__main__":
                                                                                necrola_battle_sprite,
                                                                                osodark_battle_sprite, sfx_find,
                                                                                stelli_battle_sprite, vanished,
-                                                                               vanish_overlay, mini_map_overlay)
+                                                                               vanish_overlay, mini_map_overlay,
+                                                                               basic_fish_counter, better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -11174,7 +11284,10 @@ if __name__ == "__main__":
                                                                                necrola_battle_sprite,
                                                                                osodark_battle_sprite, sfx_find,
                                                                                stelli_battle_sprite, vanished,
-                                                                               vanish_overlay, mini_map_overlay)
+                                                                               vanish_overlay, mini_map_overlay,
+                                                                               basic_fish_counter, better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -11234,7 +11347,11 @@ if __name__ == "__main__":
                                                                                  player_battle_sprite, barrier_active,
                                                                                  sharp_sense_active,
                                                                                  Enemy, Item, UiElement,
-                                                                                 alcove_fishing_rect_1)
+                                                                                 alcove_fishing_rect_1,
+                                                                                 basic_fish_counter,
+                                                                                 better_fish_counter,
+                                                                                 even_better_fish_counter,
+                                                                                 best_fish_counter)
                     else:
                         ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
                                                                                  player, ectrenos_alcove_bg,
@@ -11267,7 +11384,11 @@ if __name__ == "__main__":
                                                                                  player_battle_sprite, barrier_active,
                                                                                  sharp_sense_active,
                                                                                  Enemy, Item, UiElement,
-                                                                                 alcove_fishing_rect_1)
+                                                                                 alcove_fishing_rect_1,
+                                                                                 basic_fish_counter,
+                                                                                 better_fish_counter,
+                                                                                 even_better_fish_counter,
+                                                                                 best_fish_counter)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -11398,7 +11519,9 @@ if __name__ == "__main__":
                                                                  ectrenos_front_enemies, necrola_battle_sprite,
                                                                  osodark_battle_sprite, sfx_item_pickup, sfx_talking,
                                                                  talk_start, stelli_battle_sprite, vanished,
-                                                                 vanish_overlay)
+                                                                 vanish_overlay, basic_fish_counter,
+                                                                 better_fish_counter, even_better_fish_counter,
+                                                                 best_fish_counter)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -11429,7 +11552,9 @@ if __name__ == "__main__":
                                                                  ectrenos_front_enemies, necrola_battle_sprite,
                                                                  osodark_battle_sprite, sfx_item_pickup, sfx_talking,
                                                                  talk_start, stelli_battle_sprite, vanished,
-                                                                 vanish_overlay)
+                                                                 vanish_overlay, basic_fish_counter,
+                                                                 better_fish_counter, even_better_fish_counter,
+                                                                 best_fish_counter)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -11471,7 +11596,9 @@ if __name__ == "__main__":
                                                                  weapon_select, pet_energy_window, vanished,
                                                                  vanish_overlay, hearth_stone, chroma_bridge_forge,
                                                                  forge_rect, Item, sfx_smelting, overlay_smelting,
-                                                                 using_forge, smelted_casing)
+                                                                 using_forge, smelted_casing, basic_fish_counter,
+                                                                 better_fish_counter, even_better_fish_counter,
+                                                                 best_fish_counter)
                     else:
                         forge_returned = zone_forge.korlok_forge(pygame, game_window, graphic_dict, player,
                                                                  korlok_forge_bg, korlok_overworld_music,
@@ -11487,7 +11614,9 @@ if __name__ == "__main__":
                                                                  weapon_select, pet_energy_window, vanished,
                                                                  vanish_overlay, hearth_stone, chroma_bridge_forge,
                                                                  forge_rect, Item, sfx_smelting, overlay_smelting,
-                                                                 using_forge, smelted_casing)
+                                                                 using_forge, smelted_casing, basic_fish_counter,
+                                                                 better_fish_counter, even_better_fish_counter,
+                                                                 best_fish_counter)
 
                     over_world_song_set = forge_returned["over_world_song_set"]
                     interacted = forge_returned["interacted"]
@@ -11522,7 +11651,9 @@ if __name__ == "__main__":
                                                                   vanish_overlay, hearth_stone, chroma_bridge_forge,
                                                                   forge_rect, Item, sfx_enchanting, overlay_enchanting,
                                                                   using_forge, enchanted_casing, artherian_2,
-                                                                  task_star_artherian)
+                                                                  task_star_artherian, basic_fish_counter,
+                                                                  better_fish_counter, even_better_fish_counter,
+                                                                  best_fish_counter)
                     else:
                         altar_returned = zone_altar.eldream_altar(pygame, game_window, graphic_dict, player,
                                                                   eldream_altar_bg, eldream_building_music,
@@ -11539,7 +11670,9 @@ if __name__ == "__main__":
                                                                   vanish_overlay, hearth_stone, chroma_bridge_forge,
                                                                   forge_rect, Item, sfx_enchanting, overlay_enchanting,
                                                                   using_forge, enchanted_casing, artherian_2,
-                                                                  task_star_artherian)
+                                                                  task_star_artherian, basic_fish_counter,
+                                                                  better_fish_counter, even_better_fish_counter,
+                                                                  best_fish_counter)
 
                     over_world_song_set = altar_returned["over_world_song_set"]
                     interacted = altar_returned["interacted"]
@@ -11593,7 +11726,9 @@ if __name__ == "__main__":
                                                                       dreth_cutscenes_not_viewed, dreth_scene_0,
                                                                       vanished, vanish_overlay, critter_terra,
                                                                       critter_right_move, critter_left_move,
-                                                                      critter_tic, walk_move)
+                                                                      critter_tic, walk_move, basic_fish_counter,
+                                                                      better_fish_counter, even_better_fish_counter,
+                                                                      best_fish_counter)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -11628,7 +11763,9 @@ if __name__ == "__main__":
                                                                       dreth_cutscenes_not_viewed, dreth_scene_0,
                                                                       vanished, vanish_overlay, critter_terra,
                                                                       critter_right_move, critter_left_move,
-                                                                      critter_tic, walk_move)
+                                                                      critter_tic, walk_move, basic_fish_counter,
+                                                                      better_fish_counter, even_better_fish_counter,
+                                                                      best_fish_counter)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -11777,8 +11914,9 @@ if __name__ == "__main__":
                                                                 rohir_river_music, interaction_popup, interacted,
                                                                 equipment_screen, staff, sword, bow, npc_garan,
                                                                 offense_meter, defense_meter, weapon_select,
-                                                                beyond_seldon,
-                                                                pet_energy_window)
+                                                                beyond_seldon, pet_energy_window, basic_fish_counter,
+                                                                better_fish_counter, even_better_fish_counter,
+                                                                best_fish_counter)
                     else:
                         rohir_returned = zone_rohir.rohir_river(pygame, game_window, player, over_world_song_set,
                                                                 rohir_river_bg,
@@ -11791,8 +11929,9 @@ if __name__ == "__main__":
                                                                 rohir_river_music, interaction_popup, interacted,
                                                                 equipment_screen, staff, sword, bow, npc_garan,
                                                                 offense_meter, defense_meter, weapon_select,
-                                                                beyond_seldon,
-                                                                pet_energy_window)
+                                                                beyond_seldon, pet_energy_window, basic_fish_counter,
+                                                                better_fish_counter, even_better_fish_counter,
+                                                                best_fish_counter)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -11841,7 +11980,9 @@ if __name__ == "__main__":
                                                                           sfx_item_rupee, sfx_item_key, sfx_item_potion,
                                                                           sfx_activate_switch, sfx_activate_teleporter,
                                                                           stelli_battle_sprite, chorizon_phase,
-                                                                          vanished, vanish_overlay)
+                                                                          vanished, vanish_overlay, basic_fish_counter,
+                                                                          better_fish_counter, even_better_fish_counter,
+                                                                          best_fish_counter)
                     else:
                         reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
                                                                           graphic_dict,
@@ -11876,7 +12017,9 @@ if __name__ == "__main__":
                                                                           sfx_item_rupee, sfx_item_key, sfx_item_potion,
                                                                           sfx_activate_switch, sfx_activate_teleporter,
                                                                           stelli_battle_sprite, chorizon_phase,
-                                                                          vanished, vanish_overlay)
+                                                                          vanished, vanish_overlay,
+                                                                          basic_fish_counter, better_fish_counter,
+                                                                          even_better_fish_counter, best_fish_counter)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -11933,7 +12076,8 @@ if __name__ == "__main__":
                                                                           sfx_item_rupee, sfx_gate_open,
                                                                           directional_arrow, stelli_battle_sprite,
                                                                           vanished, vanish_overlay, sfx_item_potion,
-                                                                          Item)
+                                                                          Item, basic_fish_counter, better_fish_counter,
+                                                                          even_better_fish_counter, best_fish_counter)
                     else:
                         reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -11967,7 +12111,8 @@ if __name__ == "__main__":
                                                                           sfx_item_rupee, sfx_gate_open,
                                                                           directional_arrow, stelli_battle_sprite,
                                                                           vanished, vanish_overlay, sfx_item_potion,
-                                                                          Item)
+                                                                          Item, basic_fish_counter, better_fish_counter,
+                                                                          even_better_fish_counter, best_fish_counter)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -12007,7 +12152,9 @@ if __name__ == "__main__":
                                                                           npc_garan,
                                                                           offense_meter, defense_meter, weapon_select,
                                                                           pet_energy_window, sfx_chest_open,
-                                                                          sfx_rock_push)
+                                                                          sfx_rock_push, basic_fish_counter,
+                                                                          better_fish_counter, even_better_fish_counter,
+                                                                          best_fish_counter)
                     else:
                         reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -12027,7 +12174,9 @@ if __name__ == "__main__":
                                                                           npc_garan,
                                                                           offense_meter, defense_meter, weapon_select,
                                                                           pet_energy_window, sfx_chest_open,
-                                                                          sfx_rock_push)
+                                                                          sfx_rock_push, basic_fish_counter,
+                                                                          better_fish_counter, even_better_fish_counter,
+                                                                          best_fish_counter)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -12148,7 +12297,7 @@ if __name__ == "__main__":
                                 else:
                                     game_window.blit(overlay_seldon_fireworks.surf, overlay_seldon_fireworks.rect)
 
-                # music button visual toggle
+                # music button visual toggle and flower/fish counter buttons
                 if not in_battle and not in_inn and not in_academia and not in_shop and not in_npc_interaction:
                     if player.current_zone != "nascent":
                         if len(drawing_functions.game_guide_container) == 0:
@@ -13324,11 +13473,15 @@ if __name__ == "__main__":
                             # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                 drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                                 info_text_3, info_text_4, in_over_world)
+                                                                 info_text_3, info_text_4, in_over_world,
+                                                                 basic_fish_counter, better_fish_counter,
+                                                                 even_better_fish_counter, best_fish_counter)
                                 drawing_functions.draw_it(screen)
                             else:
                                 drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                                 info_text_3, info_text_4, in_over_world)
+                                                                 info_text_3, info_text_4, in_over_world,
+                                                                 basic_fish_counter, better_fish_counter,
+                                                                 even_better_fish_counter, best_fish_counter)
                                 drawing_functions.draw_it(game_window)
 
                             if not combat_cooldown:
@@ -13552,11 +13705,15 @@ if __name__ == "__main__":
                             # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                 drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                                 info_text_3, info_text_4, in_over_world)
+                                                                 info_text_3, info_text_4, in_over_world,
+                                                                 basic_fish_counter, better_fish_counter,
+                                                                 even_better_fish_counter, best_fish_counter)
                                 drawing_functions.draw_it(screen)
                             else:
                                 drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                                 info_text_3, info_text_4, in_over_world)
+                                                                 info_text_3, info_text_4, in_over_world,
+                                                                 basic_fish_counter, better_fish_counter,
+                                                                 even_better_fish_counter, best_fish_counter)
                                 drawing_functions.draw_it(game_window)
 
                             if not combat_cooldown:
@@ -14015,11 +14172,15 @@ if __name__ == "__main__":
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14110,11 +14271,15 @@ if __name__ == "__main__":
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14207,11 +14372,15 @@ if __name__ == "__main__":
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14302,11 +14471,15 @@ if __name__ == "__main__":
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14756,11 +14929,15 @@ if __name__ == "__main__":
                     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world)
+                                                         info_text_3, info_text_4, in_over_world,
+                                                         basic_fish_counter, better_fish_counter,
+                                                         even_better_fish_counter, best_fish_counter)
                         drawing_functions.draw_it(screen)
                     else:
                         drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world)
+                                                         info_text_3, info_text_4, in_over_world,
+                                                         basic_fish_counter, better_fish_counter,
+                                                         even_better_fish_counter, best_fish_counter)
                         drawing_functions.draw_it(game_window)
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         if button_highlighted:
@@ -15134,11 +15311,15 @@ if __name__ == "__main__":
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -15645,11 +15826,15 @@ if __name__ == "__main__":
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(game_window)
 
                         # if player has access to apothecary functions by completing quest and window is open
@@ -16257,11 +16442,15 @@ if __name__ == "__main__":
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(game_window)
 
                         # if player has access to menagerie functions by completing quest and window is open
@@ -16648,11 +16837,15 @@ if __name__ == "__main__":
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(game_window)
 
                         if fishing_level == 1.5 or fishing_level == 2.5 or fishing_level == 3.5:
@@ -17983,11 +18176,15 @@ if __name__ == "__main__":
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world)
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counte)
                             drawing_functions.draw_it(game_window)
 
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",

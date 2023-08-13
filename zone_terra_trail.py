@@ -19,7 +19,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 osodark_battle_sprite, sfx_rupee, stelli_battle_sprite, apothis_music, scene_1, scene_2, scene_3,
                 scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                 dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay, critter, right_move, left_move,
-                critter_tic, walk_move):
+                critter_tic, walk_move, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                best_fish_counter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -269,7 +270,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if player.x_coordinate < 75 and player.y_coordinate < 225:

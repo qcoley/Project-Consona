@@ -18,7 +18,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  defense_meter, weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup, jez_popup, prime_1,
                  prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers, eldream_flowers, interactables_eldream,
                  pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
-                 sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay):
+                 sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay, basic_fish_counter,
+                 better_fish_counter, even_better_fish_counter, best_fish_counter):
 
     if not talk_start:
         pygame.mixer.find_channel(True).play(sfx_talk)
@@ -176,7 +177,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     # enemy movement updates

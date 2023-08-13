@@ -6,7 +6,8 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
                 bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4,
                 in_over_world, button_highlighted, button_highlight, rohir_river_music, interaction_popup, interacted,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
-                beyond_seldon, pet_energy_window):
+                beyond_seldon, pet_energy_window, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                best_fish_counter):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(100)
@@ -66,7 +67,8 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                     info_text_4, in_over_world)
+                                     info_text_4, in_over_world, basic_fish_counter, better_fish_counter,
+                                     even_better_fish_counter, best_fish_counter)
     drawing_functions.draw_it(screen)
 
     # water movement animation -------------------------------------------------------------------------

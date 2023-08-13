@@ -9,7 +9,8 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                   movement_able, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                   defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay, hearth_stone,
                   chroma_forge, forge_rect, Item, sfx_enchanting, overlay_smelting, using_forge, enchanted_casing,
-                  artherian_2, task_star_artherian):
+                  artherian_2, task_star_artherian, basic_fish_counter, better_fish_counter,
+                  even_better_fish_counter, best_fish_counter):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -101,7 +102,8 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if len(drawing_functions.loot_popup_container) > 0:

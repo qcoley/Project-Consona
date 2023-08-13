@@ -17,7 +17,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic, eldream_flowers,
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
                   npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite, critter,
-                  right_move, left_move, critter_tic, walk_move, mini_map):
+                  right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter, better_fish_counter,
+                  even_better_fish_counter, best_fish_counter):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -174,7 +175,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if 380 < player.x_coordinate < 650 and player.y_coordinate > 700:
@@ -242,7 +244,8 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                   current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos, ectrenos_pet_entrance,
                   in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find, critter, right_move,
-                  left_move, critter_tic, walk_move, altar, mini_map):
+                  left_move, critter_tic, walk_move, altar, mini_map, basic_fish_counter, better_fish_counter,
+                  even_better_fish_counter, best_fish_counter):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -414,7 +417,8 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if 990 < player.x_coordinate and 395 < player.y_coordinate < 625:
@@ -473,7 +477,8 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                    current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
                    ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre, sfx_find, critter,
-                   right_move, left_move, critter_tic, walk_move, mini_map):
+                   right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter,
+                   better_fish_counter, even_better_fish_counter, best_fish_counter):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -644,7 +649,8 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if 50 > player.x_coordinate and 400 < player.y_coordinate < 620:
@@ -708,7 +714,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    interactables_korlok, interactables_mines, Enemy, Item, UiElement, seldon_flowers,
                    interactables_ectrenos, quest_star_everett, pet_energy_window, npc_everett, npc_leyre,
                    ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
-                   sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map):
+                   sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map, basic_fish_counter,
+                   better_fish_counter, even_better_fish_counter, best_fish_counter):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -893,7 +900,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     if 85 > player.x_coordinate and player.y_coordinate < 375:
@@ -967,7 +975,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
                     pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder,
                     vanished, vanish_overlay, mini_map, osodark_battle_sprite, player_battle_sprite,
-                    barrier_active, sharp_sense_active, Enemy, Item, UiElement, alcove_rect):
+                    barrier_active, sharp_sense_active, Enemy, Item, UiElement, alcove_rect, basic_fish_counter,
+                    better_fish_counter, even_better_fish_counter, best_fish_counter):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1145,7 +1154,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     # npc movement updates
@@ -1401,7 +1411,8 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
     drawing_functions.draw_it(screen)
 
     fishing_alcove_return = {"over_world_song_set": over_world_song_set, "basic_fish_counter": basic_fish_counter,
