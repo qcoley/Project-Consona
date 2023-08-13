@@ -7012,16 +7012,16 @@ if __name__ == "__main__":
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     # eldream enemies --------------------------------------------------------------------------------------------------
-    osodark_1 = Enemy("osodark", "osodark", 100, 100, 22, 700, 225, True,
+    osodark_1 = Enemy("osodark", "osodark", 100, 100, 16, 700, 225, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_2 = Enemy("osodark", "osodark", 100, 100, 20, 590, 200, True,
+    osodark_2 = Enemy("osodark", "osodark", 100, 100, 18, 590, 200, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_3 = Enemy("osodark", "osodark", 100, 100, 21, 250, 250, True,
+    osodark_3 = Enemy("osodark", "osodark", 100, 100, 17, 250, 250, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_4 = Enemy("osodark", "osodark", 100, 100, 20, 375, 280, True,
+    osodark_4 = Enemy("osodark", "osodark", 100, 100, 18, 375, 280, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     necrola_1 = Enemy("necrola", "necrola", 100, 100, 13, 230, 425, True,
@@ -7417,7 +7417,7 @@ if __name__ == "__main__":
     fish_count_overlay = UiElement("fish counts", 1155, 642, graphic_dict["fish_counts"])
 
     flower_button = pygame.Rect((1150, 670), (65, 65))
-    fish_button = pygame.Rect((1210, 670), (65, 65))
+    fish_button_count = pygame.Rect((1210, 670), (65, 65))
 
     eldream_riv_1 = UiElement("eldream river 1", 190, 400, graphic_dict["eldream_river"])
     eldream_riv_2 = UiElement("eldream river 2", 240, 370, graphic_dict["eldream_river"])
@@ -9159,6 +9159,22 @@ if __name__ == "__main__":
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
+                        if flower_button.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                        else:
+                            drawing_functions.flower_pop_up_window.clear()
+                            drawing_functions.flower_pop_up_window_text.clear()
+
+                        if fish_button_count.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                        else:
+                            drawing_functions.fish_pop_up_window.clear()
+                            drawing_functions.fish_pop_up_window_text.clear()
+
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
 
@@ -9182,25 +9198,6 @@ if __name__ == "__main__":
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_nede_bark)
                                     info_text_1 = "For the best boy. "
-
-                            if flower_button.collidepoint(pos):
-                                if len(drawing_functions.flower_pop_up_window) == 0:
-                                    drawing_functions.flower_pop_up_window.append(flower_count_overlay)
-                                else:
-                                    drawing_functions.flower_pop_up_window.clear()
-                                    drawing_functions.flower_pop_up_window_text.clear()
-                            else:
-                                drawing_functions.flower_pop_up_window.clear()
-                                drawing_functions.flower_pop_up_window_text.clear()
-                            if fish_button.collidepoint(pos):
-                                if len(drawing_functions.fish_pop_up_window) == 0:
-                                    drawing_functions.fish_pop_up_window.append(fish_count_overlay)
-                                else:
-                                    drawing_functions.fish_pop_up_window.clear()
-                                    drawing_functions.fish_pop_up_window_text.clear()
-                            else:
-                                drawing_functions.fish_pop_up_window.clear()
-                                drawing_functions.fish_pop_up_window_text.clear()
 
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
@@ -9255,7 +9252,7 @@ if __name__ == "__main__":
                                     info_text_2 = ""
 
                             # map button was clicked, set animation and move player to stone
-                            if map_button.rect.collidepoint(pos):
+                            if map_button.rect.collidepoint(pos) and not fishing:
                                 # clears other windows first, if they were open
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2)
@@ -12386,8 +12383,23 @@ if __name__ == "__main__":
                             pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                             button_highlighted = button_highlighter(pos)
 
-                            if event.type == pygame.MOUSEBUTTONUP:
+                            if flower_button.collidepoint(pos):
+                                if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                        len(drawing_functions.flower_pop_up_window) == 0):
+                                    drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                            else:
+                                drawing_functions.flower_pop_up_window.clear()
+                                drawing_functions.flower_pop_up_window_text.clear()
 
+                            if fish_button_count.collidepoint(pos):
+                                if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                        len(drawing_functions.flower_pop_up_window) == 0):
+                                    drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                            else:
+                                drawing_functions.fish_pop_up_window.clear()
+                                drawing_functions.fish_pop_up_window_text.clear()
+
+                            if event.type == pygame.MOUSEBUTTONUP:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                              pressed_keys, sfx_button_role)
 
@@ -13940,6 +13952,22 @@ if __name__ == "__main__":
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
+                        if flower_button.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                        else:
+                            drawing_functions.flower_pop_up_window.clear()
+                            drawing_functions.flower_pop_up_window_text.clear()
+
+                        if fish_button_count.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                        else:
+                            drawing_functions.fish_pop_up_window.clear()
+                            drawing_functions.fish_pop_up_window_text.clear()
+
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                          pressed_keys, sfx_button_role)
@@ -14374,13 +14402,13 @@ if __name__ == "__main__":
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14473,13 +14501,13 @@ if __name__ == "__main__":
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14716,6 +14744,22 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if flower_button.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                        else:
+                            drawing_functions.flower_pop_up_window.clear()
+                            drawing_functions.flower_pop_up_window_text.clear()
+
+                        if fish_button_count.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                        else:
+                            drawing_functions.fish_pop_up_window.clear()
+                            drawing_functions.fish_pop_up_window_text.clear()
 
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
@@ -15019,6 +15063,22 @@ if __name__ == "__main__":
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
+                        if flower_button.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                        else:
+                            drawing_functions.flower_pop_up_window.clear()
+                            drawing_functions.flower_pop_up_window_text.clear()
+
+                        if fish_button_count.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                        else:
+                            drawing_functions.fish_pop_up_window.clear()
+                            drawing_functions.fish_pop_up_window_text.clear()
+
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                          pressed_keys, sfx_button_role)
@@ -15313,13 +15373,13 @@ if __name__ == "__main__":
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -15472,6 +15532,22 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if flower_button.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                        else:
+                            drawing_functions.flower_pop_up_window.clear()
+                            drawing_functions.flower_pop_up_window_text.clear()
+
+                        if fish_button_count.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                        else:
+                            drawing_functions.fish_pop_up_window.clear()
+                            drawing_functions.fish_pop_up_window_text.clear()
 
                         if close_button.rect.collidepoint(pos) and apothecary_window_open:
                             button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
@@ -15828,13 +15904,13 @@ if __name__ == "__main__":
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
                         # if player has access to apothecary functions by completing quest and window is open
@@ -15951,6 +16027,22 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if flower_button.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                        else:
+                            drawing_functions.flower_pop_up_window.clear()
+                            drawing_functions.flower_pop_up_window_text.clear()
+
+                        if fish_button_count.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                        else:
+                            drawing_functions.fish_pop_up_window.clear()
+                            drawing_functions.fish_pop_up_window_text.clear()
 
                         if close_button.rect.collidepoint(pos) and menagerie_window_open:
                             button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
@@ -16444,13 +16536,13 @@ if __name__ == "__main__":
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
                         # if player has access to menagerie functions by completing quest and window is open
@@ -16521,6 +16613,22 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if flower_button.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                        else:
+                            drawing_functions.flower_pop_up_window.clear()
+                            drawing_functions.flower_pop_up_window_text.clear()
+
+                        if fish_button_count.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                        else:
+                            drawing_functions.fish_pop_up_window.clear()
+                            drawing_functions.fish_pop_up_window_text.clear()
 
                         if close_button.rect.collidepoint(pos) and hut_window_open:
                             button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
@@ -16839,13 +16947,13 @@ if __name__ == "__main__":
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
                         if fishing_level == 1.5 or fishing_level == 2.5 or fishing_level == 3.5:
@@ -16967,6 +17075,22 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if flower_button.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                        else:
+                            drawing_functions.flower_pop_up_window.clear()
+                            drawing_functions.flower_pop_up_window_text.clear()
+
+                        if fish_button_count.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                        else:
+                            drawing_functions.fish_pop_up_window.clear()
+                            drawing_functions.fish_pop_up_window_text.clear()
 
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
@@ -18178,13 +18302,13 @@ if __name__ == "__main__":
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counte)
+                                                             even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",

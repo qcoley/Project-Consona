@@ -4713,7 +4713,7 @@ def load_graphics():
     sorae_b_fishing_sheet = sprite_sheet((100, 100), sorae_b_fishing_url)
     loaded_dict["sorae_b_fishing_right"] = sorae_b_fishing_sheet[0]
     loaded_dict["sorae_b_fishing_down"] = sorae_b_fishing_sheet[1]
-    loaded_dict["sorae_b_fishing_up"] = sorae_a_fishing_sheet[2]
+    loaded_dict["sorae_b_fishing_up"] = sorae_b_fishing_sheet[2]
     # damage overlays --------------------------------------------------------------------------------------------------
     damage_overlays_url = resource_path('resources/art/overlays_damage.png')
     damage_overlays_sheet = sprite_sheet((150, 200), damage_overlays_url)

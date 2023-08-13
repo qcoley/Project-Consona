@@ -685,23 +685,23 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
         # seldon flowers -----------------------------------------------------------------------------------------------
         flower_seldon_surf = font.render(str(player.flowers_amuna), True, "black", "light yellow")
         flower_seldon_rect = flower_seldon_surf.get_rect()
-        flower_seldon_rect.center = (1114, 638)
+        flower_seldon_rect.center = (1114, 642)
         flower_pop_up_window_text.append((flower_seldon_surf, flower_seldon_rect))
         # eldream flowers ----------------------------------------------------------------------------------------------
         flower_eldream_surf = font.render(str(player.flowers_sorae), True, "black", "light yellow")
         flower_eldream_rect = flower_eldream_surf.get_rect()
-        flower_eldream_rect.center = (1230, 638)
+        flower_eldream_rect.center = (1229, 642)
         flower_pop_up_window_text.append((flower_eldream_surf, flower_eldream_rect))
     if len(fish_pop_up_window) > 0:
         # basic fish ---------------------------------------------------------------------------------------------------
         basic_fish_surf = font.render(str(basic_fish_counter), True, "black", "light yellow")
         basic_fish_rect = basic_fish_surf.get_rect()
-        basic_fish_rect.center = (1090, 642)
+        basic_fish_rect.center = (1088, 642)
         fish_pop_up_window_text.append((basic_fish_surf, basic_fish_rect))
         # better fish --------------------------------------------------------------------------------------------------
         better_fish_surf = font.render(str(better_fish_counter), True, "black", "light yellow")
         better_fish_rect = better_fish_surf.get_rect()
-        better_fish_rect.center = (1145, 642)
+        better_fish_rect.center = (1147, 642)
         fish_pop_up_window_text.append((better_fish_surf, better_fish_rect))
         # even better fish ---------------------------------------------------------------------------------------------
         even_better_fish_surf = font.render(str(even_better_fish_counter), True, "black", "light yellow")
@@ -711,7 +711,7 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
         # best fish ----------------------------------------------------------------------------------------------------
         best_fish_surf = font.render(str(best_fish_counter), True, "black", "light yellow")
         best_fish_rect = best_fish_surf.get_rect()
-        best_fish_rect.center = (1260, 642)
+        best_fish_rect.center = (1263, 642)
         fish_pop_up_window_text.append((best_fish_surf, best_fish_rect))
     # get current player level and create surf and rectangle to blit to screen------------------------------------------
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")

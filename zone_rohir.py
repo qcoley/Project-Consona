@@ -72,27 +72,27 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     drawing_functions.draw_it(screen)
 
     # water movement animation -------------------------------------------------------------------------
-    if 1000 > water_1.x_coordinate > 270:
+    if 1000 > water_1.x_coordinate > 290:
         water_1.x_coordinate -= 1
         water_1.rect.midbottom = (water_1.x_coordinate, water_1.y_coordinate)
     else:
         water_1.update(900, water_1.y_coordinate, graphic_dict["water"])
-    if 1000 > water_2.x_coordinate > 270:
+    if 1000 > water_2.x_coordinate > 290:
         water_2.x_coordinate -= 1
         water_2.rect.midbottom = (water_2.x_coordinate, water_2.y_coordinate)
     else:
         water_2.update(900, water_2.y_coordinate, graphic_dict["water"])
-    if 1000 > water_3.x_coordinate > 270:
+    if 1000 > water_3.x_coordinate > 290:
         water_3.x_coordinate -= 1
         water_3.rect.midbottom = (water_3.x_coordinate, water_3.y_coordinate)
     else:
         water_3.update(900, water_3.y_coordinate, graphic_dict["water"])
-    if 1000 > water_4.x_coordinate > 270:
+    if 1000 > water_4.x_coordinate > 290:
         water_4.x_coordinate -= 1
         water_4.rect.midbottom = (water_4.x_coordinate, water_4.y_coordinate)
     else:
         water_4.update(900, water_4.y_coordinate, graphic_dict["water"])
-    if 1000 > water_5.x_coordinate > 270:
+    if 1000 > water_5.x_coordinate > 290:
         water_5.x_coordinate -= 1
         water_5.rect.midbottom = (water_5.x_coordinate, water_5.y_coordinate)
     else:

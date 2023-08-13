@@ -2258,7 +2258,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if not scaled, coordinates set to default boundaries
         random_osodark_x = random.randrange(250, 700)
         random_osodark_y = random.randrange(200, 300)
-        random_osodark_level = random.randrange(20, 25)
+        random_osodark_level = random.randrange(15, 20)
 
         # count current enemies active in game
         for mob in ectrenos_alcove_enemies:
