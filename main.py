@@ -7780,6 +7780,13 @@ if __name__ == "__main__":
     sfx_firework = pygame.mixer.Sound(resource_path("resources/sounds/sfx_firework.mp3"))
     sfx_firework.set_volume(0.35)
 
+    sfx_fishing_cast = pygame.mixer.Sound(resource_path("resources/sounds/sfx_fishing_cast.mp3"))
+    sfx_fishing_cast.set_volume(0.20)
+    sfx_fishing_splash = pygame.mixer.Sound(resource_path("resources/sounds/sfx_fishing_splash.mp3"))
+    sfx_fishing_splash.set_volume(0.15)
+    sfx_fishing_catch = pygame.mixer.Sound(resource_path("resources/sounds/sfx_fish_catch.mp3"))
+    sfx_fishing_catch.set_volume(0.25)
+
     # main loop variables ----------------------------------------------------------------------------------------------
     bait_given = False
     level_checked = False
@@ -7972,6 +7979,7 @@ if __name__ == "__main__":
     alpha_set = False
     logo_alpha_set = False
     music_toggle = False
+    catch_played = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -9701,7 +9709,7 @@ if __name__ == "__main__":
                                                                     info_text_2, info_text_3, info_text_4,
                                                                     in_over_world, fishing_hut_rect, interaction_popup,
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
-                                                                    pet_energy_window)
+                                                                    pet_energy_window, sfx_fishing_cast)
                     else:
                         hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
                                                                     fishing_music, fishing, walk_tic,
@@ -9718,7 +9726,7 @@ if __name__ == "__main__":
                                                                     info_text_2, info_text_3, info_text_4,
                                                                     in_over_world, fishing_hut_rect, interaction_popup,
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
-                                                                    pet_energy_window)
+                                                                    pet_energy_window, sfx_fishing_cast)
 
                     over_world_song_set = hut_returned["over_world_song_set"]
                     basic_fish_counter = hut_returned["basic_fish_counter"]
@@ -11437,7 +11445,7 @@ if __name__ == "__main__":
                                                                                interaction_popup, interacted,
                                                                                fishing_unlocked, movement_able, in_hut,
                                                                                pet_energy_window, alcove_fishing_rect_2,
-                                                                               mini_map_overlay)
+                                                                               mini_map_overlay, sfx_fishing_cast)
                     else:
                         fishing_alcove_returned = zone_ectrenos.fishing_alcove(pygame, game_window, player,
                                                                                over_world_song_set,
@@ -11461,7 +11469,7 @@ if __name__ == "__main__":
                                                                                interaction_popup, interacted,
                                                                                fishing_unlocked, movement_able, in_hut,
                                                                                pet_energy_window, alcove_fishing_rect_2,
-                                                                               mini_map_overlay)
+                                                                               mini_map_overlay, sfx_fishing_cast)
 
                     over_world_song_set = fishing_alcove_returned["over_world_song_set"]
                     basic_fish_counter = fishing_alcove_returned["basic_fish_counter"]
@@ -11826,7 +11834,8 @@ if __name__ == "__main__":
                                                                            fishing_unlocked, fishing_timer, fish_caught,
                                                                            previous_surf, fishing_level,
                                                                            basic_fish_counter, better_fish_counter,
-                                                                           even_better_fish_counter, best_fish_counter)
+                                                                           even_better_fish_counter, best_fish_counter,
+                                                                           sfx_fishing_cast)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -11865,7 +11874,8 @@ if __name__ == "__main__":
                                                                            fishing_unlocked, fishing_timer, fish_caught,
                                                                            previous_surf, fishing_level,
                                                                            basic_fish_counter, better_fish_counter,
-                                                                           even_better_fish_counter, best_fish_counter)
+                                                                           even_better_fish_counter, best_fish_counter,
+                                                                           sfx_fishing_cast)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -12203,6 +12213,10 @@ if __name__ == "__main__":
                         pass
 
                 if fish_caught:
+                    if not catch_played:
+                        pygame.mixer.find_channel(True).play(sfx_fishing_catch)
+                        pygame.mixer.find_channel(True).play(sfx_fishing_splash)
+                        catch_played = True
                     if player.current_zone == "fishing hut":
                         fishing_popup.update(510, 365, graphic_dict["basic_fish_popup"])
                     elif player.current_zone == "stardust":
@@ -12213,6 +12227,8 @@ if __name__ == "__main__":
                         screen.blit(fishing_popup.surf, fishing_popup.rect)
                     else:
                         game_window.blit(fishing_popup.surf, fishing_popup.rect)
+                else:
+                    catch_played = False
 
                 # visual if player levels up
                 if in_over_world and not in_battle and not in_shop and not in_inn and not in_academia \

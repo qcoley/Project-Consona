@@ -20,7 +20,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      stelli_battle_sprite, vanished, vanish_overlay, waterfall, level_checked, fishing_spot_1,
                      fishing_spot_2, fishing, walk_tic, fishing_unlocked, fishing_timer, fish_caught, previous_surf,
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                     best_fish_counter):
+                     best_fish_counter, sfx_fishing_cast):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
@@ -78,23 +78,59 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                           fish_caught,
                                                           graphic_dict["amuna_m_fishing_right"],
                                                           graphic_dict["amuna_m_fishing_down"],
+                                                          graphic_dict["amuna_m_fishing_right_2"],
+                                                          graphic_dict["amuna_m_fishing_down_2"],
+                                                          graphic_dict["amuna_m_fishing_right_3"],
+                                                          graphic_dict["amuna_m_fishing_down_3"],
                                                           graphic_dict["amuna_f_fishing_right"],
                                                           graphic_dict["amuna_f_fishing_down"],
+                                                          graphic_dict["amuna_f_fishing_right_2"],
+                                                          graphic_dict["amuna_f_fishing_down_2"],
+                                                          graphic_dict["amuna_f_fishing_right_3"],
+                                                          graphic_dict["amuna_f_fishing_down_3"],
                                                           graphic_dict["nuldar_m_fishing_right"],
                                                           graphic_dict["nuldar_m_fishing_down"],
+                                                          graphic_dict["nuldar_m_fishing_right_2"],
+                                                          graphic_dict["nuldar_m_fishing_down_2"],
+                                                          graphic_dict["nuldar_m_fishing_right_3"],
+                                                          graphic_dict["nuldar_m_fishing_down_3"],
                                                           graphic_dict["nuldar_f_fishing_right"],
                                                           graphic_dict["nuldar_f_fishing_down"],
+                                                          graphic_dict["nuldar_f_fishing_right_2"],
+                                                          graphic_dict["nuldar_f_fishing_down_2"],
+                                                          graphic_dict["nuldar_f_fishing_right_3"],
+                                                          graphic_dict["nuldar_f_fishing_down_3"],
                                                           graphic_dict["sorae_a_fishing_right"],
                                                           graphic_dict["sorae_a_fishing_down"],
+                                                          graphic_dict["sorae_a_fishing_right_2"],
+                                                          graphic_dict["sorae_a_fishing_down_2"],
+                                                          graphic_dict["sorae_a_fishing_right_3"],
+                                                          graphic_dict["sorae_a_fishing_down_3"],
                                                           graphic_dict["sorae_b_fishing_right"],
-                                                          graphic_dict["sorae_b_fishing_down"], previous_surf,
-                                                          fishing_spot_1, fishing_spot_2, fishing_spot_1,
+                                                          graphic_dict["sorae_b_fishing_down"],
+                                                          graphic_dict["sorae_b_fishing_right_2"],
+                                                          graphic_dict["sorae_b_fishing_down_2"],
+                                                          graphic_dict["sorae_b_fishing_right_3"],
+                                                          graphic_dict["sorae_b_fishing_down_3"],
+                                                          previous_surf, fishing_spot_1, fishing_spot_2, fishing_spot_1,
                                                           fishing_spot_2, graphic_dict["sorae_a_fishing_up"],
                                                           graphic_dict["sorae_b_fishing_up"],
+                                                          graphic_dict["sorae_a_fishing_up_2"],
+                                                          graphic_dict["sorae_b_fishing_up_2"],
+                                                          graphic_dict["sorae_a_fishing_up_3"],
+                                                          graphic_dict["sorae_b_fishing_up_3"],
                                                           graphic_dict["amuna_m_fishing_up"],
                                                           graphic_dict["amuna_f_fishing_up"],
+                                                          graphic_dict["amuna_m_fishing_up_2"],
+                                                          graphic_dict["amuna_f_fishing_up_2"],
+                                                          graphic_dict["amuna_m_fishing_up_3"],
+                                                          graphic_dict["amuna_f_fishing_up_3"],
                                                           graphic_dict["nuldar_m_fishing_up"],
-                                                          graphic_dict["nuldar_f_fishing_up"])
+                                                          graphic_dict["nuldar_f_fishing_up"],
+                                                          graphic_dict["nuldar_m_fishing_up_2"],
+                                                          graphic_dict["nuldar_f_fishing_up_2"],
+                                                          graphic_dict["nuldar_m_fishing_up_3"],
+                                                          graphic_dict["nuldar_f_fishing_up_3"])
         basic_fish_counter = fish_return["basic_fish_counter"]
         better_fish_counter = fish_return["better_fish_counter"]
         even_better_fish_counter = fish_return["even_better_fish_counter"]
@@ -338,6 +374,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             if interacted and in_over_world and fishing_unlocked:
                 for item in player.items:
                     if item.name == "seldon bait":
+                        pygame.mixer.find_channel(True).play(sfx_fishing_cast)
                         fishing = True
                         interacted = False
                         fishing_timer = time.perf_counter()
@@ -370,6 +407,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             if interacted and in_over_world and fishing_unlocked:
                 for item in player.items:
                     if item.name == "seldon bait":
+                        pygame.mixer.find_channel(True).play(sfx_fishing_cast)
                         fishing = True
                         interacted = False
                         fishing_timer = time.perf_counter()
