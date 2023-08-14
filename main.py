@@ -7402,8 +7402,8 @@ if __name__ == "__main__":
     water_fish_1 = UiElement("water", 855, 630, graphic_dict["water"])
     water_fish_3 = UiElement("water", 500, 575, graphic_dict["water"])
     water_fish_4 = UiElement("water", 650, 680, graphic_dict["water"])
-    water_alcove_1 = UiElement("water", 450, 245, graphic_dict["water"])
-    water_alcove_3 = UiElement("water", 300, 280, graphic_dict["water"])
+    water_alcove_1 = UiElement("water", 450, 250, graphic_dict["water"])
+    water_alcove_3 = UiElement("water", 300, 285, graphic_dict["water"])
 
     fishing_spot_korlok_1 = UiElement("fishing spot k1", 740, 410, graphic_dict["fishing_spot_1"])
     fishing_spot_korlok_2 = UiElement("fishing spot k2", 575, 525, graphic_dict["fishing_spot_1"])
@@ -7719,7 +7719,7 @@ if __name__ == "__main__":
     sfx_item_whistle = pygame.mixer.Sound(resource_path("resources/sounds/pet_whistle.mp3"))
     sfx_item_whistle.set_volume(0.40)
     sfx_item_snack = pygame.mixer.Sound(resource_path("resources/sounds/pet_snack.mp3"))
-    sfx_item_snack.set_volume(0.20)
+    sfx_item_snack.set_volume(0.30)
 
     sfx_activate_switch = pygame.mixer.Sound(resource_path("resources/sounds/activate_switch.mp3"))
     sfx_activate_switch.set_volume(0.10)
@@ -7785,7 +7785,7 @@ if __name__ == "__main__":
     sfx_fishing_splash = pygame.mixer.Sound(resource_path("resources/sounds/sfx_fishing_splash.mp3"))
     sfx_fishing_splash.set_volume(0.15)
     sfx_fishing_catch = pygame.mixer.Sound(resource_path("resources/sounds/sfx_fish_catch.mp3"))
-    sfx_fishing_catch.set_volume(0.25)
+    sfx_fishing_catch.set_volume(0.20)
 
     # main loop variables ----------------------------------------------------------------------------------------------
     bait_given = False
@@ -9219,7 +9219,7 @@ if __name__ == "__main__":
                                                                            sfx_item_potion, sfx_item_equip,
                                                                            sfx_item_whistle, sfx_item_snack,
                                                                            graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                           sfx_firework)
+                                                                           sfx_firework, sfx_skill_learn)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -9942,7 +9942,7 @@ if __name__ == "__main__":
                                                                       erebyth_defeated, korlok_district_repaired_bg,
                                                                       forge_entrance, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
-                                                                      best_fish_counter)
+                                                                      best_fish_counter, sfx_sheet_paper)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -9988,7 +9988,7 @@ if __name__ == "__main__":
                                                                       erebyth_defeated, korlok_district_repaired_bg,
                                                                       forge_entrance, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
-                                                                      best_fish_counter)
+                                                                      best_fish_counter, sfx_sheet_paper)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -10351,7 +10351,9 @@ if __name__ == "__main__":
                                                                                    vanish_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter)
+                                                                                   best_fish_counter, sfx_sheet_paper,
+                                                                                   sfx_item_snack, kasper_unlocked,
+                                                                                   torok_unlocked, iriana_unlocked)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -10385,7 +10387,9 @@ if __name__ == "__main__":
                                                                                    vanish_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter)
+                                                                                   best_fish_counter, sfx_sheet_paper,
+                                                                                   sfx_item_snack, kasper_unlocked,
+                                                                                   torok_unlocked, iriana_unlocked)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -11989,7 +11993,7 @@ if __name__ == "__main__":
                                                                           stelli_battle_sprite, chorizon_phase,
                                                                           vanished, vanish_overlay, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter)
+                                                                          best_fish_counter, sfx_sheet_paper)
                     else:
                         reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
                                                                           graphic_dict,
@@ -12026,7 +12030,8 @@ if __name__ == "__main__":
                                                                           stelli_battle_sprite, chorizon_phase,
                                                                           vanished, vanish_overlay,
                                                                           basic_fish_counter, better_fish_counter,
-                                                                          even_better_fish_counter, best_fish_counter)
+                                                                          even_better_fish_counter, best_fish_counter,
+                                                                          sfx_sheet_paper)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -12240,7 +12245,7 @@ if __name__ == "__main__":
                         drawing_functions.level_up_visual.insert(0, level_up_visual)
 
                         level_visual_toc = time.perf_counter()
-                        if level_visual_toc - level_visual_tic > 3:
+                        if level_visual_toc - level_visual_tic > 2:
                             level_visual = False
                             drawing_functions.level_up_visual.clear()
 
@@ -12439,7 +12444,8 @@ if __name__ == "__main__":
                                                                            sfx_item_potion, sfx_item_equip,
                                                                            sfx_item_whistle, sfx_item_snack,
                                                                            graphic_dict,
-                                                                           SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
+                                                                           SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
+                                                                           sfx_skill_learn)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -14792,7 +14798,8 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
+                                                                       sfx_skill_learn)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -15114,7 +15121,8 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
+                                                                       sfx_skill_learn)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -15669,7 +15677,8 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
+                                                                       sfx_skill_learn)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -16310,7 +16319,8 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
+                                                                       sfx_skill_learn)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -16784,7 +16794,7 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack,
                                                                        graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                       sfx_firework)
+                                                                       sfx_firework, sfx_skill_learn)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -17227,7 +17237,8 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
+                                                                       sfx_skill_learn)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""

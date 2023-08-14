@@ -4035,7 +4035,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 if player.role == "fighter":
                     if hard_strike_learned:
                         # returns players damage to the enemy based on level and equipment
-                        striked = random.randrange(15, 25)  # hard strike damage
+                        striked = random.randrange(15, 18)  # hard strike damage
                         combat_event_dictionary["effective player"] = False
                         combat_event_dictionary["non effective player"] = False
                         combat_event_dictionary["critical dealt"] = False

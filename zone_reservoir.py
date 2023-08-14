@@ -15,7 +15,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 offense_meter, defense_meter, weapon_select, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_item_rupee, sfx_item_key, sfx_item_potion, sfx_switch, sfx_teleporter,
                 stelli_battle_sprite, chorizon_phase, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                even_better_fish_counter, best_fish_counter):
+                even_better_fish_counter, best_fish_counter, sfx_paper):
 
     in_battle = False
 
@@ -111,11 +111,10 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon crate 1":
                 if not crate_1:
                     if len(player.items) < 16:
-                        pygame.mixer.find_channel(True).play(sfx_item_potion)
-                        info_text_1 = "You found a health potion!"
+                        pygame.mixer.find_channel(True).play(sfx_paper)
+                        info_text_1 = "You found a book!"
                         info_text_2 = ""
-                        player.items.append(Item("small health potion", "potion", 200, 200,
-                                                 graphic_dict["health_pot_img"], 0))
+                        player.items.append(Item("fighter book", "book", 200, 200, graphic_dict["fighter_book"], 0))
                         crate_1 = True
                         item.kill()
                     else:

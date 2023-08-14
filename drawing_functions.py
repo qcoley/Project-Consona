@@ -454,6 +454,27 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["ok_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "mage book":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_mage_book"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "fighter book":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_fighter_book"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "scout book":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_scout_book"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -1438,6 +1459,18 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "eldream bait":
                     item_here.update(first_coord, second_coord, graphic["eldream_bait"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "mage book":
+                    item_here.update(first_coord, second_coord, graphic["mage_book"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "fighter book":
+                    item_here.update(first_coord, second_coord, graphic["fighter_book"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "scout book":
+                    item_here.update(first_coord, second_coord, graphic["scout_book"])
                     player_items.append(item_here)
                     inventory_counter += 1
 

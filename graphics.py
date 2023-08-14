@@ -5139,6 +5139,9 @@ def load_graphics():
     loaded_dict["seldon_bait"] = items_sheet[30]
     loaded_dict["korlok_bait"] = items_sheet[31]
     loaded_dict["eldream_bait"] = items_sheet[32]
+    loaded_dict["mage_book"] = items_sheet[33]
+    loaded_dict["fighter_book"] = items_sheet[34]
+    loaded_dict["scout_book"] = items_sheet[35]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -5177,6 +5180,9 @@ def load_graphics():
     loaded_dict["info_seldon_bait"] = items_info_sheet[32]
     loaded_dict["info_korlok_bait"] = items_info_sheet[33]
     loaded_dict["info_eldream_bait"] = items_info_sheet[34]
+    loaded_dict["info_mage_book"] = items_info_sheet[35]
+    loaded_dict["info_fighter_book"] = items_info_sheet[36]
+    loaded_dict["info_scout_book"] = items_info_sheet[37]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)

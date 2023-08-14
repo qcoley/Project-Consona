@@ -283,6 +283,15 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
                     or clicked_element[0].name == "eldream bait":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "mage book":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "fighter book":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "scout book":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
         except IndexError:
             pass
     return event_return
@@ -290,7 +299,7 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
 
 # handles mouse clicks for inventory sub-screen for items with actions
 def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics, width, height,
-              sfx_firework):
+              sfx_firework, sfx_skill_learn):
 
     return_dict = {"item message": ""}
 
@@ -430,7 +439,24 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 return_dict["item message"] = "The potion heals and energizes you."
             else:
                 return_dict["item message"] = "You're already full health or energy."
-
+        if item.name == "mage book":
+            pygame.mixer.find_channel(True).play(sfx_skill_learn)
+            player.knowledge["mage"] = player.knowledge["mage"] + 20
+            drawing_functions.player_items.remove(item)
+            player.items.remove(item)
+            return_dict["item message"] = "You gain 20 mage knowledge."
+        if item.name == "fighter book":
+            pygame.mixer.find_channel(True).play(sfx_skill_learn)
+            player.knowledge["fighter"] = player.knowledge["fighter"] + 20
+            drawing_functions.player_items.remove(item)
+            player.items.remove(item)
+            return_dict["item message"] = "You gain 20 fighter knowledge."
+        if item.name == "scout book":
+            pygame.mixer.find_channel(True).play(sfx_skill_learn)
+            player.knowledge["scout"] = player.knowledge["scout"] + 20
+            drawing_functions.player_items.remove(item)
+            player.items.remove(item)
+            return_dict["item message"] = "You gain 20 scout knowledge."
         if item.name == "seldon firework" or item.name == "korlok firework" or item.name == "eldream firework":
             pygame.mixer.find_channel(True).play(sfx_firework)
             return_dict["item message"] = "boom shakalaka."

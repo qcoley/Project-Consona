@@ -44,7 +44,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
-                                                      marrow_ghouls, marrow_ghouls)
+                                                      marrow_ghouls, marrow_ghouls, marrow_ghouls)
     marrow_ghouls = respawned_dict["marrow_ghouls"]
 
     for ghoul in marrow_ghouls:
@@ -558,7 +558,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       ramps_crate_2_got, sfx_item_potion, Item, necrola_1, necrola_2, necrola_rect_1, necrola_rect_2,
                       player_battle_sprite, barrier_active, sharp_sense_active, necrola_battle_sprite, in_battle,
                       current_enemy_battling, sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter,
-                      better_fish_counter, even_better_fish_counter, best_fish_counter):
+                      better_fish_counter, even_better_fish_counter, best_fish_counter, sfx_paper, sfx_munch,
+                      kasper_unlocked, torok_unlocked, iriana_unlocked):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -649,11 +650,11 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                 if not ramps_crate_1_got:
                     if len(player.items) < 16:
                         ramps_crate_1_got = True
-                        pygame.mixer.find_channel(True).play(sfx_item_potion)
-                        info_text_1 = "You found a health potion!"
+                        pygame.mixer.find_channel(True).play(sfx_paper)
+                        info_text_1 = "You found a book!"
                         info_text_2 = ""
-                        player.items.append(Item("small health potion", "potion", 200, 200,
-                                                 graphic_dict["health_pot_img"], 0))
+                        player.items.append(Item("mage book", "book", 200, 200,
+                                                 graphic_dict["mage_book"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -677,11 +678,19 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                 if not ramps_crate_2_got:
                     if len(player.items) < 16:
                         ramps_crate_2_got = True
-                        pygame.mixer.find_channel(True).play(sfx_item_potion)
-                        info_text_1 = "You found an energy potion!"
+                        pygame.mixer.find_channel(True).play(sfx_munch)
+                        info_text_1 = "You found an pet snack!"
                         info_text_2 = ""
-                        player.items.append(Item("small energy potion", "potion", 200, 200,
-                                                 graphic_dict["energy_pot_img"], 0))
+                        if kasper_unlocked:
+                            player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                     graphic_dict["pet_cookie_img"], 1))
+                        elif torok_unlocked:
+                            player.items.append(Item("pet candy", "candy", 200, 200, graphic_dict["pet_candy_img"], 1))
+                        elif iriana_unlocked:
+                            player.items.append(Item("pet tart", "tart", 200, 200, graphic_dict["pet_tart_img"], 1))
+                        else:
+                            player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                     graphic_dict["pet_cookie_img"], 1))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

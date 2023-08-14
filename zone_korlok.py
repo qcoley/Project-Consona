@@ -24,7 +24,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
                     worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
-                    even_better_fish_counter, best_fish_counter):
+                    even_better_fish_counter, best_fish_counter, sfx_paper):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -419,11 +419,16 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     if rock_6.x_coordinate == 750:
                         rock_6.update(rock_6.x_coordinate + 110, rock_6.y_coordinate, graphic_dict["rock_small"])
                         if not rock_6_con:
-                            pygame.mixer.find_channel(True).play(sfx_rupee)
-                            player.rupees += 10
-                            rock_6_con = True
-                            info_text_1 = "You found 10 Rupees under the rock!"
-                            info_text_2 = ""
+                            if len(player.items) < 16:
+                                pygame.mixer.find_channel(True).play(sfx_paper)
+                                rock_6_con = True
+                                info_text_1 = "You found a book under the rock!"
+                                info_text_2 = ""
+                                player.items.append(Item("scout book", "book", 200, 200,
+                                                         graphic_dict["scout_book"], 0))
+                            else:
+                                info_text_1 = "Your inventory is full."
+                                info_text_2 = ""
                 else:
                     info_text_1 = "The rock won't budge."
                     info_text_2 = ""

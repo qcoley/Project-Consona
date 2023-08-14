@@ -1767,6 +1767,12 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("korlok bait", "bait", 200, 200, graphics["korlok_bait"], 0))
                 if item == "eldream bait":
                     player.items.append(Item("eldream bait", "bait", 200, 200, graphics["eldream_bait"], 0))
+                if item == "mage book":
+                    player.items.append(Item("mage book", "book", 200, 200, graphics["mage_book"], 0))
+                if item == "fighter book":
+                    player.items.append(Item("fighter book", "book", 200, 200, graphics["fighter_book"], 0))
+                if item == "scout book":
+                    player.items.append(Item("scout book", "book", 200, 200, graphics["scout_book"], 0))
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
                     player.equipment["boots"] = Item("chroma boots", "boots", 200, 200, graphics["boots_img"], 0)
