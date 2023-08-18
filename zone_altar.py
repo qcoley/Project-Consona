@@ -76,6 +76,8 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                         artherian_2 = True
                         using_forge = True
                         task_star_artherian.update(210, 400, graphic_dict["artherian_complete_star"])
+                if not artherian_2:
+                    info_text_2 = "First go to the Forge in Korlok."
 
     if 700 < player.y_coordinate:
         using_forge = False

@@ -2122,21 +2122,24 @@ def loot_popups(time, loot_updated, font, loot_popup, battle_info_to_return_to_m
         loot_popup_container.clear()
         loot_text_container.clear()
         loot_popup_container.append(loot_popup)
-        xp_info_surf = font.render("+" + str(battle_info_to_return_to_main_loop["experience"] + " xp"),
-                                   True, "black", (203, 195, 227))
-        xp_info_rect = xp_info_surf.get_rect()
-        xp_info_rect.center = (182, 492)
-        loot_text_container.append((xp_info_surf, xp_info_rect))
-        know_info_surf = font.render(str(battle_info_to_return_to_main_loop["knowledge"]),
-                                     True, "black", (144, 238, 144))
-        know_info_rect = know_info_surf.get_rect()
-        know_info_rect.center = (205, 510)
-        loot_text_container.append((know_info_surf, know_info_rect))
-        loot_info_surf = font.render(str(battle_info_to_return_to_main_loop["item dropped"]),
-                                     True, "black", "silver")
-        loot_info_rect = loot_info_surf.get_rect()
-        loot_info_rect.center = (170, 565)
-        loot_text_container.append((loot_info_surf, loot_info_rect))
+        if battle_info_to_return_to_main_loop["experience"] != "":
+            xp_info_surf = font.render("+" + str(battle_info_to_return_to_main_loop["experience"] + " xp"),
+                                       True, "black", (203, 195, 227))
+            xp_info_rect = xp_info_surf.get_rect()
+            xp_info_rect.center = (182, 492)
+            loot_text_container.append((xp_info_surf, xp_info_rect))
+        if battle_info_to_return_to_main_loop["knowledge"] != "":
+            know_info_surf = font.render(str(battle_info_to_return_to_main_loop["knowledge"]),
+                                         True, "black", (144, 238, 144))
+            know_info_rect = know_info_surf.get_rect()
+            know_info_rect.center = (205, 510)
+            loot_text_container.append((know_info_surf, know_info_rect))
+        if battle_info_to_return_to_main_loop["item dropped"] != "":
+            loot_info_surf = font.render(str(battle_info_to_return_to_main_loop["item dropped"]),
+                                         True, "black", "silver")
+            loot_info_rect = loot_info_surf.get_rect()
+            loot_info_rect.center = (170, 565)
+            loot_text_container.append((loot_info_surf, loot_info_rect))
         loot_updated = True
         loot_level_tic = time.perf_counter()
         loot_info = True

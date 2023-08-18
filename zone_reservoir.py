@@ -447,10 +447,10 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                     if len(player.items) < 16:
                         crate_5 = True
                         pygame.mixer.find_channel(True).play(sfx_item_potion)
-                        info_text_1 = "You found an energy potion!"
+                        info_text_1 = "You found a health potion!"
                         info_text_2 = ""
-                        player.items.append(Item("small energy potion", "potion", 200, 200,
-                                                 graphic_dict["energy_pot_img"], 0))
+                        player.items.append(Item("small health potion", "potion", 200, 200,
+                                                 graphic_dict["health_pot_img"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

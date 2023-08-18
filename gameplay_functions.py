@@ -20,7 +20,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       ramps_crate_2, ramps_crate_3, ramps_crate_4, overlay_marrow_ramps_west, overlay_marrow_ramps_east,
                       dungeon_chest_ramps, dungeon_switch_ramps_2, erebyth, dungeon_switch_ramps_1, ramps_crate_5,
                       forge_rect, interacted, event, ectrenos_alcove_enemies, alcove_fishing_rect,
-                      alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2):
+                      alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2, sub_marrow_rect_2,
+                      dungeon_gate_marrow):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -176,6 +177,13 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             else:
                 interacted = False
+        if player.current_zone == "sub marrow":
+            if pygame.Rect.colliderect(player.rect, sub_marrow_rect_2):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, dungeon_gate_marrow):
+                interacted = True
+            else:
+                interacted = False
         if player.current_zone == "marrow entrance":
             if pygame.sprite.spritecollideany(player, interactables_marrow_entrance):
                 interacted = True
@@ -326,6 +334,10 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     and not pygame.Rect.colliderect(player.rect, npc_boro.rect)
                     and not pygame.Rect.colliderect(player.rect, sub_marrow_rect)):
                 interacted = False
+        if player.current_zone == "sub marrow":
+            if (not pygame.Rect.colliderect(player.rect, sub_marrow_rect)
+                    and not pygame.Rect.colliderect(player.rect, dungeon_gate_marrow)):
+                interacted = False
         if player.current_zone == "marrow entrance":
             if (not pygame.sprite.spritecollideany(player, interactables_marrow_entrance)
                     and not pygame.Rect.colliderect(player.rect, marrow_switch_box)):
@@ -399,17 +411,6 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
 
         catch_chance = random.randrange(1, 10)
         if fishing_level == 1 or fishing_level == 1.5:
-            if catch_chance > 4:
-                if current_zone == "fishing hut":
-                    basic_fish_counter += 1
-                if current_zone == "stardust":
-                    better_fish_counter += 1
-                if current_zone == "fishing alcove":
-                    even_better_fish_counter += 1
-                fish_caught = True
-            else:
-                fish_caught = False
-        if fishing_level == 2.0 or fishing_level == 2.5:
             if catch_chance > 3:
                 if current_zone == "fishing hut":
                     basic_fish_counter += 1
@@ -420,8 +421,19 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                 fish_caught = True
             else:
                 fish_caught = False
-        if fishing_level == 3.0 or fishing_level == 3.5:
+        if fishing_level == 2.0 or fishing_level == 2.5:
             if catch_chance > 2:
+                if current_zone == "fishing hut":
+                    basic_fish_counter += 1
+                if current_zone == "stardust":
+                    better_fish_counter += 1
+                if current_zone == "fishing alcove":
+                    even_better_fish_counter += 1
+                fish_caught = True
+            else:
+                fish_caught = False
+        if fishing_level == 3.0 or fishing_level == 3.5:
+            if catch_chance > 1:
                 if current_zone == "fishing hut":
                     basic_fish_counter += 1
                 if current_zone == "stardust":
@@ -1722,8 +1734,10 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("dried fins", "fins", 200, 200, graphics["fins_img"], 0))
                 if item == "oscura pluma":
                     player.items.append(Item("oscura pluma", "pluma", 200, 200, graphics["pluma_img"], 0))
-                if item == "boss key" or item == "ramps key":
+                if item == "boss key":
                     player.items.append(Item("boss key", "key", 200, 200, graphics["key_img"], 0))
+                if item == "ramps key":
+                    player.items.append(Item("ramps key", "key", 200, 200, graphics["key_img"], 0))
                 if item == "power gloves":
                     player.items.append(Item("power gloves", "gloves", 200, 200, graphics["gloves"], 0))
                 if item == "basic armor":
@@ -1910,6 +1924,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               artherian_gift, artherian_2, artherian_complete, fishing_unlocked, fishing_journal_unlocked,
               bait_given, basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter,
               fishing_level, basic_fish_reward, better_fish_reward, even_better_fish_reward, best_fish_reward):
+
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1990,8 +2005,12 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "better_fish_reward": better_fish_reward, "even_better_fish_reward": even_better_fish_reward,
                         "best_fish_reward": best_fish_reward}
 
-    with open("save", "wb") as ff:
-        pickle.dump(player_save_info, ff)
+    try:
+        with open("save", "wb") as ff:
+            pickle.dump(player_save_info, ff)
+        return "You saved your game. "
+    except PermissionError:
+        return "Could not save. "
 
 
 # function to handle player walking animation with time values

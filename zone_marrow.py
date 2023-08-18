@@ -1587,7 +1587,8 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                Item, in_battle, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-               even_better_fish_counter, best_fish_counter):
+               even_better_fish_counter, best_fish_counter, sfx_ladder, sub_marrow_rect, dungeon_gate_rect, sfx_gate,
+               has_key):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1624,6 +1625,59 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     except AttributeError:
         pass
 
+    if pygame.Rect.colliderect(player.rect, sub_marrow_rect):
+        interaction_popup.update(495, 580, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Marrow"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (495, 580)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to climb down ladder."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            pygame.mixer.find_channel(True).play(sfx_ladder)
+            interacted = False
+            player.current_zone = "marrow"
+            player.x_coordinate = 340
+            player.y_coordinate = 580
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    if pygame.Rect.colliderect(player.rect, dungeon_gate_rect):
+        interaction_popup.update(850, 410, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Gate"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (850, 410)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted:
+            if player.y_coordinate < 386:
+                for item in player.items:
+                    if item.name == "ramps key":
+                        player.items.remove(item)
+                        has_key = True
+                if has_key:
+                    pygame.mixer.find_channel(True).play(sfx_gate)
+                    info_text_1 = "You used the key to open the gate."
+                    info_text_2 = ""
+                    player.x_coordinate = 850
+                    player.y_coordinate = 500
+                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                    interacted = False
+                else:
+                    info_text_1 = "This gate requires a key "
+                    info_text_2 = "Located somewhere in the ramparts. "
+                    interacted = False
+            else:
+                player.x_coordinate = 850
+                player.y_coordinate = 375
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -1652,16 +1706,9 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                                      best_fish_counter)
     drawing_functions.draw_it(screen)
 
-    if player.y_coordinate <= 75:
-        player.current_zone = "marrow ramps west"
-        in_over_world = True
-        player.x_coordinate = 515
-        player.y_coordinate = 650
-        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-
     sub_marrow_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "in_battle": in_battle,
                          "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                          "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                         "movement_able": movement_able}
+                         "movement_able": movement_able, "has_key": has_key}
 
     return sub_marrow_return

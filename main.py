@@ -1757,6 +1757,34 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if self.x_coordinate > 765:
                     if self.y_coordinate < 325:
                         self.y_coordinate = 325
+        if current_zone == "sub marrow":
+            if self.x_coordinate > 990:
+                self.x_coordinate = 990
+            if self.y_coordinate < 115:
+                self.y_coordinate = 115
+            if self.y_coordinate > 700:
+                self.y_coordinate = 700
+            if self.y_coordinate > 575:
+                if self.x_coordinate < 380:
+                    self.x_coordinate = 380
+            if self.y_coordinate < 575:
+                if self.x_coordinate < 35:
+                    self.x_coordinate = 35
+            if self.x_coordinate < 380:
+                if self.y_coordinate > 570:
+                    self.y_coordinate = 570
+            if self.x_coordinate > 625 and self.y_coordinate < 415:
+                if self.y_coordinate > 385:
+                    self.y_coordinate = 385
+            if self.x_coordinate > 625 and self.y_coordinate > 415:
+                if self.y_coordinate < 450:
+                    self.y_coordinate = 450
+            if self.y_coordinate > 385 and self.x_coordinate < 655:
+                if self.x_coordinate > 618:
+                    self.x_coordinate = 618
+            if self.y_coordinate > 385 and self.x_coordinate > 655:
+                if self.x_coordinate < 700:
+                    self.x_coordinate = 700
         if current_zone == "marrow entrance":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -3868,6 +3896,34 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.x_coordinate > 765:
                     if self.y_coordinate < 325:
                         self.y_coordinate = 325
+        if current_zone == "sub marrow":
+            if self.x_coordinate > 990:
+                self.x_coordinate = 990
+            if self.y_coordinate < 115:
+                self.y_coordinate = 115
+            if self.y_coordinate > 700:
+                self.y_coordinate = 700
+            if self.y_coordinate > 575:
+                if self.x_coordinate < 380:
+                    self.x_coordinate = 380
+            if self.y_coordinate < 575:
+                if self.x_coordinate < 35:
+                    self.x_coordinate = 35
+            if self.x_coordinate < 380:
+                if self.y_coordinate > 570:
+                    self.y_coordinate = 570
+            if self.x_coordinate > 625 and self.y_coordinate < 415:
+                if self.y_coordinate > 385:
+                    self.y_coordinate = 385
+            if self.x_coordinate > 625 and self.y_coordinate > 415:
+                if self.y_coordinate < 450:
+                    self.y_coordinate = 450
+            if self.y_coordinate > 385 and self.x_coordinate < 655:
+                if self.x_coordinate > 618:
+                    self.x_coordinate = 618
+            if self.y_coordinate > 385 and self.x_coordinate > 655:
+                if self.x_coordinate < 700:
+                    self.x_coordinate = 700
         if current_zone == "marrow entrance":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -5940,7 +5996,6 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 160
             if self.x_coordinate < 280 and self.y_coordinate > 290:
                 self.y_coordinate = 290
-
         if current_zone == "marrow":
             if self.x_coordinate < 115:
                 self.x_coordinate = 115
@@ -5969,6 +6024,34 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if self.x_coordinate > 765:
                     if self.y_coordinate < 325:
                         self.y_coordinate = 325
+        if current_zone == "sub marrow":
+            if self.x_coordinate > 990:
+                self.x_coordinate = 990
+            if self.y_coordinate < 115:
+                self.y_coordinate = 115
+            if self.y_coordinate > 700:
+                self.y_coordinate = 700
+            if self.y_coordinate > 575:
+                if self.x_coordinate < 380:
+                    self.x_coordinate = 380
+            if self.y_coordinate < 575:
+                if self.x_coordinate < 35:
+                    self.x_coordinate = 35
+            if self.x_coordinate < 380:
+                if self.y_coordinate > 570:
+                    self.y_coordinate = 570
+            if self.x_coordinate > 625 and self.y_coordinate < 415:
+                if self.y_coordinate > 385:
+                    self.y_coordinate = 385
+            if self.x_coordinate > 625 and self.y_coordinate > 415:
+                if self.y_coordinate < 450:
+                    self.y_coordinate = 450
+            if self.y_coordinate > 385 and self.x_coordinate < 655:
+                if self.x_coordinate > 618:
+                    self.x_coordinate = 618
+            if self.y_coordinate > 385 and self.x_coordinate > 655:
+                if self.x_coordinate < 700:
+                    self.x_coordinate = 700
         if current_zone == "marrow entrance":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -7466,6 +7549,8 @@ if __name__ == "__main__":
     ectrenos_shop_entrance = pygame.Rect((215, 175), (100, 100))
     ectrenos_pet_entrance = pygame.Rect((775, 175), (100, 100))
     sub_marrow_rect = pygame.Rect((360, 610), (100, 100))
+    sub_marrow_rect_2 = pygame.Rect((455, 595), (100, 100))
+    dungeon_gate_marrow_rect = pygame.Rect((740, 325), (500, 100))
     fishing_hut_rect = pygame.Rect((800, 110), (100, 100))
     fishing_hut_rect_collide = pygame.Rect((800, 110), (75, 50))
     alcove_fishing_rect_1 = pygame.Rect((375, 35), (100, 25))
@@ -7703,6 +7788,8 @@ if __name__ == "__main__":
     sfx_steps_path.set_volume(0.05)
     sfx_steps_water = pygame.mixer.Sound(resource_path("resources/sounds/steps_water.mp3"))
     sfx_steps_water.set_volume(0.05)
+    sfx_steps_chroma = pygame.mixer.Sound(resource_path("resources/sounds/sfx_chroma_walk.mp3"))
+    sfx_steps_chroma.set_volume(0.20)
 
     sfx_item_rupee = pygame.mixer.Sound(resource_path("resources/sounds/item_rupee.mp3"))
     sfx_item_rupee.set_volume(0.20)
@@ -8048,7 +8135,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -8969,7 +9056,8 @@ if __name__ == "__main__":
                                                                       forge_rect, interacted, False,
                                                                       ectrenos_alcove_enemies, alcove_fishing_rect_1,
                                                                       alcove_fishing_rect_2, fishing_spot_eldream_1,
-                                                                      fishing_spot_eldream_2)
+                                                                      fishing_spot_eldream_2, sub_marrow_rect_2,
+                                                                      dungeon_gate_marrow_rect)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -8999,13 +9087,18 @@ if __name__ == "__main__":
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
                                 walk_sound_tic = time.perf_counter()
-                                if player.current_zone != "rohir":
-                                    pygame.mixer.find_channel(True).play(sfx_steps_path)
-                                else:
+                                if player.current_zone == "rohir":
                                     if player.x_coordinate > 240:
                                         pygame.mixer.find_channel(True).play(sfx_steps_water)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                if player.current_zone == "ectrenos left":
+                                    if 645 > player.x_coordinate > 320:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                else:
+                                    pygame.mixer.find_channel(True).play(sfx_steps_path)
 
                             player.update("right", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
@@ -9019,13 +9112,18 @@ if __name__ == "__main__":
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
                                 walk_sound_tic = time.perf_counter()
-                                if player.current_zone != "rohir":
-                                    pygame.mixer.find_channel(True).play(sfx_steps_path)
-                                else:
+                                if player.current_zone == "rohir":
                                     if player.x_coordinate > 240:
                                         pygame.mixer.find_channel(True).play(sfx_steps_water)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                if player.current_zone == "ectrenos left":
+                                    if 645 > player.x_coordinate > 320:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                else:
+                                    pygame.mixer.find_channel(True).play(sfx_steps_path)
                             player.update("left", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
                                 if pet.name == "kasper":
@@ -9038,13 +9136,18 @@ if __name__ == "__main__":
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
                                 walk_sound_tic = time.perf_counter()
-                                if player.current_zone != "rohir":
-                                    pygame.mixer.find_channel(True).play(sfx_steps_path)
-                                else:
+                                if player.current_zone == "rohir":
                                     if player.x_coordinate > 240:
                                         pygame.mixer.find_channel(True).play(sfx_steps_water)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                if player.current_zone == "ectrenos left":
+                                    if 645 > player.x_coordinate > 320:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                else:
+                                    pygame.mixer.find_channel(True).play(sfx_steps_path)
                             player.update("up", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
                                 if pet.name == "kasper":
@@ -9057,13 +9160,18 @@ if __name__ == "__main__":
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
                                 walk_sound_tic = time.perf_counter()
-                                if player.current_zone != "rohir":
-                                    pygame.mixer.find_channel(True).play(sfx_steps_path)
-                                else:
+                                if player.current_zone == "rohir":
                                     if player.x_coordinate > 240:
                                         pygame.mixer.find_channel(True).play(sfx_steps_water)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                if player.current_zone == "ectrenos left":
+                                    if 645 > player.x_coordinate > 320:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                else:
+                                    pygame.mixer.find_channel(True).play(sfx_steps_path)
                             player.update("down", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
                                 if pet.name == "kasper":
@@ -9154,7 +9262,9 @@ if __name__ == "__main__":
                                                                                   alcove_fishing_rect_1,
                                                                                   alcove_fishing_rect_2,
                                                                                   fishing_spot_eldream_1,
-                                                                                  fishing_spot_eldream_2)
+                                                                                  fishing_spot_eldream_2,
+                                                                                  sub_marrow_rect_2,
+                                                                                  dungeon_gate_marrow_rect)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -9324,38 +9434,41 @@ if __name__ == "__main__":
                                     if not switch_3:
                                         switch_1 = False
                                         switch_2 = False
-                                    gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                 sharp_sense_learned, saved, npc_garan.gift,
-                                                                 rest_recover_show, knowledge_academia_show,
-                                                                 quest_guide_shown, battle_guide_shown,
-                                                                 rest_shown_before, quest_highlight_popup,
-                                                                 bridge_not_repaired, nede_ghoul_defeated,
-                                                                 bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                 crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                 switch_3, muchador_defeated, has_key,
-                                                                 mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                 gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                 rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                 chinzilla_defeated, apothecary_access,
-                                                                 beyond_seldon, seed_given, hatch_ready,
-                                                                 menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                 iriana_unlocked, rock_8_con, rock_3_con,
-                                                                 seed_scout_count, seed_fighter_count,
-                                                                 seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                 mirror_learned, stun_learned, vanish_learned,
-                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated,
-                                                                 ramps_crate_1_got, ramps_crate_2_got,
-                                                                 ramps_crate_3_got, ramps_crate_4_got,
-                                                                 ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
-                                                                 artherian_2, npc_artherian.quest_complete,
-                                                                 fishing_unlocked, fishing_journal_unlocked, bait_given,
-                                                                 basic_fish_counter, better_fish_counter,
-                                                                 even_better_fish_counter, best_fish_counter,
-                                                                 fishing_level, basic_fish_reward, better_fish_reward,
-                                                                 even_better_fish_reward, best_fish_reward)
+                                    info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                        sharp_sense_learned, saved, npc_garan.gift,
+                                                                        rest_recover_show, knowledge_academia_show,
+                                                                        quest_guide_shown, battle_guide_shown,
+                                                                        rest_shown_before, quest_highlight_popup,
+                                                                        bridge_not_repaired, nede_ghoul_defeated,
+                                                                        bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                        crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                        switch_3, muchador_defeated, has_key,
+                                                                        mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                        gloves_obtained, korlok_attuned,
+                                                                        eldream_attuned, rock_4_con, rock_5_con,
+                                                                        rock_6_con, rock_7_con, chinzilla_defeated,
+                                                                        apothecary_access, beyond_seldon, seed_given,
+                                                                        hatch_ready, menagerie_access, kasper_unlocked,
+                                                                        torok_unlocked, iriana_unlocked, rock_8_con,
+                                                                        rock_3_con, seed_scout_count,
+                                                                        seed_fighter_count, seed_mage_count,
+                                                                        dreth_cutscenes_not_viewed, mirror_learned,
+                                                                        stun_learned, vanish_learned, boots_obtained,
+                                                                        marrow_switch_phase, erebyth_defeated,
+                                                                        ramps_crate_1_got, ramps_crate_2_got,
+                                                                        ramps_crate_3_got, ramps_crate_4_got,
+                                                                        ramps_crate_5_got, marrow_attuned,
+                                                                        npc_artherian.gift, artherian_2,
+                                                                        npc_artherian.quest_complete, fishing_unlocked,
+                                                                        fishing_journal_unlocked, bait_given,
+                                                                        basic_fish_counter, better_fish_counter,
+                                                                        even_better_fish_counter, best_fish_counter,
+                                                                        fishing_level, basic_fish_reward,
+                                                                        better_fish_reward, even_better_fish_reward,
+                                                                        best_fish_reward)
                                     saved = True
                                     saving = False
-                                    info_text_1 = "You saved your game. "
+                                    info_text_1 = info
                                     pygame.mixer.find_channel(True).play(sfx_save_game)
 
                             if yes_button.rect.collidepoint(pos) and saving:
@@ -9363,37 +9476,47 @@ if __name__ == "__main__":
                                 if not switch_3:
                                     switch_1 = False
                                     switch_2 = False
-                                gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                             sharp_sense_learned, saved, npc_garan.gift,
-                                                             rest_recover_show, knowledge_academia_show,
-                                                             quest_guide_shown, battle_guide_shown, rest_shown_before,
-                                                             quest_highlight_popup, bridge_not_repaired,
-                                                             nede_ghoul_defeated, bridge_cutscenes_not_viewed, crate_1,
-                                                             crate_2, crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                             switch_3, muchador_defeated, has_key, mini_boss_1_defeated,
-                                                             mini_boss_2_defeated, gloves_obtained, korlok_attuned,
-                                                             eldream_attuned, rock_4_con, rock_5_con, rock_6_con,
-                                                             rock_7_con, chinzilla_defeated, apothecary_access,
-                                                             beyond_seldon, seed_given, hatch_ready, menagerie_access,
-                                                             kasper_unlocked, torok_unlocked, iriana_unlocked,
-                                                             rock_8_con, rock_3_con, seed_scout_count,
-                                                             seed_fighter_count, seed_mage_count,
-                                                             dreth_cutscenes_not_viewed, mirror_learned, stun_learned,
-                                                             vanish_learned, boots_obtained, marrow_switch_phase,
-                                                             erebyth_defeated, ramps_crate_1_got, ramps_crate_2_got,
-                                                             ramps_crate_3_got, ramps_crate_4_got, ramps_crate_5_got,
-                                                             marrow_attuned, npc_artherian.gift, artherian_2,
-                                                             npc_artherian.quest_complete, fishing_unlocked,
-                                                             fishing_journal_unlocked, bait_given, basic_fish_counter,
-                                                             better_fish_counter, even_better_fish_counter,
-                                                             best_fish_counter, fishing_level, basic_fish_reward,
-                                                             better_fish_reward, even_better_fish_reward,
-                                                             best_fish_reward)
+                                info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                    sharp_sense_learned, saved, npc_garan.gift,
+                                                                    rest_recover_show, knowledge_academia_show,
+                                                                    quest_guide_shown, battle_guide_shown,
+                                                                    rest_shown_before,
+                                                                    quest_highlight_popup, bridge_not_repaired,
+                                                                    nede_ghoul_defeated, bridge_cutscenes_not_viewed,
+                                                                    crate_1,
+                                                                    crate_2, crate_3, crate_4, crate_5, switch_1,
+                                                                    switch_2,
+                                                                    switch_3, muchador_defeated, has_key,
+                                                                    mini_boss_1_defeated,
+                                                                    mini_boss_2_defeated, gloves_obtained,
+                                                                    korlok_attuned,
+                                                                    eldream_attuned, rock_4_con, rock_5_con, rock_6_con,
+                                                                    rock_7_con, chinzilla_defeated, apothecary_access,
+                                                                    beyond_seldon, seed_given, hatch_ready,
+                                                                    menagerie_access,
+                                                                    kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                    rock_8_con, rock_3_con, seed_scout_count,
+                                                                    seed_fighter_count, seed_mage_count,
+                                                                    dreth_cutscenes_not_viewed, mirror_learned,
+                                                                    stun_learned,
+                                                                    vanish_learned, boots_obtained, marrow_switch_phase,
+                                                                    erebyth_defeated, ramps_crate_1_got,
+                                                                    ramps_crate_2_got,
+                                                                    ramps_crate_3_got, ramps_crate_4_got,
+                                                                    ramps_crate_5_got,
+                                                                    marrow_attuned, npc_artherian.gift, artherian_2,
+                                                                    npc_artherian.quest_complete, fishing_unlocked,
+                                                                    fishing_journal_unlocked, bait_given,
+                                                                    basic_fish_counter,
+                                                                    better_fish_counter, even_better_fish_counter,
+                                                                    best_fish_counter, fishing_level, basic_fish_reward,
+                                                                    better_fish_reward, even_better_fish_reward,
+                                                                    best_fish_reward)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
                                 pygame.mixer.find_channel(True).play(sfx_save_game)
-                                info_text_1 = "You saved your game. "
+                                info_text_1 = info
                             if no_button.rect.collidepoint(pos) and saving:
                                 save_check_window.clear()
                                 saving = False
@@ -10869,7 +10992,10 @@ if __name__ == "__main__":
                                                                      defense_meter, weapon_select, pet_energy_window,
                                                                      Item, in_battle, vanished, vanish_overlay,
                                                                      basic_fish_counter, better_fish_counter,
-                                                                     even_better_fish_counter, best_fish_counter)
+                                                                     even_better_fish_counter, best_fish_counter,
+                                                                     sfx_ladder, sub_marrow_rect_2,
+                                                                     dungeon_gate_marrow_rect,
+                                                                     sfx_gate_open, has_key)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -10883,7 +11009,9 @@ if __name__ == "__main__":
                                                                      defense_meter, weapon_select, pet_energy_window,
                                                                      Item, in_battle, vanished, vanish_overlay,
                                                                      basic_fish_counter, better_fish_counter,
-                                                                     even_better_fish_counter, best_fish_counter)
+                                                                     even_better_fish_counter, best_fish_counter,
+                                                                     sfx_ladder, sub_marrow_rect_2,
+                                                                     dungeon_gate_marrow_rect, sfx_gate_open, has_key)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -10895,6 +11023,7 @@ if __name__ == "__main__":
                     info_text_4 = sub_marrow_returned["info_text_4"]
                     in_battle = sub_marrow_returned["in_battle"]
                     npc_tic = sub_marrow_returned["npc_tic"]
+                    has_key = sub_marrow_returned["has_key"]
                     if in_battle:
                         current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
 
@@ -11431,7 +11560,7 @@ if __name__ == "__main__":
                                                                                over_world_song_set,
                                                                                eldream_building_music, fishing,
                                                                                walk_tic, fishing_spot_eldream_1,
-                                                                               fishing_spot_eldream_1,
+                                                                               fishing_spot_eldream_2,
                                                                                graphic_dict, fishing_timer,
                                                                                fishing_level, basic_fish_counter,
                                                                                better_fish_counter,
@@ -12203,19 +12332,23 @@ if __name__ == "__main__":
                 # ------------------------------------------------------------------------------------------------------
                 # loot from any battle
                 if not vanished:
-                    try:
-                        loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                            battle_info_to_return_to_main_loop, leveled)
-                    except TypeError:
-                        drawing_functions.loot_popup_container.clear()
-                        drawing_functions.loot_text_container.clear()
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
+                    if (battle_info_to_return_to_main_loop["item dropped"] != ""
+                            or battle_info_to_return_to_main_loop["experience"] != 0
+                            or battle_info_to_return_to_main_loop["knowledge"] != ""):
+                        try:
+                            loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
+                                                                                battle_info_to_return_to_main_loop,
+                                                                                leveled)
+                        except TypeError:
+                            drawing_functions.loot_popup_container.clear()
+                            drawing_functions.loot_text_container.clear()
+                        try:
+                            loot_updated = loot_popup_returned["loot_updated"]
+                            loot_level_tic = loot_popup_returned["loot_level_tic"]
+                            loot_info = loot_popup_returned["loot_info"]
+                            leveled = loot_popup_returned["leveled"]
+                        except TypeError:
+                            pass
 
                 if fish_caught:
                     if not catch_played:
@@ -12672,9 +12805,13 @@ if __name__ == "__main__":
                                             if combat_events["item dropped"] != "No":
                                                 battle_info_to_return_to_main_loop["item dropped"] = \
                                                     str(combat_events["item dropped"])
+                                            else:
+                                                battle_info_to_return_to_main_loop["item dropped"] = ""
                                             if combat_events["experience gained"] != 0:
                                                 battle_info_to_return_to_main_loop["experience"] = \
                                                     str(combat_events["experience gained"])
+                                            else:
+                                                battle_info_to_return_to_main_loop["experience"] = ""
                                         # if enemy was defeated and player leveled up, add messages related to box
                                         if combat_events["enemy defeated"]:
                                             if combat_events["leveled"]:
@@ -12990,9 +13127,13 @@ if __name__ == "__main__":
                                                         if combat_events["item dropped"] != "No":
                                                             battle_info_to_return_to_main_loop["item dropped"] = \
                                                                 str(combat_events["item dropped"])
+                                                        else:
+                                                            battle_info_to_return_to_main_loop["item dropped"] = ""
                                                         if combat_events["experience gained"] != 0:
                                                             battle_info_to_return_to_main_loop["experience"] = \
                                                                 str(combat_events["experience gained"])
+                                                        else:
+                                                            battle_info_to_return_to_main_loop["experience"] = ""
                                                     if combat_events["enemy defeated"]:
                                                         if combat_events["leveled"]:
                                                             pygame.mixer.find_channel(True).play(sfx_level_up)
@@ -15715,7 +15856,6 @@ if __name__ == "__main__":
                                     player.quest_complete["can't apothecary it"] = True
                                     player.current_quests["can't apothecary it"] = "You completed this quest!"
                                     info_text_1 = "You've completed Kirean's quest!"
-                                    info_text_2 = "Your game has been saved. "
                                     info_text_3 = ""
                                     info_text_4 = ""
                                     player.star_power += 1
@@ -15730,36 +15870,41 @@ if __name__ == "__main__":
                                     player.reputation["sorae"] += 10
 
                                     # autosave on quest complete
-                                    gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                 sharp_sense_learned, saved, npc_garan.gift,
-                                                                 rest_recover_show, knowledge_academia_show,
-                                                                 quest_guide_shown, battle_guide_shown,
-                                                                 rest_shown_before, quest_highlight_popup,
-                                                                 bridge_not_repaired, nede_ghoul_defeated,
-                                                                 bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                 crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                 switch_3, muchador_defeated, has_key,
-                                                                 mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                 gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                 rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                 chinzilla_defeated, apothecary_access,
-                                                                 beyond_seldon, seed_given, hatch_ready,
-                                                                 menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                 iriana_unlocked, rock_8_con, rock_3_con,
-                                                                 seed_scout_count, seed_fighter_count,
-                                                                 seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                 mirror_learned, stun_learned, vanish_learned,
-                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated,
-                                                                 ramps_crate_1_got, ramps_crate_2_got,
-                                                                 ramps_crate_3_got, ramps_crate_4_got,
-                                                                 ramps_crate_5_got, marrow_attuned,
-                                                                 npc_artherian.gift, artherian_2,
-                                                                 npc_artherian.quest_complete, fishing_unlocked,
-                                                                 fishing_journal_unlocked, bait_given,
-                                                                 basic_fish_counter, better_fish_counter,
-                                                                 even_better_fish_counter, best_fish_counter,
-                                                                 fishing_level, basic_fish_reward, better_fish_reward,
-                                                                 even_better_fish_reward, best_fish_reward)
+                                    info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                        sharp_sense_learned, saved, npc_garan.gift,
+                                                                        rest_recover_show, knowledge_academia_show,
+                                                                        quest_guide_shown, battle_guide_shown,
+                                                                        rest_shown_before, quest_highlight_popup,
+                                                                        bridge_not_repaired, nede_ghoul_defeated,
+                                                                        bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                        crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                        switch_3, muchador_defeated, has_key,
+                                                                        mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                        gloves_obtained, korlok_attuned,
+                                                                        eldream_attuned,
+                                                                        rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                        chinzilla_defeated, apothecary_access,
+                                                                        beyond_seldon, seed_given, hatch_ready,
+                                                                        menagerie_access, kasper_unlocked,
+                                                                        torok_unlocked,
+                                                                        iriana_unlocked, rock_8_con, rock_3_con,
+                                                                        seed_scout_count, seed_fighter_count,
+                                                                        seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                        mirror_learned, stun_learned, vanish_learned,
+                                                                        boots_obtained, marrow_switch_phase,
+                                                                        erebyth_defeated,
+                                                                        ramps_crate_1_got, ramps_crate_2_got,
+                                                                        ramps_crate_3_got, ramps_crate_4_got,
+                                                                        ramps_crate_5_got, marrow_attuned,
+                                                                        npc_artherian.gift, artherian_2,
+                                                                        npc_artherian.quest_complete, fishing_unlocked,
+                                                                        fishing_journal_unlocked, bait_given,
+                                                                        basic_fish_counter, better_fish_counter,
+                                                                        even_better_fish_counter, best_fish_counter,
+                                                                        fishing_level, basic_fish_reward,
+                                                                        better_fish_reward,
+                                                                        even_better_fish_reward, best_fish_reward)
+                                    info_text_2 = info
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -16356,7 +16501,6 @@ if __name__ == "__main__":
                                     player.quest_complete["hatch 'em all"] = True
                                     player.current_quests["hatch 'em all"] = "You completed this quest!"
                                     info_text_1 = "You've completed Aitor's quest!"
-                                    info_text_2 = "Your game has been saved. "
                                     info_text_3 = ""
                                     info_text_4 = ""
                                     player.star_power += 1
@@ -16371,34 +16515,45 @@ if __name__ == "__main__":
                                     player.reputation["sorae"] += 10
 
                                     # autosave on quest complete
-                                    gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                 sharp_sense_learned, saved, npc_garan.gift,
-                                                                 rest_recover_show, knowledge_academia_show,
-                                                                 quest_guide_shown, battle_guide_shown,
-                                                                 rest_shown_before, quest_highlight_popup,
-                                                                 bridge_not_repaired, nede_ghoul_defeated,
-                                                                 bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3,
-                                                                 crate_4, crate_5, switch_1, switch_2, switch_3,
-                                                                 muchador_defeated, has_key, mini_boss_1_defeated,
-                                                                 mini_boss_2_defeated, gloves_obtained, korlok_attuned,
-                                                                 eldream_attuned, rock_4_con, rock_5_con, rock_6_con,
-                                                                 rock_7_con, chinzilla_defeated, apothecary_access,
-                                                                 beyond_seldon, seed_given, hatch_ready,
-                                                                 menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                 iriana_unlocked, rock_8_con, rock_3_con,
-                                                                 seed_scout_count, seed_fighter_count, seed_mage_count,
-                                                                 dreth_cutscenes_not_viewed, mirror_learned,
-                                                                 stun_learned, vanish_learned, boots_obtained,
-                                                                 marrow_switch_phase, erebyth_defeated,
-                                                                 ramps_crate_1_got, ramps_crate_2_got,
-                                                                 ramps_crate_3_got, ramps_crate_4_got,
-                                                                 ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
-                                                                 artherian_2, npc_artherian.quest_complete,
-                                                                 fishing_unlocked, fishing_journal_unlocked, bait_given,
-                                                                 basic_fish_counter, better_fish_counter,
-                                                                 even_better_fish_counter, best_fish_counter,
-                                                                 fishing_level, basic_fish_reward, better_fish_reward,
-                                                                 even_better_fish_reward, best_fish_reward)
+                                    info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                        sharp_sense_learned, saved, npc_garan.gift,
+                                                                        rest_recover_show, knowledge_academia_show,
+                                                                        quest_guide_shown, battle_guide_shown,
+                                                                        rest_shown_before, quest_highlight_popup,
+                                                                        bridge_not_repaired, nede_ghoul_defeated,
+                                                                        bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                        crate_3,
+                                                                        crate_4, crate_5, switch_1, switch_2, switch_3,
+                                                                        muchador_defeated, has_key,
+                                                                        mini_boss_1_defeated,
+                                                                        mini_boss_2_defeated, gloves_obtained,
+                                                                        korlok_attuned,
+                                                                        eldream_attuned, rock_4_con, rock_5_con,
+                                                                        rock_6_con,
+                                                                        rock_7_con, chinzilla_defeated,
+                                                                        apothecary_access,
+                                                                        beyond_seldon, seed_given, hatch_ready,
+                                                                        menagerie_access, kasper_unlocked,
+                                                                        torok_unlocked,
+                                                                        iriana_unlocked, rock_8_con, rock_3_con,
+                                                                        seed_scout_count, seed_fighter_count,
+                                                                        seed_mage_count,
+                                                                        dreth_cutscenes_not_viewed, mirror_learned,
+                                                                        stun_learned, vanish_learned, boots_obtained,
+                                                                        marrow_switch_phase, erebyth_defeated,
+                                                                        ramps_crate_1_got, ramps_crate_2_got,
+                                                                        ramps_crate_3_got, ramps_crate_4_got,
+                                                                        ramps_crate_5_got, marrow_attuned,
+                                                                        npc_artherian.gift,
+                                                                        artherian_2, npc_artherian.quest_complete,
+                                                                        fishing_unlocked, fishing_journal_unlocked,
+                                                                        bait_given,
+                                                                        basic_fish_counter, better_fish_counter,
+                                                                        even_better_fish_counter, best_fish_counter,
+                                                                        fishing_level, basic_fish_reward,
+                                                                        better_fish_reward,
+                                                                        even_better_fish_reward, best_fish_reward)
+                                    info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
                                     drawing_functions.quest_box_draw("aitor", True, garan_quest_window,
@@ -16829,39 +16984,43 @@ if __name__ == "__main__":
                             if basic_fish_counter >= 4 and not fishing_journal_unlocked:
                                 pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                 info_text_1 = "You've completed the fishing task!"
-                                info_text_2 = "Your game has been saved. "
                                 fishing_journal_unlocked = True
 
                                 # autosave on quest complete
-                                gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                             sharp_sense_learned, saved, npc_garan.gift,
-                                                             rest_recover_show, knowledge_academia_show,
-                                                             quest_guide_shown, battle_guide_shown,
-                                                             rest_shown_before, quest_highlight_popup,
-                                                             bridge_not_repaired, nede_ghoul_defeated,
-                                                             bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                             crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                             switch_3, muchador_defeated, has_key,
-                                                             mini_boss_1_defeated, mini_boss_2_defeated,
-                                                             gloves_obtained, korlok_attuned, eldream_attuned,
-                                                             rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                             chinzilla_defeated, apothecary_access,
-                                                             beyond_seldon, seed_given, hatch_ready,
-                                                             menagerie_access, kasper_unlocked, torok_unlocked,
-                                                             iriana_unlocked, rock_8_con, rock_3_con,
-                                                             seed_scout_count, seed_fighter_count, seed_mage_count,
-                                                             dreth_cutscenes_not_viewed, mirror_learned,
-                                                             stun_learned, vanish_learned, boots_obtained,
-                                                             marrow_switch_phase, erebyth_defeated,
-                                                             ramps_crate_1_got, ramps_crate_2_got,
-                                                             ramps_crate_3_got, ramps_crate_4_got,
-                                                             ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
-                                                             artherian_2, npc_artherian.quest_complete,
-                                                             fishing_unlocked, fishing_journal_unlocked, bait_given,
-                                                             basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counter,
-                                                             fishing_level, basic_fish_reward, better_fish_reward,
-                                                             even_better_fish_reward, best_fish_reward)
+                                info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                    sharp_sense_learned, saved, npc_garan.gift,
+                                                                    rest_recover_show, knowledge_academia_show,
+                                                                    quest_guide_shown, battle_guide_shown,
+                                                                    rest_shown_before, quest_highlight_popup,
+                                                                    bridge_not_repaired, nede_ghoul_defeated,
+                                                                    bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                    crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                    switch_3, muchador_defeated, has_key,
+                                                                    mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                    gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                    rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                    chinzilla_defeated, apothecary_access,
+                                                                    beyond_seldon, seed_given, hatch_ready,
+                                                                    menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                    iriana_unlocked, rock_8_con, rock_3_con,
+                                                                    seed_scout_count, seed_fighter_count,
+                                                                    seed_mage_count,
+                                                                    dreth_cutscenes_not_viewed, mirror_learned,
+                                                                    stun_learned, vanish_learned, boots_obtained,
+                                                                    marrow_switch_phase, erebyth_defeated,
+                                                                    ramps_crate_1_got, ramps_crate_2_got,
+                                                                    ramps_crate_3_got, ramps_crate_4_got,
+                                                                    ramps_crate_5_got, marrow_attuned,
+                                                                    npc_artherian.gift,
+                                                                    artherian_2, npc_artherian.quest_complete,
+                                                                    fishing_unlocked, fishing_journal_unlocked,
+                                                                    bait_given,
+                                                                    basic_fish_counter, better_fish_counter,
+                                                                    even_better_fish_counter, best_fish_counter,
+                                                                    fishing_level, basic_fish_reward,
+                                                                    better_fish_reward,
+                                                                    even_better_fish_reward, best_fish_reward)
+                                info_text_2 = info
 
                             if not quest_clicked:
                                 if basic_fish_counter < 4:
@@ -17278,11 +17437,11 @@ if __name__ == "__main__":
                                         player.quest_complete["sneaky snakes"] = True
                                         player.current_quests["sneaky snakes"] = "You completed this quest!"
                                         info_text_1 = "You've completed Garan's quest!"
-                                        info_text_2 = "Your game has been saved. "
                                         info_text_3 = ""
                                         info_text_4 = ""
                                         player.star_power += 1
                                         player.experience += 50
+                                        player.rupees += 10
                                         if player.experience >= 100:
                                             gameplay_functions.level_up(player, level_up_win, level_up_font)
                                             leveled = True
@@ -17292,37 +17451,47 @@ if __name__ == "__main__":
                                         player.reputation["amuna"] += 10
 
                                         # autosave on quest complete
-                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                     sharp_sense_learned, saved, npc_garan.gift,
-                                                                     rest_recover_show, knowledge_academia_show,
-                                                                     quest_guide_shown, battle_guide_shown,
-                                                                     rest_shown_before, quest_highlight_popup,
-                                                                     bridge_not_repaired, nede_ghoul_defeated,
-                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                     crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                     switch_3, muchador_defeated, has_key,
-                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                     chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon, seed_given, hatch_ready,
-                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked, rock_8_con, rock_3_con,
-                                                                     seed_scout_count, seed_fighter_count,
-                                                                     seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                     mirror_learned, stun_learned, vanish_learned,
-                                                                     boots_obtained, marrow_switch_phase,
-                                                                     erebyth_defeated, ramps_crate_1_got,
-                                                                     ramps_crate_2_got, ramps_crate_3_got,
-                                                                     ramps_crate_4_got, ramps_crate_5_got,
-                                                                     marrow_attuned, npc_artherian.gift, artherian_2,
-                                                                     npc_artherian.quest_complete, fishing_unlocked,
-                                                                     fishing_journal_unlocked, bait_given,
-                                                                     basic_fish_counter, better_fish_counter,
-                                                                     even_better_fish_counter, best_fish_counter,
-                                                                     fishing_level, basic_fish_reward,
-                                                                     better_fish_reward, even_better_fish_reward,
-                                                                     best_fish_reward)
+                                        info = gameplay_functions.save_game(player, barrier_learned,
+                                                                            hard_strike_learned,
+                                                                            sharp_sense_learned, saved, npc_garan.gift,
+                                                                            rest_recover_show, knowledge_academia_show,
+                                                                            quest_guide_shown, battle_guide_shown,
+                                                                            rest_shown_before, quest_highlight_popup,
+                                                                            bridge_not_repaired, nede_ghoul_defeated,
+                                                                            bridge_cutscenes_not_viewed, crate_1,
+                                                                            crate_2,
+                                                                            crate_3, crate_4, crate_5, switch_1,
+                                                                            switch_2,
+                                                                            switch_3, muchador_defeated, has_key,
+                                                                            mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                            gloves_obtained, korlok_attuned,
+                                                                            eldream_attuned,
+                                                                            rock_4_con, rock_5_con, rock_6_con,
+                                                                            rock_7_con,
+                                                                            chinzilla_defeated, apothecary_access,
+                                                                            beyond_seldon, seed_given, hatch_ready,
+                                                                            menagerie_access, kasper_unlocked,
+                                                                            torok_unlocked,
+                                                                            iriana_unlocked, rock_8_con, rock_3_con,
+                                                                            seed_scout_count, seed_fighter_count,
+                                                                            seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                            mirror_learned, stun_learned,
+                                                                            vanish_learned,
+                                                                            boots_obtained, marrow_switch_phase,
+                                                                            erebyth_defeated, ramps_crate_1_got,
+                                                                            ramps_crate_2_got, ramps_crate_3_got,
+                                                                            ramps_crate_4_got, ramps_crate_5_got,
+                                                                            marrow_attuned, npc_artherian.gift,
+                                                                            artherian_2,
+                                                                            npc_artherian.quest_complete,
+                                                                            fishing_unlocked,
+                                                                            fishing_journal_unlocked, bait_given,
+                                                                            basic_fish_counter, better_fish_counter,
+                                                                            even_better_fish_counter, best_fish_counter,
+                                                                            fishing_level, basic_fish_reward,
+                                                                            better_fish_reward, even_better_fish_reward,
+                                                                            best_fish_reward)
+                                        info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -17509,37 +17678,46 @@ if __name__ == "__main__":
                                         player.reputation["nuldar"] += 10
 
                                         # autosave on quest complete
-                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                     sharp_sense_learned, saved, npc_garan.gift,
-                                                                     rest_recover_show, knowledge_academia_show,
-                                                                     quest_guide_shown, battle_guide_shown,
-                                                                     rest_shown_before, quest_highlight_popup,
-                                                                     bridge_not_repaired, nede_ghoul_defeated,
-                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                     crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                     switch_3, muchador_defeated, has_key,
-                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                     chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon, seed_given, hatch_ready,
-                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked, rock_8_con, rock_3_con,
-                                                                     seed_scout_count, seed_fighter_count,
-                                                                     seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                     mirror_learned, stun_learned, vanish_learned,
-                                                                     boots_obtained, marrow_switch_phase,
-                                                                     erebyth_defeated, ramps_crate_1_got,
-                                                                     ramps_crate_2_got, ramps_crate_3_got,
-                                                                     ramps_crate_4_got, ramps_crate_5_got,
-                                                                     marrow_attuned, npc_artherian.gift, artherian_2,
-                                                                     npc_artherian.quest_complete, fishing_unlocked,
-                                                                     fishing_journal_unlocked, bait_given,
-                                                                     basic_fish_counter, better_fish_counter,
-                                                                     even_better_fish_counter, best_fish_counter,
-                                                                     fishing_level, basic_fish_reward,
-                                                                     better_fish_reward, even_better_fish_reward,
-                                                                     best_fish_reward)
+                                        info = gameplay_functions.save_game(player, barrier_learned,
+                                                                            hard_strike_learned,
+                                                                            sharp_sense_learned, saved, npc_garan.gift,
+                                                                            rest_recover_show, knowledge_academia_show,
+                                                                            quest_guide_shown, battle_guide_shown,
+                                                                            rest_shown_before, quest_highlight_popup,
+                                                                            bridge_not_repaired, nede_ghoul_defeated,
+                                                                            bridge_cutscenes_not_viewed, crate_1,
+                                                                            crate_2,
+                                                                            crate_3, crate_4, crate_5, switch_1,
+                                                                            switch_2,
+                                                                            switch_3, muchador_defeated, has_key,
+                                                                            mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                            gloves_obtained, korlok_attuned,
+                                                                            eldream_attuned,
+                                                                            rock_4_con, rock_5_con, rock_6_con,
+                                                                            rock_7_con,
+                                                                            chinzilla_defeated, apothecary_access,
+                                                                            beyond_seldon, seed_given, hatch_ready,
+                                                                            menagerie_access, kasper_unlocked,
+                                                                            torok_unlocked,
+                                                                            iriana_unlocked, rock_8_con, rock_3_con,
+                                                                            seed_scout_count, seed_fighter_count,
+                                                                            seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                            mirror_learned, stun_learned,
+                                                                            vanish_learned,
+                                                                            boots_obtained, marrow_switch_phase,
+                                                                            erebyth_defeated, ramps_crate_1_got,
+                                                                            ramps_crate_2_got, ramps_crate_3_got,
+                                                                            ramps_crate_4_got, ramps_crate_5_got,
+                                                                            marrow_attuned, npc_artherian.gift,
+                                                                            artherian_2,
+                                                                            npc_artherian.quest_complete,
+                                                                            fishing_unlocked,
+                                                                            fishing_journal_unlocked, bait_given,
+                                                                            basic_fish_counter, better_fish_counter,
+                                                                            even_better_fish_counter, best_fish_counter,
+                                                                            fishing_level, basic_fish_reward,
+                                                                            better_fish_reward, even_better_fish_reward,
+                                                                            best_fish_reward)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -17728,37 +17906,47 @@ if __name__ == "__main__":
                                         player.reputation["amuna"] += 10
 
                                         # autosave on quest complete
-                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                     sharp_sense_learned, saved, npc_garan.gift,
-                                                                     rest_recover_show, knowledge_academia_show,
-                                                                     quest_guide_shown, battle_guide_shown,
-                                                                     rest_shown_before, quest_highlight_popup,
-                                                                     bridge_not_repaired, nede_ghoul_defeated,
-                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                     crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                     switch_3, muchador_defeated, has_key,
-                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                     chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon, seed_given, hatch_ready,
-                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked, rock_8_con, rock_3_con,
-                                                                     seed_scout_count, seed_fighter_count,
-                                                                     seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                     mirror_learned, stun_learned, vanish_learned,
-                                                                     boots_obtained, marrow_switch_phase,
-                                                                     erebyth_defeated, ramps_crate_1_got,
-                                                                     ramps_crate_2_got, ramps_crate_3_got,
-                                                                     ramps_crate_4_got, ramps_crate_5_got,
-                                                                     marrow_attuned, npc_artherian.gift, artherian_2,
-                                                                     npc_artherian.quest_complete, fishing_unlocked,
-                                                                     fishing_journal_unlocked, bait_given,
-                                                                     basic_fish_counter, better_fish_counter,
-                                                                     even_better_fish_counter, best_fish_counter,
-                                                                     fishing_level, basic_fish_reward,
-                                                                     better_fish_reward, even_better_fish_reward,
-                                                                     best_fish_reward)
+                                        info = gameplay_functions.save_game(player, barrier_learned,
+                                                                            hard_strike_learned,
+                                                                            sharp_sense_learned, saved, npc_garan.gift,
+                                                                            rest_recover_show, knowledge_academia_show,
+                                                                            quest_guide_shown, battle_guide_shown,
+                                                                            rest_shown_before, quest_highlight_popup,
+                                                                            bridge_not_repaired, nede_ghoul_defeated,
+                                                                            bridge_cutscenes_not_viewed, crate_1,
+                                                                            crate_2,
+                                                                            crate_3, crate_4, crate_5, switch_1,
+                                                                            switch_2,
+                                                                            switch_3, muchador_defeated, has_key,
+                                                                            mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                            gloves_obtained, korlok_attuned,
+                                                                            eldream_attuned,
+                                                                            rock_4_con, rock_5_con, rock_6_con,
+                                                                            rock_7_con,
+                                                                            chinzilla_defeated, apothecary_access,
+                                                                            beyond_seldon, seed_given, hatch_ready,
+                                                                            menagerie_access, kasper_unlocked,
+                                                                            torok_unlocked,
+                                                                            iriana_unlocked, rock_8_con, rock_3_con,
+                                                                            seed_scout_count, seed_fighter_count,
+                                                                            seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                            mirror_learned, stun_learned,
+                                                                            vanish_learned,
+                                                                            boots_obtained, marrow_switch_phase,
+                                                                            erebyth_defeated, ramps_crate_1_got,
+                                                                            ramps_crate_2_got, ramps_crate_3_got,
+                                                                            ramps_crate_4_got, ramps_crate_5_got,
+                                                                            marrow_attuned, npc_artherian.gift,
+                                                                            artherian_2,
+                                                                            npc_artherian.quest_complete,
+                                                                            fishing_unlocked,
+                                                                            fishing_journal_unlocked, bait_given,
+                                                                            basic_fish_counter, better_fish_counter,
+                                                                            even_better_fish_counter, best_fish_counter,
+                                                                            fishing_level, basic_fish_reward,
+                                                                            better_fish_reward, even_better_fish_reward,
+                                                                            best_fish_reward)
+                                        info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"

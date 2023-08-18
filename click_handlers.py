@@ -441,22 +441,22 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 return_dict["item message"] = "You're already full health or energy."
         if item.name == "mage book":
             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-            player.knowledge["mage"] = player.knowledge["mage"] + 20
+            player.knowledge["mage"] = player.knowledge["mage"] + 40
             drawing_functions.player_items.remove(item)
             player.items.remove(item)
-            return_dict["item message"] = "You gain 20 mage knowledge."
+            return_dict["item message"] = "You gain 40 mage knowledge."
         if item.name == "fighter book":
             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-            player.knowledge["fighter"] = player.knowledge["fighter"] + 20
+            player.knowledge["fighter"] = player.knowledge["fighter"] + 40
             drawing_functions.player_items.remove(item)
             player.items.remove(item)
-            return_dict["item message"] = "You gain 20 fighter knowledge."
+            return_dict["item message"] = "You gain 40 fighter knowledge."
         if item.name == "scout book":
             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-            player.knowledge["scout"] = player.knowledge["scout"] + 20
+            player.knowledge["scout"] = player.knowledge["scout"] + 40
             drawing_functions.player_items.remove(item)
             player.items.remove(item)
-            return_dict["item message"] = "You gain 20 scout knowledge."
+            return_dict["item message"] = "You gain 40 scout knowledge."
         if item.name == "seldon firework" or item.name == "korlok firework" or item.name == "eldream firework":
             pygame.mixer.find_channel(True).play(sfx_firework)
             return_dict["item message"] = "boom shakalaka."
