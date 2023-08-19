@@ -21,7 +21,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       dungeon_chest_ramps, dungeon_switch_ramps_2, erebyth, dungeon_switch_ramps_1, ramps_crate_5,
                       forge_rect, interacted, event, ectrenos_alcove_enemies, alcove_fishing_rect,
                       alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2, sub_marrow_rect_2,
-                      dungeon_gate_marrow):
+                      dungeon_gate_marrow, dungeon_chest_marrow_small):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -182,6 +182,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, dungeon_gate_marrow):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, dungeon_chest_marrow_small):
+                interacted = True
             else:
                 interacted = False
         if player.current_zone == "marrow entrance":
@@ -336,7 +338,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "sub marrow":
             if (not pygame.Rect.colliderect(player.rect, sub_marrow_rect)
-                    and not pygame.Rect.colliderect(player.rect, dungeon_gate_marrow)):
+                    and not pygame.Rect.colliderect(player.rect, dungeon_gate_marrow)
+                    and not pygame.Rect.colliderect(player.rect, dungeon_chest_marrow_small)):
                 interacted = False
         if player.current_zone == "marrow entrance":
             if (not pygame.sprite.spritecollideany(player, interactables_marrow_entrance)
@@ -1901,6 +1904,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["better_fish_reward"] = player_load_info["better_fish_reward"]
             load_return["even_better_fish_reward"] = player_load_info["even_better_fish_reward"]
             load_return["best_fish_reward"] = player_load_info["best_fish_reward"]
+            load_return["marrow_small_chest_got"] = player_load_info["marrow_small_chest_got"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -1923,7 +1927,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               ramps_crate_1, ramps_crate_2, ramps_crate_3, ramps_crate_4, ramps_crate_5, marrow_attuned,
               artherian_gift, artherian_2, artherian_complete, fishing_unlocked, fishing_journal_unlocked,
               bait_given, basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter,
-              fishing_level, basic_fish_reward, better_fish_reward, even_better_fish_reward, best_fish_reward):
+              fishing_level, basic_fish_reward, better_fish_reward, even_better_fish_reward, best_fish_reward,
+              marrow_small_chest_got):
 
     inventory_save = []
     equipment_save = []
@@ -2003,7 +2008,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter,
                         "fishing_level": fishing_level, "basic_fish_reward": basic_fish_reward,
                         "better_fish_reward": better_fish_reward, "even_better_fish_reward": even_better_fish_reward,
-                        "best_fish_reward": best_fish_reward}
+                        "best_fish_reward": best_fish_reward, "marrow_small_chest_got": marrow_small_chest_got}
 
     try:
         with open("save", "wb") as ff:

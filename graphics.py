@@ -225,6 +225,7 @@ def load_graphics():
     m_switch_p = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_purple.png')).convert_alpha()
     m_switch_c = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_complete.png')).convert_alpha()
     m_switch_box = pygame.image.load(resource_path('resources/art/marrow_switch_box.png')).convert_alpha()
+    chest_small = pygame.image.load(resource_path('resources/art/sprite_dungeon_chest_small.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -256,11 +257,12 @@ def load_graphics():
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
                   m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_box, popup_wide,
-                  overlay_enemy_vanish, chroma_forge, overlay_smelting, overlay_enchanting]
+                  overlay_enemy_vanish, chroma_forge, overlay_smelting, overlay_enchanting, chest_small]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["chest_small"] = chest_small
     loaded_dict["flower_counts"] = overlay_flower_counts
     loaded_dict["fish_counts"] = overlay_fish_counts
     loaded_dict["fishing_journal"] = fishing_journal

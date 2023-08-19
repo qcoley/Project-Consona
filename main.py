@@ -7467,6 +7467,8 @@ if __name__ == "__main__":
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
 
+    dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 568, graphic_dict["chest_small"])
+
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
     pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, graphic_dict["pine_tree"])
@@ -7770,6 +7772,8 @@ if __name__ == "__main__":
     sfx_enemy_erebyth_flame.set_volume(0.25)
     sfx_stelli_battle = pygame.mixer.Sound(resource_path("resources/sounds/stelli_battle.mp3"))
     sfx_stelli_battle.set_volume(0.20)
+    sfx_enemy_osodark = pygame.mixer.Sound(resource_path("resources/sounds/enemy_osodark.mp3"))
+    sfx_enemy_osodark.set_volume(0.20)
 
     sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
     sfx_surprise_attack.set_volume(0.20)
@@ -7785,11 +7789,14 @@ if __name__ == "__main__":
     sfx_sheet_paper.set_volume(0.50)
 
     sfx_steps_path = pygame.mixer.Sound(resource_path("resources/sounds/steps_path.mp3"))
-    sfx_steps_path.set_volume(0.05)
+    sfx_steps_path.set_volume(0.06)
     sfx_steps_water = pygame.mixer.Sound(resource_path("resources/sounds/steps_water.mp3"))
-    sfx_steps_water.set_volume(0.05)
+    sfx_steps_water.set_volume(0.12)
     sfx_steps_chroma = pygame.mixer.Sound(resource_path("resources/sounds/sfx_chroma_walk.mp3"))
-    sfx_steps_chroma.set_volume(0.20)
+    sfx_steps_chroma.set_volume(0.18)
+
+    sfx_item_chroma = pygame.mixer.Sound(resource_path("resources/sounds/sfx_chroma_walk.mp3"))
+    sfx_item_chroma.set_volume(0.40)
 
     sfx_item_rupee = pygame.mixer.Sound(resource_path("resources/sounds/item_rupee.mp3"))
     sfx_item_rupee.set_volume(0.20)
@@ -8067,6 +8074,7 @@ if __name__ == "__main__":
     logo_alpha_set = False
     music_toggle = False
     catch_played = False
+    marrow_small_chest_got = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -8135,7 +8143,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -8767,6 +8775,7 @@ if __name__ == "__main__":
                         better_fish_reward = load_returned["better_fish_reward"]
                         even_better_fish_reward = load_returned["even_better_fish_reward"]
                         best_fish_reward = load_returned["best_fish_reward"]
+                        marrow_small_chest_got = load_returned["marrow_small_chest_got"]
 
                         if player.race == "amuna":
                             player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
@@ -9057,7 +9066,8 @@ if __name__ == "__main__":
                                                                       ectrenos_alcove_enemies, alcove_fishing_rect_1,
                                                                       alcove_fishing_rect_2, fishing_spot_eldream_1,
                                                                       fishing_spot_eldream_2, sub_marrow_rect_2,
-                                                                      dungeon_gate_marrow_rect)
+                                                                      dungeon_gate_marrow_rect,
+                                                                      dungeon_chest_small_marrow)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9092,8 +9102,23 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_steps_water)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
-                                if player.current_zone == "ectrenos left":
+                                elif player.current_zone == "ectrenos left":
                                     if 645 > player.x_coordinate > 320:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "stardust":
+                                    if 350 > player.x_coordinate > 260 and 335 > player.y_coordinate > 235:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "forge":
+                                    if 620 > player.y_coordinate > 475:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "marrow ramps west":
+                                    if 530 > player.y_coordinate > 280:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -9117,8 +9142,23 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_steps_water)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
-                                if player.current_zone == "ectrenos left":
+                                elif player.current_zone == "ectrenos left":
                                     if 645 > player.x_coordinate > 320:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "stardust":
+                                    if 350 > player.x_coordinate > 260 and 335 > player.y_coordinate > 235:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "forge":
+                                    if 620 > player.y_coordinate > 475:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "marrow ramps west":
+                                    if 530 > player.y_coordinate > 280:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -9141,8 +9181,23 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_steps_water)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
-                                if player.current_zone == "ectrenos left":
+                                elif player.current_zone == "ectrenos left":
                                     if 645 > player.x_coordinate > 320:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "stardust":
+                                    if 350 > player.x_coordinate > 260 and 335 > player.y_coordinate > 235:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "forge":
+                                    if 620 > player.y_coordinate > 475:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "marrow ramps west":
+                                    if 530 > player.y_coordinate > 280:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -9165,8 +9220,23 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_steps_water)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
-                                if player.current_zone == "ectrenos left":
+                                elif player.current_zone == "ectrenos left":
                                     if 645 > player.x_coordinate > 320:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "stardust":
+                                    if 350 > player.x_coordinate > 260 and 335 > player.y_coordinate > 235:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "forge":
+                                    if 620 > player.y_coordinate > 475:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "marrow ramps west":
+                                    if 530 > player.y_coordinate > 280:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -9264,7 +9334,8 @@ if __name__ == "__main__":
                                                                                   fishing_spot_eldream_1,
                                                                                   fishing_spot_eldream_2,
                                                                                   sub_marrow_rect_2,
-                                                                                  dungeon_gate_marrow_rect)
+                                                                                  dungeon_gate_marrow_rect,
+                                                                                  dungeon_chest_small_marrow)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -9465,7 +9536,7 @@ if __name__ == "__main__":
                                                                         even_better_fish_counter, best_fish_counter,
                                                                         fishing_level, basic_fish_reward,
                                                                         better_fish_reward, even_better_fish_reward,
-                                                                        best_fish_reward)
+                                                                        best_fish_reward, marrow_small_chest_got)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -9511,7 +9582,7 @@ if __name__ == "__main__":
                                                                     better_fish_counter, even_better_fish_counter,
                                                                     best_fish_counter, fishing_level, basic_fish_reward,
                                                                     better_fish_reward, even_better_fish_reward,
-                                                                    best_fish_reward)
+                                                                    best_fish_reward, marrow_small_chest_got)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -10995,7 +11066,8 @@ if __name__ == "__main__":
                                                                      even_better_fish_counter, best_fish_counter,
                                                                      sfx_ladder, sub_marrow_rect_2,
                                                                      dungeon_gate_marrow_rect,
-                                                                     sfx_gate_open, has_key)
+                                                                     sfx_gate_open, has_key, dungeon_chest_small_marrow,
+                                                                     sfx_item_chroma, marrow_small_chest_got)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -11011,7 +11083,9 @@ if __name__ == "__main__":
                                                                      basic_fish_counter, better_fish_counter,
                                                                      even_better_fish_counter, best_fish_counter,
                                                                      sfx_ladder, sub_marrow_rect_2,
-                                                                     dungeon_gate_marrow_rect, sfx_gate_open, has_key)
+                                                                     dungeon_gate_marrow_rect, sfx_gate_open, has_key,
+                                                                     dungeon_chest_small_marrow, sfx_item_chroma,
+                                                                     marrow_small_chest_got)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -11024,6 +11098,7 @@ if __name__ == "__main__":
                     in_battle = sub_marrow_returned["in_battle"]
                     npc_tic = sub_marrow_returned["npc_tic"]
                     has_key = sub_marrow_returned["has_key"]
+                    marrow_small_chest_got = sub_marrow_returned["chest_got"]
                     if in_battle:
                         current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
 
@@ -12514,6 +12589,7 @@ if __name__ == "__main__":
                         pygame.mixer.Sound.stop(sfx_enemy_chinzilla)
                         pygame.mixer.Sound.stop(sfx_enemy_necrola)
                         pygame.mixer.Sound.stop(sfx_stelli_battle)
+                        pygame.mixer.Sound.stop(sfx_enemy_osodark)
 
                         # reset on each new turn
                         turn_taken = False
@@ -12745,6 +12821,8 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
                                 if current_enemy_battling.kind == "stelli":
                                     pygame.mixer.find_channel(True).play(sfx_stelli_battle)
+                                if current_enemy_battling.kind == "osodark":
+                                    pygame.mixer.find_channel(True).play(sfx_enemy_osodark)
                                 if current_enemy_battling.kind == "erebyth":
                                     if erebyth_turn_counter == 2:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_flame)
@@ -15903,7 +15981,8 @@ if __name__ == "__main__":
                                                                         even_better_fish_counter, best_fish_counter,
                                                                         fishing_level, basic_fish_reward,
                                                                         better_fish_reward,
-                                                                        even_better_fish_reward, best_fish_reward)
+                                                                        even_better_fish_reward, best_fish_reward,
+                                                                        marrow_small_chest_got)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -16552,7 +16631,8 @@ if __name__ == "__main__":
                                                                         even_better_fish_counter, best_fish_counter,
                                                                         fishing_level, basic_fish_reward,
                                                                         better_fish_reward,
-                                                                        even_better_fish_reward, best_fish_reward)
+                                                                        even_better_fish_reward, best_fish_reward,
+                                                                        marrow_small_chest_got)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -17019,7 +17099,8 @@ if __name__ == "__main__":
                                                                     even_better_fish_counter, best_fish_counter,
                                                                     fishing_level, basic_fish_reward,
                                                                     better_fish_reward,
-                                                                    even_better_fish_reward, best_fish_reward)
+                                                                    even_better_fish_reward, best_fish_reward,
+                                                                    marrow_small_chest_got)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -17490,7 +17571,7 @@ if __name__ == "__main__":
                                                                             even_better_fish_counter, best_fish_counter,
                                                                             fishing_level, basic_fish_reward,
                                                                             better_fish_reward, even_better_fish_reward,
-                                                                            best_fish_reward)
+                                                                            best_fish_reward, marrow_small_chest_got)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -17717,7 +17798,7 @@ if __name__ == "__main__":
                                                                             even_better_fish_counter, best_fish_counter,
                                                                             fishing_level, basic_fish_reward,
                                                                             better_fish_reward, even_better_fish_reward,
-                                                                            best_fish_reward)
+                                                                            best_fish_reward, marrow_small_chest_got)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -17945,7 +18026,7 @@ if __name__ == "__main__":
                                                                             even_better_fish_counter, best_fish_counter,
                                                                             fishing_level, basic_fish_reward,
                                                                             better_fish_reward, even_better_fish_reward,
-                                                                            best_fish_reward)
+                                                                            best_fish_reward, marrow_small_chest_got)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "

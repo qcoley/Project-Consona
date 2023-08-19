@@ -1588,7 +1588,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                Item, in_battle, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                even_better_fish_counter, best_fish_counter, sfx_ladder, sub_marrow_rect, dungeon_gate_rect, sfx_gate,
-               has_key):
+               has_key, dungeon_chest, sfx_chroma, chest_got):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1602,6 +1602,9 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if not chest_got:
+        screen.blit(dungeon_chest.surf, dungeon_chest.rect)
 
     try:
         for pet in player.pet:
@@ -1678,6 +1681,33 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 interacted = False
 
+    if pygame.Rect.colliderect(player.rect, dungeon_chest):
+        if not chest_got:
+            interaction_popup.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("small chest"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world and not chest_got:
+            if not chest_got:
+                if len(player.items) < 16:
+                    pygame.mixer.find_channel(True).play(sfx_chroma)
+                    info_text_1 = "You found a focusing prism!"
+                    info_text_2 = ""
+                    player.items.append(Item("prism", "prism", 200, 200, graphic_dict["prism"], 0))
+                    chest_got = True
+                    dungeon_chest.kill()
+                else:
+                    info_text_1 = "Your inventory is full."
+                    info_text_2 = ""
+            else:
+                info_text_1 = "This chest is empty."
+                info_text_2 = ""
+            interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -1709,6 +1739,6 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     sub_marrow_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "in_battle": in_battle,
                          "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                          "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                         "movement_able": movement_able, "has_key": has_key}
+                         "movement_able": movement_able, "has_key": has_key, "chest_got": chest_got}
 
     return sub_marrow_return
