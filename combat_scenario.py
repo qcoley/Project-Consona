@@ -1559,7 +1559,8 @@ def battle_animation_player(player, player_battle_sprite, barrier_active, sharp_
 def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            in_battle, in_npc_interaction, graphics, necrola_battle_sprite, osodark_battle_sprite,
-                           stelli_battle_sprite, chorizon_phase, erebyth_battle_sprite, erebyth_counter):
+                           stelli_battle_sprite, chorizon_phase, erebyth_battle_sprite, erebyth_counter,
+                           atmon_battle_sprite):
 
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
@@ -1599,6 +1600,8 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
             erebyth_battle_sprite.update(695, 350, graphics["erebyth_battle"])
             if erebyth_counter == 2:
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_phase_attack"])
+        if enemy.kind == "atmon":
+            atmon_battle_sprite.update(705, 300, graphics["atmon_battle"])
 
 
 # update player character and enemy sprites for combat animation
@@ -3755,7 +3758,7 @@ def fighter(graphics, player, player_battle_sprite, sharp_sense_active, barrier_
 def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite,
-                           chorizon_phase, damage, erebyth_battle_sprite, erebyth_counter):
+                           chorizon_phase, damage, erebyth_battle_sprite, erebyth_counter, atmon_battle_sprite):
 
     if damage > 0:
         if enemy.kind == "snake":
@@ -3799,6 +3802,8 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_big_attack"])
             else:
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_attack"])
+        if enemy.kind == "atmon":
+            atmon_battle_sprite.update(705, 300, graphics["atmon_attack"])
 
 
 def enemy_health_bar(enemys, graphics):
@@ -3810,7 +3815,8 @@ def enemy_health_bar(enemys, graphics):
 
 
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
-                    sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter):
+                    sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter,
+                    atmon_counter, prism_received):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
@@ -3993,21 +3999,119 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     combat_event_dictionary["experience gained"] = enemy_experience
 
                 try:
-                    drop_chance = random.randrange(1, 10)
-                    # 80% chance (roughly?) to drop merchant item sellable by player for rupees at shops
-                    if drop_chance > 2:
-                        # if item dropped isn't just a placeholder string
-                        if enemy_combating.items != "item":
-                            # doesn't give item to player if their inventory is full
-                            if len(player.items) < 16:
-                                player.items.append(enemy_combating.items)
-                                enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]."
-                                # add to dictionary anything dropped from enemy upon their defeat
-                                combat_event_dictionary["item dropped"] = enemy_dropped_this
-                            else:
-                                combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
+                    if enemy_combating.name != "atmon":
+                        drop_chance = random.randrange(1, 10)
+                        # 80% chance (roughly?) to drop merchant item sellable by player for rupees at shops
+                        if drop_chance > 2:
+                            # if item dropped isn't just a placeholder string
+                            if enemy_combating.items != "item":
+                                # doesn't give item to player if their inventory is full
+                                if len(player.items) < 16:
+                                    player.items.append(enemy_combating.items)
+                                    enemy_dropped_this = (f"{enemy_combating.name} dropped "
+                                                          f"[{enemy_combating.items.name}].")
+                                    # add to dictionary anything dropped from enemy upon their defeat
+                                    combat_event_dictionary["item dropped"] = enemy_dropped_this
+                                else:
+                                    combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
+                        else:
+                            combat_event_dictionary["item dropped"] = "No"
                     else:
-                        combat_event_dictionary["item dropped"] = "No"
+                        # atmons chance to drop quest item increases as more are defeated
+                        if not prism_received:
+                            drop_chance = random.randrange(1, 10)
+                            if atmon_counter == 1:
+                                if drop_chance > 9:
+                                    # if item dropped isn't just a placeholder string
+                                    if enemy_combating.items != "item":
+                                        # doesn't give item to player if their inventory is full
+                                        if len(player.items) < 16:
+                                            player.items.append(enemy_combating.items)
+                                            enemy_dropped_this = (f"{enemy_combating.name} dropped "
+                                                                  f"[{enemy_combating.items.name}].")
+                                            # add to dictionary anything dropped from enemy upon their defeat
+                                            combat_event_dictionary["item dropped"] = enemy_dropped_this
+                                            prism_received = True
+                                            combat_event_dictionary["prism_received"] = prism_received
+                                        else:
+                                            combat_event_dictionary["item dropped"] = ("Item, but your inventory "
+                                                                                       "is full.")
+                                else:
+                                    combat_event_dictionary["item dropped"] = "No"
+                            if atmon_counter == 2:
+                                if drop_chance > 7:
+                                    # if item dropped isn't just a placeholder string
+                                    if enemy_combating.items != "item":
+                                        # doesn't give item to player if their inventory is full
+                                        if len(player.items) < 16:
+                                            player.items.append(enemy_combating.items)
+                                            enemy_dropped_this = (f"{enemy_combating.name} dropped "
+                                                                  f"[{enemy_combating.items.name}].")
+                                            # add to dictionary anything dropped from enemy upon their defeat
+                                            combat_event_dictionary["item dropped"] = enemy_dropped_this
+                                            prism_received = True
+                                            combat_event_dictionary["prism_received"] = prism_received
+                                        else:
+                                            combat_event_dictionary["item dropped"] = ("Item, but your inventory "
+                                                                                       "is full.")
+                                else:
+                                    combat_event_dictionary["item dropped"] = "No"
+                            if atmon_counter == 3:
+                                if drop_chance > 5:
+                                    # if item dropped isn't just a placeholder string
+                                    if enemy_combating.items != "item":
+                                        # doesn't give item to player if their inventory is full
+                                        if len(player.items) < 16:
+                                            player.items.append(enemy_combating.items)
+                                            enemy_dropped_this = (f"{enemy_combating.name} dropped "
+                                                                  f"[{enemy_combating.items.name}].")
+                                            # add to dictionary anything dropped from enemy upon their defeat
+                                            combat_event_dictionary["item dropped"] = enemy_dropped_this
+                                            prism_received = True
+                                            combat_event_dictionary["prism_received"] = prism_received
+                                        else:
+                                            combat_event_dictionary["item dropped"] = ("Item, but your inventory "
+                                                                                       "is full.")
+                                else:
+                                    combat_event_dictionary["item dropped"] = "No"
+                            if atmon_counter == 4:
+                                if drop_chance > 3:
+                                    # if item dropped isn't just a placeholder string
+                                    if enemy_combating.items != "item":
+                                        # doesn't give item to player if their inventory is full
+                                        if len(player.items) < 16:
+                                            player.items.append(enemy_combating.items)
+                                            enemy_dropped_this = (f"{enemy_combating.name} dropped "
+                                                                  f"[{enemy_combating.items.name}].")
+                                            # add to dictionary anything dropped from enemy upon their defeat
+                                            combat_event_dictionary["item dropped"] = enemy_dropped_this
+                                            prism_received = True
+                                            combat_event_dictionary["prism_received"] = prism_received
+                                        else:
+                                            combat_event_dictionary["item dropped"] = ("Item, but your inventory "
+                                                                                       "is full.")
+                                else:
+                                    combat_event_dictionary["item dropped"] = "No"
+                            if atmon_counter > 4:
+                                if drop_chance > 1:
+                                    # if item dropped isn't just a placeholder string
+                                    if enemy_combating.items != "item":
+                                        # doesn't give item to player if their inventory is full
+                                        if len(player.items) < 16:
+                                            player.items.append(enemy_combating.items)
+                                            enemy_dropped_this = (f"{enemy_combating.name} dropped "
+                                                                  f"[{enemy_combating.items.name}].")
+                                            # add to dictionary anything dropped from enemy upon their defeat
+                                            combat_event_dictionary["item dropped"] = enemy_dropped_this
+                                            prism_received = True
+                                            combat_event_dictionary["prism_received"] = prism_received
+                                        else:
+                                            combat_event_dictionary["item dropped"] = ("Item, but your inventory "
+                                                                                       "is full.")
+                                else:
+                                    combat_event_dictionary["item dropped"] = "No"
+                        else:
+                            combat_event_dictionary["item dropped"] = "No"
                 except AttributeError:
                     combat_event_dictionary["item dropped"] = "No"
 

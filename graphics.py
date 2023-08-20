@@ -118,6 +118,7 @@ def load_graphics():
     m_ramp_w_end_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_west_end.png')).convert_alpha()
     marrow_district_bg = pygame.image.load(resource_path('resources/art/bg_marrow_district.png')).convert_alpha()
     sub_marrow_bg = pygame.image.load(resource_path('resources/art/bg_sub_marrow.png')).convert_alpha()
+    sub_marrow_battle = pygame.image.load(resource_path('resources/art/bg_sub_marrow_battle.png')).convert_alpha()
     e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
     fishing_hut_bg = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
@@ -262,6 +263,7 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["sub_marrow_battle_screen"] = sub_marrow_battle
     loaded_dict["chest_small"] = chest_small
     loaded_dict["flower_counts"] = overlay_flower_counts
     loaded_dict["fish_counts"] = overlay_fish_counts
@@ -4985,6 +4987,7 @@ def load_graphics():
     loaded_dict["necrola"] = enemies_sheet[4]
     loaded_dict["osodark"] = enemies_sheet[5]
     loaded_dict["necrola_sleep"] = enemies_sheet[6]
+    loaded_dict["atmon"] = enemies_sheet[7]
     # stelli -----------------------------------------------------------------------------------------------------------
     stelli_url = resource_path('resources/art/sprites_stelli.png')
     stelli_sheet = sprite_sheet((50, 50), stelli_url)
@@ -5039,6 +5042,8 @@ def load_graphics():
     loaded_dict["necrola_attack"] = enemies_battle_sheet[9]
     loaded_dict["osodark_battle"] = enemies_battle_sheet[10]
     loaded_dict["osodark_attack"] = enemies_battle_sheet[11]
+    loaded_dict["atmon_battle"] = enemies_battle_sheet[12]
+    loaded_dict["atmon_attack"] = enemies_battle_sheet[13]
     # boss enemies battle ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_battle.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)

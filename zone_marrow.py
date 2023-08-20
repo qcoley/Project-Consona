@@ -44,7 +44,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
-                                                      marrow_ghouls, marrow_ghouls, marrow_ghouls)
+                                                      marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls)
     marrow_ghouls = respawned_dict["marrow_ghouls"]
 
     for ghoul in marrow_ghouls:
@@ -1588,7 +1588,9 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                Item, in_battle, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                even_better_fish_counter, best_fish_counter, sfx_ladder, sub_marrow_rect, dungeon_gate_rect, sfx_gate,
-               has_key, dungeon_chest, sfx_chroma, chest_got):
+               has_key, dungeon_chest, sfx_chroma, chest_got, atmons, Enemy, UiElement, player_battle_sprite,
+               barrier_active, sharp_sense_active, in_npc_interaction, atmon_battle_sprite, enemy_tic,
+               current_enemy_battling):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1603,9 +1605,14 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
+    respawned_dict = gameplay_functions.enemy_respawn(player, atmons, atmons, atmons, atmons, atmons, atmons,
+                                                      atmons, atmons, atmons, Enemy, Item, graphic_dict, UiElement,
+                                                      atmons, atmons, atmons, atmons, atmons, atmons, atmons)
+    atmons = respawned_dict["ectrenos_alcove_enemies"]
+    for enemy in atmons:
+        screen.blit(enemy.surf, enemy.rect)
     if not chest_got:
         screen.blit(dungeon_chest.surf, dungeon_chest.rect)
-
     try:
         for pet in player.pet:
             if pet.active:
@@ -1708,6 +1715,39 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                 info_text_2 = ""
             interacted = False
 
+    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
+    enemy = pygame.sprite.spritecollideany(player, atmons)
+    if enemy:
+        interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(enemy.name) + " lvl " + str(enemy.level), True, "black",
+                                            (255, 204, 203))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (enemy.x_coordinate, enemy.y_coordinate - 40)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        # lets player know if they are in range of enemy they can press f to attack it
+        info_text_1 = "Press 'F' key to attack enemy."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            current_enemy_battling = enemy
+            in_over_world = False
+            in_battle = True
+
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
+            combat_scenario.battle_animation_enemy(current_enemy_battling, atmon_battle_sprite, atmon_battle_sprite,
+                                                   atmon_battle_sprite, atmon_battle_sprite, atmon_battle_sprite,
+                                                   atmon_battle_sprite, atmon_battle_sprite, in_battle,
+                                                   in_npc_interaction, graphic_dict, atmon_battle_sprite,
+                                                   atmon_battle_sprite, atmon_battle_sprite, False,
+                                                   atmon_battle_sprite, 0, atmon_battle_sprite)
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -1736,9 +1776,20 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                                      best_fish_counter)
     drawing_functions.draw_it(screen)
 
+    # enemy movement updates
+    direction_horizontal = random.choice(["left", "right"])
+    direction_vertical = random.choice(["up", "down"])
+    move_mon = random.choice(atmons.sprites())
+    if movement_able and in_over_world:
+        enemy_toc = time.perf_counter()
+        if enemy_toc - enemy_tic > 2:
+            enemy_tic = time.perf_counter()
+            move_mon.update_position([75, 400], [150, 400], direction_horizontal, direction_vertical)
+
     sub_marrow_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "in_battle": in_battle,
                          "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                          "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                         "movement_able": movement_able, "has_key": has_key, "chest_got": chest_got}
+                         "movement_able": movement_able, "has_key": has_key, "chest_got": chest_got, "atmons": atmons,
+                         "enemy_tic": enemy_tic, "current_enemy_battling": current_enemy_battling}
 
     return sub_marrow_return

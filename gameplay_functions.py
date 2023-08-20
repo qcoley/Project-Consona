@@ -21,7 +21,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       dungeon_chest_ramps, dungeon_switch_ramps_2, erebyth, dungeon_switch_ramps_1, ramps_crate_5,
                       forge_rect, interacted, event, ectrenos_alcove_enemies, alcove_fishing_rect,
                       alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2, sub_marrow_rect_2,
-                      dungeon_gate_marrow, dungeon_chest_marrow_small):
+                      dungeon_gate_marrow, dungeon_chest_marrow_small, atmons):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -184,6 +184,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, dungeon_chest_marrow_small):
                 interacted = True
+            elif pygame.sprite.spritecollideany(player, atmons):
+                interacted = True
             else:
                 interacted = False
         if player.current_zone == "marrow entrance":
@@ -339,7 +341,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
         if player.current_zone == "sub marrow":
             if (not pygame.Rect.colliderect(player.rect, sub_marrow_rect)
                     and not pygame.Rect.colliderect(player.rect, dungeon_gate_marrow)
-                    and not pygame.Rect.colliderect(player.rect, dungeon_chest_marrow_small)):
+                    and not pygame.Rect.colliderect(player.rect, dungeon_chest_marrow_small)
+                    and not pygame.sprite.spritecollideany(player, atmons)):
                 interacted = False
         if player.current_zone == "marrow entrance":
             if (not pygame.sprite.spritecollideany(player, interactables_marrow_entrance)
@@ -2333,7 +2336,7 @@ def level_up(player, level_up_win, level_up_font):
 def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
                   interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers,
                   eldream_flowers, interactables_eldream, ectrenos_front_enemies, marrow_ghouls,
-                  ectrenos_alcove_enemies):
+                  ectrenos_alcove_enemies, atmons):
     if player.current_zone == "seldon":
         snake_counter = 0
         ghoul_counter = 0
@@ -2513,13 +2516,35 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
                                      "scout")
             marrow_ghouls.add(new_marrow_ghoul)
 
+    if player.current_zone == "sub marrow":
+        marrow_atmon_counter = 0
+        # generate random coordinates and level for new enemy to spawn within boundaries and level range
+        # if not scaled, coordinates set to default boundaries
+        random_marrow_atmon_x = random.randrange(75, 400)
+        random_marrow_atmon_y = random.randrange(150, 400)
+        random_marrow_atmon_level = random.randrange(20, 25)
+
+        # count current enemies active in game
+        for mob in atmons:
+            if mob.name == "atmon":
+                marrow_atmon_counter += 1
+
+        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        if marrow_atmon_counter < 3:
+            new_marrow_atmon = Enemy("atmon", "atmon", 100, 100, random_marrow_atmon_level, random_marrow_atmon_x,
+                                     random_marrow_atmon_y, True,
+                                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]),
+                                     "mage")
+            atmons.add(new_marrow_atmon)
+
     respawn_dict = {"seldon_enemies": seldon_enemies, "snakes": snakes, "ghouls": ghouls,
                     "interactables_seldon": interactables_seldon, "interactables_korlok": interactables_korlok,
                     "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles, "seldon_flowers":
                         seldon_flowers, "eldream_flowers": eldream_flowers,
                     "interactables_eldream": interactables_eldream,
                     "ectrenos_front_enemies": ectrenos_front_enemies, "marrow_ghouls": marrow_ghouls,
-                    "ectrenos_alcove_enemies": ectrenos_alcove_enemies}
+                    "ectrenos_alcove_enemies": ectrenos_alcove_enemies, "atmons": atmons}
 
     return respawn_dict
 

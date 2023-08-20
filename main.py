@@ -6797,6 +6797,7 @@ if __name__ == "__main__":
     terra_trail_bg = graphic_dict["terra_trail_bg"]
     terra_trail_screen = graphic_dict["terra_trail_screen"]
     caves_battle_screen = graphic_dict["caves_battle_screen"]
+    sub_marrow_battle_screen = graphic_dict["sub_marrow_battle_screen"]
 
     marrow_entrance_bg = graphic_dict["marrow_entrance_bg"]
     marrow_entrance_bg_open = graphic_dict["marrow_entrance_bg_open"]
@@ -7139,6 +7140,18 @@ if __name__ == "__main__":
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
     necrola_rect_3 = pygame.Rect((514, 0), (50, 100))
+    atmon_1 = Enemy("atmon", "atmon", 100, 100, 22, 250, 150, True,
+                    Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                    graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    atmon_2 = Enemy("atmon", "atmon", 100, 100, 25, 85, 225, True,
+                    Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                    graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    atmon_3 = Enemy("atmon", "atmon", 100, 100, 21, 185, 350, True,
+                    Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                    graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    atmon_4 = Enemy("atmon", "atmon", 100, 100, 24, 350, 275, True,
+                    Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                    graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
@@ -7376,6 +7389,7 @@ if __name__ == "__main__":
     osodark_battle_sprite = BattleCharacter("osodark battle", 705, 300, graphic_dict["osodark_battle"])
     stelli_battle_sprite = BattleCharacter("stelli battle", 710, 275, graphic_dict["stelli_battle_a"])
     erebyth_battle_sprite = BattleCharacter("erebyth battle", 695, 350, graphic_dict["erebyth_battle"])
+    atmon_battle_sprite = BattleCharacter("atmon battle", 705, 300, graphic_dict["atmon_battle"])
 
     mirror_battle_sprite = BattleCharacter("mirror battle", 260, 425, graphic_dict["player_no_role_amuna_battle"])
     mirror_overlay = UiElement("mirror overlay", 225, 425, graphic_dict["mirror_overlay"])
@@ -7635,6 +7649,7 @@ if __name__ == "__main__":
     ghouls_marrow = pygame.sprite.Group()
     magmons = pygame.sprite.Group()
     bandiles = pygame.sprite.Group()
+    atmons = pygame.sprite.Group()
     interactables_nascent = pygame.sprite.Group()
     interactables_seldon = pygame.sprite.Group()
     interactables_stardust = pygame.sprite.Group()
@@ -7654,6 +7669,7 @@ if __name__ == "__main__":
     magmons.add(magmon_1, magmon_2, magmon_3, magmon_4)
     bandiles.add(bandile_1, bandile_2, bandile_3, bandile_4)
     stardust_stelli.add(stelli_a, stelli_b, stelli_c)
+    atmons.add(atmon_1, atmon_2, atmon_3, atmon_4)
     npcs_seldon.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
     npcs_korlok.add(npc_voruke, npc_zerah)
     npcs_marrow.add(npc_maydria, npc_noren, npc_boro, npc_artherian)
@@ -7774,6 +7790,8 @@ if __name__ == "__main__":
     sfx_stelli_battle.set_volume(0.20)
     sfx_enemy_osodark = pygame.mixer.Sound(resource_path("resources/sounds/enemy_osodark.mp3"))
     sfx_enemy_osodark.set_volume(0.20)
+    sfx_enemy_atmon = pygame.mixer.Sound(resource_path("resources/sounds/enemy_atmon.mp3"))
+    sfx_enemy_atmon.set_volume(0.20)
 
     sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
     sfx_surprise_attack.set_volume(0.20)
@@ -8075,6 +8093,7 @@ if __name__ == "__main__":
     music_toggle = False
     catch_played = False
     marrow_small_chest_got = False
+    prism_received = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -8088,6 +8107,8 @@ if __name__ == "__main__":
     best_fish_counter = 0
     # combat event counters
     erebyth_turn_counter = 0
+    # counter to count number of atmons killed for prism task/drop
+    atmon_counter = 0
 
     cats_pet = {"seldon_shop": False, "seldon_academia": False, "korlok_shop": False, "korlok_apothecary": False,
                 "eldream_shop": False, "eldream_menagerie": False}
@@ -9067,7 +9088,7 @@ if __name__ == "__main__":
                                                                       alcove_fishing_rect_2, fishing_spot_eldream_1,
                                                                       fishing_spot_eldream_2, sub_marrow_rect_2,
                                                                       dungeon_gate_marrow_rect,
-                                                                      dungeon_chest_small_marrow)
+                                                                      dungeon_chest_small_marrow, atmons)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9335,7 +9356,7 @@ if __name__ == "__main__":
                                                                                   fishing_spot_eldream_2,
                                                                                   sub_marrow_rect_2,
                                                                                   dungeon_gate_marrow_rect,
-                                                                                  dungeon_chest_small_marrow)
+                                                                                  dungeon_chest_small_marrow, atmons)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -11067,7 +11088,11 @@ if __name__ == "__main__":
                                                                      sfx_ladder, sub_marrow_rect_2,
                                                                      dungeon_gate_marrow_rect,
                                                                      sfx_gate_open, has_key, dungeon_chest_small_marrow,
-                                                                     sfx_item_chroma, marrow_small_chest_got)
+                                                                     sfx_item_chroma, marrow_small_chest_got, atmons,
+                                                                     Enemy, UiElement, player_battle_sprite,
+                                                                     barrier_active, sharp_sense_active,
+                                                                     in_npc_interaction, atmon_battle_sprite, enemy_tic,
+                                                                     current_enemy_battling)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -11085,7 +11110,11 @@ if __name__ == "__main__":
                                                                      sfx_ladder, sub_marrow_rect_2,
                                                                      dungeon_gate_marrow_rect, sfx_gate_open, has_key,
                                                                      dungeon_chest_small_marrow, sfx_item_chroma,
-                                                                     marrow_small_chest_got)
+                                                                     marrow_small_chest_got, atmons, Enemy, UiElement,
+                                                                     player_battle_sprite, barrier_active,
+                                                                     sharp_sense_active, in_npc_interaction,
+                                                                     atmon_battle_sprite, enemy_tic,
+                                                                     current_enemy_battling)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -11099,6 +11128,8 @@ if __name__ == "__main__":
                     npc_tic = sub_marrow_returned["npc_tic"]
                     has_key = sub_marrow_returned["has_key"]
                     marrow_small_chest_got = sub_marrow_returned["chest_got"]
+                    atmons = sub_marrow_returned["atmons"]
+                    enemy_tic = sub_marrow_returned["enemy_tic"]
                     if in_battle:
                         current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
 
@@ -12590,6 +12621,7 @@ if __name__ == "__main__":
                         pygame.mixer.Sound.stop(sfx_enemy_necrola)
                         pygame.mixer.Sound.stop(sfx_stelli_battle)
                         pygame.mixer.Sound.stop(sfx_enemy_osodark)
+                        pygame.mixer.Sound.stop(sfx_enemy_atmon)
 
                         # reset on each new turn
                         turn_taken = False
@@ -12677,7 +12709,9 @@ if __name__ == "__main__":
                                                                                             sharp_sense_active,
                                                                                             barrier_active, turn_taken,
                                                                                             stun_them, mirror_image,
-                                                                                            erebyth_turn_counter)
+                                                                                            erebyth_turn_counter,
+                                                                                            atmon_counter,
+                                                                                            prism_received)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -12712,7 +12746,9 @@ if __name__ == "__main__":
                                                                                             sharp_sense_active,
                                                                                             barrier_active, turn_taken,
                                                                                             stun_them, mirror_image,
-                                                                                            erebyth_turn_counter)
+                                                                                            erebyth_turn_counter,
+                                                                                            atmon_counter,
+                                                                                            prism_received)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -12746,7 +12782,9 @@ if __name__ == "__main__":
                                                                                             sharp_sense_active,
                                                                                             barrier_active, turn_taken,
                                                                                             stun_them, mirror_image,
-                                                                                            erebyth_turn_counter)
+                                                                                            erebyth_turn_counter,
+                                                                                            atmon_counter,
+                                                                                            prism_received)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -12828,6 +12866,8 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_flame)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
+                                if current_enemy_battling.kind == "atmon":
+                                    pygame.mixer.find_channel(True).play(sfx_enemy_atmon)
 
                                 first_battle_cond = False
                                 drawing_functions.game_guide_container.clear()
@@ -12842,7 +12882,8 @@ if __name__ == "__main__":
                                                                                     graphic_dict, sharp_sense_active,
                                                                                     barrier_active, turn_taken,
                                                                                     stun_them, mirror_image,
-                                                                                    erebyth_turn_counter)
+                                                                                    erebyth_turn_counter,
+                                                                                    atmon_counter, prism_received)
                                     combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                             barrier_active, sharp_sense_active,
                                                                             hard_strike, graphic_dict, turn_taken)
@@ -12855,8 +12896,8 @@ if __name__ == "__main__":
                                                                            osodark_battle_sprite, stelli_battle_sprite,
                                                                            chorizon_phase,
                                                                            combat_events["damage taken"],
-                                                                           erebyth_battle_sprite,
-                                                                           erebyth_turn_counter)
+                                                                           erebyth_battle_sprite, erebyth_turn_counter,
+                                                                           atmon_battle_sprite)
                                     try:
                                         stun_them = combat_events["stunned"]
                                     except TypeError and KeyError:
@@ -12881,6 +12922,10 @@ if __name__ == "__main__":
                                         battle_info_to_return_to_main_loop["knowledge"] = ""
                                         if combat_events["enemy defeated"]:
                                             if combat_events["item dropped"] != "No":
+                                                try:
+                                                    prism_received = combat_events["prism_received"]
+                                                except KeyError:
+                                                    pass
                                                 battle_info_to_return_to_main_loop["item dropped"] = \
                                                     str(combat_events["item dropped"])
                                             else:
@@ -12902,6 +12947,8 @@ if __name__ == "__main__":
                                         if combat_events["enemy defeated"]:
                                             if current_enemy_battling.kind != "stelli":
                                                 current_enemy_battling.alive_status = False
+                                            if current_enemy_battling.kind == "atmon":
+                                                atmon_counter += 1
                                             # player will gain knowledge based on their current role
                                             if player.role == "mage":
                                                 if player.level <= 10 and player.knowledge["mage"] < 80 or \
@@ -13023,7 +13070,8 @@ if __name__ == "__main__":
                                                                                            stelli_battle_sprite,
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
-                                                                                           erebyth_turn_counter)
+                                                                                           erebyth_turn_counter,
+                                                                                           atmon_battle_sprite)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -13040,7 +13088,8 @@ if __name__ == "__main__":
                                                                                         sharp_sense_active,
                                                                                         barrier_active, turn_taken,
                                                                                         stun_them, mirror_image,
-                                                                                        erebyth_turn_counter)
+                                                                                        erebyth_turn_counter,
+                                                                                        atmon_counter, prism_received)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -13109,7 +13158,8 @@ if __name__ == "__main__":
                                                                                            stelli_battle_sprite,
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
-                                                                                           erebyth_turn_counter)
+                                                                                           erebyth_turn_counter,
+                                                                                           atmon_battle_sprite)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -13126,7 +13176,8 @@ if __name__ == "__main__":
                                                                                         sharp_sense_active,
                                                                                         barrier_active, turn_taken,
                                                                                         stun_them, mirror_image,
-                                                                                        erebyth_turn_counter)
+                                                                                        erebyth_turn_counter,
+                                                                                        atmon_counter, prism_received)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -13181,7 +13232,9 @@ if __name__ == "__main__":
                                                                                                 barrier_active,
                                                                                                 turn_taken, stun_them,
                                                                                                 mirror_image,
-                                                                                                erebyth_turn_counter)
+                                                                                                erebyth_turn_counter,
+                                                                                                atmon_counter,
+                                                                                                prism_received)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -13203,6 +13256,10 @@ if __name__ == "__main__":
                                                     battle_info_to_return_to_main_loop["knowledge"] = ""
                                                     if combat_events["enemy defeated"]:
                                                         if combat_events["item dropped"] != "No":
+                                                            try:
+                                                                prism_received = combat_events["prism_received"]
+                                                            except KeyError:
+                                                                pass
                                                             battle_info_to_return_to_main_loop["item dropped"] = \
                                                                 str(combat_events["item dropped"])
                                                         else:
@@ -13219,7 +13276,10 @@ if __name__ == "__main__":
                                                             level_visual = True
                                                             level_visual_tic = time.perf_counter()
                                                     if combat_events["enemy defeated"]:
-                                                        current_enemy_battling.alive_status = False
+                                                        if current_enemy_battling.kind != "stelli":
+                                                            current_enemy_battling.alive_status = False
+                                                        if current_enemy_battling.kind == "atmon":
+                                                            atmon_counter += 1
                                                         # player will gain knowledge based on their current role
                                                         if player.level <= 10 and player.knowledge["fighter"] < 80 or \
                                                                 player.level > 10 and player.knowledge["fighter"] < 120:
@@ -13307,7 +13367,8 @@ if __name__ == "__main__":
                                                                                            stelli_battle_sprite,
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
-                                                                                           erebyth_turn_counter)
+                                                                                           erebyth_turn_counter,
+                                                                                           atmon_battle_sprite)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -13319,7 +13380,7 @@ if __name__ == "__main__":
                                                         current_enemy_battling, "attack", player, hard_strike_learned,
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
-                                                        erebyth_turn_counter)
+                                                        erebyth_turn_counter, atmon_counter, prism_received)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -13457,6 +13518,8 @@ if __name__ == "__main__":
                                         screen.blit(marrow_tower_battle, (0, 0))
                                     if player.current_zone == "marrow":
                                         screen.blit(marrow_interaction_bg, (0, 0))
+                                    if player.current_zone == "sub marrow":
+                                        screen.blit(sub_marrow_battle_screen, (0, 0))
                                     screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                     try:
                                         screen.blit(current_enemy_battling.health_bar.surf,
@@ -13491,6 +13554,8 @@ if __name__ == "__main__":
                                         game_window.blit(marrow_tower_battle, (0, 0))
                                     if player.current_zone == "marrow":
                                         game_window.blit(marrow_interaction_bg, (0, 0))
+                                    if player.current_zone == "sub marrow":
+                                        game_window.blit(sub_marrow_battle_screen, (0, 0))
 
                                     game_window.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                     try:
@@ -13572,7 +13637,8 @@ if __name__ == "__main__":
                                                                    in_battle, in_npc_interaction, graphic_dict,
                                                                    necrola_battle_sprite, osodark_battle_sprite,
                                                                    stelli_battle_sprite, chorizon_phase,
-                                                                   erebyth_battle_sprite, erebyth_turn_counter)
+                                                                   erebyth_battle_sprite, erebyth_turn_counter,
+                                                                   atmon_battle_sprite)
                             if mirror_image:
                                 combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, graphic_dict)
@@ -13604,6 +13670,8 @@ if __name__ == "__main__":
                                     screen.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
                                 if current_enemy_battling.kind == "erebyth":
                                     screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
+                                if current_enemy_battling.kind == "atmon":
+                                    screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -13675,6 +13743,8 @@ if __name__ == "__main__":
                                     game_window.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
                                 if current_enemy_battling.kind == "erebyth":
                                     game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
+                                if current_enemy_battling.kind == "atmon":
+                                    game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -13796,7 +13866,8 @@ if __name__ == "__main__":
                                                                    graphic_dict, necrola_battle_sprite,
                                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                                    chorizon_phase, combat_events["damage taken"],
-                                                                   erebyth_battle_sprite, erebyth_turn_counter)
+                                                                   erebyth_battle_sprite, erebyth_turn_counter,
+                                                                   atmon_battle_sprite)
                             if mirror_image:
                                 combat_scenario.attack_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, hard_strike, graphic_dict,
@@ -13836,6 +13907,8 @@ if __name__ == "__main__":
                                     screen.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
                                 if current_enemy_battling.kind == "erebyth":
                                     screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
+                                if current_enemy_battling.kind == "atmon":
+                                    screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -13907,6 +13980,8 @@ if __name__ == "__main__":
                                     game_window.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
                                 if current_enemy_battling.kind == "erebyth":
                                     game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
+                                if current_enemy_battling.kind == "atmon":
+                                    game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -18739,6 +18814,11 @@ if __name__ == "__main__":
                                 player.x_coordinate = 515
                                 player.y_coordinate = 125
                                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            elif player.current_zone == "marrow" or player.current_zone == "sub marrow":
+                                player.current_zone = "marrow"
+                                player.x_coordinate = 685
+                                player.y_coordinate = 170
+                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                             else:
                                 player.current_zone = "seldon"
                                 player.x_coordinate = 860
@@ -18773,6 +18853,10 @@ if __name__ == "__main__":
                                 # noinspection PyTypeChecker
                                 combat_scenario.enemy_health_bar(enemy, graphic_dict)
                             for enemy in stardust_stelli:
+                                enemy.health = 100
+                                # noinspection PyTypeChecker
+                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                            for enemy in atmons:
                                 enemy.health = 100
                                 # noinspection PyTypeChecker
                                 combat_scenario.enemy_health_bar(enemy, graphic_dict)
