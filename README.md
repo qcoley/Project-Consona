@@ -1,7 +1,7 @@
 # Project Eterna
 
 Project Eterna is an adventure game in the vein of The Legend of Zelda
-with elements inspired by games like Pokémon, The Elder Scrolls, 
+with elements inspired by games like Pokémon, Final Fantasy, The Elder Scrolls, 
 Fable, Everquest, Runescape and World of Warcraft among others. 
 
 Coded in Python 3.11.2 using PyGame 2.3.0.
