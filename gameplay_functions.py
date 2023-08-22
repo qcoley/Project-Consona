@@ -1588,65 +1588,78 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
 # quest stars for npcs that update based on player quest progress
 def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star_torune,
                            quest_progress_star, quest_complete_star, star_voruke, star_zerah, star_kirean,
-                           star_dionte, star_omoku, star_leyre, star_aitor, star_everett):
+                           star_dionte, star_omoku, star_leyre, star_aitor, star_everett, npc_artherian,
+                           star_artherian, artherian_progress_star, artherian_complete_star, artherian_2,
+                           npc_maydria, star_maydria, maydria_progress_star, maydria_complete_star, npc_boro,
+                           npc_noren, artherian_task_start):
     if player.current_zone == "seldon":
         if player.quest_progress["sneaky snakes"] == 4:
             star_garan.update(209, 390, quest_complete_star)
-        if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
+        elif player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
             star_garan.update(209, 390, quest_progress_star)
         if player.quest_progress["where's nede?"] == 1:
             star_celeste.update(760, 373, quest_complete_star)
-        if player.quest_status["where's nede?"] and player.quest_progress["where's nede?"] != 1:
+        elif player.quest_status["where's nede?"] and player.quest_progress["where's nede?"] != 1:
             star_celeste.update(760, 373, quest_progress_star)
         if player.quest_progress["village repairs"] == 4:
             star_maurelle.update(744, 575, quest_complete_star)
-        if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
+        elif player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
             star_maurelle.update(744, 575, quest_progress_star)
         if player.quest_progress["ghouled again"] == 4:
             star_torune.update(430, 75, quest_complete_star)
-        if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
+        elif player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
             star_torune.update(430, 75, quest_progress_star)
 
     if player.current_zone == "korlok":
         if player.quest_progress["band hammer"] == 4:
             star_voruke.update(262, 385, quest_complete_star)
-        if player.quest_status["band hammer"] and player.quest_progress["band hammer"] != 4:
+        elif player.quest_status["band hammer"] and player.quest_progress["band hammer"] != 4:
             star_voruke.update(262, 385, quest_progress_star)
         if player.quest_progress["elementary elementals"] == 4:
             star_zerah.update(651, 50, quest_complete_star)
-        if player.quest_status["elementary elementals"] and player.quest_progress["elementary elementals"] != 4:
+        elif player.quest_status["elementary elementals"] and player.quest_progress["elementary elementals"] != 4:
             star_zerah.update(651, 50, quest_progress_star)
         if player.quest_progress["can't apothecary it"] == 4:
             star_kirean.update(star_kirean.x_coordinate, star_kirean.y_coordinate, quest_complete_star)
-        if player.quest_status["can't apothecary it"] and player.quest_progress["can't apothecary it"] != 4:
+        elif player.quest_status["can't apothecary it"] and player.quest_progress["can't apothecary it"] != 4:
             star_kirean.update(star_kirean.x_coordinate, star_kirean.y_coordinate, quest_progress_star)
     if player.current_zone == "terra trail":
         if player.quest_progress["it's dangerous to go alone"] == 1:
             star_dionte.update(625, 65, quest_complete_star)
-        if player.quest_status["it's dangerous to go alone"] and \
+        elif player.quest_status["it's dangerous to go alone"] and \
                 player.quest_progress["it's dangerous to go alone"] != 1:
             star_dionte.update(625, 65, quest_progress_star)
 
     if player.current_zone == "eldream":
         if player.quest_progress["kart troubles"] == 4:
             star_omoku.update(460, 610, quest_complete_star)
-        if player.quest_status["kart troubles"] and player.quest_progress["kart troubles"] != 4:
+        elif player.quest_status["kart troubles"] and player.quest_progress["kart troubles"] != 4:
             star_omoku.update(460, 610, quest_progress_star)
     if player.current_zone == "ectrenos":
         if player.quest_progress["las escondidas"] == 4:
             star_leyre.update(682, 375, quest_complete_star)
-        if player.quest_status["las escondidas"] and player.quest_progress["las escondidas"] != 4:
+        elif player.quest_status["las escondidas"] and player.quest_progress["las escondidas"] != 4:
             star_leyre.update(682, 375, quest_progress_star)
     if player.current_zone == "ectrenos left":
         if player.quest_progress["hatch 'em all"] == 1:
             star_aitor.update(818, 200, quest_complete_star)
-        if player.quest_status["hatch 'em all"] and player.quest_progress["hatch 'em all"] != 1:
+        elif player.quest_status["hatch 'em all"] and player.quest_progress["hatch 'em all"] != 1:
             star_aitor.update(818, 200, quest_progress_star)
     if player.current_zone == "ectrenos front":
         if player.quest_progress["shades of fear"] == 4:
             star_everett.update(749, 278, quest_complete_star)
-        if player.quest_status["shades of fear"] and player.quest_progress["shades of fear"] != 4:
+        elif player.quest_status["shades of fear"] and player.quest_progress["shades of fear"] != 4:
             star_everett.update(749, 278, quest_progress_star)
+
+    if player.current_zone == "marrow":
+        if artherian_task_start:
+            star_artherian.update(210, 400, artherian_progress_star)
+        elif artherian_2:
+            star_artherian.update(210, 400, artherian_complete_star)
+        if npc_maydria.gift and not npc_boro.quest_complete and not npc_noren.quest_complete:
+            star_maydria.update(861, 132, maydria_progress_star)
+        elif npc_boro.quest_complete and npc_noren.quest_complete:
+            star_maydria.update(861, 132, maydria_complete_star)
 
 
 def load_game(player, Item, graphics, Pet):
@@ -1910,6 +1923,10 @@ def load_game(player, Item, graphics, Pet):
             load_return["marrow_small_chest_got"] = player_load_info["marrow_small_chest_got"]
             load_return["noren_complete"] = player_load_info["noren_complete"]
             load_return["boro_complete"] = player_load_info["boro_complete"]
+            load_return["vanguard_start"] = player_load_info["vanguard_start"]
+            load_return["vanguard_complete"] = player_load_info["vanguard_complete"]
+            load_return["artherian_start"] = player_load_info["artherian_start"]
+
 
     # no save found, show a notification to player and reset condition
     else:
@@ -1933,7 +1950,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               artherian_gift, artherian_2, artherian_complete, fishing_unlocked, fishing_journal_unlocked,
               bait_given, basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter,
               fishing_level, basic_fish_reward, better_fish_reward, even_better_fish_reward, best_fish_reward,
-              marrow_small_chest_got, noren_complete, boro_complete):
+              marrow_small_chest_got, noren_complete, boro_complete, npc_maydria, artherian_task_start):
 
     inventory_save = []
     equipment_save = []
@@ -2014,7 +2031,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "fishing_level": fishing_level, "basic_fish_reward": basic_fish_reward,
                         "better_fish_reward": better_fish_reward, "even_better_fish_reward": even_better_fish_reward,
                         "best_fish_reward": best_fish_reward, "marrow_small_chest_got": marrow_small_chest_got,
-                        "noren_complete": noren_complete, "boro_complete": boro_complete}
+                        "noren_complete": noren_complete, "boro_complete": boro_complete,
+                        "vanguard_start": npc_maydria.gift, "vanguard_complete": npc_maydria.quest_complete,
+                        "artherian_start": artherian_task_start}
 
     try:
         with open("save", "wb") as ff:

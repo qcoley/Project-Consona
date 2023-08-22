@@ -424,8 +424,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                 rock_6_con = True
                                 info_text_1 = "You found a book under the rock!"
                                 info_text_2 = ""
-                                player.items.append(Item("scout book", "book", 200, 200,
-                                                         graphic_dict["scout_book"], 0))
+                                player.items.append(Item("mage book", "book", 200, 200,
+                                                         graphic_dict["mage_book"], 0))
                             else:
                                 info_text_1 = "Your inventory is full."
                                 info_text_2 = ""

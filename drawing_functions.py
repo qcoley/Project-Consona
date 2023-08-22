@@ -906,7 +906,8 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         character_sheet_window.append(character_sheet)
 
 
-def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_artherian, artherian_2):
+def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_artherian, artherian_2, npc_maydria,
+                      npc_boro, npc_noren):
     if not draw_condition:
         journal_text.clear()
         journal_window.clear()
@@ -1093,10 +1094,29 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest2_surf = font.render("Vamos Vanguard", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
             text_quest2_rect.midleft = (600, 272)
-            text_quest2_info_surf = font.render("", True, "black", "light yellow")
+            if not npc_maydria.gift:
+                text_quest2_info_surf = font.render("Talk to Maydria to start this task.",
+                                                    True, "black", "light yellow")
+            elif (npc_maydria.gift and not npc_boro.quest_complete and not npc_boro.quest_complete
+                  and not npc_maydria.quest_complete):
+                text_quest2_info_surf = font.render("Find the items for Boro and Noren.",
+                                                    True, "black", "light yellow")
+            elif (npc_maydria.gift and npc_boro.quest_complete and npc_boro.quest_complete
+                  and not npc_maydria.quest_complete):
+                text_quest2_info_surf = font.render("Return to Maydria.",
+                                                    True, "black", "light yellow")
+            elif npc_maydria.quest_complete:
+                text_quest2_info_surf = font.render("You completed this task.",
+                                                    True, "black", "light yellow")
             text_quest2_info_rect = text_quest2_info_surf.get_rect()
             text_quest2_info_rect.midleft = (540, 320)
-            text_quest2_prog_surf = font.render("0/2", True, "black", "light yellow")
+            if not npc_boro.quest_complete and not npc_noren.quest_complete:
+                text_quest2_prog_surf = font.render("0/2", True, "black", "light yellow")
+            elif (npc_boro.quest_complete and not npc_noren.quest_complete or npc_noren.quest_complete
+                  and not npc_boro.quest_complete):
+                text_quest2_prog_surf = font.render("1/2", True, "black", "light yellow")
+            elif npc_boro.quest_complete and npc_noren.quest_complete:
+                text_quest2_prog_surf = font.render("2/2", True, "black", "light yellow")
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
             text_quest2_prog_rect.midleft = (950, 272)
 

@@ -674,8 +674,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                         pygame.mixer.find_channel(True).play(sfx_paper)
                         info_text_1 = "You found a book!"
                         info_text_2 = ""
-                        player.items.append(Item("mage book", "book", 200, 200,
-                                                 graphic_dict["mage_book"], 0))
+                        player.items.append(Item("scout book", "book", 200, 200,
+                                                 graphic_dict["scout_book"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

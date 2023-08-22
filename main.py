@@ -8096,6 +8096,7 @@ if __name__ == "__main__":
     catch_played = False
     marrow_small_chest_got = False
     prism_received = False
+    artherian_task_start = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -8798,6 +8799,13 @@ if __name__ == "__main__":
                         marrow_small_chest_got = load_returned["marrow_small_chest_got"]
                         npc_noren.quest_complete = load_returned["noren_complete"]
                         npc_boro.quest_complete = load_returned["boro_complete"]
+                        npc_maydria.gift = load_returned["vanguard_start"]
+                        npc_maydria.quest_complete = load_returned["vanguard_complete"]
+                        artherian_task_start = load_returned["artherian_start"]
+
+                        if npc_noren.quest_complete and npc_boro.quest_complete:
+                            castle_bridge.update(castle_bridge.x_coordinate, castle_bridge.y_coordinate,
+                                                 graphic_dict["castle_bridge_finished"])
 
                         if player.race == "amuna":
                             player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
@@ -9029,7 +9037,13 @@ if __name__ == "__main__":
                                                           graphic_dict["quest_complete_star"],
                                                           quest_star_voruke, quest_star_zerah, quest_star_kirean,
                                                           quest_star_dionte, quest_star_omoku, quest_star_leyre,
-                                                          quest_star_aitor, quest_star_everett)
+                                                          quest_star_aitor, quest_star_everett, npc_artherian,
+                                                          task_star_artherian, graphic_dict["artherian_progress_star"],
+                                                          graphic_dict["artherian_complete_star"], artherian_2,
+                                                          npc_maydria, task_star_maydria,
+                                                          graphic_dict["maydria_progress_star"],
+                                                          graphic_dict["maydria_complete_star"], npc_boro, npc_noren,
+                                                          artherian_task_start)
 
                 loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
@@ -9301,7 +9315,8 @@ if __name__ == "__main__":
                                 # clear character or journal sheet
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
-                                                                    npc_artherian, artherian_2)
+                                                                    npc_artherian, artherian_2, npc_maydria, npc_boro,
+                                                                    npc_noren)
 
                             # "F" key for player interaction
                             if event.key == K_f:
@@ -9472,7 +9487,8 @@ if __name__ == "__main__":
                             if map_button.rect.collidepoint(pos) and not fishing:
                                 # clears other windows first, if they were open
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
-                                                                    npc_artherian, artherian_2)
+                                                                    npc_artherian, artherian_2, npc_maydria, npc_boro,
+                                                                    npc_noren)
                                 journal_button_clicked = False
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 character_button_clicked = False
@@ -9504,7 +9520,8 @@ if __name__ == "__main__":
                                 character_button_clicked = False
                                 drawing_functions.journal_info_draw(journal, player, font, False,
                                                                     marrow_switch_phase,
-                                                                    npc_artherian, artherian_2)
+                                                                    npc_artherian, artherian_2, npc_maydria, npc_boro,
+                                                                    npc_noren)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -9566,7 +9583,8 @@ if __name__ == "__main__":
                                                                         better_fish_reward, even_better_fish_reward,
                                                                         best_fish_reward, marrow_small_chest_got,
                                                                         npc_noren.quest_complete,
-                                                                        npc_boro.quest_complete)
+                                                                        npc_boro.quest_complete, npc_maydria,
+                                                                        artherian_task_start)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -9613,7 +9631,8 @@ if __name__ == "__main__":
                                                                     best_fish_counter, fishing_level, basic_fish_reward,
                                                                     better_fish_reward, even_better_fish_reward,
                                                                     best_fish_reward, marrow_small_chest_got,
-                                                                    npc_noren.quest_complete, npc_boro.quest_complete)
+                                                                    npc_noren.quest_complete, npc_boro.quest_complete,
+                                                                    npc_maydria, artherian_task_start)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -9626,9 +9645,9 @@ if __name__ == "__main__":
 
                             if character_button.rect.collidepoint(pos):
                                 # clears other open windows first, if they were open
-                                drawing_functions.journal_info_draw(journal, player, font,
-                                                                    False, marrow_switch_phase,
-                                                                    npc_artherian, artherian_2)
+                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
+                                                                    npc_artherian, artherian_2, npc_maydria, npc_boro,
+                                                                    npc_noren)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -9659,13 +9678,15 @@ if __name__ == "__main__":
 
                                 if journal_button_clicked:
                                     drawing_functions.journal_info_draw(journal, player, font, False,
-                                                                        marrow_switch_phase, npc_artherian, artherian_2)
+                                                                        marrow_switch_phase, npc_artherian, artherian_2,
+                                                                        npc_maydria, npc_boro, npc_noren)
                                     journal_button_clicked = False
                                 else:
                                     if in_over_world:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     drawing_functions.journal_info_draw(journal, player, font, True,
-                                                                        marrow_switch_phase, npc_artherian, artherian_2)
+                                                                        marrow_switch_phase, npc_artherian, artherian_2,
+                                                                        npc_maydria, npc_boro, npc_noren)
                                     journal_button_clicked = True
 
                             # for clicking map buttons, when the map is open
@@ -16069,7 +16090,8 @@ if __name__ == "__main__":
                                                                         even_better_fish_reward, best_fish_reward,
                                                                         marrow_small_chest_got,
                                                                         npc_noren.quest_complete,
-                                                                        npc_boro.quest_complete)
+                                                                        npc_boro.quest_complete, npc_maydria,
+                                                                        artherian_task_start)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -16721,7 +16743,8 @@ if __name__ == "__main__":
                                                                         even_better_fish_reward, best_fish_reward,
                                                                         marrow_small_chest_got,
                                                                         npc_noren.quest_complete,
-                                                                        npc_boro.quest_complete)
+                                                                        npc_boro.quest_complete, npc_maydria,
+                                                                        artherian_task_start)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -17154,6 +17177,7 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                 info_text_1 = "You've completed the fishing task!"
                                 fishing_journal_unlocked = True
+                                player.reputation["amuna"] += 10
 
                                 # autosave on quest complete
                                 info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
@@ -17190,7 +17214,8 @@ if __name__ == "__main__":
                                                                     better_fish_reward,
                                                                     even_better_fish_reward, best_fish_reward,
                                                                     marrow_small_chest_got, npc_noren.quest_complete,
-                                                                    npc_boro.quest_complete)
+                                                                    npc_boro.quest_complete, npc_maydria,
+                                                                    artherian_task_start)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -17498,11 +17523,13 @@ if __name__ == "__main__":
                                             info_text_2 = ""
                                             drawing_functions.quest_accept_box.append(task_accepted)
                                             task_star_maydria.update(860, 128, graphic_dict["maydria_progress_star"])
+                                            npc_maydria.gift = True
                                     else:
                                         info_text_1 = "You've accepted the task!"
                                         info_text_2 = ""
                                         drawing_functions.quest_accept_box.append(task_accepted)
                                         task_star_artherian.update(210, 400, graphic_dict["artherian_progress_star"])
+                                        artherian_task_start = True
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
                                 button_highlighted = False
                                 if current_npc_interacting.name == "garan":
@@ -17663,7 +17690,8 @@ if __name__ == "__main__":
                                                                             better_fish_reward, even_better_fish_reward,
                                                                             best_fish_reward, marrow_small_chest_got,
                                                                             npc_noren.quest_complete,
-                                                                            npc_boro.quest_complete)
+                                                                            npc_boro.quest_complete, npc_maydria,
+                                                                            artherian_task_start)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -17892,7 +17920,8 @@ if __name__ == "__main__":
                                                                             better_fish_reward, even_better_fish_reward,
                                                                             best_fish_reward, marrow_small_chest_got,
                                                                             npc_noren.quest_complete,
-                                                                            npc_boro.quest_complete)
+                                                                            npc_boro.quest_complete, npc_maydria,
+                                                                            artherian_task_start)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -18122,7 +18151,8 @@ if __name__ == "__main__":
                                                                             better_fish_reward, even_better_fish_reward,
                                                                             best_fish_reward, marrow_small_chest_got,
                                                                             npc_noren.quest_complete,
-                                                                            npc_boro.quest_complete)
+                                                                            npc_boro.quest_complete, npc_maydria,
+                                                                            artherian_task_start)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -18450,15 +18480,17 @@ if __name__ == "__main__":
 
                             # maydria npc, check player's quest progress and reward if completed -----------------------
                             if current_npc_interacting.name == "maydria":
-                                if npc_maydria.quest_complete:
+                                if (npc_boro.quest_complete and npc_noren.quest_complete
+                                        and not npc_maydria.quest_complete):
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                    player.quest_complete["shades of fear"] = True
-                                    player.current_quests["shades of fear"] = "You completed this task!"
+                                    npc_maydria.quest_complete = True
                                     info_text_1 = "You've completed Maydria's task!"
                                     info_text_2 = ""
                                     info_text_3 = ""
                                     info_text_4 = ""
                                     player.reputation["amuna"] += 10
+                                    player.reputation["sorae"] += 10
+                                    player.reputation["nuldar"] += 10
 
                                 if not quest_clicked:
                                     if not npc_maydria.quest_complete:
