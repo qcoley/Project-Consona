@@ -451,6 +451,11 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # marrow castle bridge ---------------------------------------------------------------------------------------------
+    castle_bridge_url = resource_path('resources/art/overlay_marrow_castle_bridge.png')
+    castle_bridge_sheet = sprite_sheet((150, 150), castle_bridge_url)
+    loaded_dict["castle_bridge_unfinished"] = castle_bridge_sheet[0]
+    loaded_dict["castle_bridge_finished"] = castle_bridge_sheet[1]
     # fishing popups ---------------------------------------------------------------------------------------------------
     fish_popups_url = resource_path('resources/art/popup_fishing_fish.png')
     fish_popups_sheet = sprite_sheet((250, 150), fish_popups_url)

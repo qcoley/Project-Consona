@@ -13,8 +13,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     current_npc_interacting, in_npc_interaction, hearth_stone, marrow_attuned, sfx_hearth,
                     marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
                     current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
-                    maydria_star, sub_marrow, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
-                    better_fish_counter, even_better_fish_counter, best_fish_counter):
+                    maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
+                    better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -32,6 +32,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     screen.blit(noren.surf, noren.rect)
     screen.blit(boro.surf, boro.rect)
     screen.blit(maydria.surf, maydria.rect)
+
+    if noren.quest_complete or boro.quest_complete:
+        screen.blit(castle_bridge.surf, castle_bridge.rect)
 
     if not artherian.quest_complete:
         screen.blit(artherian_star.surf, artherian_star.rect)
@@ -111,6 +114,15 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         info_text_4 = ""
 
         if interacted and in_over_world:
+            if not noren.quest_complete:
+                for item in player.items:
+                    if item.name == "prism":
+                        noren.quest_complete = True
+                        if boro.quest_complete:
+                            castle_bridge.update(castle_bridge.x_coordinate, castle_bridge.y_coordinate,
+                                                 graphic_dict["castle_bridge_finished"])
+                        player.items.remove(item)
+                        break
             interacted = False
 
     if pygame.sprite.collide_rect(player, boro):
@@ -128,6 +140,15 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         info_text_4 = ""
 
         if interacted and in_over_world:
+            if not boro.quest_complete:
+                for item in player.items:
+                    if item.name == "prism":
+                        boro.quest_complete = True
+                        if noren.quest_complete:
+                            castle_bridge.update(castle_bridge.x_coordinate, castle_bridge.y_coordinate,
+                                                 graphic_dict["castle_bridge_finished"])
+                        player.items.remove(item)
+                        break
             interacted = False
 
     if pygame.sprite.collide_rect(player, maydria):
@@ -181,7 +202,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     else:
         hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate, graphic_dict["hearth_stone"])
 
-    if pygame.Rect.colliderect(player.rect, sub_marrow):
+    if pygame.Rect.colliderect(player.rect, sub_marrow_ladder):
         interaction_popup.update(365, 575, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str("Subterranean"), True, "black", "light yellow")
@@ -261,7 +282,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                    ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
                                                    in_battle, in_npc_interaction, graphic_dict, ghoul_battle_sprite,
                                                    ghoul_battle_sprite, ghoul_battle_sprite, False, ghoul_battle_sprite,
-                                                   0)
+                                                   0, ghoul_battle_sprite)
 
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
@@ -724,7 +745,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                                                        necrola_battle_sprite, in_battle, necrola_battle_sprite,
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
-                                                       False, necrola_battle_sprite, 0)
+                                                       False, necrola_battle_sprite, 0, necrola_battle_sprite)
     if necrola_2.alive_status:
         if pygame.Rect.colliderect(player.rect, necrola_rect_2):
             if necrola_2.x_coordinate <= player.x_coordinate:
@@ -749,7 +770,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                                                        necrola_battle_sprite, in_battle, necrola_battle_sprite,
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
-                                                       False, necrola_battle_sprite, 0)
+                                                       False, necrola_battle_sprite, 0, necrola_battle_sprite)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -944,7 +965,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                                                        necrola_battle_sprite, in_battle, necrola_battle_sprite,
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
-                                                       False, necrola_battle_sprite, 0)
+                                                       False, necrola_battle_sprite, 0, necrola_battle_sprite)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -1357,7 +1378,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                                                        chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                        graphic_dict, necrola_battle_sprite,
                                                        osodark_battle_sprite, stelli_battle_sprite,
-                                                       False, erebyth_battle_sprite, 0)
+                                                       False, erebyth_battle_sprite, 0, erebyth_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

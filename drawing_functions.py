@@ -1501,7 +1501,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
                       barrier_learn_button, close_button, garan_gift, mirror_learn_button, mirror_button,
                       vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked, music_toggle,
-                      in_hut, basic_fish, better_fish, even_better_fish, best_fish):
+                      in_hut, basic_fish, better_fish, even_better_fish, best_fish, save_data_window):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1541,10 +1541,11 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 button_highlight.update(new_game_button.x_coordinate + 10, new_game_button.y_coordinate,
                                         graphic_dict["start high"])
                 return True
-            if continue_button.rect.collidepoint(pos):
-                button_highlight.update(continue_button.x_coordinate + 10, continue_button.y_coordinate,
-                                        graphic_dict["start high"])
-                return True
+            if len(save_data_window) == 0:
+                if continue_button.rect.collidepoint(pos):
+                    button_highlight.update(continue_button.x_coordinate + 10, continue_button.y_coordinate,
+                                            graphic_dict["start high"])
+                    return True
             if music_toggle.rect.collidepoint(pos):
                 button_highlight.update(music_toggle.x_coordinate, music_toggle.y_coordinate,
                                         graphic_dict["music_button_high"])

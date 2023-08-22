@@ -1908,6 +1908,8 @@ def load_game(player, Item, graphics, Pet):
             load_return["even_better_fish_reward"] = player_load_info["even_better_fish_reward"]
             load_return["best_fish_reward"] = player_load_info["best_fish_reward"]
             load_return["marrow_small_chest_got"] = player_load_info["marrow_small_chest_got"]
+            load_return["noren_complete"] = player_load_info["noren_complete"]
+            load_return["boro_complete"] = player_load_info["boro_complete"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -1931,7 +1933,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               artherian_gift, artherian_2, artherian_complete, fishing_unlocked, fishing_journal_unlocked,
               bait_given, basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter,
               fishing_level, basic_fish_reward, better_fish_reward, even_better_fish_reward, best_fish_reward,
-              marrow_small_chest_got):
+              marrow_small_chest_got, noren_complete, boro_complete):
 
     inventory_save = []
     equipment_save = []
@@ -2011,7 +2013,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter,
                         "fishing_level": fishing_level, "basic_fish_reward": basic_fish_reward,
                         "better_fish_reward": better_fish_reward, "even_better_fish_reward": even_better_fish_reward,
-                        "best_fish_reward": best_fish_reward, "marrow_small_chest_got": marrow_small_chest_got}
+                        "best_fish_reward": best_fish_reward, "marrow_small_chest_got": marrow_small_chest_got,
+                        "noren_complete": noren_complete, "boro_complete": boro_complete}
 
     try:
         with open("save", "wb") as ff:

@@ -6720,7 +6720,8 @@ def button_highlighter(posit):
                                                               stun_button, kasper_unlocked, torok_unlocked,
                                                               iriana_unlocked, music_toggle_button, in_hut,
                                                               check_basic_fish_button, check_better_fish_button,
-                                                              check_even_better_fish_button, check_best_fish_button)
+                                                              check_even_better_fish_button, check_best_fish_button,
+                                                              save_data_window)
     return button_highlighters
 
 
@@ -6841,7 +6842,7 @@ if __name__ == "__main__":
     rest_recover = Notification("rest recover", False, 510, 365, graphic_dict["health_popup"])
     outpost_notify = Notification("outpost notify", False, 510, 365, graphic_dict["outpost_popup"])
     save_check = Notification("save check", False, 510, 365, graphic_dict["save_popup"])
-    save_absent = Notification("save absent", False, 640, 574, graphic_dict["save_not_found"])
+    save_absent = Notification("save absent", False, 652, 568, graphic_dict["save_not_found"])
     first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
     # weapons
     staff = UiElement("staff", 1080, 283, graphic_dict["staff_0"])
@@ -7143,10 +7144,10 @@ if __name__ == "__main__":
     atmon_1 = Enemy("atmon", "atmon", 100, 100, 22, 250, 150, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    atmon_2 = Enemy("atmon", "atmon", 100, 100, 25, 85, 225, True,
+    atmon_2 = Enemy("atmon", "atmon", 100, 100, 25, 95, 230, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    atmon_3 = Enemy("atmon", "atmon", 100, 100, 21, 185, 350, True,
+    atmon_3 = Enemy("atmon", "atmon", 100, 100, 21, 190, 350, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     atmon_4 = Enemy("atmon", "atmon", 100, 100, 24, 350, 275, True,
@@ -7177,6 +7178,7 @@ if __name__ == "__main__":
 
     hearth_stone = Building("hearth", "seldon hearth", 860, 595, graphic_dict["hearth_stone"])
     marrow_hearth = Building("hearth", "marrow hearth", 960, 350, graphic_dict["hearth_stone"])
+    castle_bridge = UiElement("castle bridge", 710, 486, graphic_dict["castle_bridge_unfinished"])
 
     stardust_entrance = Building("shop", "stardust post", 530, 325, graphic_dict["stardust_entrance"])
     rohir_gate = Building("gate", "rohir gate", 525, 50, graphic_dict["rohir_gate"])
@@ -8309,13 +8311,10 @@ if __name__ == "__main__":
                             button_highlighted = False
                             save_data_window.clear()
                         if continue_button.rect.collidepoint(pos):
-                            if music_toggle:
-                                music_toggle_button.update(775, 44, graphic_dict["music_button_off"])
-                            if not music_toggle:
-                                music_toggle_button.update(775, 44, graphic_dict["music_button"])
-                            pygame.mixer.find_channel(True).play(sfx_button_start)
-                            continue_game_chosen = True
-                            button_highlighted = False
+                            if len(save_data_window) == 0:
+                                pygame.mixer.find_channel(True).play(sfx_button_start)
+                                continue_game_chosen = True
+                                button_highlighted = False
                     # click to dismiss save absent popup if player tries to continue with no save file
                     if save_absent.rect.collidepoint(pos):
                         save_data_window.clear()
@@ -8797,6 +8796,8 @@ if __name__ == "__main__":
                         even_better_fish_reward = load_returned["even_better_fish_reward"]
                         best_fish_reward = load_returned["best_fish_reward"]
                         marrow_small_chest_got = load_returned["marrow_small_chest_got"]
+                        npc_noren.quest_complete = load_returned["noren_complete"]
+                        npc_boro.quest_complete = load_returned["boro_complete"]
 
                         if player.race == "amuna":
                             player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
@@ -8981,12 +8982,18 @@ if __name__ == "__main__":
                         if marrow_switch_phase == "purple":
                             overlay_marrow_switch.update(640, 360, graphic_dict["marrow_switch_purple"])
 
+                        if music_toggle:
+                            music_toggle_button.update(775, 44, graphic_dict["music_button_off"])
+                        if not music_toggle:
+                            music_toggle_button.update(775, 44, graphic_dict["music_button"])
+
                     except TypeError:
                         pass
                 except KeyError:
                     pass
             except FileNotFoundError:
                 continue_game_chosen = False
+                save_data_window.append(save_absent)
 
         # --------------------------------------------------------------------------------------------------------------
         # player has chosen to start game ------------------------------------------------------------------------------
@@ -9557,7 +9564,9 @@ if __name__ == "__main__":
                                                                         even_better_fish_counter, best_fish_counter,
                                                                         fishing_level, basic_fish_reward,
                                                                         better_fish_reward, even_better_fish_reward,
-                                                                        best_fish_reward, marrow_small_chest_got)
+                                                                        best_fish_reward, marrow_small_chest_got,
+                                                                        npc_noren.quest_complete,
+                                                                        npc_boro.quest_complete)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -9603,7 +9612,8 @@ if __name__ == "__main__":
                                                                     better_fish_counter, even_better_fish_counter,
                                                                     best_fish_counter, fishing_level, basic_fish_reward,
                                                                     better_fish_reward, even_better_fish_reward,
-                                                                    best_fish_reward, marrow_small_chest_got)
+                                                                    best_fish_reward, marrow_small_chest_got,
+                                                                    npc_noren.quest_complete, npc_boro.quest_complete)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -10404,7 +10414,7 @@ if __name__ == "__main__":
                                                                                vanish_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter)
+                                                                               best_fish_counter, castle_bridge)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -10434,7 +10444,7 @@ if __name__ == "__main__":
                                                                                vanish_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter)
+                                                                               best_fish_counter, castle_bridge)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -16057,7 +16067,9 @@ if __name__ == "__main__":
                                                                         fishing_level, basic_fish_reward,
                                                                         better_fish_reward,
                                                                         even_better_fish_reward, best_fish_reward,
-                                                                        marrow_small_chest_got)
+                                                                        marrow_small_chest_got,
+                                                                        npc_noren.quest_complete,
+                                                                        npc_boro.quest_complete)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -16707,7 +16719,9 @@ if __name__ == "__main__":
                                                                         fishing_level, basic_fish_reward,
                                                                         better_fish_reward,
                                                                         even_better_fish_reward, best_fish_reward,
-                                                                        marrow_small_chest_got)
+                                                                        marrow_small_chest_got,
+                                                                        npc_noren.quest_complete,
+                                                                        npc_boro.quest_complete)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -17175,7 +17189,8 @@ if __name__ == "__main__":
                                                                     fishing_level, basic_fish_reward,
                                                                     better_fish_reward,
                                                                     even_better_fish_reward, best_fish_reward,
-                                                                    marrow_small_chest_got)
+                                                                    marrow_small_chest_got, npc_noren.quest_complete,
+                                                                    npc_boro.quest_complete)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -17646,7 +17661,9 @@ if __name__ == "__main__":
                                                                             even_better_fish_counter, best_fish_counter,
                                                                             fishing_level, basic_fish_reward,
                                                                             better_fish_reward, even_better_fish_reward,
-                                                                            best_fish_reward, marrow_small_chest_got)
+                                                                            best_fish_reward, marrow_small_chest_got,
+                                                                            npc_noren.quest_complete,
+                                                                            npc_boro.quest_complete)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -17873,7 +17890,9 @@ if __name__ == "__main__":
                                                                             even_better_fish_counter, best_fish_counter,
                                                                             fishing_level, basic_fish_reward,
                                                                             better_fish_reward, even_better_fish_reward,
-                                                                            best_fish_reward, marrow_small_chest_got)
+                                                                            best_fish_reward, marrow_small_chest_got,
+                                                                            npc_noren.quest_complete,
+                                                                            npc_boro.quest_complete)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -18101,7 +18120,9 @@ if __name__ == "__main__":
                                                                             even_better_fish_counter, best_fish_counter,
                                                                             fishing_level, basic_fish_reward,
                                                                             better_fish_reward, even_better_fish_reward,
-                                                                            best_fish_reward, marrow_small_chest_got)
+                                                                            best_fish_reward, marrow_small_chest_got,
+                                                                            npc_noren.quest_complete,
+                                                                            npc_boro.quest_complete)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
