@@ -14,7 +14,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
                     current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
                     maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
-                    better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge):
+                    better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
+                    prism_tic, sfx_chroma):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -35,6 +36,15 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
 
     if noren.quest_complete or boro.quest_complete:
         screen.blit(castle_bridge.surf, castle_bridge.rect)
+
+    if noren.quest_complete or boro.quest_complete:
+        prism_toc = time.perf_counter()
+        if prism_toc - prism_tic < 2:
+            screen.blit(prism_activate.surf, prism_activate.rect)
+            if noren.quest_complete:
+                noren.surf = graphic_dict["noren_prism"]
+            if boro.quest_complete:
+                boro.surf = graphic_dict["boro_prism"]
 
     if not artherian.quest_complete:
         screen.blit(artherian_star.surf, artherian_star.rect)
@@ -117,6 +127,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             if not noren.quest_complete:
                 for item in player.items:
                     if item.name == "prism":
+                        pygame.mixer.find_channel(True).play(sfx_chroma)
+                        prism_tic = time.perf_counter()
                         noren.quest_complete = True
                         if boro.quest_complete:
                             castle_bridge.update(castle_bridge.x_coordinate, castle_bridge.y_coordinate,
@@ -143,6 +155,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             if not boro.quest_complete:
                 for item in player.items:
                     if item.name == "prism":
+                        pygame.mixer.find_channel(True).play(sfx_chroma)
+                        prism_tic = time.perf_counter()
                         boro.quest_complete = True
                         if noren.quest_complete:
                             castle_bridge.update(castle_bridge.x_coordinate, castle_bridge.y_coordinate,
@@ -352,7 +366,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                               "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
                               "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
                               "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
-                              "marrow_ghouls": marrow_ghouls}
+                              "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic}
 
     return marrow_district_return
 

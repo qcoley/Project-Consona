@@ -227,6 +227,7 @@ def load_graphics():
     m_switch_c = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_complete.png')).convert_alpha()
     m_switch_box = pygame.image.load(resource_path('resources/art/marrow_switch_box.png')).convert_alpha()
     chest_small = pygame.image.load(resource_path('resources/art/sprite_dungeon_chest_small.png')).convert_alpha()
+    overlay_prism = pygame.image.load(resource_path('resources/art/overlay_prism_activate.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -258,11 +259,12 @@ def load_graphics():
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
                   m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_box, popup_wide,
-                  overlay_enemy_vanish, chroma_forge, overlay_smelting, overlay_enchanting, chest_small]
+                  overlay_enemy_vanish, chroma_forge, overlay_smelting, overlay_enchanting, chest_small, overlay_prism]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["overlay_prism"] = overlay_prism
     loaded_dict["sub_marrow_battle_screen"] = sub_marrow_battle
     loaded_dict["chest_small"] = chest_small
     loaded_dict["flower_counts"] = overlay_flower_counts
@@ -4914,6 +4916,7 @@ def load_graphics():
     loaded_dict["noren_up"] = noren_sheet[1]
     loaded_dict["noren_left"] = noren_sheet[2]
     loaded_dict["noren_right"] = noren_sheet[3]
+    loaded_dict["noren_prism"] = noren_sheet[4]
     # boro npc ---------------------------------------------------------------------------------------------------------
     boro_url = resource_path('resources/art/sprites_boro.png')
     boro_sheet = sprite_sheet((50, 62), boro_url)
@@ -4921,6 +4924,7 @@ def load_graphics():
     loaded_dict["boro_up"] = boro_sheet[1]
     loaded_dict["boro_left"] = boro_sheet[2]
     loaded_dict["boro_right"] = boro_sheet[3]
+    loaded_dict["boro_prism"] = boro_sheet[4]
     # adria npc --------------------------------------------------------------------------------------------------------
     adria_url = resource_path('resources/art/sprites_maydria.png')
     adria_sheet = sprite_sheet((50, 75), adria_url)

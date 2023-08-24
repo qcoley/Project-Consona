@@ -1736,11 +1736,28 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if self.y_coordinate > 705:
                     self.y_coordinate = 705
             if self.x_coordinate > 390:
-                if self.y_coordinate > 420:
+                if 765 > self.x_coordinate > 645:
+                    if npc_noren.quest_complete and npc_boro.quest_complete:
+                        try:
+                            if self.equipment["boots"].name == "chroma boots":
+                                if self.y_coordinate > 420:
+                                    if self.y_coordinate > 590:
+                                        self.y_coordinate = 590
+                                    if self.x_coordinate < 665:
+                                        self.x_coordinate = 665
+                                    if self.x_coordinate > 755:
+                                        self.x_coordinate = 755
+                        except AttributeError:
+                            if self.y_coordinate > 420:
+                                self.y_coordinate = 420
+                    elif self.y_coordinate > 420:
+                        self.y_coordinate = 420
+                elif self.y_coordinate > 420:
                     self.y_coordinate = 420
             if self.y_coordinate > 420:
-                if self.x_coordinate > 385:
-                    self.x_coordinate = 385
+                if self.x_coordinate < 525:
+                    if self.x_coordinate > 385:
+                        self.x_coordinate = 385
             if self.x_coordinate > 1010:
                 self.x_coordinate = 1010
             if 730 < self.x_coordinate or self.x_coordinate < 630:
@@ -3875,11 +3892,28 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.y_coordinate > 705:
                     self.y_coordinate = 705
             if self.x_coordinate > 390:
-                if self.y_coordinate > 420:
+                if 765 > self.x_coordinate > 645:
+                    if npc_noren.quest_complete and npc_boro.quest_complete:
+                        try:
+                            if self.equipment["boots"].name == "chroma boots":
+                                if self.y_coordinate > 420:
+                                    if self.y_coordinate > 590:
+                                        self.y_coordinate = 590
+                                    if self.x_coordinate < 665:
+                                        self.x_coordinate = 665
+                                    if self.x_coordinate > 755:
+                                        self.x_coordinate = 755
+                        except AttributeError:
+                            if self.y_coordinate > 420:
+                                self.y_coordinate = 420
+                    elif self.y_coordinate > 420:
+                        self.y_coordinate = 420
+                elif self.y_coordinate > 420:
                     self.y_coordinate = 420
             if self.y_coordinate > 420:
-                if self.x_coordinate > 385:
-                    self.x_coordinate = 385
+                if self.x_coordinate < 525:
+                    if self.x_coordinate > 385:
+                        self.x_coordinate = 385
             if self.x_coordinate > 1010:
                 self.x_coordinate = 1010
             if 730 < self.x_coordinate or self.x_coordinate < 630:
@@ -6003,11 +6037,28 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if self.y_coordinate > 705:
                     self.y_coordinate = 705
             if self.x_coordinate > 390:
-                if self.y_coordinate > 420:
+                if 765 > self.x_coordinate > 645:
+                    if npc_noren.quest_complete and npc_boro.quest_complete:
+                        try:
+                            if self.equipment["boots"].name == "chroma boots":
+                                if self.y_coordinate > 420:
+                                    if self.y_coordinate > 590:
+                                        self.y_coordinate = 590
+                                    if self.x_coordinate < 665:
+                                        self.x_coordinate = 665
+                                    if self.x_coordinate > 755:
+                                        self.x_coordinate = 755
+                        except AttributeError:
+                            if self.y_coordinate > 420:
+                                self.y_coordinate = 420
+                    elif self.y_coordinate > 420:
+                        self.y_coordinate = 420
+                elif self.y_coordinate > 420:
                     self.y_coordinate = 420
             if self.y_coordinate > 420:
-                if self.x_coordinate > 385:
-                    self.x_coordinate = 385
+                if self.x_coordinate < 525:
+                    if self.x_coordinate > 385:
+                        self.x_coordinate = 385
             if self.x_coordinate > 1010:
                 self.x_coordinate = 1010
             if 730 < self.x_coordinate or self.x_coordinate < 630:
@@ -7485,6 +7536,8 @@ if __name__ == "__main__":
 
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 568, graphic_dict["chest_small"])
 
+    overlay_prism_activate = UiElement("overlay prism", 710, 485, graphic_dict["overlay_prism"])
+
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
     pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, graphic_dict["pine_tree"])
@@ -8162,12 +8215,13 @@ if __name__ == "__main__":
     start_logo_tic = time.perf_counter()
     firework_tic = time.perf_counter()
     fishing_timer = time.perf_counter()
+    prism_activate_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -9164,6 +9218,11 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "marrow":
+                                    if 565 > player.y_coordinate > 420 and player.x_coordinate > 660:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
                                 else:
                                     pygame.mixer.find_channel(True).play(sfx_steps_path)
 
@@ -9201,6 +9260,11 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
                                 elif player.current_zone == "marrow ramps west":
                                     if 530 > player.y_coordinate > 280:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "marrow":
+                                    if 565 > player.y_coordinate > 420 and player.x_coordinate > 660:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -9243,6 +9307,11 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "marrow":
+                                    if 565 > player.y_coordinate > 420 and player.x_coordinate > 660:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
                                 else:
                                     pygame.mixer.find_channel(True).play(sfx_steps_path)
                             player.update("up", player.current_zone, walking_return["total time"])
@@ -9279,6 +9348,11 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
                                 elif player.current_zone == "marrow ramps west":
                                     if 530 > player.y_coordinate > 280:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_chroma)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_steps_path)
+                                elif player.current_zone == "marrow":
+                                    if 565 > player.y_coordinate > 420 and player.x_coordinate > 660:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -10435,7 +10509,9 @@ if __name__ == "__main__":
                                                                                vanish_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter, castle_bridge)
+                                                                               best_fish_counter, castle_bridge,
+                                                                               overlay_prism_activate,
+                                                                               prism_activate_tic, sfx_item_chroma)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -10465,7 +10541,9 @@ if __name__ == "__main__":
                                                                                vanish_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter, castle_bridge)
+                                                                               best_fish_counter, castle_bridge,
+                                                                               overlay_prism_activate,
+                                                                               prism_activate_tic, sfx_item_chroma)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -10483,6 +10561,7 @@ if __name__ == "__main__":
                     in_battle = marrow_district_returned["in_battle"]
                     current_enemy_battling = marrow_district_returned["current_enemy"]
                     marrow_ghouls = marrow_district_returned["marrow_ghouls"]
+                    prism_activate_tic = marrow_district_returned["prism_tic"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow entrance ----------------------------------------------------------------------

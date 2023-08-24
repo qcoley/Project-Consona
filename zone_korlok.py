@@ -364,9 +364,9 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                         rock_4.update(rock_4.x_coordinate - 90, rock_4.y_coordinate, graphic_dict["rock_small"])
                         if not rock_4_con:
                             pygame.mixer.find_channel(True).play(sfx_rupee)
-                            player.rupees += 10
+                            player.rupees += 30
                             rock_4_con = True
-                            info_text_1 = "You found 10 Rupees under the rock!"
+                            info_text_1 = "You found 30 Rupees under the rock!"
                             info_text_2 = ""
                 else:
                     info_text_1 = "The rock won't budge."
@@ -392,9 +392,9 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                         rock_5.update(rock_5.x_coordinate + 90, rock_5.y_coordinate, graphic_dict["rock_small"])
                         if not rock_5_con:
                             pygame.mixer.find_channel(True).play(sfx_rupee)
-                            player.rupees += 15
+                            player.rupees += 25
                             rock_5_con = True
-                            info_text_1 = "You found 15 Rupees under the rock!"
+                            info_text_1 = "You found 25 Rupees under the rock!"
                             info_text_2 = ""
                 else:
                     info_text_1 = "The rock won't budge."
