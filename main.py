@@ -10477,7 +10477,7 @@ if __name__ == "__main__":
                     entrance_3 = eldream_returned["entrance_3"]
 
                 # ------------------------------------------------------------------------------------------------------
-                # if player is in ramparts tower east ------------------------------------------------------------------
+                # if player is in marrow district ----------------------------------------------------------------------
                 if player.current_zone == "marrow" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
@@ -11242,6 +11242,80 @@ if __name__ == "__main__":
                     enemy_tic = sub_marrow_returned["enemy_tic"]
                     if in_battle:
                         current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in marrow district ----------------------------------------------------------------------
+                if player.current_zone == "castle one" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        castle_one_returned = zone_castle.castle_one(pygame, screen, graphic_dict, player,
+                                                                     marrow_district_bg, over_world_song_set,
+                                                                     marrow_overworld_music, interaction_popup, font,
+                                                                     save_check_window, user_interface, bar_backdrop,
+                                                                     hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                     button_highlight, in_over_world, interacted,
+                                                                     info_text_1, info_text_2, info_text_3, info_text_4,
+                                                                     npc_tic, movement_able, equipment_screen, staff,
+                                                                     sword, bow, npc_garan, offense_meter,
+                                                                     defense_meter, weapon_select, pet_energy_window,
+                                                                     npc_artherian, player_battle_sprite,
+                                                                     current_npc_interacting, in_npc_interaction,
+                                                                     marrow_hearth, marrow_attuned, sfx_map_teleport,
+                                                                     ghouls_marrow, enemy_tic, barrier_active,
+                                                                     sharp_sense_active, ghoul_battle_sprite, in_battle,
+                                                                     current_enemy_battling, Enemy, Item, UiElement,
+                                                                     task_star_artherian, npc_noren, npc_boro,
+                                                                     npc_maydria, npcs_marrow, task_star_maydria,
+                                                                     sub_marrow_rect, sfx_ladder, vanished,
+                                                                     vanish_overlay, basic_fish_counter,
+                                                                     better_fish_counter, even_better_fish_counter,
+                                                                     best_fish_counter, castle_bridge,
+                                                                     overlay_prism_activate, prism_activate_tic,
+                                                                     sfx_item_chroma)
+                    else:
+                        castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
+                                                                     marrow_district_bg, over_world_song_set,
+                                                                     marrow_overworld_music, interaction_popup, font,
+                                                                     save_check_window, user_interface, bar_backdrop,
+                                                                     hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                     button_highlight, in_over_world, interacted,
+                                                                     info_text_1, info_text_2, info_text_3, info_text_4,
+                                                                     npc_tic, movement_able, equipment_screen, staff,
+                                                                     sword, bow, npc_garan, offense_meter,
+                                                                     defense_meter, weapon_select, pet_energy_window,
+                                                                     npc_artherian, player_battle_sprite,
+                                                                     current_npc_interacting, in_npc_interaction,
+                                                                     marrow_hearth, marrow_attuned, sfx_map_teleport,
+                                                                     ghouls_marrow, enemy_tic, barrier_active,
+                                                                     sharp_sense_active, ghoul_battle_sprite, in_battle,
+                                                                     current_enemy_battling, Enemy, Item, UiElement,
+                                                                     task_star_artherian, npc_noren, npc_boro,
+                                                                     npc_maydria, npcs_marrow, task_star_maydria,
+                                                                     sub_marrow_rect, sfx_ladder, vanished,
+                                                                     vanish_overlay, basic_fish_counter,
+                                                                     better_fish_counter, even_better_fish_counter,
+                                                                     best_fish_counter, castle_bridge,
+                                                                     overlay_prism_activate, prism_activate_tic,
+                                                                     sfx_item_chroma)
+
+                    over_world_song_set = castle_one_returned["over_world_song_set"]
+                    interacted = castle_one_returned["interacted"]
+                    in_over_world = castle_one_returned["in_over_world"]
+                    movement_able = castle_one_returned["movement_able"]
+                    info_text_1 = castle_one_returned["info_text_1"]
+                    info_text_2 = castle_one_returned["info_text_2"]
+                    info_text_3 = castle_one_returned["info_text_3"]
+                    info_text_4 = castle_one_returned["info_text_4"]
+                    npc_tic = castle_one_returned["npc_tic"]
+                    current_npc_interacting = castle_one_returned["current_npc_interacting"]
+                    in_npc_interaction = castle_one_returned["in_npc_interaction"]
+                    marrow_attuned = castle_one_returned["marrow_attuned"]
+                    enemy_tic = castle_one_returned["enemy_tic"]
+                    in_battle = castle_one_returned["in_battle"]
+                    current_enemy_battling = castle_one_returned["current_enemy"]
+                    marrow_ghouls = castle_one_returned["marrow_ghouls"]
+                    prism_activate_tic = castle_one_returned["prism_tic"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------

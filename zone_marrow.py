@@ -39,7 +39,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
 
     if noren.quest_complete or boro.quest_complete:
         prism_toc = time.perf_counter()
-        if prism_toc - prism_tic < 2:
+        if prism_toc - prism_tic < 1.5:
             screen.blit(prism_activate.surf, prism_activate.rect)
             if noren.quest_complete:
                 noren.surf = graphic_dict["noren_prism"]
@@ -354,6 +354,14 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
 
     if player.y_coordinate <= 50:
         player.current_zone = "marrow entrance"
+        over_world_song_set = False
+        in_over_world = True
+        player.x_coordinate = 465
+        player.y_coordinate = 675
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    if player.x_coordinate > 660 and player.y_coordinate > 565:
+        player.current_zone = "castle one"
         over_world_song_set = False
         in_over_world = True
         player.x_coordinate = 465
