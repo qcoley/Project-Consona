@@ -119,6 +119,7 @@ def load_graphics():
     marrow_district_bg = pygame.image.load(resource_path('resources/art/bg_marrow_district.png')).convert_alpha()
     sub_marrow_bg = pygame.image.load(resource_path('resources/art/bg_sub_marrow.png')).convert_alpha()
     sub_marrow_battle = pygame.image.load(resource_path('resources/art/bg_sub_marrow_battle.png')).convert_alpha()
+    castle_one_bg = pygame.image.load(resource_path('resources/art/bg_castle_one.png')).convert_alpha()
     e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
     fishing_hut_bg = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
@@ -264,6 +265,7 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["castle_one_bg"] = castle_one_bg
     loaded_dict["overlay_prism"] = overlay_prism
     loaded_dict["sub_marrow_battle_screen"] = sub_marrow_battle
     loaded_dict["chest_small"] = chest_small
@@ -453,6 +455,13 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # marrow castle chandelier -----------------------------------------------------------------------------------------
+    chandelier_url = resource_path('resources/art/overlay_chandelier.png')
+    chandelier_sheet = sprite_sheet((1027, 200), chandelier_url)
+    loaded_dict["chandelier_full"] = chandelier_sheet[0]
+    loaded_dict["chandelier_right"] = chandelier_sheet[1]
+    loaded_dict["chandelier_left"] = chandelier_sheet[2]
+    loaded_dict["chandelier_broken"] = chandelier_sheet[3]
     # marrow castle bridge ---------------------------------------------------------------------------------------------
     castle_bridge_url = resource_path('resources/art/overlay_marrow_castle_bridge.png')
     castle_bridge_sheet = sprite_sheet((150, 150), castle_bridge_url)

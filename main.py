@@ -25,6 +25,7 @@ import zone_marrow
 import zone_forge
 import zone_altar
 import zone_fishing_hut
+import zone_castle
 
 # global variable
 velocity = 3
@@ -1349,6 +1350,39 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_female_right_4"]
                     self.x_coordinate += velocity
 
+        if current_zone == "castle one":
+            if self.y_coordinate < 115:
+                self.y_coordinate = 115
+            if self.y_coordinate < 552:
+                if self.x_coordinate < 32:
+                    self.x_coordinate = 32
+                if self.x_coordinate > 1000:
+                    self.x_coordinate = 1000
+                if self.x_coordinate > 220:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate < 245:
+                            self.x_coordinate = 245
+                if self.x_coordinate < 220:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate > 205:
+                            self.x_coordinate = 205
+                if self.x_coordinate < 808:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate > 790:
+                            self.x_coordinate = 790
+                if self.x_coordinate > 808:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate < 826:
+                            self.x_coordinate = 826
+                if 795 > self.x_coordinate > 220:
+                    if self.y_coordinate > 535:
+                        self.y_coordinate = 535
+            if self.y_coordinate > 550:
+                if 215 < self.x_coordinate < 810:
+                    if self.y_coordinate < 562:
+                        self.y_coordinate = 562
+            if self.y_coordinate > 705:
+                self.y_coordinate = 705
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -3504,6 +3538,39 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_female_right_4"]
                     self.x_coordinate += velocity
 
+        if current_zone == "castle one":
+            if self.y_coordinate < 115:
+                self.y_coordinate = 115
+            if self.y_coordinate < 552:
+                if self.x_coordinate < 32:
+                    self.x_coordinate = 32
+                if self.x_coordinate > 1000:
+                    self.x_coordinate = 1000
+                if self.x_coordinate > 220:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate < 245:
+                            self.x_coordinate = 245
+                if self.x_coordinate < 220:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate > 205:
+                            self.x_coordinate = 205
+                if self.x_coordinate < 808:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate > 790:
+                            self.x_coordinate = 790
+                if self.x_coordinate > 808:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate < 826:
+                            self.x_coordinate = 826
+                if 795 > self.x_coordinate > 220:
+                    if self.y_coordinate > 535:
+                        self.y_coordinate = 535
+            if self.y_coordinate > 550:
+                if 215 < self.x_coordinate < 810:
+                    if self.y_coordinate < 562:
+                        self.y_coordinate = 562
+            if self.y_coordinate > 705:
+                self.y_coordinate = 705
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -5650,6 +5717,39 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_b_right_4"]
                     self.x_coordinate += velocity
 
+        if current_zone == "castle one":
+            if self.y_coordinate < 115:
+                self.y_coordinate = 115
+            if self.y_coordinate < 552:
+                if self.x_coordinate < 32:
+                    self.x_coordinate = 32
+                if self.x_coordinate > 1000:
+                    self.x_coordinate = 1000
+                if self.x_coordinate > 220:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate < 245:
+                            self.x_coordinate = 245
+                if self.x_coordinate < 220:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate > 205:
+                            self.x_coordinate = 205
+                if self.x_coordinate < 808:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate > 790:
+                            self.x_coordinate = 790
+                if self.x_coordinate > 808:
+                    if self.y_coordinate > 385:
+                        if self.x_coordinate < 826:
+                            self.x_coordinate = 826
+                if 795 > self.x_coordinate > 220:
+                    if self.y_coordinate > 535:
+                        self.y_coordinate = 535
+            if self.y_coordinate > 550:
+                if 215 < self.x_coordinate < 810:
+                    if self.y_coordinate < 562:
+                        self.y_coordinate = 562
+            if self.y_coordinate > 705:
+                self.y_coordinate = 705
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -6865,6 +6965,7 @@ if __name__ == "__main__":
     marrow_interaction_bg = graphic_dict["marrow_interaction_bg"]
     marrow_tower_battle = graphic_dict["marrow_tower_battle"]
     sub_marrow_bg = graphic_dict["sub_marrow_bg"]
+    castle_one_bg = graphic_dict["castle_one_bg"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -7537,6 +7638,8 @@ if __name__ == "__main__":
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 568, graphic_dict["chest_small"])
 
     overlay_prism_activate = UiElement("overlay prism", 710, 485, graphic_dict["overlay_prism"])
+    overlay_chandelier = UiElement("chandelier", 516, 285, graphic_dict["chandelier_full"])
+    overlay_chandelier.surf.set_alpha(230)
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
@@ -7626,6 +7729,7 @@ if __name__ == "__main__":
     fishing_hut_rect_collide = pygame.Rect((800, 110), (75, 50))
     alcove_fishing_rect_1 = pygame.Rect((375, 35), (100, 25))
     alcove_fishing_rect_2 = pygame.Rect((375, 625), (100, 25))
+    marrow_castle_exit = pygame.Rect((515, 0), (100, 50))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
@@ -7792,6 +7896,7 @@ if __name__ == "__main__":
     marrow_entrance_music = resource_path("resources/sounds/eterna_marrow_entrance.mp3")
     boss_battle_music = resource_path("resources/sounds/eterna_boss_battle.mp3")
     fishing_music = resource_path("resources/sounds/eterna_fishing.mp3")
+    castle_music = resource_path("resources/sounds/eterna_castle.mp3")
 
     pygame.mixer.music.set_volume(0.35)
     pygame.mixer.music.load(start_screen_music)
@@ -9036,6 +9141,10 @@ if __name__ == "__main__":
                             player.x_coordinate = 425
                             player.y_coordinate = 650
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "castle one":
+                            player.x_coordinate = 515
+                            player.y_coordinate = 175
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
                         if marrow_switch_phase == "red":
                             overlay_marrow_switch.update(640, 360, graphic_dict["marrow_switch_red"])
@@ -9163,7 +9272,8 @@ if __name__ == "__main__":
                                                                       alcove_fishing_rect_2, fishing_spot_eldream_1,
                                                                       fishing_spot_eldream_2, sub_marrow_rect_2,
                                                                       dungeon_gate_marrow_rect,
-                                                                      dungeon_chest_small_marrow, atmons)
+                                                                      dungeon_chest_small_marrow, atmons,
+                                                                      marrow_castle_exit)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9452,7 +9562,8 @@ if __name__ == "__main__":
                                                                                   fishing_spot_eldream_2,
                                                                                   sub_marrow_rect_2,
                                                                                   dungeon_gate_marrow_rect,
-                                                                                  dungeon_chest_small_marrow, atmons)
+                                                                                  dungeon_chest_small_marrow, atmons,
+                                                                                  marrow_castle_exit)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -11250,8 +11361,8 @@ if __name__ == "__main__":
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         castle_one_returned = zone_castle.castle_one(pygame, screen, graphic_dict, player,
-                                                                     marrow_district_bg, over_world_song_set,
-                                                                     marrow_overworld_music, interaction_popup, font,
+                                                                     castle_one_bg, over_world_song_set,
+                                                                     castle_music, interaction_popup, font,
                                                                      save_check_window, user_interface, bar_backdrop,
                                                                      hp_bar, en_bar, xp_bar, button_highlighted,
                                                                      button_highlight, in_over_world, interacted,
@@ -11272,11 +11383,12 @@ if __name__ == "__main__":
                                                                      better_fish_counter, even_better_fish_counter,
                                                                      best_fish_counter, castle_bridge,
                                                                      overlay_prism_activate, prism_activate_tic,
-                                                                     sfx_item_chroma)
+                                                                     sfx_item_chroma, marrow_castle_exit,
+                                                                     overlay_chandelier)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
-                                                                     marrow_district_bg, over_world_song_set,
-                                                                     marrow_overworld_music, interaction_popup, font,
+                                                                     castle_one_bg, over_world_song_set,
+                                                                     castle_music, interaction_popup, font,
                                                                      save_check_window, user_interface, bar_backdrop,
                                                                      hp_bar, en_bar, xp_bar, button_highlighted,
                                                                      button_highlight, in_over_world, interacted,
@@ -11297,7 +11409,8 @@ if __name__ == "__main__":
                                                                      better_fish_counter, even_better_fish_counter,
                                                                      best_fish_counter, castle_bridge,
                                                                      overlay_prism_activate, prism_activate_tic,
-                                                                     sfx_item_chroma)
+                                                                     sfx_item_chroma, marrow_castle_exit,
+                                                                     overlay_chandelier)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]

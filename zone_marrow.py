@@ -364,8 +364,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         player.current_zone = "castle one"
         over_world_song_set = False
         in_over_world = True
-        player.x_coordinate = 465
-        player.y_coordinate = 675
+        player.x_coordinate = 515
+        player.y_coordinate = 175
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     marrow_district_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
