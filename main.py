@@ -6966,6 +6966,7 @@ if __name__ == "__main__":
     marrow_tower_battle = graphic_dict["marrow_tower_battle"]
     sub_marrow_bg = graphic_dict["sub_marrow_bg"]
     castle_one_bg = graphic_dict["castle_one_bg"]
+    castle_two_bg = graphic_dict["castle_two_bg"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -7629,6 +7630,9 @@ if __name__ == "__main__":
     ramps_crate_4 = Item("ramps crate 4", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_5 = Item("ramps crate 5", "crate", 500, 650, graphic_dict["dungeon_crate"], 0)
 
+    castle_crate_1 = Item("castle crate 1", "crate", 80, 150, graphic_dict["dungeon_crate"], 0)
+    castle_crate_2 = Item("castle crate 2", "crate", 955, 150, graphic_dict["dungeon_crate"], 0)
+
     dungeon_switch_ramps_1 = Item("switch ramps 1", "switch", 945, 135, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_switch_ramps_2 = Item("switch ramps 2", "switch", 195, 135, graphic_dict["dungeon_switch_inactive"], 0)
 
@@ -8242,6 +8246,8 @@ if __name__ == "__main__":
     ramps_crate_3_got = False
     ramps_crate_4_got = False
     ramps_crate_5_got = False
+    castle_crate_1_got = False
+    castle_crate_2_got = False
     apothecary_window_open = False
     menagerie_window_open = False
     hut_window_open = False
@@ -11355,7 +11361,7 @@ if __name__ == "__main__":
                         current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
 
                 # ------------------------------------------------------------------------------------------------------
-                # if player is in marrow district ----------------------------------------------------------------------
+                # if player is in marrow castle area one ---------------------------------------------------------------
                 if player.current_zone == "castle one" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
@@ -11384,7 +11390,7 @@ if __name__ == "__main__":
                                                                      best_fish_counter, castle_bridge,
                                                                      overlay_prism_activate, prism_activate_tic,
                                                                      sfx_item_chroma, marrow_castle_exit,
-                                                                     overlay_chandelier)
+                                                                     overlay_chandelier, castle_crate_1, castle_crate_2)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -11410,7 +11416,7 @@ if __name__ == "__main__":
                                                                      best_fish_counter, castle_bridge,
                                                                      overlay_prism_activate, prism_activate_tic,
                                                                      sfx_item_chroma, marrow_castle_exit,
-                                                                     overlay_chandelier)
+                                                                     overlay_chandelier, castle_crate_1, castle_crate_2)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -11429,6 +11435,96 @@ if __name__ == "__main__":
                     current_enemy_battling = castle_one_returned["current_enemy"]
                     marrow_ghouls = castle_one_returned["marrow_ghouls"]
                     prism_activate_tic = castle_one_returned["prism_tic"]
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in marrow castle area two ---------------------------------------------------------------
+                if player.current_zone == "castle two" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        castle_two_returned = zone_castle.castle_two(pygame, screen, graphic_dict, player,
+                                                                     castle_two_bg, over_world_song_set,
+                                                                     castle_music, interaction_popup, font,
+                                                                     save_check_window, user_interface,
+                                                                     bar_backdrop,
+                                                                     hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                     button_highlight, in_over_world, interacted,
+                                                                     info_text_1, info_text_2, info_text_3,
+                                                                     info_text_4,
+                                                                     npc_tic, movement_able, equipment_screen,
+                                                                     staff,
+                                                                     sword, bow, npc_garan, offense_meter,
+                                                                     defense_meter, weapon_select,
+                                                                     pet_energy_window,
+                                                                     npc_artherian, player_battle_sprite,
+                                                                     current_npc_interacting, in_npc_interaction,
+                                                                     marrow_hearth, marrow_attuned,
+                                                                     sfx_map_teleport,
+                                                                     ghouls_marrow, enemy_tic, barrier_active,
+                                                                     sharp_sense_active, ghoul_battle_sprite,
+                                                                     in_battle,
+                                                                     current_enemy_battling, Enemy, Item, UiElement,
+                                                                     task_star_artherian, npc_noren, npc_boro,
+                                                                     npc_maydria, npcs_marrow, task_star_maydria,
+                                                                     sub_marrow_rect, sfx_ladder, vanished,
+                                                                     vanish_overlay, basic_fish_counter,
+                                                                     better_fish_counter, even_better_fish_counter,
+                                                                     best_fish_counter, castle_bridge,
+                                                                     overlay_prism_activate, prism_activate_tic,
+                                                                     sfx_item_chroma, marrow_castle_exit,
+                                                                     overlay_chandelier, castle_crate_1,
+                                                                     castle_crate_2)
+                    else:
+                        castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
+                                                                     castle_two_bg, over_world_song_set,
+                                                                     castle_music, interaction_popup, font,
+                                                                     save_check_window, user_interface,
+                                                                     bar_backdrop,
+                                                                     hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                     button_highlight, in_over_world, interacted,
+                                                                     info_text_1, info_text_2, info_text_3,
+                                                                     info_text_4,
+                                                                     npc_tic, movement_able, equipment_screen,
+                                                                     staff,
+                                                                     sword, bow, npc_garan, offense_meter,
+                                                                     defense_meter, weapon_select,
+                                                                     pet_energy_window,
+                                                                     npc_artherian, player_battle_sprite,
+                                                                     current_npc_interacting, in_npc_interaction,
+                                                                     marrow_hearth, marrow_attuned,
+                                                                     sfx_map_teleport,
+                                                                     ghouls_marrow, enemy_tic, barrier_active,
+                                                                     sharp_sense_active, ghoul_battle_sprite,
+                                                                     in_battle,
+                                                                     current_enemy_battling, Enemy, Item, UiElement,
+                                                                     task_star_artherian, npc_noren, npc_boro,
+                                                                     npc_maydria, npcs_marrow, task_star_maydria,
+                                                                     sub_marrow_rect, sfx_ladder, vanished,
+                                                                     vanish_overlay, basic_fish_counter,
+                                                                     better_fish_counter, even_better_fish_counter,
+                                                                     best_fish_counter, castle_bridge,
+                                                                     overlay_prism_activate, prism_activate_tic,
+                                                                     sfx_item_chroma, marrow_castle_exit,
+                                                                     overlay_chandelier, castle_crate_1,
+                                                                     castle_crate_2)
+
+                    over_world_song_set = castle_two_returned["over_world_song_set"]
+                    interacted = castle_two_returned["interacted"]
+                    in_over_world = castle_two_returned["in_over_world"]
+                    movement_able = castle_two_returned["movement_able"]
+                    info_text_1 = castle_two_returned["info_text_1"]
+                    info_text_2 = castle_two_returned["info_text_2"]
+                    info_text_3 = castle_two_returned["info_text_3"]
+                    info_text_4 = castle_two_returned["info_text_4"]
+                    npc_tic = castle_two_returned["npc_tic"]
+                    current_npc_interacting = castle_two_returned["current_npc_interacting"]
+                    in_npc_interaction = castle_two_returned["in_npc_interaction"]
+                    marrow_attuned = castle_two_returned["marrow_attuned"]
+                    enemy_tic = castle_two_returned["enemy_tic"]
+                    in_battle = castle_two_returned["in_battle"]
+                    current_enemy_battling = castle_two_returned["current_enemy"]
+                    marrow_ghouls = castle_two_returned["marrow_ghouls"]
+                    prism_activate_tic = castle_two_returned["prism_tic"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
