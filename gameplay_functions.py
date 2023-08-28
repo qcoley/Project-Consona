@@ -21,7 +21,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       dungeon_chest_ramps, dungeon_switch_ramps_2, erebyth, dungeon_switch_ramps_1, ramps_crate_5,
                       forge_rect, interacted, event, ectrenos_alcove_enemies, alcove_fishing_rect,
                       alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2, sub_marrow_rect_2,
-                      dungeon_gate_marrow, dungeon_chest_marrow_small, atmons, castle_exit):
+                      dungeon_gate_marrow, dungeon_chest_marrow_small, atmons, castle_exit, castle_crate_1,
+                      castle_crate_2, rock_9, rock_10):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -243,6 +244,17 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
         if player.current_zone == "castle one":
             if pygame.Rect.colliderect(player.rect, castle_exit):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, castle_crate_1):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, castle_crate_2):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "castle two":
+            if pygame.Rect.colliderect(player.rect, rock_9):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, rock_10):
+                interacted = True
             else:
                 interacted = False
 
@@ -380,7 +392,13 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             if not pygame.Rect.colliderect(player.rect, forge_rect):
                 interacted = False
         if player.current_zone == "castle one":
-            if not pygame.Rect.colliderect(player.rect, castle_exit):
+            if (not pygame.Rect.colliderect(player.rect, castle_exit)
+                    and not pygame.Rect.colliderect(player.rect, castle_crate_1)
+                    and not pygame.Rect.colliderect(player.rect, castle_crate_2)):
+                interacted = False
+        if player.current_zone == "castle two":
+            if (not pygame.Rect.colliderect(player.rect, rock_9) and
+                    not pygame.Rect.colliderect(player.rect, rock_10)):
                 interacted = False
 
     return interacted

@@ -15,7 +15,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
                maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
-               prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2):
+               prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, castle_crate_1_got,
+               castle_crate_2_got, sfx_item_potion):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -30,8 +31,10 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    screen.blit(crate_1.surf, crate_1.rect)
-    screen.blit(crate_2.surf, crate_2.rect)
+    if not castle_crate_1_got:
+        screen.blit(crate_1.surf, crate_1.rect)
+    if not castle_crate_2_got:
+        screen.blit(crate_2.surf, crate_2.rect)
 
     respawned_dict = gameplay_functions.enemy_respawn(player, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
@@ -61,6 +64,62 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
         pass
 
     screen.blit(chandelier.surf, chandelier.rect)
+
+    if pygame.sprite.collide_rect(player, crate_1):
+        if not castle_crate_1_got:
+            interaction_popup.update(crate_1.x_coordinate, crate_1.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (crate_1.x_coordinate, crate_1.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not castle_crate_1_got:
+                    if len(player.items) < 16:
+                        castle_crate_1_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
+                        info_text_1 = "You found a health potion!"
+                        info_text_2 = ""
+                        player.items.append(Item("small health potion", "potion", 200, 200,
+                                                 graphic_dict["health_pot_img"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+                else:
+                    info_text_1 = "This crate is empty."
+                    info_text_2 = ""
+
+            interacted = False
+
+    if pygame.sprite.collide_rect(player, crate_2):
+        if not castle_crate_2_got:
+            interaction_popup.update(crate_2.x_coordinate, crate_2.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (crate_2.x_coordinate, crate_2.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not castle_crate_2_got:
+                    if len(player.items) < 16:
+                        castle_crate_2_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
+                        info_text_1 = "You found an energy potion!"
+                        info_text_2 = ""
+                        player.items.append(Item("small energy potion", "potion", 200, 200,
+                                                 graphic_dict["energy_pot_img"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+                else:
+                    info_text_1 = "This crate is empty."
+                    info_text_2 = ""
+
+            interacted = False
 
     if pygame.Rect.colliderect(player.rect, castle_exit):
         interaction_popup.update(515, 25, graphic_dict["popup_interaction"])
@@ -124,7 +183,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                          "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
                          "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
-                         "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic}
+                         "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic,
+                         "castle_crate_1_got": castle_crate_1_got, "castle_crate_2_got": castle_crate_2_got}
 
     return castle_one_return
 
@@ -139,7 +199,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
                maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
-               prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2):
+               prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, rock_1, rock_2, sfx_rocks):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -159,6 +219,10 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls)
+
+    screen.blit(rock_1.surf, rock_1.rect)
+    screen.blit(rock_2.surf, rock_2.rect)
+
     try:
         for pet in player.pet:
             if pet.active:
@@ -180,6 +244,52 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if pygame.sprite.collide_rect(player, rock_1):
+        interaction_popup.update(rock_1.x_coordinate, rock_1.y_coordinate - 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (rock_1.x_coordinate, rock_1.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world:
+            try:
+                if player.equipment["gloves"].name == "power gloves":
+                    if rock_1.y_coordinate == 275:
+                        pygame.mixer.find_channel(True).play(sfx_rocks)
+                        rock_1.update(rock_1.x_coordinate, rock_1.y_coordinate - 275, graphic_dict["rock"])
+                else:
+                    info_text_1 = "The rock won't budge."
+                    info_text_2 = ""
+            except AttributeError:
+                info_text_1 = "The rock won't budge."
+                info_text_2 = ""
+                pass
+            interacted = False
+
+    if pygame.sprite.collide_rect(player, rock_2):
+        interaction_popup.update(rock_2.x_coordinate, rock_2.y_coordinate - 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (rock_2.x_coordinate, rock_2.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world:
+            try:
+                if player.equipment["gloves"].name == "power gloves":
+                    if rock_2.y_coordinate == 275:
+                        pygame.mixer.find_channel(True).play(sfx_rocks)
+                        rock_2.update(rock_2.x_coordinate, rock_2.y_coordinate - 275, graphic_dict["rock"])
+                else:
+                    info_text_1 = "The rock won't budge."
+                    info_text_2 = ""
+            except AttributeError:
+                info_text_1 = "The rock won't budge."
+                info_text_2 = ""
+                pass
+            interacted = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

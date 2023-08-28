@@ -1375,14 +1375,45 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         if self.x_coordinate < 826:
                             self.x_coordinate = 826
                 if 795 > self.x_coordinate > 220:
-                    if self.y_coordinate > 535:
-                        self.y_coordinate = 535
+                    if self.y_coordinate > 540:
+                        self.y_coordinate = 540
             if self.y_coordinate > 550:
                 if 215 < self.x_coordinate < 810:
-                    if self.y_coordinate < 562:
-                        self.y_coordinate = 562
+                    if self.y_coordinate < 565:
+                        self.y_coordinate = 565
             if self.y_coordinate > 705:
                 self.y_coordinate = 705
+        if current_zone == "castle two":
+            if self.y_coordinate > 705:
+                self.y_coordinate = 705
+            if self.x_coordinate < 30:
+                self.x_coordinate = 30
+            if self.y_coordinate < 35:
+                self.y_coordinate = 35
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate > 552 and self.x_coordinate > 220:
+                if self.y_coordinate < 570:
+                    self.y_coordinate = 570
+            if self.y_coordinate < 552 and self.x_coordinate > 220:
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
+            if 552 > self.y_coordinate > 390 and self.x_coordinate > 222:
+                if self.y_coordinate < 402:
+                    self.y_coordinate = 402
+                if self.x_coordinate > 775:
+                    self.x_coordinate = 775
+            if 172 < self.y_coordinate < 395 and self.x_coordinate < 777:
+                if self.x_coordinate > 215:
+                    self.x_coordinate = 215
+            if 222 < self.x_coordinate < 810 and self.y_coordinate < 185:
+                if self.y_coordinate > 168:
+                    self.y_coordinate = 168
+            if self.x_coordinate > 798 and 401 > self.y_coordinate > 170:
+                if self.x_coordinate < 815:
+                    self.x_coordinate = 815
+                if self.y_coordinate > 385:
+                    self.y_coordinate = 385
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -2250,6 +2281,17 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if self.y_coordinate < 620:
                         self.y_coordinate += velocity
+        if current_zone == "castle two":
+            collided = pygame.sprite.spritecollideany(self, castle_rocks, pygame.sprite.collide_rect_ratio(0.90))
+            if collided:
+                if self.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if self.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if self.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if self.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -3563,14 +3605,45 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         if self.x_coordinate < 826:
                             self.x_coordinate = 826
                 if 795 > self.x_coordinate > 220:
-                    if self.y_coordinate > 535:
-                        self.y_coordinate = 535
+                    if self.y_coordinate > 540:
+                        self.y_coordinate = 540
             if self.y_coordinate > 550:
                 if 215 < self.x_coordinate < 810:
-                    if self.y_coordinate < 562:
-                        self.y_coordinate = 562
+                    if self.y_coordinate < 565:
+                        self.y_coordinate = 565
             if self.y_coordinate > 705:
                 self.y_coordinate = 705
+        if current_zone == "castle two":
+            if self.y_coordinate > 705:
+                self.y_coordinate = 705
+            if self.x_coordinate < 30:
+                self.x_coordinate = 30
+            if self.y_coordinate < 35:
+                self.y_coordinate = 35
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate > 552 and self.x_coordinate > 220:
+                if self.y_coordinate < 570:
+                    self.y_coordinate = 570
+            if self.y_coordinate < 552 and self.x_coordinate > 220:
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
+            if 552 > self.y_coordinate > 390 and self.x_coordinate > 222:
+                if self.y_coordinate < 402:
+                    self.y_coordinate = 402
+                if self.x_coordinate > 775:
+                    self.x_coordinate = 775
+            if 172 < self.y_coordinate < 395 and self.x_coordinate < 777:
+                if self.x_coordinate > 215:
+                    self.x_coordinate = 215
+            if 222 < self.x_coordinate < 810 and self.y_coordinate < 185:
+                if self.y_coordinate > 168:
+                    self.y_coordinate = 168
+            if self.x_coordinate > 798 and 401 > self.y_coordinate > 170:
+                if self.x_coordinate < 815:
+                    self.x_coordinate = 815
+                if self.y_coordinate > 385:
+                    self.y_coordinate = 385
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -4429,6 +4502,17 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if self.y_coordinate < 620:
                         self.y_coordinate += velocity
+        if current_zone == "castle two":
+            collided = pygame.sprite.spritecollideany(self, castle_rocks, pygame.sprite.collide_rect_ratio(0.90))
+            if collided:
+                if self.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if self.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if self.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if self.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -5742,14 +5826,45 @@ class PlayerSorae(pygame.sprite.Sprite):
                         if self.x_coordinate < 826:
                             self.x_coordinate = 826
                 if 795 > self.x_coordinate > 220:
-                    if self.y_coordinate > 535:
-                        self.y_coordinate = 535
+                    if self.y_coordinate > 540:
+                        self.y_coordinate = 540
             if self.y_coordinate > 550:
                 if 215 < self.x_coordinate < 810:
-                    if self.y_coordinate < 562:
-                        self.y_coordinate = 562
+                    if self.y_coordinate < 565:
+                        self.y_coordinate = 565
             if self.y_coordinate > 705:
                 self.y_coordinate = 705
+        if current_zone == "castle two":
+            if self.y_coordinate > 705:
+                self.y_coordinate = 705
+            if self.x_coordinate < 30:
+                self.x_coordinate = 30
+            if self.y_coordinate < 35:
+                self.y_coordinate = 35
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate > 552 and self.x_coordinate > 220:
+                if self.y_coordinate < 570:
+                    self.y_coordinate = 570
+            if self.y_coordinate < 552 and self.x_coordinate > 220:
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
+            if 552 > self.y_coordinate > 390 and self.x_coordinate > 222:
+                if self.y_coordinate < 402:
+                    self.y_coordinate = 402
+                if self.x_coordinate > 775:
+                    self.x_coordinate = 775
+            if 172 < self.y_coordinate < 395 and self.x_coordinate < 777:
+                if self.x_coordinate > 215:
+                    self.x_coordinate = 215
+            if 222 < self.x_coordinate < 810 and self.y_coordinate < 185:
+                if self.y_coordinate > 168:
+                    self.y_coordinate = 168
+            if self.x_coordinate > 798 and 401 > self.y_coordinate > 170:
+                if self.x_coordinate < 815:
+                    self.x_coordinate = 815
+                if self.y_coordinate > 385:
+                    self.y_coordinate = 385
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -6593,7 +6708,6 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.x_coordinate -= velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
                         self.x_coordinate += velocity
-
         if current_zone == "forge":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -6608,6 +6722,17 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if self.y_coordinate < 620:
                         self.y_coordinate += velocity
+        if current_zone == "castle two":
+            collided = pygame.sprite.spritecollideany(self, castle_rocks, pygame.sprite.collide_rect_ratio(0.90))
+            if collided:
+                if self.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if self.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if self.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if self.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -7733,7 +7858,7 @@ if __name__ == "__main__":
     fishing_hut_rect_collide = pygame.Rect((800, 110), (75, 50))
     alcove_fishing_rect_1 = pygame.Rect((375, 35), (100, 25))
     alcove_fishing_rect_2 = pygame.Rect((375, 625), (100, 25))
-    marrow_castle_exit = pygame.Rect((515, 0), (100, 50))
+    marrow_castle_exit = pygame.Rect((470, 25), (100, 50))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
@@ -7764,6 +7889,10 @@ if __name__ == "__main__":
     rock_7 = Item("rock 7", "rock", 515, 395, graphic_dict["rock_small"], 0)
     # nascent grove rock
     rock_8 = Item("rock 8", "rock", 405, 500, graphic_dict["rock_small"], 0)
+
+    # marrow castle rocks
+    rock_9 = Item("rock 9", "rock", 70, 275, graphic_dict["rock"], 0)
+    rock_10 = Item("rock 10", "rock", 170, 275, graphic_dict["rock"], 0)
 
     # flowers for apothecary
     flower_seldon_1 = Item("flower seldon 1", "flower", 190, 185, graphic_dict["flower_seldon"], 0)
@@ -7796,6 +7925,7 @@ if __name__ == "__main__":
     dungeon_rocks = pygame.sprite.Group()
     korlok_rocks = pygame.sprite.Group()
     other_rocks = pygame.sprite.Group()
+    castle_rocks = pygame.sprite.Group()
     seldon_flowers = pygame.sprite.Group()
     eldream_flowers = pygame.sprite.Group()
     eldream_river = pygame.sprite.Group()
@@ -7848,6 +7978,7 @@ if __name__ == "__main__":
     dungeon_rocks.add(rock_1, rock_2)
     korlok_rocks.add(rock_4, rock_5, rock_6)
     other_rocks.add(rock_3, rock_7, rock_8)
+    castle_rocks.add(rock_9, rock_10)
     seldon_flowers.add(flower_seldon_1, flower_seldon_2, flower_seldon_3, flower_seldon_4, flower_seldon_5)
     eldream_flowers.add(flower_eldream_1, flower_eldream_2, flower_eldream_3, flower_eldream_4, flower_eldream_5)
     eldream_river.add(eldream_riv_1, eldream_riv_2, eldream_riv_3, eldream_riv_4, eldream_riv_5, eldream_riv_6,
@@ -9151,6 +9282,10 @@ if __name__ == "__main__":
                             player.x_coordinate = 515
                             player.y_coordinate = 175
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "castle two":
+                            player.x_coordinate = 860
+                            player.y_coordinate = 640
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
                         if marrow_switch_phase == "red":
                             overlay_marrow_switch.update(640, 360, graphic_dict["marrow_switch_red"])
@@ -9279,7 +9414,8 @@ if __name__ == "__main__":
                                                                       fishing_spot_eldream_2, sub_marrow_rect_2,
                                                                       dungeon_gate_marrow_rect,
                                                                       dungeon_chest_small_marrow, atmons,
-                                                                      marrow_castle_exit)
+                                                                      marrow_castle_exit, castle_crate_1,
+                                                                      castle_crate_2, rock_9, rock_10)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9569,7 +9705,8 @@ if __name__ == "__main__":
                                                                                   sub_marrow_rect_2,
                                                                                   dungeon_gate_marrow_rect,
                                                                                   dungeon_chest_small_marrow, atmons,
-                                                                                  marrow_castle_exit)
+                                                                                  marrow_castle_exit, castle_crate_1,
+                                                                                  castle_crate_2, rock_9, rock_10)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -11390,7 +11527,9 @@ if __name__ == "__main__":
                                                                      best_fish_counter, castle_bridge,
                                                                      overlay_prism_activate, prism_activate_tic,
                                                                      sfx_item_chroma, marrow_castle_exit,
-                                                                     overlay_chandelier, castle_crate_1, castle_crate_2)
+                                                                     overlay_chandelier, castle_crate_1, castle_crate_2,
+                                                                     castle_crate_1_got, castle_crate_2_got,
+                                                                     sfx_item_potion)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -11416,7 +11555,9 @@ if __name__ == "__main__":
                                                                      best_fish_counter, castle_bridge,
                                                                      overlay_prism_activate, prism_activate_tic,
                                                                      sfx_item_chroma, marrow_castle_exit,
-                                                                     overlay_chandelier, castle_crate_1, castle_crate_2)
+                                                                     overlay_chandelier, castle_crate_1, castle_crate_2,
+                                                                     castle_crate_1_got, castle_crate_2_got,
+                                                                     sfx_item_potion)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -11435,6 +11576,8 @@ if __name__ == "__main__":
                     current_enemy_battling = castle_one_returned["current_enemy"]
                     marrow_ghouls = castle_one_returned["marrow_ghouls"]
                     prism_activate_tic = castle_one_returned["prism_tic"]
+                    castle_crate_1_got = castle_one_returned["castle_crate_1_got"]
+                    castle_crate_2_got = castle_one_returned["castle_crate_2_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle area two ---------------------------------------------------------------
@@ -11473,7 +11616,7 @@ if __name__ == "__main__":
                                                                      overlay_prism_activate, prism_activate_tic,
                                                                      sfx_item_chroma, marrow_castle_exit,
                                                                      overlay_chandelier, castle_crate_1,
-                                                                     castle_crate_2)
+                                                                     castle_crate_2, rock_9, rock_10, sfx_rock_push)
                     else:
                         castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
                                                                      castle_two_bg, over_world_song_set,
@@ -11506,7 +11649,7 @@ if __name__ == "__main__":
                                                                      overlay_prism_activate, prism_activate_tic,
                                                                      sfx_item_chroma, marrow_castle_exit,
                                                                      overlay_chandelier, castle_crate_1,
-                                                                     castle_crate_2)
+                                                                     castle_crate_2, rock_9, rock_10, sfx_rock_push)
 
                     over_world_song_set = castle_two_returned["over_world_song_set"]
                     interacted = castle_two_returned["interacted"]
