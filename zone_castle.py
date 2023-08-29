@@ -16,7 +16,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, castle_crate_1_got,
-               castle_crate_2_got, sfx_item_potion):
+               castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -35,6 +35,12 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
         screen.blit(crate_1.surf, crate_1.rect)
     if not castle_crate_2_got:
         screen.blit(crate_2.surf, crate_2.rect)
+
+    if not dreth_taunt:
+        dreth_taunt_popup.update(510, 365, graphic_dict["dreth_taunt_1"])
+        drawing_functions.dreth_taunt_window.append(dreth_taunt_popup)
+        pygame.mixer.find_channel(True).play(dreth_laugh)
+        dreth_taunt = True
 
     respawned_dict = gameplay_functions.enemy_respawn(player, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
@@ -184,7 +190,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                          "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                          "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic,
-                         "castle_crate_1_got": castle_crate_1_got, "castle_crate_2_got": castle_crate_2_got}
+                         "castle_crate_1_got": castle_crate_1_got, "castle_crate_2_got": castle_crate_2_got,
+                         "dreth_taunt": dreth_taunt}
 
     return castle_one_return
 
@@ -199,7 +206,8 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
                maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
-               prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, rock_1, rock_2, sfx_rocks):
+               prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, rock_1, rock_2, sfx_rocks,
+               dreth_laugh, dreth_taunt, dreth_taunt_popup):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -207,6 +215,12 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
             pygame.mixer.music.load(castle_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
+
+    if not dreth_taunt:
+        dreth_taunt_popup.update(510, 365, graphic_dict["dreth_taunt_2"])
+        drawing_functions.dreth_taunt_window.append(dreth_taunt_popup)
+        pygame.mixer.find_channel(True).play(dreth_laugh)
+        dreth_taunt = True
 
     screen.blit(castle_two_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -332,6 +346,6 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                          "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
                          "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
-                         "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic}
+                         "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt}
 
     return castle_two_return

@@ -7122,6 +7122,7 @@ if __name__ == "__main__":
     save_check = Notification("save check", False, 510, 365, graphic_dict["save_popup"])
     save_absent = Notification("save absent", False, 652, 568, graphic_dict["save_not_found"])
     first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
+    dreth_taunt_popup = Notification("dreth taunt", False, 510, 365, graphic_dict["dreth_taunt_1"])
     # weapons
     staff = UiElement("staff", 1080, 283, graphic_dict["staff_0"])
     sword = UiElement("sword", 1155, 283, graphic_dict["sword_0"])
@@ -8087,6 +8088,8 @@ if __name__ == "__main__":
     sfx_enemy_osodark.set_volume(0.20)
     sfx_enemy_atmon = pygame.mixer.Sound(resource_path("resources/sounds/enemy_atmon.mp3"))
     sfx_enemy_atmon.set_volume(0.20)
+    sfx_dreth_laugh = pygame.mixer.Sound(resource_path("resources/sounds/sfx_dreth_laugh.mp3"))
+    sfx_dreth_laugh.set_volume(0.40)
 
     sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
     sfx_surprise_attack.set_volume(0.20)
@@ -8392,6 +8395,9 @@ if __name__ == "__main__":
     marrow_small_chest_got = False
     prism_received = False
     artherian_task_start = False
+    dreth_taunt_1 = False
+    dreth_taunt_2 = False
+    dreth_taunt_3 = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -10168,6 +10174,8 @@ if __name__ == "__main__":
                                 drawing_functions.outpost_window.clear()
                                 if len(drawing_functions.outpost_window) > 0:
                                     outpost_show = False
+                            if dreth_taunt_popup.rect.collidepoint(pos):
+                                drawing_functions.dreth_taunt_window.clear()
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -11529,7 +11537,8 @@ if __name__ == "__main__":
                                                                      sfx_item_chroma, marrow_castle_exit,
                                                                      overlay_chandelier, castle_crate_1, castle_crate_2,
                                                                      castle_crate_1_got, castle_crate_2_got,
-                                                                     sfx_item_potion)
+                                                                     sfx_item_potion, sfx_dreth_laugh, dreth_taunt_1,
+                                                                     dreth_taunt_popup)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -11557,7 +11566,8 @@ if __name__ == "__main__":
                                                                      sfx_item_chroma, marrow_castle_exit,
                                                                      overlay_chandelier, castle_crate_1, castle_crate_2,
                                                                      castle_crate_1_got, castle_crate_2_got,
-                                                                     sfx_item_potion)
+                                                                     sfx_item_potion, sfx_dreth_laugh, dreth_taunt_1,
+                                                                     dreth_taunt_popup)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -11578,6 +11588,7 @@ if __name__ == "__main__":
                     prism_activate_tic = castle_one_returned["prism_tic"]
                     castle_crate_1_got = castle_one_returned["castle_crate_1_got"]
                     castle_crate_2_got = castle_one_returned["castle_crate_2_got"]
+                    dreth_taunt_1 = castle_one_returned["dreth_taunt"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle area two ---------------------------------------------------------------
@@ -11616,7 +11627,8 @@ if __name__ == "__main__":
                                                                      overlay_prism_activate, prism_activate_tic,
                                                                      sfx_item_chroma, marrow_castle_exit,
                                                                      overlay_chandelier, castle_crate_1,
-                                                                     castle_crate_2, rock_9, rock_10, sfx_rock_push)
+                                                                     castle_crate_2, rock_9, rock_10, sfx_rock_push,
+                                                                     sfx_dreth_laugh, dreth_taunt_2, dreth_taunt_popup)
                     else:
                         castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
                                                                      castle_two_bg, over_world_song_set,
@@ -11649,7 +11661,8 @@ if __name__ == "__main__":
                                                                      overlay_prism_activate, prism_activate_tic,
                                                                      sfx_item_chroma, marrow_castle_exit,
                                                                      overlay_chandelier, castle_crate_1,
-                                                                     castle_crate_2, rock_9, rock_10, sfx_rock_push)
+                                                                     castle_crate_2, rock_9, rock_10, sfx_rock_push,
+                                                                     sfx_dreth_laugh, dreth_taunt_2, dreth_taunt_popup)
 
                     over_world_song_set = castle_two_returned["over_world_song_set"]
                     interacted = castle_two_returned["interacted"]
@@ -11668,6 +11681,7 @@ if __name__ == "__main__":
                     current_enemy_battling = castle_two_returned["current_enemy"]
                     marrow_ghouls = castle_two_returned["marrow_ghouls"]
                     prism_activate_tic = castle_two_returned["prism_tic"]
+                    dreth_taunt_2 = castle_two_returned["dreth_taunt"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------

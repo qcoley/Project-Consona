@@ -457,6 +457,12 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # dreth taunt popups -----------------------------------------------------------------------------------------------
+    dreth_taunts_url = resource_path('resources/art/dreth_taunts.png')
+    dreth_taunts_sheet = sprite_sheet((400, 200), dreth_taunts_url)
+    loaded_dict["dreth_taunt_1"] = dreth_taunts_sheet[0]
+    loaded_dict["dreth_taunt_2"] = dreth_taunts_sheet[1]
+    loaded_dict["dreth_taunt_3"] = dreth_taunts_sheet[2]
     # marrow castle chandelier -----------------------------------------------------------------------------------------
     chandelier_url = resource_path('resources/art/overlay_chandelier.png')
     chandelier_sheet = sprite_sheet((1027, 200), chandelier_url)

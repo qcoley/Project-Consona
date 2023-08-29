@@ -35,6 +35,7 @@ pets_window_container = []
 fish_window_container = []
 flower_pop_up_window = []
 fish_pop_up_window = []
+dreth_taunt_window = []
 
 flower_pop_up_window_text = []
 fish_pop_up_window_text = []
@@ -146,6 +147,9 @@ def draw_it(screen):
     if len(fish_pop_up_window_text) > 0:
         for fish_text in fish_pop_up_window_text:
             screen.blit(fish_text[0], fish_text[1])
+    if len(dreth_taunt_window) > 0:
+        for taunt in dreth_taunt_window:
+            screen.blit(taunt.surf, taunt.rect)
 
 
 def draw_level_up(screen, in_over_world):
