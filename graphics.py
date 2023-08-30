@@ -121,6 +121,7 @@ def load_graphics():
     sub_marrow_battle = pygame.image.load(resource_path('resources/art/bg_sub_marrow_battle.png')).convert_alpha()
     castle_one_bg = pygame.image.load(resource_path('resources/art/bg_castle_one.png')).convert_alpha()
     castle_two_bg = pygame.image.load(resource_path('resources/art/bg_castle_two.png')).convert_alpha()
+    castle_two_rope_bg = pygame.image.load(resource_path('resources/art/bg_castle_two_roped.png')).convert_alpha()
     e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
     fishing_hut_bg = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
@@ -267,6 +268,7 @@ def load_graphics():
         image.set_colorkey((255, 255, 255))
 
     loaded_dict["castle_two_bg"] = castle_two_bg
+    loaded_dict["castle_two_roped_bg"] = castle_two_rope_bg
     loaded_dict["castle_one_bg"] = castle_one_bg
     loaded_dict["overlay_prism"] = overlay_prism
     loaded_dict["sub_marrow_battle_screen"] = sub_marrow_battle
@@ -457,6 +459,11 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # dreth taunt popups -----------------------------------------------------------------------------------------------
+    mirages_url = resource_path('resources/art/sprites_mirages.png')
+    mirages_sheet = sprite_sheet((50, 75), mirages_url)
+    loaded_dict["mirage_female"] = mirages_sheet[0]
+    loaded_dict["mirage_male"] = mirages_sheet[1]
     # dreth taunt popups -----------------------------------------------------------------------------------------------
     dreth_taunts_url = resource_path('resources/art/dreth_taunts.png')
     dreth_taunts_sheet = sprite_sheet((400, 200), dreth_taunts_url)

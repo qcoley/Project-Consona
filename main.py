@@ -7092,6 +7092,7 @@ if __name__ == "__main__":
     sub_marrow_bg = graphic_dict["sub_marrow_bg"]
     castle_one_bg = graphic_dict["castle_one_bg"]
     castle_two_bg = graphic_dict["castle_two_bg"]
+    castle_two_roped_bg = graphic_dict["castle_two_roped_bg"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -7716,6 +7717,7 @@ if __name__ == "__main__":
 
     entrance_popup = UiElement("entrance popup", 675, 97, graphic_dict["popup_wide"])
     apothis_popup = UiElement("apothis popup", 575, 375, graphic_dict["popup_wide"])
+    cell_popup = UiElement("cell popup", 420, 205, graphic_dict["popup_wide"])
 
     world_map = UiElement("world map", 769, 332, graphic_dict["world_map"])
     korlok_map_button = UiElement("seldon map button", 663, 238, graphic_dict["map_button"])
@@ -7766,10 +7768,14 @@ if __name__ == "__main__":
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
 
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 568, graphic_dict["chest_small"])
+    chest_small_castle_1 = UiElement("chest small castle 1", 700, 262, graphic_dict["chest_small"])
+    chest_small_castle_2 = UiElement("chest small castle 2", 700, 262, graphic_dict["chest_small"])
 
     overlay_prism_activate = UiElement("overlay prism", 710, 485, graphic_dict["overlay_prism"])
     overlay_chandelier = UiElement("chandelier", 516, 285, graphic_dict["chandelier_full"])
     overlay_chandelier.surf.set_alpha(230)
+
+    overlay_mirage = UiElement("mirage", 415, 250, graphic_dict["mirage_female"])
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
@@ -7860,6 +7866,10 @@ if __name__ == "__main__":
     alcove_fishing_rect_1 = pygame.Rect((375, 35), (100, 25))
     alcove_fishing_rect_2 = pygame.Rect((375, 625), (100, 25))
     marrow_castle_exit = pygame.Rect((470, 25), (100, 50))
+    rope_wind_1 = pygame.Rect((910, 225), (100, 50))
+
+    castle_cell_1 = pygame.Rect((365, 325), (150, 50))
+    castle_cell_2 = pygame.Rect((640, 325), (150, 50))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
@@ -8088,6 +8098,8 @@ if __name__ == "__main__":
     sfx_enemy_osodark.set_volume(0.20)
     sfx_enemy_atmon = pygame.mixer.Sound(resource_path("resources/sounds/enemy_atmon.mp3"))
     sfx_enemy_atmon.set_volume(0.20)
+    sfx_enemy_atmon_loud = pygame.mixer.Sound(resource_path("resources/sounds/enemy_atmon.mp3"))
+    sfx_enemy_atmon_loud.set_volume(0.25)
     sfx_dreth_laugh = pygame.mixer.Sound(resource_path("resources/sounds/sfx_dreth_laugh.mp3"))
     sfx_dreth_laugh.set_volume(0.40)
 
@@ -8151,6 +8163,8 @@ if __name__ == "__main__":
     sfx_smelting.set_volume(0.35)
     sfx_enchanting = pygame.mixer.Sound(resource_path("resources/sounds/sfx_enchanting.mp3"))
     sfx_enchanting.set_volume(0.35)
+    sfx_rope_release = pygame.mixer.Sound(resource_path("resources/sounds/sfx_rope_release.mp3"))
+    sfx_rope_release.set_volume(0.25)
 
     sfx_button_click = pygame.mixer.Sound(resource_path("resources/sounds/button_click.mp3"))
     sfx_button_click.set_volume(0.05)
@@ -8382,6 +8396,8 @@ if __name__ == "__main__":
     ramps_crate_5_got = False
     castle_crate_1_got = False
     castle_crate_2_got = False
+    castle_chest_1_got = False
+    castle_chest_2_got = False
     apothecary_window_open = False
     menagerie_window_open = False
     hut_window_open = False
@@ -8398,6 +8414,8 @@ if __name__ == "__main__":
     dreth_taunt_1 = False
     dreth_taunt_2 = False
     dreth_taunt_3 = False
+    mirage_updated = False
+    mirage_saved = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -8441,6 +8459,7 @@ if __name__ == "__main__":
     marrow_switch_phase = 'none'
     firework_type = ''
     previous_surf = player.surf
+    rope_phase = 0
 
     # default objects for event loops, updated when player interacts with new object
     current_enemy_battling = snake_1
@@ -9421,7 +9440,8 @@ if __name__ == "__main__":
                                                                       dungeon_gate_marrow_rect,
                                                                       dungeon_chest_small_marrow, atmons,
                                                                       marrow_castle_exit, castle_crate_1,
-                                                                      castle_crate_2, rock_9, rock_10)
+                                                                      castle_crate_2, rock_9, rock_10, rope_wind_1,
+                                                                      castle_cell_1, castle_cell_2)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9712,7 +9732,9 @@ if __name__ == "__main__":
                                                                                   dungeon_gate_marrow_rect,
                                                                                   dungeon_chest_small_marrow, atmons,
                                                                                   marrow_castle_exit, castle_crate_1,
-                                                                                  castle_crate_2, rock_9, rock_10)
+                                                                                  castle_crate_2, rock_9, rock_10,
+                                                                                  rope_wind_1, castle_cell_1,
+                                                                                  castle_cell_2)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -11628,7 +11650,13 @@ if __name__ == "__main__":
                                                                      sfx_item_chroma, marrow_castle_exit,
                                                                      overlay_chandelier, castle_crate_1,
                                                                      castle_crate_2, rock_9, rock_10, sfx_rock_push,
-                                                                     sfx_dreth_laugh, dreth_taunt_2, dreth_taunt_popup)
+                                                                     sfx_dreth_laugh, dreth_taunt_2, dreth_taunt_popup,
+                                                                     rope_wind_1, rope_phase, castle_two_roped_bg,
+                                                                     sfx_rope_release, castle_cell_1, castle_cell_2,
+                                                                     sfx_gate_open, overlay_mirage, cell_popup,
+                                                                     chest_small_castle_1, mirage_saved,
+                                                                     castle_chest_1_got, sfx_item_rupee, 
+                                                                     sfx_enemy_atmon_loud)
                     else:
                         castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
                                                                      castle_two_bg, over_world_song_set,
@@ -11662,7 +11690,13 @@ if __name__ == "__main__":
                                                                      sfx_item_chroma, marrow_castle_exit,
                                                                      overlay_chandelier, castle_crate_1,
                                                                      castle_crate_2, rock_9, rock_10, sfx_rock_push,
-                                                                     sfx_dreth_laugh, dreth_taunt_2, dreth_taunt_popup)
+                                                                     sfx_dreth_laugh, dreth_taunt_2, dreth_taunt_popup,
+                                                                     rope_wind_1, rope_phase, castle_two_roped_bg,
+                                                                     sfx_rope_release, castle_cell_1, castle_cell_2,
+                                                                     sfx_gate_open, overlay_mirage, mirage_updated,
+                                                                     cell_popup, chest_small_castle_1, mirage_saved,
+                                                                     castle_chest_1_got, sfx_item_rupee, 
+                                                                     sfx_enemy_atmon_loud)
 
                     over_world_song_set = castle_two_returned["over_world_song_set"]
                     interacted = castle_two_returned["interacted"]
@@ -11682,6 +11716,10 @@ if __name__ == "__main__":
                     marrow_ghouls = castle_two_returned["marrow_ghouls"]
                     prism_activate_tic = castle_two_returned["prism_tic"]
                     dreth_taunt_2 = castle_two_returned["dreth_taunt"]
+                    rope_phase = castle_two_returned["rope_phase"]
+                    mirage_updated = castle_two_returned["mirage_updated"]
+                    mirage_saved = castle_two_returned["mirage_saved"]
+                    castle_chest_1_got = castle_two_returned["castle_chest_1_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------

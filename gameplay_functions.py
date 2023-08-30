@@ -22,7 +22,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       forge_rect, interacted, event, ectrenos_alcove_enemies, alcove_fishing_rect,
                       alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2, sub_marrow_rect_2,
                       dungeon_gate_marrow, dungeon_chest_marrow_small, atmons, castle_exit, castle_crate_1,
-                      castle_crate_2, rock_9, rock_10):
+                      castle_crate_2, rock_9, rock_10, rope_wind_1, cell_1, cell_2):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -255,6 +255,12 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, rock_10):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, rope_wind_1):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, cell_1):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, cell_2):
+                interacted = True
             else:
                 interacted = False
 
@@ -398,7 +404,10 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "castle two":
             if (not pygame.Rect.colliderect(player.rect, rock_9) and
-                    not pygame.Rect.colliderect(player.rect, rock_10)):
+                    not pygame.Rect.colliderect(player.rect, rock_10) and
+                    not pygame.Rect.colliderect(player.rect, rope_wind_1) and
+                    not pygame.Rect.colliderect(player.rect, cell_1) and
+                    not pygame.Rect.colliderect(player.rect, cell_2)):
                 interacted = False
 
     return interacted

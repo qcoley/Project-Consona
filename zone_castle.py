@@ -207,7 +207,9 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, rock_1, rock_2, sfx_rocks,
-               dreth_laugh, dreth_taunt, dreth_taunt_popup):
+               dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_two_roped_bg, sfx_rope,
+               cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_saved, chest_1_got,
+               sfx_rupee, sfx_atmon):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -222,7 +224,10 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
         pygame.mixer.find_channel(True).play(dreth_laugh)
         dreth_taunt = True
 
-    screen.blit(castle_two_bg, (0, 0))
+    if rope_phase == 0:
+        screen.blit(castle_two_bg, (0, 0))
+    if rope_phase > 0:
+        screen.blit(castle_two_roped_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
@@ -236,6 +241,19 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
 
     screen.blit(rock_1.surf, rock_1.rect)
     screen.blit(rock_2.surf, rock_2.rect)
+
+    if not mirage_saved:
+        if player.gender == "male":
+            if not mirage_updated:
+                mirage.update(415, 250, graphic_dict["mirage_female"])
+                mirage_updated = True
+        if player.gender == "female":
+            if not mirage_updated:
+                mirage.update(415, 250, graphic_dict["mirage_male"])
+                mirage_updated = True
+    screen.blit(mirage.surf, mirage.rect)
+    if not chest_1_got:
+        screen.blit(small_chest.surf, small_chest.rect)
 
     try:
         for pet in player.pet:
@@ -305,6 +323,73 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                 pass
             interacted = False
 
+    if pygame.Rect.colliderect(player.rect, rope_wind):
+        interaction_popup.update(910, 250, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Rope"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (910, 250)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if rope_phase == 0:
+            info_text_1 = "Press 'F' to release the rope."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+        if interacted and in_over_world:
+            pygame.mixer.find_channel(True).play(sfx_rope)
+            info_text_1 = "The rope has been released!"
+            info_text_2 = ""
+            interacted = False
+            chandelier.update(516, 285, graphic_dict["chandelier_right"])
+            rope_phase = 1
+
+    if pygame.Rect.colliderect(player.rect, cell_1):
+        interaction_popup.update(420, 350, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Cell"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (420, 350)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' to open the cell gate."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            if not mirage_saved:
+                pygame.mixer.find_channel(True).play(sfx_gate)
+                pygame.mixer.find_channel(True).play(sfx_atmon)
+                interacted = False
+                mirage_saved = True
+                mirage.update(420, 255, graphic_dict["atmon"])
+
+    if pygame.Rect.colliderect(player.rect, cell_2):
+        interaction_popup.update(700, 350, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Cell"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (700, 350)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if not chest_1_got:
+            info_text_1 = "Press 'F' to open the cell gate."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+        if interacted and in_over_world:
+            if not chest_1_got:
+                pygame.mixer.find_channel(True).play(sfx_gate)
+                pygame.mixer.find_channel(True).play(sfx_rupee)
+                interacted = False
+                chest_1_got = True
+                player.rupees += 50
+                info_text_1 = "You found 50 Rupees. Wow!"
+                info_text_2 = ""
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -333,6 +418,13 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                                      best_fish_counter)
     drawing_functions.draw_it(screen)
 
+    if not mirage_saved:
+        entrance_text_surf = font.render("Please.. help me.", True, "black", "light yellow")
+        screen.blit(cell_popup.surf, cell_popup.rect)
+        entrance_text_rect = entrance_text_surf.get_rect()
+        entrance_text_rect.center = (cell_popup.x_coordinate, cell_popup.y_coordinate)
+        screen.blit(entrance_text_surf, entrance_text_rect)
+
     if player.x_coordinate > 975 and player.y_coordinate > 560:
         player.current_zone = "castle one"
         in_over_world = True
@@ -346,6 +438,8 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                          "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
                          "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
-                         "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt}
+                         "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt,
+                         "rope_phase": rope_phase, "mirage_updated": mirage_updated, "mirage_saved": mirage_saved,
+                         "castle_chest_1_got": chest_1_got}
 
     return castle_two_return
