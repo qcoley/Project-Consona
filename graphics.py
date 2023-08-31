@@ -122,6 +122,8 @@ def load_graphics():
     castle_one_bg = pygame.image.load(resource_path('resources/art/bg_castle_one.png')).convert_alpha()
     castle_two_bg = pygame.image.load(resource_path('resources/art/bg_castle_two.png')).convert_alpha()
     castle_two_rope_bg = pygame.image.load(resource_path('resources/art/bg_castle_two_roped.png')).convert_alpha()
+    castle_three_bg = pygame.image.load(resource_path('resources/art/bg_castle_three.png')).convert_alpha()
+    castle_three_rope_bg = pygame.image.load(resource_path('resources/art/bg_castle_three_roped.png')).convert_alpha()
     e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
     fishing_hut_bg = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
@@ -269,6 +271,8 @@ def load_graphics():
 
     loaded_dict["castle_two_bg"] = castle_two_bg
     loaded_dict["castle_two_roped_bg"] = castle_two_rope_bg
+    loaded_dict["castle_three_bg"] = castle_three_bg
+    loaded_dict["castle_three_roped_bg"] = castle_three_rope_bg
     loaded_dict["castle_one_bg"] = castle_one_bg
     loaded_dict["overlay_prism"] = overlay_prism
     loaded_dict["sub_marrow_battle_screen"] = sub_marrow_battle

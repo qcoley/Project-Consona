@@ -22,7 +22,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       forge_rect, interacted, event, ectrenos_alcove_enemies, alcove_fishing_rect,
                       alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2, sub_marrow_rect_2,
                       dungeon_gate_marrow, dungeon_chest_marrow_small, atmons, castle_exit, castle_crate_1,
-                      castle_crate_2, rock_9, rock_10, rope_wind_1, cell_1, cell_2):
+                      castle_crate_2, rock_9, rock_10, rope_wind_1, cell_1, cell_2, rope_wind_2, cell_3, castle_ladder):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -263,6 +263,15 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             else:
                 interacted = False
+        if player.current_zone == "castle three":
+            if pygame.Rect.colliderect(player.rect, rope_wind_2):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, cell_3):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, castle_ladder):
+                interacted = True
+            else:
+                interacted = False
 
     # checks if player is colliding with relevant objects outside the interaction event loop
     # prevents interaction with subsequent objects if no action occurs with current object interaction
@@ -408,6 +417,11 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     not pygame.Rect.colliderect(player.rect, rope_wind_1) and
                     not pygame.Rect.colliderect(player.rect, cell_1) and
                     not pygame.Rect.colliderect(player.rect, cell_2)):
+                interacted = False
+        if player.current_zone == "castle three":
+            if (not pygame.Rect.colliderect(player.rect, rope_wind_2) and
+                    not pygame.Rect.colliderect(player.rect, cell_3) and
+                    not pygame.Rect.colliderect(player.rect, castle_ladder)):
                 interacted = False
 
     return interacted
