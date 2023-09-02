@@ -16,7 +16,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, castle_crate_1_got,
-               castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup):
+               castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_phase,
+               castle_one_roped_bg, castle_one_keyed_bg, key_got):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -24,7 +25,12 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
-    screen.blit(castle_one_bg, (0, 0))
+    if rope_phase != 2:
+        screen.blit(castle_one_bg, (0, 0))
+    if rope_phase == 2 and not key_got:
+        screen.blit(castle_one_roped_bg, (0, 0))
+    #if key_got:
+        #screen.blit(castle_one_keyed_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
@@ -68,7 +74,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
     except AttributeError:
         pass
 
-    screen.blit(chandelier.surf, chandelier.rect)
+    if rope_phase != 2:
+        screen.blit(chandelier.surf, chandelier.rect)
 
     if pygame.sprite.collide_rect(player, crate_1):
         if not castle_crate_1_got:
@@ -197,7 +204,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                          "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic,
                          "castle_crate_1_got": castle_crate_1_got, "castle_crate_2_got": castle_crate_2_got,
-                         "dreth_taunt": dreth_taunt}
+                         "dreth_taunt": dreth_taunt, "has_key": key_got}
 
     return castle_one_return
 

@@ -301,9 +301,9 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                         rock.update(rock.x_coordinate - 110, rock.y_coordinate, graphic_dict["rock_small"])
                         if not rock_3_con:
                             pygame.mixer.find_channel(True).play(sfx_rupee)
-                            player.rupees += 10
+                            player.rupees += 50
                             rock_3_con = True
-                            info_text_1 = "You found 10 Rupees under the rock!"
+                            info_text_1 = "You found 50 Rupees under the rock!"
                             info_text_2 = ""
                 else:
                     info_text_1 = "The rock won't budge."

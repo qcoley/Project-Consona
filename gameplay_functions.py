@@ -1808,6 +1808,8 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("ramps key", "key", 200, 200, graphics["key_img"], 0))
                 if item == "power gloves":
                     player.items.append(Item("power gloves", "gloves", 200, 200, graphics["gloves"], 0))
+                if item == "chroma boots":
+                    player.items.append(Item("chroma boots", "boots", 200, 200, graphics["boots_img"], 0))
                 if item == "basic armor":
                     player.items.append(Item("basic armor", "armor", 200, 200, graphics["basic_armor"], 1))
                 if item == "forged armor":
@@ -1975,7 +1977,18 @@ def load_game(player, Item, graphics, Pet):
             load_return["vanguard_start"] = player_load_info["vanguard_start"]
             load_return["vanguard_complete"] = player_load_info["vanguard_complete"]
             load_return["artherian_start"] = player_load_info["artherian_start"]
-
+            load_return["prism_received"] = player_load_info["prism_received"]
+            load_return["castle_crate_1"] = player_load_info["castle_crate_1"]
+            load_return["castle_crate_2"] = player_load_info["castle_crate_2"]
+            load_return["castle_chest_1"] = player_load_info["castle_chest_1"]
+            load_return["castle_chest_2"] = player_load_info["castle_chest_2"]
+            load_return["dreth_taunt_1"] = player_load_info["dreth_taunt_1"]
+            load_return["dreth_taunt_2"] = player_load_info["dreth_taunt_2"]
+            load_return["dreth_taunt_3"] = player_load_info["dreth_taunt_3"]
+            load_return["mirage_updated"] = player_load_info["mirage_updated"]
+            load_return["mirage_2_updated"] = player_load_info["mirage_2_updated"]
+            load_return["mirage_saved"] = player_load_info["mirage_saved"]
+            load_return["mirage_2_saved"] = player_load_info["mirage_2_saved"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -1999,7 +2012,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               artherian_gift, artherian_2, artherian_complete, fishing_unlocked, fishing_journal_unlocked,
               bait_given, basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter,
               fishing_level, basic_fish_reward, better_fish_reward, even_better_fish_reward, best_fish_reward,
-              marrow_small_chest_got, noren_complete, boro_complete, npc_maydria, artherian_task_start):
+              marrow_small_chest_got, noren_complete, boro_complete, npc_maydria, artherian_task_start,
+              prism_received, castle_crate_1, castle_crate_2, castle_chest_1, castle_chest_2, dreth_taunt_1,
+              dreth_taunt_2, dreth_taunt_3, mirage_updated, mirage_2_updated, mirage_saved, mirage_2_saved):
 
     inventory_save = []
     equipment_save = []
@@ -2082,7 +2097,12 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "best_fish_reward": best_fish_reward, "marrow_small_chest_got": marrow_small_chest_got,
                         "noren_complete": noren_complete, "boro_complete": boro_complete,
                         "vanguard_start": npc_maydria.gift, "vanguard_complete": npc_maydria.quest_complete,
-                        "artherian_start": artherian_task_start}
+                        "artherian_start": artherian_task_start, "prism_received": prism_received,
+                        "castle_crate_1": castle_crate_1, "castle_crate_2": castle_crate_2,
+                        "castle_chest_1": castle_chest_1, "castle_chest_2": castle_chest_2,
+                        "dreth_taunt_1": dreth_taunt_1, "dreth_taunt_2": dreth_taunt_2, "dreth_taunt_3": dreth_taunt_3,
+                        "mirage_updated": mirage_updated, "mirage_2_updated": mirage_2_updated,
+                        "mirage_saved": mirage_saved, "mirage_2_saved": mirage_2_saved}
 
     try:
         with open("save", "wb") as ff:

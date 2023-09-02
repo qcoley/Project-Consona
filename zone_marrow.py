@@ -524,7 +524,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         face_direction = random.choice(["left", "right", "front", "back"])
         if movement_able and in_over_world:
             npc_toc = time.perf_counter()
-            if npc_toc - npc_tic > 7:
+            if npc_toc - npc_tic > 5:
                 npc_tic = time.perf_counter()
                 if entrance_2:
                     entrance_3 = True
@@ -550,7 +550,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         face_direction = random.choice(["left", "right", "front", "back"])
         if movement_able and in_over_world:
             npc_toc = time.perf_counter()
-            if npc_toc - npc_tic > 7:
+            if npc_toc - npc_tic > 5:
                 npc_tic = time.perf_counter()
                 if face_direction == "left":
                     entrance_npc.update(graphic_dict["entrance_npc_left"])
@@ -1721,6 +1721,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                     player.y_coordinate = 500
                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                     interacted = False
+                    has_key = False
                 else:
                     info_text_1 = "This gate requires a key "
                     info_text_2 = "Located somewhere in the ramparts. "

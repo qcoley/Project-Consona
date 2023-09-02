@@ -1375,8 +1375,12 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         if self.x_coordinate < 826:
                             self.x_coordinate = 826
                 if 795 > self.x_coordinate > 220:
-                    if self.y_coordinate > 540:
-                        self.y_coordinate = 540
+                    if 390 > self.x_coordinate or self.x_coordinate > 634:
+                        if self.y_coordinate > 470:
+                            self.y_coordinate = 470
+                    else:
+                        if self.y_coordinate > 490:
+                            self.y_coordinate = 490
             if self.y_coordinate > 550:
                 if 215 < self.x_coordinate < 810:
                     if self.y_coordinate < 565:
@@ -1414,6 +1418,46 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.x_coordinate = 815
                 if self.y_coordinate > 385:
                     self.y_coordinate = 385
+        if current_zone == "castle three":
+            if self.y_coordinate > 705:
+                self.y_coordinate = 705
+            if self.x_coordinate < 30:
+                self.x_coordinate = 30
+            if self.y_coordinate < 35:
+                self.y_coordinate = 35
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate > 550 and self.x_coordinate < 800:
+                if self.y_coordinate < 570:
+                    self.y_coordinate = 570
+            if self.y_coordinate < 552 and self.x_coordinate < 800:
+                if self.y_coordinate > 537:
+                    self.y_coordinate = 537
+            if 552 > self.y_coordinate > 183 and self.x_coordinate > 238:
+                if self.x_coordinate < 260:
+                    self.x_coordinate = 260
+            if 552 > self.y_coordinate > 178:
+                if 238 < self.x_coordinate < 444:
+                    if self.y_coordinate < 200:
+                        self.y_coordinate = 200
+                    if self.y_coordinate < 395:
+                        if self.x_coordinate > 410:
+                            self.x_coordinate = 410
+                if 410 < self.x_coordinate < 808:
+                    if self.y_coordinate < 402:
+                        self.y_coordinate = 402
+                if self.x_coordinate > 800:
+                    if self.y_coordinate < 408:
+                        if self.x_coordinate < 812:
+                            self.x_coordinate = 812
+                if self.x_coordinate < 238:
+                    if self.x_coordinate > 218:
+                        self.x_coordinate = 218
+                    if self.y_coordinate > 386:
+                        self.y_coordinate = 386
+            if self.y_coordinate < 178 and 226 < self.x_coordinate < 816:
+                if self.y_coordinate > 170:
+                    self.y_coordinate = 170
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -3605,8 +3649,12 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         if self.x_coordinate < 826:
                             self.x_coordinate = 826
                 if 795 > self.x_coordinate > 220:
-                    if self.y_coordinate > 540:
-                        self.y_coordinate = 540
+                    if 390 > self.x_coordinate or self.x_coordinate > 634:
+                        if self.y_coordinate > 470:
+                            self.y_coordinate = 470
+                    else:
+                        if self.y_coordinate > 490:
+                            self.y_coordinate = 490
             if self.y_coordinate > 550:
                 if 215 < self.x_coordinate < 810:
                     if self.y_coordinate < 565:
@@ -3644,7 +3692,6 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.x_coordinate = 815
                 if self.y_coordinate > 385:
                     self.y_coordinate = 385
-
         if current_zone == "castle three":
             if self.y_coordinate > 705:
                 self.y_coordinate = 705
@@ -3654,19 +3701,37 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 35
             if self.x_coordinate > 1005:
                 self.x_coordinate = 1005
-
             if self.y_coordinate > 550 and self.x_coordinate < 800:
                 if self.y_coordinate < 570:
                     self.y_coordinate = 570
-            
             if self.y_coordinate < 552 and self.x_coordinate < 800:
                 if self.y_coordinate > 537:
                     self.y_coordinate = 537
-
             if 552 > self.y_coordinate > 183 and self.x_coordinate > 238:
                 if self.x_coordinate < 260:
                     self.x_coordinate = 260
-
+            if 552 > self.y_coordinate > 178:
+                if 238 < self.x_coordinate < 444:
+                    if self.y_coordinate < 200:
+                        self.y_coordinate = 200
+                    if self.y_coordinate < 395:
+                        if self.x_coordinate > 410:
+                            self.x_coordinate = 410
+                if 410 < self.x_coordinate < 808:
+                    if self.y_coordinate < 402:
+                        self.y_coordinate = 402
+                if self.x_coordinate > 800:
+                    if self.y_coordinate < 408:
+                        if self.x_coordinate < 812:
+                            self.x_coordinate = 812
+                if self.x_coordinate < 238:
+                    if self.x_coordinate > 218:
+                        self.x_coordinate = 218
+                    if self.y_coordinate > 386:
+                        self.y_coordinate = 386
+            if self.y_coordinate < 178 and 226 < self.x_coordinate < 816:
+                if self.y_coordinate > 170:
+                    self.y_coordinate = 170
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -5848,8 +5913,12 @@ class PlayerSorae(pygame.sprite.Sprite):
                         if self.x_coordinate < 826:
                             self.x_coordinate = 826
                 if 795 > self.x_coordinate > 220:
-                    if self.y_coordinate > 540:
-                        self.y_coordinate = 540
+                    if 390 > self.x_coordinate or self.x_coordinate > 634:
+                        if self.y_coordinate > 470:
+                            self.y_coordinate = 470
+                    else:
+                        if self.y_coordinate > 490:
+                            self.y_coordinate = 490
             if self.y_coordinate > 550:
                 if 215 < self.x_coordinate < 810:
                     if self.y_coordinate < 565:
@@ -5887,6 +5956,46 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.x_coordinate = 815
                 if self.y_coordinate > 385:
                     self.y_coordinate = 385
+        if current_zone == "castle three":
+            if self.y_coordinate > 705:
+                self.y_coordinate = 705
+            if self.x_coordinate < 30:
+                self.x_coordinate = 30
+            if self.y_coordinate < 35:
+                self.y_coordinate = 35
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate > 550 and self.x_coordinate < 800:
+                if self.y_coordinate < 570:
+                    self.y_coordinate = 570
+            if self.y_coordinate < 552 and self.x_coordinate < 800:
+                if self.y_coordinate > 537:
+                    self.y_coordinate = 537
+            if 552 > self.y_coordinate > 183 and self.x_coordinate > 238:
+                if self.x_coordinate < 260:
+                    self.x_coordinate = 260
+            if 552 > self.y_coordinate > 178:
+                if 238 < self.x_coordinate < 444:
+                    if self.y_coordinate < 200:
+                        self.y_coordinate = 200
+                    if self.y_coordinate < 395:
+                        if self.x_coordinate > 410:
+                            self.x_coordinate = 410
+                if 410 < self.x_coordinate < 808:
+                    if self.y_coordinate < 402:
+                        self.y_coordinate = 402
+                if self.x_coordinate > 800:
+                    if self.y_coordinate < 408:
+                        if self.x_coordinate < 812:
+                            self.x_coordinate = 812
+                if self.x_coordinate < 238:
+                    if self.x_coordinate > 218:
+                        self.x_coordinate = 218
+                    if self.y_coordinate > 386:
+                        self.y_coordinate = 386
+            if self.y_coordinate < 178 and 226 < self.x_coordinate < 816:
+                if self.y_coordinate > 170:
+                    self.y_coordinate = 170
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -7113,6 +7222,8 @@ if __name__ == "__main__":
     marrow_tower_battle = graphic_dict["marrow_tower_battle"]
     sub_marrow_bg = graphic_dict["sub_marrow_bg"]
     castle_one_bg = graphic_dict["castle_one_bg"]
+    castle_one_roped_bg = graphic_dict["castle_one_roped_bg"]
+    castle_one_keyed_bg = graphic_dict["castle_one_keyed_bg"]
     castle_two_bg = graphic_dict["castle_two_bg"]
     castle_two_roped_bg = graphic_dict["castle_two_roped_bg"]
     castle_three_bg = graphic_dict["castle_three_bg"]
@@ -9156,6 +9267,18 @@ if __name__ == "__main__":
                         npc_maydria.gift = load_returned["vanguard_start"]
                         npc_maydria.quest_complete = load_returned["vanguard_complete"]
                         artherian_task_start = load_returned["artherian_start"]
+                        prism_received = load_returned["prism_received"]
+                        castle_crate_1_got = load_returned["castle_crate_1"]
+                        castle_crate_2_got = load_returned["castle_crate_2"]
+                        castle_chest_1_got = load_returned["castle_chest_1"]
+                        castle_chest_2_got = load_returned["castle_chest_2"]
+                        dreth_taunt_1 = load_returned["dreth_taunt_1"]
+                        dreth_taunt_2 = load_returned["dreth_taunt_2"]
+                        dreth_taunt_3 = load_returned["dreth_taunt_3"]
+                        mirage_updated = load_returned["mirage_updated"]
+                        mirage_2_updated = load_returned["mirage_2_updated"]
+                        mirage_saved = load_returned["mirage_saved"]
+                        mirage_2_saved = load_returned["mirage_2_saved"]
 
                         if npc_noren.quest_complete and npc_boro.quest_complete:
                             castle_bridge.update(castle_bridge.x_coordinate, castle_bridge.y_coordinate,
@@ -9530,7 +9653,7 @@ if __name__ == "__main__":
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
                                 elif player.current_zone == "marrow ramps west":
-                                    if 530 > player.y_coordinate > 280:
+                                    if 530 > player.y_coordinate > 288:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -9575,7 +9698,7 @@ if __name__ == "__main__":
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
                                 elif player.current_zone == "marrow ramps west":
-                                    if 530 > player.y_coordinate > 280:
+                                    if 530 > player.y_coordinate > 288:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -9619,7 +9742,7 @@ if __name__ == "__main__":
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
                                 elif player.current_zone == "marrow ramps west":
-                                    if 530 > player.y_coordinate > 280:
+                                    if 530 > player.y_coordinate > 288:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -9663,7 +9786,7 @@ if __name__ == "__main__":
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
                                 elif player.current_zone == "marrow ramps west":
-                                    if 530 > player.y_coordinate > 280:
+                                    if 530 > player.y_coordinate > 288:
                                         pygame.mixer.find_channel(True).play(sfx_steps_chroma)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_steps_path)
@@ -9979,7 +10102,12 @@ if __name__ == "__main__":
                                                                         best_fish_reward, marrow_small_chest_got,
                                                                         npc_noren.quest_complete,
                                                                         npc_boro.quest_complete, npc_maydria,
-                                                                        artherian_task_start)
+                                                                        artherian_task_start, prism_received,
+                                                                        castle_crate_1_got, castle_crate_2_got,
+                                                                        castle_chest_1_got, castle_chest_2_got,
+                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                        mirage_updated, mirage_2_updated, mirage_saved,
+                                                                        mirage_2_saved)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10027,7 +10155,12 @@ if __name__ == "__main__":
                                                                     better_fish_reward, even_better_fish_reward,
                                                                     best_fish_reward, marrow_small_chest_got,
                                                                     npc_noren.quest_complete, npc_boro.quest_complete,
-                                                                    npc_maydria, artherian_task_start)
+                                                                    npc_maydria, artherian_task_start, prism_received,
+                                                                    castle_crate_1_got, castle_crate_2_got,
+                                                                    castle_chest_1_got, castle_chest_2_got,
+                                                                    dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                    mirage_updated, mirage_2_updated, mirage_saved,
+                                                                    mirage_2_saved)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -11599,7 +11732,8 @@ if __name__ == "__main__":
                                                                      overlay_chandelier, castle_crate_1, castle_crate_2,
                                                                      castle_crate_1_got, castle_crate_2_got,
                                                                      sfx_item_potion, sfx_dreth_laugh, dreth_taunt_1,
-                                                                     dreth_taunt_popup)
+                                                                     dreth_taunt_popup, rope_phase, castle_one_roped_bg,
+                                                                     castle_one_keyed_bg)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -11628,7 +11762,8 @@ if __name__ == "__main__":
                                                                      overlay_chandelier, castle_crate_1, castle_crate_2,
                                                                      castle_crate_1_got, castle_crate_2_got,
                                                                      sfx_item_potion, sfx_dreth_laugh, dreth_taunt_1,
-                                                                     dreth_taunt_popup)
+                                                                     dreth_taunt_popup, rope_phase, castle_one_roped_bg,
+                                                                     castle_one_keyed_bg, has_key)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -11650,6 +11785,7 @@ if __name__ == "__main__":
                     castle_crate_1_got = castle_one_returned["castle_crate_1_got"]
                     castle_crate_2_got = castle_one_returned["castle_crate_2_got"]
                     dreth_taunt_1 = castle_one_returned["dreth_taunt"]
+                    has_key = castle_one_returned["has_key"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle area two ---------------------------------------------------------------
@@ -16752,7 +16888,12 @@ if __name__ == "__main__":
                                                                         marrow_small_chest_got,
                                                                         npc_noren.quest_complete,
                                                                         npc_boro.quest_complete, npc_maydria,
-                                                                        artherian_task_start)
+                                                                        artherian_task_start, prism_received,
+                                                                        castle_crate_1_got, castle_crate_2_got,
+                                                                        castle_chest_1_got, castle_chest_2_got,
+                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                        mirage_updated, mirage_2_updated, mirage_saved,
+                                                                        mirage_2_saved)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -17405,7 +17546,12 @@ if __name__ == "__main__":
                                                                         marrow_small_chest_got,
                                                                         npc_noren.quest_complete,
                                                                         npc_boro.quest_complete, npc_maydria,
-                                                                        artherian_task_start)
+                                                                        artherian_task_start, prism_received,
+                                                                        castle_crate_1_got, castle_crate_2_got,
+                                                                        castle_chest_1_got, castle_chest_2_got,
+                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                        mirage_updated, mirage_2_updated, mirage_saved,
+                                                                        mirage_2_saved)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -17876,7 +18022,12 @@ if __name__ == "__main__":
                                                                     even_better_fish_reward, best_fish_reward,
                                                                     marrow_small_chest_got, npc_noren.quest_complete,
                                                                     npc_boro.quest_complete, npc_maydria,
-                                                                    artherian_task_start)
+                                                                    artherian_task_start, prism_received,
+                                                                    castle_crate_1_got, castle_crate_2_got,
+                                                                    castle_chest_1_got, castle_chest_2_got,
+                                                                    dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                    mirage_updated, mirage_2_updated, mirage_saved,
+                                                                    mirage_2_saved)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18352,7 +18503,12 @@ if __name__ == "__main__":
                                                                             best_fish_reward, marrow_small_chest_got,
                                                                             npc_noren.quest_complete,
                                                                             npc_boro.quest_complete, npc_maydria,
-                                                                            artherian_task_start)
+                                                                            artherian_task_start, prism_received,
+                                                                            castle_crate_1_got, castle_crate_2_got,
+                                                                            castle_chest_1_got, castle_chest_2_got,
+                                                                            dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                            mirage_updated, mirage_2_updated,
+                                                                            mirage_saved, mirage_2_saved)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -18582,7 +18738,12 @@ if __name__ == "__main__":
                                                                             best_fish_reward, marrow_small_chest_got,
                                                                             npc_noren.quest_complete,
                                                                             npc_boro.quest_complete, npc_maydria,
-                                                                            artherian_task_start)
+                                                                            artherian_task_start, prism_received,
+                                                                            castle_crate_1_got, castle_crate_2_got,
+                                                                            castle_chest_1_got, castle_chest_2_got,
+                                                                            dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                            mirage_updated, mirage_2_updated,
+                                                                            mirage_saved, mirage_2_saved)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -18813,7 +18974,12 @@ if __name__ == "__main__":
                                                                             best_fish_reward, marrow_small_chest_got,
                                                                             npc_noren.quest_complete,
                                                                             npc_boro.quest_complete, npc_maydria,
-                                                                            artherian_task_start)
+                                                                            artherian_task_start, prism_received,
+                                                                            castle_crate_1_got, castle_crate_2_got,
+                                                                            castle_chest_1_got, castle_chest_2_got,
+                                                                            dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                            mirage_updated, mirage_2_updated,
+                                                                            mirage_saved, mirage_2_saved)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
