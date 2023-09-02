@@ -3644,6 +3644,29 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.x_coordinate = 815
                 if self.y_coordinate > 385:
                     self.y_coordinate = 385
+
+        if current_zone == "castle three":
+            if self.y_coordinate > 705:
+                self.y_coordinate = 705
+            if self.x_coordinate < 30:
+                self.x_coordinate = 30
+            if self.y_coordinate < 35:
+                self.y_coordinate = 35
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+
+            if self.y_coordinate > 550 and self.x_coordinate < 800:
+                if self.y_coordinate < 570:
+                    self.y_coordinate = 570
+            
+            if self.y_coordinate < 552 and self.x_coordinate < 800:
+                if self.y_coordinate > 537:
+                    self.y_coordinate = 537
+
+            if 552 > self.y_coordinate > 183 and self.x_coordinate > 238:
+                if self.x_coordinate < 260:
+                    self.x_coordinate = 260
+
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -3681,7 +3704,6 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 else:
                     if self.x_coordinate < 275:
                         self.x_coordinate = 275
-
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
