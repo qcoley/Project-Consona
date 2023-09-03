@@ -8013,6 +8013,9 @@ if __name__ == "__main__":
     castle_cell_3 = pygame.Rect((525, 325), (150, 50))
     castle_ladder = pygame.Rect((280, 230), (100, 50))
 
+    castle_key = pygame.Rect((490, 225), (50, 50))
+    boss_door = pygame.Rect((430, 470), (150, 50))
+
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
     mines_cart = UiElement("mines cart", 885, 475, graphic_dict["mines_light"])
@@ -9279,6 +9282,15 @@ if __name__ == "__main__":
                         mirage_2_updated = load_returned["mirage_2_updated"]
                         mirage_saved = load_returned["mirage_saved"]
                         mirage_2_saved = load_returned["mirage_2_saved"]
+                        rope_phase = load_returned["rope_phase"]
+                        atmon_castle.alive_status = load_returned["mirage_alive"]
+                        
+                        if rope_phase == 10:
+                            overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
+                            overlay_chandelier.surf.set_alpha(230)
+                        if rope_phase == 11:
+                            overlay_chandelier.update(516, 285, graphic_dict["chandelier_left"])
+                            overlay_chandelier.surf.set_alpha(230)
 
                         if npc_noren.quest_complete and npc_boro.quest_complete:
                             castle_bridge.update(castle_bridge.x_coordinate, castle_bridge.y_coordinate,
@@ -9602,7 +9614,8 @@ if __name__ == "__main__":
                                                                       marrow_castle_exit, castle_crate_1,
                                                                       castle_crate_2, rock_9, rock_10, rope_wind_1,
                                                                       castle_cell_1, castle_cell_2, rope_wind_2,
-                                                                      castle_cell_3, castle_ladder)
+                                                                      castle_cell_3, castle_ladder, castle_key,
+                                                                      boss_door)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9896,7 +9909,8 @@ if __name__ == "__main__":
                                                                                   castle_crate_2, rock_9, rock_10,
                                                                                   rope_wind_1, castle_cell_1,
                                                                                   castle_cell_2, rope_wind_2,
-                                                                                  castle_cell_3, castle_ladder)
+                                                                                  castle_cell_3, castle_ladder,
+                                                                                  castle_key, boss_door)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -10107,7 +10121,8 @@ if __name__ == "__main__":
                                                                         castle_chest_1_got, castle_chest_2_got,
                                                                         dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
-                                                                        mirage_2_saved)
+                                                                        mirage_2_saved, rope_phase,
+                                                                        atmon_castle.alive_status)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10160,7 +10175,8 @@ if __name__ == "__main__":
                                                                     castle_chest_1_got, castle_chest_2_got,
                                                                     dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
-                                                                    mirage_2_saved)
+                                                                    mirage_2_saved, rope_phase,
+                                                                    atmon_castle.alive_status)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -11733,7 +11749,8 @@ if __name__ == "__main__":
                                                                      castle_crate_1_got, castle_crate_2_got,
                                                                      sfx_item_potion, sfx_dreth_laugh, dreth_taunt_1,
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
-                                                                     castle_one_keyed_bg)
+                                                                     castle_one_keyed_bg, castle_key, boss_door,
+                                                                     sfx_item_key)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -11763,7 +11780,8 @@ if __name__ == "__main__":
                                                                      castle_crate_1_got, castle_crate_2_got,
                                                                      sfx_item_potion, sfx_dreth_laugh, dreth_taunt_1,
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
-                                                                     castle_one_keyed_bg, has_key)
+                                                                     castle_one_keyed_bg, has_key, castle_key,
+                                                                     boss_door, sfx_item_key)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -16893,7 +16911,8 @@ if __name__ == "__main__":
                                                                         castle_chest_1_got, castle_chest_2_got,
                                                                         dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
-                                                                        mirage_2_saved)
+                                                                        mirage_2_saved, rope_phase,
+                                                                        atmon_castle.alive_status)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -17551,7 +17570,8 @@ if __name__ == "__main__":
                                                                         castle_chest_1_got, castle_chest_2_got,
                                                                         dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
-                                                                        mirage_2_saved)
+                                                                        mirage_2_saved, rope_phase,
+                                                                        atmon_castle.alive_status)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -18027,7 +18047,8 @@ if __name__ == "__main__":
                                                                     castle_chest_1_got, castle_chest_2_got,
                                                                     dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
-                                                                    mirage_2_saved)
+                                                                    mirage_2_saved, rope_phase,
+                                                                    atmon_castle.alive_status)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18508,7 +18529,8 @@ if __name__ == "__main__":
                                                                             castle_chest_1_got, castle_chest_2_got,
                                                                             dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                             mirage_updated, mirage_2_updated,
-                                                                            mirage_saved, mirage_2_saved)
+                                                                            mirage_saved, mirage_2_saved, rope_phase,
+                                                                            atmon_castle.alive_status)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -18743,7 +18765,8 @@ if __name__ == "__main__":
                                                                             castle_chest_1_got, castle_chest_2_got,
                                                                             dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                             mirage_updated, mirage_2_updated,
-                                                                            mirage_saved, mirage_2_saved)
+                                                                            mirage_saved, mirage_2_saved, rope_phase,
+                                                                            atmon_castle.alive_status)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -18979,7 +19002,8 @@ if __name__ == "__main__":
                                                                             castle_chest_1_got, castle_chest_2_got,
                                                                             dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                             mirage_updated, mirage_2_updated,
-                                                                            mirage_saved, mirage_2_saved)
+                                                                            mirage_saved, mirage_2_saved, rope_phase,
+                                                                            atmon_castle.alive_status)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "

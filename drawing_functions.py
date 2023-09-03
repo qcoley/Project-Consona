@@ -777,8 +777,8 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
                 or player.current_zone == "sub marrow":
             text_location = font.render(str("Marrow"), True, "black", "light yellow")
         if (player.current_zone == "castle one" or player.current_zone == "castle two" or
-                player.current_zone == "castle three" or player.current_zone == "castle four" or
-                player.current_zone == "castle five"):
+                player.current_zone == "castle three" or player.current_zone == "caldera" or
+                player.current_zone == "castle lair"):
             text_location = font.render(str("Castle"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
@@ -1080,7 +1080,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
                 or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
                 or player.current_zone == "sub marrow" or player.current_zone == "castle one"
                 or player.current_zone == "castle two" or player.current_zone == "castle three"
-                or player.current_zone == "castle four" or player.current_zone == "castle five"):
+                or player.current_zone == "caldera" or player.current_zone == "castle lair"):
 
             text_quest1_surf = font.render("Barrier blockade", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
@@ -2226,7 +2226,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                     or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
                     or player.current_zone == "sub marrow" or player.current_zone == "castle one"
                     or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "castle four" or player.current_zone == "castle five"):
+                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
                 amuna_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
@@ -2265,7 +2265,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                     or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
                     or player.current_zone == "sub marrow" or player.current_zone == "castle one"
                     or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "castle four" or player.current_zone == "castle five"):
+                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
                 amuna_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
@@ -2305,7 +2305,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                     or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
                     or player.current_zone == "sub marrow" or player.current_zone == "castle one"
                     or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "castle four" or player.current_zone == "castle five"):
+                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
                 nuldar_location.update(marrow_map_button.x_coordinate,
                                        marrow_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
@@ -2344,7 +2344,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                     or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
                     or player.current_zone == "sub marrow" or player.current_zone == "castle one"
                     or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "castle four" or player.current_zone == "castle five"):
+                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
                 nuldar_location.update(marrow_map_button.x_coordinate,
                                        marrow_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
@@ -2384,7 +2384,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                     or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
                     or player.current_zone == "sub marrow" or player.current_zone == "castle one"
                     or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "castle four" or player.current_zone == "castle five"):
+                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
                 sorae_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
@@ -2423,7 +2423,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                     or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
                     or player.current_zone == "sub marrow" or player.current_zone == "castle one"
                     or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "castle four" or player.current_zone == "castle five"):
+                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
                 sorae_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])

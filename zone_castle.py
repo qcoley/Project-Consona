@@ -17,7 +17,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, castle_crate_1_got,
                castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_phase,
-               castle_one_roped_bg, castle_one_keyed_bg, key_got):
+               castle_one_roped_bg, castle_one_keyed_bg, key_got, castle_key, boss_door, sfx_item_key):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -29,8 +29,9 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
         screen.blit(castle_one_bg, (0, 0))
     if rope_phase == 2 and not key_got:
         screen.blit(castle_one_roped_bg, (0, 0))
-    #if key_got:
-        #screen.blit(castle_one_keyed_bg, (0, 0))
+    if key_got:
+        screen.blit(castle_one_keyed_bg, (0, 0))
+
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
@@ -153,6 +154,50 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
             player.x_coordinate = 710
             player.y_coordinate = 525
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    if not key_got and rope_phase == 2:
+        if pygame.Rect.colliderect(player.rect, castle_key):
+            interaction_popup.update(515, 260, graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Boss key"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (515, 260)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            info_text_1 = "Press 'F' to pickup key."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world:
+                interacted = False
+                pygame.mixer.find_channel(True).play(sfx_item_key)
+                info_text_1 = "You found a golden key!"
+                info_text_2 = ""
+                player.items.append(Item("boss key", "key", 200, 200, graphic_dict["key_img"], 0))
+                key_got = True
+
+    if pygame.Rect.colliderect(player.rect, boss_door):
+        interaction_popup.update(518, 525, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Dreth's lair"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (518, 525)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if key_got:
+            info_text_1 = "Press 'F' key to enter."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world:
+                interacted = False
+                over_world_song_set = False
+                player.current_zone = "castle lair"
+                player.x_coordinate = 710
+                player.y_coordinate = 525
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
