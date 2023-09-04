@@ -648,9 +648,10 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
         if interacted and in_over_world:
             pygame.mixer.find_channel(True).play(sfx_ladder)
             interacted = False
+            over_world_song_set = False
             player.current_zone = "caldera"
-            player.x_coordinate = 425
-            player.y_coordinate = 650
+            player.x_coordinate = 390
+            player.y_coordinate = 315
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # --------------------------------------------------------------------------------------------------
@@ -715,3 +716,201 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                            "mirage_2_saved": mirage_2_saved, "castle_chest_1_got": chest_1_got}
 
     return castle_three_return
+
+
+def castle_lair(pygame, screen, graphic_dict, player, castle_lair_bg, over_world_song_set, castle_music,
+                interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
+                in_over_world, interacted, info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able,
+                equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
+                pet_energy_window, player_battle_sprite, current_npc_interacting, in_npc_interaction, marrow_attuned,
+                marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
+                current_enemy_battling, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
+                even_better_fish_counter, best_fish_counter, prism_tic, chandelier, rock_1, rock_2, sfx_rocks,
+                dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_two_roped_bg, sfx_rope,
+                cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_saved, chest_1_got,
+                sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite):
+    if not over_world_song_set:
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(castle_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
+
+    screen.blit(castle_lair_bg, (0, 0))
+
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    screen.blit(rock_1.surf, rock_1.rect)
+    screen.blit(rock_2.surf, rock_2.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
+    screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
+    drawing_functions.draw_level_up(screen, in_over_world)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
+    # --------------------------------------------------------------------------------------------------
+    for save_window in save_check_window:
+        screen.blit(save_window.surf, save_window.rect)
+    for ui_elements in user_interface:
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
+
+    if len(drawing_functions.loot_popup_container) > 0:
+        for popup in drawing_functions.loot_popup_container:
+            screen.blit(popup.surf, popup.rect)
+    if len(drawing_functions.loot_text_container) > 0:
+        for loot_text in drawing_functions.loot_text_container:
+            screen.blit(loot_text[0], loot_text[1])
+
+    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+    screen.blit(hp_bar.surf, hp_bar.rect)
+    screen.blit(en_bar.surf, en_bar.rect)
+    screen.blit(xp_bar.surf, xp_bar.rect)
+
+    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
+    drawing_functions.draw_it(screen)
+
+    if player.x_coordinate > 975 and player.y_coordinate > 560:
+        player.current_zone = "castle one"
+        in_over_world = True
+        player.x_coordinate = 115
+        player.y_coordinate = 600
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    castle_lair_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
+                          "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
+                          "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
+                          "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
+                          "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
+                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
+                          "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt,
+                          "rope_phase": rope_phase, "mirage_updated": mirage_updated, "mirage_saved": mirage_saved,
+                          "castle_chest_1_got": chest_1_got}
+
+    return castle_lair_return
+
+
+def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_set, castle_music,
+            interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
+            in_over_world, interacted, info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able,
+            equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
+            pet_energy_window, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
+            even_better_fish_counter, best_fish_counter, caldera_ladder, sfx_ladder):
+
+    if not over_world_song_set:
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(castle_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
+
+    screen.blit(caldera_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
+    screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
+    drawing_functions.draw_level_up(screen, in_over_world)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
+    if pygame.Rect.colliderect(player.rect, caldera_ladder):
+        interaction_popup.update(340, 250, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Castle"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (340, 250)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to climb up ladder."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            pygame.mixer.find_channel(True).play(sfx_ladder)
+            interacted = False
+            over_world_song_set = False
+            player.current_zone = "castle three"
+            player.x_coordinate = 333
+            player.y_coordinate = 363
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    # --------------------------------------------------------------------------------------------------
+    for save_window in save_check_window:
+        screen.blit(save_window.surf, save_window.rect)
+    for ui_elements in user_interface:
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
+
+    if len(drawing_functions.loot_popup_container) > 0:
+        for popup in drawing_functions.loot_popup_container:
+            screen.blit(popup.surf, popup.rect)
+    if len(drawing_functions.loot_text_container) > 0:
+        for loot_text in drawing_functions.loot_text_container:
+            screen.blit(loot_text[0], loot_text[1])
+
+    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+    screen.blit(hp_bar.surf, hp_bar.rect)
+    screen.blit(en_bar.surf, en_bar.rect)
+    screen.blit(xp_bar.surf, xp_bar.rect)
+
+    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                                     best_fish_counter)
+    drawing_functions.draw_it(screen)
+
+    caldera_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
+                      "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
+                      "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
+                      "movement_able": movement_able}
+
+    return caldera_return

@@ -7228,6 +7228,7 @@ if __name__ == "__main__":
     castle_two_roped_bg = graphic_dict["castle_two_roped_bg"]
     castle_three_bg = graphic_dict["castle_three_bg"]
     castle_three_roped_bg = graphic_dict["castle_three_roped_bg"]
+    caldera_bg = graphic_dict["caldera_bg"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -8012,6 +8013,7 @@ if __name__ == "__main__":
     castle_cell_2 = pygame.Rect((640, 325), (150, 50))
     castle_cell_3 = pygame.Rect((525, 325), (150, 50))
     castle_ladder = pygame.Rect((280, 230), (100, 50))
+    caldera_ladder = pygame.Rect((295, 275), (75, 50))
 
     castle_key = pygame.Rect((490, 225), (50, 50))
     boss_door = pygame.Rect((430, 470), (150, 50))
@@ -8188,6 +8190,7 @@ if __name__ == "__main__":
     boss_battle_music = resource_path("resources/sounds/eterna_boss_battle.mp3")
     fishing_music = resource_path("resources/sounds/eterna_fishing.mp3")
     castle_music = resource_path("resources/sounds/eterna_castle.mp3")
+    caldera_music = resource_path("resources/sounds/eterna_caldera.mp3")
 
     pygame.mixer.music.set_volume(0.35)
     pygame.mixer.music.load(start_screen_music)
@@ -9483,6 +9486,10 @@ if __name__ == "__main__":
                             player.x_coordinate = 160
                             player.y_coordinate = 640
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "caldera":
+                            player.x_coordinate = 390
+                            player.y_coordinate = 315
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
                         if marrow_switch_phase == "red":
                             overlay_marrow_switch.update(640, 360, graphic_dict["marrow_switch_red"])
@@ -9615,7 +9622,7 @@ if __name__ == "__main__":
                                                                       castle_crate_2, rock_9, rock_10, rope_wind_1,
                                                                       castle_cell_1, castle_cell_2, rope_wind_2,
                                                                       castle_cell_3, castle_ladder, castle_key,
-                                                                      boss_door)
+                                                                      boss_door, caldera_ladder)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9910,7 +9917,7 @@ if __name__ == "__main__":
                                                                                   rope_wind_1, castle_cell_1,
                                                                                   castle_cell_2, rope_wind_2,
                                                                                   castle_cell_3, castle_ladder,
-                                                                                  castle_key, boss_door)
+                                                                                  castle_key, boss_door, caldera_ladder)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -11974,6 +11981,149 @@ if __name__ == "__main__":
                     rope_phase = castle_three_returned["rope_phase"]
                     mirage_2_updated = castle_three_returned["mirage_2_updated"]
                     mirage_2_saved = castle_three_returned["mirage_2_saved"]
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in marrow castle lair -------------------------------------------------------------------
+                if player.current_zone == "castle lair" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        castle_lair_returned = zone_castle.castle_lair(pygame, screen, graphic_dict, player,
+                                                                         castle_two_bg, over_world_song_set,
+                                                                         castle_music,
+                                                                         interaction_popup, font, save_check_window,
+                                                                         user_interface, bar_backdrop, hp_bar,
+                                                                         en_bar,
+                                                                         xp_bar, in_over_world, interacted,
+                                                                         info_text_1,
+                                                                         info_text_2, info_text_3, info_text_4,
+                                                                         npc_tic,
+                                                                         movement_able, equipment_screen, staff,
+                                                                         sword,
+                                                                         bow,
+                                                                         npc_garan, offense_meter, defense_meter,
+                                                                         weapon_select, pet_energy_window,
+                                                                         player_battle_sprite,
+                                                                         current_npc_interacting,
+                                                                         in_npc_interaction, marrow_attuned,
+                                                                         ghouls_marrow,
+                                                                         enemy_tic, barrier_active,
+                                                                         sharp_sense_active,
+                                                                         ghoul_battle_sprite, in_battle,
+                                                                         current_enemy_battling, vanished,
+                                                                         vanish_overlay,
+                                                                         basic_fish_counter, better_fish_counter,
+                                                                         even_better_fish_counter,
+                                                                         best_fish_counter,
+                                                                         prism_activate_tic, overlay_chandelier,
+                                                                         rock_9,
+                                                                         rock_10, sfx_rock_push, sfx_dreth_laugh,
+                                                                         dreth_taunt_3, dreth_taunt_popup,
+                                                                         rope_wind_2,
+                                                                         rope_phase, castle_two_roped_bg,
+                                                                         sfx_rope_release, castle_cell_3,
+                                                                         castle_cell_2,
+                                                                         sfx_gate_open, overlay_mirage_2,
+                                                                         mirage_2_updated, cell_popup_2,
+                                                                         chest_small_castle_1, mirage_2_saved,
+                                                                         castle_chest_1_got, sfx_item_rupee,
+                                                                         sfx_enemy_atmon_loud, atmon_castle,
+                                                                         atmon_battle_sprite, castle_ladder,
+                                                                         sfx_ladder)
+                    else:
+                        castle_lair_returned = zone_castle.castle_lair(pygame, game_window, graphic_dict, player,
+                                                                         castle_three_bg, over_world_song_set,
+                                                                         castle_music,
+                                                                         interaction_popup, font, save_check_window,
+                                                                         user_interface, bar_backdrop, hp_bar,
+                                                                         en_bar,
+                                                                         xp_bar, in_over_world, interacted,
+                                                                         info_text_1,
+                                                                         info_text_2, info_text_3, info_text_4,
+                                                                         npc_tic,
+                                                                         movement_able, equipment_screen, staff,
+                                                                         sword,
+                                                                         bow,
+                                                                         npc_garan, offense_meter, defense_meter,
+                                                                         weapon_select, pet_energy_window,
+                                                                         player_battle_sprite,
+                                                                         current_npc_interacting,
+                                                                         in_npc_interaction, marrow_attuned,
+                                                                         ghouls_marrow,
+                                                                         enemy_tic, barrier_active,
+                                                                         sharp_sense_active,
+                                                                         ghoul_battle_sprite, in_battle,
+                                                                         current_enemy_battling, vanished,
+                                                                         vanish_overlay,
+                                                                         basic_fish_counter, better_fish_counter,
+                                                                         even_better_fish_counter,
+                                                                         best_fish_counter,
+                                                                         prism_activate_tic, overlay_chandelier,
+                                                                         rock_9,
+                                                                         rock_10, sfx_rock_push, sfx_dreth_laugh,
+                                                                         dreth_taunt_3, dreth_taunt_popup,
+                                                                         rope_wind_2,
+                                                                         rope_phase, castle_three_roped_bg,
+                                                                         sfx_rope_release, castle_cell_3,
+                                                                         castle_cell_2,
+                                                                         sfx_gate_open, overlay_mirage_2,
+                                                                         mirage_2_updated, cell_popup_2,
+                                                                         chest_small_castle_1, mirage_2_saved,
+                                                                         castle_chest_1_got, sfx_item_rupee,
+                                                                         sfx_enemy_atmon_loud, atmon_castle,
+                                                                         atmon_battle_sprite, castle_ladder,
+                                                                         sfx_ladder)
+
+                    over_world_song_set = castle_lair_returned["over_world_song_set"]
+                    interacted = castle_lair_returned["interacted"]
+                    in_over_world = castle_lair_returned["in_over_world"]
+                    movement_able = castle_lair_returned["movement_able"]
+                    info_text_1 = castle_lair_returned["info_text_1"]
+                    info_text_2 = castle_lair_returned["info_text_2"]
+                    info_text_3 = castle_lair_returned["info_text_3"]
+                    info_text_4 = castle_lair_returned["info_text_4"]
+                    enemy_tic = castle_lair_returned["enemy_tic"]
+                    in_battle = castle_lair_returned["in_battle"]
+                    current_enemy_battling = castle_lair_returned["current_enemy"]
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in marrow caldera -----------------------------------------------------------------------
+                if player.current_zone == "caldera" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        caldera_returned = zone_castle.caldera(pygame, screen, graphic_dict, player, caldera_bg, 
+                                                               over_world_song_set, caldera_music, interaction_popup,
+                                                               font, save_check_window, user_interface, bar_backdrop, 
+                                                               hp_bar, en_bar, xp_bar, in_over_world, interacted, 
+                                                               info_text_1, info_text_2, info_text_3, info_text_4, 
+                                                               npc_tic, movement_able, equipment_screen, staff, sword, 
+                                                               bow, npc_garan, offense_meter, defense_meter, 
+                                                               weapon_select, pet_energy_window, vanished, 
+                                                               vanish_overlay, basic_fish_counter, better_fish_counter,
+                                                               even_better_fish_counter, best_fish_counter,
+                                                               caldera_ladder, sfx_ladder)
+                    else:
+                        caldera_returned = zone_castle.caldera(pygame, game_window, graphic_dict, player, caldera_bg,
+                                                               over_world_song_set, caldera_music, interaction_popup,
+                                                               font, save_check_window, user_interface, bar_backdrop, 
+                                                               hp_bar, en_bar, xp_bar, in_over_world, interacted, 
+                                                               info_text_1, info_text_2, info_text_3, info_text_4, 
+                                                               npc_tic, movement_able, equipment_screen, staff, sword, 
+                                                               bow, npc_garan, offense_meter, defense_meter, 
+                                                               weapon_select, pet_energy_window, vanished, 
+                                                               vanish_overlay, basic_fish_counter, better_fish_counter,
+                                                               even_better_fish_counter, best_fish_counter,
+                                                               caldera_ladder, sfx_ladder)
+
+                    over_world_song_set = caldera_returned["over_world_song_set"]
+                    interacted = caldera_returned["interacted"]
+                    in_over_world = caldera_returned["in_over_world"]
+                    movement_able = caldera_returned["movement_able"]
+                    info_text_1 = caldera_returned["info_text_1"]
+                    info_text_2 = caldera_returned["info_text_2"]
+                    info_text_3 = caldera_returned["info_text_3"]
+                    info_text_4 = caldera_returned["info_text_4"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
