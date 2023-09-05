@@ -23,7 +23,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2, sub_marrow_rect_2,
                       dungeon_gate_marrow, dungeon_chest_marrow_small, atmons, castle_exit, castle_crate_1,
                       castle_crate_2, rock_9, rock_10, rope_wind_1, cell_1, cell_2, rope_wind_2, cell_3, castle_ladder,
-                      castle_key, boss_door, caldera_ladder):
+                      castle_key, boss_door, caldera_ladder, fishing_spot_caldera):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -280,6 +280,10 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
         if player.current_zone == "caldera":
             if pygame.Rect.colliderect(player.rect, caldera_ladder):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, fishing_spot_caldera):
+                interacted = True
+            else:
+                interacted = False
 
     # checks if player is colliding with relevant objects outside the interaction event loop
     # prevents interaction with subsequent objects if no action occurs with current object interaction
@@ -434,7 +438,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     not pygame.Rect.colliderect(player.rect, castle_ladder)):
                 interacted = False
         if player.current_zone == "caldera":
-            if not pygame.Rect.colliderect(player.rect, caldera_ladder):
+            if (not pygame.Rect.colliderect(player.rect, caldera_ladder) and
+                    not pygame.Rect.colliderect(player.rect, fishing_spot_caldera)):
                 interacted = False
 
     return interacted
@@ -452,7 +457,8 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                      spot_2_stardust, spot_1_eldream, spot_2_eldream, sorae_a_up, sorae_b_up, sorae_a_up_2,
                      sorae_b_up_2, sorae_a_up_3, sorae_b_up_3, amuna_m_up, amuna_f_up, amuna_m_up_2, amuna_f_up_2,
                      amuna_m_up_3, amuna_f_up_3, nuldar_m_up, nuldar_f_up, nuldar_m_up_2, nuldar_f_up_2, nuldar_m_up_3,
-                     nuldar_f_up_3):
+                     nuldar_f_up_3, spot_caldera):
+
     fishing_timer_end = time.perf_counter()
     if fishing_timer_end - fishing_timer >= 3:
 
@@ -477,6 +483,10 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
             if pygame.sprite.collide_rect(player, spot_2_eldream):
                 spot_2_eldream.update(645, 335, spot_4_img)
 
+        if current_zone == "caldera":
+            if pygame.sprite.collide_rect(player, spot_caldera):
+                spot_caldera.update(710, 365, spot_4_img)
+
         catch_chance = random.randrange(1, 10)
         if fishing_level == 1 or fishing_level == 1.5:
             if catch_chance > 3:
@@ -486,6 +496,8 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                     better_fish_counter += 1
                 if current_zone == "fishing alcove":
                     even_better_fish_counter += 1
+                if current_zone == "caldera":
+                    best_fish_counter += 1
                 fish_caught = True
             else:
                 fish_caught = False
@@ -497,6 +509,8 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                     better_fish_counter += 1
                 if current_zone == "fishing alcove":
                     even_better_fish_counter += 1
+                if current_zone == "caldera":
+                    best_fish_counter += 1
                 fish_caught = True
             else:
                 fish_caught = False
@@ -508,6 +522,8 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                     better_fish_counter += 1
                 if current_zone == "fishing alcove":
                     even_better_fish_counter += 1
+                if current_zone == "caldera":
+                    best_fish_counter += 1
                 fish_caught = True
             else:
                 fish_caught = False
@@ -839,6 +855,61 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                             player.surf = sorae_b_up_2
                         if fishing_level == 3.0 or fishing_level == 3.5:
                             player.surf = sorae_b_up_3
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+
+        if current_zone == "caldera":
+            if pygame.sprite.collide_rect(player, spot_caldera):
+                spot_caldera.update(710, 365, spot_3_img)
+                if player.race == "amuna":
+                    if player.gender == "male":
+                        if fishing_level == 1 or fishing_level == 1.5:
+                            player.surf = amuna_m_right
+                        if fishing_level == 2.0 or fishing_level == 2.5:
+                            player.surf = amuna_m_right_2
+                        if fishing_level == 3.0 or fishing_level == 3.5:
+                            player.surf = amuna_m_right_3
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        if fishing_level == 1 or fishing_level == 1.5:
+                            player.surf = amuna_f_right
+                        if fishing_level == 2.0 or fishing_level == 2.5:
+                            player.surf = amuna_f_right_2
+                        if fishing_level == 3.0 or fishing_level == 3.5:
+                            player.surf = amuna_f_right_3
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "nuldar":
+                    if player.gender == "male":
+                        if fishing_level == 1 or fishing_level == 1.5:
+                            player.surf = nuldar_m_right
+                        if fishing_level == 2.0 or fishing_level == 2.5:
+                            player.surf = nuldar_m_right_2
+                        if fishing_level == 3.0 or fishing_level == 3.5:
+                            player.surf = nuldar_m_right_3
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        if fishing_level == 1 or fishing_level == 1.5:
+                            player.surf = nuldar_f_right
+                        if fishing_level == 2.0 or fishing_level == 2.5:
+                            player.surf = nuldar_f_right_2
+                        if fishing_level == 3.0 or fishing_level == 3.5:
+                            player.surf = nuldar_f_right_3
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "sorae":
+                    if player.gender == "male":
+                        if fishing_level == 1 or fishing_level == 1.5:
+                            player.surf = sorae_a_right
+                        if fishing_level == 2.0 or fishing_level == 2.5:
+                            player.surf = sorae_a_right_2
+                        if fishing_level == 3.0 or fishing_level == 3.5:
+                            player.surf = sorae_a_right_3
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        if fishing_level == 1 or fishing_level == 1.5:
+                            player.surf = sorae_b_right
+                        if fishing_level == 2.0 or fishing_level == 2.5:
+                            player.surf = sorae_b_right_2
+                        if fishing_level == 3.0 or fishing_level == 3.5:
+                            player.surf = sorae_b_right_3
                         player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
 
     fishing_return = {"basic_fish_counter": basic_fish_counter, "better_fish_counter": better_fish_counter,
@@ -2444,7 +2515,7 @@ def level_up(player, level_up_win, level_up_font):
 def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
                   interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers,
                   eldream_flowers, interactables_eldream, ectrenos_front_enemies, marrow_ghouls,
-                  ectrenos_alcove_enemies, atmons):
+                  ectrenos_alcove_enemies, atmons, jumanos):
     if player.current_zone == "seldon":
         snake_counter = 0
         ghoul_counter = 0
@@ -2511,7 +2582,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             if mob.name == "magmon":
                 magmon_counter += 1
 
-        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if magmon_counter < 3:
             new_magmon = Enemy("magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
                                True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
@@ -2534,7 +2605,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             if mob.name == "bandile":
                 bandile_counter += 1
 
-        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if bandile_counter < 3:
             new_bandile = Enemy("bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
                                 random_bandile_y, True, Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
@@ -2571,7 +2642,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             if mob.name == "necrola":
                 necrola_counter += 1
 
-        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if necrola_counter < 3:
             new_necrola = Enemy("necrola", "necrola", 100, 100, random_necrola_level, random_necrola_x,
                                 random_necrola_y, True, Item("oscura pluma", "pluma", 200, 200,
@@ -2593,7 +2664,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             if mob.name == "osodark":
                 osodark_counter += 1
 
-        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if osodark_counter < 3:
             new_osodark = Enemy("osodark", "osodark", 100, 100, random_osodark_level, random_osodark_x,
                                 random_osodark_y, True,
@@ -2615,7 +2686,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             if mob.name == "ghoul":
                 marrow_ghoul_counter += 1
 
-        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if marrow_ghoul_counter < 3:
             new_marrow_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_marrow_ghoul_level, random_marrow_ghoul_x,
                                      random_marrow_ghoul_y, True, Item("bone shard", "shard", 200, 200,
@@ -2637,7 +2708,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             if mob.name == "atmon":
                 marrow_atmon_counter += 1
 
-        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if marrow_atmon_counter < 3:
             new_marrow_atmon = Enemy("atmon", "atmon", 100, 100, random_marrow_atmon_level, random_marrow_atmon_x,
                                      random_marrow_atmon_y, True,
@@ -2646,13 +2717,33 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
                                      "mage")
             atmons.add(new_marrow_atmon)
 
+    if player.current_zone == "castle one":
+        jumano_counter = 0
+        # generate random coordinates and level for new enemy to spawn within boundaries and level range
+        # if not scaled, coordinates set to default boundaries
+        random_jumano_x = random.randrange(100, 800)
+        random_jumano_y = random.randrange(100, 500)
+        random_jumano_level = random.randrange(25, 30)
+        # count current enemies active in game
+        for mob in jumanos:
+            if mob.name == "jumano":
+                jumano_counter += 1
+        # if there are less than 3  in game, create another with random level and coordinates. add to groups
+        if jumano_counter < 3:
+            new_jumano = Enemy("jumano", "jumano", 100, 100, random_jumano_level, random_jumano_x,
+                               random_jumano_y, True,
+                               Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
+                               graphic_dict["jumano"],
+                               UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+            jumanos.add(new_jumano)
+
     respawn_dict = {"seldon_enemies": seldon_enemies, "snakes": snakes, "ghouls": ghouls,
                     "interactables_seldon": interactables_seldon, "interactables_korlok": interactables_korlok,
                     "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles, "seldon_flowers":
                         seldon_flowers, "eldream_flowers": eldream_flowers,
                     "interactables_eldream": interactables_eldream,
                     "ectrenos_front_enemies": ectrenos_front_enemies, "marrow_ghouls": marrow_ghouls,
-                    "ectrenos_alcove_enemies": ectrenos_alcove_enemies, "atmons": atmons}
+                    "ectrenos_alcove_enemies": ectrenos_alcove_enemies, "atmons": atmons, "jumanos": jumanos}
 
     return respawn_dict
 

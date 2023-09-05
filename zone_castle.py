@@ -17,7 +17,9 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, castle_crate_1_got,
                castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_phase,
-               castle_one_roped_bg, castle_one_keyed_bg, key_got, castle_key, boss_door, sfx_item_key):
+               castle_one_roped_bg, castle_one_keyed_bg, key_got, castle_key, boss_door, sfx_item_key, jumanos,
+               jumano_battle_sprite):
+
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -52,7 +54,12 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
-                                                      marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls)
+                                                      marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
+                                                      jumanos)
+    jumanos = respawned_dict["jumanos"]
+
+    for jumano in jumanos:
+        screen.blit(jumano.surf, jumano.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -199,6 +206,39 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                 player.y_coordinate = 525
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
+    enemy = pygame.sprite.spritecollideany(player, jumanos)
+    if enemy:
+        interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(enemy.name) + " lvl " + str(enemy.level), True, "black",
+                                            (255, 204, 203))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (enemy.x_coordinate, enemy.y_coordinate - 40)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        # lets player know if they are in range of enemy they can press f to attack it
+        info_text_1 = "Press 'F' key to attack enemy."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            current_enemy_battling = enemy
+            in_over_world = False
+            in_battle = True
+
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
+            combat_scenario.battle_animation_enemy(current_enemy_battling, jumano_battle_sprite,
+                                                   jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
+                                                   jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
+                                                   in_battle, in_npc_interaction, graphic_dict,
+                                                   jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
+                                                   False, jumano_battle_sprite, 0, jumano_battle_sprite)
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -227,6 +267,15 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                      best_fish_counter)
     drawing_functions.draw_it(screen)
 
+    direction_horizontal = random.choice(["left", "right"])
+    direction_vertical = random.choice(["up", "down"])
+    move_mon = random.choice(jumanos.sprites())
+    if movement_able and in_over_world:
+        enemy_toc = time.perf_counter()
+        if enemy_toc - enemy_tic > 2:
+            enemy_tic = time.perf_counter()
+            move_mon.update_position([100, 800], [100, 500], direction_horizontal, direction_vertical)
+
     if player.x_coordinate < 35 and player.y_coordinate > 560:
         player.current_zone = "castle two"
         in_over_world = True
@@ -249,7 +298,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                          "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic,
                          "castle_crate_1_got": castle_crate_1_got, "castle_crate_2_got": castle_crate_2_got,
-                         "dreth_taunt": dreth_taunt, "has_key": key_got}
+                         "dreth_taunt": dreth_taunt, "has_key": key_got, "jumanos": jumanos}
 
     return castle_one_return
 
@@ -526,7 +575,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                  even_better_fish_counter, best_fish_counter, prism_tic, chandelier, rock_1, rock_2, sfx_rocks,
                  dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_three_roped_bg, sfx_rope,
                  cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_2_saved, chest_1_got,
-                 sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder):
+                 sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -548,6 +597,8 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    screen.blit(jumano_hall.surf, jumano_hall.rect)
 
     if not mirage_2_saved:
         if player.gender == "male":
@@ -821,7 +872,8 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             in_over_world, interacted, info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able,
             equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
             pet_energy_window, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-            even_better_fish_counter, best_fish_counter, caldera_ladder, sfx_ladder):
+            even_better_fish_counter, best_fish_counter, caldera_ladder, sfx_ladder, fishing_spot, fishing, walk_tic,
+            fishing_timer, fishing_level, fish_caught, previous_surf, fishing_unlocked, sfx_fishing_cast):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -830,11 +882,92 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
+    # if player isn't currently fishing, periodically update spots for animation
+    if not fishing:
+        if walk_tic % 2 > 1.75:
+            fishing_spot.update(710, 365, graphic_dict["fishing_spot_1"])
+        else:
+            fishing_spot.update(710, 365, graphic_dict["fishing_spot_2"])
+
+    # if player is fishing
+    else:
+        fish_return = gameplay_functions.fishing_function(pygame, fishing_timer, player, player.current_zone,
+                                                          graphic_dict["fishing_spot_3"],
+                                                          graphic_dict["fishing_spot_4"],
+                                                          fishing_spot, fishing_spot, fishing_level,
+                                                          basic_fish_counter, better_fish_counter,
+                                                          even_better_fish_counter, best_fish_counter, fishing,
+                                                          fish_caught,
+                                                          graphic_dict["amuna_m_fishing_right"],
+                                                          graphic_dict["amuna_m_fishing_down"],
+                                                          graphic_dict["amuna_m_fishing_right_2"],
+                                                          graphic_dict["amuna_m_fishing_down_2"],
+                                                          graphic_dict["amuna_m_fishing_right_3"],
+                                                          graphic_dict["amuna_m_fishing_down_3"],
+                                                          graphic_dict["amuna_f_fishing_right"],
+                                                          graphic_dict["amuna_f_fishing_down"],
+                                                          graphic_dict["amuna_f_fishing_right_2"],
+                                                          graphic_dict["amuna_f_fishing_down_2"],
+                                                          graphic_dict["amuna_f_fishing_right_3"],
+                                                          graphic_dict["amuna_f_fishing_down_3"],
+                                                          graphic_dict["nuldar_m_fishing_right"],
+                                                          graphic_dict["nuldar_m_fishing_down"],
+                                                          graphic_dict["nuldar_m_fishing_right_2"],
+                                                          graphic_dict["nuldar_m_fishing_down_2"],
+                                                          graphic_dict["nuldar_m_fishing_right_3"],
+                                                          graphic_dict["nuldar_m_fishing_down_3"],
+                                                          graphic_dict["nuldar_f_fishing_right"],
+                                                          graphic_dict["nuldar_f_fishing_down"],
+                                                          graphic_dict["nuldar_f_fishing_right_2"],
+                                                          graphic_dict["nuldar_f_fishing_down_2"],
+                                                          graphic_dict["nuldar_f_fishing_right_3"],
+                                                          graphic_dict["nuldar_f_fishing_down_3"],
+                                                          graphic_dict["sorae_a_fishing_right"],
+                                                          graphic_dict["sorae_a_fishing_down"],
+                                                          graphic_dict["sorae_a_fishing_right_2"],
+                                                          graphic_dict["sorae_a_fishing_down_2"],
+                                                          graphic_dict["sorae_a_fishing_right_3"],
+                                                          graphic_dict["sorae_a_fishing_down_3"],
+                                                          graphic_dict["sorae_b_fishing_right"],
+                                                          graphic_dict["sorae_b_fishing_down"],
+                                                          graphic_dict["sorae_b_fishing_right_2"],
+                                                          graphic_dict["sorae_b_fishing_down_2"],
+                                                          graphic_dict["sorae_b_fishing_right_3"],
+                                                          graphic_dict["sorae_b_fishing_down_3"],
+                                                          previous_surf, fishing_spot, fishing_spot,
+                                                          fishing_spot, fishing_spot,
+                                                          graphic_dict["sorae_a_fishing_up"],
+                                                          graphic_dict["sorae_b_fishing_up"],
+                                                          graphic_dict["sorae_a_fishing_up_2"],
+                                                          graphic_dict["sorae_b_fishing_up_2"],
+                                                          graphic_dict["sorae_a_fishing_up_3"],
+                                                          graphic_dict["sorae_b_fishing_up_3"],
+                                                          graphic_dict["amuna_m_fishing_up"],
+                                                          graphic_dict["amuna_f_fishing_up"],
+                                                          graphic_dict["amuna_m_fishing_up_2"],
+                                                          graphic_dict["amuna_f_fishing_up_2"],
+                                                          graphic_dict["amuna_m_fishing_up_3"],
+                                                          graphic_dict["amuna_f_fishing_up_3"],
+                                                          graphic_dict["nuldar_m_fishing_up"],
+                                                          graphic_dict["nuldar_f_fishing_up"],
+                                                          graphic_dict["nuldar_m_fishing_up_2"],
+                                                          graphic_dict["nuldar_f_fishing_up_2"],
+                                                          graphic_dict["nuldar_m_fishing_up_3"],
+                                                          graphic_dict["nuldar_f_fishing_up_3"], fishing_spot)
+        basic_fish_counter = fish_return["basic_fish_counter"]
+        better_fish_counter = fish_return["better_fish_counter"]
+        even_better_fish_counter = fish_return["even_better_fish_counter"]
+        best_fish_counter = fish_return["best_fish_counter"]
+        fish_caught = fish_return["fish_caught"]
+        fishing = fish_return["fishing"]
+        movement_able = fish_return["movement_able"]
+
     screen.blit(caldera_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    screen.blit(fishing_spot.surf, fishing_spot.rect)
 
     try:
         for pet in player.pet:
@@ -880,6 +1013,41 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             player.y_coordinate = 363
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    if not fishing:
+        if pygame.sprite.collide_rect(player, fishing_spot):
+            interaction_popup.update(fishing_spot.x_coordinate, fishing_spot.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_blue"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (fishing_spot.x_coordinate, fishing_spot.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if fishing_unlocked:
+                info_text_1 = "Press 'F' key to fish."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "You need to unlock fishing. "
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+
+            # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
+            if interacted and in_over_world and fishing_unlocked:
+                for item in player.items:
+                    if item.name == "korlok bait":
+                        pygame.mixer.find_channel(True).play(sfx_fishing_cast)
+                        fishing = True
+                        interacted = False
+                        fishing_timer = time.perf_counter()
+                        player.items.remove(item)
+                        previous_surf = player.surf
+                        # to clear popup
+                        fish_caught = False
+                        break
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -911,6 +1079,9 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
     caldera_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                       "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                       "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                      "movement_able": movement_able}
+                      "movement_able": movement_able, "fish_caught": fish_caught, "fishing": fishing,
+                      "fishing_timer": fishing_timer, "previous_surf": previous_surf,
+                      "basic_fish_counter": basic_fish_counter, "better_fish_counter": better_fish_counter,
+                      "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter}
 
     return caldera_return

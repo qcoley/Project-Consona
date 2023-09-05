@@ -57,7 +57,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
-                                                      marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls)
+                                                      marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
+                                                      marrow_ghouls)
     marrow_ghouls = respawned_dict["marrow_ghouls"]
 
     for ghoul in marrow_ghouls:
@@ -365,7 +366,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         over_world_song_set = False
         in_over_world = True
         player.x_coordinate = 515
-        player.y_coordinate = 175
+        player.y_coordinate = 150
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     marrow_district_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,

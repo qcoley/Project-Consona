@@ -498,6 +498,7 @@ def load_graphics():
     loaded_dict["basic_fish_popup"] = fish_popups_sheet[0]
     loaded_dict["better_fish_popup"] = fish_popups_sheet[1]
     loaded_dict["best_fish_popup"] = fish_popups_sheet[2]
+    loaded_dict["very_best_fish_popup"] = fish_popups_sheet[3]
     # seldon fireworks -------------------------------------------------------------------------------------------------
     seldon_fireworks_url = resource_path('resources/art/overlay_fireworks_seldon.png')
     seldon_fireworks_sheet = sprite_sheet((200, 300), seldon_fireworks_url)
@@ -5031,6 +5032,7 @@ def load_graphics():
     loaded_dict["osodark"] = enemies_sheet[5]
     loaded_dict["necrola_sleep"] = enemies_sheet[6]
     loaded_dict["atmon"] = enemies_sheet[7]
+    loaded_dict["jumano"] = enemies_sheet[8]
     # stelli -----------------------------------------------------------------------------------------------------------
     stelli_url = resource_path('resources/art/sprites_stelli.png')
     stelli_sheet = sprite_sheet((50, 50), stelli_url)
@@ -5192,6 +5194,7 @@ def load_graphics():
     loaded_dict["mage_book"] = items_sheet[33]
     loaded_dict["fighter_book"] = items_sheet[34]
     loaded_dict["scout_book"] = items_sheet[35]
+    loaded_dict["marrow_bait"] = items_sheet[36]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -5233,6 +5236,7 @@ def load_graphics():
     loaded_dict["info_mage_book"] = items_info_sheet[35]
     loaded_dict["info_fighter_book"] = items_info_sheet[36]
     loaded_dict["info_scout_book"] = items_info_sheet[37]
+    loaded_dict["info_marrow_bait"] = items_info_sheet[38]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -5276,6 +5280,7 @@ def load_graphics():
     loaded_dict["s_seldon_bait"] = sell_items_sheet[19]
     loaded_dict["s_korlok_bait"] = sell_items_sheet[20]
     loaded_dict["s_eldream_bait"] = sell_items_sheet[21]
+    loaded_dict["s_marrow_bait"] = sell_items_sheet[22]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)

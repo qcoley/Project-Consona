@@ -1350,6 +1350,15 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_female_right_4"]
                     self.x_coordinate += velocity
 
+        if current_zone == "caldera":
+            if self.x_coordinate < 262:
+                self.x_coordinate = 262
+            if self.y_coordinate < 208:
+                self.y_coordinate = 208
+            if self.x_coordinate > 652:
+                self.x_coordinate = 652
+            if self.y_coordinate > 528:
+                self.y_coordinate = 528
         if current_zone == "castle one":
             if self.y_coordinate < 115:
                 self.y_coordinate = 115
@@ -3624,6 +3633,15 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_female_right_4"]
                     self.x_coordinate += velocity
 
+        if current_zone == "caldera":
+            if self.x_coordinate < 262:
+                self.x_coordinate = 262
+            if self.y_coordinate < 208:
+                self.y_coordinate = 208
+            if self.x_coordinate > 652:
+                self.x_coordinate = 652
+            if self.y_coordinate > 528:
+                self.y_coordinate = 528
         if current_zone == "castle one":
             if self.y_coordinate < 115:
                 self.y_coordinate = 115
@@ -5888,6 +5906,15 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_b_right_4"]
                     self.x_coordinate += velocity
 
+        if current_zone == "caldera":
+            if self.x_coordinate < 262:
+                self.x_coordinate = 262
+            if self.y_coordinate < 208:
+                self.y_coordinate = 208
+            if self.x_coordinate > 652:
+                self.x_coordinate = 652
+            if self.y_coordinate > 528:
+                self.y_coordinate = 528
         if current_zone == "castle one":
             if self.y_coordinate < 115:
                 self.y_coordinate = 115
@@ -7404,7 +7431,7 @@ if __name__ == "__main__":
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
         Item("eldream firework", "firework", 200, 200, graphic_dict["eldream_firework"], 0),
-        Item("eldream bait", "firework", 200, 200, graphic_dict["eldream_firework"], 0)])
+        Item("eldream bait", "bait", 200, 200, graphic_dict["eldream_bait"], 0)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
@@ -7569,9 +7596,28 @@ if __name__ == "__main__":
     atmon_4 = Enemy("atmon", "atmon", 100, 100, 24, 350, 275, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    
+    # castle enemies ---------------------------------------------------------------------------------------------------
     atmon_castle = Enemy("atmon", "atmon", 100, 100, 26, 350, 275, True,
                          Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                          graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    
+    jumano_1 = Enemy("jumano", "jumano", 100, 100, 25, 200, 200, True,
+                     Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
+                     graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    jumano_2 = Enemy("jumano", "jumano", 100, 100, 27, 825, 200, True,
+                     Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
+                     graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    jumano_3 = Enemy("jumano", "jumano", 100, 100, 26, 320, 325, True,
+                     Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
+                     graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    jumano_4 = Enemy("jumano", "jumano", 100, 100, 25, 700, 325, True,
+                     Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
+                     graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+
+    jumano_hall = Enemy("jumano", "jumano", 100, 100, 28, 910, 250, True,
+                     Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
+                     graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
@@ -7945,6 +7991,7 @@ if __name__ == "__main__":
     fishing_spot_stardust_2 = UiElement("fishing spot s2", 450, 648, graphic_dict["fishing_spot_1"])
     fishing_spot_eldream_1 = UiElement("fishing spot e1", 250, 335, graphic_dict["fishing_spot_1"])
     fishing_spot_eldream_2 = UiElement("fishing spot e2", 645, 335, graphic_dict["fishing_spot_1"])
+    fishing_spot_caldera = UiElement("fishing spot c", 710, 365, graphic_dict["fishing_spot_1"])
 
     fishing_popup = UiElement("fishing popup", 510, 365, graphic_dict["basic_fish_popup"])
     flower_count_overlay = UiElement("flower counts", 1155, 642, graphic_dict["flower_counts"])
@@ -8101,6 +8148,7 @@ if __name__ == "__main__":
     magmons = pygame.sprite.Group()
     bandiles = pygame.sprite.Group()
     atmons = pygame.sprite.Group()
+    jumanos = pygame.sprite.Group()
     interactables_nascent = pygame.sprite.Group()
     interactables_seldon = pygame.sprite.Group()
     interactables_stardust = pygame.sprite.Group()
@@ -8121,6 +8169,7 @@ if __name__ == "__main__":
     bandiles.add(bandile_1, bandile_2, bandile_3, bandile_4)
     stardust_stelli.add(stelli_a, stelli_b, stelli_c)
     atmons.add(atmon_1, atmon_2, atmon_3, atmon_4)
+    jumanos.add(jumano_1, jumano_2, jumano_3, jumano_4)
     npcs_seldon.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
     npcs_korlok.add(npc_voruke, npc_zerah)
     npcs_marrow.add(npc_maydria, npc_noren, npc_boro, npc_artherian)
@@ -9622,7 +9671,7 @@ if __name__ == "__main__":
                                                                       castle_crate_2, rock_9, rock_10, rope_wind_1,
                                                                       castle_cell_1, castle_cell_2, rope_wind_2,
                                                                       castle_cell_3, castle_ladder, castle_key,
-                                                                      boss_door, caldera_ladder)
+                                                                      boss_door, caldera_ladder, fishing_spot_caldera)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9917,7 +9966,8 @@ if __name__ == "__main__":
                                                                                   rope_wind_1, castle_cell_1,
                                                                                   castle_cell_2, rope_wind_2,
                                                                                   castle_cell_3, castle_ladder,
-                                                                                  castle_key, boss_door, caldera_ladder)
+                                                                                  castle_key, boss_door, caldera_ladder,
+                                                                                  fishing_spot_caldera)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -11757,7 +11807,7 @@ if __name__ == "__main__":
                                                                      sfx_item_potion, sfx_dreth_laugh, dreth_taunt_1,
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, castle_key, boss_door,
-                                                                     sfx_item_key)
+                                                                     sfx_item_key, jumanos, atmon_battle_sprite)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -11788,7 +11838,8 @@ if __name__ == "__main__":
                                                                      sfx_item_potion, sfx_dreth_laugh, dreth_taunt_1,
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
-                                                                     boss_door, sfx_item_key)
+                                                                     boss_door, sfx_item_key, jumanos,
+                                                                     atmon_battle_sprite)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -11811,6 +11862,7 @@ if __name__ == "__main__":
                     castle_crate_2_got = castle_one_returned["castle_crate_2_got"]
                     dreth_taunt_1 = castle_one_returned["dreth_taunt"]
                     has_key = castle_one_returned["has_key"]
+                    jumanos = castle_one_returned["jumanos"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle area two ---------------------------------------------------------------
@@ -11928,7 +11980,8 @@ if __name__ == "__main__":
                                                                          chest_small_castle_1, mirage_2_saved,
                                                                          castle_chest_1_got, sfx_item_rupee,
                                                                          sfx_enemy_atmon_loud, atmon_castle,
-                                                                         atmon_battle_sprite, castle_ladder, sfx_ladder)
+                                                                         atmon_battle_sprite, castle_ladder, sfx_ladder,
+                                                                         jumano_hall)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -11960,7 +12013,8 @@ if __name__ == "__main__":
                                                                          chest_small_castle_1, mirage_2_saved,
                                                                          castle_chest_1_got, sfx_item_rupee,
                                                                          sfx_enemy_atmon_loud, atmon_castle,
-                                                                         atmon_battle_sprite, castle_ladder, sfx_ladder)
+                                                                         atmon_battle_sprite, castle_ladder, sfx_ladder,
+                                                                         jumano_hall)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -12102,7 +12156,10 @@ if __name__ == "__main__":
                                                                weapon_select, pet_energy_window, vanished, 
                                                                vanish_overlay, basic_fish_counter, better_fish_counter,
                                                                even_better_fish_counter, best_fish_counter,
-                                                               caldera_ladder, sfx_ladder)
+                                                               caldera_ladder, sfx_ladder, fishing_spot_caldera,
+                                                               fishing, walk_tic, fishing_timer, fishing_level,
+                                                               fish_caught, previous_surf, fishing_unlocked,
+                                                               sfx_fishing_cast)
                     else:
                         caldera_returned = zone_castle.caldera(pygame, game_window, graphic_dict, player, caldera_bg,
                                                                over_world_song_set, caldera_music, interaction_popup,
@@ -12114,7 +12171,10 @@ if __name__ == "__main__":
                                                                weapon_select, pet_energy_window, vanished, 
                                                                vanish_overlay, basic_fish_counter, better_fish_counter,
                                                                even_better_fish_counter, best_fish_counter,
-                                                               caldera_ladder, sfx_ladder)
+                                                               caldera_ladder, sfx_ladder, fishing_spot_caldera,
+                                                               fishing, walk_tic, fishing_timer, fishing_level,
+                                                               fish_caught, previous_surf, fishing_unlocked,
+                                                               sfx_fishing_cast)
 
                     over_world_song_set = caldera_returned["over_world_song_set"]
                     interacted = caldera_returned["interacted"]
@@ -12124,6 +12184,14 @@ if __name__ == "__main__":
                     info_text_2 = caldera_returned["info_text_2"]
                     info_text_3 = caldera_returned["info_text_3"]
                     info_text_4 = caldera_returned["info_text_4"]
+                    fish_caught = caldera_returned["fish_caught"]
+                    fishing = caldera_returned["fishing"]
+                    fishing_timer = caldera_returned["fishing_timer"]
+                    previous_surf = caldera_returned["previous_surf"]
+                    basic_fish_counter = caldera_returned["basic_fish_counter"]
+                    better_fish_counter = caldera_returned["better_fish_counter"]
+                    even_better_fish_counter = caldera_returned["even_better_fish_counter"]
+                    best_fish_counter = caldera_returned["best_fish_counter"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -13459,6 +13527,8 @@ if __name__ == "__main__":
                         fishing_popup.update(510, 365, graphic_dict["better_fish_popup"])
                     elif player.current_zone == "fishing alcove":
                         fishing_popup.update(510, 365, graphic_dict["best_fish_popup"])
+                    elif player.current_zone == "caldera":
+                        fishing_popup.update(510, 365, graphic_dict["very_best_fish_popup"])
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(fishing_popup.surf, fishing_popup.rect)
                     else:
