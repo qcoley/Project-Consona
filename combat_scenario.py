@@ -1560,7 +1560,7 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            in_battle, in_npc_interaction, graphics, necrola_battle_sprite, osodark_battle_sprite,
                            stelli_battle_sprite, chorizon_phase, erebyth_battle_sprite, erebyth_counter,
-                           atmon_battle_sprite):
+                           atmon_battle_sprite, jumano_battle_sprite):
 
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
@@ -1602,6 +1602,8 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_phase_attack"])
         if enemy.kind == "atmon":
             atmon_battle_sprite.update(705, 300, graphics["atmon_battle"])
+        if enemy.kind == "jumano":
+            jumano_battle_sprite.update(705, 300, graphics["jumano_battle"])
 
 
 # update player character and enemy sprites for combat animation
@@ -3758,7 +3760,8 @@ def fighter(graphics, player, player_battle_sprite, sharp_sense_active, barrier_
 def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite,
-                           chorizon_phase, damage, erebyth_battle_sprite, erebyth_counter, atmon_battle_sprite):
+                           chorizon_phase, damage, erebyth_battle_sprite, erebyth_counter, atmon_battle_sprite,
+                           jumano_battle_sprite):
 
     if damage > 0:
         if enemy.kind == "snake":
@@ -3804,6 +3807,8 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_attack"])
         if enemy.kind == "atmon":
             atmon_battle_sprite.update(705, 300, graphics["atmon_attack"])
+        if enemy.kind == "jumano":
+            jumano_battle_sprite.update(705, 300, graphics["jumano_attack"])
 
 
 def enemy_health_bar(enemys, graphics):

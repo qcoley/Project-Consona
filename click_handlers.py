@@ -280,7 +280,7 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
             if clicked_element[0].name == "seldon bait" or clicked_element[0].name == "korlok bait" \
-                    or clicked_element[0].name == "eldream bait":
+                    or clicked_element[0].name == "eldream bait" or clicked_element[0].name == "marrow bait":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
             if clicked_element[0].name == "mage book":
@@ -948,6 +948,9 @@ def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item, SCREEN_WIDTH, 
             if clicked_element[0].name == "eldream bait":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
+            if clicked_element[0].name == "marrow bait":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
 
         except IndexError:
             pass
@@ -1031,6 +1034,9 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "eldream bait":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "marrow bait":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
 

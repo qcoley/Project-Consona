@@ -7857,6 +7857,7 @@ if __name__ == "__main__":
     stelli_battle_sprite = BattleCharacter("stelli battle", 710, 275, graphic_dict["stelli_battle_a"])
     erebyth_battle_sprite = BattleCharacter("erebyth battle", 695, 350, graphic_dict["erebyth_battle"])
     atmon_battle_sprite = BattleCharacter("atmon battle", 705, 300, graphic_dict["atmon_battle"])
+    jumano_battle_sprite = BattleCharacter("jumano battle", 705, 300, graphic_dict["jumano_battle"])
 
     mirror_battle_sprite = BattleCharacter("mirror battle", 260, 425, graphic_dict["player_no_role_amuna_battle"])
     mirror_overlay = UiElement("mirror overlay", 225, 425, graphic_dict["mirror_overlay"])
@@ -8615,6 +8616,7 @@ if __name__ == "__main__":
     mirage_2_updated = False
     mirage_saved = False
     mirage_2_saved = False
+    thanked = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -8687,7 +8689,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -9336,6 +9338,7 @@ if __name__ == "__main__":
                         mirage_2_saved = load_returned["mirage_2_saved"]
                         rope_phase = load_returned["rope_phase"]
                         atmon_castle.alive_status = load_returned["mirage_alive"]
+                        thanked = load_returned["thanked"]
                         
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -9671,7 +9674,8 @@ if __name__ == "__main__":
                                                                       castle_crate_2, rock_9, rock_10, rope_wind_1,
                                                                       castle_cell_1, castle_cell_2, rope_wind_2,
                                                                       castle_cell_3, castle_ladder, castle_key,
-                                                                      boss_door, caldera_ladder, fishing_spot_caldera)
+                                                                      boss_door, caldera_ladder, fishing_spot_caldera,
+                                                                      jumanos)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9967,7 +9971,7 @@ if __name__ == "__main__":
                                                                                   castle_cell_2, rope_wind_2,
                                                                                   castle_cell_3, castle_ladder,
                                                                                   castle_key, boss_door, caldera_ladder,
-                                                                                  fishing_spot_caldera)
+                                                                                  fishing_spot_caldera, jumanos)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -10179,7 +10183,7 @@ if __name__ == "__main__":
                                                                         dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status)
+                                                                        atmon_castle.alive_status, thanked)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10233,7 +10237,7 @@ if __name__ == "__main__":
                                                                     dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
                                                                     mirage_2_saved, rope_phase,
-                                                                    atmon_castle.alive_status)
+                                                                    atmon_castle.alive_status, thanked)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -11981,7 +11985,7 @@ if __name__ == "__main__":
                                                                          castle_chest_1_got, sfx_item_rupee,
                                                                          sfx_enemy_atmon_loud, atmon_castle,
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
-                                                                         jumano_hall)
+                                                                         jumano_hall, thanked)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -12014,7 +12018,7 @@ if __name__ == "__main__":
                                                                          castle_chest_1_got, sfx_item_rupee,
                                                                          sfx_enemy_atmon_loud, atmon_castle,
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
-                                                                         jumano_hall)
+                                                                         jumano_hall, thanked)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -12035,6 +12039,7 @@ if __name__ == "__main__":
                     rope_phase = castle_three_returned["rope_phase"]
                     mirage_2_updated = castle_three_returned["mirage_2_updated"]
                     mirage_2_saved = castle_three_returned["mirage_2_saved"]
+                    thanked = castle_three_returned["thanked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle lair -------------------------------------------------------------------
@@ -13959,7 +13964,7 @@ if __name__ == "__main__":
                                                                            chorizon_phase,
                                                                            combat_events["damage taken"],
                                                                            erebyth_battle_sprite, erebyth_turn_counter,
-                                                                           atmon_battle_sprite)
+                                                                           atmon_battle_sprite, jumano_battle_sprite)
                                     try:
                                         stun_them = combat_events["stunned"]
                                     except TypeError and KeyError:
@@ -14133,7 +14138,8 @@ if __name__ == "__main__":
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
                                                                                            erebyth_turn_counter,
-                                                                                           atmon_battle_sprite)
+                                                                                           atmon_battle_sprite,
+                                                                                           jumano_battle_sprite)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14221,7 +14227,8 @@ if __name__ == "__main__":
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
                                                                                            erebyth_turn_counter,
-                                                                                           atmon_battle_sprite)
+                                                                                           atmon_battle_sprite,
+                                                                                           jumano_battle_sprite)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14430,7 +14437,8 @@ if __name__ == "__main__":
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
                                                                                            erebyth_turn_counter,
-                                                                                           atmon_battle_sprite)
+                                                                                           atmon_battle_sprite,
+                                                                                           jumano_battle_sprite)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14577,6 +14585,7 @@ if __name__ == "__main__":
                                         screen.blit(marrow_ramparts_battle, (0, 0))
                                     if (player.current_zone == "marrow tower east"
                                             or player.current_zone == "marrow tower west"
+                                            or player.current_zone == "castle one"
                                             or player.current_zone == "castle two"
                                             or player.current_zone == "castle three"):
                                         screen.blit(marrow_tower_battle, (0, 0))
@@ -14615,6 +14624,7 @@ if __name__ == "__main__":
                                         game_window.blit(marrow_ramparts_battle, (0, 0))
                                     if (player.current_zone == "marrow tower east"
                                             or player.current_zone == "marrow tower west"
+                                            or player.current_zone == "castle one"
                                             or player.current_zone == "castle two"
                                             or player.current_zone == "castle three"):
                                         game_window.blit(marrow_tower_battle, (0, 0))
@@ -14704,7 +14714,7 @@ if __name__ == "__main__":
                                                                    necrola_battle_sprite, osodark_battle_sprite,
                                                                    stelli_battle_sprite, chorizon_phase,
                                                                    erebyth_battle_sprite, erebyth_turn_counter,
-                                                                   atmon_battle_sprite)
+                                                                   atmon_battle_sprite, jumano_battle_sprite)
                             if mirror_image:
                                 combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, graphic_dict)
@@ -14738,6 +14748,8 @@ if __name__ == "__main__":
                                     screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
                                 if current_enemy_battling.kind == "atmon":
                                     screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
+                                if current_enemy_battling.kind == "jumano":
+                                    screen.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -14811,6 +14823,8 @@ if __name__ == "__main__":
                                     game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
                                 if current_enemy_battling.kind == "atmon":
                                     game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
+                                if current_enemy_battling.kind == "jumano":
+                                    game_window.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -14933,7 +14947,7 @@ if __name__ == "__main__":
                                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                                    chorizon_phase, combat_events["damage taken"],
                                                                    erebyth_battle_sprite, erebyth_turn_counter,
-                                                                   atmon_battle_sprite)
+                                                                   atmon_battle_sprite, jumano_battle_sprite)
                             if mirror_image:
                                 combat_scenario.attack_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, hard_strike, graphic_dict,
@@ -14975,6 +14989,8 @@ if __name__ == "__main__":
                                     screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
                                 if current_enemy_battling.kind == "atmon":
                                     screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
+                                if current_enemy_battling.kind == "jumano":
+                                    screen.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -15048,6 +15064,8 @@ if __name__ == "__main__":
                                     game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
                                 if current_enemy_battling.kind == "atmon":
                                     game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
+                                if current_enemy_battling.kind == "jumano":
+                                    game_window.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -17132,7 +17150,7 @@ if __name__ == "__main__":
                                                                         dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status)
+                                                                        atmon_castle.alive_status, thanked)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -17791,7 +17809,7 @@ if __name__ == "__main__":
                                                                         dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status)
+                                                                        atmon_castle.alive_status, thanked)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -18268,7 +18286,7 @@ if __name__ == "__main__":
                                                                     dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
                                                                     mirage_2_saved, rope_phase,
-                                                                    atmon_castle.alive_status)
+                                                                    atmon_castle.alive_status, thanked)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18750,7 +18768,7 @@ if __name__ == "__main__":
                                                                             dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
-                                                                            atmon_castle.alive_status)
+                                                                            atmon_castle.alive_status, thanked)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -18986,7 +19004,7 @@ if __name__ == "__main__":
                                                                             dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
-                                                                            atmon_castle.alive_status)
+                                                                            atmon_castle.alive_status, thanked)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -19223,7 +19241,7 @@ if __name__ == "__main__":
                                                                             dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
-                                                                            atmon_castle.alive_status)
+                                                                            atmon_castle.alive_status, thanked)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "

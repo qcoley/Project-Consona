@@ -1651,7 +1651,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
 
     respawned_dict = gameplay_functions.enemy_respawn(player, atmons, atmons, atmons, atmons, atmons, atmons,
                                                       atmons, atmons, atmons, Enemy, Item, graphic_dict, UiElement,
-                                                      atmons, atmons, atmons, atmons, atmons, atmons, atmons)
+                                                      atmons, atmons, atmons, atmons, atmons, atmons, atmons, atmons)
     atmons = respawned_dict["ectrenos_alcove_enemies"]
     for enemy in atmons:
         screen.blit(enemy.surf, enemy.rect)

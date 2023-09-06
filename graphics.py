@@ -5089,6 +5089,8 @@ def load_graphics():
     loaded_dict["osodark_attack"] = enemies_battle_sheet[11]
     loaded_dict["atmon_battle"] = enemies_battle_sheet[12]
     loaded_dict["atmon_attack"] = enemies_battle_sheet[13]
+    loaded_dict["jumano_battle"] = enemies_battle_sheet[14]
+    loaded_dict["jumano_attack"] = enemies_battle_sheet[15]
     # boss enemies battle ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_battle.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)

@@ -458,6 +458,13 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["ok_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "marrow bait":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_marrow_bait"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
         if inventory_item.name == "mage book":
             info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_mage_book"])
             item_info_window.append(info_items)
@@ -693,6 +700,12 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "eldream bait":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_eldream_bait"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "marrow bait":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_marrow_bait"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
@@ -1489,6 +1502,10 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "eldream bait":
                     item_here.update(first_coord, second_coord, graphic["eldream_bait"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "marrow bait":
+                    item_here.update(first_coord, second_coord, graphic["marrow_bait"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "mage book":

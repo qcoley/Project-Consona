@@ -237,7 +237,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                    jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
                                                    in_battle, in_npc_interaction, graphic_dict,
                                                    jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
-                                                   False, jumano_battle_sprite, 0, jumano_battle_sprite)
+                                                   False, jumano_battle_sprite, 0, jumano_battle_sprite,
+                                                   jumano_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -575,7 +576,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                  even_better_fish_counter, best_fish_counter, prism_tic, chandelier, rock_1, rock_2, sfx_rocks,
                  dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_three_roped_bg, sfx_rope,
                  cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_2_saved, chest_1_got,
-                 sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall):
+                 sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall, thanked):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -740,7 +741,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
         entrance_text_rect.center = (cell_popup.x_coordinate, cell_popup.y_coordinate)
         screen.blit(entrance_text_surf, entrance_text_rect)
 
-    if mirage_2_saved:
+    if mirage_2_saved and not thanked:
         if time.perf_counter() - enemy_tic < 2:
             entrance_text_surf = font.render("Thank you.", True, "black", "light yellow")
             screen.blit(cell_popup.surf, cell_popup.rect)
@@ -748,6 +749,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
             entrance_text_rect.center = (cell_popup.x_coordinate, cell_popup.y_coordinate)
             screen.blit(entrance_text_surf, entrance_text_rect)
             screen.blit(mirage.surf, mirage.rect)
+            thanked = True
 
     if player.x_coordinate < 50 and player.y_coordinate > 560:
         player.current_zone = "castle one"
@@ -764,7 +766,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                            "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                            "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt,
                            "rope_phase": rope_phase, "mirage_2_updated": mirage_updated,
-                           "mirage_2_saved": mirage_2_saved, "castle_chest_1_got": chest_1_got}
+                           "mirage_2_saved": mirage_2_saved, "castle_chest_1_got": chest_1_got, "thanked": thanked}
 
     return castle_three_return
 
@@ -1037,7 +1039,7 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
             if interacted and in_over_world and fishing_unlocked:
                 for item in player.items:
-                    if item.name == "korlok bait":
+                    if item.name == "marrow bait":
                         pygame.mixer.find_channel(True).play(sfx_fishing_cast)
                         fishing = True
                         interacted = False
