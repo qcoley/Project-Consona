@@ -297,7 +297,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                    ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
                                                    in_battle, in_npc_interaction, graphic_dict, ghoul_battle_sprite,
                                                    ghoul_battle_sprite, ghoul_battle_sprite, False, ghoul_battle_sprite,
-                                                   0, ghoul_battle_sprite)
+                                                   0, ghoul_battle_sprite, ghoul_battle_sprite)
 
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
@@ -768,7 +768,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                                                        necrola_battle_sprite, in_battle, necrola_battle_sprite,
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
-                                                       False, necrola_battle_sprite, 0, necrola_battle_sprite)
+                                                       False, necrola_battle_sprite, 0, necrola_battle_sprite,
+                                                       necrola_battle_sprite)
     if necrola_2.alive_status:
         if pygame.Rect.colliderect(player.rect, necrola_rect_2):
             if necrola_2.x_coordinate <= player.x_coordinate:
@@ -793,7 +794,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                                                        necrola_battle_sprite, in_battle, necrola_battle_sprite,
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
-                                                       False, necrola_battle_sprite, 0, necrola_battle_sprite)
+                                                       False, necrola_battle_sprite, 0, necrola_battle_sprite,
+                                                       necrola_battle_sprite)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -988,7 +990,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                                                        necrola_battle_sprite, in_battle, necrola_battle_sprite,
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
-                                                       False, necrola_battle_sprite, 0, necrola_battle_sprite)
+                                                       False, necrola_battle_sprite, 0, necrola_battle_sprite,
+                                                       necrola_battle_sprite)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -1401,7 +1404,8 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                                                        chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                        graphic_dict, necrola_battle_sprite,
                                                        osodark_battle_sprite, stelli_battle_sprite,
-                                                       False, erebyth_battle_sprite, 0, erebyth_battle_sprite)
+                                                       False, erebyth_battle_sprite, 0, erebyth_battle_sprite,
+                                                       erebyth_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -1791,7 +1795,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                                                    atmon_battle_sprite, atmon_battle_sprite, in_battle,
                                                    in_npc_interaction, graphic_dict, atmon_battle_sprite,
                                                    atmon_battle_sprite, atmon_battle_sprite, False,
-                                                   atmon_battle_sprite, 0, atmon_battle_sprite)
+                                                   atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

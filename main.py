@@ -8601,6 +8601,7 @@ if __name__ == "__main__":
     hut_window_open = False
     critter_right_move = False
     critter_left_move = True
+    critter_up_move = False
     walk_move = True
     alpha_set = False
     logo_alpha_set = False
@@ -8617,6 +8618,7 @@ if __name__ == "__main__":
     mirage_saved = False
     mirage_2_saved = False
     thanked = False
+    surprised = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -11985,7 +11987,9 @@ if __name__ == "__main__":
                                                                          castle_chest_1_got, sfx_item_rupee,
                                                                          sfx_enemy_atmon_loud, atmon_castle,
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
-                                                                         jumano_hall, thanked)
+                                                                         jumano_hall, thanked, critter_up_move,
+                                                                         jumano_battle_sprite, sfx_surprise_attack,
+                                                                         surprised)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -12018,7 +12022,9 @@ if __name__ == "__main__":
                                                                          castle_chest_1_got, sfx_item_rupee,
                                                                          sfx_enemy_atmon_loud, atmon_castle,
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
-                                                                         jumano_hall, thanked)
+                                                                         jumano_hall, thanked, critter_up_move,
+                                                                         jumano_battle_sprite, sfx_surprise_attack, 
+                                                                         surprised)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -12040,6 +12046,8 @@ if __name__ == "__main__":
                     mirage_2_updated = castle_three_returned["mirage_2_updated"]
                     mirage_2_saved = castle_three_returned["mirage_2_saved"]
                     thanked = castle_three_returned["thanked"]
+                    critter_up_move = castle_three_returned["critter_up_move"]
+                    surprised = castle_three_returned["surprised"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle lair -------------------------------------------------------------------

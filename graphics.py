@@ -5033,6 +5033,7 @@ def load_graphics():
     loaded_dict["necrola_sleep"] = enemies_sheet[6]
     loaded_dict["atmon"] = enemies_sheet[7]
     loaded_dict["jumano"] = enemies_sheet[8]
+    loaded_dict["jumano_red"] = enemies_sheet[9]
     # stelli -----------------------------------------------------------------------------------------------------------
     stelli_url = resource_path('resources/art/sprites_stelli.png')
     stelli_sheet = sprite_sheet((50, 50), stelli_url)

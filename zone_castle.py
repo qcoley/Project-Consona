@@ -343,7 +343,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                                                        atmon_battle_sprite, atmon_battle_sprite, atmon_battle_sprite,
                                                        in_battle, in_npc_interaction, graphic_dict, atmon_battle_sprite,
                                                        atmon_battle_sprite, atmon_battle_sprite, False,
-                                                       atmon_battle_sprite, 0, atmon_battle_sprite)
+                                                       atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite)
 
     if rope_phase == 0 or rope_phase == 11:
         screen.blit(castle_two_bg, (0, 0))
@@ -576,7 +576,8 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                  even_better_fish_counter, best_fish_counter, prism_tic, chandelier, rock_1, rock_2, sfx_rocks,
                  dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_three_roped_bg, sfx_rope,
                  cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_2_saved, chest_1_got,
-                 sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall, thanked):
+                 sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall, thanked,
+                 up_move, jumano_battle_sprite, sfx_surprise, surprised):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -599,7 +600,22 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    screen.blit(jumano_hall.surf, jumano_hall.rect)
+    if jumano_hall.alive_status:
+        if not surprised:
+            if up_move:
+                if jumano_hall.y_coordinate > 100:
+                    jumano_hall.y_coordinate -= 1
+                else:
+                    jumano_hall.y_coordinate += 1
+                    up_move = False
+            else:
+                if jumano_hall.y_coordinate < 600:
+                    jumano_hall.y_coordinate += 1
+                else:
+                    jumano_hall.y_coordinate -= 1
+                    up_move = True
+            jumano_hall.rect = jumano_hall.surf.get_rect(center=(jumano_hall.x_coordinate, jumano_hall.y_coordinate))
+        screen.blit(jumano_hall.surf, jumano_hall.rect)
 
     if not mirage_2_saved:
         if player.gender == "male":
@@ -706,6 +722,50 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
             player.y_coordinate = 315
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    if jumano_hall.alive_status:
+        if (jumano_hall.y_coordinate - 100 < player.y_coordinate < jumano_hall.y_coordinate + 100 and
+                jumano_hall.x_coordinate - 100 < player.x_coordinate < jumano_hall.x_coordinate + 100):
+            if not surprised:
+                pygame.mixer.find_channel(True).play(sfx_surprise)
+                jumano_hall.surf = graphic_dict["jumano_red"]
+                surprised = True
+
+            elif jumano_hall.y_coordinate > player.y_coordinate + 3:
+                movement_able = False
+                jumano_hall.y_coordinate -= 3
+                if jumano_hall.x_coordinate > player.x_coordinate:
+                    jumano_hall.x_coordinate -= 3
+                elif jumano_hall.x_coordinate < player.x_coordinate:
+                    jumano_hall.x_coordinate += 3
+                jumano_hall.rect = jumano_hall.surf.get_rect(center=(jumano_hall.x_coordinate,
+                                                                     jumano_hall.y_coordinate))
+            elif jumano_hall.y_coordinate < player.y_coordinate - 3:
+                movement_able = False
+                jumano_hall.y_coordinate += 3
+                if jumano_hall.x_coordinate > player.x_coordinate:
+                    jumano_hall.x_coordinate -= 3
+                elif jumano_hall.x_coordinate < player.x_coordinate:
+                    jumano_hall.x_coordinate += 3
+                jumano_hall.rect = jumano_hall.surf.get_rect(center=(jumano_hall.x_coordinate,
+                                                                     jumano_hall.y_coordinate))
+            else:
+                current_enemy_battling = jumano_hall
+                in_over_world = False
+                movement_able = False
+                in_battle = True
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active, graphic_dict)
+                combat_scenario.battle_animation_enemy(current_enemy_battling, jumano_battle_sprite,
+                                                       jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
+                                                       jumano_battle_sprite, jumano_battle_sprite,
+                                                       jumano_battle_sprite, in_battle, jumano_battle_sprite,
+                                                       graphic_dict, jumano_battle_sprite,
+                                                       jumano_battle_sprite, jumano_battle_sprite,
+                                                       False, jumano_battle_sprite, 0, jumano_battle_sprite,
+                                                       jumano_battle_sprite)
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -766,7 +826,8 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                            "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                            "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt,
                            "rope_phase": rope_phase, "mirage_2_updated": mirage_updated,
-                           "mirage_2_saved": mirage_2_saved, "castle_chest_1_got": chest_1_got, "thanked": thanked}
+                           "mirage_2_saved": mirage_2_saved, "castle_chest_1_got": chest_1_got, "thanked": thanked,
+                           "critter_up_move": up_move, "surprised": surprised}
 
     return castle_three_return
 
