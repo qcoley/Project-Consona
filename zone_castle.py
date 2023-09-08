@@ -832,21 +832,18 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
     return castle_three_return
 
 
-def castle_lair(pygame, screen, graphic_dict, player, castle_lair_bg, over_world_song_set, castle_music,
+def castle_lair(pygame, screen, graphic_dict, player, castle_lair_bg, over_world_song_set, lair_music,
                 interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                 in_over_world, interacted, info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
-                pet_energy_window, player_battle_sprite, current_npc_interacting, in_npc_interaction, marrow_attuned,
-                marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
+                pet_energy_window, player_battle_sprite, enemy_tic, barrier_active, sharp_sense_active, in_battle,
                 current_enemy_battling, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                even_better_fish_counter, best_fish_counter, prism_tic, chandelier, rock_1, rock_2, sfx_rocks,
-                dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_two_roped_bg, sfx_rope,
-                cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_saved, chest_1_got,
-                sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite):
+                even_better_fish_counter, best_fish_counter, dreth_laugh, dreth_taunt, dreth_taunt_popup):
+
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(castle_music)
+            pygame.mixer.music.load(lair_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
@@ -856,9 +853,6 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_bg, over_world
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-
-    screen.blit(rock_1.surf, rock_1.rect)
-    screen.blit(rock_2.surf, rock_2.rect)
 
     try:
         for pet in player.pet:
@@ -910,22 +904,13 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_bg, over_world
                                      best_fish_counter)
     drawing_functions.draw_it(screen)
 
-    if player.x_coordinate > 975 and player.y_coordinate > 560:
-        player.current_zone = "castle one"
-        in_over_world = True
-        player.x_coordinate = 115
-        player.y_coordinate = 600
-        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     castle_lair_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                           "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                           "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                          "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
-                          "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
-                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
-                          "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt,
-                          "rope_phase": rope_phase, "mirage_updated": mirage_updated, "mirage_saved": mirage_saved,
-                          "castle_chest_1_got": chest_1_got}
+                          "movement_able": movement_able, "enemy_tic": enemy_tic, "in_battle": in_battle,
+                          "current_enemy": current_enemy_battling,
+                          "dreth_taunt": dreth_taunt}
 
     return castle_lair_return
 

@@ -7255,6 +7255,10 @@ if __name__ == "__main__":
     castle_two_roped_bg = graphic_dict["castle_two_roped_bg"]
     castle_three_bg = graphic_dict["castle_three_bg"]
     castle_three_roped_bg = graphic_dict["castle_three_roped_bg"]
+    castle_lair_bg = graphic_dict["castle_lair_bg"]
+    castle_lair_zero_bg = graphic_dict["castle_lair_zero_bg"]
+    castle_lair_one_bg = graphic_dict["castle_lair_one_bg"]
+    castle_lair_two_bg = graphic_dict["castle_lair_two_bg"]
     caldera_bg = graphic_dict["caldera_bg"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
@@ -8241,6 +8245,7 @@ if __name__ == "__main__":
     fishing_music = resource_path("resources/sounds/eterna_fishing.mp3")
     castle_music = resource_path("resources/sounds/eterna_castle.mp3")
     caldera_music = resource_path("resources/sounds/eterna_caldera.mp3")
+    lair_music = resource_path("resources/sounds/eterna_dreth.mp3")
 
     pygame.mixer.music.set_volume(0.35)
     pygame.mixer.music.load(start_screen_music)
@@ -8613,6 +8618,7 @@ if __name__ == "__main__":
     dreth_taunt_1 = False
     dreth_taunt_2 = False
     dreth_taunt_3 = False
+    dreth_taunt_4 = False
     mirage_updated = False
     mirage_2_updated = False
     mirage_saved = False
@@ -12056,90 +12062,38 @@ if __name__ == "__main__":
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         castle_lair_returned = zone_castle.castle_lair(pygame, screen, graphic_dict, player,
-                                                                         castle_two_bg, over_world_song_set,
-                                                                         castle_music,
-                                                                         interaction_popup, font, save_check_window,
-                                                                         user_interface, bar_backdrop, hp_bar,
-                                                                         en_bar,
-                                                                         xp_bar, in_over_world, interacted,
-                                                                         info_text_1,
-                                                                         info_text_2, info_text_3, info_text_4,
-                                                                         npc_tic,
-                                                                         movement_able, equipment_screen, staff,
-                                                                         sword,
-                                                                         bow,
-                                                                         npc_garan, offense_meter, defense_meter,
-                                                                         weapon_select, pet_energy_window,
-                                                                         player_battle_sprite,
-                                                                         current_npc_interacting,
-                                                                         in_npc_interaction, marrow_attuned,
-                                                                         ghouls_marrow,
-                                                                         enemy_tic, barrier_active,
-                                                                         sharp_sense_active,
-                                                                         ghoul_battle_sprite, in_battle,
-                                                                         current_enemy_battling, vanished,
-                                                                         vanish_overlay,
-                                                                         basic_fish_counter, better_fish_counter,
-                                                                         even_better_fish_counter,
-                                                                         best_fish_counter,
-                                                                         prism_activate_tic, overlay_chandelier,
-                                                                         rock_9,
-                                                                         rock_10, sfx_rock_push, sfx_dreth_laugh,
-                                                                         dreth_taunt_3, dreth_taunt_popup,
-                                                                         rope_wind_2,
-                                                                         rope_phase, castle_two_roped_bg,
-                                                                         sfx_rope_release, castle_cell_3,
-                                                                         castle_cell_2,
-                                                                         sfx_gate_open, overlay_mirage_2,
-                                                                         mirage_2_updated, cell_popup_2,
-                                                                         chest_small_castle_1, mirage_2_saved,
-                                                                         castle_chest_1_got, sfx_item_rupee,
-                                                                         sfx_enemy_atmon_loud, atmon_castle,
-                                                                         atmon_battle_sprite, castle_ladder,
-                                                                         sfx_ladder)
+                                                                       castle_lair_bg, over_world_song_set, lair_music,
+                                                                       interaction_popup, font, save_check_window,
+                                                                       user_interface, bar_backdrop, hp_bar, en_bar,
+                                                                       xp_bar, in_over_world, interacted, info_text_1,
+                                                                       info_text_2, info_text_3, info_text_4, npc_tic,
+                                                                       movement_able, equipment_screen, staff, sword,
+                                                                       bow, npc_garan, offense_meter, defense_meter,
+                                                                       weapon_select, pet_energy_window,
+                                                                       player_battle_sprite, enemy_tic, barrier_active,
+                                                                       sharp_sense_active, in_battle,
+                                                                       current_enemy_battling, vanished, vanish_overlay,
+                                                                       basic_fish_counter, better_fish_counter,
+                                                                       even_better_fish_counter, best_fish_counter,
+                                                                       sfx_dreth_laugh, dreth_taunt_4,
+                                                                       dreth_taunt_popup)
                     else:
                         castle_lair_returned = zone_castle.castle_lair(pygame, game_window, graphic_dict, player,
-                                                                         castle_three_bg, over_world_song_set,
-                                                                         castle_music,
-                                                                         interaction_popup, font, save_check_window,
-                                                                         user_interface, bar_backdrop, hp_bar,
-                                                                         en_bar,
-                                                                         xp_bar, in_over_world, interacted,
-                                                                         info_text_1,
-                                                                         info_text_2, info_text_3, info_text_4,
-                                                                         npc_tic,
-                                                                         movement_able, equipment_screen, staff,
-                                                                         sword,
-                                                                         bow,
-                                                                         npc_garan, offense_meter, defense_meter,
-                                                                         weapon_select, pet_energy_window,
-                                                                         player_battle_sprite,
-                                                                         current_npc_interacting,
-                                                                         in_npc_interaction, marrow_attuned,
-                                                                         ghouls_marrow,
-                                                                         enemy_tic, barrier_active,
-                                                                         sharp_sense_active,
-                                                                         ghoul_battle_sprite, in_battle,
-                                                                         current_enemy_battling, vanished,
-                                                                         vanish_overlay,
-                                                                         basic_fish_counter, better_fish_counter,
-                                                                         even_better_fish_counter,
-                                                                         best_fish_counter,
-                                                                         prism_activate_tic, overlay_chandelier,
-                                                                         rock_9,
-                                                                         rock_10, sfx_rock_push, sfx_dreth_laugh,
-                                                                         dreth_taunt_3, dreth_taunt_popup,
-                                                                         rope_wind_2,
-                                                                         rope_phase, castle_three_roped_bg,
-                                                                         sfx_rope_release, castle_cell_3,
-                                                                         castle_cell_2,
-                                                                         sfx_gate_open, overlay_mirage_2,
-                                                                         mirage_2_updated, cell_popup_2,
-                                                                         chest_small_castle_1, mirage_2_saved,
-                                                                         castle_chest_1_got, sfx_item_rupee,
-                                                                         sfx_enemy_atmon_loud, atmon_castle,
-                                                                         atmon_battle_sprite, castle_ladder,
-                                                                         sfx_ladder)
+                                                                       castle_lair_bg, over_world_song_set, lair_music,
+                                                                       interaction_popup, font, save_check_window,
+                                                                       user_interface, bar_backdrop, hp_bar, en_bar,
+                                                                       xp_bar, in_over_world, interacted, info_text_1,
+                                                                       info_text_2, info_text_3, info_text_4, npc_tic,
+                                                                       movement_able, equipment_screen, staff, sword,
+                                                                       bow, npc_garan, offense_meter, defense_meter,
+                                                                       weapon_select, pet_energy_window,
+                                                                       player_battle_sprite, enemy_tic, barrier_active,
+                                                                       sharp_sense_active, in_battle,
+                                                                       current_enemy_battling, vanished, vanish_overlay,
+                                                                       basic_fish_counter, better_fish_counter,
+                                                                       even_better_fish_counter, best_fish_counter,
+                                                                       sfx_dreth_laugh, dreth_taunt_4,
+                                                                       dreth_taunt_popup)
 
                     over_world_song_set = castle_lair_returned["over_world_song_set"]
                     interacted = castle_lair_returned["interacted"]

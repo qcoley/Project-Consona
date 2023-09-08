@@ -126,6 +126,10 @@ def load_graphics():
     castle_two_rope_bg = pygame.image.load(resource_path('resources/art/bg_castle_two_roped.png')).convert_alpha()
     castle_three_bg = pygame.image.load(resource_path('resources/art/bg_castle_three.png')).convert_alpha()
     castle_three_rope_bg = pygame.image.load(resource_path('resources/art/bg_castle_three_roped.png')).convert_alpha()
+    castle_lair_bg = pygame.image.load(resource_path('resources/art/bg_castle_lair.png')).convert_alpha()
+    castle_lair_zero_bg = pygame.image.load(resource_path('resources/art/bg_castle_lair_zero.png')).convert_alpha()
+    castle_lair_one_bg = pygame.image.load(resource_path('resources/art/bg_castle_lair_one.png')).convert_alpha()
+    castle_lair_two_bg = pygame.image.load(resource_path('resources/art/bg_castle_lair_two.png')).convert_alpha()
     caldera_bg = pygame.image.load(resource_path('resources/art/bg_caldera.png')).convert_alpha()
     e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
     fishing_hut_bg = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
@@ -272,6 +276,10 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["castle_lair_bg"] = castle_lair_bg
+    loaded_dict["castle_lair_zero_bg"] = castle_lair_zero_bg
+    loaded_dict["castle_lair_one_bg"] = castle_lair_one_bg
+    loaded_dict["castle_lair_two_bg"] = castle_lair_two_bg
     loaded_dict["caldera_bg"] = caldera_bg
     loaded_dict["castle_two_bg"] = castle_two_bg
     loaded_dict["castle_two_roped_bg"] = castle_two_rope_bg
