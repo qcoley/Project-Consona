@@ -1467,6 +1467,15 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if self.y_coordinate < 178 and 226 < self.x_coordinate < 816:
                 if self.y_coordinate > 170:
                     self.y_coordinate = 170
+        if current_zone == "castle lair":
+            if self.y_coordinate < 115:
+                self.y_coordinate = 115
+            if self.x_coordinate < 125:
+                self.x_coordinate = 125
+            if self.x_coordinate > 910:
+                self.x_coordinate = 910
+            if self.y_coordinate > 612:
+                self.y_coordinate = 612
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -3750,6 +3759,15 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if self.y_coordinate < 178 and 226 < self.x_coordinate < 816:
                 if self.y_coordinate > 170:
                     self.y_coordinate = 170
+        if current_zone == "castle lair":
+            if self.y_coordinate < 115:
+                self.y_coordinate = 115
+            if self.x_coordinate < 125:
+                self.x_coordinate = 125
+            if self.x_coordinate > 910:
+                self.x_coordinate = 910
+            if self.y_coordinate > 612:
+                self.y_coordinate = 612
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -6023,6 +6041,15 @@ class PlayerSorae(pygame.sprite.Sprite):
             if self.y_coordinate < 178 and 226 < self.x_coordinate < 816:
                 if self.y_coordinate > 170:
                     self.y_coordinate = 170
+        if current_zone == "castle lair":
+            if self.y_coordinate < 115:
+                self.y_coordinate = 115
+            if self.x_coordinate < 125:
+                self.x_coordinate = 125
+            if self.x_coordinate > 910:
+                self.x_coordinate = 910
+            if self.y_coordinate > 612:
+                self.y_coordinate = 612
         if current_zone == "fishing alcove":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -8066,6 +8093,7 @@ if __name__ == "__main__":
     castle_cell_3 = pygame.Rect((525, 325), (150, 50))
     castle_ladder = pygame.Rect((280, 230), (100, 50))
     caldera_ladder = pygame.Rect((295, 275), (75, 50))
+    lair_exit = pygame.Rect((450, 25), (150, 50))
 
     castle_key = pygame.Rect((490, 225), (50, 50))
     boss_door = pygame.Rect((430, 470), (150, 50))
@@ -8669,6 +8697,7 @@ if __name__ == "__main__":
     firework_type = ''
     previous_surf = player.surf
     rope_phase = 0
+    light_switch = 0
 
     # default objects for event loops, updated when player interacts with new object
     current_enemy_battling = snake_1
@@ -8697,7 +8726,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -9546,6 +9575,10 @@ if __name__ == "__main__":
                             player.x_coordinate = 160
                             player.y_coordinate = 640
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "castle lair":
+                            player.x_coordinate = 515
+                            player.y_coordinate = 150
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "caldera":
                             player.x_coordinate = 390
                             player.y_coordinate = 315
@@ -9683,7 +9716,7 @@ if __name__ == "__main__":
                                                                       castle_cell_1, castle_cell_2, rope_wind_2,
                                                                       castle_cell_3, castle_ladder, castle_key,
                                                                       boss_door, caldera_ladder, fishing_spot_caldera,
-                                                                      jumanos)
+                                                                      jumanos, lair_exit)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9979,7 +10012,8 @@ if __name__ == "__main__":
                                                                                   castle_cell_2, rope_wind_2,
                                                                                   castle_cell_3, castle_ladder,
                                                                                   castle_key, boss_door, caldera_ladder,
-                                                                                  fishing_spot_caldera, jumanos)
+                                                                                  fishing_spot_caldera, jumanos,
+                                                                                  lair_exit)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -12062,7 +12096,8 @@ if __name__ == "__main__":
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         castle_lair_returned = zone_castle.castle_lair(pygame, screen, graphic_dict, player,
-                                                                       castle_lair_bg, over_world_song_set, lair_music,
+                                                                       castle_lair_zero_bg, over_world_song_set,
+                                                                       lair_music,
                                                                        interaction_popup, font, save_check_window,
                                                                        user_interface, bar_backdrop, hp_bar, en_bar,
                                                                        xp_bar, in_over_world, interacted, info_text_1,
@@ -12076,10 +12111,13 @@ if __name__ == "__main__":
                                                                        basic_fish_counter, better_fish_counter,
                                                                        even_better_fish_counter, best_fish_counter,
                                                                        sfx_dreth_laugh, dreth_taunt_4,
-                                                                       dreth_taunt_popup)
+                                                                       dreth_taunt_popup, lair_exit, light_switch,
+                                                                       castle_lair_one_bg,
+                                                                       castle_lair_two_bg, castle_lair_bg)
                     else:
                         castle_lair_returned = zone_castle.castle_lair(pygame, game_window, graphic_dict, player,
-                                                                       castle_lair_bg, over_world_song_set, lair_music,
+                                                                       castle_lair_zero_bg, over_world_song_set,
+                                                                       lair_music,
                                                                        interaction_popup, font, save_check_window,
                                                                        user_interface, bar_backdrop, hp_bar, en_bar,
                                                                        xp_bar, in_over_world, interacted, info_text_1,
@@ -12093,7 +12131,9 @@ if __name__ == "__main__":
                                                                        basic_fish_counter, better_fish_counter,
                                                                        even_better_fish_counter, best_fish_counter,
                                                                        sfx_dreth_laugh, dreth_taunt_4,
-                                                                       dreth_taunt_popup)
+                                                                       dreth_taunt_popup, lair_exit, light_switch,
+                                                                       castle_lair_one_bg,
+                                                                       castle_lair_two_bg, castle_lair_bg)
 
                     over_world_song_set = castle_lair_returned["over_world_song_set"]
                     interacted = castle_lair_returned["interacted"]
@@ -12106,6 +12146,8 @@ if __name__ == "__main__":
                     enemy_tic = castle_lair_returned["enemy_tic"]
                     in_battle = castle_lair_returned["in_battle"]
                     current_enemy_battling = castle_lair_returned["current_enemy"]
+                    dreth_taunt_4 = castle_lair_returned["dreth_taunt"]
+                    light_switch = castle_lair_returned["light_switch"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow caldera -----------------------------------------------------------------------

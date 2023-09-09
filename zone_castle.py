@@ -202,8 +202,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                 interacted = False
                 over_world_song_set = False
                 player.current_zone = "castle lair"
-                player.x_coordinate = 710
-                player.y_coordinate = 525
+                player.x_coordinate = 515
+                player.y_coordinate = 150
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
@@ -832,13 +832,14 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
     return castle_three_return
 
 
-def castle_lair(pygame, screen, graphic_dict, player, castle_lair_bg, over_world_song_set, lair_music,
+def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_world_song_set, lair_music,
                 interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                 in_over_world, interacted, info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                 pet_energy_window, player_battle_sprite, enemy_tic, barrier_active, sharp_sense_active, in_battle,
                 current_enemy_battling, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                even_better_fish_counter, best_fish_counter, dreth_laugh, dreth_taunt, dreth_taunt_popup):
+                even_better_fish_counter, best_fish_counter, dreth_laugh, dreth_taunt, dreth_taunt_popup, lair_exit,
+                lights_switch, castle_lair_one_bg, castle_lair_two_bg, castle_lair_bg):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -847,7 +848,29 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_bg, over_world
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
-    screen.blit(castle_lair_bg, (0, 0))
+    if not dreth_taunt:
+        movement_able = False
+        screen.blit(castle_lair_zero_bg, (0, 0))
+
+    if not dreth_taunt:
+        dreth_taunt_popup.update(510, 365, graphic_dict["dreth_taunt_4"])
+        drawing_functions.dreth_taunt_window.append(dreth_taunt_popup)
+        pygame.mixer.find_channel(True).play(dreth_laugh)
+        lights_switch = time.perf_counter()
+        dreth_taunt = True
+
+    if dreth_taunt:
+        if 5 > time.perf_counter() - lights_switch > 4:
+            screen.blit(castle_lair_one_bg, (0, 0))
+            movement_able = False
+        elif 6 > time.perf_counter() - lights_switch > 5:
+            screen.blit(castle_lair_two_bg, (0, 0))
+            movement_able = False
+        elif time.perf_counter() - lights_switch > 6:
+            screen.blit(castle_lair_bg, (0, 0))
+            movement_able = True
+        else:
+            screen.blit(castle_lair_zero_bg, (0, 0))
 
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
@@ -875,6 +898,27 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_bg, over_world
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if pygame.Rect.colliderect(player.rect, lair_exit):
+        interaction_popup.update(515, 25, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Castle"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (515, 25)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to exit lair."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            over_world_song_set = False
+            player.current_zone = "castle one"
+            player.x_coordinate = 515
+            player.y_coordinate = 450
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -904,13 +948,12 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_bg, over_world
                                      best_fish_counter)
     drawing_functions.draw_it(screen)
 
-
     castle_lair_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                           "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                           "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                           "movement_able": movement_able, "enemy_tic": enemy_tic, "in_battle": in_battle,
                           "current_enemy": current_enemy_battling,
-                          "dreth_taunt": dreth_taunt}
+                          "dreth_taunt": dreth_taunt, "light_switch": lights_switch}
 
     return castle_lair_return
 

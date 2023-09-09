@@ -488,6 +488,7 @@ def load_graphics():
     loaded_dict["dreth_taunt_1"] = dreth_taunts_sheet[0]
     loaded_dict["dreth_taunt_2"] = dreth_taunts_sheet[1]
     loaded_dict["dreth_taunt_3"] = dreth_taunts_sheet[2]
+    loaded_dict["dreth_taunt_4"] = dreth_taunts_sheet[3]
     # marrow castle chandelier -----------------------------------------------------------------------------------------
     chandelier_url = resource_path('resources/art/overlay_chandelier.png')
     chandelier_sheet = sprite_sheet((1027, 200), chandelier_url)
