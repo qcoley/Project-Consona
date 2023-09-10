@@ -11864,8 +11864,9 @@ if __name__ == "__main__":
                                                                      castle_crate_1_got, castle_crate_2_got,
                                                                      sfx_item_potion, sfx_dreth_laugh, dreth_taunt_1,
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
-                                                                     castle_one_keyed_bg, castle_key, boss_door,
-                                                                     sfx_item_key, jumanos, atmon_battle_sprite)
+                                                                     castle_one_keyed_bg, has_key, castle_key,
+                                                                     boss_door, sfx_item_key, jumanos,
+                                                                     atmon_battle_sprite)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
