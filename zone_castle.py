@@ -199,6 +199,9 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
             info_text_4 = ""
 
             if interacted and in_over_world:
+                for item in player.items:
+                    if item.name == "boss key":
+                        player.items.remove(item)
                 interacted = False
                 over_world_song_set = False
                 player.current_zone = "castle lair"
@@ -839,7 +842,8 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
                 pet_energy_window, player_battle_sprite, enemy_tic, barrier_active, sharp_sense_active, in_battle,
                 current_enemy_battling, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                 even_better_fish_counter, best_fish_counter, dreth_laugh, dreth_taunt, dreth_taunt_popup, lair_exit,
-                lights_switch, castle_lair_one_bg, castle_lair_two_bg, castle_lair_bg):
+                lights_switch, castle_lair_one_bg, castle_lair_two_bg, castle_lair_bg, dreth, dreth_battle_sprite,
+                dreth_defeated):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -899,6 +903,41 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
     except AttributeError:
         pass
 
+    screen.blit(dreth.surf, dreth.rect)
+
+    if not dreth_defeated:
+        if pygame.sprite.collide_rect(player, dreth):
+            interaction_popup.update(dreth.x_coordinate - 5, dreth.y_coordinate - 150,
+                                     graphic_dict["popup_interaction_red"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("dreth"), True, "black", (255, 204, 203))
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (dreth.x_coordinate - 5, dreth.y_coordinate - 150)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            # lets player know if they are in range of enemy they can press f to attack it
+            info_text_1 = "Press 'F' key to attack enemy."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted:
+                current_enemy_battling = dreth
+                in_over_world = False
+                in_battle = True
+
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active, graphic_dict)
+                combat_scenario.battle_animation_enemy(current_enemy_battling, dreth_battle_sprite, dreth_battle_sprite,
+                                                       dreth_battle_sprite, dreth_battle_sprite,
+                                                       dreth_battle_sprite, dreth_battle_sprite,
+                                                       dreth_battle_sprite, in_battle, False,
+                                                       graphic_dict, dreth_battle_sprite,
+                                                       dreth_battle_sprite, dreth_battle_sprite,
+                                                       False, dreth_battle_sprite, 0, dreth_battle_sprite,
+                                                       dreth_battle_sprite)
     if pygame.Rect.colliderect(player.rect, lair_exit):
         interaction_popup.update(515, 25, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)

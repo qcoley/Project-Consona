@@ -30,7 +30,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies,
+                                                      ectrenos_front_enemies)
     bandiles = respawned_dict["bandiles"]
 
     for enemy_sprite in bandiles:  # update enemy sprite to a highlighted version
@@ -123,7 +124,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                    chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
-                                                   False, stelli_battle_sprite, 0, ectrenos_front_enemies)
+                                                   False, stelli_battle_sprite, 0, ectrenos_front_enemies,
+                                                   stelli_battle_sprite)
 
     if player.x_coordinate > 660 and 685 < player.y_coordinate:
         player.current_zone = "korlok"

@@ -248,7 +248,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                            chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                            graphic_dict, necrola_battle_sprite,
                                                            osodark_battle_sprite, stelli_battle_sprite,
-                                                           False, stelli_battle_sprite, 0, stelli_battle_sprite)
+                                                           False, stelli_battle_sprite, 0, stelli_battle_sprite,
+                                                           stelli_battle_sprite)
             else:
                 if not player.quest_complete["where's nede?"]:
                     interaction_popup.update(ghoul_nede.x_coordinate, ghoul_nede.y_coordinate - 40,
@@ -347,7 +348,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                    chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
-                                                   False, stelli_battle_sprite, 0, stelli_battle_sprite)
+                                                   False, stelli_battle_sprite, 0, stelli_battle_sprite,
+                                                   stelli_battle_sprite)
 
     if not fishing:
         if pygame.sprite.collide_rect(player, fishing_spot_1):

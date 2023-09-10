@@ -7647,8 +7647,11 @@ if __name__ == "__main__":
                      graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
 
     jumano_hall = Enemy("jumano", "jumano", 100, 100, 28, 910, 250, True,
-                     Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
-                     graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+                        Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
+                        graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+
+    dreth = Enemy("dreth", "dreth", 100, 100, 35, 518, 500, True, "item", graphic_dict["sprite_dreth"],
+                  UiElement("dreth hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
@@ -7889,6 +7892,7 @@ if __name__ == "__main__":
     erebyth_battle_sprite = BattleCharacter("erebyth battle", 695, 350, graphic_dict["erebyth_battle"])
     atmon_battle_sprite = BattleCharacter("atmon battle", 705, 300, graphic_dict["atmon_battle"])
     jumano_battle_sprite = BattleCharacter("jumano battle", 705, 300, graphic_dict["jumano_battle"])
+    dreth_battle_sprite = BattleCharacter("dreth battle", 695, 350, graphic_dict["erebyth_battle"])
 
     mirror_battle_sprite = BattleCharacter("mirror battle", 260, 425, graphic_dict["player_no_role_amuna_battle"])
     mirror_overlay = UiElement("mirror overlay", 225, 425, graphic_dict["mirror_overlay"])
@@ -8333,6 +8337,8 @@ if __name__ == "__main__":
     sfx_enemy_atmon_loud.set_volume(0.25)
     sfx_dreth_laugh = pygame.mixer.Sound(resource_path("resources/sounds/sfx_dreth_laugh.mp3"))
     sfx_dreth_laugh.set_volume(0.40)
+    sfx_enemy_jumano = pygame.mixer.Sound(resource_path("resources/sounds/enemy_jumano.mp3"))
+    sfx_enemy_jumano.set_volume(0.25)
 
     sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
     sfx_surprise_attack.set_volume(0.20)
@@ -8563,6 +8569,7 @@ if __name__ == "__main__":
     chorizon_phase = False
     boots_obtained = False
     erebyth_defeated = False
+    dreth_defeated = False
     apothis_push = False
     apothis_1 = True
     apothis_2 = False
@@ -8666,6 +8673,7 @@ if __name__ == "__main__":
     best_fish_counter = 0
     # combat event counters
     erebyth_turn_counter = 0
+    dreth_turn_counter = 0
     # counter to count number of atmons killed for prism task/drop
     atmon_counter = 0
 
@@ -9369,6 +9377,7 @@ if __name__ == "__main__":
                         dreth_taunt_1 = load_returned["dreth_taunt_1"]
                         dreth_taunt_2 = load_returned["dreth_taunt_2"]
                         dreth_taunt_3 = load_returned["dreth_taunt_3"]
+                        dreth_taunt_4 = load_returned["dreth_taunt_4"]
                         mirage_updated = load_returned["mirage_updated"]
                         mirage_2_updated = load_returned["mirage_2_updated"]
                         mirage_saved = load_returned["mirage_saved"]
@@ -9376,6 +9385,7 @@ if __name__ == "__main__":
                         rope_phase = load_returned["rope_phase"]
                         atmon_castle.alive_status = load_returned["mirage_alive"]
                         thanked = load_returned["thanked"]
+                        dreth_defeated = load_returned["dreth_defeated"]
                         
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -9716,7 +9726,7 @@ if __name__ == "__main__":
                                                                       castle_cell_1, castle_cell_2, rope_wind_2,
                                                                       castle_cell_3, castle_ladder, castle_key,
                                                                       boss_door, caldera_ladder, fishing_spot_caldera,
-                                                                      jumanos, lair_exit)
+                                                                      jumanos, lair_exit, dreth)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -10013,7 +10023,7 @@ if __name__ == "__main__":
                                                                                   castle_cell_3, castle_ladder,
                                                                                   castle_key, boss_door, caldera_ladder,
                                                                                   fishing_spot_caldera, jumanos,
-                                                                                  lair_exit)
+                                                                                  lair_exit, dreth)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -10225,7 +10235,8 @@ if __name__ == "__main__":
                                                                         dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status, thanked)
+                                                                        atmon_castle.alive_status, thanked,
+                                                                        dreth_taunt_4, dreth_defeated)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10279,7 +10290,8 @@ if __name__ == "__main__":
                                                                     dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
                                                                     mirage_2_saved, rope_phase,
-                                                                    atmon_castle.alive_status, thanked)
+                                                                    atmon_castle.alive_status, thanked, dreth_taunt_4,
+                                                                    dreth_defeated)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -12113,7 +12125,8 @@ if __name__ == "__main__":
                                                                        sfx_dreth_laugh, dreth_taunt_4,
                                                                        dreth_taunt_popup, lair_exit, light_switch,
                                                                        castle_lair_one_bg,
-                                                                       castle_lair_two_bg, castle_lair_bg)
+                                                                       castle_lair_two_bg, castle_lair_bg, dreth,
+                                                                       dreth_battle_sprite, dreth_defeated)
                     else:
                         castle_lair_returned = zone_castle.castle_lair(pygame, game_window, graphic_dict, player,
                                                                        castle_lair_zero_bg, over_world_song_set,
@@ -12133,7 +12146,8 @@ if __name__ == "__main__":
                                                                        sfx_dreth_laugh, dreth_taunt_4,
                                                                        dreth_taunt_popup, lair_exit, light_switch,
                                                                        castle_lair_one_bg,
-                                                                       castle_lair_two_bg, castle_lair_bg)
+                                                                       castle_lair_two_bg, castle_lair_bg, dreth,
+                                                                       dreth_battle_sprite, dreth_defeated)
 
                     over_world_song_set = castle_lair_returned["over_world_song_set"]
                     interacted = castle_lair_returned["interacted"]
@@ -13693,6 +13707,7 @@ if __name__ == "__main__":
                         pygame.mixer.Sound.stop(sfx_stelli_battle)
                         pygame.mixer.Sound.stop(sfx_enemy_osodark)
                         pygame.mixer.Sound.stop(sfx_enemy_atmon)
+                        pygame.mixer.Sound.stop(sfx_enemy_jumano)
 
                         # reset on each new turn
                         turn_taken = False
@@ -13939,6 +13954,8 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
                                 if current_enemy_battling.kind == "atmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_atmon)
+                                if current_enemy_battling.kind == "jumano":
+                                    pygame.mixer.find_channel(True).play(sfx_enemy_jumano)
 
                                 first_battle_cond = False
                                 drawing_functions.game_guide_container.clear()
@@ -17154,7 +17171,8 @@ if __name__ == "__main__":
                                                                         dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status, thanked)
+                                                                        atmon_castle.alive_status, thanked,
+                                                                        dreth_taunt_4, dreth_defeated)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -17813,7 +17831,8 @@ if __name__ == "__main__":
                                                                         dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status, thanked)
+                                                                        atmon_castle.alive_status, thanked,
+                                                                        dreth_taunt_4, dreth_defeated)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -18290,7 +18309,8 @@ if __name__ == "__main__":
                                                                     dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
                                                                     mirage_2_saved, rope_phase,
-                                                                    atmon_castle.alive_status, thanked)
+                                                                    atmon_castle.alive_status, thanked,
+                                                                    dreth_taunt_4, dreth_defeated)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18772,7 +18792,8 @@ if __name__ == "__main__":
                                                                             dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
-                                                                            atmon_castle.alive_status, thanked)
+                                                                            atmon_castle.alive_status, thanked,
+                                                                            dreth_taunt_4, dreth_defeated)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -19008,7 +19029,8 @@ if __name__ == "__main__":
                                                                             dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
-                                                                            atmon_castle.alive_status, thanked)
+                                                                            atmon_castle.alive_status, thanked,
+                                                                            dreth_taunt_4, dreth_defeated)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -19245,7 +19267,8 @@ if __name__ == "__main__":
                                                                             dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
-                                                                            atmon_castle.alive_status, thanked)
+                                                                            atmon_castle.alive_status, thanked,
+                                                                            dreth_taunt_4, dreth_defeated)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -19965,6 +19988,12 @@ if __name__ == "__main__":
                                 player.x_coordinate = 685
                                 player.y_coordinate = 170
                                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            elif player.current_zone == "castle one" or player.current_zone == "castle two" \
+                                  or player.current_zone == "castle three" or player.current_zone == "castle lair":
+                                player.current_zone = "castle one"
+                                player.x_coordinate = 515
+                                player.y_coordinate = 150
+                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                             else:
                                 player.current_zone = "seldon"
                                 player.x_coordinate = 860
@@ -20019,13 +20048,16 @@ if __name__ == "__main__":
                             combat_scenario.enemy_health_bar(chinzilla, graphic_dict)
                             erebyth.health = 100
                             combat_scenario.enemy_health_bar(erebyth, graphic_dict)
+                            erebyth_turn_counter = 0
                             necrola_ramps_1.health = 100
                             combat_scenario.enemy_health_bar(necrola_ramps_1, graphic_dict)
                             necrola_ramps_2.health = 100
                             combat_scenario.enemy_health_bar(necrola_ramps_2, graphic_dict)
                             necrola_ramps_3.health = 100
                             combat_scenario.enemy_health_bar(necrola_ramps_3, graphic_dict)
-                            erebyth_turn_counter = 0
+                            dreth.health = 100
+                            combat_scenario.enemy_health_bar(dreth, graphic_dict)
+                            dreth_turn_counter = 0
 
                     elif event.type == QUIT:
                         pygame.mixer.quit()

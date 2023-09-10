@@ -734,7 +734,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies,
+                                                      ectrenos_front_enemies)
     ectrenos_front_enemies = respawned_dict["ectrenos_front_enemies"]
 
     for enemy_sprite in ectrenos_front_enemies:  # update enemy sprite to a highlighted version
@@ -872,7 +873,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
-                                                   False, stelli_battle_sprite, 0, ectrenos_front_enemies)
+                                                   False, stelli_battle_sprite, 0, ectrenos_front_enemies,
+                                                   ectrenos_front_enemies)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -993,7 +995,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     respawned_dict = gameplay_functions.enemy_respawn(player, enemies, enemies, enemies, enemies, enemies, enemies,
                                                       enemies, enemies, enemies, Enemy, Item, graphic_dict, UiElement,
                                                       eldream_flowers, eldream_flowers, enemies, enemies, enemies,
-                                                      enemies, enemies)
+                                                      enemies, enemies, enemies)
     enemies = respawned_dict["ectrenos_alcove_enemies"]
 
     if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:
@@ -1126,7 +1128,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                                                    osodark_battle_sprite, osodark_battle_sprite, in_battle,
                                                    in_npc_interaction, graphic_dict, osodark_battle_sprite,
                                                    osodark_battle_sprite, osodark_battle_sprite, False,
-                                                   osodark_battle_sprite, 0, osodark_battle_sprite)
+                                                   osodark_battle_sprite, 0, osodark_battle_sprite,
+                                                   osodark_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
