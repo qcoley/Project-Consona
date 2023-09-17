@@ -7205,6 +7205,7 @@ if __name__ == "__main__":
     name_input_font = pygame.font.Font(resource_path("resources/fonts/Lato-Bold.ttf"), 24)
 
     # background textures ----------------------------------------------------------------------------------------------
+    dreth_battle_screen = graphic_dict["dreth_battle_screen"]
     nascent_grove_bg = graphic_dict["nascent_grove_screen"]
     rohir_river_bg = graphic_dict["rohir_river_screen"]
     fishing_hut_bg = graphic_dict["fishing_hut_bg"]
@@ -7650,7 +7651,7 @@ if __name__ == "__main__":
                         Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
                         graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
 
-    dreth = Enemy("dreth", "dreth", 100, 100, 35, 518, 500, True, "item", graphic_dict["sprite_dreth"],
+    dreth = Enemy("dreth", "dreth", 100, 100, 35, 518, 520, True, "item", graphic_dict["sprite_dreth"],
                   UiElement("dreth hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
@@ -7892,7 +7893,7 @@ if __name__ == "__main__":
     erebyth_battle_sprite = BattleCharacter("erebyth battle", 695, 350, graphic_dict["erebyth_battle"])
     atmon_battle_sprite = BattleCharacter("atmon battle", 705, 300, graphic_dict["atmon_battle"])
     jumano_battle_sprite = BattleCharacter("jumano battle", 705, 300, graphic_dict["jumano_battle"])
-    dreth_battle_sprite = BattleCharacter("dreth battle", 695, 350, graphic_dict["erebyth_battle"])
+    dreth_battle_sprite = BattleCharacter("dreth battle", 707, 345, graphic_dict["dreth_battle"])
 
     mirror_battle_sprite = BattleCharacter("mirror battle", 260, 425, graphic_dict["player_no_role_amuna_battle"])
     mirror_overlay = UiElement("mirror overlay", 225, 425, graphic_dict["mirror_overlay"])
@@ -14615,6 +14616,8 @@ if __name__ == "__main__":
                                         screen.blit(marrow_interaction_bg, (0, 0))
                                     if player.current_zone == "sub marrow":
                                         screen.blit(sub_marrow_battle_screen, (0, 0))
+                                    if player.current_zone == "castle lair":
+                                        screen.blit(dreth_battle_screen, (0, 0))
                                     screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                     try:
                                         screen.blit(current_enemy_battling.health_bar.surf,
@@ -14654,6 +14657,8 @@ if __name__ == "__main__":
                                         game_window.blit(marrow_interaction_bg, (0, 0))
                                     if player.current_zone == "sub marrow":
                                         game_window.blit(sub_marrow_battle_screen, (0, 0))
+                                    if player.current_zone == "castle lair":
+                                        game_window.blit(dreth_battle_screen, (0, 0))
 
                                     game_window.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                     try:
@@ -14772,6 +14777,8 @@ if __name__ == "__main__":
                                     screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
                                 if current_enemy_battling.kind == "jumano":
                                     screen.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
+                                if current_enemy_battling.kind == "dreth":
+                                    screen.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -14847,6 +14854,8 @@ if __name__ == "__main__":
                                     game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
                                 if current_enemy_battling.kind == "jumano":
                                     game_window.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
+                                if current_enemy_battling.kind == "dreth":
+                                    game_window.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
