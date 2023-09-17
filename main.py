@@ -7652,7 +7652,7 @@ if __name__ == "__main__":
                         graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
 
     dreth = Enemy("dreth", "dreth", 100, 100, 35, 518, 520, True, "item", graphic_dict["sprite_dreth"],
-                  UiElement("dreth hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+                  UiElement("dreth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
@@ -13987,7 +13987,8 @@ if __name__ == "__main__":
                                                                            chorizon_phase,
                                                                            combat_events["damage taken"],
                                                                            erebyth_battle_sprite, erebyth_turn_counter,
-                                                                           atmon_battle_sprite, jumano_battle_sprite)
+                                                                           atmon_battle_sprite, jumano_battle_sprite,
+                                                                           dreth_battle_sprite)
                                     try:
                                         stun_them = combat_events["stunned"]
                                     except TypeError and KeyError:
@@ -14162,7 +14163,8 @@ if __name__ == "__main__":
                                                                                            erebyth_battle_sprite,
                                                                                            erebyth_turn_counter,
                                                                                            atmon_battle_sprite,
-                                                                                           jumano_battle_sprite)
+                                                                                           jumano_battle_sprite,
+                                                                                           dreth_battle_sprite)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14251,7 +14253,8 @@ if __name__ == "__main__":
                                                                                            erebyth_battle_sprite,
                                                                                            erebyth_turn_counter,
                                                                                            atmon_battle_sprite,
-                                                                                           jumano_battle_sprite)
+                                                                                           jumano_battle_sprite,
+                                                                                           dreth_battle_sprite)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14461,7 +14464,8 @@ if __name__ == "__main__":
                                                                                            erebyth_battle_sprite,
                                                                                            erebyth_turn_counter,
                                                                                            atmon_battle_sprite,
-                                                                                           jumano_battle_sprite)
+                                                                                           jumano_battle_sprite,
+                                                                                           dreth_battle_sprite)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14741,7 +14745,8 @@ if __name__ == "__main__":
                                                                    necrola_battle_sprite, osodark_battle_sprite,
                                                                    stelli_battle_sprite, chorizon_phase,
                                                                    erebyth_battle_sprite, erebyth_turn_counter,
-                                                                   atmon_battle_sprite, jumano_battle_sprite)
+                                                                   atmon_battle_sprite, jumano_battle_sprite,
+                                                                   dreth_battle_sprite)
                             if mirror_image:
                                 combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, graphic_dict)
@@ -14978,7 +14983,8 @@ if __name__ == "__main__":
                                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                                    chorizon_phase, combat_events["damage taken"],
                                                                    erebyth_battle_sprite, erebyth_turn_counter,
-                                                                   atmon_battle_sprite, jumano_battle_sprite)
+                                                                   atmon_battle_sprite, jumano_battle_sprite,
+                                                                   dreth_battle_sprite)
                             if mirror_image:
                                 combat_scenario.attack_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, hard_strike, graphic_dict,
@@ -15022,6 +15028,8 @@ if __name__ == "__main__":
                                     screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
                                 if current_enemy_battling.kind == "jumano":
                                     screen.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
+                                if current_enemy_battling.kind == "dreth":
+                                    screen.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -15097,6 +15105,8 @@ if __name__ == "__main__":
                                     game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
                                 if current_enemy_battling.kind == "jumano":
                                     game_window.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
+                                if current_enemy_battling.kind == "dreth":
+                                    game_window.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:

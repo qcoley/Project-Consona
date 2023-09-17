@@ -241,7 +241,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                    in_battle, in_npc_interaction, graphic_dict,
                                                    jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
                                                    False, jumano_battle_sprite, 0, jumano_battle_sprite,
-                                                   jumano_battle_sprite)
+                                                   jumano_battle_sprite, jumano_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -346,7 +346,8 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                                                        atmon_battle_sprite, atmon_battle_sprite, atmon_battle_sprite,
                                                        in_battle, in_npc_interaction, graphic_dict, atmon_battle_sprite,
                                                        atmon_battle_sprite, atmon_battle_sprite, False,
-                                                       atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite)
+                                                       atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite,
+                                                       atmon_battle_sprite)
 
     if rope_phase == 0 or rope_phase == 11:
         screen.blit(castle_two_bg, (0, 0))
@@ -767,7 +768,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                                                        graphic_dict, jumano_battle_sprite,
                                                        jumano_battle_sprite, jumano_battle_sprite,
                                                        False, jumano_battle_sprite, 0, jumano_battle_sprite,
-                                                       jumano_battle_sprite)
+                                                       jumano_battle_sprite, jumano_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -937,7 +938,7 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
                                                        graphic_dict, dreth_battle_sprite,
                                                        dreth_battle_sprite, dreth_battle_sprite,
                                                        False, dreth_battle_sprite, 0, dreth_battle_sprite,
-                                                       dreth_battle_sprite)
+                                                       dreth_battle_sprite, dreth_battle_sprite)
     if pygame.Rect.colliderect(player.rect, lair_exit):
         interaction_popup.update(515, 25, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
