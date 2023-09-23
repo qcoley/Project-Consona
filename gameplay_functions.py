@@ -2094,6 +2094,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["mirage_alive"] = player_load_info["mirage_alive"]
             load_return["thanked"] = player_load_info["thanked"]
             load_return["dreth_defeated"] = player_load_info["dreth_defeated"]
+            load_return["apothis_gift"] = player_load_info["apothis_gift"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2120,7 +2121,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               marrow_small_chest_got, noren_complete, boro_complete, npc_maydria, artherian_task_start,
               prism_received, castle_crate_1, castle_crate_2, castle_chest_1, castle_chest_2, dreth_taunt_1,
               dreth_taunt_2, dreth_taunt_3, mirage_updated, mirage_2_updated, mirage_saved, mirage_2_saved,
-              rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated):
+              rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift):
 
     inventory_save = []
     equipment_save = []
@@ -2210,7 +2211,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "mirage_updated": mirage_updated, "mirage_2_updated": mirage_2_updated,
                         "mirage_saved": mirage_saved, "mirage_2_saved": mirage_2_saved, "rope_phase": rope_phase,
                         "mirage_alive": mirage_alive, "thanked": thanked, "dreth_taunt_4": dreth_taunt_4,
-                        "dreth_defeated": dreth_defeated}
+                        "dreth_defeated": dreth_defeated, "apothis_gift": apothis_gift}
 
     try:
         with open("save", "wb") as ff:
@@ -2309,33 +2310,39 @@ def attack_enemy(player, mob, sharp_sense_active):
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False,
                    "pet damage": 0, "pet effective": False, "pet non effective": False}
 
-    critical = random.randrange(1, 10)
-    if critical > 6 or sharp_sense_active:
-        attack_dict["critical"] = True
-        # base critical damage
-        if player.offense == 0:
-            damage = 8
-        if player.offense == 1:
-            damage = 10
-        if player.offense == 2:
-            damage = 12
-        if player.offense == 3:
-            damage = 14
+    if mob.name == "dreth":
         if player.offense == 4:
-            damage = 16
+            damage = 25
+        elif player.offense < 4:
+            damage = 9
     else:
-        attack_dict["critical"] = False
-        # base damage
-        if player.offense == 0:
-            damage = 6
-        if player.offense == 1:
-            damage = 8
-        if player.offense == 2:
-            damage = 10
-        if player.offense == 3:
-            damage = 12
-        if player.offense == 4:
-            damage = 14
+        critical = random.randrange(1, 10)
+        if critical > 6 or sharp_sense_active:
+            attack_dict["critical"] = True
+            # base critical damage
+            if player.offense == 0:
+                damage = 8
+            if player.offense == 1:
+                damage = 10
+            if player.offense == 2:
+                damage = 12
+            if player.offense == 3:
+                damage = 14
+            if player.offense == 4:
+                damage = 16
+        else:
+            attack_dict["critical"] = False
+            # base damage
+            if player.offense == 0:
+                damage = 6
+            if player.offense == 1:
+                damage = 8
+            if player.offense == 2:
+                damage = 10
+            if player.offense == 3:
+                damage = 12
+            if player.offense == 4:
+                damage = 14
 
     # increase or decrease damage based on type advantage/disadvantage
     if player.role == "mage":
@@ -2742,8 +2749,8 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # generate random coordinates and level for new enemy to spawn within boundaries and level range
         # if not scaled, coordinates set to default boundaries
         random_jumano_x = random.randrange(100, 800)
-        random_jumano_y = random.randrange(100, 500)
-        random_jumano_level = random.randrange(25, 30)
+        random_jumano_y = random.randrange(100, 300)
+        random_jumano_level = random.randrange(25, 28)
         # count current enemies active in game
         for mob in jumanos:
             if mob.name == "jumano":

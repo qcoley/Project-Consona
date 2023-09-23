@@ -6,6 +6,7 @@ import pygame
 from pygame.locals import *
 
 import click_handlers
+import cutscenes
 import gameplay_functions
 import graphics
 import drawing_functions
@@ -8340,6 +8341,10 @@ if __name__ == "__main__":
     sfx_dreth_laugh.set_volume(0.40)
     sfx_enemy_jumano = pygame.mixer.Sound(resource_path("resources/sounds/enemy_jumano.mp3"))
     sfx_enemy_jumano.set_volume(0.25)
+    sfx_enemy_dreth = pygame.mixer.Sound(resource_path("resources/sounds/enemy_dreth.mp3"))
+    sfx_enemy_dreth.set_volume(0.30)
+    sfx_enemy_dreth_shatter = pygame.mixer.Sound(resource_path("resources/sounds/enemy_dreth_shatter.mp3"))
+    sfx_enemy_dreth_shatter.set_volume(0.35)
 
     sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
     sfx_surprise_attack.set_volume(0.20)
@@ -8661,6 +8666,7 @@ if __name__ == "__main__":
     mirage_2_saved = False
     thanked = False
     surprised = False
+    apothis_gift = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -9387,6 +9393,7 @@ if __name__ == "__main__":
                         atmon_castle.alive_status = load_returned["mirage_alive"]
                         thanked = load_returned["thanked"]
                         dreth_defeated = load_returned["dreth_defeated"]
+                        apothis_gift = load_returned["apothis_gift"]
                         
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -10237,7 +10244,7 @@ if __name__ == "__main__":
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated)
+                                                                        dreth_taunt_4, dreth_defeated, apothis_gift)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10292,7 +10299,7 @@ if __name__ == "__main__":
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked, dreth_taunt_4,
-                                                                    dreth_defeated)
+                                                                    dreth_defeated, apothis_gift)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -13783,6 +13790,8 @@ if __name__ == "__main__":
                                 try:
                                     if current_enemy_battling.name == "erebyth":
                                         erebyth_turn_counter += 1
+                                    if current_enemy_battling.name == "dreth":
+                                        dreth_turn_counter += 1
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "small energy potion" or \
                                             current_info_item.name == "big energy potion":
@@ -13799,7 +13808,8 @@ if __name__ == "__main__":
                                                                                             stun_them, mirror_image,
                                                                                             erebyth_turn_counter,
                                                                                             atmon_counter,
-                                                                                            prism_received)
+                                                                                            prism_received,
+                                                                                            dreth_turn_counter)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -13836,7 +13846,8 @@ if __name__ == "__main__":
                                                                                             stun_them, mirror_image,
                                                                                             erebyth_turn_counter,
                                                                                             atmon_counter,
-                                                                                            prism_received)
+                                                                                            prism_received,
+                                                                                            dreth_turn_counter)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -13872,7 +13883,8 @@ if __name__ == "__main__":
                                                                                             stun_them, mirror_image,
                                                                                             erebyth_turn_counter,
                                                                                             atmon_counter,
-                                                                                            prism_received)
+                                                                                            prism_received,
+                                                                                            dreth_turn_counter)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -13954,6 +13966,11 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_flame)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
+                                if current_enemy_battling.kind == "dreth":
+                                    if (dreth_turn_counter + 1) % 4 == 0:
+                                        pygame.mixer.find_channel(True).play(sfx_enemy_dreth_shatter)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_enemy_dreth)
                                 if current_enemy_battling.kind == "atmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_atmon)
                                 if current_enemy_battling.kind == "jumano":
@@ -13964,6 +13981,8 @@ if __name__ == "__main__":
                                 if not combat_cooldown:
                                     if current_enemy_battling.name == "erebyth":
                                         erebyth_turn_counter += 1
+                                    if current_enemy_battling.name == "dreth":
+                                        dreth_turn_counter += 1
                                     attack_hotkey = False
                                     # combat event function that handles and returns damage and health
                                     combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
@@ -13973,7 +13992,8 @@ if __name__ == "__main__":
                                                                                     barrier_active, turn_taken,
                                                                                     stun_them, mirror_image,
                                                                                     erebyth_turn_counter,
-                                                                                    atmon_counter, prism_received)
+                                                                                    atmon_counter, prism_received,
+                                                                                    dreth_turn_counter)
                                     combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                             barrier_active, sharp_sense_active,
                                                                             hard_strike, graphic_dict, turn_taken)
@@ -13988,7 +14008,7 @@ if __name__ == "__main__":
                                                                            combat_events["damage taken"],
                                                                            erebyth_battle_sprite, erebyth_turn_counter,
                                                                            atmon_battle_sprite, jumano_battle_sprite,
-                                                                           dreth_battle_sprite)
+                                                                           dreth_battle_sprite, dreth_turn_counter)
                                     try:
                                         stun_them = combat_events["stunned"]
                                     except TypeError and KeyError:
@@ -14129,6 +14149,8 @@ if __name__ == "__main__":
                                     if player.energy > 19:
                                         if current_enemy_battling.name == "erebyth":
                                             erebyth_turn_counter += 1
+                                        if current_enemy_battling.name == "dreth":
+                                            dreth_turn_counter += 1
                                         # player is a mage and uses the barrier spell. Set barrier active to true
                                         # save original defence value to be re applied upon enemy or player defeat
                                         if player.role == "mage":
@@ -14182,7 +14204,8 @@ if __name__ == "__main__":
                                                                                         barrier_active, turn_taken,
                                                                                         stun_them, mirror_image,
                                                                                         erebyth_turn_counter,
-                                                                                        atmon_counter, prism_received)
+                                                                                        atmon_counter, prism_received,
+                                                                                        dreth_turn_counter)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -14272,7 +14295,8 @@ if __name__ == "__main__":
                                                                                         barrier_active, turn_taken,
                                                                                         stun_them, mirror_image,
                                                                                         erebyth_turn_counter,
-                                                                                        atmon_counter, prism_received)
+                                                                                        atmon_counter, prism_received,
+                                                                                        dreth_turn_counter)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -14329,7 +14353,8 @@ if __name__ == "__main__":
                                                                                                 mirror_image,
                                                                                                 erebyth_turn_counter,
                                                                                                 atmon_counter,
-                                                                                                prism_received)
+                                                                                                prism_received,
+                                                                                                dreth_turn_counter)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -14431,6 +14456,8 @@ if __name__ == "__main__":
                                     if player.energy > 39:
                                         if current_enemy_battling.name == "erebyth":
                                             erebyth_turn_counter += 1
+                                        if current_enemy_battling.name == "dreth":
+                                            dreth_turn_counter += 1
 
                                         if player.role == "mage":
                                             if mirror_learned:
@@ -14477,7 +14504,8 @@ if __name__ == "__main__":
                                                         current_enemy_battling, "attack", player, hard_strike_learned,
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
-                                                        erebyth_turn_counter, atmon_counter, prism_received)
+                                                        erebyth_turn_counter, atmon_counter, prism_received,
+                                                        dreth_turn_counter)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -14984,7 +15012,7 @@ if __name__ == "__main__":
                                                                    chorizon_phase, combat_events["damage taken"],
                                                                    erebyth_battle_sprite, erebyth_turn_counter,
                                                                    atmon_battle_sprite, jumano_battle_sprite,
-                                                                   dreth_battle_sprite)
+                                                                   dreth_battle_sprite, dreth_turn_counter)
                             if mirror_image:
                                 combat_scenario.attack_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, hard_strike, graphic_dict,
@@ -17192,7 +17220,7 @@ if __name__ == "__main__":
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated)
+                                                                        dreth_taunt_4, dreth_defeated, apothis_gift)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -17852,7 +17880,7 @@ if __name__ == "__main__":
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated)
+                                                                        dreth_taunt_4, dreth_defeated, apothis_gift)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -18330,7 +18358,7 @@ if __name__ == "__main__":
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked,
-                                                                    dreth_taunt_4, dreth_defeated)
+                                                                    dreth_taunt_4, dreth_defeated, apothis_gift)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18813,7 +18841,7 @@ if __name__ == "__main__":
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
-                                                                            dreth_taunt_4, dreth_defeated)
+                                                                            dreth_taunt_4, dreth_defeated, apothis_gift)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -19050,7 +19078,7 @@ if __name__ == "__main__":
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
-                                                                            dreth_taunt_4, dreth_defeated)
+                                                                            dreth_taunt_4, dreth_defeated, apothis_gift)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -19288,7 +19316,7 @@ if __name__ == "__main__":
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
-                                                                            dreth_taunt_4, dreth_defeated)
+                                                                            dreth_taunt_4, dreth_defeated, apothis_gift)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -19918,179 +19946,234 @@ if __name__ == "__main__":
             # ----------------------------------------------------------------------------------------------------------
             # player has died, show game over and give continue option -------------------------------------------------
             else:
-                if not game_over_sound_played:
-                    pygame.mixer.find_channel(True).play(sfx_game_over)
-                    game_over_sound_played = True
-                if pygame.mixer.music.get_busy():
-                    pygame.mixer.music.fadeout(50)
-                    pygame.mixer.music.load(nascent_music)
-                    pygame.mixer.music.play(loops=-1)
-                    over_world_song_set = True
+                if not apothis_gift:
+                    if current_enemy_battling.name == "dreth":
+                        cutscene_tic = time.perf_counter()
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            cutscenes.cutscenes_final_dreth(pygame, apothis_dreth_music, screen, dreth_scene_1,
+                                                            dreth_scene_2, dreth_scene_3, dreth_scene_4,
+                                                            dreth_scene_5, dreth_scene_6, dreth_scene_7,
+                                                            dreth_scene_8, cutscene_tic, skip_button, SCREEN_WIDTH,
+                                                            SCREEN_HEIGHT, game_window)
+                        else:
+                            cutscenes.cutscenes_final_dreth(pygame, apothis_dreth_music, game_window, dreth_scene_1,
+                                                            dreth_scene_2, dreth_scene_3, dreth_scene_4,
+                                                            dreth_scene_5, dreth_scene_6, dreth_scene_7,
+                                                            dreth_scene_8, cutscene_tic, skip_button, SCREEN_WIDTH,
+                                                            SCREEN_HEIGHT, game_window)
+                        player.current_zone = "stardust"
+                        player.x_coordinate = 530
+                        player.y_coordinate = 480
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
-                button_highlight.update(lets_go_button.x_coordinate, lets_go_button.y_coordinate,
-                                        graphic_dict["lets_go_button_high"])
-
-                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                    screen.blit(game_over_screen, (0, 0))
-                    screen.blit(lets_go_button.surf, lets_go_button.rect)
-                else:
-                    game_window.blit(game_over_screen, (0, 0))
-                    game_window.blit(lets_go_button.surf, lets_go_button.rect)
-
-                for event in pygame.event.get():
-                    init_pos = list(pygame.mouse.get_pos())
-                    ratio_x = (SCREEN_WIDTH / screen.get_width())
-                    ratio_y = (SCREEN_HEIGHT / screen.get_height())
-                    pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
-                    if lets_go_button.rect.collidepoint(pos):
-                        button_highlighted = True
-                    else:
+                        # player returns in a weakened state
+                        player.health = 25
+                        player.energy = 25
+                        player.alive_status = True
+                        over_world_song_set = False
+                        game_over_sound_played = False
+                        info_text_1 = ""
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
                         button_highlighted = False
-                    if event.type == pygame.MOUSEBUTTONUP:
-                        # player chooses to continue, reset character experience and half health and energy on respawn
-                        if lets_go_button.rect.collidepoint(pos):
-                            over_world_song_set = False
-                            game_over_sound_played = False
-                            pygame.mixer.find_channel(True).play(sfx_button_start)
-                            info_text_1 = ""
-                            info_text_2 = ""
-                            info_text_3 = ""
-                            info_text_4 = ""
-                            button_highlighted = False
-                            movement_able = True
-                            # reset interaction, so it doesn't immediately interact again on subsequent collisions
-                            interacted = False
-                            # make sure that windows haven't registered a click on reset for whatever reason
-                            buy_clicked = False
-                            encounter_started = False
-                            in_battle = False
-                            in_over_world = True
-                            if mini_boss_1:
-                                mini_boss_1 = False
-                            if mini_boss_2:
-                                mini_boss_2 = False
-                            if not switch_3:
-                                switch_1 = False
-                                switch_2 = False
-                            # turn off barrier and restore original defence if player mage was killed while active
-                            if barrier_active:
-                                barrier_active = False
-                            # turn off barrier and restore original defence if player mage was killed while active
-                            if sharp_sense_active:
-                                sharp_sense_active = False
-                            if mirror_image:
-                                mirror_image = False
-
-                            if player.current_zone == "korlok" or player.current_zone == "mines" or \
-                                    player.current_zone == "terra trail":
-                                player.current_zone = "korlok"
-                                player.x_coordinate = 882
-                                player.y_coordinate = 290
-                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                                hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
-                            elif player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
-                                player.current_zone = "eldream"
-                                player.x_coordinate = 890
-                                player.y_coordinate = 635
-                                hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
-                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            elif player.current_zone == "marrow tower east" or \
-                                    player.current_zone == "marrow tower west" or \
-                                    player.current_zone == "marrow ramps east end":
-                                overlay_marrow_ramps_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
-                                overlay_marrow_ramps_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
-                                player.current_zone = "marrow entrance"
-                                player.x_coordinate = 515
-                                player.y_coordinate = 125
-                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            elif player.current_zone == "marrow" or player.current_zone == "sub marrow":
-                                player.current_zone = "marrow"
-                                player.x_coordinate = 685
-                                player.y_coordinate = 170
-                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            elif player.current_zone == "castle one" or player.current_zone == "castle two" \
-                                  or player.current_zone == "castle three" or player.current_zone == "castle lair":
-                                player.current_zone = "castle one"
-                                player.x_coordinate = 515
-                                player.y_coordinate = 150
-                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            else:
-                                player.current_zone = "seldon"
-                                player.x_coordinate = 860
-                                player.y_coordinate = 655
-                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-
-                            # player returns in a weakened state
-                            player.health = 25
-                            player.energy = 25
-                            player.alive_status = True
-                            rest_recover_show = True
-
-                            # bring enemies back to full health
-                            for enemy in seldon_enemies:
-                                enemy.health = 100
-                                # noinspection PyTypeChecker
-                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
-                            for enemy in korlok_enemies:
-                                enemy.health = 100
-                                # noinspection PyTypeChecker
-                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
-                            for enemy in bandiles:
-                                enemy.health = 100
-                                # noinspection PyTypeChecker
-                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
-                            for enemy in ectrenos_front_enemies:
-                                enemy.health = 100
-                                # noinspection PyTypeChecker
-                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
-                            for enemy in ectrenos_alcove_enemies:
-                                enemy.health = 100
-                                # noinspection PyTypeChecker
-                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
-                            for enemy in stardust_stelli:
-                                enemy.health = 100
-                                # noinspection PyTypeChecker
-                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
-                            for enemy in atmons:
-                                enemy.health = 100
-                                # noinspection PyTypeChecker
-                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
-
-                            ghoul_nede.health = 100
-                            combat_scenario.enemy_health_bar(ghoul_nede, graphic_dict)
-                            chorizon_1.health = 100
-                            combat_scenario.enemy_health_bar(chorizon_1, graphic_dict)
-                            chorizon_2.health = 100
-                            combat_scenario.enemy_health_bar(chorizon_2, graphic_dict)
-                            muchador.health = 100
-                            combat_scenario.enemy_health_bar(muchador, graphic_dict)
-                            chinzilla.health = 100
-                            combat_scenario.enemy_health_bar(chinzilla, graphic_dict)
-                            erebyth.health = 100
-                            combat_scenario.enemy_health_bar(erebyth, graphic_dict)
-                            erebyth_turn_counter = 0
-                            necrola_ramps_1.health = 100
-                            combat_scenario.enemy_health_bar(necrola_ramps_1, graphic_dict)
-                            necrola_ramps_2.health = 100
-                            combat_scenario.enemy_health_bar(necrola_ramps_2, graphic_dict)
-                            necrola_ramps_3.health = 100
-                            combat_scenario.enemy_health_bar(necrola_ramps_3, graphic_dict)
-                            dreth.health = 100
-                            combat_scenario.enemy_health_bar(dreth, graphic_dict)
-                            dreth_turn_counter = 0
-
-                    elif event.type == QUIT:
-                        pygame.mixer.quit()
-                        sys.exit()
-
-                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                    if button_highlighted:
-                        screen.blit(button_highlight.surf, button_highlight.rect)
-                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                    game_window.blit(frame, frame.get_rect())
-                    pygame.display.flip()
+                        movement_able = True
+                        interacted = False
+                        buy_clicked = False
+                        encounter_started = False
+                        in_battle = False
+                        in_over_world = True
+                        if barrier_active:
+                            barrier_active = False
+                        if sharp_sense_active:
+                            sharp_sense_active = False
+                        if mirror_image:
+                            mirror_image = False
+                        player.star_power = 4
+                        apothis_gift = True
 
                 else:
-                    if button_highlighted:
-                        game_window.blit(button_highlight.surf, button_highlight.rect)
-                    pygame.display.flip()
+                    if not game_over_sound_played:
+                        pygame.mixer.find_channel(True).play(sfx_game_over)
+                        game_over_sound_played = True
+                    if pygame.mixer.music.get_busy():
+                        pygame.mixer.music.fadeout(50)
+                        pygame.mixer.music.load(nascent_music)
+                        pygame.mixer.music.play(loops=-1)
+                        over_world_song_set = True
+
+                    button_highlight.update(lets_go_button.x_coordinate, lets_go_button.y_coordinate,
+                                            graphic_dict["lets_go_button_high"])
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(game_over_screen, (0, 0))
+                        screen.blit(lets_go_button.surf, lets_go_button.rect)
+                    else:
+                        game_window.blit(game_over_screen, (0, 0))
+                        game_window.blit(lets_go_button.surf, lets_go_button.rect)
+
+                    for event in pygame.event.get():
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+                        if lets_go_button.rect.collidepoint(pos):
+                            button_highlighted = True
+                        else:
+                            button_highlighted = False
+                        if event.type == pygame.MOUSEBUTTONUP:
+                            # player chooses to continue, reset character experience and half health and energy
+                            if lets_go_button.rect.collidepoint(pos):
+                                over_world_song_set = False
+                                game_over_sound_played = False
+                                pygame.mixer.find_channel(True).play(sfx_button_start)
+                                info_text_1 = ""
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+                                button_highlighted = False
+                                movement_able = True
+                                # reset interaction, so it doesn't immediately interact again on subsequent collisions
+                                interacted = False
+                                # make sure that windows haven't registered a click on reset for whatever reason
+                                buy_clicked = False
+                                encounter_started = False
+                                in_battle = False
+                                in_over_world = True
+                                if mini_boss_1:
+                                    mini_boss_1 = False
+                                if mini_boss_2:
+                                    mini_boss_2 = False
+                                if not switch_3:
+                                    switch_1 = False
+                                    switch_2 = False
+                                # turn off barrier and restore original defence if player mage was killed while active
+                                if barrier_active:
+                                    barrier_active = False
+                                # turn off barrier and restore original defence if player mage was killed while active
+                                if sharp_sense_active:
+                                    sharp_sense_active = False
+                                if mirror_image:
+                                    mirror_image = False
+
+                                if (player.current_zone == "korlok" or player.current_zone == "mines" or
+                                        player.current_zone == "terra trail"):
+                                    player.current_zone = "korlok"
+                                    player.x_coordinate = 882
+                                    player.y_coordinate = 290
+                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                  player.y_coordinate))
+                                    hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
+                                elif (player.current_zone == "ectrenos front" or
+                                      player.current_zone == "ectrenos alcove"):
+                                    player.current_zone = "eldream"
+                                    player.x_coordinate = 890
+                                    player.y_coordinate = 635
+                                    hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
+                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                  player.y_coordinate))
+                                elif (player.current_zone == "marrow tower east" or
+                                        player.current_zone == "marrow tower west" or
+                                        player.current_zone == "marrow ramps east end"):
+                                    overlay_marrow_ramps_west.update(110, 250,
+                                                                     graphic_dict["overlay_marrow_ramps_west"])
+                                    overlay_marrow_ramps_east.update(925, 250,
+                                                                     graphic_dict["overlay_marrow_ramps_east"])
+                                    player.current_zone = "marrow entrance"
+                                    player.x_coordinate = 515
+                                    player.y_coordinate = 125
+                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                  player.y_coordinate))
+                                elif player.current_zone == "marrow" or player.current_zone == "sub marrow":
+                                    player.current_zone = "marrow"
+                                    player.x_coordinate = 685
+                                    player.y_coordinate = 170
+                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                  player.y_coordinate))
+                                elif (player.current_zone == "castle one" or player.current_zone == "castle two"
+                                      or player.current_zone == "castle three" or player.current_zone == "castle lair"):
+                                    player.current_zone = "castle one"
+                                    player.x_coordinate = 515
+                                    player.y_coordinate = 150
+                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                  player.y_coordinate))
+                                else:
+                                    player.current_zone = "seldon"
+                                    player.x_coordinate = 860
+                                    player.y_coordinate = 655
+                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                  player.y_coordinate))
+                                # player returns in a weakened state
+                                player.health = 25
+                                player.energy = 25
+                                player.alive_status = True
+                                rest_recover_show = True
+
+                                # bring enemies back to full health
+                                for enemy in seldon_enemies:
+                                    enemy.health = 100
+                                    # noinspection PyTypeChecker
+                                    combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                                for enemy in korlok_enemies:
+                                    enemy.health = 100
+                                    # noinspection PyTypeChecker
+                                    combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                                for enemy in bandiles:
+                                    enemy.health = 100
+                                    # noinspection PyTypeChecker
+                                    combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                                for enemy in ectrenos_front_enemies:
+                                    enemy.health = 100
+                                    # noinspection PyTypeChecker
+                                    combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                                for enemy in ectrenos_alcove_enemies:
+                                    enemy.health = 100
+                                    # noinspection PyTypeChecker
+                                    combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                                for enemy in stardust_stelli:
+                                    enemy.health = 100
+                                    # noinspection PyTypeChecker
+                                    combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                                for enemy in atmons:
+                                    enemy.health = 100
+                                    # noinspection PyTypeChecker
+                                    combat_scenario.enemy_health_bar(enemy, graphic_dict)
+
+                                ghoul_nede.health = 100
+                                combat_scenario.enemy_health_bar(ghoul_nede, graphic_dict)
+                                chorizon_1.health = 100
+                                combat_scenario.enemy_health_bar(chorizon_1, graphic_dict)
+                                chorizon_2.health = 100
+                                combat_scenario.enemy_health_bar(chorizon_2, graphic_dict)
+                                muchador.health = 100
+                                combat_scenario.enemy_health_bar(muchador, graphic_dict)
+                                chinzilla.health = 100
+                                combat_scenario.enemy_health_bar(chinzilla, graphic_dict)
+                                erebyth.health = 100
+                                combat_scenario.enemy_health_bar(erebyth, graphic_dict)
+                                erebyth_turn_counter = 0
+                                necrola_ramps_1.health = 100
+                                combat_scenario.enemy_health_bar(necrola_ramps_1, graphic_dict)
+                                necrola_ramps_2.health = 100
+                                combat_scenario.enemy_health_bar(necrola_ramps_2, graphic_dict)
+                                necrola_ramps_3.health = 100
+                                combat_scenario.enemy_health_bar(necrola_ramps_3, graphic_dict)
+                                dreth.health = 100
+                                combat_scenario.enemy_health_bar(dreth, graphic_dict)
+                                dreth_turn_counter = 0
+
+                        elif event.type == QUIT:
+                            pygame.mixer.quit()
+                            sys.exit()
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        if button_highlighted:
+                            screen.blit(button_highlight.surf, button_highlight.rect)
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
+                        pygame.display.flip()
+
+                    else:
+                        if button_highlighted:
+                            game_window.blit(button_highlight.surf, button_highlight.rect)
+                        pygame.display.flip()

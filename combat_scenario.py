@@ -3763,7 +3763,7 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite,
                            chorizon_phase, damage, erebyth_battle_sprite, erebyth_counter, atmon_battle_sprite,
-                           jumano_battle_sprite, dreth_battle_sprite):
+                           jumano_battle_sprite, dreth_battle_sprite, dreth_counter):
 
     if damage > 0:
         if enemy.kind == "snake":
@@ -3812,7 +3812,10 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "jumano":
             jumano_battle_sprite.update(705, 300, graphics["jumano_attack"])
         if enemy.kind == "dreth":
-            dreth_battle_sprite.update(707, 345, graphics["dreth_attack"])
+            if dreth_counter % 4 == 0:
+                dreth_battle_sprite.update(707, 345, graphics["dreth_shatter"])
+            else:
+                dreth_battle_sprite.update(707, 345, graphics["dreth_attack"])
 
 
 def enemy_health_bar(enemys, graphics):
@@ -3825,7 +3828,7 @@ def enemy_health_bar(enemys, graphics):
 
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
                     sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter,
-                    atmon_counter, prism_received):
+                    atmon_counter, prism_received, dreth_counter):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
@@ -3882,6 +3885,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     if enemy_combating.name == "erebyth":
                         if erebyth_counter == 3:
                             damage_to_player = 35
+                            combat_event_dictionary["effective enemy"] = "effective"
+                    if enemy_combating.name == "dreth":
+                        if dreth_counter % 4 == 0:
+                            damage_to_player = 25
                             combat_event_dictionary["effective enemy"] = "effective"
 
                     if damage_to_player > 0:
@@ -4182,6 +4189,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                             if enemy_combating.name == "erebyth":
                                 if erebyth_counter == 3:
                                     damage_to_player = 35
+                                    combat_event_dictionary["effective enemy"] = "effective"
+                            if enemy_combating.name == "dreth":
+                                if dreth_counter % 4 == 0:
+                                    damage_to_player = 25
                                     combat_event_dictionary["effective enemy"] = "effective"
                             if damage_to_player > 0:
                                 attacked_player_string = f"You take {damage_to_player} damage from " \
