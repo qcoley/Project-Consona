@@ -271,6 +271,15 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     player.rupees = player.rupees + 5
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "marrow bait":
+                    sell_return["info 1"] = "Sold Bait for 75 rupees."
+                    sell_return["info 2"] = "Bait removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 75
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
             except AttributeError:
                 pass
     if sell_choice == "no":

@@ -1799,7 +1799,7 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
             star_everett.update(749, 278, quest_progress_star)
 
     if player.current_zone == "marrow":
-        if artherian_task_start:
+        if artherian_task_start and not artherian_2:
             star_artherian.update(210, 400, artherian_progress_star)
         elif artherian_2:
             star_artherian.update(210, 400, artherian_complete_star)
@@ -2121,7 +2121,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               marrow_small_chest_got, noren_complete, boro_complete, npc_maydria, artherian_task_start,
               prism_received, castle_crate_1, castle_crate_2, castle_chest_1, castle_chest_2, dreth_taunt_1,
               dreth_taunt_2, dreth_taunt_3, mirage_updated, mirage_2_updated, mirage_saved, mirage_2_saved,
-              rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift):
+              rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift, sub_marrow_opened):
 
     inventory_save = []
     equipment_save = []
@@ -2211,7 +2211,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "mirage_updated": mirage_updated, "mirage_2_updated": mirage_2_updated,
                         "mirage_saved": mirage_saved, "mirage_2_saved": mirage_2_saved, "rope_phase": rope_phase,
                         "mirage_alive": mirage_alive, "thanked": thanked, "dreth_taunt_4": dreth_taunt_4,
-                        "dreth_defeated": dreth_defeated, "apothis_gift": apothis_gift}
+                        "dreth_defeated": dreth_defeated, "apothis_gift": apothis_gift,
+                        "sub_marrow_opened": sub_marrow_opened}
 
     try:
         with open("save", "wb") as ff:
@@ -2312,9 +2313,9 @@ def attack_enemy(player, mob, sharp_sense_active):
 
     if mob.name == "dreth":
         if player.offense == 4:
-            damage = 25
+            damage = 20
         elif player.offense < 4:
-            damage = 9
+            damage = 10
     else:
         critical = random.randrange(1, 10)
         if critical > 6 or sharp_sense_active:
@@ -2462,17 +2463,30 @@ def attack_player(player, mob, barrier_active):
             damage = 1
     else:
         attack_dict["critical"] = False
-        # base damage
-        if player.defense == 0:
-            damage = 8
-        if player.defense == 1:
-            damage = 6
-        if player.defense == 2:
-            damage = 4
-        if player.defense == 3:
-            damage = 2
-        if player.defense == 4:
-            damage = 1
+        if barrier_active:
+            # base damage
+            if player.defense == 0:
+                damage = 5
+            if player.defense == 1:
+                damage = 4
+            if player.defense == 2:
+                damage = 3
+            if player.defense == 3:
+                damage = 2
+            if player.defense == 4:
+                damage = 1
+        else:
+            # base damage
+            if player.defense == 0:
+                damage = 8
+            if player.defense == 1:
+                damage = 6
+            if player.defense == 2:
+                damage = 4
+            if player.defense == 3:
+                damage = 2
+            if player.defense == 4:
+                damage = 1
 
     # increase or decrease damage based on type advantage/disadvantage
     if mob.type == "mage":

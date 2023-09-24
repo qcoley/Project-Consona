@@ -3828,7 +3828,7 @@ def enemy_health_bar(enemys, graphics):
 
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
                     sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter,
-                    atmon_counter, prism_received, dreth_counter):
+                    atmon_counter, prism_received, dreth_counter, apothis_gift):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
@@ -3884,11 +3884,15 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                     if enemy_combating.name == "erebyth":
                         if erebyth_counter == 3:
-                            damage_to_player = 35
+                            damage_to_player = 25
                             combat_event_dictionary["effective enemy"] = "effective"
                     if enemy_combating.name == "dreth":
-                        if dreth_counter % 4 == 0:
-                            damage_to_player = 25
+                        if enemy_combating.health < 35:
+                            if not apothis_gift:
+                                damage_to_player = 100
+                                combat_event_dictionary["effective enemy"] = "effective"
+                        elif dreth_counter % 4 == 0:
+                            damage_to_player = 15
                             combat_event_dictionary["effective enemy"] = "effective"
 
                     if damage_to_player > 0:
@@ -3990,7 +3994,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         experience = 1
                     # boss battle gives a full level
                     if enemy_combating.kind == "muchador" or enemy_combating.kind == "chinzilla" or \
-                            enemy_combating.kind == "erebyth":
+                            enemy_combating.kind == "erebyth" or enemy_combating.kind == "dreth":
                         experience = 100
 
                     player.experience = player.experience + experience
@@ -4006,7 +4010,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         experience = 1
                     # boss battle gives a full level
                     if enemy_combating.kind == "muchador" or enemy_combating.kind == "chinzilla" or \
-                            enemy_combating.kind == "erebyth":
+                            enemy_combating.kind == "erebyth" or enemy_combating.kind == "dreth":
                         experience = 100
 
                     player.experience = player.experience + experience
@@ -4188,11 +4192,15 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                             damage_to_player = defend_dict["damage"]
                             if enemy_combating.name == "erebyth":
                                 if erebyth_counter == 3:
-                                    damage_to_player = 35
+                                    damage_to_player = 25
                                     combat_event_dictionary["effective enemy"] = "effective"
                             if enemy_combating.name == "dreth":
-                                if dreth_counter % 4 == 0:
-                                    damage_to_player = 25
+                                if enemy_combating.health < 35:
+                                    if not apothis_gift:
+                                        damage_to_player = 100
+                                        combat_event_dictionary["effective enemy"] = "effective"
+                                elif dreth_counter % 4 == 0:
+                                    damage_to_player = 15
                                     combat_event_dictionary["effective enemy"] = "effective"
                             if damage_to_player > 0:
                                 attacked_player_string = f"You take {damage_to_player} damage from " \
@@ -4296,7 +4304,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                 experience = 1
                             # boss battle gives a full level
                             if enemy_combating.kind == "muchador" or enemy_combating.kind == "chinzilla" or \
-                                    enemy_combating.kind == "erebyth":
+                                    enemy_combating.kind == "erebyth" or enemy_combating.kind == "dreth":
                                 experience = 100
                             player.experience = player.experience + experience
                             enemy_experience = f"{experience}"
@@ -4310,7 +4318,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                 experience = 1
                             # boss battle gives a full level
                             if enemy_combating.kind == "muchador" or enemy_combating.kind == "chinzilla" or \
-                                    enemy_combating.kind == "erebyth":
+                                    enemy_combating.kind == "erebyth" or enemy_combating.kind == "dreth":
                                 experience = 100
                             player.experience = player.experience + experience
                             enemy_experience = f"{experience}"

@@ -232,6 +232,7 @@ def load_graphics():
     overlay_enchanting = pygame.image.load(resource_path('resources/art/overlay_enchanting.png')).convert_alpha()
     overlay_flower_counts = pygame.image.load(resource_path('resources/art/overlay_flower_counts.png')).convert_alpha()
     overlay_fish_counts = pygame.image.load(resource_path('resources/art/overlay_fish_counts.png')).convert_alpha()
+    overlay_marrow_star = pygame.image.load(resource_path('resources/art/overlay_marrow_star.png')).convert_alpha()
 
     m_switch = pygame.image.load(resource_path('resources/art/overlay_marrow_switch.png')).convert_alpha()
     m_switch_b = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_blue.png')).convert_alpha()
@@ -272,11 +273,13 @@ def load_graphics():
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
                   m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_box, popup_wide,
-                  overlay_enemy_vanish, chroma_forge, overlay_smelting, overlay_enchanting, chest_small, overlay_prism]
+                  overlay_enemy_vanish, chroma_forge, overlay_smelting, overlay_enchanting, chest_small, overlay_prism,
+                  overlay_marrow_star]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["overlay_marrow_star"] = overlay_marrow_star
     loaded_dict["dreth_battle_screen"] = dreth_battle_screen
     loaded_dict["castle_lair_bg"] = castle_lair_bg
     loaded_dict["castle_lair_zero_bg"] = castle_lair_zero_bg

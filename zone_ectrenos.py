@@ -812,7 +812,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
-                                                   False, stelli_battle_sprite, 0, ectrenos_front_enemies)
+                                                   False, stelli_battle_sprite, 0, ectrenos_front_enemies,
+                                                   stelli_battle_sprite, stelli_battle_sprite)
 
     # if player collides with npc sprite and chooses to interact with it
     if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
@@ -874,7 +875,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, ectrenos_front_enemies,
-                                                   ectrenos_front_enemies)
+                                                   ectrenos_front_enemies, stelli_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -1129,7 +1130,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                                                    in_npc_interaction, graphic_dict, osodark_battle_sprite,
                                                    osodark_battle_sprite, osodark_battle_sprite, False,
                                                    osodark_battle_sprite, 0, osodark_battle_sprite,
-                                                   osodark_battle_sprite)
+                                                   osodark_battle_sprite, osodark_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

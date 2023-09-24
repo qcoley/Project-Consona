@@ -688,18 +688,19 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
         interaction_info_rect.center = (610, 350)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' to open the cell gate."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        if not mirage_2_saved:
+            info_text_1 = "Press 'F' to open the cell gate."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted and in_over_world:
             if not mirage_2_saved:
+                mirage_2_saved = True
                 enemy_tic = time.perf_counter()
                 pygame.mixer.find_channel(True).play(sfx_gate)
                 pygame.mixer.find_channel(True).play(sfx_rupee)
                 interacted = False
-                mirage_2_saved = True
                 player.rupees += 50
                 info_text_1 = "They gave you 50 Rupees. Wow!"
                 info_text_2 = ""
@@ -865,13 +866,13 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
         dreth_taunt = True
 
     if dreth_taunt:
-        if 5 > time.perf_counter() - lights_switch > 4:
+        if 6 > time.perf_counter() - lights_switch > 4:
             screen.blit(castle_lair_one_bg, (0, 0))
             movement_able = False
-        elif 6 > time.perf_counter() - lights_switch > 5:
+        elif 8 > time.perf_counter() - lights_switch > 6:
             screen.blit(castle_lair_two_bg, (0, 0))
             movement_able = False
-        elif time.perf_counter() - lights_switch > 6:
+        elif time.perf_counter() - lights_switch > 8:
             screen.blit(castle_lair_bg, (0, 0))
             movement_able = True
         else:
@@ -904,7 +905,8 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
     except AttributeError:
         pass
 
-    screen.blit(dreth.surf, dreth.rect)
+    if not dreth_defeated:
+        screen.blit(dreth.surf, dreth.rect)
 
     if not dreth_defeated:
         if pygame.sprite.collide_rect(player, dreth):

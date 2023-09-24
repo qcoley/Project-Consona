@@ -7919,8 +7919,8 @@ if __name__ == "__main__":
     stardust_star_overlay_korlok = UiElement("stardust stars korlok", 236, 295, graphic_dict["stardust_star_01_korlok"])
     stardust_star_overlay_eldream = UiElement("stardust stars eldream", 500, 185,
                                               graphic_dict["stardust_star_01_eldream"])
+    stardust_star_overlay_marrow = UiElement("stardust star marrow", 763, 295, graphic_dict["overlay_marrow_star"])
     directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
-
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
     pet_damage_overlay = UiElement("pet damage overlay", 750, 250, graphic_dict["pet_damage_img"])
@@ -7934,25 +7934,20 @@ if __name__ == "__main__":
     level_up_visual = UiElement("level up visual", 65, 235, graphic_dict["level_up_vis"])
     gender_select_highlight = UiElement("gender highlight", 182, 245, graphic_dict["gender select"])
     race_select_highlight = UiElement("race highlight", 200, 245, graphic_dict["race select"])
-
     prime_popup = UiElement("prime popup", 130, 475, graphic_dict["popup_interaction"])
     jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
-
     entrance_popup = UiElement("entrance popup", 675, 97, graphic_dict["popup_wide"])
     apothis_popup = UiElement("apothis popup", 575, 375, graphic_dict["popup_wide"])
     cell_popup = UiElement("cell popup", 420, 205, graphic_dict["popup_wide"])
     cell_popup_2 = UiElement("cell popup", 610, 205, graphic_dict["popup_wide"])
-
     world_map = UiElement("world map", 769, 332, graphic_dict["world_map"])
     korlok_map_button = UiElement("seldon map button", 663, 238, graphic_dict["map_button"])
     eldream_map_button = UiElement("korlok map button", 874, 238, graphic_dict["map_button"])
     seldon_map_button = UiElement("eldream map button", 663, 448, graphic_dict["map_button"])
     marrow_map_button = UiElement("marrow map button", 874, 448, graphic_dict["map_button"])
-
     amuna_location = UiElement("amuna character location", 663, 238, graphic_dict["amuna_location"])
     nuldar_location = UiElement("nuldar character location", 663, 238, graphic_dict["nuldar_location"])
     sorae_location = UiElement("sorae character location", 663, 238, graphic_dict["sorae_location"])
-
     dungeon_teleporter = UiElement("dungeon teleporter", 519, 316, graphic_dict["dungeon_teleporter"])
     dungeon_drop_wall = UiElement("dungeon drop wall", 310, 224, graphic_dict["dungeon_drop_wall"])
     dungeon_gate = UiElement("dungeon gate", 705, 180, graphic_dict["dungeon_gate"])
@@ -7964,7 +7959,6 @@ if __name__ == "__main__":
     muchador_crate_2 = UiElement("muchador crate 2", 500, 200, graphic_dict["muchador_crate"])
     muchador_crate_3 = UiElement("muchador crate 3", 200, 530, graphic_dict["muchador_crate"])
     muchador_crate_4 = UiElement("muchador crate 4", 500, 530, graphic_dict["muchador_crate"])
-
     dungeon_crate_1 = Item("dungeon crate 1", "crate", 75, 150, graphic_dict["dungeon_crate"], 0)
     dungeon_crate_2 = Item("dungeon crate 2", "crate", 960, 150, graphic_dict["dungeon_crate"], 0)
     dungeon_crate_3 = Item("dungeon crate 3", "crate", 388, 575, graphic_dict["dungeon_crate"], 0)
@@ -7975,40 +7969,31 @@ if __name__ == "__main__":
     dungeon_switch_3 = Item("dungeon switch 3", "switch", 519, 165, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
-
     ramps_crate_1 = Item("ramps crate 1", "crate", 390, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_2 = Item("ramps crate 2", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_3 = Item("ramps crate 3", "crate", 390, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_4 = Item("ramps crate 4", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_5 = Item("ramps crate 5", "crate", 500, 650, graphic_dict["dungeon_crate"], 0)
-
     castle_crate_1 = Item("castle crate 1", "crate", 80, 150, graphic_dict["dungeon_crate"], 0)
     castle_crate_2 = Item("castle crate 2", "crate", 955, 150, graphic_dict["dungeon_crate"], 0)
-
     dungeon_switch_ramps_1 = Item("switch ramps 1", "switch", 945, 135, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_switch_ramps_2 = Item("switch ramps 2", "switch", 195, 135, graphic_dict["dungeon_switch_inactive"], 0)
-
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
-
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 568, graphic_dict["chest_small"])
     chest_small_castle_1 = UiElement("chest small castle 1", 700, 262, graphic_dict["chest_small"])
     chest_small_castle_2 = UiElement("chest small castle 2", 700, 262, graphic_dict["chest_small"])
-
     overlay_prism_activate = UiElement("overlay prism", 710, 485, graphic_dict["overlay_prism"])
     overlay_chandelier = UiElement("chandelier", 516, 285, graphic_dict["chandelier_full"])
     overlay_chandelier.surf.set_alpha(230)
-
     overlay_mirage = UiElement("mirage", 415, 250, graphic_dict["mirage_female"])
     overlay_mirage_2 = UiElement("mirage", 415, 250, graphic_dict["mirage_female"])
-
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
     pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, graphic_dict["pine_tree"])
     pine_tree_1_top = Tree("tree", "pine tree", 80, 410, False, graphic_dict["tree_top"])
     pine_tree_2_top = Tree("tree", "pine tree", 260, 555, False, graphic_dict["tree_top"])
     pine_tree_3_top = Tree("tree", "pine tree", 340, 365, False, graphic_dict["tree_top"])
-
     water_player = UiElement("water", 855, 620, graphic_dict["water_player"])
     water_1 = UiElement("water", 855, 450, graphic_dict["water"])
     water_2 = UiElement("water", 855, 200, graphic_dict["water"])
@@ -8016,13 +8001,11 @@ if __name__ == "__main__":
     water_4 = UiElement("water", 575, 275, graphic_dict["water"])
     water_5 = UiElement("water", 700, 525, graphic_dict["water"])
     korlok_mountains = UiElement("korlok mountains", 241, 251, graphic_dict["korlok_mountains"])
-
     water_fish_1 = UiElement("water", 855, 630, graphic_dict["water"])
     water_fish_3 = UiElement("water", 500, 575, graphic_dict["water"])
     water_fish_4 = UiElement("water", 650, 680, graphic_dict["water"])
     water_alcove_1 = UiElement("water", 450, 250, graphic_dict["water"])
     water_alcove_3 = UiElement("water", 300, 285, graphic_dict["water"])
-
     fishing_spot_korlok_1 = UiElement("fishing spot k1", 740, 410, graphic_dict["fishing_spot_1"])
     fishing_spot_korlok_2 = UiElement("fishing spot k2", 575, 525, graphic_dict["fishing_spot_1"])
     fishing_spot_stardust_1 = UiElement("fishing spot s1", 900, 490, graphic_dict["fishing_spot_1"])
@@ -8030,14 +8013,11 @@ if __name__ == "__main__":
     fishing_spot_eldream_1 = UiElement("fishing spot e1", 250, 335, graphic_dict["fishing_spot_1"])
     fishing_spot_eldream_2 = UiElement("fishing spot e2", 645, 335, graphic_dict["fishing_spot_1"])
     fishing_spot_caldera = UiElement("fishing spot c", 710, 365, graphic_dict["fishing_spot_1"])
-
     fishing_popup = UiElement("fishing popup", 510, 365, graphic_dict["basic_fish_popup"])
     flower_count_overlay = UiElement("flower counts", 1155, 642, graphic_dict["flower_counts"])
     fish_count_overlay = UiElement("fish counts", 1155, 642, graphic_dict["fish_counts"])
-
     flower_button = pygame.Rect((1150, 670), (65, 65))
     fish_button_count = pygame.Rect((1210, 670), (65, 65))
-
     eldream_riv_1 = UiElement("eldream river 1", 190, 400, graphic_dict["eldream_river"])
     eldream_riv_2 = UiElement("eldream river 2", 240, 370, graphic_dict["eldream_river"])
     eldream_riv_3 = UiElement("eldream river 3", 285, 340, graphic_dict["eldream_river"])
@@ -8061,20 +8041,16 @@ if __name__ == "__main__":
     eldream_riv_21 = UiElement("eldream river 21", 0, 540, graphic_dict["eldream_river"])
     overlay_ectrene = UiElement("ectrene", 525, 325, graphic_dict["overlay_ectrene"])
     overlay_bridge_gate = UiElement("overlay bridge gate", 527, 619, graphic_dict["overlay_bridge_gate"])
-
     overlay_marrow_ramps_west = UiElement("marrow west", 110, 250, graphic_dict["overlay_marrow_ramps_west"])
     overlay_marrow_ramps_east = UiElement("marrow east", 925, 250, graphic_dict["overlay_marrow_ramps_east"])
     overlay_marrow_switch = UiElement("marrow switch", 640, 360, graphic_dict["marrow_switch"])
     marrow_switch_box = UiElement("marrow box", 515, 225, graphic_dict["marrow_switch_box"])
-
     overlay_stardust_waterfall = UiElement("waterfall", 857, 593, graphic_dict["overlay_stardust_waterfall"])
     overlay_stardust_waterfall.surf.set_alpha(200)
-
     chroma_bridge = UiElement("chroma bridge", 477, 493, graphic_dict["chroma_bridge"])
     chroma_bridge_small = UiElement("chroma bridge small", 308, 281, graphic_dict["chroma_bridge_small"])
     chroma_bridge_ramps = UiElement("chroma bridge ramps", 575, 395, graphic_dict["overlay_chroma_ramps"])
     chroma_bridge_forge = UiElement("chroma bridge forge", 516, 545, graphic_dict["chroma_forge"])
-
     volcano_rect = pygame.Rect((450, 15), (100, 50))
     forge_rect = pygame.Rect((515, 150), (100, 100))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
@@ -8100,10 +8076,8 @@ if __name__ == "__main__":
     castle_ladder = pygame.Rect((280, 230), (100, 50))
     caldera_ladder = pygame.Rect((295, 275), (75, 50))
     lair_exit = pygame.Rect((450, 25), (150, 50))
-
     castle_key = pygame.Rect((490, 225), (50, 50))
     boss_door = pygame.Rect((430, 470), (150, 50))
-
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
     mines_cart = UiElement("mines cart", 885, 475, graphic_dict["mines_light"])
@@ -8114,12 +8088,9 @@ if __name__ == "__main__":
     kart_full = UiElement("kart full", 388, 636, graphic_dict["kart_overworld"])
     overlay_smelting = UiElement("smelting", 517, 150, graphic_dict["overlay_smelting"])
     overlay_enchanting = UiElement("enchanting", 517, 150, graphic_dict["overlay_enchanting"])
-
     overlay_seldon_fireworks = UiElement("seldon fireworks", 200, 200, graphic_dict["seldon_fireworks_1"])
-
     stardust_top = UiElement("stardust top", 531, 205, graphic_dict["stardust_top"])
     alcove_star = UiElement("alcove star", 979, 674, graphic_dict["alcove_star"])
-
     # dungeon rocks
     rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock"], 0)
     rock_2 = Item("rock 2", "rock", 580, 255, graphic_dict["rock"], 0)
@@ -8133,11 +8104,9 @@ if __name__ == "__main__":
     rock_7 = Item("rock 7", "rock", 515, 395, graphic_dict["rock_small"], 0)
     # nascent grove rock
     rock_8 = Item("rock 8", "rock", 405, 500, graphic_dict["rock_small"], 0)
-
     # marrow castle rocks
     rock_9 = Item("rock 9", "rock", 70, 275, graphic_dict["rock"], 0)
     rock_10 = Item("rock 10", "rock", 170, 275, graphic_dict["rock"], 0)
-
     # flowers for apothecary
     flower_seldon_1 = Item("flower seldon 1", "flower", 190, 185, graphic_dict["flower_seldon"], 0)
     flower_seldon_2 = Item("flower seldon 2", "flower", 390, 185, graphic_dict["flower_seldon"], 0)
@@ -8667,6 +8636,7 @@ if __name__ == "__main__":
     thanked = False
     surprised = False
     apothis_gift = False
+    sub_marrow_opened = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -10244,7 +10214,8 @@ if __name__ == "__main__":
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated, apothis_gift)
+                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                        sub_marrow_opened)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10299,7 +10270,7 @@ if __name__ == "__main__":
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked, dreth_taunt_4,
-                                                                    dreth_defeated, apothis_gift)
+                                                                    dreth_defeated, apothis_gift, sub_marrow_opened)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -13809,7 +13780,8 @@ if __name__ == "__main__":
                                                                                             erebyth_turn_counter,
                                                                                             atmon_counter,
                                                                                             prism_received,
-                                                                                            dreth_turn_counter)
+                                                                                            dreth_turn_counter,
+                                                                                            apothis_gift)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -13847,7 +13819,8 @@ if __name__ == "__main__":
                                                                                             erebyth_turn_counter,
                                                                                             atmon_counter,
                                                                                             prism_received,
-                                                                                            dreth_turn_counter)
+                                                                                            dreth_turn_counter,
+                                                                                            apothis_gift)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -13884,7 +13857,8 @@ if __name__ == "__main__":
                                                                                             erebyth_turn_counter,
                                                                                             atmon_counter,
                                                                                             prism_received,
-                                                                                            dreth_turn_counter)
+                                                                                            dreth_turn_counter,
+                                                                                            apothis_gift)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -13993,7 +13967,8 @@ if __name__ == "__main__":
                                                                                     stun_them, mirror_image,
                                                                                     erebyth_turn_counter,
                                                                                     atmon_counter, prism_received,
-                                                                                    dreth_turn_counter)
+                                                                                    dreth_turn_counter,
+                                                                                    apothis_gift)
                                     combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                             barrier_active, sharp_sense_active,
                                                                             hard_strike, graphic_dict, turn_taken)
@@ -14056,6 +14031,8 @@ if __name__ == "__main__":
 
                                         # if player was successful in defeating enemy, combat ends, movement is allowed
                                         if combat_events["enemy defeated"]:
+                                            if current_enemy_battling.kind == "dreth":
+                                                dreth_defeated = True
                                             if current_enemy_battling.kind != "stelli":
                                                 current_enemy_battling.alive_status = False
                                             if current_enemy_battling.kind == "atmon":
@@ -14205,7 +14182,8 @@ if __name__ == "__main__":
                                                                                         stun_them, mirror_image,
                                                                                         erebyth_turn_counter,
                                                                                         atmon_counter, prism_received,
-                                                                                        dreth_turn_counter)
+                                                                                        dreth_turn_counter,
+                                                                                        apothis_gift)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -14296,7 +14274,8 @@ if __name__ == "__main__":
                                                                                         stun_them, mirror_image,
                                                                                         erebyth_turn_counter,
                                                                                         atmon_counter, prism_received,
-                                                                                        dreth_turn_counter)
+                                                                                        dreth_turn_counter,
+                                                                                        apothis_gift)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -14354,7 +14333,8 @@ if __name__ == "__main__":
                                                                                                 erebyth_turn_counter,
                                                                                                 atmon_counter,
                                                                                                 prism_received,
-                                                                                                dreth_turn_counter)
+                                                                                                dreth_turn_counter,
+                                                                                                apothis_gift)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -14396,6 +14376,8 @@ if __name__ == "__main__":
                                                             level_visual = True
                                                             level_visual_tic = time.perf_counter()
                                                     if combat_events["enemy defeated"]:
+                                                        if current_enemy_battling.kind == "dreth":
+                                                            dreth_defeated = True
                                                         if current_enemy_battling.kind != "stelli":
                                                             current_enemy_battling.alive_status = False
                                                         if current_enemy_battling.kind == "atmon":
@@ -14505,7 +14487,7 @@ if __name__ == "__main__":
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
                                                         erebyth_turn_counter, atmon_counter, prism_received,
-                                                        dreth_turn_counter)
+                                                        dreth_turn_counter, apothis_gift)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -16078,6 +16060,8 @@ if __name__ == "__main__":
                                 screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
                                 stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
                                 screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                            if apothis_gift:
+                                screen.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
 
                             if buy_clicked:
                                 for element in stardust_upgrade_elements:
@@ -16151,6 +16135,8 @@ if __name__ == "__main__":
                                 game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
                                 stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
                                 game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                            if apothis_gift:
+                                game_window.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
 
                             if buy_clicked:
                                 for element in stardust_upgrade_elements:
@@ -17220,7 +17206,8 @@ if __name__ == "__main__":
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated, apothis_gift)
+                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                        sub_marrow_opened)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -17880,7 +17867,8 @@ if __name__ == "__main__":
                                                                         mirage_updated, mirage_2_updated, mirage_saved,
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated, apothis_gift)
+                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                        sub_marrow_opened)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -18358,7 +18346,8 @@ if __name__ == "__main__":
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked,
-                                                                    dreth_taunt_4, dreth_defeated, apothis_gift)
+                                                                    dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                    sub_marrow_opened)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18841,7 +18830,8 @@ if __name__ == "__main__":
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
-                                                                            dreth_taunt_4, dreth_defeated, apothis_gift)
+                                                                            dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                            sub_marrow_opened)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -19078,7 +19068,8 @@ if __name__ == "__main__":
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
-                                                                            dreth_taunt_4, dreth_defeated, apothis_gift)
+                                                                            dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                            sub_marrow_opened)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -19316,7 +19307,8 @@ if __name__ == "__main__":
                                                                             mirage_updated, mirage_2_updated,
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
-                                                                            dreth_taunt_4, dreth_defeated, apothis_gift)
+                                                                            dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                            sub_marrow_opened)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -19946,8 +19938,8 @@ if __name__ == "__main__":
             # ----------------------------------------------------------------------------------------------------------
             # player has died, show game over and give continue option -------------------------------------------------
             else:
-                if not apothis_gift:
-                    if current_enemy_battling.name == "dreth":
+                if current_enemy_battling.name == "dreth":
+                    if not apothis_gift:
                         cutscene_tic = time.perf_counter()
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             cutscenes.cutscenes_final_dreth(pygame, apothis_dreth_music, screen, dreth_scene_1,
@@ -19971,7 +19963,6 @@ if __name__ == "__main__":
                         player.energy = 25
                         player.alive_status = True
                         over_world_song_set = False
-                        game_over_sound_played = False
                         info_text_1 = ""
                         info_text_2 = ""
                         info_text_3 = ""
@@ -19989,8 +19980,10 @@ if __name__ == "__main__":
                             sharp_sense_active = False
                         if mirror_image:
                             mirror_image = False
-                        player.star_power = 4
+                        player.star_power += 4
                         apothis_gift = True
+                        dreth.health = 75
+                        combat_scenario.enemy_health_bar(dreth, graphic_dict)
 
                 else:
                     if not game_over_sound_played:
