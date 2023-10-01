@@ -11768,7 +11768,7 @@ if __name__ == "__main__":
                                                                      Enemy, UiElement, player_battle_sprite,
                                                                      barrier_active, sharp_sense_active,
                                                                      in_npc_interaction, atmon_battle_sprite, enemy_tic,
-                                                                     current_enemy_battling)
+                                                                     current_enemy_battling, sub_marrow_opened)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -11790,7 +11790,7 @@ if __name__ == "__main__":
                                                                      player_battle_sprite, barrier_active,
                                                                      sharp_sense_active, in_npc_interaction,
                                                                      atmon_battle_sprite, enemy_tic,
-                                                                     current_enemy_battling)
+                                                                     current_enemy_battling, sub_marrow_opened)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -11806,6 +11806,7 @@ if __name__ == "__main__":
                     marrow_small_chest_got = sub_marrow_returned["chest_got"]
                     atmons = sub_marrow_returned["atmons"]
                     enemy_tic = sub_marrow_returned["enemy_tic"]
+                    sub_marrow_opened = sub_marrow_returned["sub_marrow_opened"]
                     if in_battle:
                         current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
 
