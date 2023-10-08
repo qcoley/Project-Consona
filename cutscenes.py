@@ -402,7 +402,11 @@ def cutscenes_apothis_dreth(pygame, music, screen, scene_1, scene_2, scene_3, sc
 
 
 def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scene_4, scene_5, scene_6, scene_7,
-                          scene_8, cutscene_tic, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window):
+                          scene_8, scene_9, scene_10, scene_11, scene_12, scene_13, scene_14, cutscene_tic, skip_button,
+                          SCREEN_WIDTH, SCREEN_HEIGHT, game_window, big_hp_bar, big_hp_2, big_hp_3, big_hp_4, big_hp_5,
+                          big_hp_6, big_hp_7, big_hp_8, big_hp_9, big_hp_10, big_hp_11, big_hp_12, big_hp_13, big_hp_14,
+                          big_hp_15, big_hp_16, big_hp_17, big_hp_18, big_hp_19, big_hp_20, big_hp_21, big_hp_22,
+                          big_hp_23, big_hp_24, big_hp_25):
 
     in_cutscene = True
     first_viewed = False
@@ -413,6 +417,12 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
     sixth_viewed = False
     seventh_viewed = False
     eighth_viewed = False
+    ninth_viewed = False
+    tenth_viewed = False
+    eleventh_viewed = False
+    twelfth_viewed = False
+    thirteenth_viewed = False
+    fourteenth_viewed = False
 
     if pygame.mixer.music.get_busy():
         pygame.mixer.music.load(music)
@@ -529,9 +539,225 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                         game_window.blit(frame, frame.get_rect())
                         pygame.display.flip()
                     eighth_viewed = True
-
+            # ----------------------------------------------------------------------------------------------------------
             if cutscene_duration > 64:
-                if eighth_viewed:
+                if not ninth_viewed:
+                    for alpha in range(0, 255):
+                        scene_9.set_alpha(alpha)
+                        screen.blit(scene_9, (0, 0))
+                        screen.blit(skip_button.surf, skip_button.rect)
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
+                        pygame.display.flip()
+                    ninth_viewed = True
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 72:
+                if not tenth_viewed:
+                    for alpha in range(0, 255):
+                        scene_10.set_alpha(alpha)
+                        screen.blit(scene_10, (0, 0))
+                        screen.blit(skip_button.surf, skip_button.rect)
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
+                        pygame.display.flip()
+                    tenth_viewed = True
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 80:
+                if not eleventh_viewed:
+                    for alpha in range(0, 255):
+                        scene_11.set_alpha(alpha)
+                        screen.blit(scene_11, (0, 0))
+                        screen.blit(skip_button.surf, skip_button.rect)
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
+                        pygame.display.flip()
+                    eleventh_viewed = True
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 88:
+                if not twelfth_viewed:
+                    for alpha in range(0, 255):
+                        scene_12.set_alpha(alpha)
+                        screen.blit(scene_12, (0, 0))
+                        screen.blit(skip_button.surf, skip_button.rect)
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
+                        pygame.display.flip()
+                    twelfth_viewed = True
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 96:
+                if not thirteenth_viewed:
+                    for alpha in range(0, 255):
+                        scene_13.set_alpha(alpha)
+                        screen.blit(scene_13, (0, 0))
+                        screen.blit(skip_button.surf, skip_button.rect)
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
+                        pygame.display.flip()
+                    thirteenth_viewed = True
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 104:
+                if not fourteenth_viewed:
+                    for alpha in range(0, 255):
+                        scene_14.set_alpha(alpha)
+                        screen.blit(scene_14, (0, 0))
+                        screen.blit(skip_button.surf, skip_button.rect)
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
+                        pygame.display.flip()
+                    fourteenth_viewed = True
+
+            if 105 > cutscene_duration > 104.5:
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 105.5 > cutscene_duration > 105:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_2)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 106 > cutscene_duration > 105.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_3)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 106.5 > cutscene_duration > 106:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_4)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 107 > cutscene_duration > 106.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_5)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 107.5 > cutscene_duration > 107:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_6)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 108 > cutscene_duration > 107.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_7)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 108.5 > cutscene_duration > 108:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_8)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 109 > cutscene_duration > 108.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_9)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 109.5 > cutscene_duration > 109:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_10)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 110 > cutscene_duration > 109.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_11)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 110.5 > cutscene_duration > 110:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_12)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 111 > cutscene_duration > 110.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_13)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 111.5 > cutscene_duration > 111:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_14)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 112 > cutscene_duration > 111.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_15)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 112.5 > cutscene_duration > 112:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_16)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 113 > cutscene_duration > 112.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_17)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 113.5 > cutscene_duration > 113:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_18)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 114 > cutscene_duration > 113.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_19)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 114.5 > cutscene_duration > 114:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_20)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 115 > cutscene_duration > 114.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_21)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 115.5 > cutscene_duration > 115:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_22)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 116 > cutscene_duration > 115.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_23)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 116.5 > cutscene_duration > 116:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_24)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+            if 117 > cutscene_duration > 116.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_25)
+                screen.blit(big_hp_bar.surf, big_hp_bar.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+
+            if cutscene_duration > 118:
+                if fourteenth_viewed:
                     in_cutscene = False
 
         else:
@@ -614,6 +840,166 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                         pygame.display.flip()
                     eighth_viewed = True
 
+            # ----------------------------------------------------------------------------------------------------------
             if cutscene_duration > 64:
-                if eighth_viewed:
+                if not ninth_viewed:
+                    for alpha in range(0, 255):
+                        scene_9.set_alpha(alpha)
+                        game_window.blit(scene_9, (0, 0))
+                        game_window.blit(skip_button.surf, skip_button.rect)
+                        pygame.display.flip()
+                    ninth_viewed = True
+
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 72:
+                if not tenth_viewed:
+                    for alpha in range(0, 255):
+                        scene_10.set_alpha(alpha)
+                        game_window.blit(scene_10, (0, 0))
+                        game_window.blit(skip_button.surf, skip_button.rect)
+                        pygame.display.flip()
+                    tenth_viewed = True
+
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 80:
+                if not eleventh_viewed:
+                    for alpha in range(0, 255):
+                        scene_11.set_alpha(alpha)
+                        game_window.blit(scene_11, (0, 0))
+                        game_window.blit(skip_button.surf, skip_button.rect)
+                        pygame.display.flip()
+                    eleventh_viewed = True
+
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 88:
+                if not twelfth_viewed:
+                    for alpha in range(0, 255):
+                        scene_12.set_alpha(alpha)
+                        game_window.blit(scene_12, (0, 0))
+                        game_window.blit(skip_button.surf, skip_button.rect)
+                        pygame.display.flip()
+                    twelfth_viewed = True
+
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 96:
+                if not thirteenth_viewed:
+                    for alpha in range(0, 255):
+                        scene_13.set_alpha(alpha)
+                        game_window.blit(scene_13, (0, 0))
+                        game_window.blit(skip_button.surf, skip_button.rect)
+                        pygame.display.flip()
+                    thirteenth_viewed = True
+
+            # ----------------------------------------------------------------------------------------------------------
+            if cutscene_duration > 104:
+                if not fourteenth_viewed:
+                    for alpha in range(0, 255):
+                        scene_14.set_alpha(alpha)
+                        game_window.blit(scene_14, (0, 0))
+                        game_window.blit(skip_button.surf, skip_button.rect)
+                        pygame.display.flip()
+                    fourteenth_viewed = True
+
+            if 105 > cutscene_duration > 104.5:
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 105.5 > cutscene_duration > 105:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_2)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 106 > cutscene_duration > 105.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_3)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 106.5 > cutscene_duration > 106:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_4)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 107 > cutscene_duration > 106.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_5)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 107.5 > cutscene_duration > 107:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_6)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 108 > cutscene_duration > 107.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_7)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 108.5 > cutscene_duration > 108:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_8)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 109 > cutscene_duration > 108.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_9)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 109.5 > cutscene_duration > 109:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_10)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 110 > cutscene_duration > 109.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_11)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 110.5 > cutscene_duration > 110:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_12)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 111 > cutscene_duration > 110.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_13)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 111.5 > cutscene_duration > 111:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_14)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 112 > cutscene_duration > 111.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_15)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 112.5 > cutscene_duration > 112:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_16)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 113 > cutscene_duration > 112.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_17)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 113.5 > cutscene_duration > 113:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_18)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 114 > cutscene_duration > 113.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_19)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 114.5 > cutscene_duration > 114:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_20)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 115 > cutscene_duration > 114.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_21)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 115.5 > cutscene_duration > 115:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_22)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 116 > cutscene_duration > 115.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_23)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 116.5 > cutscene_duration > 116:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_24)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+            if 117 > cutscene_duration > 116.5:
+                big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_25)
+                game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
+                pygame.display.flip()
+
+            if cutscene_duration > 118:
+                if fourteenth_viewed:
                     in_cutscene = False

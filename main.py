@@ -7308,6 +7308,21 @@ if __name__ == "__main__":
     dreth_scene_7 = graphic_dict["dreth_7"]
     dreth_scene_8 = graphic_dict["dreth_8"]
 
+    final_scene_1 = graphic_dict["final_1"]
+    final_scene_2 = graphic_dict["final_2"]
+    final_scene_3 = graphic_dict["final_3"]
+    final_scene_4 = graphic_dict["final_4"]
+    final_scene_5 = graphic_dict["final_5"]
+    final_scene_6 = graphic_dict["final_6"]
+    final_scene_7 = graphic_dict["final_7"]
+    final_scene_8 = graphic_dict["final_8"]
+    final_scene_9 = graphic_dict["final_9"]
+    final_scene_10 = graphic_dict["final_10"]
+    final_scene_11 = graphic_dict["final_11"]
+    final_scene_12 = graphic_dict["final_12"]
+    final_scene_13 = graphic_dict["final_13"]
+    final_scene_14 = graphic_dict["final_14"]
+
     player_cutscene_overlay = UiElement("player cutscene", 800, 225, graphic_dict["amuna_cutscene"])
     player_cutscene_overlay_2 = UiElement("player cutscene 2", 300, 400, graphic_dict["amuna_cutscene_2"])
 
@@ -7987,7 +8002,7 @@ if __name__ == "__main__":
     overlay_chandelier = UiElement("chandelier", 516, 285, graphic_dict["chandelier_full"])
     overlay_chandelier.surf.set_alpha(230)
     overlay_mirage = UiElement("mirage", 415, 250, graphic_dict["mirage_female"])
-    overlay_mirage_2 = UiElement("mirage", 415, 250, graphic_dict["mirage_female"])
+    overlay_mirage_2 = UiElement("mirage", 608, 250, graphic_dict["mirage_female"])
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
     pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, graphic_dict["pine_tree"])
@@ -8051,6 +8066,7 @@ if __name__ == "__main__":
     chroma_bridge_small = UiElement("chroma bridge small", 308, 281, graphic_dict["chroma_bridge_small"])
     chroma_bridge_ramps = UiElement("chroma bridge ramps", 575, 395, graphic_dict["overlay_chroma_ramps"])
     chroma_bridge_forge = UiElement("chroma bridge forge", 516, 545, graphic_dict["chroma_forge"])
+    big_hp_bar = UiElement("big hp bar", 634, 270, graphic_dict["big_hp_1"])
     volcano_rect = pygame.Rect((450, 15), (100, 50))
     forge_rect = pygame.Rect((515, 150), (100, 100))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
@@ -8309,7 +8325,7 @@ if __name__ == "__main__":
     sfx_dreth_laugh = pygame.mixer.Sound(resource_path("resources/sounds/sfx_dreth_laugh.mp3"))
     sfx_dreth_laugh.set_volume(0.40)
     sfx_enemy_jumano = pygame.mixer.Sound(resource_path("resources/sounds/enemy_jumano.mp3"))
-    sfx_enemy_jumano.set_volume(0.25)
+    sfx_enemy_jumano.set_volume(0.20)
     sfx_enemy_dreth = pygame.mixer.Sound(resource_path("resources/sounds/enemy_dreth.mp3"))
     sfx_enemy_dreth.set_volume(0.30)
     sfx_enemy_dreth_shatter = pygame.mixer.Sound(resource_path("resources/sounds/enemy_dreth_shatter.mp3"))
@@ -8711,7 +8727,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -11990,7 +12006,7 @@ if __name__ == "__main__":
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         castle_three_returned = zone_castle.castle_three(pygame, screen, graphic_dict, player,
-                                                                         castle_two_bg, over_world_song_set,
+                                                                         castle_three_bg, over_world_song_set,
                                                                          castle_music,
                                                                          interaction_popup, font, save_check_window,
                                                                          user_interface, bar_backdrop, hp_bar, en_bar,
@@ -13689,6 +13705,7 @@ if __name__ == "__main__":
                         pygame.mixer.Sound.stop(sfx_enemy_osodark)
                         pygame.mixer.Sound.stop(sfx_enemy_atmon)
                         pygame.mixer.Sound.stop(sfx_enemy_jumano)
+                        pygame.mixer.Sound.stop(sfx_enemy_dreth)
 
                         # reset on each new turn
                         turn_taken = False
@@ -19943,17 +19960,43 @@ if __name__ == "__main__":
                     if not apothis_gift:
                         cutscene_tic = time.perf_counter()
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            cutscenes.cutscenes_final_dreth(pygame, apothis_dreth_music, screen, dreth_scene_1,
-                                                            dreth_scene_2, dreth_scene_3, dreth_scene_4,
-                                                            dreth_scene_5, dreth_scene_6, dreth_scene_7,
-                                                            dreth_scene_8, cutscene_tic, skip_button, SCREEN_WIDTH,
-                                                            SCREEN_HEIGHT, game_window)
+                            cutscenes.cutscenes_final_dreth(pygame, apothis_dreth_music, screen, final_scene_1,
+                                                            final_scene_2, final_scene_3, final_scene_4, final_scene_5,
+                                                            final_scene_6, final_scene_7, final_scene_8, final_scene_9,
+                                                            final_scene_10, final_scene_11, final_scene_12,
+                                                            final_scene_13, final_scene_14, cutscene_tic, skip_button,
+                                                            SCREEN_WIDTH, SCREEN_HEIGHT, game_window, big_hp_bar,
+                                                            graphic_dict["big_hp_2"], graphic_dict["big_hp_3"],
+                                                            graphic_dict["big_hp_4"], graphic_dict["big_hp_5"],
+                                                            graphic_dict["big_hp_6"], graphic_dict["big_hp_7"],
+                                                            graphic_dict["big_hp_8"], graphic_dict["big_hp_9"],
+                                                            graphic_dict["big_hp_10"], graphic_dict["big_hp_11"],
+                                                            graphic_dict["big_hp_12"], graphic_dict["big_hp_13"],
+                                                            graphic_dict["big_hp_14"], graphic_dict["big_hp_15"],
+                                                            graphic_dict["big_hp_16"], graphic_dict["big_hp_17"],
+                                                            graphic_dict["big_hp_18"], graphic_dict["big_hp_19"],
+                                                            graphic_dict["big_hp_20"], graphic_dict["big_hp_21"],
+                                                            graphic_dict["big_hp_22"], graphic_dict["big_hp_23"],
+                                                            graphic_dict["big_hp_24"], graphic_dict["big_hp_25"])
                         else:
-                            cutscenes.cutscenes_final_dreth(pygame, apothis_dreth_music, game_window, dreth_scene_1,
-                                                            dreth_scene_2, dreth_scene_3, dreth_scene_4,
-                                                            dreth_scene_5, dreth_scene_6, dreth_scene_7,
-                                                            dreth_scene_8, cutscene_tic, skip_button, SCREEN_WIDTH,
-                                                            SCREEN_HEIGHT, game_window)
+                            cutscenes.cutscenes_final_dreth(pygame, apothis_dreth_music, screen, final_scene_1,
+                                                            final_scene_2, final_scene_3, final_scene_4, final_scene_5,
+                                                            final_scene_6, final_scene_7, final_scene_8, final_scene_9,
+                                                            final_scene_10, final_scene_11, final_scene_12,
+                                                            final_scene_13, final_scene_14, cutscene_tic, skip_button,
+                                                            SCREEN_WIDTH, SCREEN_HEIGHT, game_window, big_hp_bar,
+                                                            graphic_dict["big_hp_2"], graphic_dict["big_hp_3"],
+                                                            graphic_dict["big_hp_4"], graphic_dict["big_hp_5"],
+                                                            graphic_dict["big_hp_6"], graphic_dict["big_hp_7"],
+                                                            graphic_dict["big_hp_8"], graphic_dict["big_hp_9"],
+                                                            graphic_dict["big_hp_10"], graphic_dict["big_hp_11"],
+                                                            graphic_dict["big_hp_12"], graphic_dict["big_hp_13"],
+                                                            graphic_dict["big_hp_14"], graphic_dict["big_hp_15"],
+                                                            graphic_dict["big_hp_16"], graphic_dict["big_hp_17"],
+                                                            graphic_dict["big_hp_18"], graphic_dict["big_hp_19"],
+                                                            graphic_dict["big_hp_20"], graphic_dict["big_hp_21"],
+                                                            graphic_dict["big_hp_22"], graphic_dict["big_hp_23"],
+                                                            graphic_dict["big_hp_24"], graphic_dict["big_hp_25"])
                         player.current_zone = "stardust"
                         player.x_coordinate = 530
                         player.y_coordinate = 480

@@ -260,6 +260,21 @@ def load_graphics():
     dreth_scene_7 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_7.png')).convert_alpha()
     dreth_scene_8 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_8.png')).convert_alpha()
 
+    final_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_final_1.png')).convert_alpha()
+    final_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_final_2.png')).convert_alpha()
+    final_scene_3 = pygame.image.load(resource_path('resources/art/cutscene_final_3.png')).convert_alpha()
+    final_scene_4 = pygame.image.load(resource_path('resources/art/cutscene_final_4.png')).convert_alpha()
+    final_scene_5 = pygame.image.load(resource_path('resources/art/cutscene_final_5.png')).convert_alpha()
+    final_scene_6 = pygame.image.load(resource_path('resources/art/cutscene_final_6.png')).convert_alpha()
+    final_scene_7 = pygame.image.load(resource_path('resources/art/cutscene_final_7.png')).convert_alpha()
+    final_scene_8 = pygame.image.load(resource_path('resources/art/cutscene_final_8.png')).convert_alpha()
+    final_scene_9 = pygame.image.load(resource_path('resources/art/cutscene_final_9.png')).convert_alpha()
+    final_scene_10 = pygame.image.load(resource_path('resources/art/cutscene_final_10.png')).convert_alpha()
+    final_scene_11 = pygame.image.load(resource_path('resources/art/cutscene_final_11.png')).convert_alpha()
+    final_scene_12 = pygame.image.load(resource_path('resources/art/cutscene_final_12.png')).convert_alpha()
+    final_scene_13 = pygame.image.load(resource_path('resources/art/cutscene_final_13.png')).convert_alpha()
+    final_scene_14 = pygame.image.load(resource_path('resources/art/cutscene_final_14.png')).convert_alpha()
+
     color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree,
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up_win,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
@@ -440,6 +455,20 @@ def load_graphics():
     loaded_dict["dreth_6"] = dreth_scene_6
     loaded_dict["dreth_7"] = dreth_scene_7
     loaded_dict["dreth_8"] = dreth_scene_8
+    loaded_dict["final_1"] = final_scene_1
+    loaded_dict["final_2"] = final_scene_2
+    loaded_dict["final_3"] = final_scene_3
+    loaded_dict["final_4"] = final_scene_4
+    loaded_dict["final_5"] = final_scene_5
+    loaded_dict["final_6"] = final_scene_6
+    loaded_dict["final_7"] = final_scene_7
+    loaded_dict["final_8"] = final_scene_8
+    loaded_dict["final_9"] = final_scene_9
+    loaded_dict["final_10"] = final_scene_10
+    loaded_dict["final_11"] = final_scene_11
+    loaded_dict["final_12"] = final_scene_12
+    loaded_dict["final_13"] = final_scene_13
+    loaded_dict["final_14"] = final_scene_14
     loaded_dict["water_player"] = water_player
     loaded_dict["water"] = water
     loaded_dict["dungeon_entrance"] = dungeon_entrance
@@ -5647,6 +5676,35 @@ def load_graphics():
     apothis_sheet = sprite_sheet((60, 95), apothis_url)
     loaded_dict["apothis_front"] = apothis_sheet[0]
     loaded_dict["apothis_back"] = apothis_sheet[1]
+    # big health bar for final cutscene --------------------------------------------------------------------------------
+    hp_big_url = resource_path('resources/art/overlay_health_large.png')
+    hp_big_sheet = sprite_sheet((606, 33), hp_big_url)
+    loaded_dict["big_hp_1"] = hp_big_sheet[0]
+    loaded_dict["big_hp_2"] = hp_big_sheet[1]
+    loaded_dict["big_hp_3"] = hp_big_sheet[2]
+    loaded_dict["big_hp_4"] = hp_big_sheet[3]
+    loaded_dict["big_hp_5"] = hp_big_sheet[4]
+    loaded_dict["big_hp_6"] = hp_big_sheet[5]
+    loaded_dict["big_hp_7"] = hp_big_sheet[6]
+    loaded_dict["big_hp_8"] = hp_big_sheet[7]
+    loaded_dict["big_hp_9"] = hp_big_sheet[8]
+    loaded_dict["big_hp_10"] = hp_big_sheet[9]
+    loaded_dict["big_hp_11"] = hp_big_sheet[10]
+    loaded_dict["big_hp_12"] = hp_big_sheet[11]
+    loaded_dict["big_hp_13"] = hp_big_sheet[12]
+    loaded_dict["big_hp_14"] = hp_big_sheet[13]
+    loaded_dict["big_hp_15"] = hp_big_sheet[14]
+    loaded_dict["big_hp_16"] = hp_big_sheet[15]
+    loaded_dict["big_hp_17"] = hp_big_sheet[16]
+    loaded_dict["big_hp_18"] = hp_big_sheet[17]
+    loaded_dict["big_hp_19"] = hp_big_sheet[18]
+    loaded_dict["big_hp_20"] = hp_big_sheet[19]
+    loaded_dict["big_hp_21"] = hp_big_sheet[20]
+    loaded_dict["big_hp_22"] = hp_big_sheet[21]
+    loaded_dict["big_hp_23"] = hp_big_sheet[22]
+    loaded_dict["big_hp_24"] = hp_big_sheet[23]
+    loaded_dict["big_hp_25"] = hp_big_sheet[24]
+
     # heath bars -------------------------------------------------------------------------------------------------------
     hp_url = resource_path('resources/art/bars_health.png')
     hp_sheet = sprite_sheet((305, 19), hp_url)
