@@ -8252,6 +8252,7 @@ if __name__ == "__main__":
     stardust_outpost_music = resource_path("resources/sounds/eterna_stardust.mp3")
     apothis_intro_music = resource_path("resources/sounds/eterna_apothis.mp3")
     apothis_dreth_music = resource_path("resources/sounds/eterna_apothis_2.mp3")
+    final_music = resource_path("resources/sounds/eterna_final.mp3")
     rohir_river_music = resource_path("resources/sounds/eterna_rohir.mp3")
     reservoir_music = resource_path("resources/sounds/eterna_dungeon.mp3")
     korlok_overworld_music = resource_path("resources/sounds/eterna_korlok.mp3")
@@ -19960,7 +19961,7 @@ if __name__ == "__main__":
                     if not apothis_gift:
                         cutscene_tic = time.perf_counter()
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            cutscenes.cutscenes_final_dreth(pygame, apothis_dreth_music, screen, final_scene_1,
+                            cutscenes.cutscenes_final_dreth(pygame, final_music, screen, final_scene_1,
                                                             final_scene_2, final_scene_3, final_scene_4, final_scene_5,
                                                             final_scene_6, final_scene_7, final_scene_8, final_scene_9,
                                                             final_scene_10, final_scene_11, final_scene_12,
@@ -19979,7 +19980,7 @@ if __name__ == "__main__":
                                                             graphic_dict["big_hp_22"], graphic_dict["big_hp_23"],
                                                             graphic_dict["big_hp_24"], graphic_dict["big_hp_25"])
                         else:
-                            cutscenes.cutscenes_final_dreth(pygame, apothis_dreth_music, screen, final_scene_1,
+                            cutscenes.cutscenes_final_dreth(pygame, final_music, screen, final_scene_1,
                                                             final_scene_2, final_scene_3, final_scene_4, final_scene_5,
                                                             final_scene_6, final_scene_7, final_scene_8, final_scene_9,
                                                             final_scene_10, final_scene_11, final_scene_12,

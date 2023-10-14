@@ -781,7 +781,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     second_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 16:
+            if cutscene_duration > 14:
                 if not third_viewed:
                     for alpha in range(0, 255):
                         scene_3.set_alpha(alpha)
@@ -791,7 +791,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     third_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 24:
+            if cutscene_duration > 22:
                 if not fourth_viewed:
                     for alpha in range(0, 255):
                         scene_4.set_alpha(alpha)
@@ -801,7 +801,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     fourth_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 32:
+            if cutscene_duration > 30:
                 if not fifth_viewed:
                     for alpha in range(0, 255):
                         scene_5.set_alpha(alpha)
@@ -811,7 +811,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     fifth_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 40:
+            if cutscene_duration > 38:
                 if not sixth_viewed:
                     for alpha in range(0, 255):
                         scene_6.set_alpha(alpha)
@@ -821,7 +821,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     sixth_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 48:
+            if cutscene_duration > 44:
                 if not seventh_viewed:
                     for alpha in range(0, 255):
                         scene_7.set_alpha(alpha)
@@ -831,7 +831,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     seventh_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 56:
+            if cutscene_duration > 50:
                 if not eighth_viewed:
                     for alpha in range(0, 255):
                         scene_8.set_alpha(alpha)
@@ -841,7 +841,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     eighth_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 64:
+            if cutscene_duration > 56:
                 if not ninth_viewed:
                     for alpha in range(0, 255):
                         scene_9.set_alpha(alpha)
@@ -851,7 +851,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     ninth_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 72:
+            if cutscene_duration > 64:
                 if not tenth_viewed:
                     for alpha in range(0, 255):
                         scene_10.set_alpha(alpha)
@@ -861,7 +861,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     tenth_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 80:
+            if cutscene_duration > 72:
                 if not eleventh_viewed:
                     for alpha in range(0, 255):
                         scene_11.set_alpha(alpha)
@@ -871,7 +871,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     eleventh_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 88:
+            if cutscene_duration > 80:
                 if not twelfth_viewed:
                     for alpha in range(0, 255):
                         scene_12.set_alpha(alpha)
@@ -881,7 +881,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     twelfth_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 96:
+            if cutscene_duration > 88:
                 if not thirteenth_viewed:
                     for alpha in range(0, 255):
                         scene_13.set_alpha(alpha)
@@ -891,7 +891,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                     thirteenth_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 104:
+            if cutscene_duration > 94:
                 if not fourteenth_viewed:
                     for alpha in range(0, 255):
                         scene_14.set_alpha(alpha)
@@ -900,106 +900,106 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                         pygame.display.flip()
                     fourteenth_viewed = True
 
-            if 105 > cutscene_duration > 104.5:
+            if 94.50 > cutscene_duration > 94.25:
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 105.5 > cutscene_duration > 105:
+            if 94.75 > cutscene_duration > 94.50:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_2)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 106 > cutscene_duration > 105.5:
+            if 95 > cutscene_duration > 94.75:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_3)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 106.5 > cutscene_duration > 106:
+            if 95.25 > cutscene_duration > 95:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_4)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 107 > cutscene_duration > 106.5:
+            if 95.50 > cutscene_duration > 95.25:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_5)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 107.5 > cutscene_duration > 107:
+            if 95.75 > cutscene_duration > 95.50:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_6)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 108 > cutscene_duration > 107.5:
+            if 96 > cutscene_duration > 95.75:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_7)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 108.5 > cutscene_duration > 108:
+            if 96.25 > cutscene_duration > 96:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_8)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 109 > cutscene_duration > 108.5:
+            if 96.50 > cutscene_duration > 96.25:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_9)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 109.5 > cutscene_duration > 109:
+            if 96.75 > cutscene_duration > 96.50:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_10)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 110 > cutscene_duration > 109.5:
+            if 97 > cutscene_duration > 96.75:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_11)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 110.5 > cutscene_duration > 110:
+            if 97.25 > cutscene_duration > 97:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_12)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 111 > cutscene_duration > 110.5:
+            if 97.50 > cutscene_duration > 97.25:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_13)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 111.5 > cutscene_duration > 111:
+            if 97.75 > cutscene_duration > 97.50:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_14)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 112 > cutscene_duration > 111.5:
+            if 98 > cutscene_duration > 97.75:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_15)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 112.5 > cutscene_duration > 112:
+            if 98.25 > cutscene_duration > 98:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_16)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 113 > cutscene_duration > 112.5:
+            if 98.50 > cutscene_duration > 98.25:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_17)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 113.5 > cutscene_duration > 113:
+            if 98.75 > cutscene_duration > 98.50:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_18)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 114 > cutscene_duration > 113.5:
+            if 99 > cutscene_duration > 98.75:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_19)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 114.5 > cutscene_duration > 114:
+            if 99.25 > cutscene_duration > 99:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_20)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 115 > cutscene_duration > 114.5:
+            if 99.50 > cutscene_duration > 99.25:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_21)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 115.5 > cutscene_duration > 115:
+            if 99.75 > cutscene_duration > 99.50:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_22)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 116 > cutscene_duration > 115.5:
+            if 100 > cutscene_duration > 99.75:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_23)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 116.5 > cutscene_duration > 116:
+            if 100.25 > cutscene_duration > 100:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_24)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
-            if 117 > cutscene_duration > 116.5:
+            if 100.50 > cutscene_duration > 100.25:
                 big_hp_bar.update(big_hp_bar.x_coordinate, big_hp_bar.y_coordinate, big_hp_25)
                 game_window.blit(big_hp_bar.surf, big_hp_bar.rect)
                 pygame.display.flip()
 
-            if cutscene_duration > 118:
+            if cutscene_duration > 101:
                 if fourteenth_viewed:
                     in_cutscene = False
