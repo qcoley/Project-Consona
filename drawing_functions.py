@@ -928,7 +928,7 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
 
 
 def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_artherian, artherian_2, npc_maydria,
-                      npc_boro, npc_noren):
+                      npc_boro, npc_noren, apothis_gift):
     if not draw_condition:
         journal_text.clear()
         journal_window.clear()
@@ -1170,10 +1170,16 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest4_surf = font.render("Ultimate ultimatum", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
             text_quest4_rect.midleft = (600, 538)
-            text_quest4_info_surf = font.render("", True, "black", "light yellow")
+            if not apothis_gift:
+                text_quest4_info_surf = font.render("Battle Dreth.", True, "black", "light yellow")
+            else:
+                text_quest4_info_surf = font.render("You completed this task.", True, "black", "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
             text_quest4_info_rect.midleft = (540, 585)
-            text_quest4_prog_surf = font.render("0/1", True, "black", "light yellow")
+            if not apothis_gift:
+                text_quest4_prog_surf = font.render("0/1", True, "black", "light yellow")
+            else:
+                text_quest4_prog_surf = font.render("1/1", True, "black", "light yellow")
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
 

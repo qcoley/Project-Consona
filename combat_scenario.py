@@ -1560,7 +1560,7 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            in_battle, in_npc_interaction, graphics, necrola_battle_sprite, osodark_battle_sprite,
                            stelli_battle_sprite, chorizon_phase, erebyth_battle_sprite, erebyth_counter,
-                           atmon_battle_sprite, jumano_battle_sprite, dreth_battle_sprite):
+                           atmon_battle_sprite, jumano_battle_sprite, dreth_battle_sprite, apothis_gift):
 
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
@@ -1605,7 +1605,10 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "jumano":
             jumano_battle_sprite.update(705, 300, graphics["jumano_battle"])
         if enemy.kind == "dreth":
-            dreth_battle_sprite.update(707, 345, graphics["dreth_battle"])
+            if apothis_gift:
+                dreth_battle_sprite.update(707, 345, graphics["dreth_battle_2"])
+            else:
+                dreth_battle_sprite.update(707, 345, graphics["dreth_battle"])
 
 
 # update player character and enemy sprites for combat animation
@@ -3763,7 +3766,7 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite,
                            chorizon_phase, damage, erebyth_battle_sprite, erebyth_counter, atmon_battle_sprite,
-                           jumano_battle_sprite, dreth_battle_sprite, dreth_counter):
+                           jumano_battle_sprite, dreth_battle_sprite, dreth_counter, apothis_gift):
 
     if damage > 0:
         if enemy.kind == "snake":
@@ -3812,10 +3815,16 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "jumano":
             jumano_battle_sprite.update(705, 300, graphics["jumano_attack"])
         if enemy.kind == "dreth":
-            if dreth_counter % 4 == 0:
-                dreth_battle_sprite.update(707, 345, graphics["dreth_shatter"])
+            if apothis_gift:
+                if dreth_counter % 4 == 0:
+                    dreth_battle_sprite.update(707, 345, graphics["dreth_shatter_2"])
+                else:
+                    dreth_battle_sprite.update(707, 345, graphics["dreth_attack_2"])
             else:
-                dreth_battle_sprite.update(707, 345, graphics["dreth_attack"])
+                if dreth_counter % 4 == 0:
+                    dreth_battle_sprite.update(707, 345, graphics["dreth_shatter"])
+                else:
+                    dreth_battle_sprite.update(707, 345, graphics["dreth_attack"])
 
 
 def enemy_health_bar(enemys, graphics):

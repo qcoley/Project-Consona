@@ -2313,9 +2313,9 @@ def attack_enemy(player, mob, sharp_sense_active):
 
     if mob.name == "dreth":
         if player.offense == 4:
-            damage = 20
+            damage = 12
         elif player.offense < 4:
-            damage = 10
+            damage = 9
     else:
         critical = random.randrange(1, 10)
         if critical > 6 or sharp_sense_active:

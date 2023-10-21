@@ -9948,7 +9948,7 @@ if __name__ == "__main__":
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren)
+                                                                    npc_noren, apothis_gift)
 
                             # "F" key for player interaction
                             if event.key == K_f:
@@ -10128,7 +10128,7 @@ if __name__ == "__main__":
                                 # clears other windows first, if they were open
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren)
+                                                                    npc_noren, apothis_gift)
                                 journal_button_clicked = False
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 character_button_clicked = False
@@ -10161,7 +10161,7 @@ if __name__ == "__main__":
                                 drawing_functions.journal_info_draw(journal, player, font, False,
                                                                     marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren)
+                                                                    npc_noren, apothis_gift)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -10302,7 +10302,7 @@ if __name__ == "__main__":
                                 # clears other open windows first, if they were open
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren)
+                                                                    npc_noren, apothis_gift)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -10334,14 +10334,14 @@ if __name__ == "__main__":
                                 if journal_button_clicked:
                                     drawing_functions.journal_info_draw(journal, player, font, False,
                                                                         marrow_switch_phase, npc_artherian, artherian_2,
-                                                                        npc_maydria, npc_boro, npc_noren)
+                                                                        npc_maydria, npc_boro, npc_noren, apothis_gift)
                                     journal_button_clicked = False
                                 else:
                                     if in_over_world:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     drawing_functions.journal_info_draw(journal, player, font, True,
                                                                         marrow_switch_phase, npc_artherian, artherian_2,
-                                                                        npc_maydria, npc_boro, npc_noren)
+                                                                        npc_maydria, npc_boro, npc_noren, apothis_gift)
                                     journal_button_clicked = True
 
                             # for clicking map buttons, when the map is open
@@ -12124,7 +12124,8 @@ if __name__ == "__main__":
                                                                        dreth_taunt_popup, lair_exit, light_switch,
                                                                        castle_lair_one_bg,
                                                                        castle_lair_two_bg, castle_lair_bg, dreth,
-                                                                       dreth_battle_sprite, dreth_defeated)
+                                                                       dreth_battle_sprite, dreth_defeated,
+                                                                       apothis_gift)
                     else:
                         castle_lair_returned = zone_castle.castle_lair(pygame, game_window, graphic_dict, player,
                                                                        castle_lair_zero_bg, over_world_song_set,
@@ -12145,7 +12146,8 @@ if __name__ == "__main__":
                                                                        dreth_taunt_popup, lair_exit, light_switch,
                                                                        castle_lair_one_bg,
                                                                        castle_lair_two_bg, castle_lair_bg, dreth,
-                                                                       dreth_battle_sprite, dreth_defeated)
+                                                                       dreth_battle_sprite, dreth_defeated,
+                                                                       apothis_gift)
 
                     over_world_song_set = castle_lair_returned["over_world_song_set"]
                     interacted = castle_lair_returned["interacted"]
@@ -14002,7 +14004,8 @@ if __name__ == "__main__":
                                                                            combat_events["damage taken"],
                                                                            erebyth_battle_sprite, erebyth_turn_counter,
                                                                            atmon_battle_sprite, jumano_battle_sprite,
-                                                                           dreth_battle_sprite, dreth_turn_counter)
+                                                                           dreth_battle_sprite, dreth_turn_counter,
+                                                                           apothis_gift)
                                     try:
                                         stun_them = combat_events["stunned"]
                                     except TypeError and KeyError:
@@ -14182,7 +14185,8 @@ if __name__ == "__main__":
                                                                                            erebyth_turn_counter,
                                                                                            atmon_battle_sprite,
                                                                                            jumano_battle_sprite,
-                                                                                           dreth_battle_sprite)
+                                                                                           dreth_battle_sprite,
+                                                                                           apothis_gift)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14274,7 +14278,8 @@ if __name__ == "__main__":
                                                                                            erebyth_turn_counter,
                                                                                            atmon_battle_sprite,
                                                                                            jumano_battle_sprite,
-                                                                                           dreth_battle_sprite)
+                                                                                           dreth_battle_sprite,
+                                                                                           apothis_gift)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14493,7 +14498,8 @@ if __name__ == "__main__":
                                                                                            erebyth_turn_counter,
                                                                                            atmon_battle_sprite,
                                                                                            jumano_battle_sprite,
-                                                                                           dreth_battle_sprite)
+                                                                                           dreth_battle_sprite,
+                                                                                           apothis_gift)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14775,7 +14781,7 @@ if __name__ == "__main__":
                                                                    stelli_battle_sprite, chorizon_phase,
                                                                    erebyth_battle_sprite, erebyth_turn_counter,
                                                                    atmon_battle_sprite, jumano_battle_sprite,
-                                                                   dreth_battle_sprite)
+                                                                   dreth_battle_sprite, apothis_gift)
                             if mirror_image:
                                 combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, graphic_dict)
@@ -15013,7 +15019,8 @@ if __name__ == "__main__":
                                                                    chorizon_phase, combat_events["damage taken"],
                                                                    erebyth_battle_sprite, erebyth_turn_counter,
                                                                    atmon_battle_sprite, jumano_battle_sprite,
-                                                                   dreth_battle_sprite, dreth_turn_counter)
+                                                                   dreth_battle_sprite, dreth_turn_counter,
+                                                                   apothis_gift)
                             if mirror_image:
                                 combat_scenario.attack_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, hard_strike, graphic_dict,
@@ -20002,8 +20009,6 @@ if __name__ == "__main__":
                         player.x_coordinate = 530
                         player.y_coordinate = 480
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-
-                        # player returns in a weakened state
                         player.health = 25
                         player.energy = 25
                         player.alive_status = True
@@ -20029,6 +20034,91 @@ if __name__ == "__main__":
                         apothis_gift = True
                         dreth.health = 75
                         combat_scenario.enemy_health_bar(dreth, graphic_dict)
+
+                    else:
+                        if not game_over_sound_played:
+                            pygame.mixer.find_channel(True).play(sfx_game_over)
+                            game_over_sound_played = True
+                        if pygame.mixer.music.get_busy():
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(nascent_music)
+                            pygame.mixer.music.play(loops=-1)
+                            over_world_song_set = True
+
+                        button_highlight.update(lets_go_button.x_coordinate, lets_go_button.y_coordinate,
+                                                graphic_dict["lets_go_button_high"])
+
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(game_over_screen, (0, 0))
+                            screen.blit(lets_go_button.surf, lets_go_button.rect)
+                        else:
+                            game_window.blit(game_over_screen, (0, 0))
+                            game_window.blit(lets_go_button.surf, lets_go_button.rect)
+
+                        for event in pygame.event.get():
+                            init_pos = list(pygame.mouse.get_pos())
+                            ratio_x = (SCREEN_WIDTH / screen.get_width())
+                            ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                            pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+                            if lets_go_button.rect.collidepoint(pos):
+                                button_highlighted = True
+                            else:
+                                button_highlighted = False
+                            if event.type == pygame.MOUSEBUTTONUP:
+                                if lets_go_button.rect.collidepoint(pos):
+                                    over_world_song_set = False
+                                    game_over_sound_played = False
+                                    pygame.mixer.find_channel(True).play(sfx_button_start)
+                                    info_text_1 = ""
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    button_highlighted = False
+                                    movement_able = True
+                                    interacted = False
+                                    buy_clicked = False
+                                    encounter_started = False
+                                    in_battle = False
+                                    in_over_world = True
+                                    if mini_boss_1:
+                                        mini_boss_1 = False
+                                    if mini_boss_2:
+                                        mini_boss_2 = False
+                                    if not switch_3:
+                                        switch_1 = False
+                                        switch_2 = False
+                                    if barrier_active:
+                                        barrier_active = False
+                                    if sharp_sense_active:
+                                        sharp_sense_active = False
+                                    if mirror_image:
+                                        mirror_image = False
+                                    player.current_zone = "castle one"
+                                    player.x_coordinate = 515
+                                    player.y_coordinate = 150
+                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                  player.y_coordinate))
+                                    player.health = 25
+                                    player.energy = 25
+                                    player.alive_status = True
+                                    rest_recover_show = True
+                                    dreth.health = 100
+                                    combat_scenario.enemy_health_bar(dreth, graphic_dict)
+                                    dreth_turn_counter = 0
+                            elif event.type == QUIT:
+                                pygame.mixer.quit()
+                                sys.exit()
+
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                            game_window.blit(frame, frame.get_rect())
+                            pygame.display.flip()
+                        else:
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
+                            pygame.display.flip()
 
                 else:
                     if not game_over_sound_played:

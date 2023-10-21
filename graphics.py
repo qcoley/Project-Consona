@@ -518,6 +518,9 @@ def load_graphics():
     loaded_dict["dreth_battle"] = dreths_sheet[1]
     loaded_dict["dreth_attack"] = dreths_sheet[2]
     loaded_dict["dreth_shatter"] = dreths_sheet[3]
+    loaded_dict["dreth_battle_2"] = dreths_sheet[4]
+    loaded_dict["dreth_attack_2"] = dreths_sheet[5]
+    loaded_dict["dreth_shatter_2"] = dreths_sheet[6]
     # dreth taunt popups -----------------------------------------------------------------------------------------------
     mirages_url = resource_path('resources/art/sprites_mirages.png')
     mirages_sheet = sprite_sheet((50, 75), mirages_url)

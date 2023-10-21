@@ -845,7 +845,7 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
                 current_enemy_battling, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                 even_better_fish_counter, best_fish_counter, dreth_laugh, dreth_taunt, dreth_taunt_popup, lair_exit,
                 lights_switch, castle_lair_one_bg, castle_lair_two_bg, castle_lair_bg, dreth, dreth_battle_sprite,
-                dreth_defeated):
+                dreth_defeated, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -940,7 +940,7 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
                                                        graphic_dict, dreth_battle_sprite,
                                                        dreth_battle_sprite, dreth_battle_sprite,
                                                        False, dreth_battle_sprite, 0, dreth_battle_sprite,
-                                                       dreth_battle_sprite, dreth_battle_sprite)
+                                                       dreth_battle_sprite, dreth_battle_sprite, apothis_gift)
     if pygame.Rect.colliderect(player.rect, lair_exit):
         interaction_popup.update(515, 25, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
