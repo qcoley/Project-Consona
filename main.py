@@ -7323,6 +7323,12 @@ if __name__ == "__main__":
     final_scene_13 = graphic_dict["final_13"]
     final_scene_14 = graphic_dict["final_14"]
 
+    credit_scene_1 = graphic_dict["credits_1"]
+    credit_scene_2 = graphic_dict["credits_2"]
+    credit_scene_3 = graphic_dict["credits_3"]
+    credit_scene_4 = graphic_dict["credits_4"]
+    credit_scene_5 = graphic_dict["credits_5"]
+
     player_cutscene_overlay = UiElement("player cutscene", 800, 225, graphic_dict["amuna_cutscene"])
     player_cutscene_overlay_2 = UiElement("player cutscene 2", 300, 400, graphic_dict["amuna_cutscene_2"])
 
@@ -8266,6 +8272,7 @@ if __name__ == "__main__":
     castle_music = resource_path("resources/sounds/eterna_castle.mp3")
     caldera_music = resource_path("resources/sounds/eterna_caldera.mp3")
     lair_music = resource_path("resources/sounds/eterna_dreth.mp3")
+    credit_music = resource_path("resources/sounds/eterna_credit.mp3")
 
     pygame.mixer.music.set_volume(0.35)
     pygame.mixer.music.load(start_screen_music)
@@ -14055,6 +14062,21 @@ if __name__ == "__main__":
                                         if combat_events["enemy defeated"]:
                                             if current_enemy_battling.kind == "dreth":
                                                 dreth_defeated = True
+                                                cutscene_tic = time.perf_counter()
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    cutscenes.cutscenes_credits(pygame, credit_music, screen,
+                                                                                credit_scene_1, credit_scene_2,
+                                                                                credit_scene_3, credit_scene_4,
+                                                                                credit_scene_5, cutscene_tic,
+                                                                                SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                                game_window)
+                                                else:
+                                                    cutscenes.cutscenes_credits(pygame, credit_music, screen,
+                                                                                credit_scene_1, credit_scene_2,
+                                                                                credit_scene_3, credit_scene_4,
+                                                                                credit_scene_5, cutscene_tic,
+                                                                                SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                                game_window)
                                             if current_enemy_battling.kind != "stelli":
                                                 current_enemy_battling.alive_status = False
                                             if current_enemy_battling.kind == "atmon":
@@ -14402,6 +14424,29 @@ if __name__ == "__main__":
                                                     if combat_events["enemy defeated"]:
                                                         if current_enemy_battling.kind == "dreth":
                                                             dreth_defeated = True
+                                                            cutscene_tic = time.perf_counter()
+                                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                                cutscenes.cutscenes_credits(pygame, credit_music,
+                                                                                            screen,
+                                                                                            credit_scene_1,
+                                                                                            credit_scene_2,
+                                                                                            credit_scene_3,
+                                                                                            credit_scene_4,
+                                                                                            credit_scene_5,
+                                                                                            cutscene_tic,
+                                                                                            SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                                            game_window)
+                                                            else:
+                                                                cutscenes.cutscenes_credits(pygame, credit_music,
+                                                                                            screen,
+                                                                                            credit_scene_1,
+                                                                                            credit_scene_2,
+                                                                                            credit_scene_3,
+                                                                                            credit_scene_4,
+                                                                                            credit_scene_5,
+                                                                                            cutscene_tic,
+                                                                                            SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                                            game_window)
                                                         if current_enemy_battling.kind != "stelli":
                                                             current_enemy_battling.alive_status = False
                                                         if current_enemy_battling.kind == "atmon":

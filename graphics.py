@@ -275,6 +275,12 @@ def load_graphics():
     final_scene_13 = pygame.image.load(resource_path('resources/art/cutscene_final_13.png')).convert_alpha()
     final_scene_14 = pygame.image.load(resource_path('resources/art/cutscene_final_14.png')).convert_alpha()
 
+    credit_scene_1 = pygame.image.load(resource_path('resources/art/screen_credits_marrow.png')).convert_alpha()
+    credit_scene_2 = pygame.image.load(resource_path('resources/art/screen_credits_seldon.png')).convert_alpha()
+    credit_scene_3 = pygame.image.load(resource_path('resources/art/screen_credits_korlok.png')).convert_alpha()
+    credit_scene_4 = pygame.image.load(resource_path('resources/art/screen_credits_eldream.png')).convert_alpha()
+    credit_scene_5 = pygame.image.load(resource_path('resources/art/screen_credits_thanks.png')).convert_alpha()
+
     color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree,
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up_win,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
@@ -469,6 +475,11 @@ def load_graphics():
     loaded_dict["final_12"] = final_scene_12
     loaded_dict["final_13"] = final_scene_13
     loaded_dict["final_14"] = final_scene_14
+    loaded_dict["credits_1"] = credit_scene_1
+    loaded_dict["credits_2"] = credit_scene_2
+    loaded_dict["credits_3"] = credit_scene_3
+    loaded_dict["credits_4"] = credit_scene_4
+    loaded_dict["credits_5"] = credit_scene_5
     loaded_dict["water_player"] = water_player
     loaded_dict["water"] = water
     loaded_dict["dungeon_entrance"] = dungeon_entrance
