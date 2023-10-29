@@ -23,7 +23,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2, sub_marrow_rect_2,
                       dungeon_gate_marrow, dungeon_chest_marrow_small, atmons, castle_exit, castle_crate_1,
                       castle_crate_2, rock_9, rock_10, rope_wind_1, cell_1, cell_2, rope_wind_2, cell_3, castle_ladder,
-                      castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth):
+                      castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth, cat):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -291,6 +291,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, fishing_spot_caldera):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, cat):
+                interacted = True
             else:
                 interacted = False
 
@@ -453,7 +455,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "caldera":
             if (not pygame.Rect.colliderect(player.rect, caldera_ladder) and
-                    not pygame.Rect.colliderect(player.rect, fishing_spot_caldera)):
+                    not pygame.Rect.colliderect(player.rect, fishing_spot_caldera) and
+                    not pygame.Rect.colliderect(player.rect, cat)):
                 interacted = False
 
     return interacted
@@ -2095,6 +2098,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["thanked"] = player_load_info["thanked"]
             load_return["dreth_defeated"] = player_load_info["dreth_defeated"]
             load_return["apothis_gift"] = player_load_info["apothis_gift"]
+            load_return["cat_rewarded"] = player_load_info["cat_rewarded"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2121,7 +2125,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               marrow_small_chest_got, noren_complete, boro_complete, npc_maydria, artherian_task_start,
               prism_received, castle_crate_1, castle_crate_2, castle_chest_1, castle_chest_2, dreth_taunt_1,
               dreth_taunt_2, dreth_taunt_3, mirage_updated, mirage_2_updated, mirage_saved, mirage_2_saved,
-              rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift, sub_marrow_opened):
+              rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift, sub_marrow_opened,
+              cat_rewarded):
 
     inventory_save = []
     equipment_save = []
@@ -2212,7 +2217,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "mirage_saved": mirage_saved, "mirage_2_saved": mirage_2_saved, "rope_phase": rope_phase,
                         "mirage_alive": mirage_alive, "thanked": thanked, "dreth_taunt_4": dreth_taunt_4,
                         "dreth_defeated": dreth_defeated, "apothis_gift": apothis_gift,
-                        "sub_marrow_opened": sub_marrow_opened}
+                        "sub_marrow_opened": sub_marrow_opened, "cat_rewarded": cat_rewarded}
 
     try:
         with open("save", "wb") as ff:

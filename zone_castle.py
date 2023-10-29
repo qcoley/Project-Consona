@@ -581,7 +581,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                  dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_three_roped_bg, sfx_rope,
                  cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_2_saved, chest_1_got,
                  sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall, thanked,
-                 up_move, jumano_battle_sprite, sfx_surprise, surprised):
+                 up_move, jumano_battle_sprite, sfx_surprise, surprised, apothis_gift):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -769,7 +769,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                                                        graphic_dict, jumano_battle_sprite,
                                                        jumano_battle_sprite, jumano_battle_sprite,
                                                        False, jumano_battle_sprite, 0, jumano_battle_sprite,
-                                                       jumano_battle_sprite, jumano_battle_sprite)
+                                                       jumano_battle_sprite, jumano_battle_sprite, apothis_gift)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -1006,7 +1006,8 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
             pet_energy_window, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
             even_better_fish_counter, best_fish_counter, caldera_ladder, sfx_ladder, fishing_spot, fishing, walk_tic,
-            fishing_timer, fishing_level, fish_caught, previous_surf, fishing_unlocked, sfx_fishing_cast):
+            fishing_timer, fishing_level, fish_caught, previous_surf, fishing_unlocked, sfx_fishing_cast, cat,
+            cats_pet, sfx_cat_meow, cat_rewarded):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1102,6 +1103,8 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     screen.blit(fishing_spot.surf, fishing_spot.rect)
 
+    screen.blit(cat.surf, cat.rect)
+
     try:
         for pet in player.pet:
             if pet.active:
@@ -1145,6 +1148,34 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             player.x_coordinate = 333
             player.y_coordinate = 363
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    if pygame.Rect.colliderect(player.rect, cat):
+        interaction_popup.update(cat.x_coordinate - 10, cat.y_coordinate - 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Cat"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (cat.x_coordinate - 10, cat.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to pet cat."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            cat.update(cat.x_coordinate, cat.y_coordinate, graphic_dict["marrow_cat_pet"])
+            pygame.mixer.find_channel(True).play(sfx_cat_meow)
+            cats_pet["marrow"] = True
+            cat_count = 0
+            for cat in cats_pet.values():
+                if not cat:
+                    break
+                cat_count += 1
+                if cat_count == 7:
+                    if not cat_rewarded:
+                        cat_rewarded = True
+                        print("you got them")
+            interacted = False
 
     if not fishing:
         if pygame.sprite.collide_rect(player, fishing_spot):
@@ -1215,6 +1246,7 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
                       "movement_able": movement_able, "fish_caught": fish_caught, "fishing": fishing,
                       "fishing_timer": fishing_timer, "previous_surf": previous_surf,
                       "basic_fish_counter": basic_fish_counter, "better_fish_counter": better_fish_counter,
-                      "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter}
+                      "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter,
+                      "cats_pet": cats_pet, "cat_rewarded": cat_rewarded}
 
     return caldera_return

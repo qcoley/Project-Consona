@@ -1018,7 +1018,7 @@ def cutscenes_credits(pygame, music, screen, scene_1, scene_2, scene_3, scene_4,
     if pygame.mixer.music.get_busy():
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(music)
-        pygame.mixer.music.play(loops=-1)
+        pygame.mixer.music.play(loops=0)
 
     while in_cutscene:
 
@@ -1042,7 +1042,7 @@ def cutscenes_credits(pygame, music, screen, scene_1, scene_2, scene_3, scene_4,
                 first_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 8:
+            if cutscene_duration > 15:
                 if not second_viewed:
                     for alpha in range(0, 255):
                         scene_2.set_alpha(alpha)
@@ -1053,7 +1053,7 @@ def cutscenes_credits(pygame, music, screen, scene_1, scene_2, scene_3, scene_4,
                     second_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 16:
+            if cutscene_duration > 30:
                 if not third_viewed:
                     for alpha in range(0, 255):
                         scene_3.set_alpha(alpha)
@@ -1064,7 +1064,7 @@ def cutscenes_credits(pygame, music, screen, scene_1, scene_2, scene_3, scene_4,
                     third_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 24:
+            if cutscene_duration > 45:
                 if not fourth_viewed:
                     for alpha in range(0, 255):
                         scene_4.set_alpha(alpha)
@@ -1075,7 +1075,7 @@ def cutscenes_credits(pygame, music, screen, scene_1, scene_2, scene_3, scene_4,
                     fourth_viewed = True
 
             # ----------------------------------------------------------------------------------------------------------
-            if cutscene_duration > 32:
+            if cutscene_duration > 60:
                 if not fifth_viewed:
                     for alpha in range(0, 255):
                         scene_5.set_alpha(alpha)
@@ -1085,7 +1085,7 @@ def cutscenes_credits(pygame, music, screen, scene_1, scene_2, scene_3, scene_4,
                         pygame.display.flip()
                     fifth_viewed = True
 
-            if cutscene_duration > 40:
+            if cutscene_duration > 75:
                 if fifth_viewed:
                     in_cutscene = False
 

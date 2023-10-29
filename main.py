@@ -7833,6 +7833,7 @@ if __name__ == "__main__":
     pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
     pet_energy_window = UiElement("pet energy", 375, 45, graphic_dict["pet_energy"])
     quest_visual = UiElement("quest visual", 500, 500, graphic_dict["pine_logs_big_img"])
+    marrow_cat = UiElement("marrow cat", 470, 248, graphic_dict["marrow_cat"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
     seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
@@ -8337,7 +8338,7 @@ if __name__ == "__main__":
     sfx_enemy_dreth = pygame.mixer.Sound(resource_path("resources/sounds/enemy_dreth.mp3"))
     sfx_enemy_dreth.set_volume(0.30)
     sfx_enemy_dreth_shatter = pygame.mixer.Sound(resource_path("resources/sounds/enemy_dreth_shatter.mp3"))
-    sfx_enemy_dreth_shatter.set_volume(0.35)
+    sfx_enemy_dreth_shatter.set_volume(0.25)
 
     sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
     sfx_surprise_attack.set_volume(0.20)
@@ -8661,6 +8662,8 @@ if __name__ == "__main__":
     surprised = False
     apothis_gift = False
     sub_marrow_opened = False
+    credits_shown = False
+    cat_rewarded = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -8679,7 +8682,7 @@ if __name__ == "__main__":
     atmon_counter = 0
 
     cats_pet = {"seldon_shop": False, "seldon_academia": False, "korlok_shop": False, "korlok_apothecary": False,
-                "eldream_shop": False, "eldream_menagerie": False}
+                "eldream_shop": False, "eldream_menagerie": False, "marrow": False}
 
     buy_shop_elements = []
     stardust_upgrade_elements = []
@@ -9388,6 +9391,7 @@ if __name__ == "__main__":
                         thanked = load_returned["thanked"]
                         dreth_defeated = load_returned["dreth_defeated"]
                         apothis_gift = load_returned["apothis_gift"]
+                        cat_rewarded = load_returned["cat_rewarded"]
                         
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -9728,7 +9732,7 @@ if __name__ == "__main__":
                                                                       castle_cell_1, castle_cell_2, rope_wind_2,
                                                                       castle_cell_3, castle_ladder, castle_key,
                                                                       boss_door, caldera_ladder, fishing_spot_caldera,
-                                                                      jumanos, lair_exit, dreth)
+                                                                      jumanos, lair_exit, dreth, marrow_cat)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -10025,7 +10029,7 @@ if __name__ == "__main__":
                                                                                   castle_cell_3, castle_ladder,
                                                                                   castle_key, boss_door, caldera_ladder,
                                                                                   fishing_spot_caldera, jumanos,
-                                                                                  lair_exit, dreth)
+                                                                                  lair_exit, dreth, marrow_cat)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -10239,7 +10243,7 @@ if __name__ == "__main__":
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened)
+                                                                        sub_marrow_opened, cat_rewarded)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10294,7 +10298,8 @@ if __name__ == "__main__":
                                                                     mirage_updated, mirage_2_updated, mirage_saved,
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked, dreth_taunt_4,
-                                                                    dreth_defeated, apothis_gift, sub_marrow_opened)
+                                                                    dreth_defeated, apothis_gift, sub_marrow_opened,
+                                                                    cat_rewarded)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -12046,7 +12051,7 @@ if __name__ == "__main__":
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
                                                                          jumano_hall, thanked, critter_up_move,
                                                                          jumano_battle_sprite, sfx_surprise_attack,
-                                                                         surprised)
+                                                                         surprised, apothis_gift)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -12081,7 +12086,7 @@ if __name__ == "__main__":
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
                                                                          jumano_hall, thanked, critter_up_move,
                                                                          jumano_battle_sprite, sfx_surprise_attack, 
-                                                                         surprised)
+                                                                         surprised, apothis_gift)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -12189,7 +12194,8 @@ if __name__ == "__main__":
                                                                caldera_ladder, sfx_ladder, fishing_spot_caldera,
                                                                fishing, walk_tic, fishing_timer, fishing_level,
                                                                fish_caught, previous_surf, fishing_unlocked,
-                                                               sfx_fishing_cast)
+                                                               sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
+                                                               cat_rewarded)
                     else:
                         caldera_returned = zone_castle.caldera(pygame, game_window, graphic_dict, player, caldera_bg,
                                                                over_world_song_set, caldera_music, interaction_popup,
@@ -12204,7 +12210,8 @@ if __name__ == "__main__":
                                                                caldera_ladder, sfx_ladder, fishing_spot_caldera,
                                                                fishing, walk_tic, fishing_timer, fishing_level,
                                                                fish_caught, previous_surf, fishing_unlocked,
-                                                               sfx_fishing_cast)
+                                                               sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
+                                                               cat_rewarded)
 
                     over_world_song_set = caldera_returned["over_world_song_set"]
                     interacted = caldera_returned["interacted"]
@@ -12222,6 +12229,8 @@ if __name__ == "__main__":
                     better_fish_counter = caldera_returned["better_fish_counter"]
                     even_better_fish_counter = caldera_returned["even_better_fish_counter"]
                     best_fish_counter = caldera_returned["best_fish_counter"]
+                    cats_pet = caldera_returned["cats_pet"]
+                    cat_rewarded = caldera_returned["cat_rewarded"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -13661,6 +13670,23 @@ if __name__ == "__main__":
                                 else:
                                     game_window.blit(button_highlight.surf, button_highlight.rect)
 
+                if dreth_defeated and not credits_shown:
+                    cutscene_tic = time.perf_counter()
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
+                                                    credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
+                                                    SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                    else:
+                        cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
+                                                    credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
+                                                    SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                    credits_shown = True
+                    over_world_song_set = False
+                    player.current_zone = "seldon"
+                    player.x_coordinate = 860
+                    player.y_coordinate = 655
+                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
                 if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
@@ -14062,21 +14088,6 @@ if __name__ == "__main__":
                                         if combat_events["enemy defeated"]:
                                             if current_enemy_battling.kind == "dreth":
                                                 dreth_defeated = True
-                                                cutscene_tic = time.perf_counter()
-                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                                    cutscenes.cutscenes_credits(pygame, credit_music, screen,
-                                                                                credit_scene_1, credit_scene_2,
-                                                                                credit_scene_3, credit_scene_4,
-                                                                                credit_scene_5, cutscene_tic,
-                                                                                SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                                game_window)
-                                                else:
-                                                    cutscenes.cutscenes_credits(pygame, credit_music, screen,
-                                                                                credit_scene_1, credit_scene_2,
-                                                                                credit_scene_3, credit_scene_4,
-                                                                                credit_scene_5, cutscene_tic,
-                                                                                SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                                game_window)
                                             if current_enemy_battling.kind != "stelli":
                                                 current_enemy_battling.alive_status = False
                                             if current_enemy_battling.kind == "atmon":
@@ -14424,29 +14435,6 @@ if __name__ == "__main__":
                                                     if combat_events["enemy defeated"]:
                                                         if current_enemy_battling.kind == "dreth":
                                                             dreth_defeated = True
-                                                            cutscene_tic = time.perf_counter()
-                                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                                                cutscenes.cutscenes_credits(pygame, credit_music,
-                                                                                            screen,
-                                                                                            credit_scene_1,
-                                                                                            credit_scene_2,
-                                                                                            credit_scene_3,
-                                                                                            credit_scene_4,
-                                                                                            credit_scene_5,
-                                                                                            cutscene_tic,
-                                                                                            SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                                            game_window)
-                                                            else:
-                                                                cutscenes.cutscenes_credits(pygame, credit_music,
-                                                                                            screen,
-                                                                                            credit_scene_1,
-                                                                                            credit_scene_2,
-                                                                                            credit_scene_3,
-                                                                                            credit_scene_4,
-                                                                                            credit_scene_5,
-                                                                                            cutscene_tic,
-                                                                                            SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                                            game_window)
                                                         if current_enemy_battling.kind != "stelli":
                                                             current_enemy_battling.alive_status = False
                                                         if current_enemy_battling.kind == "atmon":
@@ -17278,7 +17266,7 @@ if __name__ == "__main__":
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened)
+                                                                        sub_marrow_opened, cat_rewarded)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -17939,7 +17927,7 @@ if __name__ == "__main__":
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened)
+                                                                        sub_marrow_opened, cat_rewarded)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -18418,7 +18406,7 @@ if __name__ == "__main__":
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked,
                                                                     dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                    sub_marrow_opened)
+                                                                    sub_marrow_opened, cat_rewarded)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18902,7 +18890,7 @@ if __name__ == "__main__":
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
                                                                             dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                            sub_marrow_opened)
+                                                                            sub_marrow_opened, cat_rewarded)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -19140,7 +19128,7 @@ if __name__ == "__main__":
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
                                                                             dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                            sub_marrow_opened)
+                                                                            sub_marrow_opened, cat_rewarded)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -19379,7 +19367,7 @@ if __name__ == "__main__":
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
                                                                             dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                            sub_marrow_opened)
+                                                                            sub_marrow_opened, cat_rewarded)
                                         info_text_2 = info
                                     else:
                                         info_text_1 = "You completed the quest, but "

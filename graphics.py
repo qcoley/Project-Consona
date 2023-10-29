@@ -522,6 +522,11 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # marrow cat -------------------------------------------------------------------------------------------------------
+    marrow_cat_url = resource_path('resources/art/sprite_cat_marrow.png')
+    marrow_cat_sheet = sprite_sheet((100, 100), marrow_cat_url)
+    loaded_dict["marrow_cat"] = marrow_cat_sheet[0]
+    loaded_dict["marrow_cat_pet"] = marrow_cat_sheet[1]
     # dreth sprites ----------------------------------------------------------------------------------------------------
     dreths_url = resource_path('resources/art/sprites_dreth.png')
     dreths_sheet = sprite_sheet((500, 500), dreths_url)
@@ -532,7 +537,7 @@ def load_graphics():
     loaded_dict["dreth_battle_2"] = dreths_sheet[4]
     loaded_dict["dreth_attack_2"] = dreths_sheet[5]
     loaded_dict["dreth_shatter_2"] = dreths_sheet[6]
-    # dreth taunt popups -----------------------------------------------------------------------------------------------
+    # mirages ----------------------------------------------------------------------------------------------------------
     mirages_url = resource_path('resources/art/sprites_mirages.png')
     mirages_sheet = sprite_sheet((50, 75), mirages_url)
     loaded_dict["mirage_female"] = mirages_sheet[0]
