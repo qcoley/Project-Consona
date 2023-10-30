@@ -20,7 +20,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      stelli_battle_sprite, vanished, vanish_overlay, waterfall, level_checked, fishing_spot_1,
                      fishing_spot_2, fishing, walk_tic, fishing_unlocked, fishing_timer, fish_caught, previous_surf,
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                     best_fish_counter, sfx_fishing_cast):
+                     best_fish_counter, sfx_fishing_cast, apothis_gift):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
@@ -249,7 +249,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                            graphic_dict, necrola_battle_sprite,
                                                            osodark_battle_sprite, stelli_battle_sprite,
                                                            False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                           stelli_battle_sprite, stelli_battle_sprite)
+                                                           stelli_battle_sprite, stelli_battle_sprite, apothis_gift)
             else:
                 if not player.quest_complete["where's nede?"]:
                     interaction_popup.update(ghoul_nede.x_coordinate, ghoul_nede.y_coordinate - 40,

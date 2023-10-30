@@ -19,7 +19,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers, eldream_flowers, interactables_eldream,
                  pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
                  sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay, basic_fish_counter,
-                 better_fish_counter, even_better_fish_counter, best_fish_counter):
+                 better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift):
 
     if not talk_start:
         pygame.mixer.find_channel(True).play(sfx_talk)
@@ -125,7 +125,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, ectrenos_front_enemies,
-                                                   stelli_battle_sprite, stelli_battle_sprite)
+                                                   stelli_battle_sprite, stelli_battle_sprite, apothis_gift)
 
     if player.x_coordinate > 660 and 685 < player.y_coordinate:
         player.current_zone = "korlok"

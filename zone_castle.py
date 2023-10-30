@@ -241,7 +241,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                    in_battle, in_npc_interaction, graphic_dict,
                                                    jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
                                                    False, jumano_battle_sprite, 0, jumano_battle_sprite,
-                                                   jumano_battle_sprite, jumano_battle_sprite)
+                                                   jumano_battle_sprite, jumano_battle_sprite, False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -347,7 +347,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                                                        in_battle, in_npc_interaction, graphic_dict, atmon_battle_sprite,
                                                        atmon_battle_sprite, atmon_battle_sprite, False,
                                                        atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite,
-                                                       atmon_battle_sprite)
+                                                       atmon_battle_sprite, False)
 
     if rope_phase == 0 or rope_phase == 11:
         screen.blit(castle_two_bg, (0, 0))
@@ -1007,7 +1007,7 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             pet_energy_window, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
             even_better_fish_counter, best_fish_counter, caldera_ladder, sfx_ladder, fishing_spot, fishing, walk_tic,
             fishing_timer, fishing_level, fish_caught, previous_surf, fishing_unlocked, sfx_fishing_cast, cat,
-            cats_pet, sfx_cat_meow, cat_rewarded):
+            cats_pet, sfx_cat_meow, cat_rewarded, Item):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1174,7 +1174,7 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
                 if cat_count == 7:
                     if not cat_rewarded:
                         cat_rewarded = True
-                        print("you got them")
+                        player.items.append(Item("cat card", "card", 200, 200, graphic_dict["cat_card"], 0))
             interacted = False
 
     if not fishing:

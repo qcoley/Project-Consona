@@ -813,7 +813,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, ectrenos_front_enemies,
-                                                   stelli_battle_sprite, stelli_battle_sprite)
+                                                   stelli_battle_sprite, stelli_battle_sprite, False)
 
     # if player collides with npc sprite and chooses to interact with it
     if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
@@ -875,7 +875,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, ectrenos_front_enemies,
-                                                   ectrenos_front_enemies, stelli_battle_sprite)
+                                                   ectrenos_front_enemies, stelli_battle_sprite, False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -1069,7 +1069,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
             interacted = False
             player.current_zone = "fishing alcove"
             player.x_coordinate = 415
-            player.y_coordinate = 575
+            player.y_coordinate = 625
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # if player collides with npc sprite and chooses to interact with it
@@ -1130,7 +1130,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                                                    in_npc_interaction, graphic_dict, osodark_battle_sprite,
                                                    osodark_battle_sprite, osodark_battle_sprite, False,
                                                    osodark_battle_sprite, 0, osodark_battle_sprite,
-                                                   osodark_battle_sprite, osodark_battle_sprite)
+                                                   osodark_battle_sprite, osodark_battle_sprite, False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

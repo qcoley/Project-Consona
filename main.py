@@ -7290,6 +7290,8 @@ if __name__ == "__main__":
     castle_lair_two_bg = graphic_dict["castle_lair_two_bg"]
     caldera_bg = graphic_dict["caldera_bg"]
 
+    cat_card_portrait = graphic_dict["all_cats_pet_card"]
+
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
     apothis_scene_2 = graphic_dict["apothis_2"]
@@ -8664,6 +8666,7 @@ if __name__ == "__main__":
     sub_marrow_opened = False
     credits_shown = False
     cat_rewarded = False
+    show_cat_card = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -9392,6 +9395,13 @@ if __name__ == "__main__":
                         dreth_defeated = load_returned["dreth_defeated"]
                         apothis_gift = load_returned["apothis_gift"]
                         cat_rewarded = load_returned["cat_rewarded"]
+                        cats_pet["seldon_shop"] = load_returned["seldon_shop_cat"]
+                        cats_pet["seldon_academia"] = load_returned["seldon_academia_cat"]
+                        cats_pet["korlok_shop"] = load_returned["korlok_shop_cat"]
+                        cats_pet["korlok_apothecary"] = load_returned["korlok_apothecary_cat"]
+                        cats_pet["eldream_shop"] = load_returned["eldream_shop_cat"]
+                        cats_pet["eldream_menagerie"] = load_returned["eldream_menagerie_cat"]
+                        cats_pet["marrow"] = load_returned["marrow_cat"]
                         
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -10061,6 +10071,9 @@ if __name__ == "__main__":
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
 
+                            if show_cat_card:
+                                show_cat_card = False
+
                             if fish_caught:
                                 if fishing_popup.rect.collidepoint(pos):
                                     fish_caught = False
@@ -10108,6 +10121,12 @@ if __name__ == "__main__":
 
                                 if fireworking:
                                     firework_tic = time.perf_counter()
+                                try:
+                                    if inventory_event["cat card"]:
+                                        pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                        show_cat_card = True
+                                except KeyError:
+                                    pass
 
                             if info_choice == "no":
                                 drawing_functions.item_info_window.clear()
@@ -10243,7 +10262,7 @@ if __name__ == "__main__":
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded)
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10299,7 +10318,7 @@ if __name__ == "__main__":
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked, dreth_taunt_4,
                                                                     dreth_defeated, apothis_gift, sub_marrow_opened,
-                                                                    cat_rewarded)
+                                                                    cat_rewarded, cats_pet)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -12195,7 +12214,7 @@ if __name__ == "__main__":
                                                                fishing, walk_tic, fishing_timer, fishing_level,
                                                                fish_caught, previous_surf, fishing_unlocked,
                                                                sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
-                                                               cat_rewarded)
+                                                               cat_rewarded, Item)
                     else:
                         caldera_returned = zone_castle.caldera(pygame, game_window, graphic_dict, player, caldera_bg,
                                                                over_world_song_set, caldera_music, interaction_popup,
@@ -12211,7 +12230,7 @@ if __name__ == "__main__":
                                                                fishing, walk_tic, fishing_timer, fishing_level,
                                                                fish_caught, previous_surf, fishing_unlocked,
                                                                sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
-                                                               cat_rewarded)
+                                                               cat_rewarded, Item)
 
                     over_world_song_set = caldera_returned["over_world_song_set"]
                     interacted = caldera_returned["interacted"]
@@ -12864,7 +12883,7 @@ if __name__ == "__main__":
                                                                  talk_start, stelli_battle_sprite, vanished,
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
-                                                                 best_fish_counter)
+                                                                 best_fish_counter, apothis_gift)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -12897,7 +12916,7 @@ if __name__ == "__main__":
                                                                  talk_start, stelli_battle_sprite, vanished,
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
-                                                                 best_fish_counter)
+                                                                 best_fish_counter, apothis_gift)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -13173,7 +13192,7 @@ if __name__ == "__main__":
                                                                            previous_surf, fishing_level,
                                                                            basic_fish_counter, better_fish_counter,
                                                                            even_better_fish_counter, best_fish_counter,
-                                                                           sfx_fishing_cast)
+                                                                           sfx_fishing_cast, apothis_gift)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -13213,7 +13232,7 @@ if __name__ == "__main__":
                                                                            previous_surf, fishing_level,
                                                                            basic_fish_counter, better_fish_counter,
                                                                            even_better_fish_counter, best_fish_counter,
-                                                                           sfx_fishing_cast)
+                                                                           sfx_fishing_cast, apothis_gift)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -13327,7 +13346,8 @@ if __name__ == "__main__":
                                                                           stelli_battle_sprite, chorizon_phase,
                                                                           vanished, vanish_overlay, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter, sfx_sheet_paper)
+                                                                          best_fish_counter, sfx_sheet_paper,
+                                                                          apothis_gift)
                     else:
                         reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
                                                                           graphic_dict,
@@ -13365,7 +13385,7 @@ if __name__ == "__main__":
                                                                           vanished, vanish_overlay,
                                                                           basic_fish_counter, better_fish_counter,
                                                                           even_better_fish_counter, best_fish_counter,
-                                                                          sfx_sheet_paper)
+                                                                          sfx_sheet_paper, apothis_gift)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -13423,7 +13443,8 @@ if __name__ == "__main__":
                                                                           directional_arrow, stelli_battle_sprite,
                                                                           vanished, vanish_overlay, sfx_item_potion,
                                                                           Item, basic_fish_counter, better_fish_counter,
-                                                                          even_better_fish_counter, best_fish_counter)
+                                                                          even_better_fish_counter, best_fish_counter,
+                                                                          apothis_gift)
                     else:
                         reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -13458,7 +13479,8 @@ if __name__ == "__main__":
                                                                           directional_arrow, stelli_battle_sprite,
                                                                           vanished, vanish_overlay, sfx_item_potion,
                                                                           Item, basic_fish_counter, better_fish_counter,
-                                                                          even_better_fish_counter, best_fish_counter)
+                                                                          even_better_fish_counter, best_fish_counter,
+                                                                          apothis_gift)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -13670,22 +13692,11 @@ if __name__ == "__main__":
                                 else:
                                     game_window.blit(button_highlight.surf, button_highlight.rect)
 
-                if dreth_defeated and not credits_shown:
-                    cutscene_tic = time.perf_counter()
+                if show_cat_card:
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
-                                                    credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
-                                                    SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                        screen.blit(cat_card_portrait, (60, 105))
                     else:
-                        cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
-                                                    credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
-                                                    SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
-                    credits_shown = True
-                    over_world_song_set = False
-                    player.current_zone = "seldon"
-                    player.x_coordinate = 860
-                    player.y_coordinate = 655
-                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        game_window.blit(cat_card_portrait, (60, 105))
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
@@ -15487,18 +15498,45 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_cat_meow)
                                     shop_cat_pet = True
                                     cats_pet["seldon_shop"] = True
+                                    cat_count = 0
+                                    for cat in cats_pet.values():
+                                        if not cat:
+                                            break
+                                        cat_count += 1
+                                        if cat_count == 7 and not cat_rewarded:
+                                            cat_rewarded = True
+                                            player.items.append(Item("cat card", "card", 200, 200,
+                                                                     graphic_dict["cat_card"], 0))
                             if player.current_zone == "korlok":
                                 cat_pet_button_overlay.update(450, 400, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_cat_meow)
                                     shop_cat_pet = True
                                     cats_pet["korlok_shop"] = True
+                                    cat_count = 0
+                                    for cat in cats_pet.values():
+                                        if not cat:
+                                            break
+                                        cat_count += 1
+                                        if cat_count == 7 and not cat_rewarded:
+                                            cat_rewarded = True
+                                            player.items.append(Item("cat card", "card", 200, 200,
+                                                                     graphic_dict["cat_card"], 0))
                             if player.current_zone == "ectrenos right":
                                 cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_cat_meow)
                                     shop_cat_pet = True
                                     cats_pet["eldream_shop"] = True
+                                    cat_count = 0
+                                    for cat in cats_pet.values():
+                                        if not cat:
+                                            break
+                                        cat_count += 1
+                                        if cat_count == 7 and not cat_rewarded:
+                                            cat_rewarded = True
+                                            player.items.append(Item("cat card", "card", 200, 200,
+                                                                     graphic_dict["cat_card"], 0))
 
                         shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame,
                                                                        sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -16601,6 +16639,15 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_cat_meow)
                                 academia_cat_pet = True
                                 cats_pet["seldon_academia"] = True
+                                cat_count = 0
+                                for cat in cats_pet.values():
+                                    if not cat:
+                                        break
+                                    cat_count += 1
+                                    if cat_count == 7 and not cat_rewarded:
+                                        cat_rewarded = True
+                                        player.items.append(Item("cat card", "card", 200, 200,
+                                                                 graphic_dict["cat_card"], 0))
                         # get which button player pressed during academia scenario (learn or leave)
                         academia_button = click_handlers.academia_event_button(event, mage_learn_button,
                                                                                fighter_learn_button, scout_learn_button,
@@ -17078,6 +17125,15 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_cat_meow)
                                 apothecary_cat_pet = True
                                 cats_pet["korlok_apothecary"] = True
+                                cat_count = 0
+                                for cat in cats_pet.values():
+                                    if not cat:
+                                        break
+                                    cat_count += 1
+                                    if cat_count == 7 and not cat_rewarded:
+                                        cat_rewarded = True
+                                        player.items.append(Item("cat card", "card", 200, 200,
+                                                                 graphic_dict["cat_card"], 0))
                             if quest_accepted.rect.collidepoint(pos):
                                 drawing_functions.quest_accept_box.clear()
                             if potions_button.rect.collidepoint(pos):
@@ -17266,7 +17322,7 @@ if __name__ == "__main__":
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded)
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -17591,6 +17647,15 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_cat_meow)
                                 menagerie_cat_pet = True
                                 cats_pet["eldream_menagerie"] = True
+                                cat_count = 0
+                                for cat in cats_pet.values():
+                                    if not cat:
+                                        break
+                                    cat_count += 1
+                                    if cat_count == 7 and not cat_rewarded:
+                                        cat_rewarded = True
+                                        player.items.append(Item("cat card", "card", 200, 200,
+                                                                 graphic_dict["cat_card"], 0))
                             if quest_accepted.rect.collidepoint(pos):
                                 drawing_functions.quest_accept_box.clear()
                             if pets_button.rect.collidepoint(pos):
@@ -17927,7 +17992,7 @@ if __name__ == "__main__":
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded)
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -18406,7 +18471,7 @@ if __name__ == "__main__":
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked,
                                                                     dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                    sub_marrow_opened, cat_rewarded)
+                                                                    sub_marrow_opened, cat_rewarded, cats_pet)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18821,80 +18886,76 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "garan":
                                 if player.quest_progress["sneaky snakes"] == 4 and not \
                                         player.quest_complete["sneaky snakes"]:
-                                    if len(player.items) < 16:
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        player.quest_complete["sneaky snakes"] = True
-                                        player.current_quests["sneaky snakes"] = "You completed this quest!"
-                                        info_text_1 = "You've completed Garan's quest!"
-                                        info_text_3 = ""
-                                        info_text_4 = ""
-                                        player.star_power += 1
-                                        player.experience += 50
-                                        player.rupees += 10
-                                        if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                            leveled = True
-                                            level_visual = True
-                                            loot_level_tic = time.perf_counter()
-                                            level_visual_tic = time.perf_counter()
-                                        player.reputation["amuna"] += 10
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["sneaky snakes"] = True
+                                    player.current_quests["sneaky snakes"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Garan's quest!"
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    player.rupees += 10
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                    player.reputation["amuna"] += 10
 
-                                        # autosave on quest complete
-                                        info = gameplay_functions.save_game(player, barrier_learned,
-                                                                            hard_strike_learned,
-                                                                            sharp_sense_learned, saved, npc_garan.gift,
-                                                                            rest_recover_show, knowledge_academia_show,
-                                                                            quest_guide_shown, battle_guide_shown,
-                                                                            rest_shown_before, quest_highlight_popup,
-                                                                            bridge_not_repaired, nede_ghoul_defeated,
-                                                                            bridge_cutscenes_not_viewed, crate_1,
-                                                                            crate_2,
-                                                                            crate_3, crate_4, crate_5, switch_1,
-                                                                            switch_2,
-                                                                            switch_3, muchador_defeated, has_key,
-                                                                            mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                            gloves_obtained, korlok_attuned,
-                                                                            eldream_attuned,
-                                                                            rock_4_con, rock_5_con, rock_6_con,
-                                                                            rock_7_con,
-                                                                            chinzilla_defeated, apothecary_access,
-                                                                            beyond_seldon, seed_given, hatch_ready,
-                                                                            menagerie_access, kasper_unlocked,
-                                                                            torok_unlocked,
-                                                                            iriana_unlocked, rock_8_con, rock_3_con,
-                                                                            seed_scout_count, seed_fighter_count,
-                                                                            seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                            mirror_learned, stun_learned,
-                                                                            vanish_learned,
-                                                                            boots_obtained, marrow_switch_phase,
-                                                                            erebyth_defeated, ramps_crate_1_got,
-                                                                            ramps_crate_2_got, ramps_crate_3_got,
-                                                                            ramps_crate_4_got, ramps_crate_5_got,
-                                                                            marrow_attuned, npc_artherian.gift,
-                                                                            artherian_2,
-                                                                            npc_artherian.quest_complete,
-                                                                            fishing_unlocked,
-                                                                            fishing_journal_unlocked, bait_given,
-                                                                            basic_fish_counter, better_fish_counter,
-                                                                            even_better_fish_counter, best_fish_counter,
-                                                                            fishing_level, basic_fish_reward,
-                                                                            better_fish_reward, even_better_fish_reward,
-                                                                            best_fish_reward, marrow_small_chest_got,
-                                                                            npc_noren.quest_complete,
-                                                                            npc_boro.quest_complete, npc_maydria,
-                                                                            artherian_task_start, prism_received,
-                                                                            castle_crate_1_got, castle_crate_2_got,
-                                                                            castle_chest_1_got, castle_chest_2_got,
-                                                                            dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
-                                                                            mirage_updated, mirage_2_updated,
-                                                                            mirage_saved, mirage_2_saved, rope_phase,
-                                                                            atmon_castle.alive_status, thanked,
-                                                                            dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                            sub_marrow_opened, cat_rewarded)
-                                        info_text_2 = info
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
+                                    # autosave on quest complete
+                                    info = gameplay_functions.save_game(player, barrier_learned,
+                                                                        hard_strike_learned,
+                                                                        sharp_sense_learned, saved, npc_garan.gift,
+                                                                        rest_recover_show, knowledge_academia_show,
+                                                                        quest_guide_shown, battle_guide_shown,
+                                                                        rest_shown_before, quest_highlight_popup,
+                                                                        bridge_not_repaired, nede_ghoul_defeated,
+                                                                        bridge_cutscenes_not_viewed, crate_1,
+                                                                        crate_2,
+                                                                        crate_3, crate_4, crate_5, switch_1,
+                                                                        switch_2,
+                                                                        switch_3, muchador_defeated, has_key,
+                                                                        mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                        gloves_obtained, korlok_attuned,
+                                                                        eldream_attuned,
+                                                                        rock_4_con, rock_5_con, rock_6_con,
+                                                                        rock_7_con,
+                                                                        chinzilla_defeated, apothecary_access,
+                                                                        beyond_seldon, seed_given, hatch_ready,
+                                                                        menagerie_access, kasper_unlocked,
+                                                                        torok_unlocked,
+                                                                        iriana_unlocked, rock_8_con, rock_3_con,
+                                                                        seed_scout_count, seed_fighter_count,
+                                                                        seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                        mirror_learned, stun_learned,
+                                                                        vanish_learned,
+                                                                        boots_obtained, marrow_switch_phase,
+                                                                        erebyth_defeated, ramps_crate_1_got,
+                                                                        ramps_crate_2_got, ramps_crate_3_got,
+                                                                        ramps_crate_4_got, ramps_crate_5_got,
+                                                                        marrow_attuned, npc_artherian.gift,
+                                                                        artherian_2,
+                                                                        npc_artherian.quest_complete,
+                                                                        fishing_unlocked,
+                                                                        fishing_journal_unlocked, bait_given,
+                                                                        basic_fish_counter, better_fish_counter,
+                                                                        even_better_fish_counter, best_fish_counter,
+                                                                        fishing_level, basic_fish_reward,
+                                                                        better_fish_reward, even_better_fish_reward,
+                                                                        best_fish_reward, marrow_small_chest_got,
+                                                                        npc_noren.quest_complete,
+                                                                        npc_boro.quest_complete, npc_maydria,
+                                                                        artherian_task_start, prism_received,
+                                                                        castle_crate_1_got, castle_crate_2_got,
+                                                                        castle_chest_1_got, castle_chest_2_got,
+                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                        mirage_updated, mirage_2_updated,
+                                                                        mirage_saved, mirage_2_saved, rope_phase,
+                                                                        atmon_castle.alive_status, thanked,
+                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
+                                    info_text_2 = info
                                 if not quest_clicked:
                                     if not player.quest_complete["sneaky snakes"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -18936,27 +18997,23 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "celeste":
                                 if player.quest_progress["where's nede?"] == 1 and not \
                                         player.quest_complete["where's nede?"]:
-                                    if len(player.items) < 16:
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        nede.update(nede.x_coordinate, nede.y_coordinate, graphic_dict["nede_left"])
-                                        player.quest_complete["where's nede?"] = True
-                                        player.current_quests["where's nede?"] = "You completed this quest!"
-                                        info_text_1 = "You've completed Celeste's quest!"
-                                        info_text_2 = "Your game has been saved. "
-                                        info_text_3 = ""
-                                        info_text_4 = ""
-                                        player.star_power += 1
-                                        player.experience += 50
-                                        if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                            leveled = True
-                                            level_visual = True
-                                            loot_level_tic = time.perf_counter()
-                                            level_visual_tic = time.perf_counter()
-                                        player.reputation["sorae"] += 10
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    nede.update(nede.x_coordinate, nede.y_coordinate, graphic_dict["nede_left"])
+                                    player.quest_complete["where's nede?"] = True
+                                    player.current_quests["where's nede?"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Celeste's quest!"
+                                    info_text_2 = "Your game has been saved. "
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                    player.reputation["sorae"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["where's nede?"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -18997,27 +19054,24 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "maurelle":
                                 if player.quest_progress["village repairs"] == 4 and not \
                                         player.quest_complete["village repairs"]:
-                                    if len(player.items) < 16:
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        player.quest_complete["village repairs"] = True
-                                        player.current_quests["village repairs"] = "You completed this quest!"
-                                        info_text_1 = "You've completed Maurelle's quest!"
-                                        info_text_2 = "Your game has been saved. "
-                                        info_text_3 = ""
-                                        info_text_4 = ""
-                                        player.star_power += 1
-                                        player.experience += 50
-                                        if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                            leveled = True
-                                            level_visual = True
-                                            loot_level_tic = time.perf_counter()
-                                            level_visual_tic = time.perf_counter()
-                                        player.reputation["amuna"] += 10
-                                        player.rupees += 10
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["village repairs"] = True
+                                    player.current_quests["village repairs"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Maurelle's quest!"
+                                    info_text_2 = "Your game has been saved. "
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                    player.reputation["amuna"] += 10
+                                    player.rupees += 10
+
                                 if not quest_clicked:
                                     if not player.quest_complete["village repairs"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19059,7 +19113,6 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "torune":
                                 if player.quest_progress["ghouled again"] == 4 and not \
                                         player.quest_complete["ghouled again"]:
-                                    if len(player.items) < 16:
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                         player.quest_complete["ghouled again"] = True
                                         player.current_quests["ghouled again"] = "You completed this quest!"
@@ -19128,10 +19181,7 @@ if __name__ == "__main__":
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
                                                                             dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                            sub_marrow_opened, cat_rewarded)
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
+                                                                            sub_marrow_opened, cat_rewarded, cats_pet)
                                 if not quest_clicked:
                                     if not player.quest_complete["ghouled again"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19173,27 +19223,23 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "voruke":
                                 if player.quest_progress["band hammer"] == 4 and not \
                                         player.quest_complete["band hammer"]:
-                                    if len(player.items) < 16:
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        player.quest_complete["band hammer"] = True
-                                        player.current_quests["band hammer"] = "You completed this quest!"
-                                        info_text_1 = "You've completed Voruke's quest!"
-                                        info_text_2 = "Your game has been saved. "
-                                        info_text_3 = ""
-                                        info_text_4 = ""
-                                        player.star_power += 1
-                                        player.experience += 50
-                                        if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                            leveled = True
-                                            level_visual = True
-                                            loot_level_tic = time.perf_counter()
-                                            level_visual_tic = time.perf_counter()
-                                        player.reputation["nuldar"] += 10
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["band hammer"] = True
+                                    player.current_quests["band hammer"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Voruke's quest!"
+                                    info_text_2 = "Your game has been saved. "
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                    player.reputation["nuldar"] += 10
 
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
                                 if not quest_clicked:
                                     if not player.quest_complete["band hammer"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19236,26 +19282,22 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "zerah":
                                 if player.quest_progress["elementary elementals"] == 4 and not \
                                         player.quest_complete["elementary elementals"]:
-                                    if len(player.items) < 16:
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        player.quest_complete["elementary elementals"] = True
-                                        player.current_quests["elementary elementals"] = "You completed this quest!"
-                                        info_text_1 = "You've completed Zerah's quest!"
-                                        info_text_2 = "Your game has been saved. "
-                                        info_text_3 = ""
-                                        info_text_4 = ""
-                                        player.star_power += 1
-                                        player.experience += 50
-                                        if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                            leveled = True
-                                            level_visual = True
-                                            loot_level_tic = time.perf_counter()
-                                            level_visual_tic = time.perf_counter()
-                                        player.reputation["nuldar"] += 10
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["elementary elementals"] = True
+                                    player.current_quests["elementary elementals"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Zerah's quest!"
+                                    info_text_2 = "Your game has been saved. "
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                    player.reputation["nuldar"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["elementary elementals"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19297,81 +19339,79 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "dionte":
                                 if player.quest_progress["it's dangerous to go alone"] == 1 and not \
                                         player.quest_complete["it's dangerous to go alone"]:
-                                    if len(player.items) < 16:
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        player.quest_complete["it's dangerous to go alone"] = True
-                                        player.current_quests["it's dangerous to go alone"] = "You completed this" \
-                                                                                              "quest!"
-                                        info_text_1 = "You've completed Dionte's quest!"
-                                        info_text_2 = "Your game has been saved. "
-                                        info_text_3 = ""
-                                        info_text_4 = ""
-                                        player.star_power += 1
-                                        player.experience += 50
-                                        if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                            leveled = True
-                                            level_visual = True
-                                            loot_level_tic = time.perf_counter()
-                                            level_visual_tic = time.perf_counter()
-                                        player.reputation["amuna"] += 10
 
-                                        # autosave on quest complete
-                                        info = gameplay_functions.save_game(player, barrier_learned,
-                                                                            hard_strike_learned,
-                                                                            sharp_sense_learned, saved, npc_garan.gift,
-                                                                            rest_recover_show, knowledge_academia_show,
-                                                                            quest_guide_shown, battle_guide_shown,
-                                                                            rest_shown_before, quest_highlight_popup,
-                                                                            bridge_not_repaired, nede_ghoul_defeated,
-                                                                            bridge_cutscenes_not_viewed, crate_1,
-                                                                            crate_2,
-                                                                            crate_3, crate_4, crate_5, switch_1,
-                                                                            switch_2,
-                                                                            switch_3, muchador_defeated, has_key,
-                                                                            mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                            gloves_obtained, korlok_attuned,
-                                                                            eldream_attuned,
-                                                                            rock_4_con, rock_5_con, rock_6_con,
-                                                                            rock_7_con,
-                                                                            chinzilla_defeated, apothecary_access,
-                                                                            beyond_seldon, seed_given, hatch_ready,
-                                                                            menagerie_access, kasper_unlocked,
-                                                                            torok_unlocked,
-                                                                            iriana_unlocked, rock_8_con, rock_3_con,
-                                                                            seed_scout_count, seed_fighter_count,
-                                                                            seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                            mirror_learned, stun_learned,
-                                                                            vanish_learned,
-                                                                            boots_obtained, marrow_switch_phase,
-                                                                            erebyth_defeated, ramps_crate_1_got,
-                                                                            ramps_crate_2_got, ramps_crate_3_got,
-                                                                            ramps_crate_4_got, ramps_crate_5_got,
-                                                                            marrow_attuned, npc_artherian.gift,
-                                                                            artherian_2,
-                                                                            npc_artherian.quest_complete,
-                                                                            fishing_unlocked,
-                                                                            fishing_journal_unlocked, bait_given,
-                                                                            basic_fish_counter, better_fish_counter,
-                                                                            even_better_fish_counter, best_fish_counter,
-                                                                            fishing_level, basic_fish_reward,
-                                                                            better_fish_reward, even_better_fish_reward,
-                                                                            best_fish_reward, marrow_small_chest_got,
-                                                                            npc_noren.quest_complete,
-                                                                            npc_boro.quest_complete, npc_maydria,
-                                                                            artherian_task_start, prism_received,
-                                                                            castle_crate_1_got, castle_crate_2_got,
-                                                                            castle_chest_1_got, castle_chest_2_got,
-                                                                            dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
-                                                                            mirage_updated, mirage_2_updated,
-                                                                            mirage_saved, mirage_2_saved, rope_phase,
-                                                                            atmon_castle.alive_status, thanked,
-                                                                            dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                            sub_marrow_opened, cat_rewarded)
-                                        info_text_2 = info
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["it's dangerous to go alone"] = True
+                                    player.current_quests["it's dangerous to go alone"] = "You completed this" \
+                                                                                          "quest!"
+                                    info_text_1 = "You've completed Dionte's quest!"
+                                    info_text_2 = "Your game has been saved. "
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                    player.reputation["amuna"] += 10
+
+                                    # autosave on quest complete
+                                    info = gameplay_functions.save_game(player, barrier_learned,
+                                                                        hard_strike_learned,
+                                                                        sharp_sense_learned, saved, npc_garan.gift,
+                                                                        rest_recover_show, knowledge_academia_show,
+                                                                        quest_guide_shown, battle_guide_shown,
+                                                                        rest_shown_before, quest_highlight_popup,
+                                                                        bridge_not_repaired, nede_ghoul_defeated,
+                                                                        bridge_cutscenes_not_viewed, crate_1,
+                                                                        crate_2,
+                                                                        crate_3, crate_4, crate_5, switch_1,
+                                                                        switch_2,
+                                                                        switch_3, muchador_defeated, has_key,
+                                                                        mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                        gloves_obtained, korlok_attuned,
+                                                                        eldream_attuned,
+                                                                        rock_4_con, rock_5_con, rock_6_con,
+                                                                        rock_7_con,
+                                                                        chinzilla_defeated, apothecary_access,
+                                                                        beyond_seldon, seed_given, hatch_ready,
+                                                                        menagerie_access, kasper_unlocked,
+                                                                        torok_unlocked,
+                                                                        iriana_unlocked, rock_8_con, rock_3_con,
+                                                                        seed_scout_count, seed_fighter_count,
+                                                                        seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                        mirror_learned, stun_learned,
+                                                                        vanish_learned,
+                                                                        boots_obtained, marrow_switch_phase,
+                                                                        erebyth_defeated, ramps_crate_1_got,
+                                                                        ramps_crate_2_got, ramps_crate_3_got,
+                                                                        ramps_crate_4_got, ramps_crate_5_got,
+                                                                        marrow_attuned, npc_artherian.gift,
+                                                                        artherian_2,
+                                                                        npc_artherian.quest_complete,
+                                                                        fishing_unlocked,
+                                                                        fishing_journal_unlocked, bait_given,
+                                                                        basic_fish_counter, better_fish_counter,
+                                                                        even_better_fish_counter, best_fish_counter,
+                                                                        fishing_level, basic_fish_reward,
+                                                                        better_fish_reward, even_better_fish_reward,
+                                                                        best_fish_reward, marrow_small_chest_got,
+                                                                        npc_noren.quest_complete,
+                                                                        npc_boro.quest_complete, npc_maydria,
+                                                                        artherian_task_start, prism_received,
+                                                                        castle_crate_1_got, castle_crate_2_got,
+                                                                        castle_chest_1_got, castle_chest_2_got,
+                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                        mirage_updated, mirage_2_updated,
+                                                                        mirage_saved, mirage_2_saved, rope_phase,
+                                                                        atmon_castle.alive_status, thanked,
+                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
+                                    info_text_2 = info
+
                                 if not quest_clicked:
                                     if not player.quest_complete["it's dangerous to go alone"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19413,26 +19453,22 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "omoku":
                                 if player.quest_progress["kart troubles"] == 4 and not \
                                         player.quest_complete["kart troubles"]:
-                                    if len(player.items) < 16:
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        player.quest_complete["kart troubles"] = True
-                                        player.current_quests["kart troubles"] = "You completed this quest!"
-                                        info_text_1 = "You've completed Omoku's quest!"
-                                        info_text_2 = ""
-                                        info_text_3 = ""
-                                        info_text_4 = ""
-                                        player.star_power += 1
-                                        player.experience += 50
-                                        if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                            leveled = True
-                                            level_visual = True
-                                            loot_level_tic = time.perf_counter()
-                                            level_visual_tic = time.perf_counter()
-                                        player.reputation["nuldar"] += 10
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["kart troubles"] = True
+                                    player.current_quests["kart troubles"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Omoku's quest!"
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                    player.reputation["nuldar"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["kart troubles"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19474,26 +19510,22 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "leyre":
                                 if player.quest_progress["las escondidas"] == 4 and not \
                                         player.quest_complete["las escondidas"]:
-                                    if len(player.items) < 16:
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        player.quest_complete["las escondidas"] = True
-                                        player.current_quests["las escondidas"] = "You completed this quest!"
-                                        info_text_1 = "You've completed Leyre's quest!"
-                                        info_text_2 = ""
-                                        info_text_3 = ""
-                                        info_text_4 = ""
-                                        player.star_power += 1
-                                        player.experience += 50
-                                        if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                            leveled = True
-                                            level_visual = True
-                                            loot_level_tic = time.perf_counter()
-                                            level_visual_tic = time.perf_counter()
-                                        player.reputation["sorae"] += 10
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["las escondidas"] = True
+                                    player.current_quests["las escondidas"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Leyre's quest!"
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                    player.reputation["sorae"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["las escondidas"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19535,26 +19567,22 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "everett":
                                 if player.quest_progress["shades of fear"] == 4 and not \
                                         player.quest_complete["shades of fear"]:
-                                    if len(player.items) < 16:
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        player.quest_complete["shades of fear"] = True
-                                        player.current_quests["shades of fear"] = "You completed this quest!"
-                                        info_text_1 = "You've completed Everett's quest!"
-                                        info_text_2 = ""
-                                        info_text_3 = ""
-                                        info_text_4 = ""
-                                        player.star_power += 1
-                                        player.experience += 50
-                                        if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                            leveled = True
-                                            level_visual = True
-                                            loot_level_tic = time.perf_counter()
-                                            level_visual_tic = time.perf_counter()
-                                        player.reputation["amuna"] += 10
-                                    else:
-                                        info_text_1 = "You completed the quest, but "
-                                        info_text_2 = "Your inventory is full!"
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["shades of fear"] = True
+                                    player.current_quests["shades of fear"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Everett's quest!"
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                    player.reputation["amuna"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["shades of fear"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19599,7 +19627,7 @@ if __name__ == "__main__":
                                     if item.name == "bone shard":
                                         shard_counter += 1
                                 if shard_counter >= 4 and not npc_artherian.gift:
-                                    if len(player.items) < 16:
+                                    if len(player.items) < 17:
                                         for item_x in player.items:
                                             if item_x.name == "bone shard":
                                                 player.items.remove(item_x)
@@ -19609,7 +19637,9 @@ if __name__ == "__main__":
                                         for item_z in player.items:
                                             if item_z.name == "bone shard":
                                                 player.items.remove(item_z)
-
+                                        for x in range(shard_counter - 4):
+                                            player.items.append(
+                                                Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0))
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                         info_text_1 = "You've completed Legends Never Die 1!"
                                         info_text_2 = ""
@@ -19991,6 +20021,24 @@ if __name__ == "__main__":
                     pygame.display.flip()
                 else:
                     pygame.display.flip()
+
+                if dreth_defeated and not credits_shown:
+                    pygame.time.wait(250)
+                    cutscene_tic = time.perf_counter()
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
+                                                    credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
+                                                    SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                    else:
+                        cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
+                                                    credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
+                                                    SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                    credits_shown = True
+                    over_world_song_set = False
+                    player.current_zone = "seldon"
+                    player.x_coordinate = 860
+                    player.y_coordinate = 655
+                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
                 clock.tick(60)
 

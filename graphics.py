@@ -52,6 +52,7 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    all_cats_pet_card = pygame.image.load(resource_path('resources/art/all_cats_pet.png')).convert_alpha()
     dreth_battle_screen = pygame.image.load(resource_path('resources/art/bg_dreth_battle.png')).convert_alpha()
     fishing_journal = pygame.image.load(resource_path('resources/art/fishing_journal.png')).convert_alpha()
     pet_energy_overlay = pygame.image.load(resource_path('resources/art/overlay_pet_energy.png')).convert_alpha()
@@ -300,6 +301,7 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["all_cats_pet_card"] = all_cats_pet_card
     loaded_dict["overlay_marrow_star"] = overlay_marrow_star
     loaded_dict["dreth_battle_screen"] = dreth_battle_screen
     loaded_dict["castle_lair_bg"] = castle_lair_bg
@@ -5267,6 +5269,7 @@ def load_graphics():
     loaded_dict["fighter_book"] = items_sheet[34]
     loaded_dict["scout_book"] = items_sheet[35]
     loaded_dict["marrow_bait"] = items_sheet[36]
+    loaded_dict["cat_card"] = items_sheet[37]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -5309,6 +5312,7 @@ def load_graphics():
     loaded_dict["info_fighter_book"] = items_info_sheet[36]
     loaded_dict["info_scout_book"] = items_info_sheet[37]
     loaded_dict["info_marrow_bait"] = items_info_sheet[38]
+    loaded_dict["info_cat_card"] = items_info_sheet[39]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)

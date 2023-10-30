@@ -1960,6 +1960,8 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("fighter book", "book", 200, 200, graphics["fighter_book"], 0))
                 if item == "scout book":
                     player.items.append(Item("scout book", "book", 200, 200, graphics["scout_book"], 0))
+                if item == "cat card":
+                    player.items.append(Item("cat card", "card", 200, 200, graphics["cat_card"], 0))
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
                     player.equipment["boots"] = Item("chroma boots", "boots", 200, 200, graphics["boots_img"], 0)
@@ -2099,6 +2101,13 @@ def load_game(player, Item, graphics, Pet):
             load_return["dreth_defeated"] = player_load_info["dreth_defeated"]
             load_return["apothis_gift"] = player_load_info["apothis_gift"]
             load_return["cat_rewarded"] = player_load_info["cat_rewarded"]
+            load_return["seldon_shop_cat"] = player_load_info["seldon_shop_cat"]
+            load_return["seldon_academia_cat"] = player_load_info["seldon_academia_cat"]
+            load_return["korlok_shop_cat"] = player_load_info["korlok_shop_cat"]
+            load_return["korlok_apothecary_cat"] = player_load_info["korlok_apothecary_cat"]
+            load_return["eldream_shop_cat"] = player_load_info["eldream_shop_cat"]
+            load_return["eldream_menagerie_cat"] = player_load_info["eldream_menagerie_cat"]
+            load_return["marrow_cat"] = player_load_info["marrow_cat"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2126,7 +2135,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               prism_received, castle_crate_1, castle_crate_2, castle_chest_1, castle_chest_2, dreth_taunt_1,
               dreth_taunt_2, dreth_taunt_3, mirage_updated, mirage_2_updated, mirage_saved, mirage_2_saved,
               rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift, sub_marrow_opened,
-              cat_rewarded):
+              cat_rewarded, cats_pet):
 
     inventory_save = []
     equipment_save = []
@@ -2217,7 +2226,13 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "mirage_saved": mirage_saved, "mirage_2_saved": mirage_2_saved, "rope_phase": rope_phase,
                         "mirage_alive": mirage_alive, "thanked": thanked, "dreth_taunt_4": dreth_taunt_4,
                         "dreth_defeated": dreth_defeated, "apothis_gift": apothis_gift,
-                        "sub_marrow_opened": sub_marrow_opened, "cat_rewarded": cat_rewarded}
+                        "sub_marrow_opened": sub_marrow_opened, "cat_rewarded": cat_rewarded,
+                        "seldon_shop_cat": cats_pet["seldon_shop"], "seldon_academia_cat": cats_pet["seldon_academia"],
+                        "korlok_shop_cat": cats_pet["korlok_shop"],
+                        "korlok_apothecary_cat": cats_pet["korlok_apothecary"],
+                        "eldream_shop_cat": cats_pet["eldream_shop"],
+                        "eldream_menagerie_cat": cats_pet["eldream_menagerie"],
+                        "marrow_cat": cats_pet["marrow"]}
 
     try:
         with open("save", "wb") as ff:

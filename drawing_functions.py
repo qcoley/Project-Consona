@@ -486,6 +486,13 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["use_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "cat card":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_cat_card"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -717,7 +724,7 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     # get current player rupee count and create surf and rectangle to blit to screen------------------------------------
     text_rupee_surf = font.render(str(player.rupees), True, "black", "light green")
     text_rupee_rect = text_rupee_surf.get_rect()
-    text_rupee_rect.center = (1120, 693)
+    text_rupee_rect.center = (1125, 693)
     screen.blit(text_rupee_surf, text_rupee_rect)
     if len(flower_pop_up_window) > 0:
         # seldon flowers -----------------------------------------------------------------------------------------------
@@ -1524,6 +1531,10 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "scout book":
                     item_here.update(first_coord, second_coord, graphic["scout_book"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "cat card":
+                    item_here.update(first_coord, second_coord, graphic["cat_card"])
                     player_items.append(item_here)
                     inventory_counter += 1
 

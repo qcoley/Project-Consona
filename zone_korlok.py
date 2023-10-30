@@ -183,7 +183,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                   stelli_battle_sprite, stelli_battle_sprite)
+                                                   stelli_battle_sprite, stelli_battle_sprite, False)
 
     # if player collides with npc sprite and chooses to interact with it
     npc = pygame.sprite.spritecollideany(player, npcs, pygame.sprite.collide_rect_ratio(0.75))
