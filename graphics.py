@@ -52,6 +52,7 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    card_shop_screen = pygame.image.load(resource_path('resources/art/bg_card_shop.png')).convert_alpha()
     all_cats_pet_card = pygame.image.load(resource_path('resources/art/all_cats_pet.png')).convert_alpha()
     dreth_battle_screen = pygame.image.load(resource_path('resources/art/bg_dreth_battle.png')).convert_alpha()
     fishing_journal = pygame.image.load(resource_path('resources/art/fishing_journal.png')).convert_alpha()
@@ -301,6 +302,7 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["card_shop_bg"] = card_shop_screen
     loaded_dict["all_cats_pet_card"] = all_cats_pet_card
     loaded_dict["overlay_marrow_star"] = overlay_marrow_star
     loaded_dict["dreth_battle_screen"] = dreth_battle_screen

@@ -23,7 +23,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       alcove_fishing_rect_2, fishing_spot_eldream_1, fishing_spot_eldream_2, sub_marrow_rect_2,
                       dungeon_gate_marrow, dungeon_chest_marrow_small, atmons, castle_exit, castle_crate_1,
                       castle_crate_2, rock_9, rock_10, rope_wind_1, cell_1, cell_2, rope_wind_2, cell_3, castle_ladder,
-                      castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth, cat):
+                      castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth, cat,
+                      marrow_barrier_small, seldon_barrier_small, card_cave):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -33,6 +34,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
         if player.current_zone == "seldon":
             if pygame.sprite.spritecollideany(player, interactables_seldon):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, seldon_barrier_small):
+                interacted = True
             else:
                 interacted = False
         if player.current_zone == "stardust":
@@ -41,6 +44,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             elif pygame.sprite.collide_rect(player, fishing_spot_stardust_1):
                 interacted = True
             elif pygame.sprite.collide_rect(player, fishing_spot_stardust_2):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, card_cave):
                 interacted = True
             else:
                 interacted = False
@@ -177,6 +182,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, sub_marrow_rect):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, marrow_barrier_small):
+                interacted = True
             else:
                 interacted = False
         if player.current_zone == "sub marrow":
@@ -303,12 +310,14 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             if not pygame.sprite.spritecollideany(player, interactables_nascent):
                 interacted = False
         if player.current_zone == "seldon":
-            if not pygame.sprite.spritecollideany(player, interactables_seldon):
+            if (not pygame.sprite.spritecollideany(player, interactables_seldon) and
+                    not pygame.Rect.colliderect(player.rect, seldon_barrier_small)):
                 interacted = False
         if player.current_zone == "stardust":
             if (not pygame.sprite.spritecollideany(player, interactables_stardust) and
                     not pygame.sprite.collide_rect(player, fishing_spot_stardust_1) and
-                    not pygame.sprite.collide_rect(player, fishing_spot_stardust_2)):
+                    not pygame.sprite.collide_rect(player, fishing_spot_stardust_2) and
+                    not pygame.Rect.colliderect(player.rect, card_cave)):
                 interacted = False
 
         if player.current_zone == "rohir":
@@ -391,7 +400,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     and not pygame.Rect.colliderect(player.rect, npc_maydria.rect)
                     and not pygame.Rect.colliderect(player.rect, npc_noren.rect)
                     and not pygame.Rect.colliderect(player.rect, npc_boro.rect)
-                    and not pygame.Rect.colliderect(player.rect, sub_marrow_rect)):
+                    and not pygame.Rect.colliderect(player.rect, sub_marrow_rect)
+                    and not pygame.Rect.colliderect(player.rect, marrow_barrier_small)):
                 interacted = False
         if player.current_zone == "sub marrow":
             if (not pygame.Rect.colliderect(player.rect, sub_marrow_rect)
@@ -2108,6 +2118,8 @@ def load_game(player, Item, graphics, Pet):
             load_return["eldream_shop_cat"] = player_load_info["eldream_shop_cat"]
             load_return["eldream_menagerie_cat"] = player_load_info["eldream_menagerie_cat"]
             load_return["marrow_cat"] = player_load_info["marrow_cat"]
+            load_return["sub_marrow_opened"] = player_load_info["sub_marrow_opened"]
+            load_return["credits_shown"] = player_load_info["credits_shown"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2135,7 +2147,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               prism_received, castle_crate_1, castle_crate_2, castle_chest_1, castle_chest_2, dreth_taunt_1,
               dreth_taunt_2, dreth_taunt_3, mirage_updated, mirage_2_updated, mirage_saved, mirage_2_saved,
               rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift, sub_marrow_opened,
-              cat_rewarded, cats_pet):
+              cat_rewarded, cats_pet, credits_shown):
 
     inventory_save = []
     equipment_save = []
@@ -2232,7 +2244,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "korlok_apothecary_cat": cats_pet["korlok_apothecary"],
                         "eldream_shop_cat": cats_pet["eldream_shop"],
                         "eldream_menagerie_cat": cats_pet["eldream_menagerie"],
-                        "marrow_cat": cats_pet["marrow"]}
+                        "marrow_cat": cats_pet["marrow"], "credits_shown": credits_shown}
 
     try:
         with open("save", "wb") as ff:
@@ -2597,14 +2609,14 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # count current enemies active in game
         for mob in seldon_enemies:
-            if mob.name == "snake":
+            if mob.name == "Snake":
                 snake_counter += 1
-            if mob.name == "ghoul":
+            if mob.name == "Ghoul":
                 ghoul_counter += 1
 
         # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
         if snake_counter < 3:
-            new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+            new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
                               Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                               graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]),
                               "fighter")
@@ -2613,7 +2625,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             interactables_seldon.add(new_snake)
         # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
         if ghoul_counter < 3:
-            new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
+            new_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
                               Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                               graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]),
                               "scout")
@@ -2640,12 +2652,12 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # count current enemies active in game
         for mob in magmons:
-            if mob.name == "magmon":
+            if mob.name == "Magmon":
                 magmon_counter += 1
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if magmon_counter < 3:
-            new_magmon = Enemy("magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
+            new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
                                True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                                graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]),
                                "mage")
@@ -2663,12 +2675,12 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # count current enemies active in game
         for mob in bandiles:
-            if mob.name == "bandile":
+            if mob.name == "Bandile":
                 bandile_counter += 1
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if bandile_counter < 3:
-            new_bandile = Enemy("bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
+            new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
                                 random_bandile_y, True, Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                                 graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                                 "fighter")
@@ -2700,12 +2712,12 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # count current enemies active in game
         for mob in ectrenos_front_enemies:
-            if mob.name == "necrola":
+            if mob.name == "Necrola":
                 necrola_counter += 1
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if necrola_counter < 3:
-            new_necrola = Enemy("necrola", "necrola", 100, 100, random_necrola_level, random_necrola_x,
+            new_necrola = Enemy("Necrola", "necrola", 100, 100, random_necrola_level, random_necrola_x,
                                 random_necrola_y, True, Item("oscura pluma", "pluma", 200, 200,
                                                              graphic_dict["pluma_img"], 0),
                                 graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
@@ -2722,12 +2734,12 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # count current enemies active in game
         for mob in ectrenos_alcove_enemies:
-            if mob.name == "osodark":
+            if mob.name == "Osodark":
                 osodark_counter += 1
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if osodark_counter < 3:
-            new_osodark = Enemy("osodark", "osodark", 100, 100, random_osodark_level, random_osodark_x,
+            new_osodark = Enemy("Osodark", "osodark", 100, 100, random_osodark_level, random_osodark_x,
                                 random_osodark_y, True,
                                 Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                                 graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]),
@@ -2744,12 +2756,12 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # count current enemies active in game
         for mob in marrow_ghouls:
-            if mob.name == "ghoul":
+            if mob.name == "Ghoul":
                 marrow_ghoul_counter += 1
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if marrow_ghoul_counter < 3:
-            new_marrow_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_marrow_ghoul_level, random_marrow_ghoul_x,
+            new_marrow_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_marrow_ghoul_level, random_marrow_ghoul_x,
                                      random_marrow_ghoul_y, True, Item("bone shard", "shard", 200, 200,
                                                                        graphic_dict["bone_shard"], 0),
                                      graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]),
@@ -2766,12 +2778,12 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # count current enemies active in game
         for mob in atmons:
-            if mob.name == "atmon":
+            if mob.name == "Atmon":
                 marrow_atmon_counter += 1
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if marrow_atmon_counter < 3:
-            new_marrow_atmon = Enemy("atmon", "atmon", 100, 100, random_marrow_atmon_level, random_marrow_atmon_x,
+            new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level, random_marrow_atmon_x,
                                      random_marrow_atmon_y, True,
                                      Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                                      graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]),
@@ -2787,11 +2799,11 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         random_jumano_level = random.randrange(25, 28)
         # count current enemies active in game
         for mob in jumanos:
-            if mob.name == "jumano":
+            if mob.name == "Jumano":
                 jumano_counter += 1
         # if there are less than 3  in game, create another with random level and coordinates. add to groups
         if jumano_counter < 3:
-            new_jumano = Enemy("jumano", "jumano", 100, 100, random_jumano_level, random_jumano_x,
+            new_jumano = Enemy("Jumano", "jumano", 100, 100, random_jumano_level, random_jumano_x,
                                random_jumano_y, True,
                                Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
                                graphic_dict["jumano"],

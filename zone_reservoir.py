@@ -211,7 +211,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             interaction_popup.update(boss_enemy.x_coordinate, boss_enemy.y_coordinate - 40,
                                      graphic_dict["popup_interaction_red"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str(boss_enemy.kind) + " lvl " + str(boss_enemy.level), True, "black",
+            interaction_info_surf = font.render("Chorizon" + " lvl " + str(boss_enemy.level), True, "black",
                                                 (255, 204, 203))
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (boss_enemy.x_coordinate, boss_enemy.y_coordinate - 40)
@@ -247,7 +247,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         interaction_popup.update(dungeon_teleporter.x_coordinate, dungeon_teleporter.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("teleporter"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Teleporter"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (dungeon_teleporter.x_coordinate, dungeon_teleporter.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -379,7 +379,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         interaction_popup.update(dungeon_gate.x_coordinate, dungeon_gate.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("gate"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Gate"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (dungeon_gate.x_coordinate, dungeon_gate.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -415,7 +415,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         interaction_popup.update(dungeon_teleporter.x_coordinate, dungeon_teleporter.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("teleporter"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Teleporter"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (dungeon_teleporter.x_coordinate, dungeon_teleporter.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -438,7 +438,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
             interaction_popup.update(dungeon_crate_5.x_coordinate, dungeon_crate_5.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Crate"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (dungeon_crate_5.x_coordinate, dungeon_crate_5.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -466,7 +466,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
             interaction_popup.update(reservoir_passage.x_coordinate + 45, reservoir_passage.y_coordinate - 75,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("passage"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Passage"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (reservoir_passage.x_coordinate + 45, reservoir_passage.y_coordinate - 75)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -484,7 +484,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
             interaction_popup.update(muchador.x_coordinate, muchador.y_coordinate - 50,
                                      graphic_dict["popup_interaction_red"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("muchador"), True, "black", (255, 204, 203))
+            interaction_info_surf = font.render(str("Muchador"), True, "black", (255, 204, 203))
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (muchador.x_coordinate, muchador.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -610,7 +610,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
         interaction_popup.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("chest"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Chest"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -636,7 +636,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
     if pygame.sprite.collide_rect(player, rock_1):
         interaction_popup.update(rock_1.x_coordinate, rock_1.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rock_1.x_coordinate, rock_1.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -659,7 +659,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
     if pygame.sprite.collide_rect(player, rock_2):
         interaction_popup.update(rock_2.x_coordinate, rock_2.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rock_2.x_coordinate, rock_2.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -683,7 +683,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
         interaction_popup.update(reservoir_exit.x_coordinate - 14, reservoir_exit.y_coordinate - 6,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("exit"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Exit"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (reservoir_exit.x_coordinate - 14, reservoir_exit.y_coordinate - 6)
         screen.blit(interaction_info_surf, interaction_info_rect)

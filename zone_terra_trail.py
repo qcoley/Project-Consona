@@ -134,7 +134,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         interaction_popup.update(terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20,
                                  graphic_dict["popup_interaction_red"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("Terra Cave"), True, "black", (255, 204, 203))
+        interaction_info_surf = font.render(str("Terra cave"), True, "black", (255, 204, 203))
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -183,7 +183,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     if pygame.sprite.collide_rect(player, rock_7):
         interaction_popup.update(rock_7.x_coordinate, rock_7.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rock_7.x_coordinate, rock_7.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)

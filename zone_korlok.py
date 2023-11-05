@@ -239,17 +239,17 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
 
-            if building.name == "shop":
+            if building.name == "Shop":
                 in_shop = True
-            if building.name == "inn":
+            if building.name == "Inn":
                 in_inn = True
-            if building.name == "apothecary":
+            if building.name == "Apothecary":
                 in_apothecary = True
 
     if pygame.sprite.collide_rect(player, rohir_gate):
         interaction_popup.update(rohir_gate.x_coordinate, rohir_gate.y_coordinate, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str(rohir_gate.name), True, "black", "light yellow")
+        interaction_info_surf = font.render("Seldon", True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rohir_gate.x_coordinate, rohir_gate.y_coordinate)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -272,7 +272,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         interaction_popup.update(reservoir_enter.x_coordinate + 50, reservoir_enter.y_coordinate - 55,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("reservoir"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Reservoir"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (reservoir_enter.x_coordinate + 50, reservoir_enter.y_coordinate - 55)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -295,7 +295,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         interaction_popup.update(mines_entrance.x_coordinate, mines_entrance.y_coordinate - 55,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("mines"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Mines"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (mines_entrance.x_coordinate, mines_entrance.y_coordinate - 55)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -312,7 +312,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         interaction_popup.update(forge_entrance.x_coordinate + 5, forge_entrance.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("forge"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Forge"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (forge_entrance.x_coordinate + 5, forge_entrance.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -329,7 +329,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("hearth stone"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Hearth stone"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -354,7 +354,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     if pygame.sprite.collide_rect(player, rock_4):
         interaction_popup.update(rock_4.x_coordinate, rock_4.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rock_4.x_coordinate, rock_4.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -382,7 +382,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     if pygame.sprite.collide_rect(player, rock_5):
         interaction_popup.update(rock_5.x_coordinate, rock_5.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rock_5.x_coordinate, rock_5.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -410,7 +410,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     if pygame.sprite.collide_rect(player, rock_6):
         interaction_popup.update(rock_6.x_coordinate, rock_6.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rock_6.x_coordinate, rock_6.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -501,24 +501,24 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         if npc_toc - npc_tic > 5:
             npc_tic = time.perf_counter()
             if face_direction == "front":
-                if face_this_npc.name == "voruke":
+                if face_this_npc.name == "Voruke":
                     voruke.update(graphic_dict["voruke_down"])
-                if face_this_npc.name == "zerah":
+                if face_this_npc.name == "Zerah":
                     zerah.update(graphic_dict["zerah_down"])
             if face_direction == "back":
-                if face_this_npc.name == "voruke":
+                if face_this_npc.name == "Voruke":
                     voruke.update(graphic_dict["voruke_up"])
-                if face_this_npc.name == "zerah":
+                if face_this_npc.name == "Zerah":
                     zerah.update(graphic_dict["zerah_up"])
             if face_direction == "left":
-                if face_this_npc.name == "voruke":
+                if face_this_npc.name == "Voruke":
                     voruke.update(graphic_dict["voruke_left"])
-                if face_this_npc.name == "zerah":
+                if face_this_npc.name == "Zerah":
                     zerah.update(graphic_dict["zerah_left"])
             if face_direction == "right":
-                if face_this_npc.name == "voruke":
+                if face_this_npc.name == "Voruke":
                     voruke.update(graphic_dict["voruke_right"])
-                if face_this_npc.name == "zerah":
+                if face_this_npc.name == "Zerah":
                     zerah.update(graphic_dict["zerah_right"])
 
     # info to return to main loop --------------------------------------------------------------------------------------

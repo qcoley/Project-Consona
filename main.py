@@ -1638,6 +1638,12 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if self.y_coordinate < 235 and self.x_coordinate < 470:
                 if self.x_coordinate > 440:
                     self.x_coordinate = 440
+                if self.x_coordinate < 325:
+                    if self.y_coordinate < 158:
+                        self.y_coordinate = 158
+                if self.y_coordinate < 158:
+                    if self.x_coordinate < 328:
+                        self.x_coordinate = 328
             if self.x_coordinate < 445 and 250 < self.y_coordinate < 330:
                 if self.x_coordinate < 265:
                     self.x_coordinate = 265
@@ -3930,6 +3936,12 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if self.y_coordinate < 235 and self.x_coordinate < 470:
                 if self.x_coordinate > 440:
                     self.x_coordinate = 440
+                if self.x_coordinate < 325:
+                    if self.y_coordinate < 158:
+                        self.y_coordinate = 158
+                if self.y_coordinate < 158:
+                    if self.x_coordinate < 328:
+                        self.x_coordinate = 328
             if self.x_coordinate < 445 and 250 < self.y_coordinate < 330:
                 if self.x_coordinate < 265:
                     self.x_coordinate = 265
@@ -6212,6 +6224,12 @@ class PlayerSorae(pygame.sprite.Sprite):
             if self.y_coordinate < 235 and self.x_coordinate < 470:
                 if self.x_coordinate > 440:
                     self.x_coordinate = 440
+                if self.x_coordinate < 325:
+                    if self.y_coordinate < 158:
+                        self.y_coordinate = 158
+                if self.y_coordinate < 158:
+                    if self.x_coordinate < 328:
+                        self.x_coordinate = 328
             if self.x_coordinate < 445 and 250 < self.y_coordinate < 330:
                 if self.x_coordinate < 265:
                     self.x_coordinate = 265
@@ -7183,7 +7201,7 @@ def button_highlighter(posit):
                                                               iriana_unlocked, music_toggle_button, in_hut,
                                                               check_basic_fish_button, check_better_fish_button,
                                                               check_even_better_fish_button, check_best_fish_button,
-                                                              save_data_window)
+                                                              save_data_window, in_card_cave)
     return button_highlighters
 
 
@@ -7206,6 +7224,7 @@ if __name__ == "__main__":
     name_input_font = pygame.font.Font(resource_path("resources/fonts/Lato-Bold.ttf"), 24)
 
     # background textures ----------------------------------------------------------------------------------------------
+    card_shop_bg = graphic_dict["card_shop_bg"]
     dreth_battle_screen = graphic_dict["dreth_battle_screen"]
     nascent_grove_bg = graphic_dict["nascent_grove_screen"]
     rohir_river_bg = graphic_dict["rohir_river_screen"]
@@ -7422,27 +7441,27 @@ if __name__ == "__main__":
 
     # npcs: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate
     #                  alive_status, quest_complete, items, gift, image
-    npc_garan = NPC("garan", "amuna", "It's dangerous to go alone.", "stupid snakes", "", 210, 432,
+    npc_garan = NPC("Garan", "amuna", "It's dangerous to go alone.", "sneaky snakes", "", 210, 432,
                     True, False, ["Items"], False, graphic_dict["garan_down"])
-    npc_maurelle = NPC("maurelle", "amuna", "We need help!", "village repairs", "", 745, 615,
+    npc_maurelle = NPC("Maurelle", "amuna", "We need help!", "village repairs", "", 745, 615,
                        True, False, ["Items"], False, graphic_dict["maurelle_down"])
-    npc_celeste = NPC("celeste", "sorae", "My pet!", "where's nede?", "", 760, 415,
+    npc_celeste = NPC("Celeste", "sorae", "My pet!", "where's nede?", "", 760, 415,
                       True, False, ["Items"], False, graphic_dict["celeste_down"])
-    npc_torune = NPC("torune", "nuldar", "Onur-oh.", "ghouled again", "", 430, 120,
+    npc_torune = NPC("Torune", "nuldar", "Onur-oh.", "ghouled again", "", 430, 120,
                      True, False, ["Items"], False, graphic_dict["torune_down"])
 
-    npc_voruke = NPC("voruke", "nuldar", "Onur-oh.", "band hammer", "", 262, 425,
+    npc_voruke = NPC("Voruke", "nuldar", "Onur-oh.", "band hammer", "", 262, 425,
                      True, False, ["Items"], False, graphic_dict["voruke_down"])
-    npc_zerah = NPC("zerah", "nuldar", "Onur-oh.", "elementary elementals", "", 652, 90,
+    npc_zerah = NPC("Zerah", "nuldar", "Onur-oh.", "elementary elementals", "", 652, 90,
                     True, False, ["Items"], False, graphic_dict["zerah_down"])
-    npc_dionte = NPC("dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 625, 110,
+    npc_dionte = NPC("Dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 625, 110,
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
-    npc_omoku = NPC("omoku", "nuldar", "Onur-oh.", "kart troubles", "", 460, 655,
+    npc_omoku = NPC("Omoku", "nuldar", "Onur-oh.", "kart troubles", "", 460, 655,
                     True, False, ["Items"], False, graphic_dict["omoku_down"])
-    npc_leyre = NPC("leyre", "sorae", "Hola.", "las escondidas", "", 682, 420,
+    npc_leyre = NPC("Leyre", "sorae", "Hola.", "las escondidas", "", 682, 420,
                     True, False, ["Items"], False, graphic_dict["leyre_down"])
-    npc_everett = NPC("everett", "amuna", "shades of fear", "ayudame", "", 750, 320,
+    npc_everett = NPC("Everett", "amuna", "shades of fear", "ayudame", "", 750, 320,
                       True, False, ["Items"], False, graphic_dict["everett_down"])
 
     npc_prime = NPC("prime", "nuldar", "", "", "", 130, 525, True, False, ["Items"], False, graphic_dict["prime"])
@@ -7451,13 +7470,13 @@ if __name__ == "__main__":
     npc_marrow_entrance = NPC("m.e.n.", "nuldar", "", "", "", 675, 152, True, False, ["Items"], False,
                               graphic_dict["entrance_npc_down"])
 
-    npc_artherian = NPC("artherian", "amuna", "legends never die", "hail", "", 210, 450,
+    npc_artherian = NPC("Artherian", "amuna", "legends never die", "hail", "", 210, 450,
                         True, False, ["Items"], False, graphic_dict["artherian_down"])
-    npc_noren = NPC("noren", "sorae", "vamos vanguard", "Hola", "", 860, 375, True, False, ["Items"], False,
+    npc_noren = NPC("Noren", "sorae", "vamos vanguard", "Hola", "", 860, 375, True, False, ["Items"], False,
                     graphic_dict["noren_down"])
-    npc_boro = NPC("boro", "nuldar", "vamos vanguard", "Onur-oh", "", 580, 375, True, False, ["Items"], False,
+    npc_boro = NPC("Boro", "nuldar", "vamos vanguard", "Onur-oh", "", 580, 375, True, False, ["Items"], False,
                    graphic_dict["boro_down"])
-    npc_maydria = NPC("maydria", "amuna", "vamos", "hail", "", 860, 175, True, False, ["Items"], False,
+    npc_maydria = NPC("Maydria", "amuna", "vamos", "hail", "", 860, 175, True, False, ["Items"], False,
                       graphic_dict["maydria_down"])
 
     npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
@@ -7504,190 +7523,190 @@ if __name__ == "__main__":
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
-    snake_1 = Enemy("snake", "snake", 100, 100, 1, 100, 130, True,
+    snake_1 = Enemy("Snake", "snake", 100, 100, 1, 100, 130, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    snake_2 = Enemy("snake", "snake", 100, 100, 2, 285, 150, True,
+    snake_2 = Enemy("Snake", "snake", 100, 100, 2, 285, 150, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    snake_3 = Enemy("snake", "snake", 100, 100, 1, 100, 230, True,
+    snake_3 = Enemy("Snake", "snake", 100, 100, 1, 100, 230, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    snake_4 = Enemy("snake", "snake", 100, 100, 2, 285, 250, True,
+    snake_4 = Enemy("Snake", "snake", 100, 100, 2, 285, 250, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    ghoul_low_1 = Enemy("ghoul", "ghoul", 100, 100, 4, 665, 180, True,
+    ghoul_low_1 = Enemy("Ghoul", "ghoul", 100, 100, 4, 665, 180, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_low_2 = Enemy("ghoul", "ghoul", 100, 100, 5, 800, 130, True,
+    ghoul_low_2 = Enemy("Ghoul", "ghoul", 100, 100, 5, 800, 130, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_low_3 = Enemy("ghoul", "ghoul", 100, 100, 3, 760, 240, True,
+    ghoul_low_3 = Enemy("Ghoul", "ghoul", 100, 100, 3, 760, 240, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 890, 205, True,
+    ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 4, 890, 205, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_nede = Enemy("nede ghoul", "ghoul", 100, 100, 3, 450, 455, True,
+    ghoul_nede = Enemy("Ghoul", "nede ghoul", 100, 100, 3, 450, 455, True,
                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_ramps = Enemy("ramps ghoul", "ghoul", 100, 100, 3, 175, 200, True, "item",
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_ramps_2 = Enemy("ramps ghoul 2", "ghoul", 100, 100, 3, 925, 200, True, "item",
                           graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_high_1 = Enemy("ghoul", "ghoul", 100, 100, 18, 220, 175, True,
+    ghoul_high_1 = Enemy("Ghoul", "ghoul", 100, 100, 18, 220, 175, True,
                          Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_high_2 = Enemy("ghoul", "ghoul", 100, 100, 19, 330, 135, True,
+    ghoul_high_2 = Enemy("Ghoul", "ghoul", 100, 100, 19, 330, 135, True,
                          Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_high_3 = Enemy("ghoul", "ghoul", 100, 100, 20, 430, 200, True,
+    ghoul_high_3 = Enemy("Ghoul", "ghoul", 100, 100, 20, 430, 200, True,
                          Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_high_4 = Enemy("ghoul", "ghoul", 100, 100, 19, 530, 150, True,
+    ghoul_high_4 = Enemy("Ghoul", "ghoul", 100, 100, 19, 530, 150, True,
                          Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # friendly's -------------------------------------------------------------------------------------------------------
     # classed as enemies so players can fight with them, but cannot be killed
-    stelli_a = Enemy("stellia", "stelli", 100, 100, 3, 700, 550, True, "item", graphic_dict["stelli_a"],
+    stelli_a = Enemy("Stellia", "stelli", 100, 100, 3, 700, 550, True, "item", graphic_dict["stelli_a"],
                      UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    stelli_b = Enemy("stellib", "stelli", 100, 100, 3, 805, 140, True, "item", graphic_dict["stelli_b"],
+    stelli_b = Enemy("Stellib", "stelli", 100, 100, 3, 805, 140, True, "item", graphic_dict["stelli_b"],
                      UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    stelli_c = Enemy("stellic", "stelli", 100, 100, 3, 305, 425, True, "item", graphic_dict["stelli_c"],
+    stelli_c = Enemy("Stellic", "stelli", 100, 100, 3, 305, 425, True, "item", graphic_dict["stelli_c"],
                      UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     # reservoir enemies ------------------------------------------------------------------------------------------------
-    chorizon_1 = Enemy("chorizon_1", "chorizon", 100, 100, 7, 150, 230, True, "item", graphic_dict["chorizon"],
+    chorizon_1 = Enemy("Chorizon", "chorizon_1", 100, 100, 7, 150, 230, True, "item", graphic_dict["chorizon"],
                        UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    chorizon_2 = Enemy("chorizon_2", "chorizon", 100, 100, 7, 870, 230, True, "item", graphic_dict["chorizon"],
+    chorizon_2 = Enemy("Chorizon", "chorizon_2", 100, 100, 7, 870, 230, True, "item", graphic_dict["chorizon"],
                        UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    muchador = Enemy("muchador", "muchador", 100, 100, 10, 350, 360, True, "item", graphic_dict["muchador_dark"],
+    muchador = Enemy("Muchador", "muchador", 100, 100, 10, 350, 360, True, "item", graphic_dict["muchador_dark"],
                      UiElement("muchador hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     # korlok enemies ---------------------------------------------------------------------------------------------------
-    magmon_1 = Enemy("magmon", "magmon", 100, 100, 9, 125, 135, True,
+    magmon_1 = Enemy("Magmon", "magmon", 100, 100, 9, 125, 135, True,
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    magmon_2 = Enemy("magmon", "magmon", 100, 100, 11, 375, 125, True,
+    magmon_2 = Enemy("Magmon", "magmon", 100, 100, 11, 375, 125, True,
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    magmon_3 = Enemy("magmon", "magmon", 100, 100, 10, 200, 197, True,
+    magmon_3 = Enemy("Magmon", "magmon", 100, 100, 10, 200, 197, True,
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    magmon_4 = Enemy("magmon", "magmon", 100, 100, 9, 320, 197, True,
+    magmon_4 = Enemy("Magmon", "magmon", 100, 100, 9, 320, 197, True,
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    bandile_1 = Enemy("bandile", "bandile", 100, 100, 8, 655, 245, True,
+    bandile_1 = Enemy("Bandile", "bandile", 100, 100, 8, 655, 245, True,
                       Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                       graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
-    bandile_2 = Enemy("bandile", "bandile", 100, 100, 9, 765, 165, True,
+    bandile_2 = Enemy("Bandile", "bandile", 100, 100, 9, 765, 165, True,
                       Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                       graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
-    bandile_3 = Enemy("bandile", "bandile", 100, 100, 7, 765, 335, True,
+    bandile_3 = Enemy("Bandile", "bandile", 100, 100, 7, 765, 335, True,
                       Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                       graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
-    bandile_4 = Enemy("bandile", "bandile", 100, 100, 8, 880, 245, True,
+    bandile_4 = Enemy("Bandile", "bandile", 100, 100, 8, 880, 245, True,
                       Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                       graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     # terra cave enemy -------------------------------------------------------------------------------------------------
-    chinzilla = Enemy("chinzilla", "chinzilla", 100, 100, 15, 350, 360, True, "item", graphic_dict["chinzilla"],
+    chinzilla = Enemy("Chinzilla", "chinzilla", 100, 100, 15, 350, 360, True, "item", graphic_dict["chinzilla"],
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     # eldream enemies --------------------------------------------------------------------------------------------------
-    osodark_1 = Enemy("osodark", "osodark", 100, 100, 16, 700, 225, True,
+    osodark_1 = Enemy("Osodark", "osodark", 100, 100, 16, 700, 225, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_2 = Enemy("osodark", "osodark", 100, 100, 18, 590, 200, True,
+    osodark_2 = Enemy("Osodark", "osodark", 100, 100, 17, 250, 250, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_3 = Enemy("osodark", "osodark", 100, 100, 17, 250, 250, True,
+    osodark_3 = Enemy("Osodark", "osodark", 100, 100, 17, 250, 250, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_4 = Enemy("osodark", "osodark", 100, 100, 18, 375, 280, True,
+    osodark_4 = Enemy("Osodark", "osodark", 100, 100, 18, 375, 280, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    necrola_1 = Enemy("necrola", "necrola", 100, 100, 13, 230, 425, True,
+    necrola_1 = Enemy("Necrola", "necrola", 100, 100, 13, 230, 425, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_2 = Enemy("necrola", "necrola", 100, 100, 14, 385, 490, True,
+    necrola_2 = Enemy("Necrola", "necrola", 100, 100, 14, 385, 490, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_3 = Enemy("necrola", "necrola", 100, 100, 13, 460, 365, True,
+    necrola_3 = Enemy("Necrola", "necrola", 100, 100, 13, 460, 365, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_4 = Enemy("necrola", "necrola", 100, 100, 15, 618, 425, True,
+    necrola_4 = Enemy("Necrola", "necrola", 100, 100, 15, 618, 425, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # marrow enemies ---------------------------------------------------------------------------------------------------
-    erebyth = Enemy("erebyth", "erebyth", 100, 100, 25, 575, 450, True, "item", graphic_dict["erebyth"],
+    erebyth = Enemy("Erebyth", "erebyth", 100, 100, 25, 575, 450, True, "item", graphic_dict["erebyth"],
                     UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    apothis = Enemy("apothis", "apothis", 100, 100, 75, 575, 450, True, "item", graphic_dict["apothis_back"],
+    apothis = Enemy("Apothis", "apothis", 100, 100, 75, 575, 450, True, "item", graphic_dict["apothis_back"],
                     UiElement("apothis hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    necrola_ramps_1 = Enemy("necrola", "necrola", 100, 100, 22, 198, 360, True,
+    necrola_ramps_1 = Enemy("Necrola", "necrola", 100, 100, 22, 198, 360, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
     necrola_rect_1 = pygame.Rect((25, 360), (150, 100))
-    necrola_ramps_2 = Enemy("necrola", "necrola", 100, 100, 22, 835, 360, True,
+    necrola_ramps_2 = Enemy("Necrola", "necrola", 100, 100, 22, 835, 360, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
     necrola_rect_2 = pygame.Rect((865, 300), (150, 50))
-    necrola_ramps_3 = Enemy("necrola", "necrola", 100, 100, 20, 514, 140, True,
+    necrola_ramps_3 = Enemy("Necrola", "necrola", 100, 100, 20, 514, 140, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
     necrola_rect_3 = pygame.Rect((514, 0), (50, 100))
-    atmon_1 = Enemy("atmon", "atmon", 100, 100, 22, 250, 150, True,
+    atmon_1 = Enemy("Atmon", "atmon", 100, 100, 22, 250, 150, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    atmon_2 = Enemy("atmon", "atmon", 100, 100, 25, 95, 230, True,
+    atmon_2 = Enemy("Atmon", "atmon", 100, 100, 25, 95, 220, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    atmon_3 = Enemy("atmon", "atmon", 100, 100, 21, 190, 350, True,
+    atmon_3 = Enemy("Atmon", "atmon", 100, 100, 21, 190, 350, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    atmon_4 = Enemy("atmon", "atmon", 100, 100, 24, 350, 275, True,
+    atmon_4 = Enemy("Atmon", "atmon", 100, 100, 24, 350, 275, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     
     # castle enemies ---------------------------------------------------------------------------------------------------
-    atmon_castle = Enemy("atmon", "atmon", 100, 100, 26, 350, 275, True,
+    atmon_castle = Enemy("Atmon", "atmon", 100, 100, 26, 350, 275, True,
                          Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                          graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     
-    jumano_1 = Enemy("jumano", "jumano", 100, 100, 25, 200, 200, True,
+    jumano_1 = Enemy("Jumano", "jumano", 100, 100, 25, 200, 200, True,
                      Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
                      graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    jumano_2 = Enemy("jumano", "jumano", 100, 100, 27, 825, 200, True,
+    jumano_2 = Enemy("Jumano", "jumano", 100, 100, 27, 825, 200, True,
                      Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
                      graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    jumano_3 = Enemy("jumano", "jumano", 100, 100, 26, 320, 325, True,
+    jumano_3 = Enemy("Jumano", "jumano", 100, 100, 26, 320, 325, True,
                      Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
                      graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    jumano_4 = Enemy("jumano", "jumano", 100, 100, 25, 700, 325, True,
+    jumano_4 = Enemy("Jumano", "jumano", 100, 100, 25, 700, 325, True,
                      Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
                      graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
 
-    jumano_hall = Enemy("jumano", "jumano", 100, 100, 28, 910, 250, True,
+    jumano_hall = Enemy("Jumano", "jumano", 100, 100, 28, 910, 250, True,
                         Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
                         graphic_dict["jumano"], UiElement("jumano hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
 
-    dreth = Enemy("dreth", "dreth", 100, 100, 35, 518, 520, True, "item", graphic_dict["sprite_dreth"],
+    dreth = Enemy("Dreth", "dreth", 100, 100, 35, 518, 520, True, "item", graphic_dict["sprite_dreth"],
                   UiElement("dreth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
 
-    seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
-    seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
-    seldon_academia = Building("academia", "seldon academia", 875, 440, graphic_dict["amuna_academia_building"])
+    seldon_inn = Building("Inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
+    seldon_shop = Building("Shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
+    seldon_academia = Building("Academia", "seldon academia", 875, 440, graphic_dict["amuna_academia_building"])
     amuna_building_top_1 = UiElement("building top", 635, 572, graphic_dict["amuna_building_top"])
     amuna_building_top_2 = UiElement("building top", 665, 372, graphic_dict["amuna_building_top"])
     amuna_building_top_3 = UiElement("building top", 875, 412, graphic_dict["amuna_building_top"])
 
-    korlok_inn = Building("inn", "korlok inn", 895, 365, graphic_dict["nuldar_inn_building"])
-    korlok_shop = Building("shop", "korlok shop", 675, 390, graphic_dict["nuldar_shop_building"])
-    korlok_herb = Building("apothecary", "korlok apothecary", 745, 240, graphic_dict["nuldar_herb_building"])
+    korlok_inn = Building("Inn", "korlok inn", 895, 365, graphic_dict["nuldar_inn_building"])
+    korlok_shop = Building("Shop", "korlok shop", 675, 390, graphic_dict["nuldar_shop_building"])
+    korlok_herb = Building("Apothecary", "korlok apothecary", 745, 240, graphic_dict["nuldar_herb_building"])
     nuldar_building_top_1 = UiElement("building top", 896, 365, graphic_dict["nuldar_building_top"])
     nuldar_building_top_2 = UiElement("building top", 677, 390, graphic_dict["nuldar_building_top"])
     nuldar_building_top_3 = UiElement("building top", 746, 240, graphic_dict["nuldar_building_top"])
@@ -7695,20 +7714,20 @@ if __name__ == "__main__":
     forge_entrance = Building("entrance", "forge entrance", 500, 125, graphic_dict["mines_entrance"])
     altar_entrance = Building("entrance", "altar entrance", 150, 390, graphic_dict["mines_entrance"])
 
-    mines_ore_1 = Item("mines ore", "ore", 125, 230, graphic_dict["sprite_ore_img"], 0)
-    mines_ore_2 = Item("mines ore", "ore", 200, 230, graphic_dict["sprite_ore_img"], 0)
-    mines_ore_3 = Item("mines ore", "ore", 275, 230, graphic_dict["sprite_ore_img"], 0)
-    mines_ore_4 = Item("mines ore", "ore", 275, 150, graphic_dict["sprite_ore_img"], 0)
+    mines_ore_1 = Item("Mines ore", "ore", 125, 230, graphic_dict["sprite_ore_img"], 0)
+    mines_ore_2 = Item("Mines ore", "ore", 200, 230, graphic_dict["sprite_ore_img"], 0)
+    mines_ore_3 = Item("Mines ore", "ore", 275, 230, graphic_dict["sprite_ore_img"], 0)
+    mines_ore_4 = Item("Mines ore", "ore", 275, 150, graphic_dict["sprite_ore_img"], 0)
 
     hearth_stone = Building("hearth", "seldon hearth", 860, 595, graphic_dict["hearth_stone"])
     marrow_hearth = Building("hearth", "marrow hearth", 960, 350, graphic_dict["hearth_stone"])
     castle_bridge = UiElement("castle bridge", 710, 486, graphic_dict["castle_bridge_unfinished"])
 
-    stardust_entrance = Building("shop", "stardust post", 530, 325, graphic_dict["stardust_entrance"])
-    rohir_gate = Building("gate", "rohir gate", 525, 50, graphic_dict["rohir_gate"])
+    stardust_entrance = Building("Shop", "Stardust Post", 530, 325, graphic_dict["stardust_entrance"])
+    rohir_gate = Building("Korlok", "rohir gate", 525, 50, graphic_dict["rohir_gate"])
     nascent_gate = Building("gate", "nascent gate", 418, 262, graphic_dict["nascent_gate_closed"])
 
-    dungeon_entrance = Building("entrance", "dungeon entrance", 35, 350, graphic_dict["dungeon_entrance"])
+    dungeon_entrance = Building("Entrance", "dungeon entrance", 35, 350, graphic_dict["dungeon_entrance"])
     dungeon_wall_1 = Building("wall", "dungeon wall 1", 347, 450, graphic_dict["dungeon_wall_1"])
     dungeon_wall_2 = Building("wall", "dungeon wall 2", 308, 368, graphic_dict["dungeon_wall_2"])
     dungeon_wall_3 = Building("wall", "dungeon wall 3", 682, 450, graphic_dict["dungeon_wall_1"])
@@ -7815,10 +7834,10 @@ if __name__ == "__main__":
     mage_book = UiElement("mage book", 670, 375, graphic_dict["mage_book_img"])
     fighter_book = UiElement("fighter book", 670, 375, graphic_dict["fighter_book_img"])
     scout_book = UiElement("scout book", 670, 375, graphic_dict["scout_book_img"])
-    quest_logs_1 = Item("pine logs", "quest", 60, 540, graphic_dict["pine_logs_img"], 0)
-    quest_logs_2 = Item("pine logs", "quest", 315, 560, graphic_dict["pine_logs_img"], 0)
-    quest_logs_3 = Item("pine logs", "quest", 415, 435, graphic_dict["pine_logs_img"], 0)
-    quest_logs_4 = Item("pine logs", "quest", 100, 540, graphic_dict["pine_logs_img"], 0)
+    quest_logs_1 = Item("Pine logs", "quest", 60, 540, graphic_dict["pine_logs_img"], 0)
+    quest_logs_2 = Item("Pine logs", "quest", 315, 560, graphic_dict["pine_logs_img"], 0)
+    quest_logs_3 = Item("Pine logs", "quest", 415, 435, graphic_dict["pine_logs_img"], 0)
+    quest_logs_4 = Item("Pine logs", "quest", 100, 540, graphic_dict["pine_logs_img"], 0)
     quest_logs_pile = Item("pine log pile", "quest", 725, 600, graphic_dict["pine_logs_pile_img"], 0)
     quest_supplies_1 = Item("quest supplies", "quest", 625, 48, graphic_dict["quest_supplies"], 0)
     quest_supplies_2 = Item("quest supplies", "quest", 715, 48, graphic_dict["quest_supplies"], 0)
@@ -7983,14 +8002,14 @@ if __name__ == "__main__":
     muchador_crate_2 = UiElement("muchador crate 2", 500, 200, graphic_dict["muchador_crate"])
     muchador_crate_3 = UiElement("muchador crate 3", 200, 530, graphic_dict["muchador_crate"])
     muchador_crate_4 = UiElement("muchador crate 4", 500, 530, graphic_dict["muchador_crate"])
-    dungeon_crate_1 = Item("dungeon crate 1", "crate", 75, 150, graphic_dict["dungeon_crate"], 0)
-    dungeon_crate_2 = Item("dungeon crate 2", "crate", 960, 150, graphic_dict["dungeon_crate"], 0)
-    dungeon_crate_3 = Item("dungeon crate 3", "crate", 388, 575, graphic_dict["dungeon_crate"], 0)
-    dungeon_crate_4 = Item("dungeon crate 4", "crate", 650, 575, graphic_dict["dungeon_crate"], 0)
-    dungeon_crate_5 = Item("dungeon crate 5", "crate", 970, 150, graphic_dict["dungeon_crate"], 0)
-    dungeon_switch_1 = Item("dungeon switch 1", "switch", 158, 430, graphic_dict["dungeon_switch_inactive"], 0)
-    dungeon_switch_2 = Item("dungeon switch 2", "switch", 874, 430, graphic_dict["dungeon_switch_inactive"], 0)
-    dungeon_switch_3 = Item("dungeon switch 3", "switch", 519, 165, graphic_dict["dungeon_switch_inactive"], 0)
+    dungeon_crate_1 = Item("dungeon crate 1", "Crate", 75, 150, graphic_dict["dungeon_crate"], 0)
+    dungeon_crate_2 = Item("dungeon crate 2", "Crate", 960, 150, graphic_dict["dungeon_crate"], 0)
+    dungeon_crate_3 = Item("dungeon crate 3", "Crate", 388, 575, graphic_dict["dungeon_crate"], 0)
+    dungeon_crate_4 = Item("dungeon crate 4", "Crate", 650, 575, graphic_dict["dungeon_crate"], 0)
+    dungeon_crate_5 = Item("dungeon crate 5", "Crate", 970, 150, graphic_dict["dungeon_crate"], 0)
+    dungeon_switch_1 = Item("dungeon switch 1", "Switch", 158, 430, graphic_dict["dungeon_switch_inactive"], 0)
+    dungeon_switch_2 = Item("dungeon switch 2", "Switch", 874, 430, graphic_dict["dungeon_switch_inactive"], 0)
+    dungeon_switch_3 = Item("dungeon switch 3", "Switch", 519, 165, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
     ramps_crate_1 = Item("ramps crate 1", "crate", 390, 350, graphic_dict["dungeon_crate"], 0)
@@ -8103,6 +8122,9 @@ if __name__ == "__main__":
     lair_exit = pygame.Rect((450, 25), (150, 50))
     castle_key = pygame.Rect((490, 225), (50, 50))
     boss_door = pygame.Rect((430, 470), (150, 50))
+    marrow_barrier_small = pygame.Rect((30, 260), (75, 70))
+    seldon_barrier_small = pygame.Rect((925, 260), (75, 70))
+    stardust_card_cave = pygame.Rect((225, 75), (75, 75))
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
     mines_cart = UiElement("mines cart", 885, 475, graphic_dict["mines_light"])
@@ -8272,6 +8294,7 @@ if __name__ == "__main__":
     marrow_entrance_music = resource_path("resources/sounds/eterna_marrow_entrance.mp3")
     boss_battle_music = resource_path("resources/sounds/eterna_boss_battle.mp3")
     fishing_music = resource_path("resources/sounds/eterna_fishing.mp3")
+    card_music = resource_path("resources/sounds/eterna_card_cave.mp3")
     castle_music = resource_path("resources/sounds/eterna_castle.mp3")
     caldera_music = resource_path("resources/sounds/eterna_caldera.mp3")
     lair_music = resource_path("resources/sounds/eterna_dreth.mp3")
@@ -8667,6 +8690,7 @@ if __name__ == "__main__":
     credits_shown = False
     cat_rewarded = False
     show_cat_card = False
+    in_card_cave = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -9096,7 +9120,7 @@ if __name__ == "__main__":
                         if len(character_name_input) > 0:
                             player.name = str(character_name_input)
                         else:
-                            player.name = "default"
+                            player.name = "Default"
 
                     if back_button.rect.collidepoint(pos):
                         pygame.mixer.find_channel(True).play(sfx_item_flower)
@@ -9402,6 +9426,8 @@ if __name__ == "__main__":
                         cats_pet["eldream_shop"] = load_returned["eldream_shop_cat"]
                         cats_pet["eldream_menagerie"] = load_returned["eldream_menagerie_cat"]
                         cats_pet["marrow"] = load_returned["marrow_cat"]
+                        sub_marrow_opened = load_returned["sub_marrow_opened"]
+                        credits_shown = load_returned["credits_shown"]
                         
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -9742,7 +9768,9 @@ if __name__ == "__main__":
                                                                       castle_cell_1, castle_cell_2, rope_wind_2,
                                                                       castle_cell_3, castle_ladder, castle_key,
                                                                       boss_door, caldera_ladder, fishing_spot_caldera,
-                                                                      jumanos, lair_exit, dreth, marrow_cat)
+                                                                      jumanos, lair_exit, dreth, marrow_cat,
+                                                                      marrow_barrier_small, seldon_barrier_small,
+                                                                      stardust_card_cave)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -10039,7 +10067,10 @@ if __name__ == "__main__":
                                                                                   castle_cell_3, castle_ladder,
                                                                                   castle_key, boss_door, caldera_ladder,
                                                                                   fishing_spot_caldera, jumanos,
-                                                                                  lair_exit, dreth, marrow_cat)
+                                                                                  lair_exit, dreth, marrow_cat, 
+                                                                                  marrow_barrier_small,
+                                                                                  seldon_barrier_small,
+                                                                                  stardust_card_cave)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -10262,7 +10293,8 @@ if __name__ == "__main__":
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
+                                                                        credits_shown)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10318,7 +10350,7 @@ if __name__ == "__main__":
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked, dreth_taunt_4,
                                                                     dreth_defeated, apothis_gift, sub_marrow_opened,
-                                                                    cat_rewarded, cats_pet)
+                                                                    cat_rewarded, cats_pet, credits_shown)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -10737,7 +10769,8 @@ if __name__ == "__main__":
                                                                       game_window, stelli_battle_sprite, vanished,
                                                                       vanish_overlay, erebyth_defeated,
                                                                       basic_fish_counter, better_fish_counter,
-                                                                      even_better_fish_counter, best_fish_counter)
+                                                                      even_better_fish_counter, best_fish_counter,
+                                                                      seldon_barrier_small, apothis_gift)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone, over_world_song_set,
@@ -10789,7 +10822,8 @@ if __name__ == "__main__":
                                                                       game_window, stelli_battle_sprite, vanished,
                                                                       vanish_overlay, erebyth_defeated,
                                                                       basic_fish_counter, better_fish_counter,
-                                                                      even_better_fish_counter, best_fish_counter)
+                                                                      even_better_fish_counter, best_fish_counter,
+                                                                      seldon_barrier_small, apothis_gift)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -11125,7 +11159,8 @@ if __name__ == "__main__":
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, castle_bridge,
                                                                                overlay_prism_activate,
-                                                                               prism_activate_tic, sfx_item_chroma)
+                                                                               prism_activate_tic, sfx_item_chroma,
+                                                                               marrow_barrier_small, apothis_gift)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -11157,7 +11192,8 @@ if __name__ == "__main__":
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, castle_bridge,
                                                                                overlay_prism_activate,
-                                                                               prism_activate_tic, sfx_item_chroma)
+                                                                               prism_activate_tic, sfx_item_chroma,
+                                                                               marrow_barrier_small, apothis_gift)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -13192,7 +13228,8 @@ if __name__ == "__main__":
                                                                            previous_surf, fishing_level,
                                                                            basic_fish_counter, better_fish_counter,
                                                                            even_better_fish_counter, best_fish_counter,
-                                                                           sfx_fishing_cast, apothis_gift)
+                                                                           sfx_fishing_cast, apothis_gift,
+                                                                           stardust_card_cave, in_card_cave)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -13232,7 +13269,8 @@ if __name__ == "__main__":
                                                                            previous_surf, fishing_level,
                                                                            basic_fish_counter, better_fish_counter,
                                                                            even_better_fish_counter, best_fish_counter,
-                                                                           sfx_fishing_cast, apothis_gift)
+                                                                           sfx_fishing_cast, apothis_gift,
+                                                                           stardust_card_cave, in_card_cave)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -13260,6 +13298,7 @@ if __name__ == "__main__":
                     better_fish_counter = stardust_returned["better_fish_counter"]
                     even_better_fish_counter = stardust_returned["even_better_fish_counter"]
                     best_fish_counter = stardust_returned["best_fish_counter"]
+                    in_card_cave = stardust_returned["in_card_cave"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in rohir river (after apothis cutscene) -------------------------------------------------
@@ -13707,7 +13746,7 @@ if __name__ == "__main__":
                         erebyth_turn_counter = 0
 
                     try:
-                        if current_enemy_battling.name == "erebyth":
+                        if current_enemy_battling.name == "Erebyth":
                             if current_enemy_battling.health <= 25:
                                 current_enemy_battling.health = 25
                                 npc_tic = time.perf_counter()
@@ -13824,9 +13863,9 @@ if __name__ == "__main__":
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
                                 try:
-                                    if current_enemy_battling.name == "erebyth":
+                                    if current_enemy_battling.name == "Erebyth":
                                         erebyth_turn_counter += 1
-                                    if current_enemy_battling.name == "dreth":
+                                    if current_enemy_battling.name == "Dreth":
                                         dreth_turn_counter += 1
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "small energy potion" or \
@@ -13982,9 +14021,9 @@ if __name__ == "__main__":
 
                                 if current_enemy_battling.kind == "snake":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_snake)
-                                if current_enemy_battling.kind == "ghoul":
+                                if current_enemy_battling.name == "Ghoul":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_ghoul)
-                                if current_enemy_battling.kind == "chorizon":
+                                if current_enemy_battling.name == "Chorizon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_chorizon)
                                 if current_enemy_battling.kind == "muchador":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_muchador)
@@ -14018,9 +14057,9 @@ if __name__ == "__main__":
                                 first_battle_cond = False
                                 drawing_functions.game_guide_container.clear()
                                 if not combat_cooldown:
-                                    if current_enemy_battling.name == "erebyth":
+                                    if current_enemy_battling.name == "Erebyth":
                                         erebyth_turn_counter += 1
-                                    if current_enemy_battling.name == "dreth":
+                                    if current_enemy_battling.name == "Dreth":
                                         dreth_turn_counter += 1
                                     attack_hotkey = False
                                     # combat event function that handles and returns damage and health
@@ -14143,23 +14182,23 @@ if __name__ == "__main__":
                                                             seed_scout_count < 4:
                                                         seed_scout_count += 1
 
-                                            if current_enemy_battling.name == "nede ghoul":
+                                            if current_enemy_battling.kind == "nede ghoul":
                                                 nede_ghoul_defeated = True
                                                 ghoul_nede.kill()
-                                            if current_enemy_battling.name == "chorizon_1":
+                                            if current_enemy_battling.kind == "chorizon_1":
                                                 mini_boss_1 = False
                                                 mini_boss_1_defeated = True
                                                 chorizon_1.kill()
                                                 chorizon_phase = False
-                                            if current_enemy_battling.name == "chorizon_2":
+                                            if current_enemy_battling.kind == "chorizon_2":
                                                 mini_boss_2 = False
                                                 mini_boss_2_defeated = True
                                                 chorizon_2.kill()
                                                 chorizon_phase = False
-                                            if current_enemy_battling.name == "muchador":
+                                            if current_enemy_battling.name == "Muchador":
                                                 muchador_defeated = True
                                                 muchador.kill()
-                                            if current_enemy_battling.name == "chinzilla":
+                                            if current_enemy_battling.name == "Chinzilla":
                                                 chinzilla_defeated = True
                                                 chinzilla.kill()
 
@@ -14190,9 +14229,9 @@ if __name__ == "__main__":
                                     skill_1_hotkey = False
                                     # make sure player has enough energy to use the skill
                                     if player.energy > 19:
-                                        if current_enemy_battling.name == "erebyth":
+                                        if current_enemy_battling.name == "Erebyth":
                                             erebyth_turn_counter += 1
-                                        if current_enemy_battling.name == "dreth":
+                                        if current_enemy_battling.name == "Dreth":
                                             dreth_turn_counter += 1
                                         # player is a mage and uses the barrier spell. Set barrier active to true
                                         # save original defence value to be re applied upon enemy or player defeat
@@ -14463,23 +14502,23 @@ if __name__ == "__main__":
                                                             if seed_mage_count < 4 and seed_fighter_count < 4 and \
                                                                     seed_scout_count < 4:
                                                                 seed_fighter_count += 1
-                                                        if current_enemy_battling.name == "nede ghoul":
+                                                        if current_enemy_battling.kind == "nede ghoul":
                                                             nede_ghoul_defeated = True
                                                             ghoul_nede.kill()
-                                                        if current_enemy_battling.name == "chorizon_1":
+                                                        if current_enemy_battling.kind == "chorizon_1":
                                                             mini_boss_1 = False
                                                             mini_boss_1_defeated = True
                                                             chorizon_1.kill()
                                                             chorizon_phase = False
-                                                        if current_enemy_battling.name == "chorizon_2":
+                                                        if current_enemy_battling.kind == "chorizon_2":
                                                             mini_boss_2 = False
                                                             mini_boss_2_defeated = True
                                                             chorizon_2.kill()
                                                             chorizon_phase = False
-                                                        if current_enemy_battling.name == "muchador":
+                                                        if current_enemy_battling.name == "Muchador":
                                                             muchador_defeated = True
                                                             muchador.kill()
-                                                        if current_enemy_battling.name == "chinzilla":
+                                                        if current_enemy_battling.name == "Chinzilla":
                                                             chinzilla_defeated = True
                                                             chinzilla.kill()
                                                         if barrier_active:
@@ -14504,9 +14543,9 @@ if __name__ == "__main__":
                                     skill_2_hotkey = False
                                     # make sure player has enough energy to use the skill
                                     if player.energy > 39:
-                                        if current_enemy_battling.name == "erebyth":
+                                        if current_enemy_battling.name == "Erebyth":
                                             erebyth_turn_counter += 1
-                                        if current_enemy_battling.name == "dreth":
+                                        if current_enemy_battling.name == "Dreth":
                                             dreth_turn_counter += 1
 
                                         if player.role == "mage":
@@ -14768,7 +14807,7 @@ if __name__ == "__main__":
                                                 game_window.blit(pet_energy_surf, pet_energy_rect)
                                 except AttributeError:
                                     pass
-                                text_enemy_name_surf = font.render(str(current_enemy_battling.kind), True, "black",
+                                text_enemy_name_surf = font.render(str(current_enemy_battling.name), True, "black",
                                                                    (255, 204, 203))
                                 text_enemy_name_rect = text_enemy_name_surf.get_rect()
                                 text_enemy_name_rect.center = (812, 688)
@@ -14835,11 +14874,11 @@ if __name__ == "__main__":
                             iriana_battle_sprite.update(825, 520, graphic_dict["iriana_battle"])
 
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                if current_enemy_battling.name == "snake":
+                                if current_enemy_battling.kind == "snake":
                                     screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                                if current_enemy_battling.kind == "ghoul":
+                                if current_enemy_battling.name == "Ghoul":
                                     screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                                if current_enemy_battling.kind == "chorizon":
+                                if current_enemy_battling.name == "Chorizon":
                                     screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
                                 if current_enemy_battling.kind == "muchador":
                                     screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
@@ -14912,11 +14951,11 @@ if __name__ == "__main__":
                                     screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
                             else:
-                                if current_enemy_battling.name == "snake":
+                                if current_enemy_battling.kind == "snake":
                                     game_window.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                                if current_enemy_battling.kind == "ghoul":
+                                if current_enemy_battling.name == "Ghoul":
                                     game_window.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                                if current_enemy_battling.kind == "chorizon":
+                                if current_enemy_battling.name == "Chorizon":
                                     game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
                                 if current_enemy_battling.kind == "muchador":
                                     game_window.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
@@ -15028,7 +15067,7 @@ if __name__ == "__main__":
 
                             # disengage player when fighting muchador boss after it's health gets low
                             # muchador picks a random crate and hides in it
-                            if current_enemy_battling.name == "muchador":
+                            if current_enemy_battling.name == "Muchador":
                                 if not muchador_relocate:
                                     if current_enemy_battling.health < 60:
                                         muchador_crates_list = [muchador_crate_1, muchador_crate_2,
@@ -15045,7 +15084,7 @@ if __name__ == "__main__":
                                         muchador.update_image(random_crate.x_coordinate, random_crate.y_coordinate,
                                                               graphic_dict["muchador"])
 
-                            if current_enemy_battling.kind == "chorizon":
+                            if current_enemy_battling.name == "Chorizon":
                                 if current_enemy_battling.health < 50 and not chorizon_phase:
                                     chorizon_phase = True
                                     # type change for second phase
@@ -15082,11 +15121,11 @@ if __name__ == "__main__":
                                                 iriana_battle_sprite.update(500, 350, graphic_dict["iriana_attack"])
 
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                if current_enemy_battling.name == "snake":
+                                if current_enemy_battling.kind == "snake":
                                     screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                                if current_enemy_battling.kind == "ghoul":
+                                if current_enemy_battling.name == "Ghoul":
                                     screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                                if current_enemy_battling.kind == "chorizon":
+                                if current_enemy_battling.name == "Chorizon":
                                     screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
                                 if current_enemy_battling.kind == "muchador":
                                     screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
@@ -15159,11 +15198,11 @@ if __name__ == "__main__":
                                     screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
                             else:
-                                if current_enemy_battling.name == "snake":
+                                if current_enemy_battling.kind == "snake":
                                     game_window.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                                if current_enemy_battling.kind == "ghoul":
+                                if current_enemy_battling.name == "Ghoul":
                                     game_window.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                                if current_enemy_battling.kind == "chorizon":
+                                if current_enemy_battling.name == "Chorizon":
                                     game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
                                 if current_enemy_battling.kind == "muchador":
                                     game_window.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
@@ -17322,12 +17361,13 @@ if __name__ == "__main__":
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
+                                                                        credits_shown)
                                     info_text_2 = info
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
-                                    drawing_functions.quest_box_draw("kirean", True, garan_quest_window,
+                                    drawing_functions.quest_box_draw("Kirean", True, garan_quest_window,
                                                                      maurelle_quest_window, celeste_quest_window,
                                                                      torune_quest_window, voruke_quest_window,
                                                                      zerah_quest_window, kirean_quest_window,
@@ -17339,7 +17379,7 @@ if __name__ == "__main__":
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not kirean_complete_shown:
-                                        drawing_functions.quest_complete_draw("kirean", True,
+                                        drawing_functions.quest_complete_draw("Kirean", True,
                                                                               garan_complete_quest_window,
                                                                               maurelle_complete_quest_window,
                                                                               celeste_complete_quest_window,
@@ -17992,11 +18032,12 @@ if __name__ == "__main__":
                                                                         mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
+                                                                        credits_shown)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
-                                    drawing_functions.quest_box_draw("aitor", True, garan_quest_window,
+                                    drawing_functions.quest_box_draw("Aitor", True, garan_quest_window,
                                                                      maurelle_quest_window, celeste_quest_window,
                                                                      torune_quest_window, voruke_quest_window,
                                                                      zerah_quest_window, kirean_quest_window,
@@ -18008,7 +18049,7 @@ if __name__ == "__main__":
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not aitor_complete_shown:
-                                        drawing_functions.quest_complete_draw("aitor", True,
+                                        drawing_functions.quest_complete_draw("Aitor", True,
                                                                               garan_complete_quest_window,
                                                                               maurelle_complete_quest_window,
                                                                               celeste_complete_quest_window,
@@ -18471,7 +18512,8 @@ if __name__ == "__main__":
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked,
                                                                     dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                    sub_marrow_opened, cat_rewarded, cats_pet)
+                                                                    sub_marrow_opened, cat_rewarded, cats_pet,
+                                                                    credits_shown)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18679,6 +18721,189 @@ if __name__ == "__main__":
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
+                # if player is in the card cave ------------------------------------------------------------------------
+                if in_card_cave and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
+                        and not in_battle:
+
+                    if not npc_text_reset:
+                        info_text_1 = "Press the 'Talk' button to interact"
+                        info_text_2 = "with the NPC. "
+                        info_text_3 = ""
+                        info_text_4 = ""
+
+                    if not over_world_song_set:
+                        if pygame.mixer.music.get_busy():
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(card_music)
+                            pygame.mixer.music.play(loops=-1)
+                            over_world_song_set = True
+
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+                            if event.key == K_ESCAPE:
+                                movement_able = True
+                                interacted = False
+                                encounter_started = False
+                                in_card_cave = False
+                                in_over_world = True
+                                quest_clicked = False
+                                npc_text_reset = False
+                                over_world_song_set = False
+                                stardust_song_set = False
+                        elif event.type == QUIT:
+                            pygame.mixer.quit()
+                            sys.exit()
+
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+                        button_highlighted = button_highlighter(pos)
+
+                        if flower_button.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.flower_pop_up_window.append(flower_count_overlay)
+                        else:
+                            drawing_functions.flower_pop_up_window.clear()
+                            drawing_functions.flower_pop_up_window_text.clear()
+
+                        if fish_button_count.collidepoint(pos):
+                            if (len(drawing_functions.fish_pop_up_window) == 0 and
+                                    len(drawing_functions.flower_pop_up_window) == 0):
+                                drawing_functions.fish_pop_up_window.append(fish_count_overlay)
+                        else:
+                            drawing_functions.fish_pop_up_window.clear()
+                            drawing_functions.fish_pop_up_window_text.clear()
+
+                        if event.type == pygame.MOUSEBUTTONUP:
+                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
+                                                         sword, bow, pressed_keys, sfx_button_role)
+
+                        # npc was interacted with, if quest button clicked get npc name and check quest progress
+                        npc_button_card = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
+                                                                          sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
+                        # click handlers
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT)
+                        if info_choice == "yes":
+                            inventory_event = click_handlers.inventory(pygame, player, current_info_item,
+                                                                       sfx_item_potion, sfx_item_equip,
+                                                                       sfx_item_whistle, sfx_item_snack,
+                                                                       graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                       sfx_firework, sfx_skill_learn)
+                            if inventory_event["item message"] != "":
+                                info_text_1 = inventory_event["item message"]
+                                info_text_2 = ""
+                            drawing_functions.item_info_window.clear()
+                            button_highlighted = False
+
+                        if info_choice == "no":
+                            drawing_functions.item_info_window.clear()
+                            button_highlighted = False
+
+                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
+                                                                                     SCREEN_HEIGHT)
+                        if inventory_item_clicked["clicked"]:
+                            pygame.mixer.find_channel(True).play(sfx_button_inventory)
+                            current_info_item = drawing_functions.item_info_draw(
+                                inventory_item_clicked["element"],
+                                info_items, item_info_button,
+                                graphic_dict)
+
+                        # function to handle equipment item clicks. apply item message to message box if not empty str.
+                        if len(drawing_functions.item_info_window) == 0:
+                            equipment_event = click_handlers.equipment(player, event, pygame,
+                                                                       basic_armor, forged_armor,
+                                                                       mythical_armor, legendary_armor,
+                                                                       power_gloves,
+                                                                       chroma_boots, sfx_item_equip,
+                                                                       SCREEN_WIDTH,
+                                                                       SCREEN_HEIGHT, graphic_dict)
+                            if equipment_event["equipment message"] != "":
+                                info_text_1 = equipment_event["equipment message"]
+                                info_text_2 = ""
+
+                        if npc_button_card == "quest":
+                            npc_text_reset = True
+
+                        if npc_button_card == "leave":
+                            movement_able = True
+                            interacted = False
+                            encounter_started = False
+                            in_card_cave = False
+                            over_world_song_set = False
+                            stardust_song_set = False
+                            in_over_world = True
+                            npc_text_reset = False
+                            quest_clicked = False
+
+                    # outside of event loop ------------------------------------------------------------------------
+                    if not encounter_started:
+                        info_text_1 = ""
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
+                        encounter_started = True
+
+                    # draw objects to screen related to academia scenario ----------------------------------------------
+                    if in_card_cave and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
+                            and not in_battle:
+
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(card_shop_bg, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(quest_button.surf, quest_button.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
+
+                        else:
+                            game_window.blit(card_shop_bg, (0, 0))
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            game_window.blit(quest_button.surf, quest_button.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
+
+                        # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counter)
+                            drawing_functions.draw_it(screen)
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counter)
+                            drawing_functions.draw_it(game_window)
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
+
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
                 # if player interacting with an npc (quest) ------------------------------------------------------------
                 if in_npc_interaction and not in_over_world and not in_shop and not in_inn and not in_academia \
                         and not in_battle:
@@ -18770,9 +18995,9 @@ if __name__ == "__main__":
                             if quest_buttons == "accept":
                                 info_text_1 = "You've accepted the quest!"
                                 info_text_2 = ""
-                                if current_npc_interacting.name != "garan":
-                                    if current_npc_interacting.name != "artherian":
-                                        if current_npc_interacting.name != "maydria":
+                                if current_npc_interacting.name != "Garan":
+                                    if current_npc_interacting.name != "Artherian":
+                                        if current_npc_interacting.name != "Maydria":
                                             drawing_functions.quest_accept_box.append(quest_accepted)
                                         else:
                                             info_text_1 = "You've accepted the task!"
@@ -18788,7 +19013,7 @@ if __name__ == "__main__":
                                         artherian_task_start = True
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
                                 button_highlighted = False
-                                if current_npc_interacting.name == "garan":
+                                if current_npc_interacting.name == "Garan":
                                     player.quest_status["sneaky snakes"] = True
                                     player.current_quests["sneaky snakes"] = \
                                         "Garan asked you to defeat snakes near the river."
@@ -18797,39 +19022,39 @@ if __name__ == "__main__":
                                                                  "potion", 200, 200, graphic_dict["health_pot_img"], 0))
                                         npc_garan.gift = True
                                         drawing_functions.type_advantage_window.append(role_select_overlay)
-                                if current_npc_interacting.name == "maurelle":
+                                if current_npc_interacting.name == "Maurelle":
                                     player.quest_status["village repairs"] = True
                                     player.current_quests["village repairs"] = "Maurelle asked you to " \
                                                                                "gather lumber from nearby trees."
-                                if current_npc_interacting.name == "celeste":
+                                if current_npc_interacting.name == "Celeste":
                                     player.quest_status["where's nede?"] = True
                                     player.current_quests["where's nede?"] = "Celeste asked you to find her pet " \
                                                                              "dog Nede. "
-                                if current_npc_interacting.name == "torune":
+                                if current_npc_interacting.name == "Torune":
                                     player.quest_status["ghouled again"] = True
                                     player.current_quests["ghouled again"] = "Torune asked you to defeat " \
                                                                              "ghouls nearby the Castle wall."
-                                if current_npc_interacting.name == "voruke":
+                                if current_npc_interacting.name == "Voruke":
                                     player.quest_status["band hammer"] = True
                                     player.current_quests["band hammer"] = "Voruke asked you to defeat bandiles " \
                                                                            "in the mines. "
-                                if current_npc_interacting.name == "zerah":
+                                if current_npc_interacting.name == "Zerah":
                                     player.quest_status["elementary elementals"] = True
                                     player.current_quests["elementary elementals"] = "Zerah asked you to defeat " \
                                                                                      "magmons near the lava pool. "
-                                if current_npc_interacting.name == "dionte":
+                                if current_npc_interacting.name == "Dionte":
                                     player.quest_status["it's dangerous to go alone"] = True
                                     player.current_quests["it's dangerous to go alone"] = "Dionte asked you to face " \
                                                                                           "the monster in the cave."
-                                if current_npc_interacting.name == "omoku":
+                                if current_npc_interacting.name == "Omoku":
                                     player.quest_status["kart troubles"] = True
                                     player.current_quests["kart troubles"] = "Omoku asked if you could pick up his " \
                                                                              "stray supplies."
-                                if current_npc_interacting.name == "leyre":
+                                if current_npc_interacting.name == "Leyre":
                                     player.quest_status["las escondidas"] = True
                                     player.current_quests["las escondidas"] = "Leyre is playing hide and seek with " \
                                                                               "you! Try to find her."
-                                if current_npc_interacting.name == "everett":
+                                if current_npc_interacting.name == "Everett":
                                     player.quest_status["shades of fear"] = True
                                     player.current_quests["shades of fear"] = "Everett hopes you'll defeat some " \
                                                                               "of the Necrolas around. "
@@ -18883,7 +19108,7 @@ if __name__ == "__main__":
                             if first_npc_cond:
                                 first_npc_cond = False
                             # garan npc, check player's quest progress and reward if completed -------------------------
-                            if current_npc_interacting.name == "garan":
+                            if current_npc_interacting.name == "Garan":
                                 if player.quest_progress["sneaky snakes"] == 4 and not \
                                         player.quest_complete["sneaky snakes"]:
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -18954,7 +19179,8 @@ if __name__ == "__main__":
                                                                         mirage_saved, mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
+                                                                        credits_shown)
                                     info_text_2 = info
                                 if not quest_clicked:
                                     if not player.quest_complete["sneaky snakes"]:
@@ -18994,7 +19220,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # celeste npc, check player's quest progress and reward if completed -----------------------
-                            if current_npc_interacting.name == "celeste":
+                            if current_npc_interacting.name == "Celeste":
                                 if player.quest_progress["where's nede?"] == 1 and not \
                                         player.quest_complete["where's nede?"]:
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -19051,7 +19277,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # maurelle npc, check player's quest progress and reward if completed ----------------------
-                            if current_npc_interacting.name == "maurelle":
+                            if current_npc_interacting.name == "Maurelle":
                                 if player.quest_progress["village repairs"] == 4 and not \
                                         player.quest_complete["village repairs"]:
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -19110,7 +19336,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # torune npc, check player's quest progress and reward if completed ------------------------
-                            if current_npc_interacting.name == "torune":
+                            if current_npc_interacting.name == "Torune":
                                 if player.quest_progress["ghouled again"] == 4 and not \
                                         player.quest_complete["ghouled again"]:
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -19181,7 +19407,8 @@ if __name__ == "__main__":
                                                                             mirage_saved, mirage_2_saved, rope_phase,
                                                                             atmon_castle.alive_status, thanked,
                                                                             dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                            sub_marrow_opened, cat_rewarded, cats_pet)
+                                                                            sub_marrow_opened, cat_rewarded, cats_pet,
+                                                                            credits_shown)
                                 if not quest_clicked:
                                     if not player.quest_complete["ghouled again"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19220,7 +19447,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # voruke npc, check player's quest progress and reward if completed ------------------------
-                            if current_npc_interacting.name == "voruke":
+                            if current_npc_interacting.name == "Voruke":
                                 if player.quest_progress["band hammer"] == 4 and not \
                                         player.quest_complete["band hammer"]:
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -19279,7 +19506,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # voruke npc, check player's quest progress and reward if completed ------------------------
-                            if current_npc_interacting.name == "zerah":
+                            if current_npc_interacting.name == "Zerah":
                                 if player.quest_progress["elementary elementals"] == 4 and not \
                                         player.quest_complete["elementary elementals"]:
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -19336,7 +19563,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # dionte npc, check player's quest progress and reward if completed ------------------------
-                            if current_npc_interacting.name == "dionte":
+                            if current_npc_interacting.name == "Dionte":
                                 if player.quest_progress["it's dangerous to go alone"] == 1 and not \
                                         player.quest_complete["it's dangerous to go alone"]:
 
@@ -19409,7 +19636,8 @@ if __name__ == "__main__":
                                                                         mirage_saved, mirage_2_saved, rope_phase,
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet)
+                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
+                                                                        credits_shown)
                                     info_text_2 = info
 
                                 if not quest_clicked:
@@ -19450,7 +19678,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # omoku npc, check player's quest progress and reward if completed -------------------------
-                            if current_npc_interacting.name == "omoku":
+                            if current_npc_interacting.name == "Omoku":
                                 if player.quest_progress["kart troubles"] == 4 and not \
                                         player.quest_complete["kart troubles"]:
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -19507,7 +19735,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # leyre npc, check player's quest progress and reward if completed -------------------------
-                            if current_npc_interacting.name == "leyre":
+                            if current_npc_interacting.name == "Leyre":
                                 if player.quest_progress["las escondidas"] == 4 and not \
                                         player.quest_complete["las escondidas"]:
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -19564,7 +19792,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # everett npc, check player's quest progress and reward if completed -----------------------
-                            if current_npc_interacting.name == "everett":
+                            if current_npc_interacting.name == "Everett":
                                 if player.quest_progress["shades of fear"] == 4 and not \
                                         player.quest_complete["shades of fear"]:
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -19621,7 +19849,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # artherian npc, check player's task progress and reward if completed ----------------------
-                            if current_npc_interacting.name == "artherian":
+                            if current_npc_interacting.name == "Artherian":
                                 shard_counter = 0
                                 for item in player.items:
                                     if item.name == "bone shard":
@@ -19724,7 +19952,7 @@ if __name__ == "__main__":
                                     quest_clicked = False
 
                             # maydria npc, check player's quest progress and reward if completed -----------------------
-                            if current_npc_interacting.name == "maydria":
+                            if current_npc_interacting.name == "Maydria":
                                 if (npc_boro.quest_complete and npc_noren.quest_complete
                                         and not npc_maydria.quest_complete):
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -19833,10 +20061,10 @@ if __name__ == "__main__":
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(quest_button.surf, quest_button.rect)
                             # noinspection PyUnboundLocalVariable
-                            if current_npc_interacting.name == "garan":
+                            if current_npc_interacting.name == "Garan":
                                 screen.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "maurelle":
+                            if current_npc_interacting.name == "Maurelle":
                                 if player.quest_complete["village repairs"]:
                                     quest_visual.update(880, 250, graphic_dict["pine_logs_big_pile_img"])
                                     screen.blit(quest_visual.surf, quest_visual.rect)
@@ -19845,39 +20073,39 @@ if __name__ == "__main__":
                                     screen.blit(quest_visual.surf, quest_visual.rect)
                                 screen.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "celeste":
+                            if current_npc_interacting.name == "Celeste":
                                 if player.quest_progress["where's nede?"] == 1:
                                     screen.blit(nede_big.surf, nede_big.rect)
                                 screen.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "torune":
+                            if current_npc_interacting.name == "Torune":
                                 screen.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "voruke":
+                            if current_npc_interacting.name == "Voruke":
                                 screen.blit(npc_voruke_interaction.surf, npc_voruke_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "zerah":
+                            if current_npc_interacting.name == "Zerah":
                                 screen.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "dionte":
+                            if current_npc_interacting.name == "Dionte":
                                 screen.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "omoku":
+                            if current_npc_interacting.name == "Omoku":
                                 if player.quest_complete["kart troubles"]:
                                     quest_visual.update(861, 295, graphic_dict["kart_full"])
                                     screen.blit(quest_visual.surf, quest_visual.rect)
                                 screen.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
                                 npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "leyre":
+                            if current_npc_interacting.name == "Leyre":
                                 screen.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "everett":
+                            if current_npc_interacting.name == "Everett":
                                 screen.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "artherian":
+                            if current_npc_interacting.name == "Artherian":
                                 screen.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
                                 npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "maydria":
+                            if current_npc_interacting.name == "Maydria":
                                 screen.blit(npc_maydria_interaction.surf, npc_maydria_interaction.rect)
                                 npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
 
@@ -19916,10 +20144,10 @@ if __name__ == "__main__":
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(quest_button.surf, quest_button.rect)
                             # noinspection PyUnboundLocalVariable
-                            if current_npc_interacting.name == "garan":
+                            if current_npc_interacting.name == "Garan":
                                 game_window.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "maurelle":
+                            if current_npc_interacting.name == "Maurelle":
                                 if player.quest_complete["village repairs"]:
                                     quest_visual.update(880, 250, graphic_dict["pine_logs_big_pile_img"])
                                     game_window.blit(quest_visual.surf, quest_visual.rect)
@@ -19928,36 +20156,36 @@ if __name__ == "__main__":
                                     game_window.blit(quest_visual.surf, quest_visual.rect)
                                 game_window.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "celeste":
+                            if current_npc_interacting.name == "Celeste":
                                 if player.quest_progress["where's nede?"] == 1:
                                     game_window.blit(nede_big.surf, nede_big.rect)
                                 game_window.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "torune":
+                            if current_npc_interacting.name == "Torune":
                                 game_window.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "voruke":
+                            if current_npc_interacting.name == "Voruke":
                                 game_window.blit(npc_voruke_interaction.surf, npc_voruke_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "zerah":
+                            if current_npc_interacting.name == "Zerah":
                                 game_window.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "dionte":
+                            if current_npc_interacting.name == "Dionte":
                                 game_window.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "omoku":
+                            if current_npc_interacting.name == "Omoku":
                                 game_window.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
                                 npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "leyre":
+                            if current_npc_interacting.name == "Leyre":
                                 game_window.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "everett":
+                            if current_npc_interacting.name == "Everett":
                                 game_window.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "artherian":
+                            if current_npc_interacting.name == "Artherian":
                                 game_window.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
                                 npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "maydria":
+                            if current_npc_interacting.name == "Maydria":
                                 game_window.blit(npc_maydria_interaction.surf, npc_maydria_interaction.rect)
                                 npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
 
@@ -19983,13 +20211,13 @@ if __name__ == "__main__":
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
                                                          (203, 195, 227))
                         text_npc_name_rect = text_npc_name_surf.get_rect()
-                        if current_npc_interacting.name == "omoku":
+                        if current_npc_interacting.name == "Omoku":
                             text_npc_name_rect.center = (605, 193)
-                        if current_npc_interacting.name != "omoku":
+                        if current_npc_interacting.name != "Omoku":
                             text_npc_name_rect.center = (675, 165)
-                            if current_npc_interacting.name == "artherian":
+                            if current_npc_interacting.name == "Artherian":
                                 text_npc_name_rect.center = (680, 165)
-                            if current_npc_interacting.name == "maydria":
+                            if current_npc_interacting.name == "Maydria":
                                 text_npc_name_rect.center = (685, 165)
 
                         if len(drawing_functions.type_advantage_window) == 0:
@@ -20045,7 +20273,7 @@ if __name__ == "__main__":
             # ----------------------------------------------------------------------------------------------------------
             # player has died, show game over and give continue option -------------------------------------------------
             else:
-                if current_enemy_battling.name == "dreth":
+                if current_enemy_battling.name == "Dreth":
                     if not apothis_gift:
                         cutscene_tic = time.perf_counter()
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:

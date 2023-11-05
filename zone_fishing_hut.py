@@ -176,7 +176,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     if pygame.Rect.colliderect(player.rect, fishing_hut_rect):
         interaction_popup.update(847, 148, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("fishing hut"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Fishing hut"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (847, 148)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -197,7 +197,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
             interaction_popup.update(fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50,
                                      graphic_dict["popup_interaction_blue"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_surf = font.render(str("Fishing spot"), True, "black", "light blue")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -231,7 +231,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
             interaction_popup.update(fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50,
                                      graphic_dict["popup_interaction_blue"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_surf = font.render(str("Fishing spot"), True, "black", "light blue")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)

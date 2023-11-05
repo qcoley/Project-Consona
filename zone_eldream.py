@@ -168,7 +168,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("hearth stone"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Hearth stone"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25)
         screen.blit(interaction_info_surf, interaction_info_rect)

@@ -831,7 +831,7 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_info_rect_4.midleft = (30, 690)
     screen.blit(text_info_surf_4, text_info_rect_4)
 
-    if len(item_info_window) == 0 and len(buy_info_window) == 0 and len(sell_info_window) == 0:
+    if len(item_info_window) == 0 and len(sell_info_window) == 0:
         if player.star_power > 4:
             if player.star_power == 5:
                 star_extra_surf = font.render(str("+1"), True, "black", "light yellow")
@@ -943,9 +943,9 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if player.current_zone == "seldon" or player.current_zone == "stardust" or player.current_zone == "rohir" or \
                 player.current_zone == "reservoir a" or player.current_zone == "reservoir b" \
                 or player.current_zone == "reservoir c":
-            text_quest1_surf = font.render(str(list(player.current_quests)[0]), True, "black", "light yellow")
+            text_quest1_surf = font.render("Sneaky snakes", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
-            text_quest1_rect.midleft = (600, 145)
+            text_quest1_rect.midleft = (600, 142)
             text_quest1_info_surf = font.render(str(list(player.current_quests.values())[0]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
@@ -955,7 +955,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
             text_quest1_prog_rect.midleft = (950, 145)
 
-            text_quest2_surf = font.render(str(list(player.current_quests)[1]), True, "black", "light yellow")
+            text_quest2_surf = font.render("Village repairs", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
             text_quest2_rect.midleft = (600, 272)
             text_quest2_info_surf = font.render(str(list(player.current_quests.values())[1]), True, "black",
@@ -967,9 +967,9 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
             text_quest2_prog_rect.midleft = (950, 272)
 
-            text_quest3_surf = font.render(str(list(player.current_quests)[2]), True, "black", "light yellow")
+            text_quest3_surf = font.render("Where's nede?", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
-            text_quest3_rect.midleft = (600, 405)
+            text_quest3_rect.midleft = (600, 404)
             text_quest3_info_surf = font.render(str(list(player.current_quests.values())[2]), True, "black",
                                                 "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
@@ -979,9 +979,9 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
             text_quest3_prog_rect.midleft = (950, 405)
 
-            text_quest4_surf = font.render(str(list(player.current_quests)[3]), True, "black", "light yellow")
+            text_quest4_surf = font.render("Ghouled again", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
-            text_quest4_rect.midleft = (600, 538)
+            text_quest4_rect.midleft = (600, 536)
             text_quest4_info_surf = font.render(str(list(player.current_quests.values())[3]), True, "black",
                                                 "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
@@ -994,9 +994,9 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if player.current_zone == "korlok" or player.current_zone == "mines" or \
                 player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
                 or player.current_zone == "forge":
-            text_quest1_surf = font.render(str(list(player.current_quests)[4]), True, "black", "light yellow")
+            text_quest1_surf = font.render("Band hammer", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
-            text_quest1_rect.midleft = (600, 145)
+            text_quest1_rect.midleft = (600, 142)
             text_quest1_info_surf = font.render(str(list(player.current_quests.values())[4]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
@@ -1006,7 +1006,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
             text_quest1_prog_rect.midleft = (950, 145)
 
-            text_quest2_surf = font.render(str(list(player.current_quests)[5]), True, "black", "light yellow")
+            text_quest2_surf = font.render("Elementary elementals", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
             text_quest2_rect.midleft = (600, 272)
             text_quest2_info_surf = font.render(str(list(player.current_quests.values())[5]), True, "black",
@@ -1018,9 +1018,9 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
             text_quest2_prog_rect.midleft = (950, 272)
 
-            text_quest3_surf = font.render(str(list(player.current_quests)[6]), True, "black", "light yellow")
+            text_quest3_surf = font.render("Can't apothecary it", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
-            text_quest3_rect.midleft = (600, 405)
+            text_quest3_rect.midleft = (600, 404)
             text_quest3_info_surf = font.render(str(list(player.current_quests.values())[6]), True, "black",
                                                 "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
@@ -1030,9 +1030,9 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
             text_quest3_prog_rect.midleft = (950, 405)
 
-            text_quest4_surf = font.render(str(list(player.current_quests)[7]), True, "black", "light yellow")
+            text_quest4_surf = font.render("It's dangerous to go alone", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
-            text_quest4_rect.midleft = (600, 538)
+            text_quest4_rect.midleft = (600, 536)
             text_quest4_info_surf = font.render(str(list(player.current_quests.values())[7]), True, "black",
                                                 "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
@@ -1046,9 +1046,9 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
                 player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" \
                 or player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" \
                 or player.current_zone == "altar" or player.current_zone == "fishing alcove":
-            text_quest1_surf = font.render(str(list(player.current_quests)[8]), True, "black", "light yellow")
+            text_quest1_surf = font.render("Kart troubles", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
-            text_quest1_rect.midleft = (600, 145)
+            text_quest1_rect.midleft = (600, 142)
             text_quest1_info_surf = font.render(str(list(player.current_quests.values())[8]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
@@ -1058,7 +1058,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
             text_quest1_prog_rect.midleft = (950, 145)
 
-            text_quest2_surf = font.render(str(list(player.current_quests)[9]), True, "black", "light yellow")
+            text_quest2_surf = font.render("Las escondidas", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
             text_quest2_rect.midleft = (600, 272)
             text_quest2_info_surf = font.render(str(list(player.current_quests.values())[9]), True, "black",
@@ -1070,9 +1070,9 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
             text_quest2_prog_rect.midleft = (950, 272)
 
-            text_quest3_surf = font.render(str(list(player.current_quests)[10]), True, "black", "light yellow")
+            text_quest3_surf = font.render("Hatch 'em all", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
-            text_quest3_rect.midleft = (600, 405)
+            text_quest3_rect.midleft = (600, 403)
             text_quest3_info_surf = font.render(str(list(player.current_quests.values())[10]), True, "black",
                                                 "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
@@ -1082,9 +1082,9 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
             text_quest3_prog_rect.midleft = (950, 405)
 
-            text_quest4_surf = font.render(str(list(player.current_quests)[11]), True, "black", "light yellow")
+            text_quest4_surf = font.render("Shades of fear", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
-            text_quest4_rect.midleft = (600, 538)
+            text_quest4_rect.midleft = (600, 536)
             text_quest4_info_surf = font.render(str(list(player.current_quests.values())[11]), True, "black",
                                                 "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
@@ -1104,7 +1104,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
 
             text_quest1_surf = font.render("Barrier blockade", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
-            text_quest1_rect.midleft = (600, 145)
+            text_quest1_rect.midleft = (600, 142)
             text_quest1_info_surf = font.render("", True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
@@ -1152,7 +1152,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
 
             text_quest3_surf = font.render("Legends never die", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
-            text_quest3_rect.midleft = (600, 405)
+            text_quest3_rect.midleft = (600, 404)
             if not npc_artherian.gift:
                 text_quest3_info_surf = font.render("Talk to Artherian to start this task.",
                                                     True, "black", "light yellow")
@@ -1176,7 +1176,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
 
             text_quest4_surf = font.render("Ultimate ultimatum", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
-            text_quest4_rect.midleft = (600, 538)
+            text_quest4_rect.midleft = (600, 536)
             if not apothis_gift:
                 text_quest4_info_surf = font.render("Battle Dreth.", True, "black", "light yellow")
             else:
@@ -1228,42 +1228,42 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
         quest_box.clear()
     else:
         try:
-            if quest_npc.name == "garan":
+            if quest_npc.name == "Garan":
                 quest_box.append(garan_quest_window)
-            if quest_npc.name == "maurelle":
+            if quest_npc.name == "Maurelle":
                 quest_box.append(maurelle_quest_window)
-            if quest_npc.name == "celeste":
+            if quest_npc.name == "Celeste":
                 quest_box.append(celeste_quest_window)
-            if quest_npc.name == "torune":
+            if quest_npc.name == "Torune":
                 quest_box.append(torune_quest_window)
-            if quest_npc.name == "voruke":
+            if quest_npc.name == "Voruke":
                 quest_box.append(voruke_quest_window)
-            if quest_npc.name == "zerah":
+            if quest_npc.name == "Zerah":
                 quest_box.append(zerah_quest_window)
-            if quest_npc.name == "kirean":
+            if quest_npc.name == "Kirean":
                 quest_box.append(kirean_quest_window)
-            if quest_npc.name == "dionte":
+            if quest_npc.name == "Dionte":
                 quest_box.append(dionte_quest_window)
-            if quest_npc.name == "omoku":
+            if quest_npc.name == "Omoku":
                 quest_box.append(omoku_quest_window)
-            if quest_npc.name == "leyre":
+            if quest_npc.name == "Leyre":
                 quest_box.append(leyre_quest_window)
-            if quest_npc.name == "aitor":
+            if quest_npc.name == "Aitor":
                 quest_box.append(aitor_quest_window)
-            if quest_npc.name == "everett":
+            if quest_npc.name == "Everett":
                 quest_box.append(everett_quest_window)
-            if quest_npc.name == "artherian":
+            if quest_npc.name == "Artherian":
                 if not artherian_1:
                     quest_box.append(artherian_quest_window)
                 else:
                     quest_box.append(artherian_quest_window_2)
-            if quest_npc.name == "maydria":
+            if quest_npc.name == "Maydria":
                 quest_box.append(maydria_quest_window)
 
         except AttributeError:
-            if quest_npc == "kirean":
+            if quest_npc == "Kirean":
                 quest_box.append(kirean_quest_window)
-            if quest_npc == "aitor":
+            if quest_npc == "Aitor":
                 quest_box.append(aitor_quest_window)
 
         quest_box.append(accept_button)
@@ -1278,38 +1278,38 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
         quest_complete_box.clear()
     else:
         try:
-            if quest_npc.name == "garan":
+            if quest_npc.name == "Garan":
                 quest_complete_box.append(garan_quest_window)
-            if quest_npc.name == "maurelle":
+            if quest_npc.name == "Maurelle":
                 quest_complete_box.append(maurelle_quest_window)
-            if quest_npc.name == "celeste":
+            if quest_npc.name == "Celeste":
                 quest_complete_box.append(celeste_quest_window)
-            if quest_npc.name == "torune":
+            if quest_npc.name == "Torune":
                 quest_complete_box.append(torune_quest_window)
-            if quest_npc.name == "voruke":
+            if quest_npc.name == "Voruke":
                 quest_complete_box.append(voruke_quest_window)
-            if quest_npc.name == "zerah":
+            if quest_npc.name == "Zerah":
                 quest_complete_box.append(zerah_quest_window)
-            if quest_npc.name == "kirean":
+            if quest_npc.name == "Kirean":
                 quest_complete_box.append(kirean_quest_window)
-            if quest_npc.name == "dionte":
+            if quest_npc.name == "Dionte":
                 quest_complete_box.append(dionte_quest_window)
-            if quest_npc.name == "omoku":
+            if quest_npc.name == "Omoku":
                 quest_complete_box.append(omoku_quest_window)
-            if quest_npc.name == "leyre":
+            if quest_npc.name == "Leyre":
                 quest_complete_box.append(leyre_quest_window)
-            if quest_npc.name == "aitor":
+            if quest_npc.name == "Aitor":
                 quest_complete_box.append(aitor_quest_window)
-            if quest_npc.name == "everett":
+            if quest_npc.name == "Everett":
                 quest_complete_box.append(everett_quest_window)
-            if quest_npc.name == "artherian":
+            if quest_npc.name == "Artherian":
                 quest_complete_box.append(artherian_quest_window)
-            if quest_npc.name == "maydria":
+            if quest_npc.name == "Maydria":
                 quest_complete_box.append(maydria_task_window)
         except AttributeError:
-            if quest_npc == "kirean":
+            if quest_npc == "Kirean":
                 quest_complete_box.append(kirean_quest_window)
-            if quest_npc == "aitor":
+            if quest_npc == "Aitor":
                 quest_complete_box.append(aitor_quest_window)
 
 
@@ -1565,7 +1565,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
                       barrier_learn_button, close_button, garan_gift, mirror_learn_button, mirror_button,
                       vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked, music_toggle,
-                      in_hut, basic_fish, better_fish, even_better_fish, best_fish, save_data_window):
+                      in_hut, basic_fish, better_fish, even_better_fish, best_fish, save_data_window, in_card_cave):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -2096,6 +2096,16 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                     button_highlight.update(best_fish.x_coordinate, best_fish.y_coordinate + 7,
                                             graphic_dict["main high"])
                     return True
+
+        if in_card_cave:
+            if quest_button.rect.collidepoint(pos):
+                button_highlight.update(quest_button.x_coordinate, quest_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif leave_button.rect.collidepoint(pos):
+                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
 
 
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg

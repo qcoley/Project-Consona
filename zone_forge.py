@@ -57,7 +57,7 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         interaction_popup.update(515, 100,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("forge"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Forge"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (515, 100)
         screen.blit(interaction_info_surf, interaction_info_rect)

@@ -20,7 +20,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      stelli_battle_sprite, vanished, vanish_overlay, waterfall, level_checked, fishing_spot_1,
                      fishing_spot_2, fishing, walk_tic, fishing_unlocked, fishing_timer, fish_caught, previous_surf,
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                     best_fish_counter, sfx_fishing_cast, apothis_gift):
+                     best_fish_counter, sfx_fishing_cast, apothis_gift, card_cave, in_card_cave):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
@@ -189,7 +189,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         interaction_popup.update(nede.x_coordinate, nede.y_coordinate - 25,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("nede"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Nede"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (nede.x_coordinate, nede.y_coordinate - 25)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -221,7 +221,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                 interaction_popup.update(ghoul_nede.x_coordinate, ghoul_nede.y_coordinate - 40,
                                          graphic_dict["popup_interaction_red"])
                 screen.blit(interaction_popup.surf, interaction_popup.rect)
-                interaction_info_surf = font.render(str(ghoul_nede.kind) + " lvl " +
+                interaction_info_surf = font.render("Ghoul" + " lvl " +
                                                     str(ghoul_nede.level), True, "black",
                                                     (255, 204, 203))
                 interaction_info_rect = interaction_info_surf.get_rect()
@@ -270,7 +270,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         interaction_popup.update(stardust_entrance.x_coordinate, stardust_entrance.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("stardust post"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Stardust post"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (stardust_entrance.x_coordinate,
                                         stardust_entrance.y_coordinate - 50)
@@ -290,7 +290,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     if pygame.sprite.collide_rect(player, rock):
         interaction_popup.update(rock.x_coordinate, rock.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rock.x_coordinate, rock.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -349,14 +349,14 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                   stelli_battle_sprite, stelli_battle_sprite)
+                                                   stelli_battle_sprite, stelli_battle_sprite, False)
 
     if not fishing:
         if pygame.sprite.collide_rect(player, fishing_spot_1):
             interaction_popup.update(fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50,
                                      graphic_dict["popup_interaction_blue"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_surf = font.render(str("Fishing spot"), True, "black", "light blue")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -389,7 +389,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             interaction_popup.update(fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50,
                                      graphic_dict["popup_interaction_blue"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_surf = font.render(str("Fishing spot"), True, "black", "light blue")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -417,6 +417,24 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                         previous_surf = player.surf
                         fish_caught = False
                         break
+
+    if pygame.Rect.colliderect(player.rect, card_cave):
+        interaction_popup.update(260, 88, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Card cave"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (260, 88)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to enter Cave."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            in_card_cave = True
+            in_over_world = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -498,6 +516,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                        "fishing": fishing, "fishing_timer": fishing_timer, "previous_surf": previous_surf,
                        "fish_caught": fish_caught, "basic_fish_counter": basic_fish_counter, "better_fish_counter":
                        better_fish_counter, "even_better_fish_counter": even_better_fish_counter,
-                       "best_fish_counter": best_fish_counter}
+                       "best_fish_counter": best_fish_counter, "in_card_cave": in_card_cave}
 
     return stardust_return

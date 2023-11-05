@@ -15,7 +15,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
                     maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
-                    prism_tic, sfx_chroma):
+                    prism_tic, sfx_chroma, barrier_small, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -195,7 +195,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("hearth stone"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Hearth stone"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -237,6 +237,35 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             player.x_coordinate = 425
             player.y_coordinate = 650
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    if pygame.Rect.colliderect(player.rect, barrier_small):
+        interaction_popup.update(65, 260,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Seldon"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (65, 260)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if apothis_gift:
+            info_text_1 = "Press 'F' key to enter Seldon."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world:
+                over_world_song_set = False
+                interacted = False
+                player.current_zone = "seldon"
+                player.x_coordinate = 875
+                player.y_coordinate = 335
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+        else:
+            info_text_1 = "The barrier is held preventing entry."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -308,40 +337,40 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         if npc_toc - npc_tic > 5:
             npc_tic = time.perf_counter()
             if face_direction == "front":
-                if face_this_npc.name == "adria":
-                    face_this_npc.update(graphic_dict["adria_down"])
-                if face_this_npc.name == "noren":
+                if face_this_npc.name == "Maydria":
+                    face_this_npc.update(graphic_dict["maydria_down"])
+                if face_this_npc.name == "Noren":
                     face_this_npc.update(graphic_dict["noren_down"])
-                if face_this_npc.name == "boro":
+                if face_this_npc.name == "Boro":
                     face_this_npc.update(graphic_dict["boro_down"])
-                if face_this_npc.name == "artherian":
+                if face_this_npc.name == "Artherian":
                     face_this_npc.update(graphic_dict["artherian_down"])
             if face_direction == "back":
-                if face_this_npc.name == "adria":
-                    face_this_npc.update(graphic_dict["adria_up"])
-                if face_this_npc.name == "noren":
+                if face_this_npc.name == "Maydria":
+                    face_this_npc.update(graphic_dict["maydria_up"])
+                if face_this_npc.name == "Noren":
                     face_this_npc.update(graphic_dict["noren_up"])
-                if face_this_npc.name == "boro":
+                if face_this_npc.name == "Boro":
                     face_this_npc.update(graphic_dict["boro_up"])
-                if face_this_npc.name == "artherian":
+                if face_this_npc.name == "Artherian":
                     face_this_npc.update(graphic_dict["artherian_up"])
             if face_direction == "left":
-                if face_this_npc.name == "adria":
-                    face_this_npc.update(graphic_dict["adria_left"])
-                if face_this_npc.name == "noren":
+                if face_this_npc.name == "Maydria":
+                    face_this_npc.update(graphic_dict["maydria_left"])
+                if face_this_npc.name == "Noren":
                     face_this_npc.update(graphic_dict["noren_left"])
-                if face_this_npc.name == "boro":
+                if face_this_npc.name == "Boro":
                     face_this_npc.update(graphic_dict["boro_left"])
-                if face_this_npc.name == "artherian":
+                if face_this_npc.name == "Artherian":
                     face_this_npc.update(graphic_dict["artherian_left"])
             if face_direction == "right":
-                if face_this_npc.name == "adria":
-                    face_this_npc.update(graphic_dict["adria_right"])
-                if face_this_npc.name == "noren":
+                if face_this_npc.name == "Maydria":
+                    face_this_npc.update(graphic_dict["maydria_right"])
+                if face_this_npc.name == "Noren":
                     face_this_npc.update(graphic_dict["noren_right"])
-                if face_this_npc.name == "boro":
+                if face_this_npc.name == "Boro":
                     face_this_npc.update(graphic_dict["boro_right"])
-                if face_this_npc.name == "artherian":
+                if face_this_npc.name == "Artherian":
                     face_this_npc.update(graphic_dict["artherian_right"])
 
     # enemy movement updates
@@ -433,7 +462,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     if pygame.Rect.colliderect(player.rect, overlay_marrow_west):
         interaction_popup.update(125, 220, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("West Ramparts"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("West ramparts"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (125, 220)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -454,7 +483,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     if pygame.Rect.colliderect(player.rect, overlay_marrow_east):
         interaction_popup.update(905, 220, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("East Ramparts"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("East ramparts"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (905, 220)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -475,7 +504,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     if pygame.Rect.colliderect(player.rect, switch_box):
         interaction_popup.update(515, 225, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("Barrier Switch"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Barrier switch"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (515, 225)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -686,7 +715,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
             interaction_popup.update(crate_1.x_coordinate, crate_1.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Crate"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (crate_1.x_coordinate, crate_1.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -714,7 +743,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
             interaction_popup.update(crate_2.x_coordinate, crate_2.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Crate"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (crate_2.x_coordinate, crate_2.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -916,7 +945,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
             interaction_popup.update(crate_3.x_coordinate, crate_3.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Crate"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (crate_3.x_coordinate, crate_3.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -944,7 +973,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
             interaction_popup.update(crate_4.x_coordinate, crate_4.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Crate"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (crate_4.x_coordinate, crate_4.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1101,7 +1130,7 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     if pygame.Rect.colliderect(player.rect, overlay_marrow_west):
         interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("West Tower"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("West tower"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (570, 55)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1222,7 +1251,7 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
     if pygame.Rect.colliderect(player.rect, overlay_marrow_east):
         interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("East Tower"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("East tower"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (570, 55)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1351,7 +1380,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
             interaction_popup.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("chest"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Chest"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1379,7 +1408,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
             interaction_popup.update(erebyth.x_coordinate, erebyth.y_coordinate - 50,
                                      graphic_dict["popup_interaction_red"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("erebyth"), True, "black", (255, 204, 203))
+            interaction_info_surf = font.render(str("Erebyth"), True, "black", (255, 204, 203))
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (erebyth.x_coordinate, erebyth.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1449,7 +1478,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     if pygame.Rect.colliderect(player.rect, switch_2):
         interaction_popup.update(195, 135, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("Gate Switch"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Gate switch"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (195, 135)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1572,7 +1601,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     if pygame.Rect.colliderect(player.rect, switch_1):
         interaction_popup.update(945, 135, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("Gate Switch"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Gate switch"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (945, 135)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1599,7 +1628,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
             interaction_popup.update(crate.x_coordinate, crate.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Crate"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (crate.x_coordinate, crate.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1719,10 +1748,11 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                     if item.name == "ramps key":
                         player.items.remove(item)
                         has_key = True
-                if has_key:
+                if has_key or sub_marrow_opened:
                     pygame.mixer.find_channel(True).play(sfx_gate)
-                    info_text_1 = "You used the key to open the gate."
-                    info_text_2 = ""
+                    if has_key:
+                        info_text_1 = "You used the key to open the gate."
+                        info_text_2 = ""
                     player.x_coordinate = 850
                     player.y_coordinate = 500
                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -1744,7 +1774,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
             interaction_popup.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("small chest"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Small chest"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)

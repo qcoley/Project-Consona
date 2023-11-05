@@ -1565,9 +1565,9 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
             snake_battle_sprite.update(715, 250, graphics["snake_battle"])
-        if enemy.kind == "ghoul":
+        if enemy.name == "Ghoul":
             ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
-        if enemy.kind == "chorizon":
+        if enemy.name == "Chorizon":
             if chorizon_phase:
                 chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase"])
             else:
@@ -1584,15 +1584,15 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
             necrola_battle_sprite.update(705, 300, graphics["necrola_battle"])
         if enemy.kind == "osodark":
             osodark_battle_sprite.update(705, 300, graphics["osodark_battle"])
-        if enemy.name == "stellia":
+        if enemy.name == "Stellia":
             stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
                                         stelli_battle_sprite.y_coordinate,
                                         graphics["stelli_battle_a"])
-        if enemy.name == "stellib":
+        if enemy.name == "Stellib":
             stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
                                         stelli_battle_sprite.y_coordinate,
                                         graphics["stelli_battle_b"])
-        if enemy.name == "stellic":
+        if enemy.name == "Stellic":
             stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
                                         stelli_battle_sprite.y_coordinate,
                                         graphics["stelli_battle_c"])
@@ -3771,9 +3771,9 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
     if damage > 0:
         if enemy.kind == "snake":
             snake_battle_sprite.update(715, 250, graphics["snake_attack"])
-        if enemy.kind == "ghoul":
+        if enemy.name == "Ghoul":
             ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack"])
-        if enemy.kind == "chorizon":
+        if enemy.name == "Chorizon":
             if chorizon_phase:
                 chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase_attack"])
             else:
@@ -3791,15 +3791,15 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "osodark":
             osodark_battle_sprite.update(705, 300, graphics["osodark_attack"])
         if enemy.kind == "stelli":
-            if enemy.name == "stellia":
+            if enemy.name == "Stellia":
                 stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
                                             stelli_battle_sprite.y_coordinate,
                                             graphics["stelli_attack_a"])
-            if enemy.name == "stellib":
+            if enemy.name == "Stellib":
                 stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
                                             stelli_battle_sprite.y_coordinate,
                                             graphics["stelli_attack_b"])
-            if enemy.name == "stellic":
+            if enemy.name == "Stellic":
                 stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
                                             stelli_battle_sprite.y_coordinate,
                                             graphics["stelli_attack_c"])
@@ -3891,11 +3891,11 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     combat_event_dictionary["critical received"] = defend_dict["critical"]
                     damage_to_player = defend_dict["damage"]
 
-                    if enemy_combating.name == "erebyth":
+                    if enemy_combating.name == "Erebyth":
                         if erebyth_counter == 3:
                             damage_to_player = 25
                             combat_event_dictionary["effective enemy"] = "effective"
-                    if enemy_combating.name == "dreth":
+                    if enemy_combating.name == "Dreth":
                         if enemy_combating.health < 35:
                             if not apothis_gift:
                                 damage_to_player = 100
@@ -4028,7 +4028,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     combat_event_dictionary["experience gained"] = enemy_experience
 
                 try:
-                    if enemy_combating.name != "atmon":
+                    if enemy_combating.kind != "atmon":
                         drop_chance = random.randrange(1, 10)
                         # 80% chance (roughly?) to drop merchant item sellable by player for rupees at shops
                         if drop_chance > 2:

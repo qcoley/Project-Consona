@@ -31,7 +31,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     building_top_2, building_top_3, sfx_item_pickup, sfx_flower, sfx_door, worker_1, worker_tic,
                     worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                     stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated, basic_fish_counter,
-                    better_fish_counter, even_better_fish_counter, best_fish_counter):
+                    better_fish_counter, even_better_fish_counter, best_fish_counter, barrier_small, apothis_gift):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -71,12 +71,12 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     for quest_item in quest_items_seldon:
         if not player.quest_complete["village repairs"]:
             if player.quest_status["village repairs"]:
-                if quest_item.name == "pine logs":
+                if quest_item.name == "Pine logs":
                     quest_item.update(quest_item.x_coordinate, quest_item.y_coordinate,
                                       graphic_dict["pine_logs_high_img"])
         else:
             if not log_sprite_reset:
-                if quest_item.name == "pine logs":
+                if quest_item.name == "Pine logs":
                     quest_item.update(quest_item.x_coordinate, quest_item.y_coordinate,
                                       graphic_dict["pine_logs_img"])
 
@@ -89,22 +89,22 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     for enemy_sprite in seldon_enemies:  # update enemy sprite to a highlighted version
         if not player.quest_complete["sneaky snakes"]:
             if player.quest_status["sneaky snakes"]:
-                if enemy_sprite.name == "snake":
+                if enemy_sprite.name == "Snake":
                     enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
                                               graphic_dict["snake_high"])
         else:  # revert to original snake sprite
             if not snake_sprite_reset:
-                if enemy_sprite.name == "snake":
+                if enemy_sprite.name == "Snake":
                     enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
                                               graphic_dict["snake"])
         if not player.quest_complete["ghouled again"]:
             if player.quest_status["ghouled again"]:
-                if enemy_sprite.name == "ghoul":
+                if enemy_sprite.name == "Ghoul":
                     enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
                                               graphic_dict["ghoul_high"])
         else:  # revert to original ghoul sprite
             if not ghoul_sprite_reset:
-                if enemy_sprite.name == "ghoul":
+                if enemy_sprite.name == "Ghoul":
                     enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
                                               graphic_dict["ghoul"])
         screen.blit(enemy_sprite.surf, enemy_sprite.rect)
@@ -172,7 +172,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         interaction_info_rect.center = (quest_item.x_coordinate, quest_item.y_coordinate - 25)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        if quest_item.name == "pine logs":
+        if quest_item.name == "Pine logs":
             if not player.quest_complete["village repairs"]:
                 if player.quest_status["village repairs"]:
                     info_text_1 = "Press 'F' key to gather the pine log."
@@ -316,11 +316,11 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
 
-            if building.name == "shop":
+            if building.name == "Shop":
                 in_shop = True
-            if building.name == "inn":
+            if building.name == "Inn":
                 in_inn = True
-            if building.name == "academia":
+            if building.name == "Academia":
                 in_academia = True
 
     # player collides with flower, if collected adds to player flower count
@@ -371,10 +371,39 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("hearth stone"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Hearth stone"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25)
         screen.blit(interaction_info_surf, interaction_info_rect)
+
+    if pygame.Rect.colliderect(player.rect, barrier_small):
+        interaction_popup.update(970, 260,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Marrow"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (970, 260)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if apothis_gift:
+            info_text_1 = "Press 'F' key to enter Marrow."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world:
+                over_world_song_set = False
+                interacted = False
+                player.current_zone = "marrow"
+                player.x_coordinate = 175
+                player.y_coordinate = 335
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+        else:
+            info_text_1 = "The barrier is held preventing entry."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -494,40 +523,40 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         if npc_toc - npc_tic > 5:
             npc_tic = time.perf_counter()
             if face_direction == "front":
-                if face_this_npc.name == "garan":
+                if face_this_npc.name == "Garan":
                     npc_garan.update(graphic_dict["garan_down"])
-                if face_this_npc.name == "maurelle":
+                if face_this_npc.name == "Maurelle":
                     npc_maurelle.update(graphic_dict["maurelle_down"])
-                if face_this_npc.name == "celeste":
+                if face_this_npc.name == "Celeste":
                     npc_celeste.update(graphic_dict["celeste_down"])
-                if face_this_npc.name == "torune":
+                if face_this_npc.name == "Torune":
                     npc_torune.update(graphic_dict["torune_down"])
             if face_direction == "back":
-                if face_this_npc.name == "garan":
+                if face_this_npc.name == "Garan":
                     npc_garan.update(graphic_dict["garan_up"])
-                if face_this_npc.name == "maurelle":
+                if face_this_npc.name == "Maurelle":
                     npc_maurelle.update(graphic_dict["maurelle_up"])
-                if face_this_npc.name == "celeste":
+                if face_this_npc.name == "Celeste":
                     npc_celeste.update(graphic_dict["celeste_up"])
-                if face_this_npc.name == "torune":
+                if face_this_npc.name == "Torune":
                     npc_torune.update(graphic_dict["torune_up"])
             if face_direction == "left":
-                if face_this_npc.name == "garan":
+                if face_this_npc.name == "Garan":
                     npc_garan.update(graphic_dict["garan_left"])
-                if face_this_npc.name == "maurelle":
+                if face_this_npc.name == "Maurelle":
                     npc_maurelle.update(graphic_dict["maurelle_left"])
-                if face_this_npc.name == "celeste":
+                if face_this_npc.name == "Celeste":
                     npc_celeste.update(graphic_dict["celeste_left"])
-                if face_this_npc.name == "torune":
+                if face_this_npc.name == "Torune":
                     npc_torune.update(graphic_dict["torune_left"])
             if face_direction == "right":
-                if face_this_npc.name == "garan":
+                if face_this_npc.name == "Garan":
                     npc_garan.update(graphic_dict["garan_right"])
-                if face_this_npc.name == "maurelle":
+                if face_this_npc.name == "Maurelle":
                     npc_maurelle.update(graphic_dict["maurelle_right"])
-                if face_this_npc.name == "celeste":
+                if face_this_npc.name == "Celeste":
                     npc_celeste.update(graphic_dict["celeste_right"])
-                if face_this_npc.name == "torune":
+                if face_this_npc.name == "Torune":
                     npc_torune.update(graphic_dict["torune_right"])
 
     seldon_return = {"over_world_song_set": over_world_song_set, "interactables_seldon": interactables_seldon,

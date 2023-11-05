@@ -330,7 +330,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
         interaction_popup.update(816, 178, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("menagerie"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Menagerie"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (816, 178)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -351,7 +351,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         interaction_popup.update(altar.x_coordinate + 8, altar.y_coordinate - 115,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("altar"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Altar"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (altar.x_coordinate + 8, altar.y_coordinate - 115)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -560,7 +560,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     if pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance):
         interaction_popup.update(217, 178, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("shop"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Shop"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (217, 178)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -580,7 +580,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     if pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance):
         interaction_popup.update(875, 275, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("inn"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Inn"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (875, 275)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1365,7 +1365,7 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
             interaction_popup.update(fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50,
                                      graphic_dict["popup_interaction_blue"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_surf = font.render(str("Fishing spot"), True, "black", "light blue")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1399,7 +1399,7 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
             interaction_popup.update(fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50,
                                      graphic_dict["popup_interaction_blue"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_surf = font.render(str("Fishing spot"), True, "black", "light blue")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)

@@ -90,7 +90,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
             interaction_popup.update(crate_1.x_coordinate, crate_1.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Crate"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (crate_1.x_coordinate, crate_1.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -118,7 +118,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
             interaction_popup.update(crate_2.x_coordinate, crate_2.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("Crate"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (crate_2.x_coordinate, crate_2.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -400,7 +400,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
     if pygame.sprite.collide_rect(player, rock_1):
         interaction_popup.update(rock_1.x_coordinate, rock_1.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rock_1.x_coordinate, rock_1.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -423,7 +423,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
     if pygame.sprite.collide_rect(player, rock_2):
         interaction_popup.update(rock_2.x_coordinate, rock_2.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (rock_2.x_coordinate, rock_2.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
@@ -913,7 +913,7 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
             interaction_popup.update(dreth.x_coordinate - 5, dreth.y_coordinate - 150,
                                      graphic_dict["popup_interaction_red"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("dreth"), True, "black", (255, 204, 203))
+            interaction_info_surf = font.render(str("Dreth"), True, "black", (255, 204, 203))
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (dreth.x_coordinate - 5, dreth.y_coordinate - 150)
             screen.blit(interaction_info_surf, interaction_info_rect)
@@ -1182,7 +1182,7 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             interaction_popup.update(fishing_spot.x_coordinate, fishing_spot.y_coordinate - 50,
                                      graphic_dict["popup_interaction_blue"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_surf = font.render(str("Fishing spot"), True, "black", "light blue")
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (fishing_spot.x_coordinate, fishing_spot.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
