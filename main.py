@@ -7806,7 +7806,7 @@ if __name__ == "__main__":
     trade_magmon = UiElement("trade magmon", 700, 250, graphic_dict["trading_button"])
     trade_necrola = UiElement("trade necrola", 100, 500, graphic_dict["trading_button"])
     trade_osodark = UiElement("trade osodark", 300, 500, graphic_dict["trading_button"])
-    trade_necrola = UiElement("trade atmon", 500, 500, graphic_dict["trading_button"])
+    trade_atmon = UiElement("trade atmon", 500, 500, graphic_dict["trading_button"])
     trade_jumano = UiElement("trade jumano", 700, 500, graphic_dict["trading_button"])
     trade_chorizon = UiElement("trade chorizon", 100, 750, graphic_dict["trading_button"])
     trade_muchador = UiElement("trade muchador", 300, 750, graphic_dict["trading_button"])
