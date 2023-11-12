@@ -52,6 +52,8 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    trade_button = pygame.image.load(resource_path('resources/art/button_trade.png')).convert_alpha()
+    trading_card_window = pygame.image.load(resource_path('resources/art/trading_card_window.png')).convert_alpha()
     card_shop_screen = pygame.image.load(resource_path('resources/art/bg_card_shop.png')).convert_alpha()
     all_cats_pet_card = pygame.image.load(resource_path('resources/art/all_cats_pet.png')).convert_alpha()
     dreth_battle_screen = pygame.image.load(resource_path('resources/art/bg_dreth_battle.png')).convert_alpha()
@@ -302,6 +304,8 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["trading_button"] = trade_button
+    loaded_dict["trading_window"] = trading_card_window
     loaded_dict["card_shop_bg"] = card_shop_screen
     loaded_dict["all_cats_pet_card"] = all_cats_pet_card
     loaded_dict["overlay_marrow_star"] = overlay_marrow_star
@@ -5272,6 +5276,7 @@ def load_graphics():
     loaded_dict["scout_book"] = items_sheet[35]
     loaded_dict["marrow_bait"] = items_sheet[36]
     loaded_dict["cat_card"] = items_sheet[37]
+    loaded_dict["trade_deck"] = items_sheet[38]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -5315,6 +5320,7 @@ def load_graphics():
     loaded_dict["info_scout_book"] = items_info_sheet[37]
     loaded_dict["info_marrow_bait"] = items_info_sheet[38]
     loaded_dict["info_cat_card"] = items_info_sheet[39]
+    loaded_dict["info_trade_deck"] = items_info_sheet[40]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -5445,6 +5451,7 @@ def load_graphics():
     loaded_dict["manage_pets_img"] = buttons_sheet[18]
     loaded_dict["fish_button_img"] = buttons_sheet[19]
     loaded_dict["check_button_img"] = buttons_sheet[20]
+    loaded_dict["trade_button_img"] = buttons_sheet[21]
     # fishing level overlay --------------------------------------------------------------------------------------------
     fishing_level_url = resource_path('resources/art/overlay_fishing_level.png')
     fishing_level_sheet = sprite_sheet((281, 31), fishing_level_url)
@@ -5523,6 +5530,7 @@ def load_graphics():
     loaded_dict["artherian_quest_2"] = quest_windows_sheet[13]
     loaded_dict["maydria_quest"] = quest_windows_sheet[14]
     loaded_dict["jerry_quest"] = quest_windows_sheet[15]
+    loaded_dict["prime_quest"] = quest_windows_sheet[16]
     # quest complete popups --------------------------------------------------------------------------------------------
     quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
     quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)
@@ -5544,6 +5552,7 @@ def load_graphics():
     loaded_dict["artherian_complete"] = quest_popups_2_sheet[4]
     loaded_dict["maydria_complete"] = quest_popups_2_sheet[5]
     loaded_dict["jerry_complete"] = quest_popups_2_sheet[6]
+    loaded_dict["prime_complete"] = quest_popups_2_sheet[7]
     # quest stars ------------------------------------------------------------------------------------------------------
     quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
     quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)

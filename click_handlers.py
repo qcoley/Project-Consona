@@ -295,6 +295,9 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
             if clicked_element[0].name == "cat card":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "trade deck":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
         except IndexError:
             pass
     return event_return
@@ -462,6 +465,8 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
             return_dict["item message"] = "You gain 50 scout knowledge."
         if item.name == "cat card":
             return_dict["cat card"] = True
+        if item.name == "trade deck":
+            return_dict["trade deck"] = True
         if item.name == "seldon firework" or item.name == "korlok firework" or item.name == "eldream firework":
             pygame.mixer.find_channel(True).play(sfx_firework)
             return_dict["item message"] = "boom shakalaka."

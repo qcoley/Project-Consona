@@ -14,6 +14,9 @@ quest_accept_box = []
 quest_box_fishing = []
 quest_complete_box_fishing = []
 quest_accept_box_fishing = []
+quest_box_trading = []
+quest_complete_box_trading = []
+quest_accept_box_trading = []
 player_equipment = []
 player_items = []
 item_info_window = []
@@ -33,6 +36,7 @@ weapon_container = []
 potion_window_container = []
 pets_window_container = []
 fish_window_container = []
+trade_window_container = []
 flower_pop_up_window = []
 fish_pop_up_window = []
 dreth_taunt_window = []
@@ -76,12 +80,21 @@ def draw_it(screen):
     if len(quest_complete_box_fishing) > 0:
         for quest_complete_element_fishing in quest_complete_box_fishing:
             screen.blit(quest_complete_element_fishing.surf, quest_complete_element_fishing.rect)
+    if len(quest_box_trading) > 0:
+        for quest_element_trading in quest_box_trading:
+            screen.blit(quest_element_trading.surf, quest_element_trading.rect)
+    if len(quest_complete_box_trading) > 0:
+        for quest_complete_element_trading in quest_complete_box_trading:
+            screen.blit(quest_complete_element_trading.surf, quest_complete_element_trading.rect)
     if len(quest_accept_box) > 0:
         for accept_element in quest_accept_box:
             screen.blit(accept_element.surf, accept_element.rect)
     if len(quest_accept_box_fishing) > 0:
         for accept_element_fishing in quest_accept_box_fishing:
             screen.blit(accept_element_fishing.surf, accept_element_fishing.rect)
+    if len(quest_accept_box_trading) > 0:
+        for accept_element_trading in quest_accept_box_trading:
+            screen.blit(accept_element_trading.surf, accept_element_trading.rect)
     if len(player_equipment) > 0:
         for equipment_here in player_equipment:
             screen.blit(equipment_here.surf, equipment_here.rect)
@@ -135,6 +148,9 @@ def draw_it(screen):
     if len(fish_window_container) > 0:
         for fish_element in fish_window_container:
             screen.blit(fish_element.surf, fish_element.rect)
+    if len(trade_window_container) > 0:
+        for trade_element in trade_window_container:
+            screen.blit(trade_element.surf, trade_element.rect)
     if len(flower_pop_up_window) > 0:
         for flower_element in flower_pop_up_window:
             screen.blit(flower_element.surf, flower_element.rect)
@@ -488,6 +504,13 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
             return inventory_item
         if inventory_item.name == "cat card":
             info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_cat_card"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "trade deck":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_trade_deck"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
                                     graphic["use_button_img"])
@@ -1331,6 +1354,24 @@ def quest_complete_draw_fishing(quest_npc, draw_condition, jerry_quest_window):
             quest_complete_box_fishing.append(jerry_quest_window)
 
 
+def quest_box_draw_trading(quest_npc, draw_condition, trade_quest_window, accept_button, decline_button):
+    if not draw_condition:
+        quest_box_trading.clear()
+    else:
+        if quest_npc == "prime":
+            quest_box_trading.append(trade_quest_window)
+        quest_box_trading.append(accept_button)
+        quest_box_trading.append(decline_button)
+
+
+def quest_complete_draw_trading(quest_npc, draw_condition, trade_quest_window):
+    if not draw_condition:
+        quest_complete_box_trading.clear()
+    else:
+        if quest_npc == "prime":
+            quest_complete_box_trading.append(trade_quest_window)
+
+
 def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
                       chroma_boots):
     player_equipment.clear()
@@ -1535,6 +1576,10 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "cat card":
                     item_here.update(first_coord, second_coord, graphic["cat_card"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "trade deck":
+                    item_here.update(first_coord, second_coord, graphic["trade_deck"])
                     player_items.append(item_here)
                     inventory_counter += 1
 
@@ -2106,6 +2151,22 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
                                         graphic_dict["main high"])
                 return True
+            elif potion_button.rect.collidepoint(pos):
+                button_highlight.update(potion_button.x_coordinate, potion_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            # quest window accept or decline button highlights when moused over
+            if quest_clicked:
+                if len(quest_box_trading) > 0:
+                    if accept_button.rect.collidepoint(pos):
+                        button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
+                                                graphic_dict["main high"])
+                        return True
+                    elif decline_button.rect.collidepoint(pos):
+                        button_highlight.update(decline_button.x_coordinate,
+                                                decline_button.y_coordinate + 7,
+                                                graphic_dict["main high"])
+                        return True
 
 
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg

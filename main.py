@@ -7799,6 +7799,19 @@ if __name__ == "__main__":
     iriana_manage_button = UiElement("iriana manage", 685, 460, graphic_dict["activate_button"])
     music_toggle_button = UiElement("music toggle", 1235, 44, graphic_dict["music_button"])
     fish_button = UiElement("fish button", 750, 680, graphic_dict["fish_button_img"])
+    trade_button = UiElement("card button", 750, 680, graphic_dict["trade_button_img"])
+    trade_snake = UiElement("trade snake", 100, 250, graphic_dict["trading_button"])
+    trade_ghoul = UiElement("trade ghoul", 300, 250, graphic_dict["trading_button"])
+    trade_bandile = UiElement("trade bandile", 500, 250, graphic_dict["trading_button"])
+    trade_magmon = UiElement("trade magmon", 700, 250, graphic_dict["trading_button"])
+    trade_necrola = UiElement("trade necrola", 100, 500, graphic_dict["trading_button"])
+    trade_osodark = UiElement("trade osodark", 300, 500, graphic_dict["trading_button"])
+    trade_necrola = UiElement("trade atmon", 500, 500, graphic_dict["trading_button"])
+    trade_jumano = UiElement("trade jumano", 700, 500, graphic_dict["trading_button"])
+    trade_chorizon = UiElement("trade chorizon", 100, 750, graphic_dict["trading_button"])
+    trade_muchador = UiElement("trade muchador", 300, 750, graphic_dict["trading_button"])
+    trade_chinzilla = UiElement("trade chinzilla", 500, 750, graphic_dict["trading_button"])
+    trade_erebyth = UiElement("trade erebyth", 700, 750, graphic_dict["trading_button"])
     check_basic_fish_button = UiElement("check basic", 490, 140, graphic_dict["check_button_img"])
     check_better_fish_button = UiElement("check better", 490, 235, graphic_dict["check_button_img"])
     check_even_better_fish_button = UiElement("check e. better", 490, 330, graphic_dict["check_button_img"])
@@ -7851,6 +7864,7 @@ if __name__ == "__main__":
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
     menagerie_window = UiElement("menagerie window", 500, 319, graphic_dict["kasper_manage"])
     fish_window = UiElement("fish window", 297, 319, graphic_dict["fishing_journal"])
+    trade_window = UiElement("trade window", 297, 319, graphic_dict["trading_window"])
     pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
     pet_energy_window = UiElement("pet energy", 375, 45, graphic_dict["pet_energy"])
     quest_visual = UiElement("quest visual", 500, 500, graphic_dict["pine_logs_big_img"])
@@ -7892,8 +7906,10 @@ if __name__ == "__main__":
     artherian_complete_window = UiElement("artherian complete window", 550, 350, graphic_dict["artherian_complete"])
     maydria_task_window = UiElement("maydria task window", 262, 443, graphic_dict["maydria_quest"])
     maydria_complete_window = UiElement("maydria complete window", 550, 350, graphic_dict["maydria_complete"])
-    jerry_task_window = UiElement("maydria task window", 262, 443, graphic_dict["jerry_quest"])
+    jerry_task_window = UiElement("jerry task window", 262, 443, graphic_dict["jerry_quest"])
     jerry_complete_window = UiElement("jerry complete window", 550, 350, graphic_dict["jerry_complete"])
+    prime_task_window = UiElement("prime task window", 262, 443, graphic_dict["prime_quest"])
+    prime_complete_window = UiElement("prime complete window", 550, 350, graphic_dict["prime_complete"])
 
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
@@ -8634,6 +8650,8 @@ if __name__ == "__main__":
     fireworking = False
     fishing_unlocked = False
     fishing_journal_unlocked = False
+    trading_deck = False
+    trading_task_complete = False
     fishing = False
     fish_caught = False
     fishing_level = 1
@@ -8664,6 +8682,7 @@ if __name__ == "__main__":
     apothecary_window_open = False
     menagerie_window_open = False
     hut_window_open = False
+    trade_window_open = False
     critter_right_move = False
     critter_left_move = True
     critter_up_move = False
@@ -8710,6 +8729,15 @@ if __name__ == "__main__":
 
     cats_pet = {"seldon_shop": False, "seldon_academia": False, "korlok_shop": False, "korlok_apothecary": False,
                 "eldream_shop": False, "eldream_menagerie": False, "marrow": False}
+
+    card_deck = {"basic snake": 0, "better snake": 0, "basic ghoul": 0, "better ghoul": 0,
+                 "basic bandile": 0, "better bandile": 0, "basic magmon": 0, "better magmon": 0,
+                 "better necrola": 0, "best necrola": 0, "better osodark": 0, "best osodark": 0,
+                 "better atmon": 0, "best atmon": 0, "better jumano": 0, "best jumano": 0,
+                 "chorizon": 0, "muchador": 0, "chinzilla": 0, "erebyth": 0, "dreth": 0}
+
+    # counter for collection task to unlock trading card window
+    any_card_counter = 0
 
     buy_shop_elements = []
     stardust_upgrade_elements = []
@@ -18779,10 +18807,41 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
                                                          sword, bow, pressed_keys, sfx_button_role)
+                            drawing_functions.quest_complete_box_trading.clear()
+                            if quest_accepted.rect.collidepoint(pos):
+                                drawing_functions.quest_accept_box_trading.clear()
+                            if trade_button.rect.collidepoint(pos):
+                                npc_text_reset = True
+                                if trading_task_complete:
+                                    if not trade_window_open:
+                                        pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                        trade_window_open = True
+                                        drawing_functions.trade_window_container.append(trade_window, trade_snake,
+                                                                                        trade_ghoul, trade_bandile,
+                                                                                        trade_magmon, trade_necrola,
+                                                                                        trade_osodark, trade_atmon,
+                                                                                        trade_jumano, trade_chorizon,
+                                                                                        trade_muchador, trade_chinzilla,
+                                                                                        trade_erebyth)
+                                    else:
+                                        drawing_functions.trade_window_container.clear()
+                                        trade_window_open = False
+                                else:
+                                    info_text_1 = "First, complete the collection task."
+                                    info_text_2 = ""
+
+                            if close_button.rect.collidepoint(pos) and trade_window_open:
+                                pygame.mixer.find_channel(True).play(sfx_button_click)
+                                drawing_functions.trade_window_container.clear()
+                                trade_window_open = False
+                                button_highlighted = False
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
-                        npc_button_card = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
-                                                                          sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
+                        npc_button_trade = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
+                                                                           sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
+                        # in quest window pop-up, if accept or decline buttons are clicked
+                        quest_button_trade = click_handlers.quest_event_button(event, accept_button, decline_button,
+                                                                               pygame, SCREEN_WIDTH, SCREEN_HEIGHT)
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -18824,10 +18883,104 @@ if __name__ == "__main__":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
 
-                        if npc_button_card == "quest":
+                        if npc_button_trade == "quest":
                             npc_text_reset = True
+                            if any_card_counter >= 4 and not trading_task_complete:
+                                pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                info_text_1 = "You've completed the collection task!"
+                                trading_task_complete = True
+                                player.reputation["nuldar"] += 10
 
-                        if npc_button_card == "leave":
+                                # autosave on quest complete
+                                info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                    sharp_sense_learned, saved, npc_garan.gift,
+                                                                    rest_recover_show, knowledge_academia_show,
+                                                                    quest_guide_shown, battle_guide_shown,
+                                                                    rest_shown_before, quest_highlight_popup,
+                                                                    bridge_not_repaired, nede_ghoul_defeated,
+                                                                    bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                    crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                    switch_3, muchador_defeated, has_key,
+                                                                    mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                    gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                    rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                    chinzilla_defeated, apothecary_access,
+                                                                    beyond_seldon, seed_given, hatch_ready,
+                                                                    menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                    iriana_unlocked, rock_8_con, rock_3_con,
+                                                                    seed_scout_count, seed_fighter_count,
+                                                                    seed_mage_count,
+                                                                    dreth_cutscenes_not_viewed, mirror_learned,
+                                                                    stun_learned, vanish_learned, boots_obtained,
+                                                                    marrow_switch_phase, erebyth_defeated,
+                                                                    ramps_crate_1_got, ramps_crate_2_got,
+                                                                    ramps_crate_3_got, ramps_crate_4_got,
+                                                                    ramps_crate_5_got, marrow_attuned,
+                                                                    npc_artherian.gift,
+                                                                    artherian_2, npc_artherian.quest_complete,
+                                                                    fishing_unlocked, fishing_journal_unlocked,
+                                                                    bait_given,
+                                                                    basic_fish_counter, better_fish_counter,
+                                                                    even_better_fish_counter, best_fish_counter,
+                                                                    fishing_level, basic_fish_reward,
+                                                                    better_fish_reward,
+                                                                    even_better_fish_reward, best_fish_reward,
+                                                                    marrow_small_chest_got, npc_noren.quest_complete,
+                                                                    npc_boro.quest_complete, npc_maydria,
+                                                                    artherian_task_start, prism_received,
+                                                                    castle_crate_1_got, castle_crate_2_got,
+                                                                    castle_chest_1_got, castle_chest_2_got,
+                                                                    dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
+                                                                    mirage_updated, mirage_2_updated, mirage_saved,
+                                                                    mirage_2_saved, rope_phase,
+                                                                    atmon_castle.alive_status, thanked,
+                                                                    dreth_taunt_4, dreth_defeated, apothis_gift,
+                                                                    sub_marrow_opened, cat_rewarded, cats_pet,
+                                                                    credits_shown)
+                                info_text_2 = info
+
+                            if not quest_clicked:
+                                if any_card_counter < 4:
+                                    drawing_functions.quest_box_draw_trading("prime", True, prime_task_window,
+                                                                             accept_button, decline_button)
+                                    quest_clicked = True
+                                else:  # quest complete popup
+                                    if not trading_complete_shown:
+                                        drawing_functions.quest_complete_draw_trading("prime", True,
+                                                                                      prime_complete_window)
+                                        trading_complete_shown = True
+                                        quest_clicked = True
+                            else:
+                                drawing_functions.quest_box_trading.clear()
+                                quest_clicked = False
+
+                        # options once quest window is open ------------------------------------------------------------
+                        if len(drawing_functions.quest_box_trading) > 1:
+                            if quest_button_trade == "accept":
+                                drawing_functions.quest_accept_box_trading.append(task_accepted)
+                                pygame.mixer.find_channel(True).play(sfx_quest_start)
+                                info_text_1 = "You've accepted the task!"
+                                info_text_2 = ""
+                                if len(player.items) < 16:
+                                    if not trading_deck:
+                                        player.items.append(Item("trade deck", "deck", 200, 200,
+                                                                 graphic_dict["trade_deck"], 0))
+                                        trading_deck = True
+                                else:
+                                    info_text_1 = "Not enough inventory space."
+                                button_highlighted = False
+                                quest_clicked = False
+                                drawing_functions.quest_box_trading.clear()
+
+                            # if player chooses to decline, just close the quest window
+                            if quest_button_trade == "decline":
+                                info_text_1 = ""
+                                info_text_2 = ""
+                                quest_clicked = False
+                                button_highlighted = False
+                                drawing_functions.quest_box_trading.clear()
+
+                        if npc_button_trade == "leave":
                             movement_able = True
                             interacted = False
                             encounter_started = False
@@ -18864,6 +19017,7 @@ if __name__ == "__main__":
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(quest_button.surf, quest_button.rect)
+                            screen.blit(trade_button.surf, trade_button.rect)
                             if len(drawing_functions.item_info_window) == 0:
                                 screen.blit(star_power_meter.surf, star_power_meter.rect)
 
@@ -18881,6 +19035,7 @@ if __name__ == "__main__":
                             game_window.blit(en_bar.surf, en_bar.rect)
                             game_window.blit(xp_bar.surf, xp_bar.rect)
                             game_window.blit(quest_button.surf, quest_button.rect)
+                            game_window.blit(trade_button.surf, trade_button.rect)
                             if len(drawing_functions.item_info_window) == 0:
                                 game_window.blit(star_power_meter.surf, star_power_meter.rect)
 

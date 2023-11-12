@@ -1972,6 +1972,8 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("scout book", "book", 200, 200, graphics["scout_book"], 0))
                 if item == "cat card":
                     player.items.append(Item("cat card", "card", 200, 200, graphics["cat_card"], 0))
+                if item == "trade deck":
+                    player.items.append(Item("trade deck", "deck", 200, 200, graphics["trade_deck"], 0))
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
                     player.equipment["boots"] = Item("chroma boots", "boots", 200, 200, graphics["boots_img"], 0)
@@ -2347,7 +2349,7 @@ def attack_enemy(player, mob, sharp_sense_active):
         if player.offense == 4:
             damage = 12
         elif player.offense < 4:
-            damage = 9
+            damage = 8
     else:
         critical = random.randrange(1, 10)
         if critical > 6 or sharp_sense_active:
