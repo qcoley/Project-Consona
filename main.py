@@ -7310,6 +7310,7 @@ if __name__ == "__main__":
     caldera_bg = graphic_dict["caldera_bg"]
 
     cat_card_portrait = graphic_dict["all_cats_pet_card"]
+    trading_deck_window = graphic_dict["trading_deck"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -7362,6 +7363,7 @@ if __name__ == "__main__":
     save_absent = Notification("save absent", False, 652, 568, graphic_dict["save_not_found"])
     first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
     dreth_taunt_popup = Notification("dreth taunt", False, 510, 365, graphic_dict["dreth_taunt_1"])
+    card_drop_popup = Notification("card popup", False, 510, 365, graphic_dict["c_snake_popup"])
     # weapons
     staff = UiElement("staff", 1080, 283, graphic_dict["staff_0"])
     sword = UiElement("sword", 1155, 283, graphic_dict["sword_0"])
@@ -7800,18 +7802,18 @@ if __name__ == "__main__":
     music_toggle_button = UiElement("music toggle", 1235, 44, graphic_dict["music_button"])
     fish_button = UiElement("fish button", 750, 680, graphic_dict["fish_button_img"])
     trade_button = UiElement("card button", 750, 680, graphic_dict["trade_button_img"])
-    trade_snake = UiElement("trade snake", 100, 250, graphic_dict["trading_button"])
-    trade_ghoul = UiElement("trade ghoul", 300, 250, graphic_dict["trading_button"])
-    trade_bandile = UiElement("trade bandile", 500, 250, graphic_dict["trading_button"])
-    trade_magmon = UiElement("trade magmon", 700, 250, graphic_dict["trading_button"])
-    trade_necrola = UiElement("trade necrola", 100, 500, graphic_dict["trading_button"])
-    trade_osodark = UiElement("trade osodark", 300, 500, graphic_dict["trading_button"])
-    trade_atmon = UiElement("trade atmon", 500, 500, graphic_dict["trading_button"])
-    trade_jumano = UiElement("trade jumano", 700, 500, graphic_dict["trading_button"])
-    trade_chorizon = UiElement("trade chorizon", 100, 750, graphic_dict["trading_button"])
-    trade_muchador = UiElement("trade muchador", 300, 750, graphic_dict["trading_button"])
-    trade_chinzilla = UiElement("trade chinzilla", 500, 750, graphic_dict["trading_button"])
-    trade_erebyth = UiElement("trade erebyth", 700, 750, graphic_dict["trading_button"])
+    trade_snake = UiElement("trade snake", 427, 243, graphic_dict["trading_button"])
+    trade_ghoul = UiElement("trade ghoul", 577, 243, graphic_dict["trading_button"])
+    trade_bandile = UiElement("trade bandile", 763, 243, graphic_dict["trading_button"])
+    trade_magmon = UiElement("trade magmon", 901, 243, graphic_dict["trading_button"])
+    trade_necrola = UiElement("trade necrola", 427, 417, graphic_dict["trading_button"])
+    trade_osodark = UiElement("trade osodark", 577, 417, graphic_dict["trading_button"])
+    trade_atmon = UiElement("trade atmon", 763, 417, graphic_dict["trading_button"])
+    trade_jumano = UiElement("trade jumano", 901, 417, graphic_dict["trading_button"])
+    trade_chorizon = UiElement("trade chorizon", 427, 591, graphic_dict["trading_button"])
+    trade_muchador = UiElement("trade muchador", 577, 591, graphic_dict["trading_button"])
+    trade_chinzilla = UiElement("trade chinzilla", 763, 591, graphic_dict["trading_button"])
+    trade_erebyth = UiElement("trade erebyth", 901, 591, graphic_dict["trading_button"])
     check_basic_fish_button = UiElement("check basic", 490, 140, graphic_dict["check_button_img"])
     check_better_fish_button = UiElement("check better", 490, 235, graphic_dict["check_button_img"])
     check_even_better_fish_button = UiElement("check e. better", 490, 330, graphic_dict["check_button_img"])
@@ -7864,7 +7866,7 @@ if __name__ == "__main__":
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
     menagerie_window = UiElement("menagerie window", 500, 319, graphic_dict["kasper_manage"])
     fish_window = UiElement("fish window", 297, 319, graphic_dict["fishing_journal"])
-    trade_window = UiElement("trade window", 297, 319, graphic_dict["trading_window"])
+    trade_window = UiElement("trade window", 670, 368, graphic_dict["trading_window"])
     pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
     pet_energy_window = UiElement("pet energy", 375, 45, graphic_dict["pet_energy"])
     quest_visual = UiElement("quest visual", 500, 500, graphic_dict["pine_logs_big_img"])
@@ -8560,6 +8562,7 @@ if __name__ == "__main__":
     artherian_complete_shown = False
     maydria_complete_shown = False
     fishing_complete_shown = False
+    trading_complete_shown = False
     snake_sprite_reset = False
     ghoul_sprite_reset = False
     log_sprite_reset = False
@@ -8709,7 +8712,16 @@ if __name__ == "__main__":
     credits_shown = False
     cat_rewarded = False
     show_cat_card = False
+    show_trade_deck = False
     in_card_cave = False
+    c_snake_popup = False
+    c_ghoul_popup = False
+    c_bandile_popup = False
+    c_magmon_popup = False
+    b_necrola_popup = False
+    b_osodark_popup = False
+    b_atmon_popup = False
+    b_jumano_popup = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -8730,10 +8742,10 @@ if __name__ == "__main__":
     cats_pet = {"seldon_shop": False, "seldon_academia": False, "korlok_shop": False, "korlok_apothecary": False,
                 "eldream_shop": False, "eldream_menagerie": False, "marrow": False}
 
-    card_deck = {"basic snake": 0, "better snake": 0, "basic ghoul": 0, "better ghoul": 0,
-                 "basic bandile": 0, "better bandile": 0, "basic magmon": 0, "better magmon": 0,
-                 "better necrola": 0, "best necrola": 0, "better osodark": 0, "best osodark": 0,
-                 "better atmon": 0, "best atmon": 0, "better jumano": 0, "best jumano": 0,
+    card_deck = {"basic_snake": 0, "better_snake": 0, "basic_ghoul": 0, "better_ghoul": 0,
+                 "basic_bandile": 0, "better_bandile": 0, "basic_magmon": 0, "better_magmon": 0,
+                 "better_necrola": 0, "best_necrola": 0, "better_osodark": 0, "best_osodark": 0,
+                 "better_atmon": 0, "best_atmon": 0, "better_jumano": 0, "best_jumano": 0,
                  "chorizon": 0, "muchador": 0, "chinzilla": 0, "erebyth": 0, "dreth": 0}
 
     # counter for collection task to unlock trading card window
@@ -9456,6 +9468,29 @@ if __name__ == "__main__":
                         cats_pet["marrow"] = load_returned["marrow_cat"]
                         sub_marrow_opened = load_returned["sub_marrow_opened"]
                         credits_shown = load_returned["credits_shown"]
+                        trading_deck = load_returned["trading_deck"]
+                        trading_task_complete = load_returned["trading_task_complete"]
+                        any_card_counter = load_returned["any_card_counter"]
+                        card_deck["basic_snake"] = load_returned["basic_snake"]
+                        card_deck["better_snake"] = load_returned["better_snake"]
+                        card_deck["basic_ghoul"] = load_returned["basic_ghoul"]
+                        card_deck["better_ghoul"] = load_returned["better_ghoul"]
+                        card_deck["basic_bandile"] = load_returned["basic_bandile"]
+                        card_deck["better_bandile"] = load_returned["better_bandile"]
+                        card_deck["basic_magmon"] = load_returned["basic_magmon"]
+                        card_deck["better_magmon"] = load_returned["better_magmon"]
+                        card_deck["better_necrola"] = load_returned["better_necrola"]
+                        card_deck["best_necrola"] = load_returned["best_necrola"]
+                        card_deck["better_osodark"] = load_returned["better_osodark"]
+                        card_deck["best_osodark"] = load_returned["best_osodark"]
+                        card_deck["better_atmon"] = load_returned["better_atmon"]
+                        card_deck["best_atmon"] = load_returned["best_atmon"]
+                        card_deck["better_jumano"] = load_returned["better_jumano"]
+                        card_deck["best_jumano"] = load_returned["best_jumano"]
+                        card_deck["chorizon"] = load_returned["chorizon"]
+                        card_deck["muchador"] = load_returned["muchador"]
+                        card_deck["chinzilla"] = load_returned["chinzilla"]
+                        card_deck["erebyth"] = load_returned["erebyth"]
                         
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -10021,6 +10056,30 @@ if __name__ == "__main__":
                                 if len(drawing_functions.world_map_container) > 0:
                                     drawing_functions.world_map_container.clear()
 
+                                if show_cat_card:
+                                    show_cat_card = False
+                                if show_trade_deck:
+                                    show_trade_deck = False
+                                if fish_caught:
+                                    if fishing_popup.rect.collidepoint(pos):
+                                        fish_caught = False
+                                if c_snake_popup:
+                                    c_snake_popup = False
+                                if c_ghoul_popup:
+                                    c_ghoul_popup = False
+                                if c_bandile_popup:
+                                    c_bandile_popup = False
+                                if c_magmon_popup:
+                                    c_magmon_popup = False
+                                if b_necrola_popup:
+                                    b_necrola_popup = False
+                                if b_osodark_popup:
+                                    b_osodark_popup = False
+                                if b_atmon_popup:
+                                    b_atmon_popup = False
+                                if b_jumano_popup:
+                                    b_jumano_popup = False
+
                                 # clear character or journal sheet
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
@@ -10129,13 +10188,29 @@ if __name__ == "__main__":
 
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
-
                             if show_cat_card:
                                 show_cat_card = False
-
+                            if show_trade_deck:
+                                show_trade_deck = False
                             if fish_caught:
                                 if fishing_popup.rect.collidepoint(pos):
                                     fish_caught = False
+                            if c_snake_popup:
+                                c_snake_popup = False
+                            if c_ghoul_popup:
+                                c_ghoul_popup = False
+                            if c_bandile_popup:
+                                c_bandile_popup = False
+                            if c_magmon_popup:
+                                c_magmon_popup = False
+                            if b_necrola_popup:
+                                b_necrola_popup = False
+                            if b_osodark_popup:
+                                b_osodark_popup = False
+                            if b_atmon_popup:
+                                b_atmon_popup = False
+                            if b_jumano_popup:
+                                b_jumano_popup = False
 
                             # turn music off and on
                             if music_toggle_button.rect.collidepoint(pos):
@@ -10184,6 +10259,12 @@ if __name__ == "__main__":
                                     if inventory_event["cat card"]:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                         show_cat_card = True
+                                except KeyError:
+                                    pass
+                                try:
+                                    if inventory_event["trade deck"]:
+                                        pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                        show_trade_deck = True
                                 except KeyError:
                                     pass
 
@@ -10322,7 +10403,9 @@ if __name__ == "__main__":
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown)
+                                                                        credits_shown, trading_deck,
+                                                                        trading_task_complete, any_card_counter,
+                                                                        card_deck)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10378,7 +10461,8 @@ if __name__ == "__main__":
                                                                     mirage_2_saved, rope_phase,
                                                                     atmon_castle.alive_status, thanked, dreth_taunt_4,
                                                                     dreth_defeated, apothis_gift, sub_marrow_opened,
-                                                                    cat_rewarded, cats_pet, credits_shown)
+                                                                    cat_rewarded, cats_pet, credits_shown, trading_deck,
+                                                                    trading_task_complete, any_card_counter, card_deck)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -13764,6 +13848,29 @@ if __name__ == "__main__":
                         screen.blit(cat_card_portrait, (60, 105))
                     else:
                         game_window.blit(cat_card_portrait, (60, 105))
+                if show_trade_deck:
+                    basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
+                                                           True, "black", "light blue")
+                    basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
+                    basic_snake_c_count_rect.midleft = (405, 251)
+
+                    better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
+                                                            True, "black", "light blue")
+                    better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
+                    better_snake_c_count_rect.midleft = (515, 251)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(trading_deck_window, (359, 105))
+                        screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
+                    else:
+                        game_window.blit(trading_deck_window, (359, 105))
+                        game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
+                        game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
+
+                if c_snake_popup:
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(card_drop_popup.surf, card_drop_popup.rect)
+                    else:
+                        game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
@@ -13913,7 +14020,9 @@ if __name__ == "__main__":
                                                                                             atmon_counter,
                                                                                             prism_received,
                                                                                             dreth_turn_counter,
-                                                                                            apothis_gift)
+                                                                                            apothis_gift, trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter, card_deck)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -13952,7 +14061,9 @@ if __name__ == "__main__":
                                                                                             atmon_counter,
                                                                                             prism_received,
                                                                                             dreth_turn_counter,
-                                                                                            apothis_gift)
+                                                                                            apothis_gift, trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter, card_deck)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -13990,7 +14101,9 @@ if __name__ == "__main__":
                                                                                             atmon_counter,
                                                                                             prism_received,
                                                                                             dreth_turn_counter,
-                                                                                            apothis_gift)
+                                                                                            apothis_gift, trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter, card_deck)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -14100,7 +14213,9 @@ if __name__ == "__main__":
                                                                                     erebyth_turn_counter,
                                                                                     atmon_counter, prism_received,
                                                                                     dreth_turn_counter,
-                                                                                    apothis_gift)
+                                                                                    apothis_gift, trading_deck,
+                                                                                    trading_task_complete,
+                                                                                    any_card_counter, card_deck)
                                     combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                             barrier_active, sharp_sense_active,
                                                                             hard_strike, graphic_dict, turn_taken)
@@ -14247,9 +14362,61 @@ if __name__ == "__main__":
                                             in_over_world = True
                                             loot_updated = False
                                             mirror_image = False
-
                                     except TypeError:
                                         pass
+                                    if trading_deck:
+                                        try:
+                                            any_card_counter = combat_events["any_card_counter"]
+                                        except KeyError:
+                                            pass
+                                        try:
+                                            if combat_events["basic_snake"]:
+                                                card_deck["basic_snake"] = combat_events["basic_snake"]
+                                                c_snake_popup = True
+                                        except KeyError:
+                                            pass
+                                        try:
+                                            if combat_events["basic_ghoul"]:
+                                                card_deck["basic_ghoul"] = combat_events["basic_ghoul"]
+                                                c_ghoul_popup = True
+                                        except KeyError:
+                                            pass
+                                        try:
+                                            if combat_events["basic_bandile"]:
+                                                card_deck["basic_bandile"] = combat_events["basic_bandile"]
+                                                c_bandile_popup = True
+                                        except KeyError:
+                                            pass
+                                        try:
+                                            if combat_events["basic_magmon"]:
+                                                card_deck["basic_magmon"] = combat_events["basic_magmon"]
+                                                c_magmon_popup = True
+                                        except KeyError:
+                                            pass
+                                        try:
+                                            if combat_events["better_necrola"]:
+                                                card_deck["better_necrola"] = combat_events["better_necrola"]
+                                                b_necrola_popup = True
+                                        except KeyError:
+                                            pass
+                                        try:
+                                            if combat_events["better_osodark"]:
+                                                card_deck["better_osodark"] = combat_events["better_osodark"]
+                                                b_osodark_popup = True
+                                        except KeyError:
+                                            pass
+                                        try:
+                                            if combat_events["better_atmon"]:
+                                                card_deck["better_atmon"] = combat_events["better_atmon"]
+                                                b_atmon_popup = True
+                                        except KeyError:
+                                            pass
+                                        try:
+                                            if combat_events["better_jumano"]:
+                                                card_deck["better_jumano"] = combat_events["better_jumano"]
+                                                b_jumano_popup = True
+                                        except KeyError:
+                                            pass
 
                             # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
                             elif combat_button == "skill 1" or skill_1_hotkey:
@@ -14317,7 +14484,9 @@ if __name__ == "__main__":
                                                                                         erebyth_turn_counter,
                                                                                         atmon_counter, prism_received,
                                                                                         dreth_turn_counter,
-                                                                                        apothis_gift)
+                                                                                        apothis_gift, trading_deck,
+                                                                                        trading_task_complete,
+                                                                                        any_card_counter, card_deck)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -14410,7 +14579,9 @@ if __name__ == "__main__":
                                                                                         erebyth_turn_counter,
                                                                                         atmon_counter, prism_received,
                                                                                         dreth_turn_counter,
-                                                                                        apothis_gift)
+                                                                                        apothis_gift, trading_deck,
+                                                                                        trading_task_complete,
+                                                                                        any_card_counter, card_deck)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -14469,7 +14640,11 @@ if __name__ == "__main__":
                                                                                                 atmon_counter,
                                                                                                 prism_received,
                                                                                                 dreth_turn_counter,
-                                                                                                apothis_gift)
+                                                                                                apothis_gift,
+                                                                                                trading_deck,
+                                                                                                trading_task_complete,
+                                                                                                any_card_counter,
+                                                                                                card_deck)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -14565,6 +14740,61 @@ if __name__ == "__main__":
                                                         mirror_image = False
                                                 except TypeError:
                                                     pass
+                                                if trading_deck:
+                                                    try:
+                                                        any_card_counter = combat_events["any_card_counter"]
+                                                    except KeyError:
+                                                        pass
+                                                    try:
+                                                        if combat_events["basic_snake"]:
+                                                            card_deck["basic_snake"] = combat_events["basic_snake"]
+                                                            c_snake_popup = True
+                                                    except KeyError:
+                                                        pass
+                                                    try:
+                                                        if combat_events["basic_ghoul"]:
+                                                            card_deck["basic_ghoul"] = combat_events["basic_ghoul"]
+                                                            c_ghoul_popup = True
+                                                    except KeyError:
+                                                        pass
+                                                    try:
+                                                        if combat_events["basic_bandile"]:
+                                                            card_deck["basic_bandile"] = combat_events["basic_bandile"]
+                                                            c_bandile_popup = True
+                                                    except KeyError:
+                                                        pass
+                                                    try:
+                                                        if combat_events["basic_magmon"]:
+                                                            card_deck["basic_magmon"] = combat_events["basic_magmon"]
+                                                            c_magmon_popup = True
+                                                    except KeyError:
+                                                        pass
+                                                    try:
+                                                        if combat_events["better_necrola"]:
+                                                            card_deck["better_necrola"] = (
+                                                                combat_events)["better_necrola"]
+                                                            b_necrola_popup = True
+                                                    except KeyError:
+                                                        pass
+                                                    try:
+                                                        if combat_events["better_osodark"]:
+                                                            card_deck["better_osodark"] = (
+                                                                combat_events)["better_osodark"]
+                                                            b_osodark_popup = True
+                                                    except KeyError:
+                                                        pass
+                                                    try:
+                                                        if combat_events["better_atmon"]:
+                                                            card_deck["better_atmon"] = combat_events["better_atmon"]
+                                                            b_atmon_popup = True
+                                                    except KeyError:
+                                                        pass
+                                                    try:
+                                                        if combat_events["better_jumano"]:
+                                                            card_deck["better_jumano"] = combat_events["better_jumano"]
+                                                            b_jumano_popup = True
+                                                    except KeyError:
+                                                        pass
 
                             elif combat_button == "skill 2" or skill_2_hotkey:
                                 if not combat_cooldown:
@@ -14623,7 +14853,8 @@ if __name__ == "__main__":
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
                                                         erebyth_turn_counter, atmon_counter, prism_received,
-                                                        dreth_turn_counter, apothis_gift)
+                                                        dreth_turn_counter, apothis_gift, trading_deck,
+                                                        trading_task_complete, any_card_counter, card_deck)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -16381,6 +16612,10 @@ if __name__ == "__main__":
                             drawing_functions.fish_pop_up_window_text.clear()
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            if show_cat_card:
+                                show_cat_card = False
+                            if show_trade_deck:
+                                show_trade_deck = False
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                          pressed_keys, sfx_button_role)
 
@@ -16397,6 +16632,18 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn)
+                            try:
+                                if inventory_event["cat card"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                if inventory_event["trade deck"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_trade_deck = True
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -16618,6 +16865,17 @@ if __name__ == "__main__":
                         game_window.blit(en_bar.surf, en_bar.rect)
                         game_window.blit(xp_bar.surf, xp_bar.rect)
 
+                    if show_cat_card:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(cat_card_portrait, (60, 105))
+                        else:
+                            game_window.blit(cat_card_portrait, (60, 105))
+                    if show_trade_deck:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(trading_deck_window, (359, 105))
+                        else:
+                            game_window.blit(trading_deck_window, (359, 105))
+
                     if rest_clicked:
                         if not rested:
                             # set sleep screen to fade in with alpha value loop. flip each iteration to show
@@ -16700,6 +16958,10 @@ if __name__ == "__main__":
                             drawing_functions.fish_pop_up_window_text.clear()
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            if show_cat_card:
+                                show_cat_card = False
+                            if show_trade_deck:
+                                show_trade_deck = False
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                          pressed_keys, sfx_button_role)
                             if cat_pet_button_overlay.rect.collidepoint(pos):
@@ -16729,6 +16991,18 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn)
+                            try:
+                                if inventory_event["cat card"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                if inventory_event["trade deck"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_trade_deck = True
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -17118,6 +17392,17 @@ if __name__ == "__main__":
                                     directional_arrow.update(555, 360, graphic_dict["arrow_down"])
                                     game_window.blit(directional_arrow.surf, directional_arrow.rect)
 
+                        if show_cat_card:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(cat_card_portrait, (60, 105))
+                            else:
+                                game_window.blit(cat_card_portrait, (60, 105))
+                        if show_trade_deck:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(trading_deck_window, (359, 105))
+                            else:
+                                game_window.blit(trading_deck_window, (359, 105))
+
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in apothecary ---------------------------------------------------------------------------
@@ -17185,6 +17470,10 @@ if __name__ == "__main__":
                             button_highlighted = True
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            if show_cat_card:
+                                show_cat_card = False
+                            if show_trade_deck:
+                                show_trade_deck = False
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                          pressed_keys, sfx_button_role)
                             drawing_functions.quest_complete_box.clear()
@@ -17294,6 +17583,18 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn)
+                            try:
+                                if inventory_event["cat card"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                if inventory_event["trade deck"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_trade_deck = True
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -17390,7 +17691,9 @@ if __name__ == "__main__":
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown)
+                                                                        credits_shown, trading_deck,
+                                                                        trading_task_complete, any_card_counter,
+                                                                        card_deck)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -17634,6 +17937,17 @@ if __name__ == "__main__":
                             if button_highlighted:
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
 
+                        if show_cat_card:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(cat_card_portrait, (60, 105))
+                            else:
+                                game_window.blit(cat_card_portrait, (60, 105))
+                        if show_trade_deck:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(trading_deck_window, (359, 105))
+                            else:
+                                game_window.blit(trading_deck_window, (359, 105))
+
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in menagerie ----------------------------------------------------------------------------
@@ -17707,6 +18021,10 @@ if __name__ == "__main__":
                             button_highlighted = True
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            if show_cat_card:
+                                show_cat_card = False
+                            if show_trade_deck:
+                                show_trade_deck = False
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
                                                          sword, bow,
                                                          pressed_keys, sfx_button_role)
@@ -17962,6 +18280,18 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn)
+                            try:
+                                if inventory_event["cat card"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                if inventory_event["trade deck"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_trade_deck = True
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -18061,7 +18391,9 @@ if __name__ == "__main__":
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown)
+                                                                        credits_shown, trading_deck,
+                                                                        trading_task_complete, any_card_counter,
+                                                                        card_deck)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -18260,6 +18592,17 @@ if __name__ == "__main__":
                                 close_button.update(792, 108, graphic_dict["close_button"])
                                 game_window.blit(close_button.surf, close_button.rect)
 
+                        if show_cat_card:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(cat_card_portrait, (60, 105))
+                            else:
+                                game_window.blit(cat_card_portrait, (60, 105))
+                        if show_trade_deck:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(trading_deck_window, (359, 105))
+                            else:
+                                game_window.blit(trading_deck_window, (359, 105))
+
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in the fishing hut ----------------------------------------------------------------------
@@ -18326,6 +18669,10 @@ if __name__ == "__main__":
                             button_highlighted = True
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            if show_cat_card:
+                                show_cat_card = False
+                            if show_trade_deck:
+                                show_trade_deck = False
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
                                                          sword, bow, pressed_keys, sfx_button_role)
                             drawing_functions.quest_complete_box_fishing.clear()
@@ -18459,6 +18806,18 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack,
                                                                        graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                        sfx_firework, sfx_skill_learn)
+                            try:
+                                if inventory_event["cat card"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                if inventory_event["trade deck"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_trade_deck = True
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -18541,7 +18900,8 @@ if __name__ == "__main__":
                                                                     atmon_castle.alive_status, thanked,
                                                                     dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                     sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                    credits_shown)
+                                                                    credits_shown, trading_deck, trading_task_complete,
+                                                                    any_card_counter, card_deck)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18747,6 +19107,17 @@ if __name__ == "__main__":
                             if button_highlighted:
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
 
+                        if show_cat_card:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(cat_card_portrait, (60, 105))
+                            else:
+                                game_window.blit(cat_card_portrait, (60, 105))
+                        if show_trade_deck:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(trading_deck_window, (359, 105))
+                            else:
+                                game_window.blit(trading_deck_window, (359, 105))
+
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in the card cave ------------------------------------------------------------------------
@@ -18778,6 +19149,9 @@ if __name__ == "__main__":
                                 npc_text_reset = False
                                 over_world_song_set = False
                                 stardust_song_set = False
+                                drawing_functions.quest_accept_box_trading.clear()
+                                drawing_functions.quest_complete_box_trading.clear()
+                                drawing_functions.trade_window_container.clear()
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -18805,6 +19179,10 @@ if __name__ == "__main__":
                             drawing_functions.fish_pop_up_window_text.clear()
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            if show_cat_card:
+                                show_cat_card = False
+                            if show_trade_deck:
+                                show_trade_deck = False
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
                                                          sword, bow, pressed_keys, sfx_button_role)
                             drawing_functions.quest_complete_box_trading.clear()
@@ -18816,13 +19194,19 @@ if __name__ == "__main__":
                                     if not trade_window_open:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                         trade_window_open = True
-                                        drawing_functions.trade_window_container.append(trade_window, trade_snake,
-                                                                                        trade_ghoul, trade_bandile,
-                                                                                        trade_magmon, trade_necrola,
-                                                                                        trade_osodark, trade_atmon,
-                                                                                        trade_jumano, trade_chorizon,
-                                                                                        trade_muchador, trade_chinzilla,
-                                                                                        trade_erebyth)
+                                        drawing_functions.trade_window_container.append(trade_window)
+                                        drawing_functions.trade_window_container.append(trade_snake)
+                                        drawing_functions.trade_window_container.append(trade_ghoul)
+                                        drawing_functions.trade_window_container.append(trade_bandile)
+                                        drawing_functions.trade_window_container.append(trade_magmon)
+                                        drawing_functions.trade_window_container.append(trade_necrola)
+                                        drawing_functions.trade_window_container.append(trade_osodark)
+                                        drawing_functions.trade_window_container.append(trade_atmon)
+                                        drawing_functions.trade_window_container.append(trade_jumano)
+                                        drawing_functions.trade_window_container.append(trade_chorizon)
+                                        drawing_functions.trade_window_container.append(trade_muchador)
+                                        drawing_functions.trade_window_container.append(trade_chinzilla)
+                                        drawing_functions.trade_window_container.append(trade_erebyth)
                                     else:
                                         drawing_functions.trade_window_container.clear()
                                         trade_window_open = False
@@ -18851,6 +19235,18 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack,
                                                                        graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                        sfx_firework, sfx_skill_learn)
+                            try:
+                                if inventory_event["cat card"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                if inventory_event["trade deck"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_trade_deck = True
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -18886,7 +19282,6 @@ if __name__ == "__main__":
                         if npc_button_trade == "quest":
                             npc_text_reset = True
                             if any_card_counter >= 4 and not trading_task_complete:
-                                pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                 info_text_1 = "You've completed the collection task!"
                                 trading_task_complete = True
                                 player.reputation["nuldar"] += 10
@@ -18936,7 +19331,8 @@ if __name__ == "__main__":
                                                                     atmon_castle.alive_status, thanked,
                                                                     dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                     sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                    credits_shown)
+                                                                    credits_shown, trading_deck, trading_task_complete,
+                                                                    any_card_counter, card_deck)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -18946,6 +19342,7 @@ if __name__ == "__main__":
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not trading_complete_shown:
+                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                         drawing_functions.quest_complete_draw_trading("prime", True,
                                                                                       prime_complete_window)
                                         trading_complete_shown = True
@@ -18990,8 +19387,11 @@ if __name__ == "__main__":
                             in_over_world = True
                             npc_text_reset = False
                             quest_clicked = False
+                            drawing_functions.quest_accept_box_trading.clear()
+                            drawing_functions.quest_complete_box_trading.clear()
+                            drawing_functions.trade_window_container.clear()
 
-                    # outside of event loop ------------------------------------------------------------------------
+                    # outside of event loop ----------------------------------------------------------------------------
                     if not encounter_started:
                         info_text_1 = ""
                         info_text_2 = ""
@@ -19056,6 +19456,17 @@ if __name__ == "__main__":
                             drawing_functions.draw_it(game_window)
                             if button_highlighted:
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
+
+                        if show_cat_card:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(cat_card_portrait, (60, 105))
+                            else:
+                                game_window.blit(cat_card_portrait, (60, 105))
+                        if show_trade_deck:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(trading_deck_window, (359, 105))
+                            else:
+                                game_window.blit(trading_deck_window, (359, 105))
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -19232,6 +19643,18 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn)
+                            try:
+                                if inventory_event["cat card"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                if inventory_event["trade deck"]:
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    show_trade_deck = True
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -19335,7 +19758,9 @@ if __name__ == "__main__":
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown)
+                                                                        credits_shown, trading_deck,
+                                                                        trading_task_complete, any_card_counter,
+                                                                        card_deck)
                                     info_text_2 = info
                                 if not quest_clicked:
                                     if not player.quest_complete["sneaky snakes"]:
@@ -19563,7 +19988,9 @@ if __name__ == "__main__":
                                                                             atmon_castle.alive_status, thanked,
                                                                             dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                             sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                            credits_shown)
+                                                                            credits_shown, trading_deck,
+                                                                            trading_task_complete, any_card_counter,
+                                                                            card_deck)
                                 if not quest_clicked:
                                     if not player.quest_complete["ghouled again"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -19792,7 +20219,9 @@ if __name__ == "__main__":
                                                                         atmon_castle.alive_status, thanked,
                                                                         dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown)
+                                                                        credits_shown, trading_deck,
+                                                                        trading_task_complete, any_card_counter,
+                                                                        card_deck)
                                     info_text_2 = info
 
                                 if not quest_clicked:
@@ -20390,6 +20819,17 @@ if __name__ == "__main__":
                                 if first_npc_cond:
                                     directional_arrow.update(855, 620, graphic_dict["arrow_down"])
                                     game_window.blit(directional_arrow.surf, directional_arrow.rect)
+
+                        if show_cat_card:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(cat_card_portrait, (60, 105))
+                            else:
+                                game_window.blit(cat_card_portrait, (60, 105))
+                        if show_trade_deck:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(trading_deck_window, (359, 105))
+                            else:
+                                game_window.blit(trading_deck_window, (359, 105))
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------

@@ -2122,6 +2122,29 @@ def load_game(player, Item, graphics, Pet):
             load_return["marrow_cat"] = player_load_info["marrow_cat"]
             load_return["sub_marrow_opened"] = player_load_info["sub_marrow_opened"]
             load_return["credits_shown"] = player_load_info["credits_shown"]
+            load_return["trading_deck"] = player_load_info["trading_deck"]
+            load_return["trading_task_complete"] = player_load_info["trading_task_complete"]
+            load_return["any_card_counter"] = player_load_info["any_card_counter"]
+            load_return["basic_snake"] = player_load_info["basic_snake"]
+            load_return["better_snake"] = player_load_info["better_snake"]
+            load_return["basic_ghoul"] = player_load_info["basic_ghoul"]
+            load_return["better_ghoul"] = player_load_info["better_ghoul"]
+            load_return["basic_bandile"] = player_load_info["basic_bandile"]
+            load_return["better_bandile"] = player_load_info["better_bandile"]
+            load_return["basic_magmon"] = player_load_info["basic_magmon"]
+            load_return["better_magmon"] = player_load_info["better_magmon"]
+            load_return["better_necrola"] = player_load_info["better_necrola"]
+            load_return["best_necrola"] = player_load_info["best_necrola"]
+            load_return["better_osodark"] = player_load_info["better_osodark"]
+            load_return["best_osodark"] = player_load_info["best_osodark"]
+            load_return["better_atmon"] = player_load_info["better_atmon"]
+            load_return["best_atmon"] = player_load_info["best_atmon"]
+            load_return["better_jumano"] = player_load_info["better_jumano"]
+            load_return["best_jumano"] = player_load_info["best_jumano"]
+            load_return["chorizon"] = player_load_info["chorizon"]
+            load_return["muchador"] = player_load_info["muchador"]
+            load_return["chinzilla"] = player_load_info["chinzilla"]
+            load_return["erebyth"] = player_load_info["erebyth"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2149,7 +2172,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               prism_received, castle_crate_1, castle_crate_2, castle_chest_1, castle_chest_2, dreth_taunt_1,
               dreth_taunt_2, dreth_taunt_3, mirage_updated, mirage_2_updated, mirage_saved, mirage_2_saved,
               rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift, sub_marrow_opened,
-              cat_rewarded, cats_pet, credits_shown):
+              cat_rewarded, cats_pet, credits_shown, trading_deck, trading_task_complete, any_card_counter,
+              card_deck):
 
     inventory_save = []
     equipment_save = []
@@ -2246,7 +2270,18 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "korlok_apothecary_cat": cats_pet["korlok_apothecary"],
                         "eldream_shop_cat": cats_pet["eldream_shop"],
                         "eldream_menagerie_cat": cats_pet["eldream_menagerie"],
-                        "marrow_cat": cats_pet["marrow"], "credits_shown": credits_shown}
+                        "marrow_cat": cats_pet["marrow"], "credits_shown": credits_shown, "trading_deck": trading_deck,
+                        "trading_task_complete": trading_task_complete, "any_card_counter": any_card_counter,
+                        "basic_snake": card_deck["basic_snake"], "better_snake": card_deck["better_snake"],
+                        "basic_ghoul": card_deck["basic_ghoul"], "better_ghoul": card_deck["better_ghoul"],
+                        "basic_bandile": card_deck["basic_bandile"], "better_bandile": card_deck["better_bandile"],
+                        "basic_magmon": card_deck["basic_magmon"], "better_magmon": card_deck["better_magmon"],
+                        "better_necrola": card_deck["better_necrola"], "best_necrola": card_deck["best_necrola"],
+                        "better_osodark": card_deck["better_osodark"], "best_osodark": card_deck["best_osodark"],
+                        "better_atmon": card_deck["better_atmon"], "best_atmon": card_deck["best_atmon"],
+                        "better_jumano": card_deck["better_jumano"], "best_jumano": card_deck["best_jumano"],
+                        "chorizon": card_deck["chorizon"], "muchador": card_deck["muchador"],
+                        "chinzilla": card_deck["chinzilla"], "erebyth": card_deck["erebyth"]}
 
     try:
         with open("save", "wb") as ff:

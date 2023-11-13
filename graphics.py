@@ -52,6 +52,7 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    trading_deck_window = pygame.image.load(resource_path('resources/art/trading_deck_window.png')).convert_alpha()
     trade_button = pygame.image.load(resource_path('resources/art/button_trade.png')).convert_alpha()
     trading_card_window = pygame.image.load(resource_path('resources/art/trading_card_window.png')).convert_alpha()
     card_shop_screen = pygame.image.load(resource_path('resources/art/bg_card_shop.png')).convert_alpha()
@@ -304,6 +305,7 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["trading_deck"] = trading_deck_window
     loaded_dict["trading_button"] = trade_button
     loaded_dict["trading_window"] = trading_card_window
     loaded_dict["card_shop_bg"] = card_shop_screen
@@ -5589,6 +5591,17 @@ def load_graphics():
     loaded_dict["save_not_found"] = popups_sheet[4]
     loaded_dict["quest_popup"] = popups_sheet[5]
     loaded_dict["outpost_popup"] = popups_sheet[6]
+    # pop up notifications ---------------------------------------------------------------------------------------------
+    card_popups_url = resource_path('resources/art/popups_cards.png')
+    card_popups_sheet = sprite_sheet((400, 200), card_popups_url)
+    loaded_dict["c_snake_popup"] = card_popups_sheet[0]
+    loaded_dict["c_ghoul_popup"] = card_popups_sheet[1]
+    loaded_dict["c_bandile_popup"] = card_popups_sheet[2]
+    loaded_dict["c_magmon_popup"] = card_popups_sheet[3]
+    loaded_dict["b_necrola_popup"] = card_popups_sheet[4]
+    loaded_dict["b_osodark_popup"] = card_popups_sheet[5]
+    loaded_dict["b_atmon_popup"] = card_popups_sheet[6]
+    loaded_dict["b_jumano_popup"] = card_popups_sheet[7]
     # quest pine logs --------------------------------------------------------------------------------------------------
     quest_logs_url = resource_path('resources/art/sprite_logs.png')
     quest_logs_sheet = sprite_sheet((40, 50), quest_logs_url)
