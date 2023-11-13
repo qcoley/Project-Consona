@@ -13848,16 +13848,89 @@ if __name__ == "__main__":
                         screen.blit(cat_card_portrait, (60, 105))
                     else:
                         game_window.blit(cat_card_portrait, (60, 105))
+
                 if show_trade_deck:
                     basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
                                                            True, "black", "light blue")
                     basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
-                    basic_snake_c_count_rect.midleft = (405, 251)
-
+                    basic_snake_c_count_rect.midleft = (403, 251)
                     better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
                                                             True, "black", "light blue")
                     better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
                     better_snake_c_count_rect.midleft = (515, 251)
+                    better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
+                                                              True, "black", "light blue")
+                    better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
+                    better_necrola_c_count_rect.midleft = (645, 251)
+                    best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
+                                                            True, "black", "light blue")
+                    best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
+                    best_necrola_c_count_rect.midleft = (758, 251)
+                    chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
+                                                        True, "black", "light blue")
+                    chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
+                    chorizon_c_count_rect.midleft = (897, 251)
+                    basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
+                                                           True, "black", "light blue")
+                    basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
+                    basic_ghoul_c_count_rect.midleft = (403, 389)
+                    better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
+                                                            True, "black", "light blue")
+                    better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
+                    better_ghoul_c_count_rect.midleft = (515, 389)
+                    better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
+                                                              True, "black", "light blue")
+                    better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
+                    better_osodark_c_count_rect.midleft = (643, 389)
+                    best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
+                                                            True, "black", "light blue")
+                    best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
+                    best_osodark_c_count_rect.midleft = (757, 389)
+                    muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
+                                                        True, "black", "light blue")
+                    muchador_c_count_rect = muchador_c_count_surf.get_rect()
+                    muchador_c_count_rect.midleft = (895, 389)
+                    basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
+                                                             True, "black", "light blue")
+                    basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
+                    basic_bandile_c_count_rect.midleft = (398, 527)
+                    better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
+                                                              True, "black", "light blue")
+                    better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
+                    better_bandile_c_count_rect.midleft = (512, 527)
+                    better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
+                                                            True, "black", "light blue")
+                    better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
+                    better_atmon_c_count_rect.midleft = (647, 527)
+                    best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
+                                                          True, "black", "light blue")
+                    best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
+                    best_atmon_c_count_rect.midleft = (761, 527)
+                    chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
+                                                         True, "black", "light blue")
+                    chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
+                    chinzilla_c_count_rect.midleft = (898, 527)
+                    basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
+                                                            True, "black", "light blue")
+                    basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
+                    basic_magmon_c_count_rect.midleft = (393, 665)
+                    better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
+                                                             True, "black", "light blue")
+                    better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
+                    better_magmon_c_count_rect.midleft = (506, 665)
+                    better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
+                                                             True, "black", "light blue")
+                    better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
+                    better_jumano_c_count_rect.midleft = (645, 665)
+                    best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
+                                                           True, "black", "light blue")
+                    best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
+                    best_jumano_c_count_rect.midleft = (759, 665)
+                    erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
+                                                       True, "black", "light blue")
+                    erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
+                    erebyth_c_count_rect.midleft = (899, 665)
+
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(trading_deck_window, (359, 105))
                         screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
@@ -13865,6 +13938,24 @@ if __name__ == "__main__":
                         game_window.blit(trading_deck_window, (359, 105))
                         game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
                         game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
+                        game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
+                        game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
+                        game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
+                        game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
+                        game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
+                        game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
+                        game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
+                        game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
+                        game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
+                        game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
+                        game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
+                        game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
+                        game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
+                        game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
+                        game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
+                        game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
+                        game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
+                        game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
 
                 if c_snake_popup:
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
