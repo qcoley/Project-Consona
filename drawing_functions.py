@@ -1610,7 +1610,9 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
                       barrier_learn_button, close_button, garan_gift, mirror_learn_button, mirror_button,
                       vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked, music_toggle,
-                      in_hut, basic_fish, better_fish, even_better_fish, best_fish, save_data_window, in_card_cave):
+                      in_hut, basic_fish, better_fish, even_better_fish, best_fish, save_data_window, in_card_cave,
+                      trade_snake, trade_ghoul, trade_bandile, trade_magmon, trade_necrola, trade_osodark,
+                      trade_atmon, trade_jumano, trade_chorizon, trade_muchador, trade_chinzilla, trade_erebyth):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -2167,6 +2169,59 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                                 decline_button.y_coordinate + 7,
                                                 graphic_dict["main high"])
                         return True
+            if len(trade_window_container) > 0:
+                if trade_snake.rect.collidepoint(pos):
+                    button_highlight.update(trade_snake.x_coordinate, trade_snake.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_ghoul.rect.collidepoint(pos):
+                    button_highlight.update(trade_ghoul.x_coordinate, trade_ghoul.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_bandile.rect.collidepoint(pos):
+                    button_highlight.update(trade_bandile.x_coordinate, trade_bandile.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_magmon.rect.collidepoint(pos):
+                    button_highlight.update(trade_magmon.x_coordinate, trade_magmon.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_necrola.rect.collidepoint(pos):
+                    button_highlight.update(trade_necrola.x_coordinate, trade_necrola.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_osodark.rect.collidepoint(pos):
+                    button_highlight.update(trade_osodark.x_coordinate, trade_osodark.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_atmon.rect.collidepoint(pos):
+                    button_highlight.update(trade_atmon.x_coordinate, trade_atmon.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_jumano.rect.collidepoint(pos):
+                    button_highlight.update(trade_jumano.x_coordinate, trade_jumano.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_chorizon.rect.collidepoint(pos):
+                    button_highlight.update(trade_chorizon.x_coordinate, trade_chorizon.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_muchador.rect.collidepoint(pos):
+                    button_highlight.update(trade_muchador.x_coordinate, trade_muchador.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_chinzilla.rect.collidepoint(pos):
+                    button_highlight.update(trade_chinzilla.x_coordinate, trade_chinzilla.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif trade_erebyth.rect.collidepoint(pos):
+                    button_highlight.update(trade_erebyth.x_coordinate, trade_erebyth.y_coordinate,
+                                            graphic_dict["trading_button_high"])
+                    return True
+                elif close_button.rect.collidepoint(pos):
+                    button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
+                                            graphic_dict["close high"])
+                    return True
 
 
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg

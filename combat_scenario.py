@@ -3841,11 +3841,13 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     trading_task_complete, any_card_counter, card_deck):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
-    combat_event_dictionary = {
-        "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
-        "item dropped": "", "experience gained": 0, "quest update": "", "enemy defeated": False, "leveled": False,
-        "effective player": False, "non effective player": False, "effective enemy": False,
-        "non effective enemy": False}
+    combat_event_dictionary = {"damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
+                               "item dropped": "", "experience gained": 0, "quest update": "", "enemy defeated": False,
+                               "leveled": False, "effective player": False, "non effective player": False,
+                               "effective enemy": False, "non effective enemy": False, "basic_snake": False,
+                               "basic_ghoul": False, "basic_bandile": False, "basic_magmon": False,
+                               "better_necrola": False, "better_osodark": False, "better_atmon": False,
+                               "better_jumano": False}
 
     if combat_event == "attack":
         if enemy_combating.alive_status:
@@ -4167,28 +4169,28 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                             combat_event_dictionary["any_card_counter"] = any_card_counter
                         if enemy_combating.kind == "snake":
                             card_deck["basic_snake"] += 1
-                            combat_event_dictionary["basic_snake"] = card_deck["basic_snake"]
+                            combat_event_dictionary["basic_snake"] = True
                         if enemy_combating.kind == "ghoul":
                             card_deck["basic_ghoul"] += 1
-                            combat_event_dictionary["basic_ghoul"] = card_deck["basic_ghoul"]
+                            combat_event_dictionary["basic_ghoul"] = True
                         if enemy_combating.kind == "bandile":
                             card_deck["basic_bandile"] += 1
-                            combat_event_dictionary["basic_bandile"] = card_deck["basic_bandile"]
+                            combat_event_dictionary["basic_bandile"] = True
                         if enemy_combating.kind == "magmon":
                             card_deck["basic_magmon"] += 1
-                            combat_event_dictionary["basic_magmon"] = card_deck["basic_magmon"]
+                            combat_event_dictionary["basic_magmon"] = True
                         if enemy_combating.kind == "necrola":
                             card_deck["better_necrola"] += 1
-                            combat_event_dictionary["better_necrola"] = card_deck["better_necrola"]
+                            combat_event_dictionary["better_necrola"] = True
                         if enemy_combating.kind == "osodark":
                             card_deck["better_osodark"] += 1
-                            combat_event_dictionary["better_osodark"] = card_deck["better_osodark"]
+                            combat_event_dictionary["better_osodark"] = True
                         if enemy_combating.kind == "atmon":
                             card_deck["better_atmon"] += 1
-                            combat_event_dictionary["better_atmon"] = card_deck["better_atmon"]
+                            combat_event_dictionary["better_atmon"] = True
                         if enemy_combating.kind == "jumano":
                             card_deck["better_jumano"] += 1
-                            combat_event_dictionary["better_jumano"] = card_deck["better_jumano"]
+                            combat_event_dictionary["better_jumano"] = True
 
                 # add to dictionary True if enemy has been defeated
                 combat_event_dictionary["enemy defeated"] = True
@@ -4414,28 +4416,28 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                     combat_event_dictionary["any_card_counter"] = any_card_counter
                                 if enemy_combating.kind == "snake":
                                     card_deck["basic_snake"] += 1
-                                    combat_event_dictionary["basic_snake"] = card_deck["basic_snake"]
+                                    combat_event_dictionary["basic_snake"] = True
                                 if enemy_combating.kind == "ghoul":
                                     card_deck["basic_ghoul"] += 1
-                                    combat_event_dictionary["basic_ghoul"] = card_deck["basic_ghoul"]
+                                    combat_event_dictionary["basic_ghoul"] = True
                                 if enemy_combating.kind == "bandile":
                                     card_deck["basic_bandile"] += 1
-                                    combat_event_dictionary["basic_bandile"] = card_deck["basic_bandile"]
+                                    combat_event_dictionary["basic_bandile"] = True
                                 if enemy_combating.kind == "magmon":
                                     card_deck["basic_magmon"] += 1
-                                    combat_event_dictionary["basic_magmon"] = card_deck["basic_magmon"]
+                                    combat_event_dictionary["basic_magmon"] = True
                                 if enemy_combating.kind == "necrola":
                                     card_deck["better_necrola"] += 1
-                                    combat_event_dictionary["better_necrola"] = card_deck["better_necrola"]
+                                    combat_event_dictionary["better_necrola"] = True
                                 if enemy_combating.kind == "osodark":
                                     card_deck["better_osodark"] += 1
-                                    combat_event_dictionary["better_osodark"] = card_deck["better_osodark"]
+                                    combat_event_dictionary["better_osodark"] = True
                                 if enemy_combating.kind == "atmon":
                                     card_deck["better_atmon"] += 1
-                                    combat_event_dictionary["better_atmon"] = card_deck["better_atmon"]
+                                    combat_event_dictionary["better_atmon"] = True
                                 if enemy_combating.kind == "jumano":
                                     card_deck["better_jumano"] += 1
-                                    combat_event_dictionary["better_jumano"] = card_deck["better_jumano"]
+                                    combat_event_dictionary["better_jumano"] = True
 
                         # add to dictionary True if enemy has been defeated
                         combat_event_dictionary["enemy defeated"] = True
