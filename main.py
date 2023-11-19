@@ -7204,7 +7204,7 @@ def button_highlighter(posit):
                                                               save_data_window, in_card_cave, trade_snake, trade_ghoul,
                                                               trade_bandile, trade_magmon, trade_necrola, trade_osodark,
                                                               trade_atmon, trade_jumano, trade_chorizon, trade_muchador,
-                                                              trade_chinzilla, trade_erebyth)
+                                                              trade_chinzilla, trade_erebyth, missile_learn_button)
     return button_highlighters
 
 
@@ -7782,6 +7782,9 @@ if __name__ == "__main__":
     mirror_learn_button = UiElement("mirror learn button", 505, 503, graphic_dict["skill_learn_button"])
     stun_learn_button = UiElement("stun learn button", 505, 503, graphic_dict["skill_learn_button"])
     vanish_learn_button = UiElement("vanish learn button", 505, 503, graphic_dict["skill_learn_button"])
+    missile_learn_button = UiElement("missile learn button", 835, 503, graphic_dict["skill_learn_button"])
+    edge_learn_button = UiElement("edge learn button", 675, 503, graphic_dict["skill_learn_button"])
+    volley_learn_button = UiElement("volley learn button", 675, 503, graphic_dict["skill_learn_button"])
     close_button = UiElement("close button", 975, 135, graphic_dict["close_button"])
     quest_button = UiElement("quest button", 860, 680, graphic_dict["quest_button_img"])
     accept_button = UiElement("accept button", 340, 670, graphic_dict["accept_button_img"])
@@ -8859,55 +8862,56 @@ if __name__ == "__main__":
                 pass
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
-        try:
-            if player.x_coordinate < 335 and 600 < player.y_coordinate:
-                if not alpha_set:
-                    message_box.surf.set_alpha(50)
-                    alpha_set = True
-            else:
-                message_box.surf.set_alpha(255)
-                alpha_set = False
-            if player.y_coordinate > 550 and player.x_coordinate > 800:
-                if not alpha_set:
-                    mini_map_overlay.surf.set_alpha(50)
-                    character_button.surf.set_alpha(50)
-                    quests_button.surf.set_alpha(50)
-                    alpha_set = True
-            else:
-                mini_map_overlay.surf.set_alpha(225)
-                character_button.surf.set_alpha(255)
-                quests_button.surf.set_alpha(255)
-                alpha_set = False
-            if player.x_coordinate < 420 and player.y_coordinate < 125:
-                if not alpha_set:
-                    hp_bar.surf.set_alpha(50)
-                    en_bar.surf.set_alpha(50)
-                    xp_bar.surf.set_alpha(50)
-                    bar_backdrop.surf.set_alpha(50)
-                    pet_energy_window.surf.set_alpha(50)
-                    alpha_set = True
-            else:
-                hp_bar.surf.set_alpha(255)
-                en_bar.surf.set_alpha(255)
-                xp_bar.surf.set_alpha(255)
-                bar_backdrop.surf.set_alpha(255)
-                pet_energy_window.surf.set_alpha(255)
-                alpha_set = False
-            if player.x_coordinate > 730 and player.y_coordinate < 125:
-                if not alpha_set:
-                    save_button.surf.set_alpha(50)
-                    map_button.surf.set_alpha(50)
-                    location_overlay.surf.set_alpha(50)
-                    music_toggle_button.surf.set_alpha(50)
-                    alpha_set = True
-            else:
-                save_button.surf.set_alpha(255)
-                map_button.surf.set_alpha(255)
-                location_overlay.surf.set_alpha(255)
-                music_toggle_button.surf.set_alpha(255)
-                alpha_set = False
-        except AttributeError:
-            pass
+        if in_over_world:
+            try:
+                if player.x_coordinate < 335 and 600 < player.y_coordinate:
+                    if not alpha_set:
+                        message_box.surf.set_alpha(50)
+                        alpha_set = True
+                else:
+                    message_box.surf.set_alpha(255)
+                    alpha_set = False
+                if player.y_coordinate > 550 and player.x_coordinate > 800:
+                    if not alpha_set:
+                        mini_map_overlay.surf.set_alpha(50)
+                        character_button.surf.set_alpha(50)
+                        quests_button.surf.set_alpha(50)
+                        alpha_set = True
+                else:
+                    mini_map_overlay.surf.set_alpha(225)
+                    character_button.surf.set_alpha(255)
+                    quests_button.surf.set_alpha(255)
+                    alpha_set = False
+                if player.x_coordinate < 420 and player.y_coordinate < 125:
+                    if not alpha_set:
+                        hp_bar.surf.set_alpha(50)
+                        en_bar.surf.set_alpha(50)
+                        xp_bar.surf.set_alpha(50)
+                        bar_backdrop.surf.set_alpha(50)
+                        pet_energy_window.surf.set_alpha(50)
+                        alpha_set = True
+                else:
+                    hp_bar.surf.set_alpha(255)
+                    en_bar.surf.set_alpha(255)
+                    xp_bar.surf.set_alpha(255)
+                    bar_backdrop.surf.set_alpha(255)
+                    pet_energy_window.surf.set_alpha(255)
+                    alpha_set = False
+                if player.x_coordinate > 730 and player.y_coordinate < 125:
+                    if not alpha_set:
+                        save_button.surf.set_alpha(50)
+                        map_button.surf.set_alpha(50)
+                        location_overlay.surf.set_alpha(50)
+                        music_toggle_button.surf.set_alpha(50)
+                        alpha_set = True
+                else:
+                    save_button.surf.set_alpha(255)
+                    map_button.surf.set_alpha(255)
+                    location_overlay.surf.set_alpha(255)
+                    music_toggle_button.surf.set_alpha(255)
+                    alpha_set = False
+            except AttributeError:
+                pass
 
         # --------------------------------------------------------------------------------------------------------------
 
@@ -9812,9 +9816,9 @@ if __name__ == "__main__":
                                                           graphic_dict["maydria_complete_star"], npc_boro, npc_noren,
                                                           artherian_task_start)
 
-                loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
                 if loot_info:
+                    loot_level_toc = time.perf_counter()
                     if loot_level_toc - loot_level_tic > 4:
                         drawing_functions.loot_popup_container.clear()
                         drawing_functions.loot_text_container.clear()
@@ -9843,23 +9847,24 @@ if __name__ == "__main__":
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
                         and not in_academia:
 
-                    # checks if player has started any quest to show the quest popup info window for highlights
-                    if player.quest_status["sneaky snakes"]:
-                        if quest_highlight_popup:
-                            drawing_functions.first_quest_window.append(first_quest)
-                            quest_highlight_popup = False
-                    elif player.quest_status["village repairs"]:
-                        if quest_highlight_popup:
-                            drawing_functions.first_quest_window.append(first_quest)
-                            quest_highlight_popup = False
-                    elif player.quest_status["where's nede?"]:
-                        if quest_highlight_popup:
-                            drawing_functions.first_quest_window.append(first_quest)
-                            quest_highlight_popup = False
-                    elif player.quest_status["ghouled again"]:
-                        if quest_highlight_popup:
-                            drawing_functions.first_quest_window.append(first_quest)
-                            quest_highlight_popup = False
+                    if player.level < 10:
+                        # checks if player has started any quest to show the quest popup info window for highlights
+                        if player.quest_status["sneaky snakes"]:
+                            if quest_highlight_popup:
+                                drawing_functions.first_quest_window.append(first_quest)
+                                quest_highlight_popup = False
+                        elif player.quest_status["village repairs"]:
+                            if quest_highlight_popup:
+                                drawing_functions.first_quest_window.append(first_quest)
+                                quest_highlight_popup = False
+                        elif player.quest_status["where's nede?"]:
+                            if quest_highlight_popup:
+                                drawing_functions.first_quest_window.append(first_quest)
+                                quest_highlight_popup = False
+                        elif player.quest_status["ghouled again"]:
+                            if quest_highlight_popup:
+                                drawing_functions.first_quest_window.append(first_quest)
+                                quest_highlight_popup = False
 
                     pressed_keys = pygame.key.get_pressed()
                     # player movement updates
@@ -13739,49 +13744,52 @@ if __name__ == "__main__":
                     info_text_4 = reservoir_c_returned["info_text_4"]
 
                 # ------------------------------------------------------------------------------------------------------
-                # loot from any battle
-                if not vanished:
-                    if (battle_info_to_return_to_main_loop["item dropped"] != ""
-                            or battle_info_to_return_to_main_loop["experience"] != 0
-                            or battle_info_to_return_to_main_loop["knowledge"] != ""):
-                        try:
-                            loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                                battle_info_to_return_to_main_loop,
-                                                                                leveled)
-                        except TypeError:
-                            drawing_functions.loot_popup_container.clear()
-                            drawing_functions.loot_text_container.clear()
-                        try:
-                            loot_updated = loot_popup_returned["loot_updated"]
-                            loot_level_tic = loot_popup_returned["loot_level_tic"]
-                            loot_info = loot_popup_returned["loot_info"]
-                            leveled = loot_popup_returned["leveled"]
-                        except TypeError:
-                            pass
-
-                if fish_caught:
-                    if not catch_played:
-                        pygame.mixer.find_channel(True).play(sfx_fishing_catch)
-                        pygame.mixer.find_channel(True).play(sfx_fishing_splash)
-                        catch_played = True
-                    if player.current_zone == "fishing hut":
-                        fishing_popup.update(510, 365, graphic_dict["basic_fish_popup"])
-                    elif player.current_zone == "stardust":
-                        fishing_popup.update(510, 365, graphic_dict["better_fish_popup"])
-                    elif player.current_zone == "fishing alcove":
-                        fishing_popup.update(510, 365, graphic_dict["best_fish_popup"])
-                    elif player.current_zone == "caldera":
-                        fishing_popup.update(510, 365, graphic_dict["very_best_fish_popup"])
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(fishing_popup.surf, fishing_popup.rect)
-                    else:
-                        game_window.blit(fishing_popup.surf, fishing_popup.rect)
-                else:
-                    catch_played = False
-
-                # visual if player levels up
                 if in_over_world and not in_battle and not in_shop and not in_inn and not in_academia \
                         and not in_npc_interaction:
+
+                    # loot from any battle
+                    if not vanished:
+                        if (battle_info_to_return_to_main_loop["item dropped"] != ""
+                                or battle_info_to_return_to_main_loop["experience"] != 0
+                                or battle_info_to_return_to_main_loop["knowledge"] != ""):
+                            try:
+                                loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font,
+                                                                                    loot_popup,
+                                                                                    battle_info_to_return_to_main_loop,
+                                                                                    leveled)
+                            except TypeError:
+                                drawing_functions.loot_popup_container.clear()
+                                drawing_functions.loot_text_container.clear()
+                            try:
+                                loot_updated = loot_popup_returned["loot_updated"]
+                                loot_level_tic = loot_popup_returned["loot_level_tic"]
+                                loot_info = loot_popup_returned["loot_info"]
+                                leveled = loot_popup_returned["leveled"]
+                            except TypeError:
+                                pass
+
+                    # fishing popup in areas that have fishing spots
+                    if (player.current_zone == "fishing hut" or player.current_zone == "stardust"
+                        or player.current_zone == "fishing alcove" or player.current_zone == "caldera"):
+                        if fish_caught:
+                            if not catch_played:
+                                pygame.mixer.find_channel(True).play(sfx_fishing_catch)
+                                pygame.mixer.find_channel(True).play(sfx_fishing_splash)
+                                catch_played = True
+                            if player.current_zone == "fishing hut":
+                                fishing_popup.update(510, 365, graphic_dict["basic_fish_popup"])
+                            elif player.current_zone == "stardust":
+                                fishing_popup.update(510, 365, graphic_dict["better_fish_popup"])
+                            elif player.current_zone == "fishing alcove":
+                                fishing_popup.update(510, 365, graphic_dict["best_fish_popup"])
+                            elif player.current_zone == "caldera":
+                                fishing_popup.update(510, 365, graphic_dict["very_best_fish_popup"])
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(fishing_popup.surf, fishing_popup.rect)
+                            else:
+                                game_window.blit(fishing_popup.surf, fishing_popup.rect)
+                        else:
+                            catch_played = False
 
                     if level_visual:
                         level_up_visual.update(player.x_coordinate + 2, player.y_coordinate - 32,
@@ -13859,8 +13867,7 @@ if __name__ == "__main__":
                                 else:
                                     game_window.blit(overlay_seldon_fireworks.surf, overlay_seldon_fireworks.rect)
 
-                # music button visual toggle and flower/fish counter buttons
-                if not in_battle and not in_inn and not in_academia and not in_shop and not in_npc_interaction:
+                    # music button visual toggle and flower/fish counter buttons
                     if player.current_zone != "nascent":
                         if len(drawing_functions.game_guide_container) == 0:
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -13874,6 +13881,88 @@ if __name__ == "__main__":
                                 else:
                                     game_window.blit(button_highlight.surf, button_highlight.rect)
 
+                    if c_snake_popup:
+                        card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
+                                               graphic_dict["c_snake_popup"])
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        else:
+                            game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        if not card_drop_played:
+                            pygame.mixer.find_channel(True).play(sfx_card_drop)
+                            card_drop_played = True
+                    if c_ghoul_popup:
+                        card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
+                                               graphic_dict["c_ghoul_popup"])
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        else:
+                            game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        if not card_drop_played:
+                            pygame.mixer.find_channel(True).play(sfx_card_drop)
+                            card_drop_played = True
+                    if c_bandile_popup:
+                        card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
+                                               graphic_dict["c_bandile_popup"])
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        else:
+                            game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        if not card_drop_played:
+                            pygame.mixer.find_channel(True).play(sfx_card_drop)
+                            card_drop_played = True
+                    if c_magmon_popup:
+                        card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
+                                               graphic_dict["c_magmon_popup"])
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        else:
+                            game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        if not card_drop_played:
+                            pygame.mixer.find_channel(True).play(sfx_card_drop)
+                            card_drop_played = True
+                    if b_necrola_popup:
+                        card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
+                                               graphic_dict["b_necrola_popup"])
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        else:
+                            game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        if not card_drop_played:
+                            pygame.mixer.find_channel(True).play(sfx_card_drop)
+                            card_drop_played = True
+                    if b_osodark_popup:
+                        card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
+                                               graphic_dict["b_osodark_popup"])
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        else:
+                            game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        if not card_drop_played:
+                            pygame.mixer.find_channel(True).play(sfx_card_drop)
+                            card_drop_played = True
+                    if b_atmon_popup:
+                        card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
+                                               graphic_dict["b_atmon_popup"])
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        else:
+                            game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        if not card_drop_played:
+                            pygame.mixer.find_channel(True).play(sfx_card_drop)
+                            card_drop_played = True
+                    if b_jumano_popup:
+                        card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
+                                               graphic_dict["b_jumano_popup"])
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        else:
+                            game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
+                        if not card_drop_played:
+                            pygame.mixer.find_channel(True).play(sfx_card_drop)
+                            card_drop_played = True
+
+                # cat card or trade deck was clicked on, can be shown mostly anywhere
                 if show_cat_card:
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(cat_card_portrait, (60, 105))
@@ -13987,87 +14076,6 @@ if __name__ == "__main__":
                         game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
                         game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
                         game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
-
-                if c_snake_popup:
-                    card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
-                                           graphic_dict["c_snake_popup"])
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    else:
-                        game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    if not card_drop_played:
-                        pygame.mixer.find_channel(True).play(sfx_card_drop)
-                        card_drop_played = True
-                if c_ghoul_popup:
-                    card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
-                                           graphic_dict["c_ghoul_popup"])
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    else:
-                        game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    if not card_drop_played:
-                        pygame.mixer.find_channel(True).play(sfx_card_drop)
-                        card_drop_played = True
-                if c_bandile_popup:
-                    card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
-                                           graphic_dict["c_bandile_popup"])
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    else:
-                        game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    if not card_drop_played:
-                        pygame.mixer.find_channel(True).play(sfx_card_drop)
-                        card_drop_played = True
-                if c_magmon_popup:
-                    card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
-                                           graphic_dict["c_magmon_popup"])
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    else:
-                        game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    if not card_drop_played:
-                        pygame.mixer.find_channel(True).play(sfx_card_drop)
-                        card_drop_played = True
-                if b_necrola_popup:
-                    card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
-                                           graphic_dict["b_necrola_popup"])
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    else:
-                        game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    if not card_drop_played:
-                        pygame.mixer.find_channel(True).play(sfx_card_drop)
-                        card_drop_played = True
-                if b_osodark_popup:
-                    card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
-                                           graphic_dict["b_osodark_popup"])
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    else:
-                        game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    if not card_drop_played:
-                        pygame.mixer.find_channel(True).play(sfx_card_drop)
-                        card_drop_played = True
-                if b_atmon_popup:
-                    card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
-                                           graphic_dict["b_atmon_popup"])
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    else:
-                        game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    if not card_drop_played:
-                        pygame.mixer.find_channel(True).play(sfx_card_drop)
-                        card_drop_played = True
-                if b_jumano_popup:
-                    card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
-                                           graphic_dict["b_jumano_popup"])
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    else:
-                        game_window.blit(card_drop_popup.surf, card_drop_popup.rect)
-                    if not card_drop_played:
-                        pygame.mixer.find_channel(True).play(sfx_card_drop)
-                        card_drop_played = True
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
@@ -17562,6 +17570,8 @@ if __name__ == "__main__":
                             if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
                                 if player.level > 9:
                                     mage_book.update(670, 375, graphic_dict["mage_book_img_10"])
+                                if player.level > 19:
+                                    mage_book.update(670, 375, graphic_dict["mage_book_img_20"])
                                 books.append(mage_book)
                                 skill_learn_items.append(barrier_learn_button)
                                 skill_learn_items.append(mirror_learn_button)
@@ -17571,6 +17581,8 @@ if __name__ == "__main__":
                             if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
                                 if player.level > 9:
                                     fighter_book.update(670, 375, graphic_dict["fighter_book_img_10"])
+                                if player.level > 19:
+                                    fighter_book.update(670, 375, graphic_dict["fighter_book_img_20"])
                                 books.append(fighter_book)
                                 skill_learn_items.append(hard_strike_learn_button)
                                 skill_learn_items.append(stun_learn_button)
@@ -17580,6 +17592,8 @@ if __name__ == "__main__":
                             if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
                                 if player.level > 9:
                                     scout_book.update(670, 375, graphic_dict["scout_book_img_10"])
+                                if player.level > 19:
+                                    scout_book.update(670, 375, graphic_dict["scout_book_img_20"])
                                 books.append(scout_book)
                                 skill_learn_items.append(sharp_sense_learn_button)
                                 skill_learn_items.append(vanish_learn_button)
@@ -17857,29 +17871,44 @@ if __name__ == "__main__":
                             if create_potion_button.rect.collidepoint(pos):
                                 if seldon_flower_counter >= 3 > eldream_flower_counter:
                                     if player.flowers_amuna >= 3:
-                                        pygame.mixer.find_channel(True).play(sfx_item_potion)
-                                        player.flowers_amuna -= 3
-                                        player.items.append(Item("big health potion",
-                                                                 "potion", 200, 200, graphic_dict["health_pot_img"], 0))
+                                        if len(player.items) < 16:
+                                            pygame.mixer.find_channel(True).play(sfx_item_potion)
+                                            player.flowers_amuna -= 3
+                                            player.items.append(Item("big health potion",
+                                                                     "potion", 200, 200,
+                                                                     graphic_dict["health_pot_img"], 0))
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
                                     else:
                                         info_text_1 = "You need 3 seldon flowers."
                                         info_text_2 = ""
                                 elif seldon_flower_counter < 3 <= eldream_flower_counter:
                                     if player.flowers_sorae >= 3:
-                                        pygame.mixer.find_channel(True).play(sfx_item_potion)
-                                        player.flowers_sorae -= 3
-                                        player.items.append(Item("big energy potion",
-                                                                 "potion", 200, 200, graphic_dict["energy_pot_img"], 0))
+                                        if len(player.items) < 16:
+                                            pygame.mixer.find_channel(True).play(sfx_item_potion)
+                                            player.flowers_sorae -= 3
+                                            player.items.append(Item("big energy potion",
+                                                                     "potion", 200, 200,
+                                                                     graphic_dict["energy_pot_img"], 0))
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
                                     else:
                                         info_text_1 = "You need 3 eldream flowers."
                                         info_text_2 = ""
                                 elif seldon_flower_counter >= 3 <= eldream_flower_counter:
                                     if player.flowers_amuna >= 3 and player.flowers_sorae >= 3:
-                                        pygame.mixer.find_channel(True).play(sfx_item_potion)
-                                        player.flowers_amuna -= 3
-                                        player.flowers_sorae -= 3
-                                        player.items.append(Item("super potion",
-                                                                 "potion", 200, 200, graphic_dict["super_pot_img"], 0))
+                                        if len(player.items) < 16:
+                                            pygame.mixer.find_channel(True).play(sfx_item_potion)
+                                            player.flowers_amuna -= 3
+                                            player.flowers_sorae -= 3
+                                            player.items.append(Item("super potion",
+                                                                     "potion", 200, 200,
+                                                                     graphic_dict["super_pot_img"], 0))
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
                                     else:
                                         info_text_1 = "You need 3 seldon + 3 eldream flowers."
                                         info_text_2 = ""

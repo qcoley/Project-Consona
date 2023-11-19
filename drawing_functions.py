@@ -1612,7 +1612,8 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked, music_toggle,
                       in_hut, basic_fish, better_fish, even_better_fish, best_fish, save_data_window, in_card_cave,
                       trade_snake, trade_ghoul, trade_bandile, trade_magmon, trade_necrola, trade_osodark,
-                      trade_atmon, trade_jumano, trade_chorizon, trade_muchador, trade_chinzilla, trade_erebyth):
+                      trade_atmon, trade_jumano, trade_chorizon, trade_muchador, trade_chinzilla, trade_erebyth,
+                      missile_learn_button):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -2011,6 +2012,11 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 elif mirror_learn_button.rect.collidepoint(pos):
                     button_highlight.update(mirror_learn_button.x_coordinate + 2,
                                             mirror_learn_button.y_coordinate + 3,
+                                            graphic_dict["book_high"])
+                    return True
+                elif missile_learn_button.rect.collidepoint(pos):
+                    button_highlight.update(missile_learn_button.x_coordinate + 2,
+                                            missile_learn_button.y_coordinate + 3,
                                             graphic_dict["book_high"])
                     return True
                 elif close_button.rect.collidepoint(pos):
