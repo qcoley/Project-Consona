@@ -920,24 +920,24 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         text_sorae_surf = font.render(str(player.reputation["sorae"]), True, "black", "light yellow")
         text_sorae_rect = text_sorae_surf.get_rect()
         text_sorae_rect.midleft = (935, 385)
-        text_mage_skills_surf = font.render("[ " + str(player.skills_mage["skill 2"]) + " ] " +
-                                            "[ " + str(player.skills_mage["skill 3"]) + " ] " +
-                                            "[ " + str(player.skills_mage["skill 4"]) + " ] ",
+        text_mage_skills_surf = font.render(str(player.skills_mage["skill 2"]) + ", " +
+                                            str(player.skills_mage["skill 3"]) + ", " +
+                                            str(player.skills_mage["skill 4"]),
                                             True, "black", "light yellow")
         text_mage_skills_rect = text_mage_skills_surf.get_rect()
-        text_mage_skills_rect.midleft = (650, 506)
-        text_fighter_skills_surf = font.render("[ " + str(player.skills_fighter["skill 2"]) + " ] " +
-                                               "[ " + str(player.skills_fighter["skill 3"]) + " ] " +
-                                               "[ " + str(player.skills_fighter["skill 4"]) + " ] ",
+        text_mage_skills_rect.midleft = (650, 505)
+        text_fighter_skills_surf = font.render(str(player.skills_fighter["skill 2"]) + ", " +
+                                               str(player.skills_fighter["skill 3"]) + ", " +
+                                               str(player.skills_fighter["skill 4"]),
                                                True, "black", "light yellow")
         text_fighter_skills_rect = text_fighter_skills_surf.get_rect()
-        text_fighter_skills_rect.midleft = (650, 543)
-        text_scout_skills_surf = font.render("[ " + str(player.skills_scout["skill 2"]) + " ] " +
-                                             "[ " + str(player.skills_scout["skill 3"]) + " ] " +
-                                             "[ " + str(player.skills_scout["skill 4"]) + " ] ",
+        text_fighter_skills_rect.midleft = (650, 542)
+        text_scout_skills_surf = font.render(str(player.skills_scout["skill 2"]) + ", " +
+                                             str(player.skills_scout["skill 3"]) + ", " +
+                                             str(player.skills_scout["skill 4"]),
                                              True, "black", "light yellow")
         text_scout_skills_rect = text_scout_skills_surf.get_rect()
-        text_scout_skills_rect.midleft = (650, 582)
+        text_scout_skills_rect.midleft = (650, 580)
 
         character_sheet_text.append((text_name_surf, text_name_rect))
         character_sheet_text.append((text_race_surf, text_race_rect))

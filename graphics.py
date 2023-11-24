@@ -530,6 +530,12 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # arrow skill overlays ---------------------------------------------------------------------------------------------
+    skill_arrows_url = resource_path('resources/art/overlay_skills_arrows.png')
+    skill_arrows_sheet = sprite_sheet((700, 700), skill_arrows_url)
+    loaded_dict["skill_arrow"] = skill_arrows_sheet[0]
+    loaded_dict["skill_arrow_advantage"] = skill_arrows_sheet[1]
+    loaded_dict["millennium_fire"] = skill_arrows_sheet[2]
     # card trade button ------------------------------------------------------------------------------------------------
     card_trade_button_url = resource_path('resources/art/button_trade.png')
     card_trade_button_sheet = sprite_sheet((111, 30), card_trade_button_url)
@@ -5198,6 +5204,7 @@ def load_graphics():
     loaded_dict["mage_type_overlay"] = type_overlay_sheet[0]
     loaded_dict["fighter_type_overlay"] = type_overlay_sheet[1]
     loaded_dict["scout_type_overlay"] = type_overlay_sheet[2]
+    loaded_dict["any_type_overlay"] = type_overlay_sheet[3]
     # amuna buildings --------------------------------------------------------------------------------------------------
     amuna_buildings_url = resource_path('resources/art/sprites_amuna_buildings.png')
     amuna_buildings_sheet = sprite_sheet((100, 100), amuna_buildings_url)

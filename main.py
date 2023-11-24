@@ -7972,6 +7972,11 @@ if __name__ == "__main__":
     mirror_overlay = UiElement("mirror overlay", 225, 425, graphic_dict["mirror_overlay"])
     mirror_overlay.surf.set_alpha(75)
 
+    arrow_battle_sprite = UiElement("arrow overlay", 375, 450, graphic_dict["skill_arrow"])
+    advantage_battle_sprite = UiElement("advantage overlay", 375, 450, graphic_dict["skill_arrow_advantage"])
+    
+    fire_battle_sprite = UiElement("fire overlay", 600, 340, graphic_dict["millennium_fire"])
+
     overlay_enemy_vanish = UiElement("enemy vanish", 575, 450, graphic_dict["overlay_enemy_vanish"])
 
     kasper_battle_sprite = BattleCharacter("kasper battle", 825, 520, graphic_dict["kasper_battle"])
@@ -8356,6 +8361,8 @@ if __name__ == "__main__":
     sfx_scout_sense.set_volume(0.25)
     sfx_scout_vanish = pygame.mixer.Sound(resource_path("resources/sounds/sfx_vanish.mp3"))
     sfx_scout_vanish.set_volume(0.60)
+    sfx_scout_arrow = pygame.mixer.Sound(resource_path("resources/sounds/sfx_arrow.mp3"))
+    sfx_scout_arrow.set_volume(0.35)
 
     sfx_enemy_ghoul = pygame.mixer.Sound(resource_path("resources/sounds/enemy_ghoul.mp3"))
     sfx_enemy_ghoul.set_volume(0.30)
@@ -8744,6 +8751,9 @@ if __name__ == "__main__":
     b_jumano_popup = False
     card_drop_played = False
     cleared = False
+    show_arrow = False
+    show_advantage_arrow = False
+    show_fire = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -9557,6 +9567,9 @@ if __name__ == "__main__":
                         card_deck["muchador"] = load_returned["muchador"]
                         card_deck["chinzilla"] = load_returned["chinzilla"]
                         card_deck["erebyth"] = load_returned["erebyth"]
+                        fire_learned = load_returned["fire_learned"]
+                        edge_learned = load_returned["edge_learned"]
+                        arrow_learned = load_returned["arrow_learned"]
                         
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -10452,7 +10465,8 @@ if __name__ == "__main__":
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
-                                                                        card_deck)
+                                                                        card_deck, fire_learned, edge_learned,
+                                                                        arrow_learned)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -10509,7 +10523,8 @@ if __name__ == "__main__":
                                                                     atmon_castle.alive_status, thanked, dreth_taunt_4,
                                                                     dreth_defeated, apothis_gift, sub_marrow_opened,
                                                                     cat_rewarded, cats_pet, credits_shown, trading_deck,
-                                                                    trading_task_complete, any_card_counter, card_deck)
+                                                                    trading_task_complete, any_card_counter, card_deck,
+                                                                    fire_learned, edge_learned, arrow_learned)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -14151,6 +14166,11 @@ if __name__ == "__main__":
                                 in_over_world = True
                                 loot_updated = False
                                 mirror_image = False
+                                fire_active = False
+                                arrow_active = False
+                                show_arrow = False
+                                show_advantage_arrow = False
+                                show_fire = False
 
                         pygame.mixer.Sound.stop(sfx_no_weapon_attack)
                         pygame.mixer.Sound.stop(sfx_mage_attack)
@@ -14268,7 +14288,8 @@ if __name__ == "__main__":
                                                                                             dreth_turn_counter,
                                                                                             apothis_gift, trading_deck,
                                                                                             trading_task_complete,
-                                                                                            any_card_counter, card_deck)
+                                                                                            any_card_counter, card_deck,
+                                                                                            arrow_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -14309,7 +14330,8 @@ if __name__ == "__main__":
                                                                                             dreth_turn_counter,
                                                                                             apothis_gift, trading_deck,
                                                                                             trading_task_complete,
-                                                                                            any_card_counter, card_deck)
+                                                                                            any_card_counter, card_deck,
+                                                                                            arrow_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -14349,7 +14371,8 @@ if __name__ == "__main__":
                                                                                             dreth_turn_counter,
                                                                                             apothis_gift, trading_deck,
                                                                                             trading_task_complete,
-                                                                                            any_card_counter, card_deck)
+                                                                                            any_card_counter, card_deck,
+                                                                                            arrow_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -14441,8 +14464,10 @@ if __name__ == "__main__":
                                 if current_enemy_battling.kind == "jumano":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_jumano)
 
-                                first_battle_cond = False
-                                drawing_functions.game_guide_container.clear()
+                                if first_battle_cond:
+                                    first_battle_cond = False
+                                    drawing_functions.game_guide_container.clear()
+                                
                                 if not combat_cooldown:
                                     if current_enemy_battling.name == "Erebyth":
                                         erebyth_turn_counter += 1
@@ -14461,7 +14486,8 @@ if __name__ == "__main__":
                                                                                     dreth_turn_counter,
                                                                                     apothis_gift, trading_deck,
                                                                                     trading_task_complete,
-                                                                                    any_card_counter, card_deck)
+                                                                                    any_card_counter, card_deck,
+                                                                                    arrow_active)
                                     combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                             barrier_active, sharp_sense_active,
                                                                             hard_strike, graphic_dict, turn_taken)
@@ -14478,6 +14504,8 @@ if __name__ == "__main__":
                                                                            atmon_battle_sprite, jumano_battle_sprite,
                                                                            dreth_battle_sprite, dreth_turn_counter,
                                                                            apothis_gift)
+                                    if player.role == "scout":
+                                        show_arrow = True
                                     try:
                                         stun_them = combat_events["stunned"]
                                     except TypeError and KeyError:
@@ -14608,6 +14636,11 @@ if __name__ == "__main__":
                                             in_over_world = True
                                             loot_updated = False
                                             mirror_image = False
+                                            fire_active = False
+                                            arrow_active = False
+                                            show_arrow = False
+                                            show_advantage_arrow = False
+                                            show_fire = False
                                     except TypeError:
                                         pass
 
@@ -14679,7 +14712,8 @@ if __name__ == "__main__":
                                                                                         dreth_turn_counter,
                                                                                         apothis_gift, trading_deck,
                                                                                         trading_task_complete,
-                                                                                        any_card_counter, card_deck)
+                                                                                        any_card_counter, card_deck,
+                                                                                        arrow_active)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -14774,7 +14808,8 @@ if __name__ == "__main__":
                                                                                         dreth_turn_counter,
                                                                                         apothis_gift, trading_deck,
                                                                                         trading_task_complete,
-                                                                                        any_card_counter, card_deck)
+                                                                                        any_card_counter, card_deck,
+                                                                                        arrow_active)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -14837,7 +14872,7 @@ if __name__ == "__main__":
                                                                                                 trading_deck,
                                                                                                 trading_task_complete,
                                                                                                 any_card_counter,
-                                                                                                card_deck)
+                                                                                                card_deck, arrow_active)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -14931,6 +14966,11 @@ if __name__ == "__main__":
                                                         in_over_world = True
                                                         loot_updated = False
                                                         mirror_image = False
+                                                        fire_active = False
+                                                        arrow_active = False
+                                                        show_arrow = False
+                                                        show_advantage_arrow = False
+                                                        show_fire = False
                                                 except TypeError:
                                                     pass
 
@@ -14950,14 +14990,13 @@ if __name__ == "__main__":
                                                     pygame.mixer.find_channel(True).play(sfx_mage_mirror)
                                                     info_text_1 = "Mirror spell is active."
                                                     mirror_image = True
-                                                    player.energy -= 40
-                                                    turn_taken = True
-                                                    attack_hotkey = False
-                                                    combat_scenario.battle_animation_player(player,
+                                                    player.energy -= 40                                              
+                                                    combat_scenario.attack_animation_player(player,
                                                                                             player_battle_sprite,
                                                                                             barrier_active,
                                                                                             sharp_sense_active,
-                                                                                            graphic_dict)
+                                                                                            hard_strike, graphic_dict,
+                                                                                            turn_taken)
                                                     combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                            snake_battle_sprite,
                                                                                            ghoul_battle_sprite,
@@ -14979,6 +15018,9 @@ if __name__ == "__main__":
                                                                                            jumano_battle_sprite,
                                                                                            dreth_battle_sprite,
                                                                                            apothis_gift)
+                                                    turn_taken = True
+                                                    attack_hotkey = False
+                                                    
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -14992,7 +15034,8 @@ if __name__ == "__main__":
                                                         barrier_active, turn_taken, stun_them, mirror_image,
                                                         erebyth_turn_counter, atmon_counter, prism_received,
                                                         dreth_turn_counter, apothis_gift, trading_deck,
-                                                        trading_task_complete, any_card_counter, card_deck)
+                                                        trading_task_complete, any_card_counter, card_deck,
+                                                        arrow_active)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -15080,6 +15123,11 @@ if __name__ == "__main__":
                                                     # noinspection PyUnboundLocalVariable
                                                 player.energy -= 40
                                                 mirror_image = False
+                                                fire_active = False
+                                                arrow_active = False
+                                                show_arrow = False
+                                                show_advantage_arrow = False
+                                                show_fire = False
                                                 vanished = True
                                                 vanished_tic = time.perf_counter()
 
@@ -15099,17 +15147,17 @@ if __name__ == "__main__":
                                         if player.role == "mage":
                                             if fire_learned:
                                                 if not fire_active:
+                                                    show_fire = True
                                                     pygame.mixer.find_channel(True).play(sfx_mage_mirror)
                                                     info_text_1 = "Millennium Fire spell is active."
                                                     fire_active = True
-                                                    player.energy -= 80
-                                                    turn_taken = True
-                                                    attack_hotkey = False
-                                                    combat_scenario.battle_animation_player(player,
+                                                    # player.energy -= 80
+                                                    combat_scenario.attack_animation_player(player,
                                                                                             player_battle_sprite,
                                                                                             barrier_active,
                                                                                             sharp_sense_active,
-                                                                                            graphic_dict)
+                                                                                            hard_strike, graphic_dict,
+                                                                                            turn_taken)
                                                     combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                            snake_battle_sprite,
                                                                                            ghoul_battle_sprite,
@@ -15131,6 +15179,9 @@ if __name__ == "__main__":
                                                                                            jumano_battle_sprite,
                                                                                            dreth_battle_sprite,
                                                                                            apothis_gift)
+                                                    turn_taken = True
+                                                    attack_hotkey = False
+                                                    
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -15144,7 +15195,8 @@ if __name__ == "__main__":
                                                         barrier_active, turn_taken, stun_them, mirror_image,
                                                         erebyth_turn_counter, atmon_counter, prism_received,
                                                         dreth_turn_counter, apothis_gift, trading_deck,
-                                                        trading_task_complete, any_card_counter, card_deck)
+                                                        trading_task_complete, any_card_counter, card_deck,
+                                                        arrow_active)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -15214,17 +15266,18 @@ if __name__ == "__main__":
                                         if player.role == "scout":
                                             if arrow_learned:
                                                 if not arrow_active:
-                                                    pygame.mixer.find_channel(True).play(sfx_mage_mirror)
+                                                    show_advantage_arrow = True
+                                                    pygame.mixer.find_channel(True).play(sfx_scout_arrow)
                                                     info_text_1 = "Arrow of Advantage is active."
                                                     arrow_active = True
                                                     player.energy -= 80
-                                                    turn_taken = True
-                                                    attack_hotkey = False
-                                                    combat_scenario.battle_animation_player(player,
+
+                                                    combat_scenario.attack_animation_player(player,
                                                                                             player_battle_sprite,
                                                                                             barrier_active,
                                                                                             sharp_sense_active,
-                                                                                            graphic_dict)
+                                                                                            hard_strike, graphic_dict,
+                                                                                            turn_taken)
                                                     combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                            snake_battle_sprite,
                                                                                            ghoul_battle_sprite,
@@ -15259,7 +15312,10 @@ if __name__ == "__main__":
                                                         barrier_active, turn_taken, stun_them, mirror_image,
                                                         erebyth_turn_counter, atmon_counter, prism_received,
                                                         dreth_turn_counter, apothis_gift, trading_deck,
-                                                        trading_task_complete, any_card_counter, card_deck)
+                                                        trading_task_complete, any_card_counter, card_deck,
+                                                        arrow_active)
+                                                    turn_taken = True
+                                                    attack_hotkey = False
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -15426,11 +15482,13 @@ if __name__ == "__main__":
                                 text_enemy_level_rect = text_enemy_level_surf.get_rect()
                                 text_enemy_level_rect.center = (918, 688)
 
-                                if current_enemy_battling.type == "mage":
+                                if arrow_active:
+                                    type_advantage_overlay.update(580, 50, graphic_dict["any_type_overlay"])
+                                elif current_enemy_battling.type == "mage":
                                     type_advantage_overlay.update(580, 50, graphic_dict["mage_type_overlay"])
-                                if current_enemy_battling.type == "fighter":
+                                elif current_enemy_battling.type == "fighter":
                                     type_advantage_overlay.update(580, 50, graphic_dict["fighter_type_overlay"])
-                                if current_enemy_battling.type == "scout":
+                                elif current_enemy_battling.type == "scout":
                                     type_advantage_overlay.update(580, 50, graphic_dict["scout_type_overlay"])
                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                     screen.blit(type_advantage_overlay.surf, type_advantage_overlay.rect)
@@ -15696,12 +15754,21 @@ if __name__ == "__main__":
                                                                 muchador_crate_3, muchador_crate_4]
                                         info_text_1 = "The muchador attempts to escape!"
                                         info_text_2 = "Maybe it's hiding? "
+
+                                        muchador_relocate = True
                                         movement_able = True
+                                        combat_happened = False
                                         interacted = False
                                         encounter_started = False
                                         in_battle = False
                                         in_over_world = True
-                                        muchador_relocate = True
+                                        loot_updated = False
+                                        mirror_image = False
+                                        fire_active = False
+                                        arrow_active = False
+                                        show_arrow = False
+                                        show_advantage_arrow = False
+                                        show_fire = False
                                         random_crate = random.choice(muchador_crates_list)
                                         muchador.update_image(random_crate.x_coordinate, random_crate.y_coordinate,
                                                               graphic_dict["muchador"])
@@ -15781,6 +15848,17 @@ if __name__ == "__main__":
                                         if pet.name == "iriana":
                                             screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
+                                if player.role == "scout":
+                                    if show_arrow:
+                                        screen.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
+                                        show_arrow = False
+                                    elif show_advantage_arrow:
+                                        screen.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
+                                        show_advantage_arrow = False
+                                
+                                if show_fire:
+                                    screen.blit(fire_battle_sprite.surf, fire_battle_sprite.rect)
+                                        
                                 if mirror_image:
                                     screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                                     screen.blit(mirror_overlay.surf, mirror_overlay.rect)
@@ -15864,6 +15942,17 @@ if __name__ == "__main__":
                                         if pet.name == "iriana":
                                             game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
+                                if player.role == "scout":
+                                    if show_arrow:
+                                        game_window.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
+                                        show_arrow = False
+                                    elif show_advantage_arrow:
+                                        game_window.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
+                                        show_advantage_arrow = False
+
+                                if show_fire:
+                                    game_window.blit(fire_battle_sprite.surf, fire_battle_sprite.rect)
+                                        
                                 if mirror_image:
                                     game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                                     game_window.blit(mirror_overlay.surf, mirror_overlay.rect)
@@ -18364,7 +18453,8 @@ if __name__ == "__main__":
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
-                                                                        card_deck)
+                                                                        card_deck, fire_learned, edge_learned,
+                                                                        arrow_learned)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -19166,7 +19256,8 @@ if __name__ == "__main__":
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
-                                                                        card_deck)
+                                                                        card_deck, fire_learned, edge_learned,
+                                                                        arrow_learned)
                                     info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -19776,7 +19867,8 @@ if __name__ == "__main__":
                                                                     dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                     sub_marrow_opened, cat_rewarded, cats_pet,
                                                                     credits_shown, trading_deck, trading_task_complete,
-                                                                    any_card_counter, card_deck)
+                                                                    any_card_counter, card_deck, fire_learned,
+                                                                    edge_learned, arrow_learned)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -20460,7 +20552,8 @@ if __name__ == "__main__":
                                                                     dreth_taunt_4, dreth_defeated, apothis_gift,
                                                                     sub_marrow_opened, cat_rewarded, cats_pet,
                                                                     credits_shown, trading_deck, trading_task_complete,
-                                                                    any_card_counter, card_deck)
+                                                                    any_card_counter, card_deck, fire_learned,
+                                                                    edge_learned, arrow_learned)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -20994,7 +21087,8 @@ if __name__ == "__main__":
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
-                                                                        card_deck)
+                                                                        card_deck, fire_learned, edge_learned,
+                                                                        arrow_learned)
                                     info_text_2 = info
                                 if not quest_clicked:
                                     if not player.quest_complete["sneaky snakes"]:
@@ -21224,7 +21318,8 @@ if __name__ == "__main__":
                                                                             sub_marrow_opened, cat_rewarded, cats_pet,
                                                                             credits_shown, trading_deck,
                                                                             trading_task_complete, any_card_counter,
-                                                                            card_deck)
+                                                                            card_deck, fire_learned, edge_learned,
+                                                                            arrow_learned)
                                 if not quest_clicked:
                                     if not player.quest_complete["ghouled again"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -21455,7 +21550,8 @@ if __name__ == "__main__":
                                                                         sub_marrow_opened, cat_rewarded, cats_pet,
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
-                                                                        card_deck)
+                                                                        card_deck, fire_learned, edge_learned,
+                                                                        arrow_learned)
                                     info_text_2 = info
 
                                 if not quest_clicked:
@@ -22270,6 +22366,11 @@ if __name__ == "__main__":
                             sharp_sense_active = False
                         if mirror_image:
                             mirror_image = False
+                        fire_active = False
+                        arrow_active = False
+                        show_arrow = False
+                        show_advantage_arrow = False
+                        show_fire = False
                         player.star_power += 4
                         apothis_gift = True
                         dreth.health = 75
@@ -22333,6 +22434,11 @@ if __name__ == "__main__":
                                         sharp_sense_active = False
                                     if mirror_image:
                                         mirror_image = False
+                                    fire_active = False
+                                    arrow_active = False
+                                    show_arrow = False
+                                    show_advantage_arrow = False
+                                    show_fire = False
                                     player.current_zone = "castle one"
                                     player.x_coordinate = 515
                                     player.y_coordinate = 150
@@ -22401,9 +22507,7 @@ if __name__ == "__main__":
                                 info_text_4 = ""
                                 button_highlighted = False
                                 movement_able = True
-                                # reset interaction, so it doesn't immediately interact again on subsequent collisions
                                 interacted = False
-                                # make sure that windows haven't registered a click on reset for whatever reason
                                 buy_clicked = False
                                 encounter_started = False
                                 in_battle = False
@@ -22415,14 +22519,17 @@ if __name__ == "__main__":
                                 if not switch_3:
                                     switch_1 = False
                                     switch_2 = False
-                                # turn off barrier and restore original defence if player mage was killed while active
                                 if barrier_active:
                                     barrier_active = False
-                                # turn off barrier and restore original defence if player mage was killed while active
                                 if sharp_sense_active:
                                     sharp_sense_active = False
                                 if mirror_image:
                                     mirror_image = False
+                                fire_active = False
+                                arrow_active = False
+                                show_arrow = False
+                                show_advantage_arrow = False
+                                show_fire = False
 
                                 if (player.current_zone == "korlok" or player.current_zone == "mines" or
                                         player.current_zone == "terra trail"):
