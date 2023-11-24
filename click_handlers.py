@@ -447,22 +447,22 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 return_dict["item message"] = "You're already full health or energy."
         if item.name == "mage book":
             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-            player.knowledge["mage"] = player.knowledge["mage"] + 50
+            player.knowledge["mage"] = player.knowledge["mage"] + 100
             drawing_functions.player_items.remove(item)
             player.items.remove(item)
-            return_dict["item message"] = "You gain 50 mage knowledge."
+            return_dict["item message"] = "You gain 100 mage knowledge."
         if item.name == "fighter book":
             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-            player.knowledge["fighter"] = player.knowledge["fighter"] + 50
+            player.knowledge["fighter"] = player.knowledge["fighter"] + 100
             drawing_functions.player_items.remove(item)
             player.items.remove(item)
-            return_dict["item message"] = "You gain 50 fighter knowledge."
+            return_dict["item message"] = "You gain 100 fighter knowledge."
         if item.name == "scout book":
             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-            player.knowledge["scout"] = player.knowledge["scout"] + 50
+            player.knowledge["scout"] = player.knowledge["scout"] + 100
             drawing_functions.player_items.remove(item)
             player.items.remove(item)
-            return_dict["item message"] = "You gain 50 scout knowledge."
+            return_dict["item message"] = "You gain 100 scout knowledge."
         if item.name == "cat card":
             return_dict["cat card"] = True
         if item.name == "trade deck":
@@ -707,7 +707,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
 # getting event based on user click related to combat scenario
 def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attack, scout_attack,
                         barrier_button, strike_button, sense_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT,
-                        mirror_button, stun_button, vanish_button):
+                        mirror_button, stun_button, vanish_button, fire_button, edge_button, arrow_button):
     if combat_event.type == pygame.MOUSEBUTTONUP:
 
         init_pos = list(pygame.mouse.get_pos())
@@ -735,6 +735,12 @@ def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attac
             return "skill 2"
         if vanish_button.rect.collidepoint(combat_mouse):
             return "skill 2"
+        if fire_button.rect.collidepoint(combat_mouse):
+            return "skill 3"
+        if edge_button.rect.collidepoint(combat_mouse):
+            return "skill 3"
+        if arrow_button.rect.collidepoint(combat_mouse):
+            return "skill 3"
 
 
 # getting event based on user click related to npc
@@ -1079,6 +1085,12 @@ def skill_learn_event_item(skill_learn_event, skill_learn_items, pygame, SCREEN_
             if skill_learn_element[0].name == "stun learn button":
                 return skill_learn_element[0]
             if skill_learn_element[0].name == "vanish learn button":
+                return skill_learn_element[0]
+            if skill_learn_element[0].name == "fire learn button":
+                return skill_learn_element[0]
+            if skill_learn_element[0].name == "edge learn button":
+                return skill_learn_element[0]
+            if skill_learn_element[0].name == "arrow learn button":
                 return skill_learn_element[0]
 
             if skill_learn_element[0].name == "close button":

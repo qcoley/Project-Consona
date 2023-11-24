@@ -5506,6 +5506,9 @@ def load_graphics():
     loaded_dict["mirror_button_img"] = skill_buttons_sheet[3]
     loaded_dict["stun_button_img"] = skill_buttons_sheet[4]
     loaded_dict["vanish_button_img"] = skill_buttons_sheet[5]
+    loaded_dict["fire_button_img"] = skill_buttons_sheet[6]
+    loaded_dict["edge_button_img"] = skill_buttons_sheet[7]
+    loaded_dict["arrow_button_img"] = skill_buttons_sheet[8]
     # skill two overlays -----------------------------------------------------------------------------------------------
     skill_two_url = resource_path('resources/art/overlay_skills_two.png')
     skill_two_sheet = sprite_sheet((300, 300), skill_two_url)

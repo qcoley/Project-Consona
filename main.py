@@ -7204,7 +7204,8 @@ def button_highlighter(posit):
                                                               save_data_window, in_card_cave, trade_snake, trade_ghoul,
                                                               trade_bandile, trade_magmon, trade_necrola, trade_osodark,
                                                               trade_atmon, trade_jumano, trade_chorizon, trade_muchador,
-                                                              trade_chinzilla, trade_erebyth, missile_learn_button)
+                                                              trade_chinzilla, trade_erebyth, fire_learn_button,
+                                                              fire_button, edge_button, arrow_button)
     return button_highlighters
 
 
@@ -7782,9 +7783,9 @@ if __name__ == "__main__":
     mirror_learn_button = UiElement("mirror learn button", 505, 503, graphic_dict["skill_learn_button"])
     stun_learn_button = UiElement("stun learn button", 505, 503, graphic_dict["skill_learn_button"])
     vanish_learn_button = UiElement("vanish learn button", 505, 503, graphic_dict["skill_learn_button"])
-    missile_learn_button = UiElement("missile learn button", 835, 503, graphic_dict["skill_learn_button"])
+    fire_learn_button = UiElement("fire learn button", 835, 503, graphic_dict["skill_learn_button"])
     edge_learn_button = UiElement("edge learn button", 675, 503, graphic_dict["skill_learn_button"])
-    volley_learn_button = UiElement("volley learn button", 675, 503, graphic_dict["skill_learn_button"])
+    arrow_learn_button = UiElement("arrow learn button", 675, 503, graphic_dict["skill_learn_button"])
     close_button = UiElement("close button", 975, 135, graphic_dict["close_button"])
     quest_button = UiElement("quest button", 860, 680, graphic_dict["quest_button_img"])
     accept_button = UiElement("accept button", 340, 670, graphic_dict["accept_button_img"])
@@ -7837,6 +7838,10 @@ if __name__ == "__main__":
     mirror_button = UiElement("mirror button", 890, 641, graphic_dict["mirror_button_img"])
     stun_button = UiElement("stun button", 890, 641, graphic_dict["stun_button_img"])
     vanish_button = UiElement("vanish button", 890, 641, graphic_dict["vanish_button_img"])
+
+    fire_button = UiElement("fire button", 960, 641, graphic_dict["fire_button_img"])
+    edge_button = UiElement("edge button", 960, 641, graphic_dict["edge_button_img"])
+    arrow_button = UiElement("arrow button", 960, 641, graphic_dict["arrow_button_img"])
 
     stun_overlay = UiElement("stun overlay", 700, 260, graphic_dict["stun_img"])
     vanish_overlay = UiElement("vanish overlay", 100, 600, graphic_dict["vanish_img"])
@@ -8543,8 +8548,13 @@ if __name__ == "__main__":
     mirror_learned = False
     stun_learned = False
     vanish_learned = False
+    fire_learned = False
+    edge_learned = False
+    arrow_learned = False
     barrier_active = False
     sharp_sense_active = False
+    fire_active = False
+    arrow_active = False
     faded_inn_screen = False
     hard_strike = False
     quest_clicked = False
@@ -8650,6 +8660,7 @@ if __name__ == "__main__":
     attack_hotkey = False
     skill_1_hotkey = False
     skill_2_hotkey = False
+    skill_3_hotkey = False
     mirror_image = False
     vanished = False
     stun_them = False
@@ -14171,6 +14182,8 @@ if __name__ == "__main__":
                                     skill_1_hotkey = True
                                 if event.key == K_3:
                                     skill_2_hotkey = True
+                                if event.key == K_4:
+                                    skill_3_hotkey = True
                             elif event.type == QUIT:
                                 pygame.mixer.quit()
                                 sys.exit()
@@ -14213,7 +14226,8 @@ if __name__ == "__main__":
                                                                                hard_strike_button, sharp_sense_button,
                                                                                pygame, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                                mirror_button, stun_button,
-                                                                               vanish_button)
+                                                                               vanish_button, fire_button, edge_button,
+                                                                               arrow_button)
                             # click handlers
                             info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
                                                                           SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -15072,6 +15086,219 @@ if __name__ == "__main__":
                                     else:
                                         info_text_1 = "Not enough energy to use this skill."
 
+                            elif combat_button == "skill 3" or skill_3_hotkey:
+                                if not combat_cooldown:
+                                    skill_3_hotkey = False
+                                    # make sure player has enough energy to use the skill
+                                    if player.energy > 79:
+                                        if current_enemy_battling.name == "Erebyth":
+                                            erebyth_turn_counter += 1
+                                        if current_enemy_battling.name == "Dreth":
+                                            dreth_turn_counter += 1
+
+                                        if player.role == "mage":
+                                            if fire_learned:
+                                                if not fire_active:
+                                                    pygame.mixer.find_channel(True).play(sfx_mage_mirror)
+                                                    info_text_1 = "Millennium Fire spell is active."
+                                                    fire_active = True
+                                                    player.energy -= 80
+                                                    turn_taken = True
+                                                    attack_hotkey = False
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            player_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
+                                                    combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                           snake_battle_sprite,
+                                                                                           ghoul_battle_sprite,
+                                                                                           chorizon_battle_sprite,
+                                                                                           magmon_battle_sprite,
+                                                                                           muchador_battle_sprite,
+                                                                                           bandile_battle_sprite,
+                                                                                           chinzilla_battle_sprite,
+                                                                                           in_battle,
+                                                                                           in_npc_interaction,
+                                                                                           graphic_dict,
+                                                                                           necrola_battle_sprite,
+                                                                                           osodark_battle_sprite,
+                                                                                           stelli_battle_sprite,
+                                                                                           chorizon_phase,
+                                                                                           erebyth_battle_sprite,
+                                                                                           erebyth_turn_counter,
+                                                                                           atmon_battle_sprite,
+                                                                                           jumano_battle_sprite,
+                                                                                           dreth_battle_sprite,
+                                                                                           apothis_gift)
+                                                    if mirror_image:
+                                                        combat_scenario.battle_animation_player(player,
+                                                                                                mirror_battle_sprite,
+                                                                                                barrier_active,
+                                                                                                sharp_sense_active,
+                                                                                                graphic_dict)
+                                                    # combat event function that handles and returns damage and health
+                                                    combat_events = combat_scenario.attack_scenario(
+                                                        current_enemy_battling, "attack", player, hard_strike_learned,
+                                                        level_up_win, level_up_font, graphic_dict, sharp_sense_active,
+                                                        barrier_active, turn_taken, stun_them, mirror_image,
+                                                        erebyth_turn_counter, atmon_counter, prism_received,
+                                                        dreth_turn_counter, apothis_gift, trading_deck,
+                                                        trading_task_complete, any_card_counter, card_deck)
+                                                    try:
+                                                        stun_them = combat_events["stunned"]
+                                                    except TypeError and KeyError:
+                                                        stun_them = False
+                                                    combat_happened = True
+
+                                                    # add all combat scenario happenings from function to message box
+                                                    try:
+                                                        if combat_events["damage taken string"] == 0:
+                                                            info_text_2 = ""
+                                                        else:
+                                                            info_text_2 = str(combat_events["damage taken string"])
+                                                    except TypeError:
+                                                        pass
+                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                                  en_bar, xp_bar,
+                                                                                                  star_power_meter,
+                                                                                                  offense_meter,
+                                                                                                  defense_meter,
+                                                                                                  graphic_dict,
+                                                                                                  basic_armor,
+                                                                                                  forged_armor,
+                                                                                                  mythical_armor,
+                                                                                                  legendary_armor,
+                                                                                                  power_gloves,
+                                                                                                  chroma_boots)
+                                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                                      SCREEN_HEIGHT))
+                                                        game_window.blit(frame, frame.get_rect())
+                                                        pygame.display.flip()
+                                                    else:
+                                                        pygame.display.flip()
+                                                else:
+                                                    info_text_1 = "Millennium Fire spell is already active."
+
+                                        if player.role == "fighter":
+                                            if edge_learned:
+                                                pygame.mixer.find_channel(True).play(sfx_fighter_stun)
+                                                stun_visual_tic = time.perf_counter()
+                                                stun_visual = True
+                                                player.energy -= 80
+                                                turn_taken = True
+                                                attack_hotkey = False
+                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                              en_bar, xp_bar,
+                                                                                              star_power_meter,
+                                                                                              offense_meter,
+                                                                                              defense_meter,
+                                                                                              graphic_dict,
+                                                                                              basic_armor,
+                                                                                              forged_armor,
+                                                                                              mythical_armor,
+                                                                                              legendary_armor,
+                                                                                              power_gloves,
+                                                                                              chroma_boots)
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                                  SCREEN_HEIGHT))
+                                                    game_window.blit(frame, frame.get_rect())
+                                                    pygame.display.flip()
+                                                else:
+                                                    pygame.display.flip()
+                                            else:
+                                                info_text_1 = "Epsilon's Edge not learned."
+
+                                        if player.role == "scout":
+                                            if arrow_learned:
+                                                if not arrow_active:
+                                                    pygame.mixer.find_channel(True).play(sfx_mage_mirror)
+                                                    info_text_1 = "Arrow of Advantage is active."
+                                                    arrow_active = True
+                                                    player.energy -= 80
+                                                    turn_taken = True
+                                                    attack_hotkey = False
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            player_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
+                                                    combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                           snake_battle_sprite,
+                                                                                           ghoul_battle_sprite,
+                                                                                           chorizon_battle_sprite,
+                                                                                           magmon_battle_sprite,
+                                                                                           muchador_battle_sprite,
+                                                                                           bandile_battle_sprite,
+                                                                                           chinzilla_battle_sprite,
+                                                                                           in_battle,
+                                                                                           in_npc_interaction,
+                                                                                           graphic_dict,
+                                                                                           necrola_battle_sprite,
+                                                                                           osodark_battle_sprite,
+                                                                                           stelli_battle_sprite,
+                                                                                           chorizon_phase,
+                                                                                           erebyth_battle_sprite,
+                                                                                           erebyth_turn_counter,
+                                                                                           atmon_battle_sprite,
+                                                                                           jumano_battle_sprite,
+                                                                                           dreth_battle_sprite,
+                                                                                           apothis_gift)
+                                                    if mirror_image:
+                                                        combat_scenario.battle_animation_player(player,
+                                                                                                mirror_battle_sprite,
+                                                                                                barrier_active,
+                                                                                                sharp_sense_active,
+                                                                                                graphic_dict)
+                                                    # combat event function that handles and returns damage and health
+                                                    combat_events = combat_scenario.attack_scenario(
+                                                        current_enemy_battling, "attack", player, hard_strike_learned,
+                                                        level_up_win, level_up_font, graphic_dict, sharp_sense_active,
+                                                        barrier_active, turn_taken, stun_them, mirror_image,
+                                                        erebyth_turn_counter, atmon_counter, prism_received,
+                                                        dreth_turn_counter, apothis_gift, trading_deck,
+                                                        trading_task_complete, any_card_counter, card_deck)
+                                                    try:
+                                                        stun_them = combat_events["stunned"]
+                                                    except TypeError and KeyError:
+                                                        stun_them = False
+                                                    combat_happened = True
+
+                                                    # add all combat scenario happenings from function to message box
+                                                    try:
+                                                        if combat_events["damage taken string"] == 0:
+                                                            info_text_2 = ""
+                                                        else:
+                                                            info_text_2 = str(combat_events["damage taken string"])
+                                                    except TypeError:
+                                                        pass
+                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                                  en_bar, xp_bar,
+                                                                                                  star_power_meter,
+                                                                                                  offense_meter,
+                                                                                                  defense_meter,
+                                                                                                  graphic_dict,
+                                                                                                  basic_armor,
+                                                                                                  forged_armor,
+                                                                                                  mythical_armor,
+                                                                                                  legendary_armor,
+                                                                                                  power_gloves,
+                                                                                                  chroma_boots)
+                                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                                      SCREEN_HEIGHT))
+                                                        game_window.blit(frame, frame.get_rect())
+                                                        pygame.display.flip()
+                                                    else:
+                                                        pygame.display.flip()
+                                                else:
+                                                    info_text_1 = "Arrow of Advantage is already active."
+
+                                    else:
+                                        info_text_1 = "Not enough energy to use this skill."
+
                         # outside of battle event loop -----------------------------------------------------------------
                         combat_scenario.enemy_health_bar(current_enemy_battling, graphic_dict)
                         # don't let player attack again immediately by spam clicking button
@@ -15318,18 +15545,24 @@ if __name__ == "__main__":
                                         screen.blit(barrier_button.surf, barrier_button.rect)
                                     if player.skills_mage["skill 3"] == "mirror image":
                                         screen.blit(mirror_button.surf, mirror_button.rect)
+                                    if player.skills_mage["skill 4"] == "millennium fire":
+                                        screen.blit(fire_button.surf, fire_button.rect)
                                 if player.role == "fighter":
                                     screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
                                     if player.skills_fighter["skill 2"] == "hard strike":
                                         screen.blit(hard_strike_button.surf, hard_strike_button.rect)
                                     if player.skills_fighter["skill 3"] == "stunning swing":
                                         screen.blit(stun_button.surf, stun_button.rect)
+                                    if player.skills_fighter["skill 4"] == "epsilon's edge":
+                                        screen.blit(edge_button.surf, edge_button.rect)
                                 if player.role == "scout":
                                     screen.blit(scout_attack_button.surf, scout_attack_button.rect)
                                     if player.skills_scout["skill 2"] == "sharp sense":
                                         screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
                                     if player.skills_scout["skill 3"] == "vanishing shroud":
                                         screen.blit(vanish_button.surf, vanish_button.rect)
+                                    if player.skills_scout["skill 4"] == "arrow of advantage":
+                                        screen.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
@@ -15395,18 +15628,24 @@ if __name__ == "__main__":
                                         game_window.blit(barrier_button.surf, barrier_button.rect)
                                     if player.skills_mage["skill 3"] == "mirror image":
                                         game_window.blit(mirror_button.surf, mirror_button.rect)
+                                    if player.skills_mage["skill 4"] == "millennium fire":
+                                        game_window.blit(fire_button.surf, fire_button.rect)
                                 if player.role == "fighter":
                                     game_window.blit(fighter_attack_button.surf, fighter_attack_button.rect)
                                     if player.skills_fighter["skill 2"] == "hard strike":
                                         game_window.blit(hard_strike_button.surf, hard_strike_button.rect)
                                     if player.skills_fighter["skill 3"] == "stunning swing":
                                         game_window.blit(stun_button.surf, stun_button.rect)
+                                    if player.skills_fighter["skill 4"] == "epsilon's edge":
+                                        game_window.blit(edge_button.surf, edge_button.rect)
                                 if player.role == "scout":
                                     game_window.blit(scout_attack_button.surf, scout_attack_button.rect)
                                     if player.skills_scout["skill 2"] == "sharp sense":
                                         game_window.blit(sharp_sense_button.surf, sharp_sense_button.rect)
                                     if player.skills_scout["skill 3"] == "vanishing shroud":
                                         game_window.blit(vanish_button.surf, vanish_button.rect)
+                                    if player.skills_scout["skill 4"] == "arrow of advantage":
+                                        game_window.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
@@ -15565,18 +15804,24 @@ if __name__ == "__main__":
                                         screen.blit(barrier_button.surf, barrier_button.rect)
                                     if player.skills_mage["skill 3"] == "mirror image":
                                         screen.blit(mirror_button.surf, mirror_button.rect)
+                                    if player.skills_mage["skill 4"] == "millennium fire":
+                                        screen.blit(fire_button.surf, fire_button.rect)
                                 if player.role == "fighter":
                                     screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
                                     if player.skills_fighter["skill 2"] == "hard strike":
                                         screen.blit(hard_strike_button.surf, hard_strike_button.rect)
                                     if player.skills_fighter["skill 3"] == "stunning swing":
                                         screen.blit(stun_button.surf, stun_button.rect)
+                                    if player.skills_fighter["skill 4"] == "epsilon's edge":
+                                        screen.blit(edge_button.surf, edge_button.rect)
                                 if player.role == "scout":
                                     screen.blit(scout_attack_button.surf, scout_attack_button.rect)
                                     if player.skills_scout["skill 2"] == "sharp sense":
                                         screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
                                     if player.skills_scout["skill 3"] == "vanishing shroud":
                                         screen.blit(vanish_button.surf, vanish_button.rect)
+                                    if player.skills_scout["skill 4"] == "arrow of advantage":
+                                        screen.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
@@ -15642,18 +15887,24 @@ if __name__ == "__main__":
                                         game_window.blit(barrier_button.surf, barrier_button.rect)
                                     if player.skills_mage["skill 3"] == "mirror image":
                                         game_window.blit(mirror_button.surf, mirror_button.rect)
+                                    if player.skills_mage["skill 4"] == "millennium fire":
+                                        game_window.blit(fire_button.surf, fire_button.rect)
                                 if player.role == "fighter":
                                     game_window.blit(fighter_attack_button.surf, fighter_attack_button.rect)
                                     if player.skills_fighter["skill 2"] == "hard strike":
                                         game_window.blit(hard_strike_button.surf, hard_strike_button.rect)
                                     if player.skills_fighter["skill 3"] == "stunning swing":
                                         game_window.blit(stun_button.surf, stun_button.rect)
+                                    if player.skills_fighter["skill 4"] == "epsilon's edge":
+                                        game_window.blit(edge_button.surf, edge_button.rect)
                                 if player.role == "scout":
                                     game_window.blit(scout_attack_button.surf, scout_attack_button.rect)
                                     if player.skills_scout["skill 2"] == "sharp sense":
                                         game_window.blit(sharp_sense_button.surf, sharp_sense_button.rect)
                                     if player.skills_scout["skill 3"] == "vanishing shroud":
                                         game_window.blit(vanish_button.surf, vanish_button.rect)
+                                    if player.skills_scout["skill 4"] == "arrow of advantage":
+                                        game_window.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
@@ -17277,6 +17528,7 @@ if __name__ == "__main__":
                                             skill_learn_items.clear()
                                         else:
                                             info_text_1 = "40 mage knowledge required to learn."
+                                            info_text_2 = ""
                                     else:
                                         info_text_1 = "You've already learned 'Barrier'."
                                         info_text_2 = ""
@@ -17297,8 +17549,30 @@ if __name__ == "__main__":
                                                 skill_learn_items.clear()
                                             else:
                                                 info_text_1 = "80 mage knowledge required to learn."
+                                                info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Mirror Image'."
+                                            info_text_2 = ""
+                                if player.level > 19:
+                                    if book_button.name == "fire learn button":
+                                        if not fire_learned:
+                                            if player.knowledge["mage"] > 119:
+                                                pygame.mixer.find_channel(True).play(sfx_skill_learn)
+                                                player.skills_mage["skill 4"] = "millennium fire"
+                                                info_text_1 = "'Millennium Fire' skill learned!"
+                                                info_text_2 = "Skill added. 120 knowledge used."
+                                                player.knowledge["mage"] -= 120
+                                                fire_learned = True
+                                                button_highlighted = False
+                                                mage_learn_clicked = False
+                                                book_appended = False
+                                                books.clear()
+                                                skill_learn_items.clear()
+                                            else:
+                                                info_text_1 = "120 mage knowledge required to learn."
+                                                info_text_2 = ""
+                                        else:
+                                            info_text_1 = "You've already learned 'Millennium Fire'."
                                             info_text_2 = ""
                                 if book_button.name == "close button":
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
@@ -17327,6 +17601,7 @@ if __name__ == "__main__":
                                             skill_learn_items.clear()
                                         else:
                                             info_text_1 = "40 fighter knowledge required to learn."
+                                            info_text_2 = ""
                                     else:
                                         info_text_1 = "You've already learned 'Hard Strike'."
                                         info_text_2 = ""
@@ -17349,6 +17624,27 @@ if __name__ == "__main__":
                                                 info_text_1 = "80 fighter knowledge required to learn."
                                         else:
                                             info_text_1 = "You've already learned 'Stunning Swing'."
+                                            info_text_2 = ""
+                                if player.level > 19:
+                                    if book_button.name == "edge learn button":
+                                        if not edge_learned:
+                                            if player.knowledge["fighter"] > 119:
+                                                pygame.mixer.find_channel(True).play(sfx_skill_learn)
+                                                player.skills_fighter["skill 4"] = "epsilon's edge"
+                                                info_text_1 = "'Epsilon's Edge' skill learned!"
+                                                info_text_2 = "Skill added. 120 knowledge used."
+                                                player.knowledge["fighter"] -= 120
+                                                edge_learned = True
+                                                fighter_learn_clicked = False
+                                                book_appended = False
+                                                button_highlighted = False
+                                                books.clear()
+                                                skill_learn_items.clear()
+                                            else:
+                                                info_text_1 = "120 fighter knowledge required to learn."
+                                                info_text_2 = ""
+                                        else:
+                                            info_text_1 = "You've already learned 'Epsilon's Edge'."
                                             info_text_2 = ""
                                 if book_button.name == "close button":
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
@@ -17377,6 +17673,7 @@ if __name__ == "__main__":
                                             skill_learn_items.clear()
                                         else:
                                             info_text_1 = "40 scout knowledge required to learn."
+                                            info_text_2 = ""
                                     else:
                                         info_text_1 = "You've already learned 'Sharp Sense'."
                                         info_text_2 = ""
@@ -17397,8 +17694,30 @@ if __name__ == "__main__":
                                                 skill_learn_items.clear()
                                             else:
                                                 info_text_1 = "80 scout knowledge required to learn."
+                                                info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Vanishing Shroud'."
+                                            info_text_2 = ""
+                                if player.level > 19:
+                                    if book_button.name == "arrow learn button":
+                                        if not arrow_learned:
+                                            if player.knowledge["scout"] > 119:
+                                                pygame.mixer.find_channel(True).play(sfx_skill_learn)
+                                                player.skills_scout["skill 4"] = "arrow of advantage"
+                                                info_text_1 = "'Arrow of Advantage' skill learned!"
+                                                info_text_2 = "Skill added. 120 knowledge used."
+                                                player.knowledge["scout"] -= 120
+                                                arrow_learned = True
+                                                button_highlighted = False
+                                                scout_learn_clicked = False
+                                                book_appended = False
+                                                books.clear()
+                                                skill_learn_items.clear()
+                                            else:
+                                                info_text_1 = "120 scout knowledge required to learn."
+                                                info_text_2 = ""
+                                        else:
+                                            info_text_1 = "You've already learned this."
                                             info_text_2 = ""
                                 if book_button.name == "close button":
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
@@ -17575,6 +17894,7 @@ if __name__ == "__main__":
                                 books.append(mage_book)
                                 skill_learn_items.append(barrier_learn_button)
                                 skill_learn_items.append(mirror_learn_button)
+                                skill_learn_items.append(fire_learn_button)
                                 close_button.update(975, 135, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
@@ -17586,6 +17906,7 @@ if __name__ == "__main__":
                                 books.append(fighter_book)
                                 skill_learn_items.append(hard_strike_learn_button)
                                 skill_learn_items.append(stun_learn_button)
+                                skill_learn_items.append(edge_learn_button)
                                 close_button.update(975, 135, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
@@ -17597,6 +17918,7 @@ if __name__ == "__main__":
                                 books.append(scout_book)
                                 skill_learn_items.append(sharp_sense_learn_button)
                                 skill_learn_items.append(vanish_learn_button)
+                                skill_learn_items.append(arrow_learn_button)
                                 close_button.update(975, 135, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True

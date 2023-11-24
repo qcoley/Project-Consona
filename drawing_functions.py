@@ -1613,7 +1613,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       in_hut, basic_fish, better_fish, even_better_fish, best_fish, save_data_window, in_card_cave,
                       trade_snake, trade_ghoul, trade_bandile, trade_magmon, trade_necrola, trade_osodark,
                       trade_atmon, trade_jumano, trade_chorizon, trade_muchador, trade_chinzilla, trade_erebyth,
-                      missile_learn_button):
+                      missile_learn_button, fire_button, edge_button, arrow_button):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1911,6 +1911,12 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                     or stun_button.rect.collidepoint(pos):
                 button_highlight.update(mirror_button.x_coordinate - 2,
                                         mirror_button.y_coordinate + 1,
+                                        graphic_dict["skill high"])
+                return True
+            elif fire_button.rect.collidepoint(pos) or edge_button.rect.collidepoint(pos) \
+                    or arrow_button.rect.collidepoint(pos):
+                button_highlight.update(fire_button.x_coordinate - 2,
+                                        fire_button.y_coordinate + 1,
                                         graphic_dict["skill high"])
                 return True
 
