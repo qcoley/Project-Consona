@@ -531,11 +531,12 @@ def load_graphics():
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # arrow skill overlays ---------------------------------------------------------------------------------------------
-    skill_arrows_url = resource_path('resources/art/overlay_skills_arrows.png')
-    skill_arrows_sheet = sprite_sheet((700, 700), skill_arrows_url)
-    loaded_dict["skill_arrow"] = skill_arrows_sheet[0]
-    loaded_dict["skill_arrow_advantage"] = skill_arrows_sheet[1]
-    loaded_dict["millennium_fire"] = skill_arrows_sheet[2]
+    skill_tier_three_url = resource_path('resources/art/overlay_skills_tier_three.png')
+    skill_tier_three_sheet = sprite_sheet((700, 700), skill_tier_three_url)
+    loaded_dict["skill_arrow"] = skill_tier_three_sheet[0]
+    loaded_dict["skill_arrow_advantage"] = skill_tier_three_sheet[1]
+    loaded_dict["millennium_fire"] = skill_tier_three_sheet[2]
+    loaded_dict["epsilon's_edge"] = skill_tier_three_sheet[3]
     # card trade button ------------------------------------------------------------------------------------------------
     card_trade_button_url = resource_path('resources/art/button_trade.png')
     card_trade_button_sheet = sprite_sheet((111, 30), card_trade_button_url)
@@ -4922,6 +4923,8 @@ def load_graphics():
     loaded_dict["pet_damage_img"] = damage_overlays_sheet[8]
     loaded_dict["effective_pet_damage_img"] = damage_overlays_sheet[9]
     loaded_dict["non_effective_pet_damage_img"] = damage_overlays_sheet[10]
+    loaded_dict["fire_damage_img"] = damage_overlays_sheet[11]
+    loaded_dict["edge_health_img"] = damage_overlays_sheet[12]
     # worker 1 npc -----------------------------------------------------------------------------------------------------
     worker_1_url = resource_path('resources/art/sprites_worker_1.png')
     worker_1_sheet = sprite_sheet((50, 60), worker_1_url)

@@ -2148,6 +2148,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["fire_learned"] = player_load_info["fire_learned"]
             load_return["edge_learned"] = player_load_info["edge_learned"]
             load_return["arrow_learned"] = player_load_info["arrow_learned"]
+            load_return["on_card_quest"] = player_load_info["on_card_quest"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2176,7 +2177,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               dreth_taunt_2, dreth_taunt_3, mirage_updated, mirage_2_updated, mirage_saved, mirage_2_saved,
               rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift, sub_marrow_opened,
               cat_rewarded, cats_pet, credits_shown, trading_deck, trading_task_complete, any_card_counter,
-              card_deck, fire_learned, edge_learned, arrow_learned):
+              card_deck, fire_learned, edge_learned, arrow_learned, on_card_quest):
 
     inventory_save = []
     equipment_save = []
@@ -2285,7 +2286,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "better_jumano": card_deck["better_jumano"], "best_jumano": card_deck["best_jumano"],
                         "chorizon": card_deck["chorizon"], "muchador": card_deck["muchador"],
                         "chinzilla": card_deck["chinzilla"], "erebyth": card_deck["erebyth"],
-                        "fire_learned": fire_learned, "edge_learned": edge_learned, "arrow_learned": arrow_learned}
+                        "fire_learned": fire_learned, "edge_learned": edge_learned, "arrow_learned": arrow_learned,
+                        "on_card_quest": on_card_quest}
 
     try:
         with open("save", "wb") as ff:
@@ -2462,11 +2464,11 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
     if level_difference >= 5:
         damage -= 16
 
-    if mob.name == "dreth":
+    if mob.name == "Dreth":
         if player.offense == 4:
             damage = damage - 5
         elif player.offense < 4:
-            damage = 1
+            damage = random.randint(1, 3)
 
     if damage >= 0:
         attack_dict["damage"] = damage
@@ -2483,42 +2485,66 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
                     pet.energy = 0
 
                 if arrow_active:
-                    attack_dict["pet damage"] = 4
-                    attack_dict["pet effective"] = True
+                    if mob.name == "Dreth":
+                        if player.offense < 4:
+                            attack_dict["pet damage"] = 1
+                        else:
+                            attack_dict["pet damage"] = 3
+                    else:
+                        attack_dict["pet damage"] = 4
+                        attack_dict["pet effective"] = True
 
                 else:
                     if pet.name == "iriana":
-                        attack_dict["pet damage"] = 2
-                        # super effective
-                        if mob.type == "scout":
-                            attack_dict["pet damage"] = 4
-                            attack_dict["pet effective"] = True
-                        # not effective
-                        if mob.type == "fighter":
-                            attack_dict["pet damage"] = 1
-                            attack_dict["pet non effective"] = True
+                        if mob.name == "Dreth":
+                            if player.offense < 4:
+                                attack_dict["pet damage"] = 0
+                            else:
+                                attack_dict["pet damage"] = 1
+                        else:
+                            attack_dict["pet damage"] = 2
+                            # super effective
+                            if mob.type == "scout":
+                                attack_dict["pet damage"] = 4
+                                attack_dict["pet effective"] = True
+                            # not effective
+                            if mob.type == "fighter":
+                                attack_dict["pet damage"] = 1
+                                attack_dict["pet non effective"] = True
 
                     if pet.name == "kasper":
-                        attack_dict["pet damage"] = 2
-                        # super effective
-                        if mob.type == "fighter":
-                            attack_dict["pet damage"] = 4
-                            attack_dict["pet effective"] = True
-                        # not effective
-                        if mob.type == "mage":
-                            attack_dict["pet damage"] = 1
+                        if mob.name == "Dreth":
+                            attack_dict["pet damage"] = 0
                             attack_dict["pet non effective"] = True
+                        else:
+                            attack_dict["pet damage"] = 2
+                            # super effective
+                            if mob.type == "fighter":
+                                attack_dict["pet damage"] = 4
+                                attack_dict["pet effective"] = True
+                            # not effective
+                            if mob.type == "mage":
+                                attack_dict["pet damage"] = 1
+                                attack_dict["pet non effective"] = True
 
                     if pet.name == "torok":
-                        attack_dict["pet damage"] = 2
-                        # super effective
-                        if mob.type == "mage":
-                            attack_dict["pet damage"] = 4
-                            attack_dict["pet effective"] = True
-                        # not effective
-                        if mob.type == "scout":
-                            attack_dict["pet damage"] = 1
-                            attack_dict["pet non effective"] = True
+                        if mob.name == "Dreth":
+                            if player.offense < 4:
+                                attack_dict["pet damage"] = 1
+                                attack_dict["pet effective"] = True
+                            else:
+                                attack_dict["pet damage"] = 3
+                                attack_dict["pet effective"] = True
+                        else:
+                            attack_dict["pet damage"] = 2
+                            # super effective
+                            if mob.type == "mage":
+                                attack_dict["pet damage"] = 4
+                                attack_dict["pet effective"] = True
+                            # not effective
+                            if mob.type == "scout":
+                                attack_dict["pet damage"] = 1
+                                attack_dict["pet non effective"] = True
 
     return attack_dict
 

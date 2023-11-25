@@ -866,13 +866,13 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
         dreth_taunt = True
 
     if dreth_taunt:
-        if 6 > time.perf_counter() - lights_switch > 4:
+        if 5 > time.perf_counter() - lights_switch > 4:
             screen.blit(castle_lair_one_bg, (0, 0))
             movement_able = False
-        elif 8 > time.perf_counter() - lights_switch > 6:
+        elif 6 > time.perf_counter() - lights_switch > 5:
             screen.blit(castle_lair_two_bg, (0, 0))
             movement_able = False
-        elif time.perf_counter() - lights_switch > 8:
+        elif time.perf_counter() - lights_switch > 6:
             screen.blit(castle_lair_bg, (0, 0))
             movement_able = True
         else:

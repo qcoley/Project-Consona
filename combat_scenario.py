@@ -3838,7 +3838,7 @@ def enemy_health_bar(enemys, graphics):
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
                     sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter,
                     atmon_counter, prism_received, dreth_counter, apothis_gift, trading_deck,
-                    trading_task_complete, any_card_counter, card_deck, arrow_active):
+                    trading_task_complete, any_card_counter, card_deck, arrow_active, fire_active, show_edge):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {"damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -3864,16 +3864,50 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 combat_event_dictionary["player damage"] = attack_dict["damage"]
                 damage_to_enemy = attack_dict["damage"] + attack_dict["pet damage"]
 
+                if show_edge:
+                    if enemy_combating.name == "Dreth":
+                        if player.offense < 4:
+                            edge_damage = 1
+                        else:
+                            edge_damage = random.randint(25, 35)
+                    else:
+                        edge_damage = random.randint(30, 40)
+                    damage_to_enemy += edge_damage
+                    combat_event_dictionary["player damage"] += edge_damage
+                    combat_event_dictionary["edge health"] = int(0.75 * damage_to_enemy)
+
+                if fire_active:
+                    if enemy_combating.name == "Dreth":
+                        if player.offense < 4:
+                            combat_event_dictionary["fire damage"] = 1
+                        else:
+                            combat_event_dictionary["fire damage"] = random.randint(1, 4)
+                    else:
+                        combat_event_dictionary["fire damage"] = random.randint(2, 5)
+                    damage_to_enemy += combat_event_dictionary["fire damage"]
+
                 if mirror_image:
                     if attack_dict["effective"]:
                         combat_event_dictionary["mirror damage"] = 5
-                        damage_to_enemy += 5
+                        if enemy_combating.name == "Dreth":
+                            if player.offense < 4:
+                                damage_to_enemy += 1
+                            else:
+                                damage_to_enemy += 4
+                        else:
+                            damage_to_enemy += 5
                     elif attack_dict["non effective"]:
                         combat_event_dictionary["mirror damage"] = 1
                         damage_to_enemy += 1
                     else:
                         combat_event_dictionary["mirror damage"] = 3
-                        damage_to_enemy += 3
+                        if enemy_combating.name == "Dreth":
+                            if player.offense < 4:
+                                damage_to_enemy += 1
+                            else:
+                                damage_to_enemy += 3
+                        else:
+                            damage_to_enemy += 3
 
                 enemy_combating.health = enemy_combating.health - damage_to_enemy
                 enemy_health_bar(enemy_combating, graphics)
@@ -3897,10 +3931,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                     if enemy_combating.name == "Erebyth":
                         if erebyth_counter == 3:
-                            damage_to_player = 25
+                            damage_to_player = 30
                             combat_event_dictionary["effective enemy"] = "effective"
                     if enemy_combating.name == "Dreth":
-                        if enemy_combating.health < 35:
+                        if enemy_combating.health < 25:
                             if not apothis_gift:
                                 damage_to_player = 100
                                 combat_event_dictionary["effective enemy"] = "effective"
@@ -3911,6 +3945,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     if damage_to_player > 0:
                         attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.kind}."
                         player.health = player.health - damage_to_player
+                        if show_edge:
+                            player.health += int(0.75 * damage_to_enemy)
+                            if player.health >= 100:
+                                player.health = 100
                         combat_event_dictionary["damage taken"] = damage_to_player
                         # add damage done to player from enemy to dictionary
                         combat_event_dictionary["damage taken string"] = attacked_player_string
@@ -3920,6 +3958,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                             player.alive_status = False
                         return combat_event_dictionary
                     else:
+                        if show_edge:
+                            player.health += int(0.75 * damage_to_enemy)
+                            if player.health >= 100:
+                                player.health = 100
                         enemy_miss_string = f'{enemy_combating.kind} missed.'
                         # add to dictionary that enemy did no damage to player
                         combat_event_dictionary["damage taken string"] = enemy_miss_string
@@ -3934,6 +3976,12 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
             # enemy has been defeated, will return an amount of xp based on current levels
             else:
+
+                if show_edge:
+                    player.health += int(0.75 * damage_to_enemy)
+                    if player.health >= 100:
+                        player.health = 100
+
                 # if player is on quest to kill snakes
                 if enemy_combating.kind == "snake":
                     if player.quest_status["sneaky snakes"]:
