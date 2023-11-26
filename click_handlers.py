@@ -343,50 +343,6 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                     if pet.energy >= 100:
                         pet.energy = 100
                         return_dict["item message"] = "Your iriana is full of energy."
-        if item.name == "pet whistle kasper":
-            pygame.mixer.find_channel(True).play(sfx_whistle)
-            for pet in player.pet:
-                if pet.name == "kasper":
-                    match pet.active:
-                        case True:
-                            pet.active = False
-                        case False:
-                            pet.active = True
-                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
-                # set other pets to de-active, so they don't overlap
-                else:
-                    match pet.active:
-                        case True:
-                            pet.active = False
-        if item.name == "pet whistle torok":
-            pygame.mixer.find_channel(True).play(sfx_whistle)
-            for pet in player.pet:
-                if pet.name == "torok":
-                    match pet.active:
-                        case True:
-                            pet.active = False
-                        case False:
-                            pet.active = True
-                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
-                else:
-                    match pet.active:
-                        case True:
-                            pet.active = False
-        if item.name == "pet whistle iriana":
-            pygame.mixer.find_channel(True).play(sfx_whistle)
-            for pet in player.pet:
-                if pet.name == "iriana":
-                    match pet.active:
-                        case True:
-                            pet.active = False
-                        case False:
-                            pet.active = True
-                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
-                else:
-                    match pet.active:
-                        case True:
-                            pet.active = False
-
         if item.name == "small health potion":
             if player.health == 100:
                 return_dict["item message"] = "You're already at full health."
@@ -465,8 +421,6 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
             return_dict["item message"] = "You gain 100 scout knowledge."
         if item.name == "cat card":
             return_dict["cat card"] = True
-        if item.name == "trade deck":
-            return_dict["trade deck"] = True
         if item.name == "seldon firework" or item.name == "korlok firework" or item.name == "eldream firework":
             pygame.mixer.find_channel(True).play(sfx_firework)
             return_dict["item message"] = "boom shakalaka."
@@ -992,6 +946,15 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
             if clicked_element[0].name == "small energy potion":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
+            if clicked_element[0].name == "big health potion":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "big energy potion":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "super potion":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
             if clicked_element[0].name == "shiny rock":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
@@ -1053,6 +1016,9 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "marrow bait":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "cat card":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
 

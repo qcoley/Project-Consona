@@ -1157,10 +1157,11 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
         interaction_info_rect.center = (cat.x_coordinate - 10, cat.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to pet cat."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        if not cats_pet["marrow"]:
+            info_text_1 = "Press 'F' key to pet cat."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted and in_over_world:
             cat.update(cat.x_coordinate, cat.y_coordinate, graphic_dict["marrow_cat_pet"])
@@ -1171,10 +1172,14 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
                 if not cat:
                     break
                 cat_count += 1
-                if cat_count == 7:
-                    if not cat_rewarded:
+                if cat_count == 7 and not cat_rewarded:
+                    if len(player.items) < 16:
                         cat_rewarded = True
                         player.items.append(Item("cat card", "card", 200, 200, graphic_dict["cat_card"], 0))
+                    else:
+                        info_text_1 = "Cats Reward but inventory is full."
+                        info_text_2 = "Try freeing space and interact again."
+
             interacted = False
 
     if not fishing:

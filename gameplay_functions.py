@@ -946,6 +946,52 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
     return fishing_return
 
 
+def pet_call(pygame, player, kasper_called, torok_called, iriana_called, sfx_whistle, width, height):
+    if kasper_called:
+        pygame.mixer.find_channel(True).play(sfx_whistle)
+        for pet in player.pet:
+            if pet.name == "kasper":
+                match pet.active:
+                    case True:
+                        pet.active = False
+                    case False:
+                        pet.active = True
+                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
+            # set other pets to de-active, so they don't overlap
+            else:
+                match pet.active:
+                    case True:
+                        pet.active = False
+    if torok_called:
+        pygame.mixer.find_channel(True).play(sfx_whistle)
+        for pet in player.pet:
+            if pet.name == "torok":
+                match pet.active:
+                    case True:
+                        pet.active = False
+                    case False:
+                        pet.active = True
+                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
+            else:
+                match pet.active:
+                    case True:
+                        pet.active = False
+    if iriana_called:
+        pygame.mixer.find_channel(True).play(sfx_whistle)
+        for pet in player.pet:
+            if pet.name == "iriana":
+                match pet.active:
+                    case True:
+                        pet.active = False
+                    case False:
+                        pet.active = True
+                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
+            else:
+                match pet.active:
+                    case True:
+                        pet.active = False
+
+
 def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys, sfx_swap):
     if len(drawing_functions.item_info_window) == 0 and len(drawing_functions.sell_info_window) == 0:
 
@@ -2769,7 +2815,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             interactables_mines.add(new_bandile)
 
     if player.current_zone == "eldream":
-        flower_coords_list = [(355, 530), (722, 530), (775, 50), (985, 450), (775, 670)]
+        flower_coords_list = [(355, 530), (722, 530), (850, 120), (985, 450), (775, 670)]
         flower_counter = 0
         random_flower_coord = random.choice(flower_coords_list)
 

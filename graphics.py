@@ -530,6 +530,16 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # extra inventory buttons ------------------------------------------------------------------------------------------
+    extra_buttons_url = resource_path('resources/art/overlay_extra_inventory_buttons.png')
+    extra_buttons_sheet = sprite_sheet((50, 50), extra_buttons_url)
+    loaded_dict["kasper_button"] = extra_buttons_sheet[0]
+    loaded_dict["torok_button"] = extra_buttons_sheet[1]
+    loaded_dict["iriana_button"] = extra_buttons_sheet[2]
+    loaded_dict["nera's_blessing_slot"] = extra_buttons_sheet[3]
+    loaded_dict["aren's_might_slot"] = extra_buttons_sheet[4]
+    loaded_dict["wisdom's_spirit_slot"] = extra_buttons_sheet[5]
+    loaded_dict["extra_inventory_high"] = extra_buttons_sheet[6]
     # arrow skill overlays ---------------------------------------------------------------------------------------------
     skill_tier_three_url = resource_path('resources/art/overlay_skills_tier_three.png')
     skill_tier_three_sheet = sprite_sheet((700, 700), skill_tier_three_url)
@@ -5380,6 +5390,10 @@ def load_graphics():
     loaded_dict["s_korlok_bait"] = sell_items_sheet[20]
     loaded_dict["s_eldream_bait"] = sell_items_sheet[21]
     loaded_dict["s_marrow_bait"] = sell_items_sheet[22]
+    loaded_dict["s_big_health"] = sell_items_sheet[23]
+    loaded_dict["s_big_energy"] = sell_items_sheet[24]
+    loaded_dict["s_super"] = sell_items_sheet[25]
+    loaded_dict["s_cat"] = sell_items_sheet[26]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)
@@ -5473,6 +5487,8 @@ def load_graphics():
     loaded_dict["fish_button_img"] = buttons_sheet[19]
     loaded_dict["check_button_img"] = buttons_sheet[20]
     loaded_dict["trade_button_img"] = buttons_sheet[21]
+    loaded_dict["card_deck_img"] = buttons_sheet[22]
+    loaded_dict["card_deck_high"] = buttons_sheet[23]
     # fishing level overlay --------------------------------------------------------------------------------------------
     fishing_level_url = resource_path('resources/art/overlay_fishing_level.png')
     fishing_level_sheet = sprite_sheet((281, 31), fishing_level_url)

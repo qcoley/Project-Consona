@@ -3881,9 +3881,9 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         if player.offense < 4:
                             combat_event_dictionary["fire damage"] = 1
                         else:
-                            combat_event_dictionary["fire damage"] = random.randint(1, 4)
+                            combat_event_dictionary["fire damage"] = random.randint(4, 8)
                     else:
-                        combat_event_dictionary["fire damage"] = random.randint(2, 5)
+                        combat_event_dictionary["fire damage"] = random.randint(5, 10)
                     damage_to_enemy += combat_event_dictionary["fire damage"]
 
                 if mirror_image:

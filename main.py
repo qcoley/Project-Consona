@@ -7205,8 +7205,119 @@ def button_highlighter(posit):
                                                               trade_bandile, trade_magmon, trade_necrola, trade_osodark,
                                                               trade_atmon, trade_jumano, trade_chorizon, trade_muchador,
                                                               trade_chinzilla, trade_erebyth, fire_learn_button,
-                                                              fire_button, edge_button, arrow_button)
+                                                              fire_button, edge_button, arrow_button,
+                                                              kasper_whistle_button, torok_whistle_button,
+                                                              iriana_whistle_button, card_deck_button, trading_deck)
     return button_highlighters
+
+
+def render_card_deck():
+    basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
+                                           True, "black", "light blue")
+    basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
+    basic_snake_c_count_rect.midleft = (403, 162)
+    better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
+                                            True, "black", "light blue")
+    better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
+    better_snake_c_count_rect.midleft = (515, 162)
+    better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
+                                              True, "black", "light blue")
+    better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
+    better_necrola_c_count_rect.midleft = (645, 162)
+    best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
+                                            True, "black", "light blue")
+    best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
+    best_necrola_c_count_rect.midleft = (758, 162)
+    chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
+                                        True, "black", "light blue")
+    chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
+    chorizon_c_count_rect.midleft = (897, 162)
+    basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
+                                           True, "black", "light blue")
+    basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
+    basic_ghoul_c_count_rect.midleft = (403, 300)
+    better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
+                                            True, "black", "light blue")
+    better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
+    better_ghoul_c_count_rect.midleft = (515, 300)
+    better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
+                                              True, "black", "light blue")
+    better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
+    better_osodark_c_count_rect.midleft = (643, 300)
+    best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
+                                            True, "black", "light blue")
+    best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
+    best_osodark_c_count_rect.midleft = (757, 300)
+    muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
+                                        True, "black", "light blue")
+    muchador_c_count_rect = muchador_c_count_surf.get_rect()
+    muchador_c_count_rect.midleft = (895, 300)
+    basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
+                                             True, "black", "light blue")
+    basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
+    basic_bandile_c_count_rect.midleft = (398, 438)
+    better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
+                                              True, "black", "light blue")
+    better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
+    better_bandile_c_count_rect.midleft = (512, 438)
+    better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
+                                            True, "black", "light blue")
+    better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
+    better_atmon_c_count_rect.midleft = (647, 438)
+    best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
+                                          True, "black", "light blue")
+    best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
+    best_atmon_c_count_rect.midleft = (761, 438)
+    chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
+                                         True, "black", "light blue")
+    chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
+    chinzilla_c_count_rect.midleft = (898, 438)
+    basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
+                                            True, "black", "light blue")
+    basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
+    basic_magmon_c_count_rect.midleft = (393, 576)
+    better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
+                                             True, "black", "light blue")
+    better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
+    better_magmon_c_count_rect.midleft = (506, 576)
+    better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
+                                             True, "black", "light blue")
+    better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
+    better_jumano_c_count_rect.midleft = (645, 576)
+    best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
+                                           True, "black", "light blue")
+    best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
+    best_jumano_c_count_rect.midleft = (759, 576)
+    erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
+                                       True, "black", "light blue")
+    erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
+    erebyth_c_count_rect.midleft = (899, 576)
+
+    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+        screen.blit(trading_deck_window, (359, 16))
+        screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
+    else:
+        game_window.blit(trading_deck_window, (359, 16))
+        game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
+        game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
+        game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
+        game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
+        game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
+        game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
+        game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
+        game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
+        game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
+        game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
+        game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
+        game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
+        game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
+        game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
+        game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
+        game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
+        game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
+        game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
+        game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
+        game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
 
 
 # main -----------------------------------------------------------------------------------------------------------------
@@ -7827,6 +7938,12 @@ if __name__ == "__main__":
     check_best_fish_button = UiElement("check best", 490, 425, graphic_dict["check_button_img"])
     fishing_level_overlay = UiElement("fish level overlay", 410, 510, graphic_dict["fishing_level_0"])
 
+    kasper_whistle_button = UiElement("kasper button", 1178, 409, graphic_dict["kasper_button"])
+    torok_whistle_button = UiElement("torok button", 1216, 409, graphic_dict["torok_button"])
+    iriana_whistle_button = UiElement("iriana button", 1254, 409, graphic_dict["iriana_button"])
+    
+    card_deck_button = UiElement("card deck button", 368, 680, graphic_dict["card_deck_img"])
+
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
     mage_attack_button = UiElement("mage attack button", 750, 642, graphic_dict["mage_attack_button_img"])
     fighter_attack_button = UiElement("fighter attack button", 750, 642, graphic_dict["fighter_attack_button_img"])
@@ -7873,7 +7990,7 @@ if __name__ == "__main__":
     nede_big = UiElement("big nede", 840, 270, graphic_dict["nede_big"])
     npc_name_plate = UiElement("npc name plate", 675, 165, graphic_dict["npc_name_plate"])
     buy_inventory = Inventory("buy inventory", [], 900, 500, graphic_dict["buy_inventory"])
-    knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
+    knowledge_window = UiElement("knowledge window", 727, 680, graphic_dict["knowledge_window"])
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
     menagerie_window = UiElement("menagerie window", 500, 319, graphic_dict["kasper_manage"])
     fish_window = UiElement("fish window", 297, 319, graphic_dict["fishing_journal"])
@@ -8200,7 +8317,7 @@ if __name__ == "__main__":
     flower_seldon_5 = Item("flower seldon 5", "flower", 590, 380, graphic_dict["flower_seldon"], 0)
     flower_eldream_1 = Item("flower eldream 1", "flower", 355, 530, graphic_dict["flower_eldream"], 0)
     flower_eldream_2 = Item("flower eldream 2", "flower", 722, 530, graphic_dict["flower_eldream"], 0)
-    flower_eldream_3 = Item("flower eldream 3", "flower", 775, 50, graphic_dict["flower_eldream"], 0)
+    flower_eldream_3 = Item("flower eldream 3", "flower", 850, 120, graphic_dict["flower_eldream"], 0)
     flower_eldream_4 = Item("flower eldream 4", "flower", 985, 450, graphic_dict["flower_eldream"], 0)
     flower_eldream_5 = Item("flower eldream 5", "flower", 775, 670, graphic_dict["flower_eldream"], 0)
     ramps_flower = Item("flower ramps", "flower", 150, 225, graphic_dict["flower_seldon"], 0)
@@ -9011,12 +9128,14 @@ if __name__ == "__main__":
 
             # hide UI elements if player walks under them --------------------------------------------------------------
             try:
-                if player.x_coordinate < 335 and 600 < player.y_coordinate:
+                if player.x_coordinate < 420 and 600 < player.y_coordinate:
                     if not alpha_set:
                         message_box.surf.set_alpha(50)
+                        card_deck_button.surf.set_alpha(50)
                         alpha_set = True
                 else:
                     message_box.surf.set_alpha(255)
+                    card_deck_button.surf.set_alpha(255)
                     alpha_set = False
                 if player.y_coordinate > 550 and player.x_coordinate > 800:
                     if not alpha_set:
@@ -9619,6 +9738,8 @@ if __name__ == "__main__":
                         kasper_unlocked = load_returned["kasper unlocked"]
                         torok_unlocked = load_returned["torok unlocked"]
                         iriana_unlocked = load_returned["iriana unlocked"]
+                        drawing_functions.pet_button_draw(kasper_unlocked, kasper_whistle_button, torok_unlocked,
+                                                          torok_whistle_button, iriana_unlocked, iriana_whistle_button)
                         seed_mage_count = load_returned["seed mage"]
                         seed_fighter_count = load_returned["seed fighter"]
                         seed_scout_count = load_returned["seed scout"]
@@ -9671,6 +9792,8 @@ if __name__ == "__main__":
                         sub_marrow_opened = load_returned["sub_marrow_opened"]
                         credits_shown = load_returned["credits_shown"]
                         trading_deck = load_returned["trading_deck"]
+                        if trading_deck:
+                            drawing_functions.extra_button_container.append(card_deck_button)
                         trading_task_complete = load_returned["trading_task_complete"]
                         any_card_counter = load_returned["any_card_counter"]
                         card_deck["basic_snake"] = load_returned["basic_snake"]
@@ -9751,6 +9874,194 @@ if __name__ == "__main__":
                                 player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
                             if player.gender == "female":
                                 player.surf = graphic_dict["player_no_role_sorae_b_down_1"]
+
+                        try:
+                            if player.equipment["armor"].name == "basic armor":
+                                if player.race == "amuna":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_amuna_male_down_1_basic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_amuna_male_down_1_basic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_amuna_male_down_1_basic"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_amuna_female_down_1_basic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_amuna_female_down_1_basic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_amuna_female_down_1_basic"]
+                                if player.race == "nuldar":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_nuldar_male_down_1_basic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_nuldar_male_down_1_basic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_nuldar_male_down_1_basic"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_nuldar_female_down_1_basic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_nuldar_female_down_1_basic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_nuldar_female_down_1_basic"]
+                                if player.race == "sorae":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_sorae_a_down_1_basic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_sorae_a_down_1_basic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_sorae_a_down_1_basic"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_sorae_b_down_1_basic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_sorae_b_down_1_basic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_sorae_b_down_1_basic"]
+                            if player.equipment["armor"].name == "forged armor":
+                                if player.race == "amuna":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_amuna_male_down_1_forged"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_amuna_male_down_1_forged"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_amuna_male_down_1_forged"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_amuna_female_down_1_forged"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_amuna_female_down_1_forged"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_amuna_female_down_1_forged"]
+                                if player.race == "nuldar":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_nuldar_male_down_1_forged"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_nuldar_male_down_1_forged"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_nuldar_male_down_1_forged"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_nuldar_female_down_1_forged"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_nuldar_female_down_1_forged"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_nuldar_female_down_1_forged"]
+                                if player.race == "sorae":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_sorae_a_down_1_forged"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_sorae_a_down_1_forged"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_sorae_a_down_1_forged"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_sorae_b_down_1_forged"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_sorae_b_down_1_forged"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_sorae_b_down_1_forged"]
+                            if player.equipment["armor"].name == "mythical armor":
+                                if player.race == "amuna":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_amuna_male_down_1_mythic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_amuna_male_down_1_mythic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_amuna_male_down_1_mythic"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_amuna_female_down_1_mythic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_amuna_female_down_1_mythic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_amuna_female_down_1_mythic"]
+                                if player.race == "nuldar":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_nuldar_male_down_1_mythic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_nuldar_male_down_1_mythic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_nuldar_male_down_1_mythic"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_nuldar_female_down_1_mythic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_nuldar_female_down_1_mythic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_nuldar_female_down_1_mythic"]
+                                if player.race == "sorae":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_sorae_a_down_1_mythic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_sorae_a_down_1_mythic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_sorae_a_down_1_mythic"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_sorae_b_down_1_mythic"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_sorae_b_down_1_mythic"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_sorae_b_down_1_mythic"]
+                            if player.equipment["armor"].name == "legendary armor":
+                                if player.race == "amuna":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_amuna_male_down_1_legend"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_amuna_male_down_1_legend"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_amuna_male_down_1_legend"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_amuna_female_down_1_legend"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_amuna_female_down_1_legend"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_amuna_female_down_1_legend"]
+                                if player.race == "nuldar":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_nuldar_male_down_1_legend"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_nuldar_male_down_1_legend"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_nuldar_male_down_1_legend"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_nuldar_female_down_1_legend"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_nuldar_female_down_1_legend"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_nuldar_female_down_1_legend"]
+                                if player.race == "sorae":
+                                    if player.gender == "male":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_sorae_a_down_1_legend"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_sorae_a_down_1_legend"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_sorae_a_down_1_legend"]
+                                    if player.gender == "female":
+                                        if player.role == "mage":
+                                            player.surf = graphic_dict["player_mage_sorae_b_down_1_legend"]
+                                        if player.role == "fighter":
+                                            player.surf = graphic_dict["player_fighter_sorae_b_down_1_legend"]
+                                        if player.role == "scout":
+                                            player.surf = graphic_dict["player_scout_sorae_b_down_1_legend"]
+                        except AttributeError:
+                            pass
 
                         if player.quest_progress["where's nede?"] == 1:
                             nede.update(809, 390, graphic_dict["nede_left"])
@@ -10223,11 +10534,8 @@ if __name__ == "__main__":
 
                                 if show_cat_card:
                                     show_cat_card = False
-                                if show_trade_deck:
-                                    show_trade_deck = False
                                 if fish_caught:
-                                    if fishing_popup.rect.collidepoint(pos):
-                                        fish_caught = False
+                                    fish_caught = False
                                 if trading_deck:
                                     if c_snake_popup:
                                         combat_events["basic_snake"] = False
@@ -10369,8 +10677,6 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             if show_cat_card:
                                 show_cat_card = False
-                            if show_trade_deck:
-                                show_trade_deck = False
                             if fish_caught:
                                 if fishing_popup.rect.collidepoint(pos):
                                     fish_caught = False
@@ -10422,6 +10728,26 @@ if __name__ == "__main__":
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                              pressed_keys, sfx_button_role)
+                            if kasper_unlocked:
+                                if kasper_whistle_button.rect.collidepoint(pos):
+                                    gameplay_functions.pet_call(pygame, player, True, False, False,
+                                                                sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
+                            if torok_unlocked:
+                                if torok_whistle_button.rect.collidepoint(pos):
+                                    gameplay_functions.pet_call(pygame, player, False, True, False,
+                                                                sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
+                            if iriana_unlocked:
+                                if iriana_whistle_button.rect.collidepoint(pos):
+                                    gameplay_functions.pet_call(pygame, player, False, False, True,
+                                                                sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
+                            if trading_deck:
+                                if card_deck_button.rect.collidepoint(pos):
+                                    match show_trade_deck:
+                                        case True:
+                                            show_trade_deck = False
+                                        case False:
+                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                            show_trade_deck = True
 
                             # click handlers
                             info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
@@ -10449,12 +10775,6 @@ if __name__ == "__main__":
                                     if inventory_event["cat card"]:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                         show_cat_card = True
-                                except KeyError:
-                                    pass
-                                try:
-                                    if inventory_event["trade deck"]:
-                                        pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                        show_trade_deck = True
                                 except KeyError:
                                     pass
 
@@ -14121,120 +14441,14 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_card_drop)
                                 card_drop_played = True
 
-                # cat card or trade deck was clicked on, can be shown mostly anywhere
+                # cat card or trade deck was clicked on, can be shown almost anywhere
                 if show_cat_card:
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(cat_card_portrait, (60, 105))
                     else:
                         game_window.blit(cat_card_portrait, (60, 105))
-
                 if show_trade_deck:
-                    basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
-                                                           True, "black", "light blue")
-                    basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
-                    basic_snake_c_count_rect.midleft = (403, 251)
-                    better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
-                                                            True, "black", "light blue")
-                    better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
-                    better_snake_c_count_rect.midleft = (515, 251)
-                    better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
-                                                              True, "black", "light blue")
-                    better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
-                    better_necrola_c_count_rect.midleft = (645, 251)
-                    best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
-                                                            True, "black", "light blue")
-                    best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
-                    best_necrola_c_count_rect.midleft = (758, 251)
-                    chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
-                                                        True, "black", "light blue")
-                    chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
-                    chorizon_c_count_rect.midleft = (897, 251)
-                    basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
-                                                           True, "black", "light blue")
-                    basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
-                    basic_ghoul_c_count_rect.midleft = (403, 389)
-                    better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
-                                                            True, "black", "light blue")
-                    better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
-                    better_ghoul_c_count_rect.midleft = (515, 389)
-                    better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
-                                                              True, "black", "light blue")
-                    better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
-                    better_osodark_c_count_rect.midleft = (643, 389)
-                    best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
-                                                            True, "black", "light blue")
-                    best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
-                    best_osodark_c_count_rect.midleft = (757, 389)
-                    muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
-                                                        True, "black", "light blue")
-                    muchador_c_count_rect = muchador_c_count_surf.get_rect()
-                    muchador_c_count_rect.midleft = (895, 389)
-                    basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
-                                                             True, "black", "light blue")
-                    basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
-                    basic_bandile_c_count_rect.midleft = (398, 527)
-                    better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
-                                                              True, "black", "light blue")
-                    better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
-                    better_bandile_c_count_rect.midleft = (512, 527)
-                    better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
-                                                            True, "black", "light blue")
-                    better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
-                    better_atmon_c_count_rect.midleft = (647, 527)
-                    best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
-                                                          True, "black", "light blue")
-                    best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
-                    best_atmon_c_count_rect.midleft = (761, 527)
-                    chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
-                                                         True, "black", "light blue")
-                    chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
-                    chinzilla_c_count_rect.midleft = (898, 527)
-                    basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
-                                                            True, "black", "light blue")
-                    basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
-                    basic_magmon_c_count_rect.midleft = (393, 665)
-                    better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
-                                                             True, "black", "light blue")
-                    better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
-                    better_magmon_c_count_rect.midleft = (506, 665)
-                    better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
-                                                             True, "black", "light blue")
-                    better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
-                    better_jumano_c_count_rect.midleft = (645, 665)
-                    best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
-                                                           True, "black", "light blue")
-                    best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
-                    best_jumano_c_count_rect.midleft = (759, 665)
-                    erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
-                                                       True, "black", "light blue")
-                    erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
-                    erebyth_c_count_rect.midleft = (899, 665)
-
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(trading_deck_window, (359, 105))
-                        screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                    else:
-                        game_window.blit(trading_deck_window, (359, 105))
-                        game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                        game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
-                        game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
-                        game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
-                        game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
-                        game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
-                        game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
-                        game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
-                        game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
-                        game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
-                        game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
-                        game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
-                        game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
-                        game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
-                        game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
-                        game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
-                        game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
-                        game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
-                        game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
-                        game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
+                    render_card_deck()
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
@@ -14370,8 +14584,22 @@ if __name__ == "__main__":
                                 drawing_functions.fish_pop_up_window_text.clear()
 
                             if event.type == pygame.MOUSEBUTTONUP:
-                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
-                                                             pressed_keys, sfx_button_role)
+
+                                if npc_garan.gift:
+                                    gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                                 pressed_keys, sfx_button_role)
+                                if kasper_unlocked:
+                                    if kasper_whistle_button.rect.collidepoint(pos):
+                                        gameplay_functions.pet_call(pygame, player, True, False, False,
+                                                                    sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                if torok_unlocked:
+                                    if torok_whistle_button.rect.collidepoint(pos):
+                                        gameplay_functions.pet_call(pygame, player, False, True, False,
+                                                                    sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                if iriana_unlocked:
+                                    if iriana_whistle_button.rect.collidepoint(pos):
+                                        gameplay_functions.pet_call(pygame, player, False, False, True,
+                                                                    sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
 
                                 if game_guide_overlay.rect.collidepoint(pos):
                                     drawing_functions.game_guide_container.clear()
@@ -16821,8 +17049,17 @@ if __name__ == "__main__":
                             drawing_functions.fish_pop_up_window_text.clear()
 
                         if event.type == pygame.MOUSEBUTTONUP:
-                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
-                                                         pressed_keys, sfx_button_role)
+                            if npc_garan.gift:
+                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                             pressed_keys, sfx_button_role)
+                            if trading_deck:
+                                if card_deck_button.rect.collidepoint(pos):
+                                    match show_trade_deck:
+                                        case True:
+                                            show_trade_deck = False
+                                        case False:
+                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                            show_trade_deck = True
                             if player.current_zone == "seldon":
                                 cat_pet_button_overlay.update(505, 290, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
@@ -16835,9 +17072,13 @@ if __name__ == "__main__":
                                             break
                                         cat_count += 1
                                         if cat_count == 7 and not cat_rewarded:
-                                            cat_rewarded = True
-                                            player.items.append(Item("cat card", "card", 200, 200,
-                                                                     graphic_dict["cat_card"], 0))
+                                            if len(player.items) < 16:
+                                                cat_rewarded = True
+                                                player.items.append(
+                                                    Item("cat card", "card", 200, 200, graphic_dict["cat_card"], 0))
+                                            else:
+                                                info_text_1 = "Cats Reward but inventory is full."
+                                                info_text_2 = "Try freeing space and interact again."
                             if player.current_zone == "korlok":
                                 cat_pet_button_overlay.update(450, 400, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
@@ -16850,9 +17091,13 @@ if __name__ == "__main__":
                                             break
                                         cat_count += 1
                                         if cat_count == 7 and not cat_rewarded:
-                                            cat_rewarded = True
-                                            player.items.append(Item("cat card", "card", 200, 200,
-                                                                     graphic_dict["cat_card"], 0))
+                                            if len(player.items) < 16:
+                                                cat_rewarded = True
+                                                player.items.append(
+                                                    Item("cat card", "card", 200, 200, graphic_dict["cat_card"], 0))
+                                            else:
+                                                info_text_1 = "Cats Reward but inventory is full."
+                                                info_text_2 = "Try freeing space and interact again."
                             if player.current_zone == "ectrenos right":
                                 cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
@@ -16865,9 +17110,13 @@ if __name__ == "__main__":
                                             break
                                         cat_count += 1
                                         if cat_count == 7 and not cat_rewarded:
-                                            cat_rewarded = True
-                                            player.items.append(Item("cat card", "card", 200, 200,
-                                                                     graphic_dict["cat_card"], 0))
+                                            if len(player.items) < 16:
+                                                cat_rewarded = True
+                                                player.items.append(
+                                                    Item("cat card", "card", 200, 200, graphic_dict["cat_card"], 0))
+                                            else:
+                                                info_text_1 = "Cats Reward but inventory is full."
+                                                info_text_2 = "Try freeing space and interact again."
 
                         shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame,
                                                                        sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -16917,6 +17166,12 @@ if __name__ == "__main__":
                                     info_text_1 = sell_return["info 1"]
                                 if sell_return["info 2"] != "":
                                     info_text_1 = sell_return["info 2"]
+
+                                try:
+                                    if not sell_return["cat_rewarded"]:
+                                        cat_rewarded = False
+                                except KeyError:
+                                    pass
 
                                 # draws sell info box for info and confirmation
                                 sell_item = click_handlers.sell_event_item(event, pygame, sfx_button_inventory,
@@ -17577,6 +17832,9 @@ if __name__ == "__main__":
                             if button_highlighted:
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
 
+                    if show_trade_deck:
+                        render_card_deck()
+
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in inn ----------------------------------------------------------------------------------
@@ -17647,10 +17905,17 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             if show_cat_card:
                                 show_cat_card = False
-                            if show_trade_deck:
-                                show_trade_deck = False
-                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
-                                                         pressed_keys, sfx_button_role)
+                            if trading_deck:
+                                if card_deck_button.rect.collidepoint(pos):
+                                    match show_trade_deck:
+                                        case True:
+                                            show_trade_deck = False
+                                        case False:
+                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                            show_trade_deck = True
+                            if npc_garan.gift:
+                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                             pressed_keys, sfx_button_role)
 
                         # get which button player pressed during inn scenario (rest or leave)
                         inn_button = click_handlers.inn_event_button(event, rest_button, leave_button, pygame,
@@ -17669,12 +17934,6 @@ if __name__ == "__main__":
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
-                            except KeyError:
-                                pass
-                            try:
-                                if inventory_event["trade deck"]:
-                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    show_trade_deck = True
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -17904,112 +18163,7 @@ if __name__ == "__main__":
                         else:
                             game_window.blit(cat_card_portrait, (60, 105))
                     if show_trade_deck:
-                        basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
-                                                               True, "black", "light blue")
-                        basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
-                        basic_snake_c_count_rect.midleft = (403, 251)
-                        better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
-                                                                True, "black", "light blue")
-                        better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
-                        better_snake_c_count_rect.midleft = (515, 251)
-                        better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
-                                                                  True, "black", "light blue")
-                        better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
-                        better_necrola_c_count_rect.midleft = (645, 251)
-                        best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
-                                                                True, "black", "light blue")
-                        best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
-                        best_necrola_c_count_rect.midleft = (758, 251)
-                        chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
-                                                            True, "black", "light blue")
-                        chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
-                        chorizon_c_count_rect.midleft = (897, 251)
-                        basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
-                                                               True, "black", "light blue")
-                        basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
-                        basic_ghoul_c_count_rect.midleft = (403, 389)
-                        better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
-                                                                True, "black", "light blue")
-                        better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
-                        better_ghoul_c_count_rect.midleft = (515, 389)
-                        better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
-                                                                  True, "black", "light blue")
-                        better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
-                        better_osodark_c_count_rect.midleft = (643, 389)
-                        best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
-                                                                True, "black", "light blue")
-                        best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
-                        best_osodark_c_count_rect.midleft = (757, 389)
-                        muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
-                                                            True, "black", "light blue")
-                        muchador_c_count_rect = muchador_c_count_surf.get_rect()
-                        muchador_c_count_rect.midleft = (895, 389)
-                        basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
-                                                                 True, "black", "light blue")
-                        basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
-                        basic_bandile_c_count_rect.midleft = (398, 527)
-                        better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
-                                                                  True, "black", "light blue")
-                        better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
-                        better_bandile_c_count_rect.midleft = (512, 527)
-                        better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
-                                                                True, "black", "light blue")
-                        better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
-                        better_atmon_c_count_rect.midleft = (647, 527)
-                        best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
-                                                              True, "black", "light blue")
-                        best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
-                        best_atmon_c_count_rect.midleft = (761, 527)
-                        chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
-                                                             True, "black", "light blue")
-                        chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
-                        chinzilla_c_count_rect.midleft = (898, 527)
-                        basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
-                                                                True, "black", "light blue")
-                        basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
-                        basic_magmon_c_count_rect.midleft = (393, 665)
-                        better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
-                                                                 True, "black", "light blue")
-                        better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
-                        better_magmon_c_count_rect.midleft = (506, 665)
-                        better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
-                                                                 True, "black", "light blue")
-                        better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
-                        better_jumano_c_count_rect.midleft = (645, 665)
-                        best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
-                                                               True, "black", "light blue")
-                        best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
-                        best_jumano_c_count_rect.midleft = (759, 665)
-                        erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
-                                                           True, "black", "light blue")
-                        erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
-                        erebyth_c_count_rect.midleft = (899, 665)
-
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(trading_deck_window, (359, 105))
-                            screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                        else:
-                            game_window.blit(trading_deck_window, (359, 105))
-                            game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                            game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
-                            game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
-                            game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
-                            game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
-                            game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
-                            game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
-                            game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
-                            game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
-                            game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
-                            game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
-                            game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
-                            game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
-                            game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
-                            game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
-                            game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
-                            game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
-                            game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
-                            game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
-                            game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
+                        render_card_deck()
 
                     if rest_clicked:
                         if not rested:
@@ -18095,10 +18249,17 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             if show_cat_card:
                                 show_cat_card = False
-                            if show_trade_deck:
-                                show_trade_deck = False
-                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
-                                                         pressed_keys, sfx_button_role)
+                            if trading_deck:
+                                if card_deck_button.rect.collidepoint(pos):
+                                    match show_trade_deck:
+                                        case True:
+                                            show_trade_deck = False
+                                        case False:
+                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                            show_trade_deck = True
+                            if npc_garan.gift:
+                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                             pressed_keys, sfx_button_role)
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 pygame.mixer.find_channel(True).play(sfx_cat_meow)
                                 academia_cat_pet = True
@@ -18109,9 +18270,13 @@ if __name__ == "__main__":
                                         break
                                     cat_count += 1
                                     if cat_count == 7 and not cat_rewarded:
-                                        cat_rewarded = True
-                                        player.items.append(Item("cat card", "card", 200, 200,
-                                                                 graphic_dict["cat_card"], 0))
+                                        if len(player.items) < 16:
+                                            cat_rewarded = True
+                                            player.items.append(
+                                                Item("cat card", "card", 200, 200, graphic_dict["cat_card"], 0))
+                                        else:
+                                            info_text_1 = "Cats Reward but inventory is full."
+                                            info_text_2 = "Try freeing space and interact again."
                         # get which button player pressed during academia scenario (learn or leave)
                         academia_button = click_handlers.academia_event_button(event, mage_learn_button,
                                                                                fighter_learn_button, scout_learn_button,
@@ -18130,12 +18295,6 @@ if __name__ == "__main__":
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
-                            except KeyError:
-                                pass
-                            try:
-                                if inventory_event["trade deck"]:
-                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    show_trade_deck = True
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -18354,7 +18513,7 @@ if __name__ == "__main__":
                                                 info_text_1 = "80 scout knowledge required to learn."
                                                 info_text_2 = ""
                                         else:
-                                            info_text_1 = "You've already learned 'Vanishing Shroud'."
+                                            info_text_1 = "You've already learned this."
                                             info_text_2 = ""
                                 if player.level > 19:
                                     if book_button.name == "arrow learn button":
@@ -18530,17 +18689,17 @@ if __name__ == "__main__":
                             text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
                                                                    "light yellow")
                             text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
-                            text_mage_knowledge_rect.center = (515, 680)
+                            text_mage_knowledge_rect.center = (630, 680)
                             game_window.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
                             text_fighter_know_surf = font.render(str(player.knowledge["fighter"]), True, "black",
                                                                  "light yellow")
                             text_fighter_know_rect = text_fighter_know_surf.get_rect()
-                            text_fighter_know_rect.center = (695, 680)
+                            text_fighter_know_rect.center = (752, 680)
                             game_window.blit(text_fighter_know_surf, text_fighter_know_rect)
                             text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black",
                                                                     "light yellow")
                             text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
-                            text_scout_knowledge_rect.center = (865, 680)
+                            text_scout_knowledge_rect.center = (862, 680)
                             game_window.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
 
                         if not book_appended:
@@ -18610,112 +18769,7 @@ if __name__ == "__main__":
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
                         if show_trade_deck:
-                            basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
-                                                                   True, "black", "light blue")
-                            basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
-                            basic_snake_c_count_rect.midleft = (403, 251)
-                            better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
-                                                                    True, "black", "light blue")
-                            better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
-                            better_snake_c_count_rect.midleft = (515, 251)
-                            better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
-                                                                      True, "black", "light blue")
-                            better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
-                            better_necrola_c_count_rect.midleft = (645, 251)
-                            best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
-                                                                    True, "black", "light blue")
-                            best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
-                            best_necrola_c_count_rect.midleft = (758, 251)
-                            chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
-                                                                True, "black", "light blue")
-                            chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
-                            chorizon_c_count_rect.midleft = (897, 251)
-                            basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
-                                                                   True, "black", "light blue")
-                            basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
-                            basic_ghoul_c_count_rect.midleft = (403, 389)
-                            better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
-                                                                    True, "black", "light blue")
-                            better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
-                            better_ghoul_c_count_rect.midleft = (515, 389)
-                            better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
-                                                                      True, "black", "light blue")
-                            better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
-                            better_osodark_c_count_rect.midleft = (643, 389)
-                            best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
-                                                                    True, "black", "light blue")
-                            best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
-                            best_osodark_c_count_rect.midleft = (757, 389)
-                            muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
-                                                                True, "black", "light blue")
-                            muchador_c_count_rect = muchador_c_count_surf.get_rect()
-                            muchador_c_count_rect.midleft = (895, 389)
-                            basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
-                                                                     True, "black", "light blue")
-                            basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
-                            basic_bandile_c_count_rect.midleft = (398, 527)
-                            better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
-                                                                      True, "black", "light blue")
-                            better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
-                            better_bandile_c_count_rect.midleft = (512, 527)
-                            better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
-                                                                    True, "black", "light blue")
-                            better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
-                            better_atmon_c_count_rect.midleft = (647, 527)
-                            best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
-                                                                  True, "black", "light blue")
-                            best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
-                            best_atmon_c_count_rect.midleft = (761, 527)
-                            chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
-                                                                 True, "black", "light blue")
-                            chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
-                            chinzilla_c_count_rect.midleft = (898, 527)
-                            basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
-                                                                    True, "black", "light blue")
-                            basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
-                            basic_magmon_c_count_rect.midleft = (393, 665)
-                            better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
-                                                                     True, "black", "light blue")
-                            better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
-                            better_magmon_c_count_rect.midleft = (506, 665)
-                            better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
-                                                                     True, "black", "light blue")
-                            better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
-                            better_jumano_c_count_rect.midleft = (645, 665)
-                            best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
-                                                                   True, "black", "light blue")
-                            best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
-                            best_jumano_c_count_rect.midleft = (759, 665)
-                            erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
-                                                               True, "black", "light blue")
-                            erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
-                            erebyth_c_count_rect.midleft = (899, 665)
-
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(trading_deck_window, (359, 105))
-                                screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                            else:
-                                game_window.blit(trading_deck_window, (359, 105))
-                                game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                                game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
-                                game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
-                                game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
-                                game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
-                                game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
-                                game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
-                                game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
-                                game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
-                                game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
-                                game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
-                                game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
-                                game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
-                                game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
-                                game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
-                                game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
-                                game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
-                                game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
-                                game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
-                                game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
+                            render_card_deck()
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -18724,10 +18778,11 @@ if __name__ == "__main__":
                         and not in_battle:
 
                     if not npc_text_reset:
-                        info_text_1 = "Press the 'Talk' button to interact"
-                        info_text_2 = "with the NPC. "
-                        info_text_3 = ""
-                        info_text_4 = ""
+                        if not apothecary_window_open:
+                            info_text_1 = "Press the 'Talk' button to interact"
+                            info_text_2 = "with the NPC. "
+                            info_text_3 = ""
+                            info_text_4 = ""
 
                     if not building_song_set:
                         if pygame.mixer.music.get_busy():
@@ -18786,10 +18841,17 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             if show_cat_card:
                                 show_cat_card = False
-                            if show_trade_deck:
-                                show_trade_deck = False
-                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
-                                                         pressed_keys, sfx_button_role)
+                            if trading_deck:
+                                if card_deck_button.rect.collidepoint(pos):
+                                    match show_trade_deck:
+                                        case True:
+                                            show_trade_deck = False
+                                        case False:
+                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                            show_trade_deck = True
+                            if npc_garan.gift:
+                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                             pressed_keys, sfx_button_role)
                             drawing_functions.quest_complete_box.clear()
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 pygame.mixer.find_channel(True).play(sfx_cat_meow)
@@ -18801,9 +18863,13 @@ if __name__ == "__main__":
                                         break
                                     cat_count += 1
                                     if cat_count == 7 and not cat_rewarded:
-                                        cat_rewarded = True
-                                        player.items.append(Item("cat card", "card", 200, 200,
-                                                                 graphic_dict["cat_card"], 0))
+                                        if len(player.items) < 16:
+                                            cat_rewarded = True
+                                            player.items.append(
+                                                Item("cat card", "card", 200, 200, graphic_dict["cat_card"], 0))
+                                        else:
+                                            info_text_1 = "Cats Reward but inventory is full."
+                                            info_text_2 = "Try freeing space and interact again."
                             if quest_accepted.rect.collidepoint(pos):
                                 drawing_functions.quest_accept_box.clear()
                             if potions_button.rect.collidepoint(pos):
@@ -18916,12 +18982,6 @@ if __name__ == "__main__":
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
-                            except KeyError:
-                                pass
-                            try:
-                                if inventory_event["trade deck"]:
-                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    show_trade_deck = True
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -19273,112 +19333,7 @@ if __name__ == "__main__":
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
                         if show_trade_deck:
-                            basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
-                                                                   True, "black", "light blue")
-                            basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
-                            basic_snake_c_count_rect.midleft = (403, 251)
-                            better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
-                                                                    True, "black", "light blue")
-                            better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
-                            better_snake_c_count_rect.midleft = (515, 251)
-                            better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
-                                                                      True, "black", "light blue")
-                            better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
-                            better_necrola_c_count_rect.midleft = (645, 251)
-                            best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
-                                                                    True, "black", "light blue")
-                            best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
-                            best_necrola_c_count_rect.midleft = (758, 251)
-                            chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
-                                                                True, "black", "light blue")
-                            chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
-                            chorizon_c_count_rect.midleft = (897, 251)
-                            basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
-                                                                   True, "black", "light blue")
-                            basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
-                            basic_ghoul_c_count_rect.midleft = (403, 389)
-                            better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
-                                                                    True, "black", "light blue")
-                            better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
-                            better_ghoul_c_count_rect.midleft = (515, 389)
-                            better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
-                                                                      True, "black", "light blue")
-                            better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
-                            better_osodark_c_count_rect.midleft = (643, 389)
-                            best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
-                                                                    True, "black", "light blue")
-                            best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
-                            best_osodark_c_count_rect.midleft = (757, 389)
-                            muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
-                                                                True, "black", "light blue")
-                            muchador_c_count_rect = muchador_c_count_surf.get_rect()
-                            muchador_c_count_rect.midleft = (895, 389)
-                            basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
-                                                                     True, "black", "light blue")
-                            basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
-                            basic_bandile_c_count_rect.midleft = (398, 527)
-                            better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
-                                                                      True, "black", "light blue")
-                            better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
-                            better_bandile_c_count_rect.midleft = (512, 527)
-                            better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
-                                                                    True, "black", "light blue")
-                            better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
-                            better_atmon_c_count_rect.midleft = (647, 527)
-                            best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
-                                                                  True, "black", "light blue")
-                            best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
-                            best_atmon_c_count_rect.midleft = (761, 527)
-                            chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
-                                                                 True, "black", "light blue")
-                            chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
-                            chinzilla_c_count_rect.midleft = (898, 527)
-                            basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
-                                                                    True, "black", "light blue")
-                            basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
-                            basic_magmon_c_count_rect.midleft = (393, 665)
-                            better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
-                                                                     True, "black", "light blue")
-                            better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
-                            better_magmon_c_count_rect.midleft = (506, 665)
-                            better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
-                                                                     True, "black", "light blue")
-                            better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
-                            better_jumano_c_count_rect.midleft = (645, 665)
-                            best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
-                                                                   True, "black", "light blue")
-                            best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
-                            best_jumano_c_count_rect.midleft = (759, 665)
-                            erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
-                                                               True, "black", "light blue")
-                            erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
-                            erebyth_c_count_rect.midleft = (899, 665)
-
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(trading_deck_window, (359, 105))
-                                screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                            else:
-                                game_window.blit(trading_deck_window, (359, 105))
-                                game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                                game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
-                                game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
-                                game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
-                                game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
-                                game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
-                                game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
-                                game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
-                                game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
-                                game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
-                                game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
-                                game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
-                                game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
-                                game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
-                                game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
-                                game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
-                                game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
-                                game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
-                                game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
-                                game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
+                            render_card_deck()
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -19455,11 +19410,17 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             if show_cat_card:
                                 show_cat_card = False
-                            if show_trade_deck:
-                                show_trade_deck = False
-                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
-                                                         sword, bow,
-                                                         pressed_keys, sfx_button_role)
+                            if trading_deck:
+                                if card_deck_button.rect.collidepoint(pos):
+                                    match show_trade_deck:
+                                        case True:
+                                            show_trade_deck = False
+                                        case False:
+                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                            show_trade_deck = True
+                            if npc_garan.gift:
+                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
+                                                             sword, bow, pressed_keys, sfx_button_role)
                             drawing_functions.quest_complete_box.clear()
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 pygame.mixer.find_channel(True).play(sfx_cat_meow)
@@ -19471,9 +19432,13 @@ if __name__ == "__main__":
                                         break
                                     cat_count += 1
                                     if cat_count == 7 and not cat_rewarded:
-                                        cat_rewarded = True
-                                        player.items.append(Item("cat card", "card", 200, 200,
-                                                                 graphic_dict["cat_card"], 0))
+                                        if len(player.items) < 16:
+                                            cat_rewarded = True
+                                            player.items.append(
+                                                Item("cat card", "card", 200, 200, graphic_dict["cat_card"], 0))
+                                        else:
+                                            info_text_1 = "Cats Reward but inventory is full."
+                                            info_text_2 = "Try freeing space and interact again."
                             if quest_accepted.rect.collidepoint(pos):
                                 drawing_functions.quest_accept_box.clear()
                             if pets_button.rect.collidepoint(pos):
@@ -19609,13 +19574,14 @@ if __name__ == "__main__":
                                                                     graphic_dict["kasper_hatching"])
                                             hatched = True
                                             if not kasper_unlocked:
-                                                if len(player.items) < 16:
-                                                    kasper_unlocked = True
-                                                    player.pet.append(pet_kasper)
-                                                    player.items.append(pet_whistle_kasper)
-                                                else:
-                                                    info_text_1 = "Your inventory is full. "
-                                                    info_text_2 = ""
+                                                kasper_unlocked = True
+                                                player.pet.append(pet_kasper)
+                                                drawing_functions.pet_button_draw(kasper_unlocked,
+                                                                                  kasper_whistle_button,
+                                                                                  torok_unlocked,
+                                                                                  torok_whistle_button,
+                                                                                  iriana_unlocked,
+                                                                                  iriana_whistle_button)
                                             else:
                                                 if len(player.items) < 16:
                                                     info_text_1 = "You've already hatched a Kasper!"
@@ -19639,13 +19605,14 @@ if __name__ == "__main__":
                                                                     graphic_dict["torok_hatching"])
                                             hatched = True
                                             if not torok_unlocked:
-                                                if len(player.items) < 16:
-                                                    torok_unlocked = True
-                                                    player.pet.append(pet_torok)
-                                                    player.items.append(pet_whistle_torok)
-                                                else:
-                                                    info_text_1 = "Your inventory is full. "
-                                                    info_text_2 = ""
+                                                torok_unlocked = True
+                                                player.pet.append(pet_torok)
+                                                drawing_functions.pet_button_draw(kasper_unlocked,
+                                                                                  kasper_whistle_button,
+                                                                                  torok_unlocked,
+                                                                                  torok_whistle_button,
+                                                                                  iriana_unlocked,
+                                                                                  iriana_whistle_button)
                                             else:
                                                 if len(player.items) < 16:
                                                     info_text_1 = "You've already hatched a Torok!"
@@ -19669,13 +19636,14 @@ if __name__ == "__main__":
                                                                     graphic_dict["iriana_hatching"])
                                             hatched = True
                                             if not iriana_unlocked:
-                                                if len(player.items) < 16:
-                                                    iriana_unlocked = True
-                                                    player.pet.append(pet_iriana)
-                                                    player.items.append(pet_whistle_iriana)
-                                                else:
-                                                    info_text_1 = "Your inventory is full. "
-                                                    info_text_2 = ""
+                                                iriana_unlocked = True
+                                                player.pet.append(pet_iriana)
+                                                drawing_functions.pet_button_draw(kasper_unlocked,
+                                                                                  kasper_whistle_button,
+                                                                                  torok_unlocked,
+                                                                                  torok_whistle_button,
+                                                                                  iriana_unlocked,
+                                                                                  iriana_whistle_button)
                                             else:
                                                 if len(player.items) < 16:
                                                     info_text_1 = "You've already hatched an Iriana!"
@@ -19716,12 +19684,6 @@ if __name__ == "__main__":
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
-                            except KeyError:
-                                pass
-                            try:
-                                if inventory_event["trade deck"]:
-                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    show_trade_deck = True
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -20031,112 +19993,7 @@ if __name__ == "__main__":
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
                         if show_trade_deck:
-                            basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
-                                                                   True, "black", "light blue")
-                            basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
-                            basic_snake_c_count_rect.midleft = (403, 251)
-                            better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
-                                                                    True, "black", "light blue")
-                            better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
-                            better_snake_c_count_rect.midleft = (515, 251)
-                            better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
-                                                                      True, "black", "light blue")
-                            better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
-                            better_necrola_c_count_rect.midleft = (645, 251)
-                            best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
-                                                                    True, "black", "light blue")
-                            best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
-                            best_necrola_c_count_rect.midleft = (758, 251)
-                            chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
-                                                                True, "black", "light blue")
-                            chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
-                            chorizon_c_count_rect.midleft = (897, 251)
-                            basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
-                                                                   True, "black", "light blue")
-                            basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
-                            basic_ghoul_c_count_rect.midleft = (403, 389)
-                            better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
-                                                                    True, "black", "light blue")
-                            better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
-                            better_ghoul_c_count_rect.midleft = (515, 389)
-                            better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
-                                                                      True, "black", "light blue")
-                            better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
-                            better_osodark_c_count_rect.midleft = (643, 389)
-                            best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
-                                                                    True, "black", "light blue")
-                            best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
-                            best_osodark_c_count_rect.midleft = (757, 389)
-                            muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
-                                                                True, "black", "light blue")
-                            muchador_c_count_rect = muchador_c_count_surf.get_rect()
-                            muchador_c_count_rect.midleft = (895, 389)
-                            basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
-                                                                     True, "black", "light blue")
-                            basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
-                            basic_bandile_c_count_rect.midleft = (398, 527)
-                            better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
-                                                                      True, "black", "light blue")
-                            better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
-                            better_bandile_c_count_rect.midleft = (512, 527)
-                            better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
-                                                                    True, "black", "light blue")
-                            better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
-                            better_atmon_c_count_rect.midleft = (647, 527)
-                            best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
-                                                                  True, "black", "light blue")
-                            best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
-                            best_atmon_c_count_rect.midleft = (761, 527)
-                            chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
-                                                                 True, "black", "light blue")
-                            chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
-                            chinzilla_c_count_rect.midleft = (898, 527)
-                            basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
-                                                                    True, "black", "light blue")
-                            basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
-                            basic_magmon_c_count_rect.midleft = (393, 665)
-                            better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
-                                                                     True, "black", "light blue")
-                            better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
-                            better_magmon_c_count_rect.midleft = (506, 665)
-                            better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
-                                                                     True, "black", "light blue")
-                            better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
-                            better_jumano_c_count_rect.midleft = (645, 665)
-                            best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
-                                                                   True, "black", "light blue")
-                            best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
-                            best_jumano_c_count_rect.midleft = (759, 665)
-                            erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
-                                                               True, "black", "light blue")
-                            erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
-                            erebyth_c_count_rect.midleft = (899, 665)
-
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(trading_deck_window, (359, 105))
-                                screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                            else:
-                                game_window.blit(trading_deck_window, (359, 105))
-                                game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                                game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
-                                game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
-                                game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
-                                game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
-                                game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
-                                game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
-                                game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
-                                game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
-                                game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
-                                game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
-                                game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
-                                game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
-                                game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
-                                game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
-                                game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
-                                game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
-                                game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
-                                game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
-                                game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
+                            render_card_deck()
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -20206,10 +20063,17 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             if show_cat_card:
                                 show_cat_card = False
-                            if show_trade_deck:
-                                show_trade_deck = False
-                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
-                                                         sword, bow, pressed_keys, sfx_button_role)
+                            if trading_deck:
+                                if card_deck_button.rect.collidepoint(pos):
+                                    match show_trade_deck:
+                                        case True:
+                                            show_trade_deck = False
+                                        case False:
+                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                            show_trade_deck = True
+                            if npc_garan.gift:
+                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
+                                                             sword, bow, pressed_keys, sfx_button_role)
                             drawing_functions.quest_complete_box_fishing.clear()
                             if quest_accepted.rect.collidepoint(pos):
                                 drawing_functions.quest_accept_box_fishing.clear()
@@ -20234,30 +20098,8 @@ if __name__ == "__main__":
                                 button_highlighted = False
 
                             if check_basic_fish_button.rect.collidepoint(pos) and hut_window_open:
-                                if basic_fish_counter >= 10:
+                                if basic_fish_counter >= 4:
                                     if not basic_fish_reward:
-                                        if fishing_level == 1 or fishing_level == 2.0 or fishing_level == 3.0:
-                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
-                                        else:
-                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        fishing_level += 0.5
-                                        player.rupees += 300
-                                        info_text_1 = "You gained fishing experience"
-                                        info_text_2 = "And 300 Rupees!"
-                                        basic_fish_reward = True
-                                    else:
-                                        pygame.mixer.find_channel(True).play(sfx_button_click)
-                                        info_text_1 = "You already claimed this reward. "
-                                        info_text_2 = ""
-                                else:
-                                    pygame.mixer.find_channel(True).play(sfx_button_click)
-                                    info_text_1 = "You need to catch 10 fish. "
-                                    info_text_2 = ""
-                                button_highlighted = False
-                            if check_better_fish_button.rect.collidepoint(pos) and hut_window_open:
-                                if better_fish_counter >= 15:
-                                    if not better_fish_reward:
                                         if fishing_level == 1 or fishing_level == 2.0 or fishing_level == 3.0:
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
                                         else:
@@ -20267,6 +20109,28 @@ if __name__ == "__main__":
                                         player.rupees += 400
                                         info_text_1 = "You gained fishing experience"
                                         info_text_2 = "And 400 Rupees!"
+                                        basic_fish_reward = True
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_button_click)
+                                        info_text_1 = "You already claimed this reward. "
+                                        info_text_2 = ""
+                                else:
+                                    pygame.mixer.find_channel(True).play(sfx_button_click)
+                                    info_text_1 = "You need to catch 4 basic fish. "
+                                    info_text_2 = ""
+                                button_highlighted = False
+                            if check_better_fish_button.rect.collidepoint(pos) and hut_window_open:
+                                if better_fish_counter >= 8:
+                                    if not better_fish_reward:
+                                        if fishing_level == 1 or fishing_level == 2.0 or fishing_level == 3.0:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
+                                        else:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
+                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                        fishing_level += 0.5
+                                        player.rupees += 600
+                                        info_text_1 = "You gained fishing experience"
+                                        info_text_2 = "And 600 Rupees!"
                                         better_fish_reward = True
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_button_click)
@@ -20274,34 +20138,12 @@ if __name__ == "__main__":
                                         info_text_2 = ""
                                 else:
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
-                                    info_text_1 = "You need to catch 15 fish. "
+                                    info_text_1 = "You need to catch 8 better fish. "
                                     info_text_2 = ""
                                 button_highlighted = False
                             if check_even_better_fish_button.rect.collidepoint(pos) and hut_window_open:
-                                if even_better_fish_counter >= 20:
+                                if even_better_fish_counter >= 12:
                                     if not even_better_fish_reward:
-                                        if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
-                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
-                                        else:
-                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
-                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        fishing_level += 0.5
-                                        player.rupees += 500
-                                        info_text_1 = "You gained fishing experience"
-                                        info_text_2 = "And 500 Rupees!"
-                                        even_better_fish_reward = True
-                                    else:
-                                        pygame.mixer.find_channel(True).play(sfx_button_click)
-                                        info_text_1 = "You already claimed this reward. "
-                                        info_text_2 = ""
-                                else:
-                                    pygame.mixer.find_channel(True).play(sfx_button_click)
-                                    info_text_1 = "You need to catch 20 fish. "
-                                    info_text_2 = ""
-                                button_highlighted = False
-                            if check_best_fish_button.rect.collidepoint(pos) and hut_window_open:
-                                if best_fish_counter >= 25:
-                                    if not best_fish_reward:
                                         if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
                                         else:
@@ -20311,6 +20153,28 @@ if __name__ == "__main__":
                                         player.rupees += 800
                                         info_text_1 = "You gained fishing experience"
                                         info_text_2 = "And 800 Rupees!"
+                                        even_better_fish_reward = True
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_button_click)
+                                        info_text_1 = "You already claimed this reward. "
+                                        info_text_2 = ""
+                                else:
+                                    pygame.mixer.find_channel(True).play(sfx_button_click)
+                                    info_text_1 = "You need to catch 12 even better fish. "
+                                    info_text_2 = ""
+                                button_highlighted = False
+                            if check_best_fish_button.rect.collidepoint(pos) and hut_window_open:
+                                if best_fish_counter >= 16:
+                                    if not best_fish_reward:
+                                        if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
+                                        else:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
+                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                        fishing_level += 0.5
+                                        player.rupees += 1000
+                                        info_text_1 = "You gained fishing experience"
+                                        info_text_2 = "And 1000 Rupees!"
                                         best_fish_reward = True
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_button_click)
@@ -20318,7 +20182,7 @@ if __name__ == "__main__":
                                         info_text_2 = ""
                                 else:
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
-                                    info_text_1 = "You need to catch 25 fish. "
+                                    info_text_1 = "You need to catch 16 best fish. "
                                     info_text_2 = ""
                                 button_highlighted = False
 
@@ -20345,12 +20209,6 @@ if __name__ == "__main__":
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
-                            except KeyError:
-                                pass
-                            try:
-                                if inventory_event["trade deck"]:
-                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    show_trade_deck = True
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -20606,22 +20464,22 @@ if __name__ == "__main__":
                             game_window.blit(fish_button.surf, fish_button.rect)
                             if fishing_journal_unlocked:
                                 if hut_window_open:
-                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /10",
+                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /4",
                                                                            True, "black", "light yellow")
                                     basic_fish_surf_rect = basic_fish_surf.get_rect()
                                     basic_fish_surf_rect.midleft = (40, 150)
                                     game_window.blit(basic_fish_surf, basic_fish_surf_rect)
-                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /15",
+                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /8",
                                                                             True, "black", "light yellow")
                                     better_fish_surf_rect = better_fish_surf.get_rect()
                                     better_fish_surf_rect.midleft = (40, 247)
                                     game_window.blit(better_fish_surf, better_fish_surf_rect)
-                                    even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /20",
+                                    even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /12",
                                                                                  True, "black", "light yellow")
                                     even_better_fish_surf_rect = even_better_fish_surf.get_rect()
                                     even_better_fish_surf_rect.midleft = (40, 344)
                                     game_window.blit(even_better_fish_surf, even_better_fish_surf_rect)
-                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /25",
+                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /16",
                                                                           True, "black", "light yellow")
                                     best_fish_surf_rect = best_fish_surf.get_rect()
                                     best_fish_surf_rect.midleft = (40, 440)
@@ -20649,112 +20507,7 @@ if __name__ == "__main__":
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
                         if show_trade_deck:
-                            basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
-                                                                   True, "black", "light blue")
-                            basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
-                            basic_snake_c_count_rect.midleft = (403, 251)
-                            better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
-                                                                    True, "black", "light blue")
-                            better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
-                            better_snake_c_count_rect.midleft = (515, 251)
-                            better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
-                                                                      True, "black", "light blue")
-                            better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
-                            better_necrola_c_count_rect.midleft = (645, 251)
-                            best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
-                                                                    True, "black", "light blue")
-                            best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
-                            best_necrola_c_count_rect.midleft = (758, 251)
-                            chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
-                                                                True, "black", "light blue")
-                            chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
-                            chorizon_c_count_rect.midleft = (897, 251)
-                            basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
-                                                                   True, "black", "light blue")
-                            basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
-                            basic_ghoul_c_count_rect.midleft = (403, 389)
-                            better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
-                                                                    True, "black", "light blue")
-                            better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
-                            better_ghoul_c_count_rect.midleft = (515, 389)
-                            better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
-                                                                      True, "black", "light blue")
-                            better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
-                            better_osodark_c_count_rect.midleft = (643, 389)
-                            best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
-                                                                    True, "black", "light blue")
-                            best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
-                            best_osodark_c_count_rect.midleft = (757, 389)
-                            muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
-                                                                True, "black", "light blue")
-                            muchador_c_count_rect = muchador_c_count_surf.get_rect()
-                            muchador_c_count_rect.midleft = (895, 389)
-                            basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
-                                                                     True, "black", "light blue")
-                            basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
-                            basic_bandile_c_count_rect.midleft = (398, 527)
-                            better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
-                                                                      True, "black", "light blue")
-                            better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
-                            better_bandile_c_count_rect.midleft = (512, 527)
-                            better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
-                                                                    True, "black", "light blue")
-                            better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
-                            better_atmon_c_count_rect.midleft = (647, 527)
-                            best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
-                                                                  True, "black", "light blue")
-                            best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
-                            best_atmon_c_count_rect.midleft = (761, 527)
-                            chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
-                                                                 True, "black", "light blue")
-                            chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
-                            chinzilla_c_count_rect.midleft = (898, 527)
-                            basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
-                                                                    True, "black", "light blue")
-                            basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
-                            basic_magmon_c_count_rect.midleft = (393, 665)
-                            better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
-                                                                     True, "black", "light blue")
-                            better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
-                            better_magmon_c_count_rect.midleft = (506, 665)
-                            better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
-                                                                     True, "black", "light blue")
-                            better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
-                            better_jumano_c_count_rect.midleft = (645, 665)
-                            best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
-                                                                   True, "black", "light blue")
-                            best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
-                            best_jumano_c_count_rect.midleft = (759, 665)
-                            erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
-                                                               True, "black", "light blue")
-                            erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
-                            erebyth_c_count_rect.midleft = (899, 665)
-
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(trading_deck_window, (359, 105))
-                                screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                            else:
-                                game_window.blit(trading_deck_window, (359, 105))
-                                game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                                game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
-                                game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
-                                game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
-                                game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
-                                game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
-                                game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
-                                game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
-                                game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
-                                game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
-                                game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
-                                game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
-                                game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
-                                game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
-                                game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
-                                game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
-                                game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
-                                game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
-                                game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
-                                game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
+                            render_card_deck()
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -20821,10 +20574,17 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             if show_cat_card:
                                 show_cat_card = False
-                            if show_trade_deck:
-                                show_trade_deck = False
-                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
-                                                         sword, bow, pressed_keys, sfx_button_role)
+                            if trading_deck:
+                                if card_deck_button.rect.collidepoint(pos):
+                                    match show_trade_deck:
+                                        case True:
+                                            show_trade_deck = False
+                                        case False:
+                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                            show_trade_deck = True
+                            if npc_garan.gift:
+                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
+                                                             sword, bow, pressed_keys, sfx_button_role)
                             drawing_functions.quest_complete_box_trading.clear()
                             if quest_accepted.rect.collidepoint(pos):
                                 drawing_functions.quest_accept_box_trading.clear()
@@ -21032,12 +20792,6 @@ if __name__ == "__main__":
                                     show_cat_card = True
                             except KeyError:
                                 pass
-                            try:
-                                if inventory_event["trade deck"]:
-                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    show_trade_deck = True
-                            except KeyError:
-                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -21151,14 +20905,12 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
                                 info_text_1 = "You've accepted the task!"
                                 info_text_2 = ""
-                                if len(player.items) < 16:
-                                    if not trading_deck:
-                                        player.items.append(Item("trade deck", "deck", 200, 200,
-                                                                 graphic_dict["trade_deck"], 0))
-                                        trading_deck = True
-                                        on_card_quest = True
-                                else:
-                                    info_text_1 = "Not enough inventory space."
+   
+                                if not trading_deck:
+                                    drawing_functions.extra_button_container.append(card_deck_button)
+                                    trading_deck = True
+                                    on_card_quest = True
+
                                 button_highlighted = False
                                 quest_clicked = False
                                 drawing_functions.quest_box_trading.clear()
@@ -21259,112 +21011,7 @@ if __name__ == "__main__":
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
                         if show_trade_deck:
-                            basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
-                                                                   True, "black", "light blue")
-                            basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
-                            basic_snake_c_count_rect.midleft = (403, 251)
-                            better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
-                                                                    True, "black", "light blue")
-                            better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
-                            better_snake_c_count_rect.midleft = (515, 251)
-                            better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
-                                                                      True, "black", "light blue")
-                            better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
-                            better_necrola_c_count_rect.midleft = (645, 251)
-                            best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
-                                                                    True, "black", "light blue")
-                            best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
-                            best_necrola_c_count_rect.midleft = (758, 251)
-                            chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
-                                                                True, "black", "light blue")
-                            chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
-                            chorizon_c_count_rect.midleft = (897, 251)
-                            basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
-                                                                   True, "black", "light blue")
-                            basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
-                            basic_ghoul_c_count_rect.midleft = (403, 389)
-                            better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
-                                                                    True, "black", "light blue")
-                            better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
-                            better_ghoul_c_count_rect.midleft = (515, 389)
-                            better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
-                                                                      True, "black", "light blue")
-                            better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
-                            better_osodark_c_count_rect.midleft = (643, 389)
-                            best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
-                                                                    True, "black", "light blue")
-                            best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
-                            best_osodark_c_count_rect.midleft = (757, 389)
-                            muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
-                                                                True, "black", "light blue")
-                            muchador_c_count_rect = muchador_c_count_surf.get_rect()
-                            muchador_c_count_rect.midleft = (895, 389)
-                            basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
-                                                                     True, "black", "light blue")
-                            basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
-                            basic_bandile_c_count_rect.midleft = (398, 527)
-                            better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
-                                                                      True, "black", "light blue")
-                            better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
-                            better_bandile_c_count_rect.midleft = (512, 527)
-                            better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
-                                                                    True, "black", "light blue")
-                            better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
-                            better_atmon_c_count_rect.midleft = (647, 527)
-                            best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
-                                                                  True, "black", "light blue")
-                            best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
-                            best_atmon_c_count_rect.midleft = (761, 527)
-                            chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
-                                                                 True, "black", "light blue")
-                            chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
-                            chinzilla_c_count_rect.midleft = (898, 527)
-                            basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
-                                                                    True, "black", "light blue")
-                            basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
-                            basic_magmon_c_count_rect.midleft = (393, 665)
-                            better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
-                                                                     True, "black", "light blue")
-                            better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
-                            better_magmon_c_count_rect.midleft = (506, 665)
-                            better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
-                                                                     True, "black", "light blue")
-                            better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
-                            better_jumano_c_count_rect.midleft = (645, 665)
-                            best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
-                                                                   True, "black", "light blue")
-                            best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
-                            best_jumano_c_count_rect.midleft = (759, 665)
-                            erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
-                                                               True, "black", "light blue")
-                            erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
-                            erebyth_c_count_rect.midleft = (899, 665)
-
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(trading_deck_window, (359, 105))
-                                screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                            else:
-                                game_window.blit(trading_deck_window, (359, 105))
-                                game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                                game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
-                                game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
-                                game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
-                                game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
-                                game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
-                                game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
-                                game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
-                                game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
-                                game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
-                                game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
-                                game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
-                                game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
-                                game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
-                                game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
-                                game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
-                                game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
-                                game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
-                                game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
-                                game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
+                            render_card_deck()
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -21421,10 +21068,17 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             if show_cat_card:
                                 show_cat_card = False
-                            if show_trade_deck:
-                                show_trade_deck = False
-                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
-                                                         pressed_keys, sfx_button_role)
+                            if trading_deck:
+                                if card_deck_button.rect.collidepoint(pos):
+                                    match show_trade_deck:
+                                        case True:
+                                            show_trade_deck = False
+                                        case False:
+                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                            show_trade_deck = True
+                            if npc_garan.gift:
+                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                             pressed_keys, sfx_button_role)
                             if garan_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
                             if maurelle_complete_quest_window.rect.collidepoint(pos):
@@ -21549,12 +21203,6 @@ if __name__ == "__main__":
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
-                            except KeyError:
-                                pass
-                            try:
-                                if inventory_event["trade deck"]:
-                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    show_trade_deck = True
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -22731,112 +22379,7 @@ if __name__ == "__main__":
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
                         if show_trade_deck:
-                            basic_snake_c_count_surf = font.render("C-Snake: " + str(card_deck["basic_snake"]),
-                                                                   True, "black", "light blue")
-                            basic_snake_c_count_rect = basic_snake_c_count_surf.get_rect()
-                            basic_snake_c_count_rect.midleft = (403, 251)
-                            better_snake_c_count_surf = font.render("B-Snake: " + str(card_deck["better_snake"]),
-                                                                    True, "black", "light blue")
-                            better_snake_c_count_rect = better_snake_c_count_surf.get_rect()
-                            better_snake_c_count_rect.midleft = (515, 251)
-                            better_necrola_c_count_surf = font.render("B-Necrola: " + str(card_deck["better_necrola"]),
-                                                                      True, "black", "light blue")
-                            better_necrola_c_count_rect = better_necrola_c_count_surf.get_rect()
-                            better_necrola_c_count_rect.midleft = (645, 251)
-                            best_necrola_c_count_surf = font.render("A-Necrola: " + str(card_deck["best_necrola"]),
-                                                                    True, "black", "light blue")
-                            best_necrola_c_count_rect = best_necrola_c_count_surf.get_rect()
-                            best_necrola_c_count_rect.midleft = (758, 251)
-                            chorizon_c_count_surf = font.render("Chorizon: " + str(card_deck["chorizon"]),
-                                                                True, "black", "light blue")
-                            chorizon_c_count_rect = chorizon_c_count_surf.get_rect()
-                            chorizon_c_count_rect.midleft = (897, 251)
-                            basic_ghoul_c_count_surf = font.render("C-Ghoul: " + str(card_deck["basic_ghoul"]),
-                                                                   True, "black", "light blue")
-                            basic_ghoul_c_count_rect = basic_ghoul_c_count_surf.get_rect()
-                            basic_ghoul_c_count_rect.midleft = (403, 389)
-                            better_ghoul_c_count_surf = font.render("B-Ghoul: " + str(card_deck["better_ghoul"]),
-                                                                    True, "black", "light blue")
-                            better_ghoul_c_count_rect = better_ghoul_c_count_surf.get_rect()
-                            better_ghoul_c_count_rect.midleft = (515, 389)
-                            better_osodark_c_count_surf = font.render("B-Osodark: " + str(card_deck["better_osodark"]),
-                                                                      True, "black", "light blue")
-                            better_osodark_c_count_rect = better_osodark_c_count_surf.get_rect()
-                            better_osodark_c_count_rect.midleft = (643, 389)
-                            best_osodark_c_count_surf = font.render("A-Osodark: " + str(card_deck["best_osodark"]),
-                                                                    True, "black", "light blue")
-                            best_osodark_c_count_rect = best_osodark_c_count_surf.get_rect()
-                            best_osodark_c_count_rect.midleft = (757, 389)
-                            muchador_c_count_surf = font.render("Muchador: " + str(card_deck["muchador"]),
-                                                                True, "black", "light blue")
-                            muchador_c_count_rect = muchador_c_count_surf.get_rect()
-                            muchador_c_count_rect.midleft = (895, 389)
-                            basic_bandile_c_count_surf = font.render("C-Bandile: " + str(card_deck["basic_bandile"]),
-                                                                     True, "black", "light blue")
-                            basic_bandile_c_count_rect = basic_bandile_c_count_surf.get_rect()
-                            basic_bandile_c_count_rect.midleft = (398, 527)
-                            better_bandile_c_count_surf = font.render("B-Bandile: " + str(card_deck["better_bandile"]),
-                                                                      True, "black", "light blue")
-                            better_bandile_c_count_rect = better_bandile_c_count_surf.get_rect()
-                            better_bandile_c_count_rect.midleft = (512, 527)
-                            better_atmon_c_count_surf = font.render("B-Atmon: " + str(card_deck["better_atmon"]),
-                                                                    True, "black", "light blue")
-                            better_atmon_c_count_rect = better_atmon_c_count_surf.get_rect()
-                            better_atmon_c_count_rect.midleft = (647, 527)
-                            best_atmon_c_count_surf = font.render("A-Atmon: " + str(card_deck["best_atmon"]),
-                                                                  True, "black", "light blue")
-                            best_atmon_c_count_rect = best_atmon_c_count_surf.get_rect()
-                            best_atmon_c_count_rect.midleft = (761, 527)
-                            chinzilla_c_count_surf = font.render("Chinzilla: " + str(card_deck["chinzilla"]),
-                                                                 True, "black", "light blue")
-                            chinzilla_c_count_rect = chinzilla_c_count_surf.get_rect()
-                            chinzilla_c_count_rect.midleft = (898, 527)
-                            basic_magmon_c_count_surf = font.render("C-Magmon: " + str(card_deck["basic_magmon"]),
-                                                                    True, "black", "light blue")
-                            basic_magmon_c_count_rect = basic_magmon_c_count_surf.get_rect()
-                            basic_magmon_c_count_rect.midleft = (393, 665)
-                            better_magmon_c_count_surf = font.render("B-Magmon: " + str(card_deck["better_magmon"]),
-                                                                     True, "black", "light blue")
-                            better_magmon_c_count_rect = better_magmon_c_count_surf.get_rect()
-                            better_magmon_c_count_rect.midleft = (506, 665)
-                            better_jumano_c_count_surf = font.render("B-Jumano: " + str(card_deck["better_jumano"]),
-                                                                     True, "black", "light blue")
-                            better_jumano_c_count_rect = better_jumano_c_count_surf.get_rect()
-                            better_jumano_c_count_rect.midleft = (645, 665)
-                            best_jumano_c_count_surf = font.render("A-Jumano: " + str(card_deck["best_jumano"]),
-                                                                   True, "black", "light blue")
-                            best_jumano_c_count_rect = best_jumano_c_count_surf.get_rect()
-                            best_jumano_c_count_rect.midleft = (759, 665)
-                            erebyth_c_count_surf = font.render("Erebyth: " + str(card_deck["erebyth"]),
-                                                               True, "black", "light blue")
-                            erebyth_c_count_rect = erebyth_c_count_surf.get_rect()
-                            erebyth_c_count_rect.midleft = (899, 665)
-
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(trading_deck_window, (359, 105))
-                                screen.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                            else:
-                                game_window.blit(trading_deck_window, (359, 105))
-                                game_window.blit(basic_snake_c_count_surf, basic_snake_c_count_rect)
-                                game_window.blit(better_snake_c_count_surf, better_snake_c_count_rect)
-                                game_window.blit(better_necrola_c_count_surf, better_necrola_c_count_rect)
-                                game_window.blit(best_necrola_c_count_surf, best_necrola_c_count_rect)
-                                game_window.blit(chorizon_c_count_surf, chorizon_c_count_rect)
-                                game_window.blit(basic_ghoul_c_count_surf, basic_ghoul_c_count_rect)
-                                game_window.blit(better_ghoul_c_count_surf, better_ghoul_c_count_rect)
-                                game_window.blit(better_osodark_c_count_surf, better_osodark_c_count_rect)
-                                game_window.blit(best_osodark_c_count_surf, best_osodark_c_count_rect)
-                                game_window.blit(muchador_c_count_surf, muchador_c_count_rect)
-                                game_window.blit(basic_bandile_c_count_surf, basic_bandile_c_count_rect)
-                                game_window.blit(better_bandile_c_count_surf, better_bandile_c_count_rect)
-                                game_window.blit(better_atmon_c_count_surf, better_atmon_c_count_rect)
-                                game_window.blit(best_atmon_c_count_surf, best_atmon_c_count_rect)
-                                game_window.blit(chinzilla_c_count_surf, chinzilla_c_count_rect)
-                                game_window.blit(basic_magmon_c_count_surf, basic_magmon_c_count_rect)
-                                game_window.blit(better_magmon_c_count_surf, better_magmon_c_count_rect)
-                                game_window.blit(better_jumano_c_count_surf, better_jumano_c_count_rect)
-                                game_window.blit(best_jumano_c_count_surf, best_jumano_c_count_rect)
-                                game_window.blit(erebyth_c_count_surf, erebyth_c_count_rect)
+                            render_card_deck()
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------

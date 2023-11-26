@@ -40,6 +40,7 @@ trade_window_container = []
 flower_pop_up_window = []
 fish_pop_up_window = []
 dreth_taunt_window = []
+extra_button_container = []
 
 flower_pop_up_window_text = []
 fish_pop_up_window_text = []
@@ -166,6 +167,9 @@ def draw_it(screen):
     if len(dreth_taunt_window) > 0:
         for taunt in dreth_taunt_window:
             screen.blit(taunt.surf, taunt.rect)
+    if len(extra_button_container) > 0:
+        for e_button in extra_button_container:
+            screen.blit(e_button.surf, e_button.rect)
 
 
 def draw_level_up(screen, in_over_world):
@@ -235,6 +239,16 @@ def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
 
         if player.role != "":
             weapon_container.append(weapon_select)
+
+
+def pet_button_draw(kasper_unlocked, kasper_button, torok_unlocked, torok_button, iriana_unlocked, iriana_button):
+
+    if kasper_unlocked:
+        extra_button_container.append(kasper_button)
+    if torok_unlocked:
+        extra_button_container.append(torok_button)
+    if iriana_unlocked:
+        extra_button_container.append(iriana_button)
 
 
 def item_info_draw(inventory_item, info_items, item_info_button, graphic):
@@ -620,6 +634,24 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
+        if sell_item.name == "big health potion":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_big_health"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "big energy potion":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_big_energy"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "super potion":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_super"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
         if sell_item.name == "basic armor":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_basic_armor"])
             sell_info_window.append(sell_items)
@@ -736,6 +768,12 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "marrow bait":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_marrow_bait"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "cat card":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_cat"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
@@ -925,7 +963,7 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
                                             str(player.skills_mage["skill 4"]),
                                             True, "black", "light yellow")
         text_mage_skills_rect = text_mage_skills_surf.get_rect()
-        text_mage_skills_rect.midleft = (650, 505)
+        text_mage_skills_rect.midleft = (650, 504)
         text_fighter_skills_surf = font.render(str(player.skills_fighter["skill 2"]) + ", " +
                                                str(player.skills_fighter["skill 3"]) + ", " +
                                                str(player.skills_fighter["skill 4"]),
@@ -1613,7 +1651,8 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       in_hut, basic_fish, better_fish, even_better_fish, best_fish, save_data_window, in_card_cave,
                       trade_snake, trade_ghoul, trade_bandile, trade_magmon, trade_necrola, trade_osodark,
                       trade_atmon, trade_jumano, trade_chorizon, trade_muchador, trade_chinzilla, trade_erebyth,
-                      missile_learn_button, fire_button, edge_button, arrow_button):
+                      missile_learn_button, fire_button, edge_button, arrow_button, kasper_button, torok_button,
+                      iriana_button, card_deck_button, trade_deck_unlocked):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1792,6 +1831,18 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
             return True
         elif fish_button.collidepoint(pos):
             button_highlight.update(1241, 699, graphic_dict["item high"])
+            return True
+        elif kasper_button.rect.collidepoint(pos):
+            button_highlight.update(1178, 409, graphic_dict["extra_inventory_high"])
+            return True
+        elif torok_button.rect.collidepoint(pos):
+            button_highlight.update(1216, 409, graphic_dict["extra_inventory_high"])
+            return True
+        elif iriana_button.rect.collidepoint(pos):
+            button_highlight.update(1254, 409, graphic_dict["extra_inventory_high"])
+            return True
+        elif card_deck_button.rect.collidepoint(pos) and trade_deck_unlocked:
+            button_highlight.update(368, 680, graphic_dict["card_deck_high"])
             return True
         elif armor.collidepoint(pos):
             if len(item_info_window) == 0:

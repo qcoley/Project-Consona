@@ -84,7 +84,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
             try:
                 if current_sell_item.name == "small health potion":
                     sell_return["info 1"] = "Sold Small Health Potion for 5 rupees."
-                    sell_return["info 2"] = "Small Health Potion removed from inventory."
+                    sell_return["info 2"] = "Small Health Potion removed."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
                     pygame.mixer.find_channel(True).play(sfx_sell)
@@ -93,11 +93,38 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     drawing_functions.sell_info_window.clear()
                 if current_sell_item.name == "small energy potion":
                     sell_return["info 1"] = "Sold Small Energy Potion for 5 rupees."
-                    sell_return["info 2"] = "Small Energy Potion removed from inventory."
+                    sell_return["info 2"] = "Small Energy Potion removed."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
                     pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 5
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "big health potion":
+                    sell_return["info 1"] = "Sold Big Health Potion for 5 rupees."
+                    sell_return["info 2"] = "Big Health Potion removed."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 5
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "big energy potion":
+                    sell_return["info 1"] = "Sold Big Energy Potion for 5 rupees."
+                    sell_return["info 2"] = "Big Energy Potion removed."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 5
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "super potion":
+                    sell_return["info 1"] = "Sold Super Potion for 10 rupees."
+                    sell_return["info 2"] = "Super Potion removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 10
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
                 if current_sell_item.name == "shiny rock":
@@ -279,6 +306,15 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 75
                     sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "cat card":
+                    sell_return["info 1"] = "Sold Cat Reward for 0 rupees."
+                    sell_return["info 2"] = "Cat Reward removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    sell_return["sold"] = True
+                    sell_return["cat_rewarded"] = False
                     drawing_functions.sell_info_window.clear()
             except AttributeError:
                 pass
