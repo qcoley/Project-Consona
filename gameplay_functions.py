@@ -24,7 +24,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       dungeon_gate_marrow, dungeon_chest_marrow_small, atmons, castle_exit, castle_crate_1,
                       castle_crate_2, rock_9, rock_10, rope_wind_1, cell_1, cell_2, rope_wind_2, cell_3, castle_ladder,
                       castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth, cat,
-                      marrow_barrier_small, seldon_barrier_small, card_cave):
+                      marrow_barrier_small, seldon_barrier_small, card_cave, item_block_1, item_block_2):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -51,6 +51,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "rohir":
             if pygame.sprite.collide_rect(player, dungeon_entrance):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, item_block_1):
                 interacted = True
             else:
                 interacted = False
@@ -103,6 +105,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             elif pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
                 interacted = True
             elif pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, item_block_2):
                 interacted = True
             else:
                 interacted = False
@@ -321,7 +325,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
 
         if player.current_zone == "rohir":
-            if not pygame.sprite.collide_rect(player, dungeon_entrance):
+            if (not pygame.sprite.collide_rect(player, dungeon_entrance) and
+                    not pygame.Rect.colliderect(player.rect, item_block_1)):
                 interacted = False
         if player.current_zone == "reservoir a":
             if not pygame.sprite.spritecollideany(player, dungeon_items):
@@ -357,7 +362,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
         if player.current_zone == "fishing hut":
             if (not pygame.Rect.colliderect(player.rect, fishing_hut_rect)
                     and not pygame.sprite.collide_rect(player, fishing_spot_korlok_1)
-                    and not pygame.sprite.collide_rect(player, fishing_spot_korlok_2)):
+                    and not pygame.sprite.collide_rect(player, fishing_spot_korlok_2)
+                    and not pygame.Rect.colliderect(player.rect, item_block_2)):
                 interacted = False
         if player.current_zone == "eldream":
             if (not pygame.sprite.spritecollideany(player, interactables_eldream)
@@ -487,7 +493,7 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                      nuldar_f_up_3, spot_caldera):
 
     fishing_timer_end = time.perf_counter()
-    if fishing_timer_end - fishing_timer >= 3:
+    if fishing_timer_end - fishing_timer >= 2:
 
         player.surf = previous_surf
         player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
@@ -2437,60 +2443,60 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
         attack_dict["critical"] = True
         # base critical damage
         if player.offense == 0:
-            damage = 8
+            damage = 6
         if player.offense == 1:
-            damage = 10
+            damage = 7
         if player.offense == 2:
-            damage = 12
+            damage = 8
         if player.offense == 3:
-            damage = 14
+            damage = 9
         if player.offense == 4:
-            damage = 16
+            damage = 10
     else:
         attack_dict["critical"] = False
         # base damage
         if player.offense == 0:
-            damage = 6
+            damage = 5
         if player.offense == 1:
-            damage = 8
+            damage = 6
         if player.offense == 2:
-            damage = 10
+            damage = 7
         if player.offense == 3:
-            damage = 12
+            damage = 8
         if player.offense == 4:
-            damage = 14
+            damage = 9
 
     if arrow_active:
-        damage = damage * 2
+        damage = int(damage * 1.5)
         attack_dict["effective"] = True
     else:
         # increase or decrease damage based on type advantage/disadvantage
         if player.role == "mage":
             # super effective
             if mob.type == "scout":
-                damage = damage * 2
+                damage = int(damage * 1.5)
                 attack_dict["effective"] = True
             # not effective
             if mob.type == "fighter":
-                damage = damage // 2
+                damage = int(damage // 1.5)
                 attack_dict["non effective"] = True
         if player.role == "scout":
             # super effective
             if mob.type == "fighter":
-                damage = damage * 2
+                damage = int(damage * 1.5)
                 attack_dict["effective"] = True
             # not effective
             if mob.type == "mage":
-                damage = damage // 2
+                damage = int(damage // 1.5)
                 attack_dict["non effective"] = True
         if player.role == "fighter":
             # super effective
             if mob.type == "mage":
-                damage = damage * 2
+                damage = int(damage * 1.5)
                 attack_dict["effective"] = True
             # not effective
             if mob.type == "scout":
-                damage = damage // 2
+                damage = int(damage // 1.5)
                 attack_dict["non effective"] = True
         # if player doesn't have a role, either do no damage or just 1
         if player.role == "":
@@ -2500,21 +2506,24 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
 
     # level scaling final damage output
     if level_difference == 1:
-        damage -= 2
+        damage -= 1
     if level_difference == 2:
-        damage -= 4
+        damage -= 2
     if level_difference == 3:
-        damage -= 6
+        damage -= 3
     if level_difference == 4:
-        damage -= 8
+        damage -= 4
     if level_difference >= 5:
-        damage -= 16
+        damage -= 5
+
+    if sharp_sense_active:
+        damage += damage - int(damage * 0.75)
 
     if mob.name == "Dreth":
         if player.offense == 4:
             damage = damage - 5
         elif player.offense < 4:
-            damage = random.randint(1, 3)
+            damage = random.randint(1, 5)
 
     if damage >= 0:
         attack_dict["damage"] = damage
@@ -2606,44 +2615,31 @@ def attack_player(player, mob, barrier_active, arrow_active):
         attack_dict["critical"] = True
         # base critical damage
         if player.defense == 0:
-            damage = 12
-        if player.defense == 1:
-            damage = 9
-        if player.defense == 2:
             damage = 6
+        if player.defense == 1:
+            damage = 5
+        if player.defense == 2:
+            damage = 4
         if player.defense == 3:
             damage = 3
         if player.defense == 4:
-            damage = 1
+            damage = 2
     else:
         attack_dict["critical"] = False
-        if barrier_active:
-            # base damage
-            if player.defense == 0:
-                damage = 5
-            if player.defense == 1:
-                damage = 4
-            if player.defense == 2:
-                damage = 3
-            if player.defense == 3:
-                damage = 2
-            if player.defense == 4:
-                damage = 1
-        else:
-            # base damage
-            if player.defense == 0:
-                damage = 8
-            if player.defense == 1:
-                damage = 6
-            if player.defense == 2:
-                damage = 4
-            if player.defense == 3:
-                damage = 2
-            if player.defense == 4:
-                damage = 1
+        # base damage
+        if player.defense == 0:
+            damage = 5
+        if player.defense == 1:
+            damage = 4
+        if player.defense == 2:
+            damage = 3
+        if player.defense == 3:
+            damage = 2
+        if player.defense == 4:
+            damage = 1
 
     if arrow_active:
-        damage = damage // 2
+        damage = int(damage // 1.5)
         attack_dict["non effective"] = True
 
     else:
@@ -2651,42 +2647,45 @@ def attack_player(player, mob, barrier_active, arrow_active):
         if mob.type == "mage":
             # super effective
             if player.role == "scout":
-                damage = damage * 2
+                damage = int(damage * 1.5)
                 attack_dict["effective"] = True
             # not effective
             if player.role == "fighter":
-                damage = damage // 2
+                damage = int(damage // 1.5)
                 attack_dict["non effective"] = True
         if mob.type == "scout":
             # super effective
             if player.role == "fighter":
-                damage = damage * 2
+                damage = int(damage * 1.5)
                 attack_dict["effective"] = True
             # not effective
             if player.role == "mage":
-                damage = damage // 2
+                damage = int(damage // 1.5)
                 attack_dict["non effective"] = True
         if mob.type == "fighter":
             # super effective
             if player.role == "mage":
-                damage = damage * 2
+                damage = int(damage * 1.5)
                 attack_dict["effective"] = True
             # not effective
             if player.role == "scout":
-                damage = damage // 2
+                damage = int(damage // 1.5)
                 attack_dict["non effective"] = True
 
     # level scaling final damage output
     if level_difference == 1:
-        damage += 2
+        damage += 1
     if level_difference == 2:
-        damage += 4
+        damage += 2
     if level_difference == 3:
-        damage += 6
+        damage += 3
     if level_difference == 4:
-        damage += 8
+        damage += 4
     if level_difference >= 5:
-        damage += 10
+        damage += 5
+
+    if barrier_active:
+        damage -= damage - int(damage * 0.75)
 
     if damage >= 0:
         attack_dict["damage"] = damage

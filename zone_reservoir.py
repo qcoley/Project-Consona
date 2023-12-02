@@ -57,7 +57,6 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         screen.blit(wall.surf, wall.rect)
     for item in dungeon_items:
         screen.blit(item.surf, item.rect)
-    dungeon_teleporter.update(519, 316, graphic_dict["dungeon_teleporter"])
     if switch_3:
         screen.blit(dungeon_teleporter.surf, dungeon_teleporter.rect)
     if mini_boss_1:
@@ -255,11 +254,11 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         if interacted:
             if switch_3:
                 pygame.mixer.find_channel(True).play(sfx_teleporter)
-                dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
+                dungeon_teleporter.update(853, 540, graphic_dict["dungeon_teleporter"])
                 player.current_zone = "reservoir b"
                 in_over_world = True
                 interacted = False
-                player.x_coordinate = 880
+                player.x_coordinate = 852
                 player.y_coordinate = 560
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
@@ -317,7 +316,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 weapon_select, pet_energy_window, necrola_battle_sprite, osodark_battle_sprite, sfx_teleporter,
                 sfx_rupee, sfx_gate, directional_arrow, stelli_battle_sprite, vanished, vanish_overlay,
                 sfx_item_potion, Item, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                best_fish_counter, apothis_gift):
+                best_fish_counter, apothis_gift, muchador_crate_1_top, muchador_crate_2_top, muchador_crate_3_top,
+                muchador_crate_4_top):
 
     in_battle = False
 
@@ -327,8 +327,6 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
             pygame.mixer.music.load(reservoir_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
-
-    dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
 
     screen.blit(reservoir_b_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -374,6 +372,11 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+    if muchador_lights_on:
+        screen.blit(muchador_crate_1_top.surf, muchador_crate_1_top.rect)
+        screen.blit(muchador_crate_2_top.surf, muchador_crate_2_top.rect)
+        screen.blit(muchador_crate_3_top.surf, muchador_crate_3_top.rect)
+        screen.blit(muchador_crate_4_top.surf, muchador_crate_4_top.rect)
 
     if pygame.sprite.collide_rect(player, dungeon_gate):
         interaction_popup.update(dungeon_gate.x_coordinate, dungeon_gate.y_coordinate - 50,
@@ -430,7 +433,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
             switch_2 = True
             switch_3 = True
             player.x_coordinate = 519
-            player.y_coordinate = 315
+            player.y_coordinate = 330
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if pygame.sprite.collide_rect(player, dungeon_crate_5):

@@ -1,4 +1,5 @@
 import time
+import random
 
 import gameplay_functions
 import drawing_functions
@@ -11,7 +12,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                 sword, bow, npc_garan, weapon_select, save_check_window, user_interface, bar_backdrop, hp_bar,
                 en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 fishing_hut_rect, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
-                pet_energy_window, sfx_fishing_cast):
+                pet_energy_window, sfx_fishing_cast, item_block, item_block_got, Item, sfx_item_block):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -131,6 +132,9 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
     screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -259,6 +263,42 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                         fish_caught = False
                         break
 
+    if pygame.sprite.collide_rect(player, item_block):
+        if not item_block_got:
+            interaction_popup.update(item_block.x_coordinate, item_block.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block.x_coordinate, item_block.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 3)
+                        item_block_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
     # move player to seldon district when they approach nascent grove exit
     if player.x_coordinate < 50 and player.y_coordinate < 375:
         player.current_zone = "korlok"
@@ -272,6 +312,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                   "best_fish_counter": best_fish_counter, "fish_caught": fish_caught, "movement_able": movement_able,
                   "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                   "info_text_4": info_text_4, "in_hut": in_hut, "fishing": fishing, "fishing_timer": fishing_timer,
-                  "previous_surf": previous_surf, "interacted": interacted, "in_over_world": in_over_world}
+                  "previous_surf": previous_surf, "interacted": interacted, "in_over_world": in_over_world,
+                  "item_block_got": item_block_got}
 
     return hut_return

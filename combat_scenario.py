@@ -4255,11 +4255,11 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         # returns players damage to the enemy based on level and equipment
                         if enemy_combating.name == "dreth":
                             if player.offense == 3:
-                                striked = 1
+                                striked = random.randrange(1, 5)
                             if player.offense == 4:
-                                striked = random.randrange(15, 18)
+                                striked = random.randrange(10, 15)
                         else:
-                            striked = random.randrange(15, 18)  # hard strike damage
+                            striked = random.randrange(10, 15)  # hard strike damage
                         combat_event_dictionary["effective player"] = False
                         combat_event_dictionary["non effective player"] = False
                         combat_event_dictionary["critical dealt"] = False

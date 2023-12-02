@@ -198,7 +198,6 @@ def load_graphics():
     dungeon_drop_wall = pygame.image.load(resource_path('resources/art/overlay_dungeon_drop_wall.png')).convert_alpha()
     dungeon_gate = pygame.image.load(resource_path('resources/art/overlay_dungeon_gate.png')).convert_alpha()
     muchador_arena = pygame.image.load(resource_path('resources/art/overlay_muchador_arena.png')).convert_alpha()
-    muchador_crate = pygame.image.load(resource_path('resources/art/overlay_muchador_crate.png')).convert_alpha()
     reservoir_passage = pygame.image.load(resource_path('resources/art/overlay_reservoir_passage.png')).convert_alpha()
     reservoir_exit = pygame.image.load(resource_path('resources/art/overlay_reservoir_exit.png')).convert_alpha()
     reservoir_enter = pygame.image.load(resource_path('resources/art/overlay_reservoir_enter.png')).convert_alpha()
@@ -291,7 +290,7 @@ def load_graphics():
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
-                  muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
+                  reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
                   chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
@@ -501,7 +500,6 @@ def load_graphics():
     loaded_dict["dungeon_drop_wall"] = dungeon_drop_wall
     loaded_dict["dungeon_gate"] = dungeon_gate
     loaded_dict["muchador_arena"] = muchador_arena
-    loaded_dict["muchador_crate"] = muchador_crate
     loaded_dict["reservoir_passage"] = reservoir_passage
     loaded_dict["reservoir_exit"] = reservoir_exit
     loaded_dict["reservoir_enter"] = reservoir_enter
@@ -530,6 +528,11 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # muchador crate ---------------------------------------------------------------------------------------------------
+    muchador_crate_url = resource_path('resources/art/overlay_muchador_crate.png')
+    muchador_crate_sheet = sprite_sheet((125, 125), muchador_crate_url)
+    loaded_dict["muchador_crate"] = muchador_crate_sheet[0]
+    loaded_dict["muchador_crate_top"] = muchador_crate_sheet[1]
     # extra inventory buttons ------------------------------------------------------------------------------------------
     extra_buttons_url = resource_path('resources/art/overlay_extra_inventory_buttons.png')
     extra_buttons_sheet = sprite_sheet((50, 50), extra_buttons_url)
@@ -5746,6 +5749,7 @@ def load_graphics():
     loaded_dict["dungeon_switch_inactive"] = dungeon_items_sheet[1]
     loaded_dict["dungeon_switch_active"] = dungeon_items_sheet[2]
     loaded_dict["dungeon_switch_full"] = dungeon_items_sheet[3]
+    loaded_dict["item_block"] = dungeon_items_sheet[4]
     # dungeon chest closed and open ------------------------------------------------------------------------------------
     dungeon_chest_url = resource_path('resources/art/sprite_dungeon_chest.png')
     dungeon_chest_sheet = sprite_sheet((175, 150), dungeon_chest_url)

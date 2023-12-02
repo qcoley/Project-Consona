@@ -925,10 +925,20 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         text_name_surf = font.render(str(player.name), True, "black", "light yellow")
         text_name_rect = text_name_surf.get_rect()
         text_name_rect.midleft = (595, 152)
-        text_race_surf = font.render(str(player.race), True, "black", "light yellow")
+        if player.race == "amuna":
+            text_race_surf = font.render("Amuna", True, "black", "light yellow")
+        if player.race == "nuldar":
+            text_race_surf = font.render("Nuldar", True, "black", "light yellow")
+        if player.race == "sorae":
+            text_race_surf = font.render("Sorae", True, "black", "light yellow")
         text_race_rect = text_race_surf.get_rect()
-        text_race_rect.midleft = (592, 190)
-        text_rolled_surf = font.render(str(player.role), True, "black", "light yellow")
+        text_race_rect.midleft = (592, 189)
+        if player.role == "mage":
+            text_rolled_surf = font.render("Mage", True, "black", "light yellow")
+        if player.role == "fighter":
+            text_rolled_surf = font.render("Fighter", True, "black", "light yellow")
+        if player.role == "scout":
+            text_rolled_surf = font.render("Scout", True, "black", "light yellow")
         text_rolled_rect = text_rolled_surf.get_rect()
         text_rolled_rect.midleft = (588, 228)
         text_health_surf = font.render(str(player.health), True, "black", "light yellow")
@@ -939,13 +949,13 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         text_energy_rect.midleft = (855, 189)
         text_experience_surf = font.render(str(player.experience), True, "black", "light yellow")
         text_experience_rect = text_experience_surf.get_rect()
-        text_experience_rect.midleft = (890, 229)
+        text_experience_rect.midleft = (890, 228)
         text_mage_surf = font.render(str(player.knowledge["mage"]), True, "black", "light yellow")
         text_mage_rect = text_mage_surf.get_rect()
-        text_mage_rect.midleft = (680, 310)
+        text_mage_rect.midleft = (680, 309)
         text_fighter_surf = font.render(str(player.knowledge["fighter"]), True, "black", "light yellow")
         text_fighter_rect = text_fighter_surf.get_rect()
-        text_fighter_rect.midleft = (688, 348)
+        text_fighter_rect.midleft = (688, 347)
         text_scout_surf = font.render(str(player.knowledge["scout"]), True, "black", "light yellow")
         text_scout_rect = text_scout_surf.get_rect()
         text_scout_rect.midleft = (680, 385)
@@ -954,7 +964,7 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         text_amuna_rect.midleft = (940, 310)
         text_nuldar_surf = font.render(str(player.reputation["nuldar"]), True, "black", "light yellow")
         text_nuldar_rect = text_nuldar_surf.get_rect()
-        text_nuldar_rect.midleft = (940, 348)
+        text_nuldar_rect.midleft = (940, 347)
         text_sorae_surf = font.render(str(player.reputation["sorae"]), True, "black", "light yellow")
         text_sorae_rect = text_sorae_surf.get_rect()
         text_sorae_rect.midleft = (935, 385)
@@ -2058,6 +2068,10 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                     button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
                                             graphic_dict["main high"])
                     return True
+                elif character_button.rect.collidepoint(pos):
+                    button_highlight.update(character_button.x_coordinate, character_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
 
             # highlighting skill learn buttons inside of books once moused over
             else:
@@ -2082,6 +2096,10 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                     return True
                 elif leave_button.rect.collidepoint(pos):
                     button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif character_button.rect.collidepoint(pos):
+                    button_highlight.update(character_button.x_coordinate, character_button.y_coordinate + 7,
                                             graphic_dict["main high"])
                     return True
 

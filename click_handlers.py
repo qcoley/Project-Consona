@@ -836,7 +836,7 @@ def inn_event_button(inn_event, rest_button, leave_button, pygame, sfx_sleep, SC
 
 # getting event based on user click related to academia skill buttons
 def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn, leave_button, pygame, sfx_paper,
-                          SCREEN_WIDTH, SCREEN_HEIGHT):
+                          SCREEN_WIDTH, SCREEN_HEIGHT, character_button):
     if academia_event.type == pygame.MOUSEBUTTONUP:
 
         init_pos = list(pygame.mouse.get_pos())
@@ -855,6 +855,8 @@ def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn
             return "scout learn"
         if leave_button.rect.collidepoint(academia_mouse):
             return "leave"
+        if character_button.rect.collidepoint(academia_mouse):
+            return "character"
 
 
 # getting item player clicked based on it's name and return the corresponding item. for buying items

@@ -1567,21 +1567,21 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if self.x_coordinate < 705:
                 if self.x_coordinate > 655:
                     self.x_coordinate = 655
-            elif self.x_coordinate > 1005:
-                self.x_coordinate = 1005
+            elif self.x_coordinate > 965:
+                self.x_coordinate = 965
             if self.y_coordinate <= 75:
                 self.y_coordinate = 75
             elif self.x_coordinate > 705:
-                if self.y_coordinate >= 720:
-                    self.y_coordinate = 720
+                if self.y_coordinate >= 665:
+                    self.y_coordinate = 665
             else:
                 if self.y_coordinate >= 670:
                     self.y_coordinate = 670
         if current_zone == "reservoir c":
             if self.x_coordinate < 90:
                 self.x_coordinate = 90
-            if self.x_coordinate > 1005:
-                self.x_coordinate = 1005
+            if self.x_coordinate > 965:
+                self.x_coordinate = 965
             if self.y_coordinate >= 638:
                 self.y_coordinate = 638
             if self.x_coordinate > 510:
@@ -3865,21 +3865,21 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if self.x_coordinate < 705:
                 if self.x_coordinate > 655:
                     self.x_coordinate = 655
-            elif self.x_coordinate > 1005:
-                self.x_coordinate = 1005
+            elif self.x_coordinate > 965:
+                self.x_coordinate = 965
             if self.y_coordinate <= 75:
                 self.y_coordinate = 75
             elif self.x_coordinate > 705:
-                if self.y_coordinate >= 720:
-                    self.y_coordinate = 720
+                if self.y_coordinate >= 665:
+                    self.y_coordinate = 665
             else:
                 if self.y_coordinate >= 670:
                     self.y_coordinate = 670
         if current_zone == "reservoir c":
             if self.x_coordinate < 90:
                 self.x_coordinate = 90
-            if self.x_coordinate > 1005:
-                self.x_coordinate = 1005
+            if self.x_coordinate > 965:
+                self.x_coordinate = 965
             if self.y_coordinate >= 638:
                 self.y_coordinate = 638
             if self.x_coordinate > 510:
@@ -6153,21 +6153,21 @@ class PlayerSorae(pygame.sprite.Sprite):
             if self.x_coordinate < 705:
                 if self.x_coordinate > 655:
                     self.x_coordinate = 655
-            elif self.x_coordinate > 1005:
-                self.x_coordinate = 1005
+            elif self.x_coordinate > 965:
+                self.x_coordinate = 965
             if self.y_coordinate <= 75:
                 self.y_coordinate = 75
             elif self.x_coordinate > 705:
-                if self.y_coordinate >= 720:
-                    self.y_coordinate = 720
+                if self.y_coordinate >= 665:
+                    self.y_coordinate = 665
             else:
                 if self.y_coordinate >= 670:
                     self.y_coordinate = 670
         if current_zone == "reservoir c":
             if self.x_coordinate < 90:
                 self.x_coordinate = 90
-            if self.x_coordinate > 1005:
-                self.x_coordinate = 1005
+            if self.x_coordinate > 965:
+                self.x_coordinate = 965
             if self.y_coordinate >= 638:
                 self.y_coordinate = 638
             if self.x_coordinate > 510:
@@ -7888,15 +7888,15 @@ if __name__ == "__main__":
     mage_learn_button = UiElement("mage learn button", 763, 250, graphic_dict["learn_button"])
     fighter_learn_button = UiElement("fighter learn button", 303, 330, graphic_dict["learn_button"])
     scout_learn_button = UiElement("scout learn button", 560, 410, graphic_dict["learn_button"])
-    barrier_learn_button = UiElement("barrier learn button", 505, 300, graphic_dict["skill_learn_button"])
-    hard_strike_learn_button = UiElement("hard strike learn button", 505, 300, graphic_dict["skill_learn_button"])
-    sharp_sense_learn_button = UiElement("sharp sense learn button", 505, 300, graphic_dict["skill_learn_button"])
-    mirror_learn_button = UiElement("mirror learn button", 505, 503, graphic_dict["skill_learn_button"])
-    stun_learn_button = UiElement("stun learn button", 505, 503, graphic_dict["skill_learn_button"])
-    vanish_learn_button = UiElement("vanish learn button", 505, 503, graphic_dict["skill_learn_button"])
-    fire_learn_button = UiElement("fire learn button", 835, 503, graphic_dict["skill_learn_button"])
-    edge_learn_button = UiElement("edge learn button", 675, 503, graphic_dict["skill_learn_button"])
-    arrow_learn_button = UiElement("arrow learn button", 675, 503, graphic_dict["skill_learn_button"])
+    barrier_learn_button = UiElement("barrier learn button", 505, 305, graphic_dict["skill_learn_button"])
+    hard_strike_learn_button = UiElement("hard strike learn button", 505, 305, graphic_dict["skill_learn_button"])
+    sharp_sense_learn_button = UiElement("sharp sense learn button", 505, 305, graphic_dict["skill_learn_button"])
+    mirror_learn_button = UiElement("mirror learn button", 505, 508, graphic_dict["skill_learn_button"])
+    stun_learn_button = UiElement("stun learn button", 505, 508, graphic_dict["skill_learn_button"])
+    vanish_learn_button = UiElement("vanish learn button", 505, 508, graphic_dict["skill_learn_button"])
+    fire_learn_button = UiElement("fire learn button", 835, 508, graphic_dict["skill_learn_button"])
+    edge_learn_button = UiElement("edge learn button", 675, 508, graphic_dict["skill_learn_button"])
+    arrow_learn_button = UiElement("arrow learn button", 675, 508, graphic_dict["skill_learn_button"])
     close_button = UiElement("close button", 975, 135, graphic_dict["close_button"])
     quest_button = UiElement("quest button", 860, 680, graphic_dict["quest_button_img"])
     accept_button = UiElement("accept button", 340, 670, graphic_dict["accept_button_img"])
@@ -7974,9 +7974,9 @@ if __name__ == "__main__":
     journal = UiElement("journal", 770, 380, graphic_dict["journal_window_img"])
     level_up_win = UiElement("level up window", 165, 132, graphic_dict["level_up_win"])
     character_sheet = UiElement("character sheet", 770, 380, graphic_dict["character_window_img"])
-    mage_book = UiElement("mage book", 670, 375, graphic_dict["mage_book_img"])
-    fighter_book = UiElement("fighter book", 670, 375, graphic_dict["fighter_book_img"])
-    scout_book = UiElement("scout book", 670, 375, graphic_dict["scout_book_img"])
+    mage_book = UiElement("mage book", 670, 380, graphic_dict["mage_book_img"])
+    fighter_book = UiElement("fighter book", 670, 380, graphic_dict["fighter_book_img"])
+    scout_book = UiElement("scout book", 670, 380, graphic_dict["scout_book_img"])
     quest_logs_1 = Item("Pine logs", "quest", 60, 540, graphic_dict["pine_logs_img"], 0)
     quest_logs_2 = Item("Pine logs", "quest", 315, 560, graphic_dict["pine_logs_img"], 0)
     quest_logs_3 = Item("Pine logs", "quest", 415, 435, graphic_dict["pine_logs_img"], 0)
@@ -8157,6 +8157,10 @@ if __name__ == "__main__":
     muchador_crate_2 = UiElement("muchador crate 2", 500, 200, graphic_dict["muchador_crate"])
     muchador_crate_3 = UiElement("muchador crate 3", 200, 530, graphic_dict["muchador_crate"])
     muchador_crate_4 = UiElement("muchador crate 4", 500, 530, graphic_dict["muchador_crate"])
+    muchador_crate_1_top = UiElement("muchador crate 1 top", 200, 200, graphic_dict["muchador_crate_top"])
+    muchador_crate_2_top = UiElement("muchador crate 2 top", 500, 200, graphic_dict["muchador_crate_top"])
+    muchador_crate_3_top = UiElement("muchador crate 3 top", 200, 530, graphic_dict["muchador_crate_top"])
+    muchador_crate_4_top = UiElement("muchador crate 4 top", 500, 530, graphic_dict["muchador_crate_top"])
     dungeon_crate_1 = Item("dungeon crate 1", "Crate", 75, 150, graphic_dict["dungeon_crate"], 0)
     dungeon_crate_2 = Item("dungeon crate 2", "Crate", 960, 150, graphic_dict["dungeon_crate"], 0)
     dungeon_crate_3 = Item("dungeon crate 3", "Crate", 388, 575, graphic_dict["dungeon_crate"], 0)
@@ -8164,7 +8168,7 @@ if __name__ == "__main__":
     dungeon_crate_5 = Item("dungeon crate 5", "Crate", 970, 150, graphic_dict["dungeon_crate"], 0)
     dungeon_switch_1 = Item("dungeon switch 1", "Switch", 158, 430, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_switch_2 = Item("dungeon switch 2", "Switch", 874, 430, graphic_dict["dungeon_switch_inactive"], 0)
-    dungeon_switch_3 = Item("dungeon switch 3", "Switch", 519, 165, graphic_dict["dungeon_switch_inactive"], 0)
+    dungeon_switch_3 = Item("dungeon switch 3", "Switch", 519, 145, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
     ramps_crate_1 = Item("ramps crate 1", "crate", 390, 350, graphic_dict["dungeon_crate"], 0)
@@ -8179,6 +8183,8 @@ if __name__ == "__main__":
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 568, graphic_dict["chest_small"])
+    item_block_1 = Item("item block 1", "block", 105, 175, graphic_dict["item_block"], 0)
+    item_block_2 = Item("item block 2", "block", 600, 165, graphic_dict["item_block"], 0)
     chest_small_castle_1 = UiElement("chest small castle 1", 700, 262, graphic_dict["chest_small"])
     chest_small_castle_2 = UiElement("chest small castle 2", 700, 262, graphic_dict["chest_small"])
     overlay_prism_activate = UiElement("overlay prism", 710, 485, graphic_dict["overlay_prism"])
@@ -8565,6 +8571,8 @@ if __name__ == "__main__":
     sfx_item_whistle.set_volume(0.40)
     sfx_item_snack = pygame.mixer.Sound(resource_path("resources/sounds/pet_snack.mp3"))
     sfx_item_snack.set_volume(0.30)
+    sfx_item_block = pygame.mixer.Sound(resource_path("resources/sounds/sfx_item_block.mp3"))
+    sfx_item_block.set_volume(0.30)
 
     sfx_activate_switch = pygame.mixer.Sound(resource_path("resources/sounds/activate_switch.mp3"))
     sfx_activate_switch.set_volume(0.10)
@@ -8882,6 +8890,11 @@ if __name__ == "__main__":
     show_edge = False
     on_card_quest = False
     card_counted = False
+    item_block_1_got = False
+    item_block_2_got = False
+    item_block_3_got = False
+    item_block_4_got = False
+    item_block_5_got = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -10096,11 +10109,12 @@ if __name__ == "__main__":
                             player.x_coordinate = 525
                             player.y_coordinate = 650
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            dungeon_teleporter.update(519, 316, graphic_dict["dungeon_teleporter"])
                         if player.current_zone == "reservoir b":
-                            player.x_coordinate = 880
+                            player.x_coordinate = 852
                             player.y_coordinate = 560
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
+                            dungeon_teleporter.update(853, 540, graphic_dict["dungeon_teleporter"])
                         if player.current_zone == "reservoir c":
                             player.x_coordinate = 900
                             player.y_coordinate = 545
@@ -10641,7 +10655,8 @@ if __name__ == "__main__":
                                                                                   lair_exit, dreth, marrow_cat,
                                                                                   marrow_barrier_small,
                                                                                   seldon_barrier_small,
-                                                                                  stardust_card_cave)
+                                                                                  stardust_card_cave, item_block_1,
+                                                                                  item_block_2)
 
                                 if interacted:
                                     cleared = False
@@ -11301,7 +11316,8 @@ if __name__ == "__main__":
                                                                     info_text_2, info_text_3, info_text_4,
                                                                     in_over_world, fishing_hut_rect, interaction_popup,
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
-                                                                    pet_energy_window, sfx_fishing_cast)
+                                                                    pet_energy_window, sfx_fishing_cast, item_block_2,
+                                                                    item_block_2_got, Item, sfx_item_block)
                     else:
                         hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
                                                                     fishing_music, fishing, walk_tic,
@@ -11318,7 +11334,8 @@ if __name__ == "__main__":
                                                                     info_text_2, info_text_3, info_text_4,
                                                                     in_over_world, fishing_hut_rect, interaction_popup,
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
-                                                                    pet_energy_window, sfx_fishing_cast)
+                                                                    pet_energy_window, sfx_fishing_cast, item_block_2,
+                                                                    item_block_2_got, Item, sfx_item_block)
 
                     over_world_song_set = hut_returned["over_world_song_set"]
                     basic_fish_counter = hut_returned["basic_fish_counter"]
@@ -11337,6 +11354,7 @@ if __name__ == "__main__":
                     previous_surf = hut_returned["previous_surf"]
                     interacted = hut_returned["interacted"]
                     in_over_world = hut_returned["in_over_world"]
+                    item_block_2_got = hut_returned["item_block_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in seldon district ----------------------------------------------------------------------
@@ -13945,7 +13963,8 @@ if __name__ == "__main__":
                                                                 offense_meter, defense_meter, weapon_select,
                                                                 beyond_seldon, pet_energy_window, basic_fish_counter,
                                                                 better_fish_counter, even_better_fish_counter,
-                                                                best_fish_counter)
+                                                                best_fish_counter, item_block_1, item_block_1_got,
+                                                                Item, sfx_item_block)
                     else:
                         rohir_returned = zone_rohir.rohir_river(pygame, game_window, player, over_world_song_set,
                                                                 rohir_river_bg,
@@ -13960,7 +13979,8 @@ if __name__ == "__main__":
                                                                 offense_meter, defense_meter, weapon_select,
                                                                 beyond_seldon, pet_energy_window, basic_fish_counter,
                                                                 better_fish_counter, even_better_fish_counter,
-                                                                best_fish_counter)
+                                                                best_fish_counter, item_block_1, item_block_1_got,
+                                                                Item, sfx_item_block)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -13970,6 +13990,7 @@ if __name__ == "__main__":
                     in_over_world = rohir_returned["in_over_world"]
                     interacted = rohir_returned["interacted"]
                     beyond_seldon = rohir_returned["beyond seldon"]
+                    item_block_1_got = rohir_returned["item_block_1_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in first dungeon, first floor -----------------------------------------------------------
@@ -14109,7 +14130,9 @@ if __name__ == "__main__":
                                                                           vanished, vanish_overlay, sfx_item_potion,
                                                                           Item, basic_fish_counter, better_fish_counter,
                                                                           even_better_fish_counter, best_fish_counter,
-                                                                          apothis_gift)
+                                                                          apothis_gift, muchador_crate_1_top,
+                                                                          muchador_crate_2_top, muchador_crate_3_top,
+                                                                          muchador_crate_4_top)
                     else:
                         reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -14145,7 +14168,9 @@ if __name__ == "__main__":
                                                                           vanished, vanish_overlay, sfx_item_potion,
                                                                           Item, basic_fish_counter, better_fish_counter,
                                                                           even_better_fish_counter, best_fish_counter,
-                                                                          apothis_gift)
+                                                                          apothis_gift, muchador_crate_1_top,
+                                                                          muchador_crate_2_top, muchador_crate_3_top,
+                                                                          muchador_crate_4_top)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -18281,7 +18306,8 @@ if __name__ == "__main__":
                         academia_button = click_handlers.academia_event_button(event, mage_learn_button,
                                                                                fighter_learn_button, scout_learn_button,
                                                                                leave_button, pygame, sfx_sheet_paper,
-                                                                               SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                               SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                               character_button)
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -18560,7 +18586,19 @@ if __name__ == "__main__":
                                 button_highlighted = False
                                 first_academy_cond = False
 
+                        if academia_button == "character":
+                            button_highlighted = False
+                            if character_button_clicked:
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
+                                character_button_clicked = False
+                            else:
+                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
+                                character_button_clicked = True
+
                         if academia_button == "leave":
+                            drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
+                            character_button_clicked = False
                             book_appended = False
                             movement_able = True
                             interacted = False
@@ -18598,6 +18636,7 @@ if __name__ == "__main__":
                             screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
                             screen.blit(scout_learn_button.surf, scout_learn_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(character_button.surf, character_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                             screen.blit(hp_bar.surf, hp_bar.rect)
@@ -18622,6 +18661,7 @@ if __name__ == "__main__":
                             game_window.blit(fighter_learn_button.surf, fighter_learn_button.rect)
                             game_window.blit(scout_learn_button.surf, scout_learn_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(character_button.surf, character_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
                             game_window.blit(hp_bar.surf, hp_bar.rect)
@@ -18634,19 +18674,6 @@ if __name__ == "__main__":
                             if academia_cat_pet:
                                 cat_pet_animation_overlay.update(153, 501, graphic_dict["academia_cat_pet_img"])
                                 game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
-                        # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world,
-                                                             basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
-                        else:
-                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, in_over_world,
-                                                             basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             if len(books) > 0:
@@ -18657,24 +18684,6 @@ if __name__ == "__main__":
                                     screen.blit(skill_item.surf, skill_item.rect)
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
-
-                            screen.blit(knowledge_window.surf, knowledge_window.rect)
-                            text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
-                                                                   "light yellow")
-                            text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
-                            text_mage_knowledge_rect.center = (515, 680)
-                            screen.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
-                            text_fighter_know_surf = font.render(str(player.knowledge["fighter"]), True, "black",
-                                                                 "light yellow")
-                            text_fighter_know_rect = text_fighter_know_surf.get_rect()
-                            text_fighter_know_rect.center = (695, 680)
-                            screen.blit(text_fighter_know_surf, text_fighter_know_rect)
-                            text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black",
-                                                                    "light yellow")
-                            text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
-                            text_scout_knowledge_rect.center = (865, 680)
-                            screen.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
-
                         else:
                             if len(books) > 0:
                                 for book in books:
@@ -18684,23 +18693,6 @@ if __name__ == "__main__":
                                     game_window.blit(skill_item.surf, skill_item.rect)
                             if button_highlighted:
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
-
-                            game_window.blit(knowledge_window.surf, knowledge_window.rect)
-                            text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
-                                                                   "light yellow")
-                            text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
-                            text_mage_knowledge_rect.center = (630, 680)
-                            game_window.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
-                            text_fighter_know_surf = font.render(str(player.knowledge["fighter"]), True, "black",
-                                                                 "light yellow")
-                            text_fighter_know_rect = text_fighter_know_surf.get_rect()
-                            text_fighter_know_rect.center = (752, 680)
-                            game_window.blit(text_fighter_know_surf, text_fighter_know_rect)
-                            text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black",
-                                                                    "light yellow")
-                            text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
-                            text_scout_knowledge_rect.center = (862, 680)
-                            game_window.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
 
                         if not book_appended:
                             if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
@@ -18712,7 +18704,7 @@ if __name__ == "__main__":
                                 skill_learn_items.append(barrier_learn_button)
                                 skill_learn_items.append(mirror_learn_button)
                                 skill_learn_items.append(fire_learn_button)
-                                close_button.update(975, 135, graphic_dict["close_button"])
+                                close_button.update(975, 140, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
@@ -18724,7 +18716,7 @@ if __name__ == "__main__":
                                 skill_learn_items.append(hard_strike_learn_button)
                                 skill_learn_items.append(stun_learn_button)
                                 skill_learn_items.append(edge_learn_button)
-                                close_button.update(975, 135, graphic_dict["close_button"])
+                                close_button.update(975, 140, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
@@ -18736,7 +18728,7 @@ if __name__ == "__main__":
                                 skill_learn_items.append(sharp_sense_learn_button)
                                 skill_learn_items.append(vanish_learn_button)
                                 skill_learn_items.append(arrow_learn_button)
-                                close_button.update(975, 135, graphic_dict["close_button"])
+                                close_button.update(975, 140, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
 
@@ -18762,6 +18754,21 @@ if __name__ == "__main__":
                                 if player.role == "scout":
                                     directional_arrow.update(555, 360, graphic_dict["arrow_down"])
                                     game_window.blit(directional_arrow.surf, directional_arrow.rect)
+
+                        # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counter)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1,
+                                                             info_text_2,
+                                                             info_text_3, info_text_4, in_over_world,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counter)
+                            drawing_functions.draw_it(game_window)
 
                         if show_cat_card:
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -22699,6 +22706,8 @@ if __name__ == "__main__":
                                     player.y_coordinate = 655
                                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                   player.y_coordinate))
+                                    dungeon_teleporter.update(519, 316, graphic_dict["dungeon_teleporter"])
+
                                 # player returns in a weakened state
                                 player.health = 25
                                 player.energy = 25

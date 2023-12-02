@@ -1,4 +1,5 @@
 import drawing_functions
+import random
 
 
 def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dungeon_entrance, water_1, water_2,
@@ -7,7 +8,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
                 in_over_world, button_highlighted, button_highlight, rohir_river_music, interaction_popup, interacted,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                 beyond_seldon, pet_energy_window, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                best_fish_counter):
+                best_fish_counter, item_block, item_block_got, Item, sfx_item_block):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(100)
@@ -24,6 +25,9 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     screen.blit(water_3.surf, water_3.rect)
     screen.blit(water_4.surf, water_4.rect)
     screen.blit(water_5.surf, water_5.rect)
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -133,8 +137,44 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
             interacted = False
             beyond_seldon = True
 
+    if pygame.sprite.collide_rect(player, item_block):
+        if not item_block_got:
+            interaction_popup.update(item_block.x_coordinate, item_block.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block.x_coordinate, item_block.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 3)
+                        item_block_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
     rohir_return = {"over_world_song_set": over_world_song_set, "info_text_1": info_text_1, "info_text_2": info_text_2,
                     "info_text_3": info_text_3, "info_text_4": info_text_4, "in_over_world": in_over_world,
-                    "interacted": interacted, "beyond seldon": beyond_seldon}
+                    "interacted": interacted, "beyond seldon": beyond_seldon, "item_block_1_got": item_block_got}
 
     return rohir_return
