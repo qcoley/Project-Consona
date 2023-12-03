@@ -1703,6 +1703,20 @@ class PlayerAmuna(pygame.sprite.Sprite):
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
         if current_zone == "fishing hut":
+            if 95 < self.y_coordinate < 228:
+                if self.x_coordinate < 850:
+                    if self.x_coordinate > 780:
+                        self.x_coordinate = 780
+                if self.x_coordinate > 850:
+                    if self.x_coordinate < 918:
+                        self.x_coordinate = 918
+            if 780 < self.x_coordinate < 918:
+                if self.y_coordinate > 180:
+                    if self.y_coordinate < 234:
+                        self.y_coordinate = 234
+                if self.y_coordinate < 180:
+                    if self.y_coordinate > 90:
+                        self.y_coordinate = 90
             if self.y_coordinate < 80:
                 self.y_coordinate = 80
             if self.x_coordinate < 335 and self.y_coordinate < 325 or \
@@ -2108,16 +2122,6 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if 390 < self.x_coordinate < 635:
                 if self.y_coordinate < 215:
                     self.y_coordinate = 215
-        if current_zone == "fishing hut":
-            if pygame.Rect.colliderect(self.rect, fishing_hut_rect_collide):
-                if self.x_coordinate < fishing_hut_rect_collide.x:
-                    self.x_coordinate -= velocity
-                if self.x_coordinate > fishing_hut_rect_collide.x:
-                    self.x_coordinate += velocity
-                if self.y_coordinate < fishing_hut_rect_collide.y:
-                    self.y_coordinate -= velocity
-                if self.y_coordinate > fishing_hut_rect_collide.y:
-                    self.y_coordinate += velocity
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -4001,6 +4005,20 @@ class PlayerNuldar(pygame.sprite.Sprite):
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
         if current_zone == "fishing hut":
+            if 95 < self.y_coordinate < 228:
+                if self.x_coordinate < 850:
+                    if self.x_coordinate > 780:
+                        self.x_coordinate = 780
+                if self.x_coordinate > 850:
+                    if self.x_coordinate < 918:
+                        self.x_coordinate = 918
+            if 780 < self.x_coordinate < 918:
+                if self.y_coordinate > 180:
+                    if self.y_coordinate < 234:
+                        self.y_coordinate = 234
+                if self.y_coordinate < 180:
+                    if self.y_coordinate > 90:
+                        self.y_coordinate = 90
             if self.y_coordinate < 80:
                 self.y_coordinate = 80
             if self.x_coordinate < 335 and self.y_coordinate < 325 or \
@@ -6289,6 +6307,20 @@ class PlayerSorae(pygame.sprite.Sprite):
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
         if current_zone == "fishing hut":
+            if 95 < self.y_coordinate < 228:
+                if self.x_coordinate < 850:
+                    if self.x_coordinate > 780:
+                        self.x_coordinate = 780
+                if self.x_coordinate > 850:
+                    if self.x_coordinate < 918:
+                        self.x_coordinate = 918
+            if 780 < self.x_coordinate < 918:
+                if self.y_coordinate > 180:
+                    if self.y_coordinate < 234:
+                        self.y_coordinate = 234
+                if self.y_coordinate < 180:
+                    if self.y_coordinate > 90:
+                        self.y_coordinate = 90
             if self.y_coordinate < 80:
                 self.y_coordinate = 80
             if self.x_coordinate < 335 and self.y_coordinate < 325 or \
@@ -7571,7 +7603,7 @@ if __name__ == "__main__":
                      True, False, ["Items"], False, graphic_dict["voruke_down"])
     npc_zerah = NPC("Zerah", "nuldar", "Onur-oh.", "elementary elementals", "", 652, 90,
                     True, False, ["Items"], False, graphic_dict["zerah_down"])
-    npc_dionte = NPC("Dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 625, 110,
+    npc_dionte = NPC("Dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 585, 100,
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
     npc_omoku = NPC("Omoku", "nuldar", "Onur-oh.", "kart troubles", "", 460, 655,
@@ -7728,7 +7760,7 @@ if __name__ == "__main__":
                       graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     # terra cave enemy -------------------------------------------------------------------------------------------------
-    chinzilla = Enemy("Chinzilla", "chinzilla", 100, 100, 15, 350, 360, True, "item", graphic_dict["chinzilla"],
+    chinzilla = Enemy("Chinzilla", "chinzilla", 100, 100, 14, 350, 360, True, "item", graphic_dict["chinzilla"],
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     # eldream enemies --------------------------------------------------------------------------------------------------
@@ -8056,7 +8088,7 @@ if __name__ == "__main__":
     quest_star_voruke = UiElement("quest star voruke", 262, 385, graphic_dict["quest_start_star"])
     quest_star_zerah = UiElement("quest star zerah", 651, 50, graphic_dict["quest_start_star"])
     quest_star_kirean = UiElement("quest star kirean", 746, 225, graphic_dict["quest_start_star"])
-    quest_star_dionte = UiElement("quest star dionte", 625, 65, graphic_dict["quest_start_star"])
+    quest_star_dionte = UiElement("quest star dionte", 585, 60, graphic_dict["quest_start_star"])
 
     quest_star_omoku = UiElement("quest star omoku", 460, 610, graphic_dict["quest_start_star"])
     quest_star_leyre = UiElement("quest star leyre", 682, 375, graphic_dict["quest_start_star"])
@@ -8184,7 +8216,8 @@ if __name__ == "__main__":
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 568, graphic_dict["chest_small"])
     item_block_1 = Item("item block 1", "block", 105, 175, graphic_dict["item_block"], 0)
-    item_block_2 = Item("item block 2", "block", 600, 165, graphic_dict["item_block"], 0)
+    item_block_2 = Item("item block 2", "block", 650, 48, graphic_dict["item_block"], 0)
+    item_block_3 = Item("item block 3", "block", 710, 530, graphic_dict["item_block"], 0)
     chest_small_castle_1 = UiElement("chest small castle 1", 700, 262, graphic_dict["chest_small"])
     chest_small_castle_2 = UiElement("chest small castle 2", 700, 262, graphic_dict["chest_small"])
     overlay_prism_activate = UiElement("overlay prism", 710, 485, graphic_dict["overlay_prism"])
@@ -10656,7 +10689,7 @@ if __name__ == "__main__":
                                                                                   marrow_barrier_small,
                                                                                   seldon_barrier_small,
                                                                                   stardust_card_cave, item_block_1,
-                                                                                  item_block_2)
+                                                                                  item_block_2, item_block_3)
 
                                 if interacted:
                                     cleared = False
@@ -13770,7 +13803,8 @@ if __name__ == "__main__":
                                                                       critter_right_move, critter_left_move,
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
-                                                                      best_fish_counter)
+                                                                      best_fish_counter, item_block_3, item_block_3_got,
+                                                                      sfx_item_block, Item)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -13807,7 +13841,8 @@ if __name__ == "__main__":
                                                                       critter_right_move, critter_left_move,
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
-                                                                      best_fish_counter)
+                                                                      best_fish_counter, item_block_3, item_block_3_got,
+                                                                      sfx_item_block, Item)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -13828,6 +13863,7 @@ if __name__ == "__main__":
                     critter_left_move = trail_returned["left_move"]
                     critter_tic = trail_returned["critter_tic"]
                     walk_move = trail_returned["walk_move"]
+                    item_block_3_got = trail_returned["item_block_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in stardust outpost ---------------------------------------------------------------------
@@ -18697,9 +18733,9 @@ if __name__ == "__main__":
                         if not book_appended:
                             if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
                                 if player.level > 9:
-                                    mage_book.update(670, 375, graphic_dict["mage_book_img_10"])
+                                    mage_book.update(670, 380, graphic_dict["mage_book_img_10"])
                                 if player.level > 19:
-                                    mage_book.update(670, 375, graphic_dict["mage_book_img_20"])
+                                    mage_book.update(670, 380, graphic_dict["mage_book_img_20"])
                                 books.append(mage_book)
                                 skill_learn_items.append(barrier_learn_button)
                                 skill_learn_items.append(mirror_learn_button)
@@ -18709,9 +18745,9 @@ if __name__ == "__main__":
                                 book_appended = True
                             if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
                                 if player.level > 9:
-                                    fighter_book.update(670, 375, graphic_dict["fighter_book_img_10"])
+                                    fighter_book.update(670, 380, graphic_dict["fighter_book_img_10"])
                                 if player.level > 19:
-                                    fighter_book.update(670, 375, graphic_dict["fighter_book_img_20"])
+                                    fighter_book.update(670, 380, graphic_dict["fighter_book_img_20"])
                                 books.append(fighter_book)
                                 skill_learn_items.append(hard_strike_learn_button)
                                 skill_learn_items.append(stun_learn_button)
@@ -18721,9 +18757,9 @@ if __name__ == "__main__":
                                 book_appended = True
                             if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
                                 if player.level > 9:
-                                    scout_book.update(670, 375, graphic_dict["scout_book_img_10"])
+                                    scout_book.update(670, 380, graphic_dict["scout_book_img_10"])
                                 if player.level > 19:
-                                    scout_book.update(670, 375, graphic_dict["scout_book_img_20"])
+                                    scout_book.update(670, 380, graphic_dict["scout_book_img_20"])
                                 books.append(scout_book)
                                 skill_learn_items.append(sharp_sense_learn_button)
                                 skill_learn_items.append(vanish_learn_button)

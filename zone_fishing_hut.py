@@ -265,18 +265,18 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
 
     if pygame.sprite.collide_rect(player, item_block):
         if not item_block_got:
-            interaction_popup.update(item_block.x_coordinate, item_block.y_coordinate - 50,
+            interaction_popup.update(item_block.x_coordinate, item_block.y_coordinate,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
             interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
-            interaction_info_rect.center = (item_block.x_coordinate, item_block.y_coordinate - 50)
+            interaction_info_rect.center = (item_block.x_coordinate, item_block.y_coordinate)
             screen.blit(interaction_info_surf, interaction_info_rect)
 
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 3)
+                        item = random.randint(1, 4)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -293,6 +293,11 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                             info_text_1 = "From the random item block you got:"
                             info_text_2 = "50 Rupees!"
                             player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Korlok Bait!"
+                            player.items.append(Item("korlok bait", "bait", 200, 200,
+                                                     graphic_dict["korlok_bait"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

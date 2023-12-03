@@ -20,7 +20,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                 dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay, critter, right_move, left_move,
                 critter_tic, walk_move, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                best_fish_counter):
+                best_fish_counter, item_block, item_block_got, sfx_item_block, Item):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -38,6 +38,9 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     screen.blit(terra_mountains.surf, terra_mountains.rect)
     screen.blit(terra_cave.surf, terra_cave.rect)
     screen.blit(npc_dionte.surf, npc_dionte.rect)
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
 
     if critter.x_coordinate < 1010:
         screen.blit(critter.surf, critter.rect)
@@ -209,11 +212,11 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             interacted = False
 
     if pygame.Rect.colliderect(player.rect, eldream_gate_rect):
-        interaction_popup.update(700, 25, graphic_dict["popup_interaction"])
+        interaction_popup.update(675, 28, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str("Eldream"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (700, 25,)
+        interaction_info_rect.center = (675, 28)
         screen.blit(interaction_info_surf, interaction_info_rect)
         if player.quest_complete["it's dangerous to go alone"]:
             info_text_1 = "Press 'F' key to enter Eldream."
@@ -246,6 +249,47 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 interacted = False
                 info_text_1 = "The gate appears to be shut."
                 info_text_2 = "Perhaps the nearby guard knows why?"
+
+    if pygame.sprite.collide_rect(player, item_block):
+        if not item_block_got:
+            interaction_popup.update(item_block.x_coordinate, item_block.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block.x_coordinate, item_block.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 4)
+                        item_block_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Korlok Bait!"
+                            player.items.append(Item("korlok bait", "bait", 200, 200,
+                                                     graphic_dict["korlok_bait"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -305,6 +349,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                     "current_enemy_battling": current_enemy_battling,
                     "current_npc_interacting": current_npc_interacting, "rock_7_con": rock_7_con,
                     "dreth_cutscenes_not_viewed": dreth_cutscenes_not_viewed, "right_move": right_move,
-                    "left_move": left_move, "critter_tic": critter_tic, "walk_move": walk_move}
+                    "left_move": left_move, "critter_tic": critter_tic, "walk_move": walk_move,
+                    "item_block_got": item_block_got}
 
     return trail_return

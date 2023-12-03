@@ -24,7 +24,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       dungeon_gate_marrow, dungeon_chest_marrow_small, atmons, castle_exit, castle_crate_1,
                       castle_crate_2, rock_9, rock_10, rope_wind_1, cell_1, cell_2, rope_wind_2, cell_3, castle_ladder,
                       castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth, cat,
-                      marrow_barrier_small, seldon_barrier_small, card_cave, item_block_1, item_block_2):
+                      marrow_barrier_small, seldon_barrier_small, card_cave, item_block_1, item_block_2,
+                      item_block_3):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -96,6 +97,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             if pygame.sprite.spritecollideany(player, interactables_terra_trail):
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, eldream_gate_rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, item_block_3):
                 interacted = True
             else:
                 interacted = False
@@ -357,7 +360,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "terra trail":
             if (not pygame.sprite.spritecollideany(player, interactables_terra_trail)
-                    and not pygame.Rect.colliderect(player.rect, eldream_gate_rect)):
+                    and not pygame.Rect.colliderect(player.rect, eldream_gate_rect)
+                    and not pygame.Rect.colliderect(player.rect, item_block_3)):
                 interacted = False
         if player.current_zone == "fishing hut":
             if (not pygame.Rect.colliderect(player.rect, fishing_hut_rect)
@@ -1837,10 +1841,10 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
             star_kirean.update(star_kirean.x_coordinate, star_kirean.y_coordinate, quest_progress_star)
     if player.current_zone == "terra trail":
         if player.quest_progress["it's dangerous to go alone"] == 1:
-            star_dionte.update(625, 65, quest_complete_star)
+            star_dionte.update(585, 60, quest_complete_star)
         elif player.quest_status["it's dangerous to go alone"] and \
                 player.quest_progress["it's dangerous to go alone"] != 1:
-            star_dionte.update(625, 65, quest_progress_star)
+            star_dionte.update(585, 60, quest_progress_star)
 
     if player.current_zone == "eldream":
         if player.quest_progress["kart troubles"] == 4:
@@ -2439,64 +2443,64 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
                    "pet damage": 0, "pet effective": False, "pet non effective": False}
 
     critical = random.randrange(1, 10)
-    if critical > 6 or sharp_sense_active:
+    if critical > 5 or sharp_sense_active:
         attack_dict["critical"] = True
         # base critical damage
         if player.offense == 0:
             damage = 6
         if player.offense == 1:
-            damage = 7
-        if player.offense == 2:
             damage = 8
-        if player.offense == 3:
-            damage = 9
-        if player.offense == 4:
+        if player.offense == 2:
             damage = 10
+        if player.offense == 3:
+            damage = 12
+        if player.offense == 4:
+            damage = 14
     else:
         attack_dict["critical"] = False
         # base damage
         if player.offense == 0:
-            damage = 5
+            damage = 4
         if player.offense == 1:
             damage = 6
         if player.offense == 2:
-            damage = 7
-        if player.offense == 3:
             damage = 8
+        if player.offense == 3:
+            damage = 10
         if player.offense == 4:
-            damage = 9
+            damage = 12
 
     if arrow_active:
-        damage = int(damage * 1.5)
+        damage = int(damage * 1.25)
         attack_dict["effective"] = True
     else:
         # increase or decrease damage based on type advantage/disadvantage
         if player.role == "mage":
             # super effective
             if mob.type == "scout":
-                damage = int(damage * 1.5)
+                damage = int(damage * 1.25)
                 attack_dict["effective"] = True
             # not effective
             if mob.type == "fighter":
-                damage = int(damage // 1.5)
+                damage = int(damage // 1.25)
                 attack_dict["non effective"] = True
         if player.role == "scout":
             # super effective
             if mob.type == "fighter":
-                damage = int(damage * 1.5)
+                damage = int(damage * 1.25)
                 attack_dict["effective"] = True
             # not effective
             if mob.type == "mage":
-                damage = int(damage // 1.5)
+                damage = int(damage // 1.25)
                 attack_dict["non effective"] = True
         if player.role == "fighter":
             # super effective
             if mob.type == "mage":
-                damage = int(damage * 1.5)
+                damage = int(damage * 1.25)
                 attack_dict["effective"] = True
             # not effective
             if mob.type == "scout":
-                damage = int(damage // 1.5)
+                damage = int(damage // 1.25)
                 attack_dict["non effective"] = True
         # if player doesn't have a role, either do no damage or just 1
         if player.role == "":
@@ -2506,15 +2510,15 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
 
     # level scaling final damage output
     if level_difference == 1:
-        damage -= 1
-    if level_difference == 2:
         damage -= 2
-    if level_difference == 3:
-        damage -= 3
-    if level_difference == 4:
+    if level_difference == 2:
         damage -= 4
+    if level_difference == 3:
+        damage -= 6
+    if level_difference == 4:
+        damage -= 8
     if level_difference >= 5:
-        damage -= 5
+        damage -= 10
 
     if sharp_sense_active:
         damage += damage - int(damage * 0.75)
@@ -2611,35 +2615,35 @@ def attack_player(player, mob, barrier_active, arrow_active):
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False}
 
     critical = random.randrange(1, 10)
-    if critical > 6 and not barrier_active:
+    if critical > 5 and not barrier_active:
         attack_dict["critical"] = True
         # base critical damage
         if player.defense == 0:
-            damage = 6
+            damage = 12
         if player.defense == 1:
-            damage = 5
+            damage = 10
         if player.defense == 2:
-            damage = 4
+            damage = 8
         if player.defense == 3:
-            damage = 3
+            damage = 6
         if player.defense == 4:
-            damage = 2
+            damage = 4
     else:
         attack_dict["critical"] = False
         # base damage
         if player.defense == 0:
-            damage = 5
+            damage = 10
         if player.defense == 1:
-            damage = 4
+            damage = 8
         if player.defense == 2:
-            damage = 3
+            damage = 6
         if player.defense == 3:
-            damage = 2
+            damage = 4
         if player.defense == 4:
-            damage = 1
+            damage = 2
 
     if arrow_active:
-        damage = int(damage // 1.5)
+        damage = int(damage // 1.25)
         attack_dict["non effective"] = True
 
     else:
@@ -2647,42 +2651,42 @@ def attack_player(player, mob, barrier_active, arrow_active):
         if mob.type == "mage":
             # super effective
             if player.role == "scout":
-                damage = int(damage * 1.5)
+                damage = int(damage * 1.25)
                 attack_dict["effective"] = True
             # not effective
             if player.role == "fighter":
-                damage = int(damage // 1.5)
+                damage = int(damage // 1.25)
                 attack_dict["non effective"] = True
         if mob.type == "scout":
             # super effective
             if player.role == "fighter":
-                damage = int(damage * 1.5)
+                damage = int(damage * 1.25)
                 attack_dict["effective"] = True
             # not effective
             if player.role == "mage":
-                damage = int(damage // 1.5)
+                damage = int(damage // 1.25)
                 attack_dict["non effective"] = True
         if mob.type == "fighter":
             # super effective
             if player.role == "mage":
-                damage = int(damage * 1.5)
+                damage = int(damage * 1.25)
                 attack_dict["effective"] = True
             # not effective
             if player.role == "scout":
-                damage = int(damage // 1.5)
+                damage = int(damage // 1.25)
                 attack_dict["non effective"] = True
 
     # level scaling final damage output
     if level_difference == 1:
-        damage += 1
-    if level_difference == 2:
         damage += 2
-    if level_difference == 3:
-        damage += 3
-    if level_difference == 4:
+    if level_difference == 2:
         damage += 4
+    if level_difference == 3:
+        damage += 6
+    if level_difference == 4:
+        damage += 8
     if level_difference >= 5:
-        damage += 5
+        damage += 10
 
     if barrier_active:
         damage -= damage - int(damage * 0.75)
