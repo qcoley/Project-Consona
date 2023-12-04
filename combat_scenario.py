@@ -4257,9 +4257,9 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                             if player.offense == 3:
                                 striked = random.randrange(1, 5)
                             if player.offense == 4:
-                                striked = random.randrange(10, 15)
+                                striked = random.randrange(15, 20)
                         else:
-                            striked = random.randrange(10, 15)  # hard strike damage
+                            striked = random.randrange(15, 20)  # hard strike damage
                         combat_event_dictionary["effective player"] = False
                         combat_event_dictionary["non effective player"] = False
                         combat_event_dictionary["critical dealt"] = False

@@ -7578,7 +7578,7 @@ if __name__ == "__main__":
     pet_whistle_torok = Item("pet whistle torok", "whistle", 1078, 197, graphic_dict["whistle_torok_img"], 1)
     pet_whistle_iriana = Item("pet whistle iriana", "whistle", 1078, 197, graphic_dict["whistle_iriana_img"], 1)
 
-    critter_terra = UiElement("critter terra", 940, 350, graphic_dict["critter_front"])
+    critter_terra = UiElement("critter terra", 940, 355, graphic_dict["critter_front"])
     critter_eldream = UiElement("critter eldream", 350, 50, graphic_dict["critter_front"])
     critter_ectrenos_1 = UiElement("critter ectrenos 1", 360, 290, graphic_dict["critter_front"])
     critter_ectrenos_2 = UiElement("critter ectrenos 2", 680, 220, graphic_dict["critter_front"])
@@ -7672,28 +7672,28 @@ if __name__ == "__main__":
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
-    snake_1 = Enemy("Snake", "snake", 100, 100, 1, 100, 130, True,
+    snake_1 = Enemy("Snake", "snake", 100, 100, 2, 100, 130, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    snake_2 = Enemy("Snake", "snake", 100, 100, 2, 285, 150, True,
+    snake_2 = Enemy("Snake", "snake", 100, 100, 1, 285, 150, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     snake_3 = Enemy("Snake", "snake", 100, 100, 1, 100, 230, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    snake_4 = Enemy("Snake", "snake", 100, 100, 2, 285, 250, True,
+    snake_4 = Enemy("Snake", "snake", 100, 100, 1, 285, 250, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    ghoul_low_1 = Enemy("Ghoul", "ghoul", 100, 100, 4, 665, 180, True,
+    ghoul_low_1 = Enemy("Ghoul", "ghoul", 100, 100, 3, 665, 180, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_low_2 = Enemy("Ghoul", "ghoul", 100, 100, 5, 800, 130, True,
+    ghoul_low_2 = Enemy("Ghoul", "ghoul", 100, 100, 4, 800, 130, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_low_3 = Enemy("Ghoul", "ghoul", 100, 100, 3, 760, 240, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 4, 890, 205, True,
+    ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 3, 890, 205, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_nede = Enemy("Ghoul", "nede ghoul", 100, 100, 3, 450, 455, True,
@@ -8125,9 +8125,7 @@ if __name__ == "__main__":
     advantage_battle_sprite = UiElement("advantage overlay", 375, 450, graphic_dict["skill_arrow_advantage"])
 
     fire_battle_sprite = UiElement("fire overlay", 600, 375, graphic_dict["millennium_fire"])
-
     edge_battle_sprite = UiElement("edge overlay", 575, 400, graphic_dict["epsilon's_edge"])
-
     overlay_enemy_vanish = UiElement("enemy vanish", 575, 450, graphic_dict["overlay_enemy_vanish"])
 
     kasper_battle_sprite = BattleCharacter("kasper battle", 825, 520, graphic_dict["kasper_battle"])
@@ -8197,7 +8195,7 @@ if __name__ == "__main__":
     dungeon_crate_2 = Item("dungeon crate 2", "Crate", 960, 150, graphic_dict["dungeon_crate"], 0)
     dungeon_crate_3 = Item("dungeon crate 3", "Crate", 388, 575, graphic_dict["dungeon_crate"], 0)
     dungeon_crate_4 = Item("dungeon crate 4", "Crate", 650, 575, graphic_dict["dungeon_crate"], 0)
-    dungeon_crate_5 = Item("dungeon crate 5", "Crate", 970, 150, graphic_dict["dungeon_crate"], 0)
+    dungeon_crate_5 = Item("dungeon crate 5", "Crate", 875, 150, graphic_dict["dungeon_crate"], 0)
     dungeon_switch_1 = Item("dungeon switch 1", "Switch", 158, 430, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_switch_2 = Item("dungeon switch 2", "Switch", 874, 430, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_switch_3 = Item("dungeon switch 3", "Switch", 519, 145, graphic_dict["dungeon_switch_inactive"], 0)
@@ -8218,6 +8216,11 @@ if __name__ == "__main__":
     item_block_1 = Item("item block 1", "block", 105, 175, graphic_dict["item_block"], 0)
     item_block_2 = Item("item block 2", "block", 650, 48, graphic_dict["item_block"], 0)
     item_block_3 = Item("item block 3", "block", 710, 530, graphic_dict["item_block"], 0)
+
+    item_block_4 = Item("item block 4", "block", 950, 500, graphic_dict["item_block"], 0)
+    item_block_5 = Item("item block 5", "block", 80, 500, graphic_dict["item_block"], 0)
+    item_block_6 = Item("item block 6", "block", 100, 475, graphic_dict["item_block"], 0)
+
     chest_small_castle_1 = UiElement("chest small castle 1", 700, 262, graphic_dict["chest_small"])
     chest_small_castle_2 = UiElement("chest small castle 2", 700, 262, graphic_dict["chest_small"])
     overlay_prism_activate = UiElement("overlay prism", 710, 485, graphic_dict["overlay_prism"])
@@ -8928,6 +8931,11 @@ if __name__ == "__main__":
     item_block_3_got = False
     item_block_4_got = False
     item_block_5_got = False
+    item_block_6_got = False
+    item_block_7_got = False
+    item_block_8_got = False
+    item_block_9_got = False
+    item_block_10_got = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -9248,9 +9256,9 @@ if __name__ == "__main__":
                     screen.blit(continue_button.surf, continue_button.rect)
                     screen.blit(music_toggle_button.surf, music_toggle_button.rect)
 
-                if start_logo_toc - start_logo_tic > 2:
+                if start_logo_toc - start_logo_tic > 1:
                     if not start_logo_set:
-                        for alpha in range(0, 150):
+                        for alpha in range(0, 100):
                             start_screen_logo.set_alpha(alpha)
                             screen.blit(start_screen_logo, (0, 0))
                             pygame.display.flip()
@@ -9267,9 +9275,9 @@ if __name__ == "__main__":
                     game_window.blit(continue_button.surf, continue_button.rect)
                     game_window.blit(music_toggle_button.surf, music_toggle_button.rect)
 
-                if start_logo_toc - start_logo_tic > 2:
+                if start_logo_toc - start_logo_tic > 1:
                     if not start_logo_set:
-                        for alpha in range(0, 150):
+                        for alpha in range(0, 100):
                             start_screen_logo.set_alpha(alpha)
                             game_window.blit(start_screen_logo, (0, 0))
                             pygame.display.flip()
@@ -10689,7 +10697,9 @@ if __name__ == "__main__":
                                                                                   marrow_barrier_small,
                                                                                   seldon_barrier_small,
                                                                                   stardust_card_cave, item_block_1,
-                                                                                  item_block_2, item_block_3)
+                                                                                  item_block_2, item_block_3,
+                                                                                  item_block_4, item_block_5,
+                                                                                  item_block_6)
 
                                 if interacted:
                                     cleared = False
@@ -13116,7 +13126,10 @@ if __name__ == "__main__":
                                                                              altar_entrance, mini_map_overlay,
                                                                              basic_fish_counter, better_fish_counter,
                                                                              even_better_fish_counter,
-                                                                             best_fish_counter)
+                                                                             best_fish_counter, item_block_5,
+                                                                             item_block_5_got, sfx_item_block, Item,
+                                                                             kasper_unlocked, torok_unlocked,
+                                                                             iriana_unlocked)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -13147,7 +13160,10 @@ if __name__ == "__main__":
                                                                              altar_entrance, mini_map_overlay,
                                                                              basic_fish_counter, better_fish_counter,
                                                                              even_better_fish_counter,
-                                                                             best_fish_counter)
+                                                                             best_fish_counter, item_block_5,
+                                                                             item_block_5_got, sfx_item_block, Item,
+                                                                             kasper_unlocked, torok_unlocked,
+                                                                             iriana_unlocked)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -13174,6 +13190,7 @@ if __name__ == "__main__":
                     critter_left_move = ectrenos_left_returned["left_move"]
                     critter_tic = ectrenos_left_returned["critter_tic"]
                     walk_move = ectrenos_left_returned["walk_move"]
+                    item_block_5_got = ectrenos_left_returned["item_block_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -13208,7 +13225,10 @@ if __name__ == "__main__":
                                                                                critter_tic, walk_move, mini_map_overlay,
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter)
+                                                                               best_fish_counter, item_block_4,
+                                                                               item_block_4_got, sfx_item_block, Item,
+                                                                               kasper_unlocked, torok_unlocked,
+                                                                               iriana_unlocked)
                     else:
                         ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_right_bg,
@@ -13237,7 +13257,10 @@ if __name__ == "__main__":
                                                                                critter_tic, walk_move, mini_map_overlay,
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter)
+                                                                               best_fish_counter, item_block_4,
+                                                                               item_block_4_got, sfx_item_block, Item,
+                                                                               kasper_unlocked, torok_unlocked,
+                                                                               iriana_unlocked)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -13263,6 +13286,7 @@ if __name__ == "__main__":
                     critter_left_move = ectrenos_right_returned["left_move"]
                     critter_tic = ectrenos_right_returned["critter_tic"]
                     walk_move = ectrenos_right_returned["walk_move"]
+                    item_block_4_got = ectrenos_right_returned["item_block_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -13515,7 +13539,11 @@ if __name__ == "__main__":
                                                                                interaction_popup, interacted,
                                                                                fishing_unlocked, movement_able, in_hut,
                                                                                pet_energy_window, alcove_fishing_rect_2,
-                                                                               mini_map_overlay, sfx_fishing_cast)
+                                                                               mini_map_overlay, sfx_fishing_cast,
+                                                                               item_block_6, item_block_6_got,
+                                                                               sfx_item_block, Item,
+                                                                               kasper_unlocked, torok_unlocked,
+                                                                               iriana_unlocked)
                     else:
                         fishing_alcove_returned = zone_ectrenos.fishing_alcove(pygame, game_window, player,
                                                                                over_world_song_set,
@@ -13539,7 +13567,11 @@ if __name__ == "__main__":
                                                                                interaction_popup, interacted,
                                                                                fishing_unlocked, movement_able, in_hut,
                                                                                pet_energy_window, alcove_fishing_rect_2,
-                                                                               mini_map_overlay, sfx_fishing_cast)
+                                                                               mini_map_overlay, sfx_fishing_cast,
+                                                                               item_block_6, item_block_6_got,
+                                                                               sfx_item_block, Item,
+                                                                               kasper_unlocked, torok_unlocked,
+                                                                               iriana_unlocked)
 
                     over_world_song_set = fishing_alcove_returned["over_world_song_set"]
                     basic_fish_counter = fishing_alcove_returned["basic_fish_counter"]
@@ -13558,6 +13590,7 @@ if __name__ == "__main__":
                     previous_surf = fishing_alcove_returned["previous_surf"]
                     interacted = fishing_alcove_returned["interacted"]
                     in_over_world = fishing_alcove_returned["in_over_world"]
+                    item_block_6_got = fishing_alcove_returned["item_block_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok district mines ----------------------------------------------------------------
@@ -13804,7 +13837,7 @@ if __name__ == "__main__":
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
-                                                                      sfx_item_block, Item)
+                                                                      sfx_item_block, Item, sfx_gate_open)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -13842,7 +13875,7 @@ if __name__ == "__main__":
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
-                                                                      sfx_item_block, Item)
+                                                                      sfx_item_block, Item, sfx_gate_open)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]

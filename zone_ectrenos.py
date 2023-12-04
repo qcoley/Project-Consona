@@ -245,7 +245,9 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos, ectrenos_pet_entrance,
                   in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find, critter, right_move,
                   left_move, critter_tic, walk_move, altar, mini_map, basic_fish_counter, better_fish_counter,
-                  even_better_fish_counter, best_fish_counter):
+                  even_better_fish_counter, best_fish_counter, item_block, item_block_got, sfx_item_block, Item,
+                  kasper_unlocked, torok_unlocked, iriana_unlocked):
+
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -258,6 +260,9 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
 
     if not player.quest_complete["hatch 'em all"]:
         screen.blit(quest_star_aitor.surf, quest_star_aitor.rect)
@@ -391,6 +396,62 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                 info_text_3 = ""
                 info_text_4 = ""
 
+    if pygame.sprite.collide_rect(player, item_block):
+        if not item_block_got:
+            interaction_popup.update(item_block.x_coordinate, item_block.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block.x_coordinate, item_block.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 5)
+                        item_block_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Eldream Bait!"
+                            player.items.append(Item("eldream bait", "bait", 200, 200,
+                                                     graphic_dict["eldream_bait"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Pet Snack!"
+                            if kasper_unlocked:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                            elif torok_unlocked:
+                                player.items.append(Item("pet candy", "candy", 200, 200,
+                                                         graphic_dict["pet_candy_img"], 1))
+                            elif iriana_unlocked:
+                                player.items.append(Item("pet tart", "tart", 200, 200,
+                                                         graphic_dict["pet_tart_img"], 1))
+                            else:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -464,7 +525,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                             "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
                             "interactables_ectrenos": interactables_ectrenos, "in_menagerie": in_menagerie,
                             "right_move": right_move, "left_move": left_move, "critter_tic": critter_tic,
-                            "walk_move": walk_move}
+                            "walk_move": walk_move, "item_block_got": item_block_got}
 
     return ectrenos_left_return
 
@@ -478,7 +539,9 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
                    ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre, sfx_find, critter,
                    right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter,
-                   better_fish_counter, even_better_fish_counter, best_fish_counter):
+                   better_fish_counter, even_better_fish_counter, best_fish_counter, item_block, item_block_got,
+                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked):
+
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -491,6 +554,9 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
 
     if player.quest_progress["las escondidas"] == 1 and player.quest_status["las escondidas"]:
         npc_leyre.update_position(722, 350)
@@ -623,6 +689,62 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                 info_text_3 = ""
                 info_text_4 = ""
 
+    if pygame.sprite.collide_rect(player, item_block):
+        if not item_block_got:
+            interaction_popup.update(item_block.x_coordinate, item_block.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block.x_coordinate, item_block.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 5)
+                        item_block_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Eldream Bait!"
+                            player.items.append(Item("eldream bait", "bait", 200, 200,
+                                                     graphic_dict["eldream_bait"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Pet Snack!"
+                            if kasper_unlocked:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                            elif torok_unlocked:
+                                player.items.append(Item("pet candy", "candy", 200, 200,
+                                                         graphic_dict["pet_candy_img"], 1))
+                            elif iriana_unlocked:
+                                player.items.append(Item("pet tart", "tart", 200, 200,
+                                                         graphic_dict["pet_tart_img"], 1))
+                            else:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -696,7 +818,8 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                              "current_building_entering": current_building_entering,
                              "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
                              "interactables_ectrenos": interactables_ectrenos, "right_move": right_move,
-                             "left_move": left_move, "critter_tic": critter_tic, "walk_move": walk_move}
+                             "left_move": left_move, "critter_tic": critter_tic, "walk_move": walk_move,
+                             "item_block_got": item_block_got}
 
     return ectrenos_right_return
 
@@ -1208,7 +1331,8 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
                    defense_meter, staff, sword, bow, npc_garan, weapon_select, save_check_window, user_interface,
                    bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4,
                    in_over_world, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
-                   pet_energy_window, alcove_rect, mini_map, sfx_fishing_cast):
+                   pet_energy_window, alcove_rect, mini_map, sfx_fishing_cast, item_block, item_block_got,
+                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1321,6 +1445,10 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
     screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
+
     try:
         for pet in player.pet:
             if pet.active:
@@ -1427,6 +1555,62 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
                         fish_caught = False
                         break
 
+    if pygame.sprite.collide_rect(player, item_block):
+        if not item_block_got:
+            interaction_popup.update(item_block.x_coordinate, item_block.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block.x_coordinate, item_block.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 5)
+                        item_block_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Eldream Bait!"
+                            player.items.append(Item("eldream bait", "bait", 200, 200,
+                                                     graphic_dict["eldream_bait"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Pet Snack!"
+                            if kasper_unlocked:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                            elif torok_unlocked:
+                                player.items.append(Item("pet candy", "candy", 200, 200,
+                                                         graphic_dict["pet_candy_img"], 1))
+                            elif iriana_unlocked:
+                                player.items.append(Item("pet tart", "tart", 200, 200,
+                                                         graphic_dict["pet_tart_img"], 1))
+                            else:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -1464,6 +1648,6 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
                              "movement_able": movement_able, "info_text_1": info_text_1, "info_text_2": info_text_2,
                              "info_text_3": info_text_3, "info_text_4": info_text_4, "in_hut": in_hut,
                              "fishing": fishing, "fishing_timer": fishing_timer, "previous_surf": previous_surf,
-                             "interacted": interacted, "in_over_world": in_over_world}
+                             "interacted": interacted, "in_over_world": in_over_world, "item_block_got": item_block_got}
 
     return fishing_alcove_return

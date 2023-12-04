@@ -20,7 +20,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                 dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay, critter, right_move, left_move,
                 critter_tic, walk_move, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                best_fish_counter, item_block, item_block_got, sfx_item_block, Item):
+                best_fish_counter, item_block, item_block_got, sfx_item_block, Item, sfx_gate):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -42,7 +42,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
 
-    if critter.x_coordinate < 1010:
+    if critter.x_coordinate < 995:
         screen.blit(critter.surf, critter.rect)
 
     critter_toc = time.perf_counter()
@@ -67,7 +67,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
 
     if critter_toc - critter_tic > 2:
         if left_move:
-            if critter.x_coordinate > 940:
+            if critter.x_coordinate > 935:
                 if walk_move and critter.x_coordinate % 9 == 0:
                     critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
                     walk_move = False
@@ -224,6 +224,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
 
         if interacted:
             if player.quest_complete["it's dangerous to go alone"]:
+                pygame.mixer.find_channel(True).play(sfx_gate)
                 interacted = False
                 over_world_song_set = False
                 player.current_zone = "eldream"
