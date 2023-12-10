@@ -2428,7 +2428,7 @@ def creature_update(player, seed_scout_count, seed_fighter_count, seed_mage_coun
 # function that updates players info, status, role, inventory, equipment, etc
 def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter, offense_meter, defense_meter,
                                graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
-                               chroma_boots):
+                               chroma_boots, neras_grace, arens_strength, spirit_of_wisdom):
     # update players status bars
     hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player, graphics))
     en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_bar_update(player, graphics))
@@ -2466,7 +2466,7 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
 
     # update players current equipment
     drawing_functions.equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor,
-                                        power_gloves, chroma_boots)
+                                        power_gloves, chroma_boots, neras_grace, arens_strength, spirit_of_wisdom)
     # update players current inventory
     drawing_functions.item_updates(player, graphics)
 

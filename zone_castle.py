@@ -18,7 +18,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, castle_crate_1_got,
                castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_phase,
                castle_one_roped_bg, castle_one_keyed_bg, key_got, castle_key, boss_door, sfx_item_key, jumanos,
-               jumano_battle_sprite):
+               jumano_battle_sprite, card_popup_checked):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -230,6 +230,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
+            card_popup_checked = False
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -302,7 +303,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                          "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic,
                          "castle_crate_1_got": castle_crate_1_got, "castle_crate_2_got": castle_crate_2_got,
-                         "dreth_taunt": dreth_taunt, "has_key": key_got, "jumanos": jumanos}
+                         "dreth_taunt": dreth_taunt, "has_key": key_got, "jumanos": jumanos,
+                         "card_popup_checked": card_popup_checked}
 
     return castle_one_return
 
@@ -317,7 +319,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                even_better_fish_counter, best_fish_counter, prism_tic, chandelier, rock_1, rock_2, sfx_rocks,
                dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_two_roped_bg, sfx_rope,
                cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_saved, chest_1_got,
-               sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite):
+               sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, card_popup_checked):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -337,6 +339,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                 current_enemy_battling = atmon
                 in_over_world = False
                 in_battle = True
+                card_popup_checked = False
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
@@ -565,7 +568,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                          "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt,
                          "rope_phase": rope_phase, "mirage_updated": mirage_updated, "mirage_saved": mirage_saved,
-                         "castle_chest_1_got": chest_1_got}
+                         "castle_chest_1_got": chest_1_got, "card_popup_checked": card_popup_checked}
 
     return castle_two_return
 
@@ -581,7 +584,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                  dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_three_roped_bg, sfx_rope,
                  cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_2_saved, chest_1_got,
                  sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall, thanked,
-                 up_move, jumano_battle_sprite, sfx_surprise, surprised, apothis_gift):
+                 up_move, jumano_battle_sprite, sfx_surprise, surprised, apothis_gift, card_popup_checked):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -758,6 +761,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                 in_over_world = False
                 movement_able = False
                 in_battle = True
+                card_popup_checked = False
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
@@ -832,7 +836,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                            "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt,
                            "rope_phase": rope_phase, "mirage_2_updated": mirage_updated,
                            "mirage_2_saved": mirage_2_saved, "castle_chest_1_got": chest_1_got, "thanked": thanked,
-                           "critter_up_move": up_move, "surprised": surprised}
+                           "critter_up_move": up_move, "surprised": surprised, "card_popup_checked": card_popup_checked}
 
     return castle_three_return
 

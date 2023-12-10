@@ -16,7 +16,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                     prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
-                    ghouls_reset):
+                    ghouls_reset, card_popup_checked):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -283,6 +283,41 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             info_text_3 = ""
             info_text_4 = ""
 
+    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
+    enemy = pygame.sprite.spritecollideany(player, marrow_ghouls)
+    if enemy:
+        interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(enemy.name) + " lvl " + str(enemy.level), True, "black",
+                                            (255, 204, 203))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (enemy.x_coordinate, enemy.y_coordinate - 40)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        # lets player know if they are in range of enemy they can press f to attack it
+        info_text_1 = "Press 'F' key to attack enemy."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            current_enemy_battling = enemy
+            in_over_world = False
+            in_battle = True
+            card_popup_checked = False
+
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
+            combat_scenario.battle_animation_enemy(current_enemy_battling, ghoul_battle_sprite,
+                                                   ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
+                                                   ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
+                                                   in_battle, in_npc_interaction, graphic_dict, ghoul_battle_sprite,
+                                                   ghoul_battle_sprite, ghoul_battle_sprite, False,
+                                                   ghoul_battle_sprite, 0, ghoul_battle_sprite, ghoul_battle_sprite,
+                                                   ghoul_battle_sprite, False)
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -310,40 +345,6 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
     drawing_functions.draw_it(screen)
-
-    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
-    enemy = pygame.sprite.spritecollideany(player, marrow_ghouls)
-    if enemy:
-        interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
-        screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str(enemy.name) + " lvl " + str(enemy.level), True, "black",
-                                            (255, 204, 203))
-        interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (enemy.x_coordinate, enemy.y_coordinate - 40)
-        screen.blit(interaction_info_surf, interaction_info_rect)
-
-        # lets player know if they are in range of enemy they can press f to attack it
-        info_text_1 = "Press 'F' key to attack enemy."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
-
-        if interacted and in_over_world:
-            current_enemy_battling = enemy
-            in_over_world = False
-            in_battle = True
-
-            drawing_functions.loot_popup_container.clear()
-            drawing_functions.loot_text_container.clear()
-            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
-            combat_scenario.battle_animation_enemy(current_enemy_battling, ghoul_battle_sprite,
-                                                   ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
-                                                   ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
-                                                   in_battle, in_npc_interaction, graphic_dict, ghoul_battle_sprite,
-                                                   ghoul_battle_sprite, ghoul_battle_sprite, False, ghoul_battle_sprite,
-                                                   0, ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
-                                                   False)
 
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
@@ -422,7 +423,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                               "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
                               "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                               "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic,
-                              "ghouls_highlighted": ghouls_highlighted, "ghouls_reset": ghouls_reset}
+                              "ghouls_highlighted": ghouls_highlighted, "ghouls_reset": ghouls_reset,
+                              "card_popup_checked": card_popup_checked}
 
     return marrow_district_return
 
@@ -1834,7 +1836,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                barrier_active, sharp_sense_active, in_npc_interaction, atmon_battle_sprite, enemy_tic,
                current_enemy_battling, sub_marrow_opened, item_block_9, item_block_9_got, sfx_item_block,
                kasper_unlocked, torok_unlocked, iriana_unlocked, maydria_task_start, prism_received,
-               atmons_highlighted, atmons_reset):
+               atmons_highlighted, atmons_reset, card_popup_checked):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -2003,6 +2005,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
+            card_popup_checked = False
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -2131,6 +2134,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                          "movement_able": movement_able, "has_key": has_key, "chest_got": chest_got, "atmons": atmons,
                          "enemy_tic": enemy_tic, "current_enemy_battling": current_enemy_battling, "sub_marrow_opened":
                          sub_marrow_opened, "item_block_9_got": item_block_9_got,
-                         "atmons_highlighted": atmons_highlighted, "atmons_reset": atmons_reset}
+                         "atmons_highlighted": atmons_highlighted, "atmons_reset": atmons_reset,
+                         "card_popup_checked": card_popup_checked}
 
     return sub_marrow_return

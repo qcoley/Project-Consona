@@ -20,7 +20,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
                  sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay, basic_fish_counter,
                  better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, bandiles_highlighted,
-                 bandiles_reset, ore_highlighted):
+                 bandiles_reset, ore_highlighted, card_popup_checked):
 
     if not talk_start:
         pygame.mixer.find_channel(True).play(sfx_talk)
@@ -118,6 +118,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
+            card_popup_checked = False
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -259,6 +260,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                     "current_enemy_battling": current_enemy_battling, "prime_1": prime_1, "prime_2": prime_2,
                     "prime_3": prime_3, "jez_1": jez_1, "jez_2": jez_2, "jez_3": jez_3, "talk_start": talk_start,
                     "bandiles_highlighted": bandiles_highlighted, "bandiles_reset": bandiles_reset,
-                    "ore_highlighted": ore_highlighted}
+                    "ore_highlighted": ore_highlighted, "card_popup_checked": card_popup_checked}
 
     return mines_return

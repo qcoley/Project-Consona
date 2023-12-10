@@ -7239,7 +7239,8 @@ def button_highlighter(posit):
                                                               trade_chinzilla, trade_erebyth, fire_learn_button,
                                                               fire_button, edge_button, arrow_button,
                                                               kasper_whistle_button, torok_whistle_button,
-                                                              iriana_whistle_button, card_deck_button, trading_deck)
+                                                              iriana_whistle_button, card_deck_button, trading_deck,
+                                                              nera_button, aren_button, spirit_button)
     return button_highlighters
 
 
@@ -7523,6 +7524,9 @@ if __name__ == "__main__":
     # equipment items
     power_gloves = Item("power gloves", "gloves", 1153, 197, graphic_dict["gloves"], 0)
     chroma_boots = Item("chroma boots", "boots", 1200, 197, graphic_dict["gloves"], 0)
+    neras_grace = Item("nera trinket", "trinket", 1178, 25, graphic_dict["nera's_grace"], 0)
+    arens_strength = Item("aren trinket", "trinket", 1216, 25, graphic_dict["aren's_strength"], 0)
+    spirit_of_wisdom = Item("spirit trinket", "trinket", 1254, 25, graphic_dict["wisdom's_spirit"], 0)
 
     # character selection
     amuna_male_character = UiElement("amuna character", 640, 360, graphic_dict["amuna_male_character_img"])
@@ -7535,7 +7539,8 @@ if __name__ == "__main__":
     # default player
     player = PlayerAmuna("stan", "amuna", "male", "",  # name, race, role
                          [],  # inventory
-                         {"weapon": "", "armor": "", "gloves": "", "boots": ""},
+                         {"weapon": "", "armor": "", "gloves": "", "boots": "",
+                          "trinket 1": "", "trinket 2": "", "trinket 3": ""},
                          {"sneaky snakes": "Speak to Garan to start this quest.",
                           "village repairs": "Speak to Maurelle to start this quest.",
                           "where's nede?": "Speak to Celeste to start this quest",
@@ -7972,13 +7977,13 @@ if __name__ == "__main__":
     check_even_better_fish_button = UiElement("check e. better", 490, 330, graphic_dict["check_button_img"])
     check_best_fish_button = UiElement("check best", 490, 425, graphic_dict["check_button_img"])
     fishing_level_overlay = UiElement("fish level overlay", 410, 510, graphic_dict["fishing_level_0"])
-
     kasper_whistle_button = UiElement("kasper button", 1178, 409, graphic_dict["kasper_button"])
     torok_whistle_button = UiElement("torok button", 1216, 409, graphic_dict["torok_button"])
     iriana_whistle_button = UiElement("iriana button", 1254, 409, graphic_dict["iriana_button"])
-    
+    nera_button = UiElement("nera button", 1178, 25, graphic_dict["nera's_grace"])
+    aren_button = UiElement("aren button", 1216, 25, graphic_dict["aren's_strength"])
+    spirit_button = UiElement("spirit button", 1254, 25, graphic_dict["wisdom's_spirit"])
     card_deck_button = UiElement("card deck button", 368, 680, graphic_dict["card_deck_img"])
-
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
     mage_attack_button = UiElement("mage attack button", 750, 642, graphic_dict["mage_attack_button_img"])
     fighter_attack_button = UiElement("fighter attack button", 750, 642, graphic_dict["fighter_attack_button_img"])
@@ -7986,21 +7991,16 @@ if __name__ == "__main__":
     barrier_button = UiElement("barrier button", 820, 641, graphic_dict["barrier_button_img"])
     hard_strike_button = UiElement("hard strike button", 820, 641, graphic_dict["strike_button_img"])
     sharp_sense_button = UiElement("sharp sense button", 820, 641, graphic_dict["sense_button_img"])
-
     mirror_button = UiElement("mirror button", 890, 641, graphic_dict["mirror_button_img"])
     stun_button = UiElement("stun button", 890, 641, graphic_dict["stun_button_img"])
     vanish_button = UiElement("vanish button", 890, 641, graphic_dict["vanish_button_img"])
-
     fire_button = UiElement("fire button", 960, 641, graphic_dict["fire_button_img"])
     edge_button = UiElement("edge button", 960, 641, graphic_dict["edge_button_img"])
     arrow_button = UiElement("arrow button", 960, 641, graphic_dict["arrow_button_img"])
-
     stun_overlay = UiElement("stun overlay", 700, 260, graphic_dict["stun_img"])
     vanish_overlay = UiElement("vanish overlay", 100, 600, graphic_dict["vanish_img"])
-
     type_advantage_overlay = UiElement("type advantage overlay", 580, 48, graphic_dict["mage_type_overlay"])
     type_advantage_mini = UiElement("type advantage mini", 960, 58, graphic_dict["type advantages"])
-
     skill_bar = UiElement("skill bar", 855, 636, graphic_dict["skill_bar"])
     enemy_status = UiElement("enemy status", 855, 687, graphic_dict["enemy_status"])
     hp_bar = UiElement("health bar", 165, 25, graphic_dict["hp_100"])
@@ -8935,6 +8935,7 @@ if __name__ == "__main__":
     show_edge = False
     on_card_quest = False
     card_counted = False
+    card_popup_checked = False
     item_block_1_got = False
     item_block_2_got = False
     item_block_3_got = False
@@ -8989,7 +8990,9 @@ if __name__ == "__main__":
                  "basic_bandile": 0, "better_bandile": 0, "basic_magmon": 0, "better_magmon": 0,
                  "better_necrola": 0, "best_necrola": 0, "better_osodark": 0, "best_osodark": 0,
                  "better_atmon": 0, "best_atmon": 0, "better_jumano": 0, "best_jumano": 0,
-                 "chorizon": 0, "muchador": 0, "chinzilla": 0, "erebyth": 0, "dreth": 0}
+                 "chorizon": 0, "muchador": 0, "chinzilla": 0, "erebyth": 0, "dreth": 0, "snake_popup": False,
+                 "ghoul_popup": False, "bandile_popup": False, "magmon_popup": False, "necrola_popup": False,
+                 "osodark_popup": False, "atmon_popup": False, "jumano_popup": False}
 
     # counter for collection task to unlock trading card window
     any_card_counter = 0
@@ -9043,6 +9046,7 @@ if __name__ == "__main__":
     firework_tic = time.perf_counter()
     fishing_timer = time.perf_counter()
     prism_activate_tic = time.perf_counter()
+    combat_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -9050,165 +9054,7 @@ if __name__ == "__main__":
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
         # print(player.x_coordinate, player.y_coordinate)
 
-        # trigger card popups if condition from previous battle is met (card was dropped)
-        if trading_deck and in_over_world:
-            try:
-                if combat_events["enemy defeated"]:
-                    try:
-                        if combat_events["basic_snake"]:
-                            if on_card_quest:
-                                if not card_counted:
-                                    any_card_counter += 1
-                                    card_counted = True
-                            c_snake_popup = True
-                    except NameError:
-                        pass
-                    try:
-                        if combat_events["basic_ghoul"]:
-                            if on_card_quest:
-                                if not card_counted:
-                                    any_card_counter += 1
-                                    card_counted = True
-                            c_ghoul_popup = True
-                    except NameError:
-                        pass
-                    try:
-                        if combat_events["basic_bandile"]:
-                            if on_card_quest:
-                                if not card_counted:
-                                    any_card_counter += 1
-                                    card_counted = True
-                            c_bandile_popup = True
-                    except NameError:
-                        pass
-                    try:
-                        if combat_events["basic_magmon"]:
-                            if on_card_quest:
-                                if not card_counted:
-                                    any_card_counter += 1
-                                    card_counted = True
-                            c_magmon_popup = True
-                    except NameError:
-                        pass
-                    try:
-                        if combat_events["better_necrola"]:
-                            if on_card_quest:
-                                if not card_counted:
-                                    any_card_counter += 1
-                                    card_counted = True
-                            b_necrola_popup = True
-                    except NameError:
-                        pass
-                    try:
-                        if combat_events["better_osodark"]:
-                            if on_card_quest:
-                                if not card_counted:
-                                    any_card_counter += 1
-                                    card_counted = True
-                            b_osodark_popup = True
-                    except NameError:
-                        pass
-                    try:
-                        if combat_events["better_atmon"]:
-                            if on_card_quest:
-                                if not card_counted:
-                                    any_card_counter += 1
-                                    card_counted = True
-                            b_atmon_popup = True
-                    except NameError:
-                        pass
-                    try:
-                        if combat_events["better_jumano"]:
-                            if on_card_quest:
-                                if not card_counted:
-                                    any_card_counter += 1
-                                    card_counted = True
-                            b_jumano_popup = True
-                    except NameError:
-                        pass
-            except NameError:
-                pass
-
         if in_over_world:
-            # trigger card popups if condition from previous battle is met (card was dropped)
-            if trading_deck:
-                try:
-                    if combat_events["enemy defeated"]:
-                        try:
-                            if combat_events["basic_snake"]:
-                                if on_card_quest:
-                                    if not card_counted:
-                                        any_card_counter += 1
-                                        card_counted = True
-                                c_snake_popup = True
-                        except NameError:
-                            pass
-                        try:
-                            if combat_events["basic_ghoul"]:
-                                if on_card_quest:
-                                    if not card_counted:
-                                        any_card_counter += 1
-                                        card_counted = True
-                                c_ghoul_popup = True
-                        except NameError:
-                            pass
-                        try:
-                            if combat_events["basic_bandile"]:
-                                if on_card_quest:
-                                    if not card_counted:
-                                        any_card_counter += 1
-                                        card_counted = True
-                                c_bandile_popup = True
-                        except NameError:
-                            pass
-                        try:
-                            if combat_events["basic_magmon"]:
-                                if on_card_quest:
-                                    if not card_counted:
-                                        any_card_counter += 1
-                                        card_counted = True
-                                c_magmon_popup = True
-                        except NameError:
-                            pass
-                        try:
-                            if combat_events["better_necrola"]:
-                                if on_card_quest:
-                                    if not card_counted:
-                                        any_card_counter += 1
-                                        card_counted = True
-                                b_necrola_popup = True
-                        except NameError:
-                            pass
-                        try:
-                            if combat_events["better_osodark"]:
-                                if on_card_quest:
-                                    if not card_counted:
-                                        any_card_counter += 1
-                                        card_counted = True
-                                b_osodark_popup = True
-                        except NameError:
-                            pass
-                        try:
-                            if combat_events["better_atmon"]:
-                                if on_card_quest:
-                                    if not card_counted:
-                                        any_card_counter += 1
-                                        card_counted = True
-                                b_atmon_popup = True
-                        except NameError:
-                            pass
-                        try:
-                            if combat_events["better_jumano"]:
-                                if on_card_quest:
-                                    if not card_counted:
-                                        any_card_counter += 1
-                                        card_counted = True
-                                b_jumano_popup = True
-                        except NameError:
-                            pass
-                except NameError:
-                    pass
-
             # hide UI elements if player walks under them --------------------------------------------------------------
             try:
                 if player.x_coordinate < 420 and 600 < player.y_coordinate:
@@ -10393,7 +10239,8 @@ if __name__ == "__main__":
                 gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
                                                               offense_meter, defense_meter, graphic_dict, basic_armor,
                                                               forged_armor, mythical_armor, legendary_armor,
-                                                              power_gloves, chroma_boots)
+                                                              power_gloves, chroma_boots, neras_grace, arens_strength,
+                                                              spirit_of_wisdom)
 
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
                         and not in_academia:
@@ -10891,7 +10738,8 @@ if __name__ == "__main__":
                                                                            forged_armor, mythical_armor,
                                                                            legendary_armor, power_gloves, chroma_boots,
                                                                            sfx_item_equip, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                           graphic_dict)
+                                                                           graphic_dict, neras_grace, arens_strength,
+                                                                           spirit_of_wisdom)
                                 if equipment_event["equipment message"] != "":
                                     button_highlighted = False
                                     info_text_1 = equipment_event["equipment message"]
@@ -11497,7 +11345,7 @@ if __name__ == "__main__":
                                                                       even_better_fish_counter, best_fish_counter,
                                                                       seldon_barrier_small, apothis_gift,
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
-                                                                      quest_logs_highlighted)
+                                                                      quest_logs_highlighted, card_popup_checked)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone, over_world_song_set,
@@ -11552,7 +11400,7 @@ if __name__ == "__main__":
                                                                       even_better_fish_counter, best_fish_counter,
                                                                       seldon_barrier_small, apothis_gift,
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
-                                                                      quest_logs_highlighted)
+                                                                      quest_logs_highlighted, card_popup_checked)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -11591,6 +11439,7 @@ if __name__ == "__main__":
                     snakes_highlighted = seldon_returned["snakes_highlighted"]
                     ghouls_seldon_highlighted = seldon_returned["ghouls_highlighted"]
                     quest_logs_highlighted = seldon_returned["quest_logs_highlighted"]
+                    card_popup_checked = seldon_returned["card_popup_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok district ----------------------------------------------------------------------
@@ -11643,7 +11492,8 @@ if __name__ == "__main__":
                                                                       forge_entrance, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
-                                                                      magmons_highlighted, magmons_reset)
+                                                                      magmons_highlighted, magmons_reset,
+                                                                      card_popup_checked)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -11690,7 +11540,8 @@ if __name__ == "__main__":
                                                                       forge_entrance, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
-                                                                      magmons_highlighted, magmons_reset)
+                                                                      magmons_highlighted, magmons_reset,
+                                                                      card_popup_checked)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -11719,6 +11570,7 @@ if __name__ == "__main__":
                     worker_delay_tic = korlok_returned["worker_delay_tic"]
                     magmons_highlighted = korlok_returned["magmons_highlighted"]
                     magmons_reset = korlok_returned["magmons_reset"]
+                    card_popup_checked = korlok_returned["card_popup_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -11902,7 +11754,7 @@ if __name__ == "__main__":
                                                                                marrow_barrier_small, apothis_gift,
                                                                                artherian_task_start,
                                                                                marrow_ghouls_highlighted,
-                                                                               marrow_ghouls_reset)
+                                                                               marrow_ghouls_reset, card_popup_checked)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -11938,7 +11790,7 @@ if __name__ == "__main__":
                                                                                marrow_barrier_small, apothis_gift,
                                                                                artherian_task_start,
                                                                                marrow_ghouls_highlighted,
-                                                                               marrow_ghouls_reset)
+                                                                               marrow_ghouls_reset, card_popup_checked)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -11959,6 +11811,7 @@ if __name__ == "__main__":
                     prism_activate_tic = marrow_district_returned["prism_tic"]
                     marrow_ghouls_highlighted = marrow_district_returned["ghouls_highlighted"]
                     marrow_ghouls_reset = marrow_district_returned["ghouls_reset"]
+                    card_popup_checked = marrow_district_returned["card_popup_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow entrance ----------------------------------------------------------------------
@@ -12621,7 +12474,8 @@ if __name__ == "__main__":
                                                                      item_block_9, item_block_9_got, sfx_item_block,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
-                                                                     atmons_highlighted, atmons_reset)
+                                                                     atmons_highlighted, atmons_reset,
+                                                                     card_popup_checked)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -12647,7 +12501,8 @@ if __name__ == "__main__":
                                                                      item_block_9, item_block_9_got, sfx_item_block,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
-                                                                     atmons_highlighted, atmons_reset)
+                                                                     atmons_highlighted, atmons_reset,
+                                                                     card_popup_checked)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -12667,6 +12522,7 @@ if __name__ == "__main__":
                     item_block_9_got = sub_marrow_returned["item_block_9_got"]
                     atmons_highlighted = sub_marrow_returned["atmons_highlighted"]
                     atmons_reset = sub_marrow_returned["atmons_reset"]
+                    card_popup_checked = sub_marrow_returned["card_popup_checked"]
                     if in_battle:
                         current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
 
@@ -12706,7 +12562,7 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite)
+                                                                     atmon_battle_sprite, card_popup_checked)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -12738,7 +12594,7 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite)
+                                                                     atmon_battle_sprite, card_popup_checked)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -12762,6 +12618,7 @@ if __name__ == "__main__":
                     dreth_taunt_1 = castle_one_returned["dreth_taunt"]
                     has_key = castle_one_returned["has_key"]
                     jumanos = castle_one_returned["jumanos"]
+                    card_popup_checked = castle_one_returned["card_popup_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle area two ---------------------------------------------------------------
@@ -12794,7 +12651,7 @@ if __name__ == "__main__":
                                                                      cell_popup, chest_small_castle_1, mirage_saved,
                                                                      castle_chest_1_got, sfx_item_rupee,
                                                                      sfx_enemy_atmon_loud, atmon_castle,
-                                                                     atmon_battle_sprite)
+                                                                     atmon_battle_sprite, card_popup_checked)
                     else:
                         castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
                                                                      castle_two_bg, over_world_song_set, castle_music,
@@ -12821,7 +12678,7 @@ if __name__ == "__main__":
                                                                      cell_popup, chest_small_castle_1, mirage_saved,
                                                                      castle_chest_1_got, sfx_item_rupee,
                                                                      sfx_enemy_atmon_loud, atmon_castle,
-                                                                     atmon_battle_sprite)
+                                                                     atmon_battle_sprite, card_popup_checked)
 
                     over_world_song_set = castle_two_returned["over_world_song_set"]
                     interacted = castle_two_returned["interacted"]
@@ -12842,6 +12699,7 @@ if __name__ == "__main__":
                     mirage_updated = castle_two_returned["mirage_updated"]
                     mirage_saved = castle_two_returned["mirage_saved"]
                     castle_chest_1_got = castle_two_returned["castle_chest_1_got"]
+                    card_popup_checked = castle_two_returned["card_popup_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle area two ---------------------------------------------------------------
@@ -12882,7 +12740,7 @@ if __name__ == "__main__":
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
                                                                          jumano_hall, thanked, critter_up_move,
                                                                          jumano_battle_sprite, sfx_surprise_attack,
-                                                                         surprised, apothis_gift)
+                                                                         surprised, apothis_gift, card_popup_checked)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -12917,7 +12775,7 @@ if __name__ == "__main__":
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
                                                                          jumano_hall, thanked, critter_up_move,
                                                                          jumano_battle_sprite, sfx_surprise_attack,
-                                                                         surprised, apothis_gift)
+                                                                         surprised, apothis_gift, card_popup_checked)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -12941,6 +12799,7 @@ if __name__ == "__main__":
                     thanked = castle_three_returned["thanked"]
                     critter_up_move = castle_three_returned["critter_up_move"]
                     surprised = castle_three_returned["surprised"]
+                    card_popup_checked = castle_three_returned["card_popup_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle lair -------------------------------------------------------------------
@@ -13434,7 +13293,7 @@ if __name__ == "__main__":
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, necrolas_highlighted,
-                                                                               necrolas_reset)
+                                                                               necrolas_reset, card_popup_checked)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -13482,7 +13341,7 @@ if __name__ == "__main__":
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, necrolas_highlighted,
-                                                                               necrolas_reset)
+                                                                               necrolas_reset, card_popup_checked)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -13506,6 +13365,7 @@ if __name__ == "__main__":
                     interactables_ectrenos = ectrenos_front_returned["interactables_ectrenos"]
                     necrolas_highlighted = ectrenos_front_returned["necrolas_highlighted"]
                     necrolas_reset = ectrenos_front_returned["necrolas_reset"]
+                    card_popup_checked = ectrenos_front_returned["card_popup_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in alcove -------------------------------------------------------------------------------
@@ -13548,7 +13408,8 @@ if __name__ == "__main__":
                                                                                  basic_fish_counter,
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
-                                                                                 best_fish_counter)
+                                                                                 best_fish_counter,
+                                                                                 card_popup_checked)
                     else:
                         ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
                                                                                  player, ectrenos_alcove_bg,
@@ -13585,7 +13446,8 @@ if __name__ == "__main__":
                                                                                  basic_fish_counter,
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
-                                                                                 best_fish_counter)
+                                                                                 best_fish_counter,
+                                                                                 card_popup_checked)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -13608,6 +13470,7 @@ if __name__ == "__main__":
                     eldream_flowers = ectrenos_alcove_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_alcove_returned["interactables_ectrenos"]
                     ectrenos_alcove_enemies = ectrenos_alcove_returned["ectrenos_alcove_enemies"]
+                    card_popup_checked = ectrenos_alcove_returned["card_popup_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in fishing alcove -----------------------------------------------------------------------
@@ -13728,7 +13591,8 @@ if __name__ == "__main__":
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, apothis_gift, bandiles_highlighted,
-                                                                 bandiles_reset, ore_highlighted, ore_reset)
+                                                                 bandiles_reset, ore_highlighted, ore_reset,
+                                                                 card_popup_checked)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -13762,7 +13626,7 @@ if __name__ == "__main__":
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, apothis_gift, bandiles_highlighted,
-                                                                 bandiles_reset, ore_highlighted)
+                                                                 bandiles_reset, ore_highlighted, card_popup_checked)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -13786,6 +13650,7 @@ if __name__ == "__main__":
                     bandiles_highlighted = mines_returned["bandiles_highlighted"]
                     bandiles_reset = mines_returned["bandiles_reset"]
                     ore_highlighted = mines_returned["ore_highlighted"]
+                    card_popup_checked = mines_returned["card_popup_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok forge -------------------------------------------------------------------------
@@ -14730,6 +14595,8 @@ if __name__ == "__main__":
                                 show_advantage_arrow = False
                                 show_fire = False
                                 show_edge = False
+                                snake_popup = card_deck["snake_popup"]
+                                ghoul_popup = card_deck["ghoul_popup"]
 
                         pygame.mixer.Sound.stop(sfx_no_weapon_attack)
                         pygame.mixer.Sound.stop(sfx_mage_attack)
@@ -14811,6 +14678,15 @@ if __name__ == "__main__":
                                 if game_guide_overlay.rect.collidepoint(pos):
                                     drawing_functions.game_guide_container.clear()
 
+                                if trading_deck:
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
+
                             # get which button player pressed during combat scenario
                             combat_button = click_handlers.combat_event_button(event, no_role_attack_button,
                                                                                mage_attack_button,
@@ -14884,7 +14760,9 @@ if __name__ == "__main__":
                                                                                           basic_armor, forged_armor,
                                                                                           mythical_armor,
                                                                                           legendary_armor,
-                                                                                          power_gloves, chroma_boots)
+                                                                                          power_gloves, chroma_boots,
+                                                                                          neras_grace, arens_strength,
+                                                                                          spirit_of_wisdom)
                                     if current_info_item.name == "small health potion" or \
                                             current_info_item.name == "big health potion":
                                         if inventory_event["item message"] != "You're already at full health.":
@@ -14926,7 +14804,9 @@ if __name__ == "__main__":
                                                                                           graphic_dict, basic_armor,
                                                                                           forged_armor, mythical_armor,
                                                                                           legendary_armor, power_gloves,
-                                                                                          chroma_boots)
+                                                                                          chroma_boots, neras_grace,
+                                                                                          arens_strength,
+                                                                                          spirit_of_wisdom)
                                     if current_info_item.name == "super potion":
                                         if inventory_event["item message"] != "You're already at " \
                                                                               "full health or energy.":
@@ -14969,7 +14849,9 @@ if __name__ == "__main__":
                                                                                           basic_armor, forged_armor,
                                                                                           mythical_armor,
                                                                                           legendary_armor,
-                                                                                          power_gloves, chroma_boots)
+                                                                                          power_gloves, chroma_boots,
+                                                                                          neras_grace, arens_strength,
+                                                                                          spirit_of_wisdom)
                                 except AttributeError:
                                     pass
                             if info_choice == "no":
@@ -14990,7 +14872,8 @@ if __name__ == "__main__":
                                                                            forged_armor, mythical_armor,
                                                                            legendary_armor, power_gloves,
                                                                            chroma_boots, sfx_item_equip, SCREEN_WIDTH,
-                                                                           SCREEN_HEIGHT, graphic_dict)
+                                                                           SCREEN_HEIGHT, graphic_dict, neras_grace,
+                                                                           arens_strength, spirit_of_wisdom)
                                 if equipment_event["equipment message"] != "":
                                     info_text_1 = equipment_event["equipment message"]
                                     info_text_2 = ""
@@ -15231,6 +15114,9 @@ if __name__ == "__main__":
                                             show_advantage_arrow = False
                                             show_fire = False
                                             show_edge = False
+
+                                            snake_popup = card_deck["snake_popup"]
+                                            ghoul_popup = card_deck["ghoul_popup"]
                                     except TypeError:
                                         pass
 
@@ -15329,7 +15215,10 @@ if __name__ == "__main__":
                                                                                                   mythical_armor,
                                                                                                   legendary_armor,
                                                                                                   power_gloves,
-                                                                                                  chroma_boots)
+                                                                                                  chroma_boots,
+                                                                                                  neras_grace,
+                                                                                                  arens_strength,
+                                                                                                  spirit_of_wisdom)
                                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                         frame = pygame.transform.smoothscale(screen,
                                                                                              (SCREEN_WIDTH,
@@ -15426,7 +15315,10 @@ if __name__ == "__main__":
                                                                                                   mythical_armor,
                                                                                                   legendary_armor,
                                                                                                   power_gloves,
-                                                                                                  chroma_boots)
+                                                                                                  chroma_boots,
+                                                                                                  neras_grace,
+                                                                                                  arens_strength,
+                                                                                                  spirit_of_wisdom)
                                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                         frame = pygame.transform.smoothscale(screen,
                                                                                              (SCREEN_WIDTH,
@@ -15571,6 +15463,8 @@ if __name__ == "__main__":
                                                         show_advantage_arrow = False
                                                         show_fire = False
                                                         show_edge = False
+                                                        snake_popup = card_deck["snake_popup"]
+                                                        ghoul_popup = card_deck["ghoul_popup"]
                                                 except TypeError:
                                                     pass
 
@@ -15661,7 +15555,10 @@ if __name__ == "__main__":
                                                                                                   mythical_armor,
                                                                                                   legendary_armor,
                                                                                                   power_gloves,
-                                                                                                  chroma_boots)
+                                                                                                  chroma_boots,
+                                                                                                  neras_grace,
+                                                                                                  arens_strength,
+                                                                                                  spirit_of_wisdom)
                                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                         frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                       SCREEN_HEIGHT))
@@ -15693,7 +15590,10 @@ if __name__ == "__main__":
                                                                                               mythical_armor,
                                                                                               legendary_armor,
                                                                                               power_gloves,
-                                                                                              chroma_boots)
+                                                                                              chroma_boots,
+                                                                                              neras_grace,
+                                                                                              arens_strength,
+                                                                                              spirit_of_wisdom)
                                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                     frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                   SCREEN_HEIGHT))
@@ -15907,6 +15807,8 @@ if __name__ == "__main__":
                                                             show_advantage_arrow = False
                                                             show_fire = False
                                                             show_edge = False
+                                                            snake_popup = card_deck["snake_popup"]
+                                                            ghoul_popup = card_deck["ghoul_popup"]
                                                     except TypeError:
                                                         pass
 
@@ -15921,7 +15823,10 @@ if __name__ == "__main__":
                                                                                                   mythical_armor,
                                                                                                   legendary_armor,
                                                                                                   power_gloves,
-                                                                                                  chroma_boots)
+                                                                                                  chroma_boots,
+                                                                                                  neras_grace,
+                                                                                                  arens_strength,
+                                                                                                  spirit_of_wisdom)
                                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                         frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                       SCREEN_HEIGHT))
@@ -16091,6 +15996,8 @@ if __name__ == "__main__":
                                                         show_advantage_arrow = False
                                                         show_fire = False
                                                         show_edge = False
+                                                        snake_popup = card_deck["snake_popup"]
+                                                        ghoul_popup = card_deck["ghoul_popup"]
                                                 except TypeError:
                                                     pass
                                                 gameplay_functions.player_info_and_ui_updates(player, hp_bar,
@@ -16104,7 +16011,10 @@ if __name__ == "__main__":
                                                                                               mythical_armor,
                                                                                               legendary_armor,
                                                                                               power_gloves,
-                                                                                              chroma_boots)
+                                                                                              chroma_boots,
+                                                                                              neras_grace,
+                                                                                              arens_strength,
+                                                                                              spirit_of_wisdom)
                                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                     frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                   SCREEN_HEIGHT))
@@ -16273,6 +16183,8 @@ if __name__ == "__main__":
                                                             show_advantage_arrow = False
                                                             show_fire = False
                                                             show_edge = False
+                                                            snake_popup = card_deck["snake_popup"]
+                                                            ghoul_popup = card_deck["ghoul_popup"]
                                                     except TypeError:
                                                         pass
                                                     gameplay_functions.player_info_and_ui_updates(player, hp_bar,
@@ -16286,7 +16198,10 @@ if __name__ == "__main__":
                                                                                                   mythical_armor,
                                                                                                   legendary_armor,
                                                                                                   power_gloves,
-                                                                                                  chroma_boots)
+                                                                                                  chroma_boots,
+                                                                                                  neras_grace,
+                                                                                                  arens_strength,
+                                                                                                  spirit_of_wisdom)
                                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                         frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                       SCREEN_HEIGHT))
@@ -17178,6 +17093,9 @@ if __name__ == "__main__":
 
                     except TypeError:
                         pass
+
+                    if show_trade_deck:
+                        render_card_deck()
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -18195,7 +18113,8 @@ if __name__ == "__main__":
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip, SCREEN_WIDTH,
-                                                                       SCREEN_HEIGHT, graphic_dict)
+                                                                       SCREEN_HEIGHT, graphic_dict, neras_grace,
+                                                                       arens_strength, spirit_of_wisdom)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -18557,7 +18476,8 @@ if __name__ == "__main__":
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, graphic_dict)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, graphic_dict,
+                                                                       neras_grace, arens_strength, spirit_of_wisdom)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -19225,7 +19145,8 @@ if __name__ == "__main__":
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip, SCREEN_WIDTH,
-                                                                       SCREEN_HEIGHT, graphic_dict)
+                                                                       SCREEN_HEIGHT, graphic_dict, neras_grace,
+                                                                       arens_strength, spirit_of_wisdom)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -19926,7 +19847,8 @@ if __name__ == "__main__":
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip, SCREEN_WIDTH,
-                                                                       SCREEN_HEIGHT, graphic_dict)
+                                                                       SCREEN_HEIGHT, graphic_dict, neras_grace,
+                                                                       arens_strength, spirit_of_wisdom)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -20454,7 +20376,8 @@ if __name__ == "__main__":
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip, SCREEN_WIDTH,
-                                                                       SCREEN_HEIGHT, graphic_dict)
+                                                                       SCREEN_HEIGHT, graphic_dict, neras_grace,
+                                                                       arens_strength, spirit_of_wisdom)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -21032,13 +20955,11 @@ if __name__ == "__main__":
 
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame,
-                                                                       basic_armor, forged_armor,
-                                                                       mythical_armor, legendary_armor,
-                                                                       power_gloves,
-                                                                       chroma_boots, sfx_item_equip,
-                                                                       SCREEN_WIDTH,
-                                                                       SCREEN_HEIGHT, graphic_dict)
+                            equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
+                                                                       mythical_armor, legendary_armor, power_gloves,
+                                                                       chroma_boots, sfx_item_equip, SCREEN_WIDTH,
+                                                                       SCREEN_HEIGHT, graphic_dict, neras_grace,
+                                                                       arens_strength, spirit_of_wisdom)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -21444,7 +21365,8 @@ if __name__ == "__main__":
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, graphic_dict)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, graphic_dict,
+                                                                       neras_grace, arens_strength, spirit_of_wisdom)
                             if equipment_event["equipment message"] != "":
                                 button_highlighted = False
                                 info_text_1 = equipment_event["equipment message"]
@@ -22615,7 +22537,6 @@ if __name__ == "__main__":
                     pygame.display.flip()
 
                 if dreth_defeated and not credits_shown:
-                    pygame.time.wait(500)
                     cutscene_tic = time.perf_counter()
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,

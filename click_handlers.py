@@ -20,7 +20,8 @@ def item_info_button(item_info_event, item_button, pygame, info_window, SCREEN_W
 
 # getting item player clicked based on it's name and return the corresponding item. for equipment
 def equipment_event_item(player, equipment_event_here, pygame, basic_armor, forged_armor, mythical_armor,
-                         legendary_armor, power_gloves, chroma_boots, SCREEN_WIDTH, SCREEN_HEIGHT):
+                         legendary_armor, power_gloves, chroma_boots, SCREEN_WIDTH, SCREEN_HEIGHT, nera_trinket,
+                         aren_trinket, spirit_trinket):
 
     armor = pygame.Rect((1050, 170), (50, 50))
     gloves = pygame.Rect((1125, 170), (50, 50))
@@ -51,19 +52,34 @@ def equipment_event_item(player, equipment_event_here, pygame, basic_armor, forg
             if player.equipment["gloves"].name == "power gloves":
                 if gloves.collidepoint(equipment_mouse):
                     return power_gloves
-
         if player.equipment["boots"] != "":
             if player.equipment["boots"].name == "chroma boots":
                 if boots.collidepoint(equipment_mouse):
                     return chroma_boots
 
+        if player.equipment["trinket 1"] != "":
+            if player.equipment["trinket 1"].name == "nera trinket":
+                if nera_trinket.rect.collidepoint(equipment_mouse):
+                    return nera_trinket
+        if player.equipment["trinket 2"] != "":
+            if player.equipment["trinket 2"].name == "aren trinket":
+                if aren_trinket.rect.collidepoint(equipment_mouse):
+                    return aren_trinket
+        if player.equipment["trinket 3"] != "":
+            if player.equipment["trinket 3"].name == "spirit trinket":
+                if spirit_trinket.rect.collidepoint(equipment_mouse):
+                    return spirit_trinket
+
 
 # handles mouse clicks for equipment sub-screen
 def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
-              chroma_boots, sfx_equip, SCREEN_WIDTH, SCREEN_HEIGHT, graphics):
+              chroma_boots, sfx_equip, SCREEN_WIDTH, SCREEN_HEIGHT, graphics, neras_grace, arens_strength,
+              spirit_of_wisdom):
+
     return_dict = {"equipment message": "", "gear checked": True}
     equipment_item = equipment_event_item(player, event, pygame, basic_armor, forged_armor, mythical_armor,
-                                          legendary_armor, power_gloves, chroma_boots, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                          legendary_armor, power_gloves, chroma_boots, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                          neras_grace, arens_strength, spirit_of_wisdom)
 
     # if player clicks item in equipment sub-screen, un-equip the item and place in inventory, if inventory isn't full
     if equipment_item is not None:
@@ -167,6 +183,33 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
                 player.equipment["boots"] = ""
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 return_dict["equipment message"] = "Chroma boots un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+
+        if equipment_item.name == "nera trinket":
+            if len(player.items) < 16:
+                player.items.append(equipment_item)
+                player.equipment["trinket 1"] = ""
+                pygame.mixer.find_channel(True).play(sfx_equip)
+                return_dict["equipment message"] = "Nera's Grace un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+
+        if equipment_item.name == "aren trinket":
+            if len(player.items) < 16:
+                player.items.append(equipment_item)
+                player.equipment["trinket 2"] = ""
+                pygame.mixer.find_channel(True).play(sfx_equip)
+                return_dict["equipment message"] = "Aren's Strength un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+
+        if equipment_item.name == "spirit trinket":
+            if len(player.items) < 16:
+                player.items.append(equipment_item)
+                player.equipment["trinket 3"] = ""
+                pygame.mixer.find_channel(True).play(sfx_equip)
+                return_dict["equipment message"] = "Spirit of Wisdom un-equipped."
             else:
                 return_dict["equipment message"] = "Your inventory is full."
 
@@ -658,6 +701,34 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "Chroma boots equipped."
+            else:
+                return_dict["item message"] = "Un-equip your current gear first."
+
+        if item.name == "nera trinket":
+            if player.equipment["trinket 1"] == "":
+                player.equipment["trinket 1"] = item
+                pygame.mixer.find_channel(True).play(sfx_equip)
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "Nera's Grace equipped."
+            else:
+                return_dict["item message"] = "Un-equip your current gear first."
+        if item.name == "aren trinket":
+            if player.equipment["trinket 2"] == "":
+                player.equipment["trinket 2"] = item
+                pygame.mixer.find_channel(True).play(sfx_equip)
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "Aren's Strength equipped."
+            else:
+                return_dict["item message"] = "Un-equip your current gear first."
+        if item.name == "spirit trinket":
+            if player.equipment["trinket 3"] == "":
+                player.equipment["trinket 3"] = item
+                pygame.mixer.find_channel(True).play(sfx_equip)
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "Spirit of Wisdom equipped."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
 

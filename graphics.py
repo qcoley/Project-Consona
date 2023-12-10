@@ -539,9 +539,9 @@ def load_graphics():
     loaded_dict["kasper_button"] = extra_buttons_sheet[0]
     loaded_dict["torok_button"] = extra_buttons_sheet[1]
     loaded_dict["iriana_button"] = extra_buttons_sheet[2]
-    loaded_dict["nera's_blessing_slot"] = extra_buttons_sheet[3]
-    loaded_dict["aren's_might_slot"] = extra_buttons_sheet[4]
-    loaded_dict["wisdom's_spirit_slot"] = extra_buttons_sheet[5]
+    loaded_dict["nera's_grace"] = extra_buttons_sheet[3]
+    loaded_dict["aren's_strength"] = extra_buttons_sheet[4]
+    loaded_dict["wisdom's_spirit"] = extra_buttons_sheet[5]
     loaded_dict["extra_inventory_high"] = extra_buttons_sheet[6]
     # arrow skill overlays ---------------------------------------------------------------------------------------------
     skill_tier_three_url = resource_path('resources/art/overlay_skills_tier_three.png')

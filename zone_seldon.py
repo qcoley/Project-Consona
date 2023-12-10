@@ -32,7 +32,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                     stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, barrier_small, apothis_gift,
-                    snakes_highlighted, ghouls_highlighted, quest_logs_highlighted):
+                    snakes_highlighted, ghouls_highlighted, quest_logs_highlighted, card_popup_checked):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -288,6 +288,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
+            card_popup_checked = False
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -578,6 +579,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                      "in_npc_interaction": in_npc_interaction, "movement_able": movement_able,
                      "beyond_seldon": beyond_seldon, "worker_tic": worker_tic, "worker_move_tic": worker_move_tic,
                      "snakes_highlighted": snakes_highlighted, "ghouls_highlighted": ghouls_highlighted,
-                     "quest_logs_highlighted": quest_logs_highlighted}
+                     "quest_logs_highlighted": quest_logs_highlighted, "card_popup_checked": card_popup_checked}
 
     return seldon_return

@@ -869,7 +869,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
                    sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, necrolas_highlighted,
-                   necrolas_reset):
+                   necrolas_reset, card_popup_checked):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1022,6 +1022,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
+            card_popup_checked = False
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -1125,7 +1126,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                              "current_building_entering": current_building_entering,
                              "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
                              "interactables_ectrenos": interactables_ectrenos,
-                             "necrolas_highlighted": necrolas_highlighted, "necrolas_reset": necrolas_reset}
+                             "necrolas_highlighted": necrolas_highlighted, "necrolas_reset": necrolas_reset,
+                             "card_popup_checked": card_popup_checked}
 
     return ectrenos_front_return
 
@@ -1140,7 +1142,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder,
                     vanished, vanish_overlay, mini_map, osodark_battle_sprite, player_battle_sprite,
                     barrier_active, sharp_sense_active, Enemy, Item, UiElement, alcove_rect, basic_fish_counter,
-                    better_fish_counter, even_better_fish_counter, best_fish_counter):
+                    better_fish_counter, even_better_fish_counter, best_fish_counter, card_popup_checked):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1280,6 +1282,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
+            card_popup_checked
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -1357,7 +1360,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                               "current_npc_interacting": current_npc_interacting, "eldream_attuned": eldream_attuned,
                               "in_shop": in_shop, "in_inn": in_inn, "ectrenos_alcove_enemies": enemies,
                               "current_building_entering": current_building_entering, "enemy_tic": enemy_tic,
-                              "eldream_flowers": eldream_flowers, "interactables_ectrenos": interactables_ectrenos}
+                              "eldream_flowers": eldream_flowers, "interactables_ectrenos": interactables_ectrenos,
+                              "card_popup_checked": card_popup_checked}
 
     return ectrenos_alcove_return
 

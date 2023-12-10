@@ -24,7 +24,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
                     worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
-                    even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset):
+                    even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset,
+                    card_popup_checked):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -173,6 +174,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
+            card_popup_checked = False
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -536,6 +538,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                      "current_npc_interacting": current_npc_interacting,
                      "in_apothecary": in_apothecary, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
                      "rock_6_con": rock_6_con, "worker_tic": worker_tic, "worker_delay_tic": worker_delay_tic,
-                     "magmons_highlighted": magmons_highlighted, "magmons_reset": magmons_reset}
+                     "magmons_highlighted": magmons_highlighted, "magmons_reset": magmons_reset,
+                     "card_popup_checked": card_popup_checked}
 
     return korlok_return

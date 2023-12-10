@@ -928,25 +928,29 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
     text_info_rect_1 = text_info_surf_1.get_rect()
     text_info_rect_1.midleft = (30, 630)
-    if player.x_coordinate < 335 and 600 < player.y_coordinate:
+    if player.x_coordinate < 420 and 600 < player.y_coordinate:
         text_info_surf_1.set_alpha(50)
     screen.blit(text_info_surf_1, text_info_rect_1)
     # current info text for message box in lower left corner of screen, second line-------------------------------------
     text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
     text_info_rect_2 = text_info_surf_2.get_rect()
     text_info_rect_2.midleft = (30, 650)
-    if player.x_coordinate < 335 and 600 < player.y_coordinate:
+    if player.x_coordinate < 420 and 600 < player.y_coordinate:
         text_info_surf_2.set_alpha(50)
     screen.blit(text_info_surf_2, text_info_rect_2)
     # current info text for message box in lower left corner of screen, third line--------------------------------------
     text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
     text_info_rect_3 = text_info_surf_3.get_rect()
     text_info_rect_3.midleft = (30, 670)
+    if player.x_coordinate < 420 and 600 < player.y_coordinate:
+        text_info_surf_3.set_alpha(50)
     screen.blit(text_info_surf_3, text_info_rect_3)
     # current info text for message box in lower left corner of screen, fourth line-------------------------------------
     text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
     text_info_rect_4 = text_info_surf_4.get_rect()
     text_info_rect_4.midleft = (30, 690)
+    if player.x_coordinate < 420 and 600 < player.y_coordinate:
+        text_info_surf_4.set_alpha(50)
     screen.blit(text_info_surf_4, text_info_rect_4)
 
     if len(item_info_window) == 0 and len(sell_info_window) == 0:
@@ -1478,7 +1482,7 @@ def quest_complete_draw_trading(quest_npc, draw_condition, trade_quest_window):
 
 
 def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
-                      chroma_boots):
+                      chroma_boots, nera_trinket, aren_trinket, spirit_trinket):
     player_equipment.clear()
 
     if player.equipment["armor"] != "":
@@ -1499,11 +1503,23 @@ def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armo
         if player.equipment["gloves"].name == "power gloves":
             power_gloves.update(1153, 197, graphics["gloves"])
             player_equipment.append(power_gloves)
-
     if player.equipment["boots"] != "":
         if player.equipment["boots"].name == "chroma boots":
             chroma_boots.update(1229, 197, graphics["boots_img"])
             player_equipment.append(chroma_boots)
+
+    if player.equipment["trinket 1"] != "":
+        if player.equipment["trinket 1"].name == "nera trinket":
+            nera_trinket.update(1178, 25, graphics["nera's_grace"])
+            player_equipment.append(nera_trinket)
+    if player.equipment["trinket 2"] != "":
+        if player.equipment["trinket 2"].name == "aren trinket":
+            aren_trinket.update(1216, 25, graphics["aren's_strength"])
+            player_equipment.append(aren_trinket)
+    if player.equipment["trinket 3"] != "":
+        if player.equipment["trinket 3"].name == "spirit trinket":
+            spirit_trinket.update(1254, 25, graphics["wisdom's_spirit"])
+            player_equipment.append(spirit_trinket)
 
 
 def item_updates(player, graphic):
@@ -1731,7 +1747,8 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       trade_snake, trade_ghoul, trade_bandile, trade_magmon, trade_necrola, trade_osodark,
                       trade_atmon, trade_jumano, trade_chorizon, trade_muchador, trade_chinzilla, trade_erebyth,
                       missile_learn_button, fire_button, edge_button, arrow_button, kasper_button, torok_button,
-                      iriana_button, card_deck_button, trade_deck_unlocked):
+                      iriana_button, card_deck_button, trade_deck_unlocked, neras_grace, arens_strength,
+                      spirit_of_wisdom):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1919,6 +1936,15 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
             return True
         elif iriana_button.rect.collidepoint(pos):
             button_highlight.update(1254, 409, graphic_dict["extra_inventory_high"])
+            return True
+        elif neras_grace.rect.collidepoint(pos):
+            button_highlight.update(1178, 25, graphic_dict["extra_inventory_high"])
+            return True
+        elif arens_strength.rect.collidepoint(pos):
+            button_highlight.update(1216, 25, graphic_dict["extra_inventory_high"])
+            return True
+        elif spirit_of_wisdom.rect.collidepoint(pos):
+            button_highlight.update(1254, 25, graphic_dict["extra_inventory_high"])
             return True
         elif card_deck_button.rect.collidepoint(pos) and trade_deck_unlocked:
             button_highlight.update(368, 680, graphic_dict["card_deck_high"])
