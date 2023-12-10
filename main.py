@@ -7041,24 +7041,24 @@ class Enemy(pygame.sprite.Sprite):
     def update_position(self, ranges_x, ranges_y, direction_x, direction_y):
         if ranges_x[0] < self.rect.x < ranges_x[1]:
             if direction_x == "left":
-                self.x_coordinate -= 1
+                self.x_coordinate -= 2
             if direction_x == "right":
-                self.x_coordinate += 1
+                self.x_coordinate += 2
         else:
             if direction_x == "left":
-                self.x_coordinate += 1
+                self.x_coordinate += 2
             if direction_x == "right":
-                self.x_coordinate -= 1
+                self.x_coordinate -= 2
         if ranges_y[0] < self.rect.x < ranges_y[1]:
             if direction_y == "down":
-                self.y_coordinate -= 1
+                self.y_coordinate -= 2
             if direction_y == "up":
-                self.y_coordinate += 1
+                self.y_coordinate += 2
         else:
             if direction_y == "down":
-                self.y_coordinate += 1
+                self.y_coordinate += 2
             if direction_y == "up":
-                self.y_coordinate -= 1
+                self.y_coordinate -= 2
 
         self.rect = self.surf.get_rect(center=(self.x_coordinate, self.y_coordinate))
 
@@ -7760,7 +7760,7 @@ if __name__ == "__main__":
                       graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     # terra cave enemy -------------------------------------------------------------------------------------------------
-    chinzilla = Enemy("Chinzilla", "chinzilla", 100, 100, 14, 350, 360, True, "item", graphic_dict["chinzilla"],
+    chinzilla = Enemy("Chinzilla", "chinzilla", 100, 100, 15, 350, 360, True, "item", graphic_dict["chinzilla"],
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     # eldream enemies --------------------------------------------------------------------------------------------------
@@ -8205,14 +8205,14 @@ if __name__ == "__main__":
     ramps_crate_2 = Item("ramps crate 2", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_3 = Item("ramps crate 3", "crate", 390, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_4 = Item("ramps crate 4", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
-    ramps_crate_5 = Item("ramps crate 5", "crate", 500, 650, graphic_dict["dungeon_crate"], 0)
+    ramps_crate_5 = Item("ramps crate 5", "crate", 850, 500, graphic_dict["dungeon_crate"], 0)
     castle_crate_1 = Item("castle crate 1", "crate", 80, 150, graphic_dict["dungeon_crate"], 0)
     castle_crate_2 = Item("castle crate 2", "crate", 955, 150, graphic_dict["dungeon_crate"], 0)
     dungeon_switch_ramps_1 = Item("switch ramps 1", "switch", 945, 135, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_switch_ramps_2 = Item("switch ramps 2", "switch", 195, 135, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
-    dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 568, graphic_dict["chest_small"])
+    dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 600, graphic_dict["chest_small"])
     item_block_1 = Item("item block 1", "block", 105, 175, graphic_dict["item_block"], 0)
     item_block_2 = Item("item block 2", "block", 650, 48, graphic_dict["item_block"], 0)
     item_block_3 = Item("item block 3", "block", 710, 530, graphic_dict["item_block"], 0)
@@ -8220,6 +8220,12 @@ if __name__ == "__main__":
     item_block_4 = Item("item block 4", "block", 950, 500, graphic_dict["item_block"], 0)
     item_block_5 = Item("item block 5", "block", 80, 500, graphic_dict["item_block"], 0)
     item_block_6 = Item("item block 6", "block", 100, 475, graphic_dict["item_block"], 0)
+
+    item_block_7 = Item("item block 7", "block", 500, 600, graphic_dict["item_block"], 0)
+    item_block_8 = Item("item block 8", "block", 650, 600, graphic_dict["item_block"], 0)
+
+    item_block_9 = Item("item block 9", "block", 925, 175, graphic_dict["item_block"], 0)
+    item_block_10 = Item("item block 10", "block", 650, 600, graphic_dict["item_block"], 0)
 
     chest_small_castle_1 = UiElement("chest small castle 1", 700, 262, graphic_dict["chest_small"])
     chest_small_castle_2 = UiElement("chest small castle 2", 700, 262, graphic_dict["chest_small"])
@@ -8554,7 +8560,7 @@ if __name__ == "__main__":
     sfx_stelli_battle = pygame.mixer.Sound(resource_path("resources/sounds/stelli_battle.mp3"))
     sfx_stelli_battle.set_volume(0.20)
     sfx_enemy_osodark = pygame.mixer.Sound(resource_path("resources/sounds/enemy_osodark.mp3"))
-    sfx_enemy_osodark.set_volume(0.20)
+    sfx_enemy_osodark.set_volume(0.30)
     sfx_enemy_atmon = pygame.mixer.Sound(resource_path("resources/sounds/enemy_atmon.mp3"))
     sfx_enemy_atmon.set_volume(0.20)
     sfx_enemy_atmon_loud = pygame.mixer.Sound(resource_path("resources/sounds/enemy_atmon.mp3"))
@@ -8936,6 +8942,24 @@ if __name__ == "__main__":
     item_block_8_got = False
     item_block_9_got = False
     item_block_10_got = False
+
+    marrow_ghouls_reset = False
+    magmons_reset = False
+    bandiles_reset = False
+    necrolas_reset = False
+    atmons_reset = False
+
+    snakes_highlighted = False
+    ghouls_seldon_highlighted = False
+    marrow_ghouls_highlighted = False
+    bandiles_highlighted = False
+    magmons_highlighted = False
+    necrolas_highlighted = False
+    atmons_highlighted = False
+
+    quest_logs_highlighted = False
+    ore_highlighted = False
+    supplies_highlighted = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -10334,8 +10358,9 @@ if __name__ == "__main__":
                                                           artherian_task_start)
 
                 # after battle, clear loot popup after about 3 seconds
-                if loot_info:
+                if loot_info or leveled:
                     loot_level_toc = time.perf_counter()
+                if loot_info:
                     if loot_level_toc - loot_level_tic > 4:
                         drawing_functions.loot_popup_container.clear()
                         drawing_functions.loot_text_container.clear()
@@ -10699,7 +10724,8 @@ if __name__ == "__main__":
                                                                                   stardust_card_cave, item_block_1,
                                                                                   item_block_2, item_block_3,
                                                                                   item_block_4, item_block_5,
-                                                                                  item_block_6)
+                                                                                  item_block_6, item_block_7,
+                                                                                  item_block_8, item_block_9)
 
                                 if interacted:
                                     cleared = False
@@ -11457,7 +11483,9 @@ if __name__ == "__main__":
                                                                       vanish_overlay, erebyth_defeated,
                                                                       basic_fish_counter, better_fish_counter,
                                                                       even_better_fish_counter, best_fish_counter,
-                                                                      seldon_barrier_small, apothis_gift)
+                                                                      seldon_barrier_small, apothis_gift,
+                                                                      snakes_highlighted, ghouls_seldon_highlighted,
+                                                                      quest_logs_highlighted)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone, over_world_song_set,
@@ -11510,7 +11538,9 @@ if __name__ == "__main__":
                                                                       vanish_overlay, erebyth_defeated,
                                                                       basic_fish_counter, better_fish_counter,
                                                                       even_better_fish_counter, best_fish_counter,
-                                                                      seldon_barrier_small, apothis_gift)
+                                                                      seldon_barrier_small, apothis_gift,
+                                                                      snakes_highlighted, ghouls_seldon_highlighted,
+                                                                      quest_logs_highlighted)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -11546,6 +11576,9 @@ if __name__ == "__main__":
                     in_npc_interaction = seldon_returned["in_npc_interaction"]
                     movement_able = seldon_returned["movement_able"]
                     beyond_seldon = seldon_returned["beyond_seldon"]
+                    snakes_highlighted = seldon_returned["snakes_highlighted"]
+                    ghouls_seldon_highlighted = seldon_returned["ghouls_highlighted"]
+                    quest_logs_highlighted = seldon_returned["quest_logs_highlighted"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok district ----------------------------------------------------------------------
@@ -11597,7 +11630,8 @@ if __name__ == "__main__":
                                                                       erebyth_defeated, korlok_district_repaired_bg,
                                                                       forge_entrance, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
-                                                                      best_fish_counter, sfx_sheet_paper)
+                                                                      best_fish_counter, sfx_sheet_paper,
+                                                                      magmons_highlighted, magmons_reset)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -11643,7 +11677,8 @@ if __name__ == "__main__":
                                                                       erebyth_defeated, korlok_district_repaired_bg,
                                                                       forge_entrance, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
-                                                                      best_fish_counter, sfx_sheet_paper)
+                                                                      best_fish_counter, sfx_sheet_paper,
+                                                                      magmons_highlighted, magmons_reset)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -11670,6 +11705,8 @@ if __name__ == "__main__":
                     rock_5_con = korlok_returned["rock_5_con"]
                     rock_6_con = korlok_returned["rock_6_con"]
                     worker_delay_tic = korlok_returned["worker_delay_tic"]
+                    magmons_highlighted = korlok_returned["magmons_highlighted"]
+                    magmons_reset = korlok_returned["magmons_reset"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -11728,7 +11765,8 @@ if __name__ == "__main__":
                                                                          overlay_marrow_ramps_east, entrance_1,
                                                                          entrance_2, entrance_3, mini_map_overlay,
                                                                          basic_fish_counter, better_fish_counter,
-                                                                         even_better_fish_counter, best_fish_counter)
+                                                                         even_better_fish_counter, best_fish_counter,
+                                                                         supplies_highlighted)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -11781,7 +11819,8 @@ if __name__ == "__main__":
                                                                          overlay_marrow_ramps_east, entrance_1,
                                                                          entrance_2, entrance_3, mini_map_overlay,
                                                                          basic_fish_counter, better_fish_counter,
-                                                                         even_better_fish_counter, best_fish_counter)
+                                                                         even_better_fish_counter, best_fish_counter,
+                                                                         supplies_highlighted)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -11810,6 +11849,7 @@ if __name__ == "__main__":
                     entrance_1 = eldream_returned["entrance_1"]
                     entrance_2 = eldream_returned["entrance_2"]
                     entrance_3 = eldream_returned["entrance_3"]
+                    supplies_highlighted = eldream_returned["supplies_highlighted"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow district ----------------------------------------------------------------------
@@ -11847,7 +11887,10 @@ if __name__ == "__main__":
                                                                                best_fish_counter, castle_bridge,
                                                                                overlay_prism_activate,
                                                                                prism_activate_tic, sfx_item_chroma,
-                                                                               marrow_barrier_small, apothis_gift)
+                                                                               marrow_barrier_small, apothis_gift,
+                                                                               artherian_task_start,
+                                                                               marrow_ghouls_highlighted,
+                                                                               marrow_ghouls_reset)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -11880,7 +11923,10 @@ if __name__ == "__main__":
                                                                                best_fish_counter, castle_bridge,
                                                                                overlay_prism_activate,
                                                                                prism_activate_tic, sfx_item_chroma,
-                                                                               marrow_barrier_small, apothis_gift)
+                                                                               marrow_barrier_small, apothis_gift,
+                                                                               artherian_task_start,
+                                                                               marrow_ghouls_highlighted,
+                                                                               marrow_ghouls_reset)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -11899,6 +11945,8 @@ if __name__ == "__main__":
                     current_enemy_battling = marrow_district_returned["current_enemy"]
                     marrow_ghouls = marrow_district_returned["marrow_ghouls"]
                     prism_activate_tic = marrow_district_returned["prism_tic"]
+                    marrow_ghouls_highlighted = marrow_district_returned["ghouls_highlighted"]
+                    marrow_ghouls_reset = marrow_district_returned["ghouls_reset"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow entrance ----------------------------------------------------------------------
@@ -12329,7 +12377,15 @@ if __name__ == "__main__":
                                                                                            basic_fish_counter,
                                                                                            better_fish_counter,
                                                                                            even_better_fish_counter,
-                                                                                           best_fish_counter)
+                                                                                           best_fish_counter,
+                                                                                           item_block_7,
+                                                                                           item_block_7_got,
+                                                                                           item_block_8,
+                                                                                           item_block_8_got,
+                                                                                           sfx_item_block,
+                                                                                           kasper_unlocked,
+                                                                                           torok_unlocked,
+                                                                                           iriana_unlocked)
                     else:
                         marrow_ramps_west_end_returned = zone_marrow.marrow_ramps_west_end(pygame, game_window,
                                                                                            graphic_dict, player,
@@ -12362,7 +12418,15 @@ if __name__ == "__main__":
                                                                                            basic_fish_counter,
                                                                                            better_fish_counter,
                                                                                            even_better_fish_counter,
-                                                                                           best_fish_counter)
+                                                                                           best_fish_counter,
+                                                                                           item_block_7,
+                                                                                           item_block_7_got,
+                                                                                           item_block_8,
+                                                                                           item_block_8_got,
+                                                                                           sfx_item_block,
+                                                                                           kasper_unlocked,
+                                                                                           torok_unlocked,
+                                                                                           iriana_unlocked)
 
                     over_world_song_set = marrow_ramps_west_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_end_returned["interacted"]
@@ -12374,6 +12438,8 @@ if __name__ == "__main__":
                     info_text_4 = marrow_ramps_west_end_returned["info_text_4"]
                     marrow_switch_phase = marrow_ramps_west_end_returned["marrow_switch_phase"]
                     ramps_crate_5_got = marrow_ramps_west_end_returned["ramps_crate_5_got"]
+                    item_block_7_got = marrow_ramps_west_end_returned["item_block_7_got"]
+                    item_block_8_got = marrow_ramps_west_end_returned["item_block_8_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in ramparts tower east ------------------------------------------------------------------
@@ -12539,7 +12605,11 @@ if __name__ == "__main__":
                                                                      Enemy, UiElement, player_battle_sprite,
                                                                      barrier_active, sharp_sense_active,
                                                                      in_npc_interaction, atmon_battle_sprite, enemy_tic,
-                                                                     current_enemy_battling, sub_marrow_opened)
+                                                                     current_enemy_battling, sub_marrow_opened,
+                                                                     item_block_9, item_block_9_got, sfx_item_block,
+                                                                     kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                     npc_maydria.gift, prism_received,
+                                                                     atmons_highlighted, atmons_reset)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -12561,7 +12631,11 @@ if __name__ == "__main__":
                                                                      player_battle_sprite, barrier_active,
                                                                      sharp_sense_active, in_npc_interaction,
                                                                      atmon_battle_sprite, enemy_tic,
-                                                                     current_enemy_battling, sub_marrow_opened)
+                                                                     current_enemy_battling, sub_marrow_opened,
+                                                                     item_block_9, item_block_9_got, sfx_item_block,
+                                                                     kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                     npc_maydria.gift, prism_received,
+                                                                     atmons_highlighted, atmons_reset)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -12578,6 +12652,9 @@ if __name__ == "__main__":
                     atmons = sub_marrow_returned["atmons"]
                     enemy_tic = sub_marrow_returned["enemy_tic"]
                     sub_marrow_opened = sub_marrow_returned["sub_marrow_opened"]
+                    item_block_9_got = sub_marrow_returned["item_block_9_got"]
+                    atmons_highlighted = sub_marrow_returned["atmons_highlighted"]
+                    atmons_reset = sub_marrow_returned["atmons_reset"]
                     if in_battle:
                         current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
 
@@ -13021,7 +13098,7 @@ if __name__ == "__main__":
                                                                              mini_map_overlay, basic_fish_counter,
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
-                                                                             best_fish_counter)
+                                                                             best_fish_counter, vanished)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -13064,7 +13141,7 @@ if __name__ == "__main__":
                                                                              mini_map_overlay, basic_fish_counter,
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
-                                                                             best_fish_counter)
+                                                                             best_fish_counter, vanished)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -13339,7 +13416,8 @@ if __name__ == "__main__":
                                                                                vanish_overlay, mini_map_overlay,
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter)
+                                                                               best_fish_counter, necrolas_highlighted,
+                                                                               necrolas_reset)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -13386,7 +13464,8 @@ if __name__ == "__main__":
                                                                                vanish_overlay, mini_map_overlay,
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter)
+                                                                               best_fish_counter, necrolas_highlighted,
+                                                                               necrolas_reset)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -13408,6 +13487,8 @@ if __name__ == "__main__":
                     info_text_4 = ectrenos_front_returned["info_text_4"]
                     eldream_flowers = ectrenos_front_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_front_returned["interactables_ectrenos"]
+                    necrolas_highlighted = ectrenos_front_returned["necrolas_highlighted"]
+                    necrolas_reset = ectrenos_front_returned["necrolas_reset"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in alcove -------------------------------------------------------------------------------
@@ -13629,7 +13710,8 @@ if __name__ == "__main__":
                                                                  talk_start, stelli_battle_sprite, vanished,
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
-                                                                 best_fish_counter, apothis_gift)
+                                                                 best_fish_counter, apothis_gift, bandiles_highlighted,
+                                                                 bandiles_reset, ore_highlighted, ore_reset)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -13662,7 +13744,8 @@ if __name__ == "__main__":
                                                                  talk_start, stelli_battle_sprite, vanished,
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
-                                                                 best_fish_counter, apothis_gift)
+                                                                 best_fish_counter, apothis_gift, bandiles_highlighted,
+                                                                 bandiles_reset, ore_highlighted)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -13683,6 +13766,9 @@ if __name__ == "__main__":
                     jez_1 = mines_returned["jez_1"]
                     jez_2 = mines_returned["jez_2"]
                     jez_3 = mines_returned["jez_3"]
+                    bandiles_highlighted = mines_returned["bandiles_highlighted"]
+                    bandiles_reset = mines_returned["bandiles_reset"]
+                    ore_highlighted = mines_returned["ore_highlighted"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok forge -------------------------------------------------------------------------
@@ -14328,7 +14414,7 @@ if __name__ == "__main__":
                                 loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font,
                                                                                     loot_popup,
                                                                                     battle_info_to_return_to_main_loop,
-                                                                                    leveled)
+                                                                                    leveled, vanished)
                             except TypeError:
                                 drawing_functions.loot_popup_container.clear()
                                 drawing_functions.loot_text_container.clear()
@@ -15025,11 +15111,14 @@ if __name__ == "__main__":
                                                 atmon_counter += 1
                                             # player will gain knowledge based on their current role
                                             if player.role == "mage":
-                                                if (player.level <= 10 and player.knowledge["mage"] < 80 or
-                                                        player.level > 10 and player.knowledge["mage"] < 120 or
-                                                        player.level > 20 and player.knowledge["mage"] < 240):
-                                                    player.knowledge["mage"] += 10
-                                                    battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
+                                                if current_enemy_battling.level > player.level - 3:
+                                                    if (player.level <= 10 and player.knowledge["mage"] < 80 or
+                                                            player.level > 10 and player.knowledge["mage"] < 120 or
+                                                            player.level > 20 and player.knowledge["mage"] < 240):
+                                                        player.knowledge["mage"] += 10
+                                                        battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
+                                                    else:
+                                                        battle_info_to_return_to_main_loop["knowledge"] = ""
                                                 else:
                                                     battle_info_to_return_to_main_loop["knowledge"] = ""
                                                 # if player has a pet seed, add to it for this role. stop counts at 8
@@ -15039,11 +15128,14 @@ if __name__ == "__main__":
                                                         seed_mage_count += 1
 
                                             if player.role == "fighter":
-                                                if (player.level <= 10 and player.knowledge["fighter"] < 80 or
-                                                        player.level > 10 and player.knowledge["fighter"] < 120 or
-                                                        player.level > 20 and player.knowledge["fighter"] < 240):
-                                                    player.knowledge["fighter"] += 10
-                                                    battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
+                                                if current_enemy_battling.level > player.level - 3:
+                                                    if (player.level <= 10 and player.knowledge["fighter"] < 80 or
+                                                            player.level > 10 and player.knowledge["fighter"] < 120 or
+                                                            player.level > 20 and player.knowledge["fighter"] < 240):
+                                                        player.knowledge["fighter"] += 10
+                                                        battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
+                                                    else:
+                                                        battle_info_to_return_to_main_loop["knowledge"] = ""
                                                 else:
                                                     battle_info_to_return_to_main_loop["knowledge"] = ""
                                                 # if player has a pet seed, add to it for this role. stop counts at 8
@@ -15053,11 +15145,14 @@ if __name__ == "__main__":
                                                         seed_fighter_count += 1
 
                                             if player.role == "scout":
-                                                if (player.level <= 10 and player.knowledge["scout"] < 80 or
-                                                        player.level > 10 and player.knowledge["scout"] < 120 or
-                                                        player.level > 20 and player.knowledge["scout"] < 240):
-                                                    player.knowledge["scout"] += 10
-                                                    battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
+                                                if current_enemy_battling.level > player.level - 3:
+                                                    if (player.level <= 10 and player.knowledge["scout"] < 80 or
+                                                            player.level > 10 and player.knowledge["scout"] < 120 or
+                                                            player.level > 20 and player.knowledge["scout"] < 240):
+                                                        player.knowledge["scout"] += 10
+                                                        battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
+                                                    else:
+                                                        battle_info_to_return_to_main_loop["knowledge"] = ""
                                                 else:
                                                     battle_info_to_return_to_main_loop["knowledge"] = ""
                                                 # if player has a pet seed, add to it for this role. stop counts at 8
@@ -15392,14 +15487,17 @@ if __name__ == "__main__":
                                                         if current_enemy_battling.kind == "atmon":
                                                             atmon_counter += 1
                                                         # player will gain knowledge based on their current role
-                                                        if (player.level <= 10 and player.knowledge["fighter"] < 80
-                                                                or player.level > 10 and
-                                                                player.knowledge["fighter"] < 120
-                                                                or player.level > 20 and
-                                                                player.knowledge["fighter"] < 240):
-                                                            player.knowledge["fighter"] += 10
-                                                            battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                "+10 fighter"
+                                                        if current_enemy_battling.level > player.level - 3:
+                                                            if (player.level <= 10 and player.knowledge["fighter"] < 80
+                                                                    or player.level > 10 and
+                                                                    player.knowledge["fighter"] < 120
+                                                                    or player.level > 20 and
+                                                                    player.knowledge["fighter"] < 240):
+                                                                player.knowledge["fighter"] += 10
+                                                                battle_info_to_return_to_main_loop["knowledge"] = \
+                                                                    "+10 fighter"
+                                                            else:
+                                                                battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         else:
                                                             battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         # if player has a pet seed, add to it for this role
@@ -15725,14 +15823,17 @@ if __name__ == "__main__":
                                                             if current_enemy_battling.kind == "atmon":
                                                                 atmon_counter += 1
                                                             # player will gain knowledge based on their current role
-                                                            if (player.level <= 10 and player.knowledge["mage"] < 80
-                                                                    or player.level > 10
-                                                                    and player.knowledge["mage"] < 120
-                                                                    or player.level > 20
-                                                                    and player.knowledge["mage"] < 240):
-                                                                player.knowledge["mage"] += 10
-                                                                battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                    "+10 mage"
+                                                            if current_enemy_battling.level > player.level - 3:
+                                                                if (player.level <= 10 and player.knowledge["mage"] < 80
+                                                                        or player.level > 10
+                                                                        and player.knowledge["mage"] < 120
+                                                                        or player.level > 20
+                                                                        and player.knowledge["mage"] < 240):
+                                                                    player.knowledge["mage"] += 10
+                                                                    battle_info_to_return_to_main_loop["knowledge"] = \
+                                                                        "+10 mage"
+                                                                else:
+                                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
                                                             else:
                                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
                                                             # if player has a pet seed, add to it for this role
@@ -15906,14 +16007,17 @@ if __name__ == "__main__":
                                                         if current_enemy_battling.kind == "atmon":
                                                             atmon_counter += 1
                                                         # player will gain knowledge based on their current role
-                                                        if (player.level <= 10 and player.knowledge["fighter"] < 80
-                                                                or player.level > 10
-                                                                and player.knowledge["fighter"] < 120
-                                                                or player.level > 20
-                                                                and player.knowledge["fighter"] < 240):
-                                                            player.knowledge["fighter"] += 10
-                                                            battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                "+10 fighter"
+                                                        if current_enemy_battling.level > player.level - 3:
+                                                            if (player.level <= 10 and player.knowledge["fighter"] < 80
+                                                                    or player.level > 10
+                                                                    and player.knowledge["fighter"] < 120
+                                                                    or player.level > 20
+                                                                    and player.knowledge["fighter"] < 240):
+                                                                player.knowledge["fighter"] += 10
+                                                                battle_info_to_return_to_main_loop["knowledge"] = \
+                                                                    "+10 fighter"
+                                                            else:
+                                                                battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         else:
                                                             battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         # if player has a pet seed, add to it for this role
@@ -17039,7 +17143,7 @@ if __name__ == "__main__":
 
                             combat_cooldown = True
                             # when combat happens, apply a short cooldown so attack button can't be spammed
-                            pygame.time.wait(650)
+                            pygame.time.wait(575)
                             # reset combat animation and ability to click without delay on next iteration
                             combat_happened = False
                             # reset hard strike condition so regular fighter attack animation resumes

@@ -527,10 +527,10 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 

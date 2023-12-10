@@ -150,7 +150,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 3)
+                        item = random.randint(1, 6)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -167,6 +167,21 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
                             info_text_1 = "From the random item block you got:"
                             info_text_2 = "50 Rupees!"
                             player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

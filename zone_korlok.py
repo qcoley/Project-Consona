@@ -24,7 +24,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
                     worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
-                    even_better_fish_counter, best_fish_counter, sfx_paper):
+                    even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -34,18 +34,23 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies)
-    korlok_enemies = respawned_dict["korlok_enemies"]
+                                                      ectrenos_front_enemies, False, False)
     magmons = respawned_dict["magmons"]
 
-    for enemy_sprite in magmons:  # update enemy sprite to a highlighted version
-        if not player.quest_complete["elementary elementals"]:
-            if player.quest_status["elementary elementals"]:
-                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                          graphic_dict["magmon_high"])
-    for enemy_sprite in magmons:
-        if player.quest_complete["elementary elementals"]:
-            enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate, graphic_dict["magmon"])
+    if player.quest_status["elementary elementals"] and not player.quest_complete["elementary elementals"]:
+        if not magmons_highlighted:
+            for enemy_sprite in magmons:
+                if enemy_sprite.name == "Magmon":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["magmon_high"])
+            magmons_highlighted = True
+    if player.quest_complete["elementary elementals"]:
+        if not magmons_reset:
+            for enemy_sprite in magmons:
+                if enemy_sprite.name == "Magmon":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["magmon"])
+            magmons_reset = True
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -450,10 +455,10 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -474,7 +479,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     move_mon = random.choice(magmons.sprites())
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
+        if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
             move_mon.update_position([50, 500], [50, 250], direction_horizontal, direction_vertical)
 
@@ -532,6 +537,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                      "current_building_entering": current_building_entering,
                      "current_npc_interacting": current_npc_interacting,
                      "in_apothecary": in_apothecary, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
-                     "rock_6_con": rock_6_con, "worker_tic": worker_tic, "worker_delay_tic": worker_delay_tic}
+                     "rock_6_con": rock_6_con, "worker_tic": worker_tic, "worker_delay_tic": worker_delay_tic,
+                     "magmons_highlighted": magmons_highlighted, "magmons_reset": magmons_reset}
 
     return korlok_return

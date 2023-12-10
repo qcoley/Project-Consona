@@ -18,7 +18,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
                   npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite, critter,
                   right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter, better_fish_counter,
-                  even_better_fish_counter, best_fish_counter):
+                  even_better_fish_counter, best_fish_counter, vanished):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -159,10 +159,10 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -409,7 +409,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 5)
+                        item = random.randint(1, 8)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -446,6 +446,21 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                             else:
                                 player.items.append(Item("pet cookie", "cookie", 200, 200,
                                                          graphic_dict["pet_cookie_img"], 1))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 7:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 8:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -702,7 +717,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 5)
+                        item = random.randint(1, 8)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -739,6 +754,21 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                             else:
                                 player.items.append(Item("pet cookie", "cookie", 200, 200,
                                                          graphic_dict["pet_cookie_img"], 1))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 7:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 8:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -838,7 +868,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    interactables_ectrenos, quest_star_everett, pet_energy_window, npc_everett, npc_leyre,
                    ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
                    sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map, basic_fish_counter,
-                   better_fish_counter, even_better_fish_counter, best_fish_counter):
+                   better_fish_counter, even_better_fish_counter, best_fish_counter, necrolas_highlighted,
+                   necrolas_reset):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -858,17 +889,23 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, False, False)
     ectrenos_front_enemies = respawned_dict["ectrenos_front_enemies"]
 
-    for enemy_sprite in ectrenos_front_enemies:  # update enemy sprite to a highlighted version
-        if not player.quest_complete["shades of fear"]:
-            if player.quest_status["shades of fear"]:
-                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                          graphic_dict["necrola_high"])
-    for enemy_sprite in ectrenos_front_enemies:
-        if player.quest_complete["shades of fear"]:
-            enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate, graphic_dict["necrola"])
+    if player.quest_status["shades of fear"] and not player.quest_complete["shades of fear"]:
+        if not necrolas_highlighted:
+            for enemy_sprite in ectrenos_front_enemies:
+                if enemy_sprite.name == "Necrola":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["necrola_high"])
+            necrolas_highlighted = True
+    if player.quest_complete["shades of fear"]:
+        if not necrolas_reset:
+            for enemy_sprite in ectrenos_front_enemies:
+                if enemy_sprite.name == "Necrola":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["necrola"])
+            necrolas_reset = True
 
     for enemy in ectrenos_front_enemies:
         screen.blit(enemy.surf, enemy.rect)
@@ -1010,10 +1047,10 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -1074,7 +1111,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     move_mon = random.choice(ectrenos_front_enemies.sprites())
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
+        if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
             move_mon.update_position([200, 600], [300, 500], direction_horizontal, direction_vertical)
 
@@ -1087,7 +1124,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                              "in_shop": in_shop, "in_inn": in_inn,
                              "current_building_entering": current_building_entering,
                              "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
-                             "interactables_ectrenos": interactables_ectrenos}
+                             "interactables_ectrenos": interactables_ectrenos,
+                             "necrolas_highlighted": necrolas_highlighted, "necrolas_reset": necrolas_reset}
 
     return ectrenos_front_return
 
@@ -1119,7 +1157,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     respawned_dict = gameplay_functions.enemy_respawn(player, enemies, enemies, enemies, enemies, enemies, enemies,
                                                       enemies, enemies, enemies, Enemy, Item, graphic_dict, UiElement,
                                                       eldream_flowers, eldream_flowers, enemies, enemies, enemies,
-                                                      enemies, enemies, enemies)
+                                                      enemies, enemies, enemies, False, False)
     enemies = respawned_dict["ectrenos_alcove_enemies"]
 
     if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:
@@ -1265,10 +1303,10 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -1307,7 +1345,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     move_mon = random.choice(enemies.sprites())
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
+        if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
             move_mon.update_position([200, 700], [100, 300], direction_horizontal, direction_vertical)
 
@@ -1568,7 +1606,7 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 5)
+                        item = random.randint(1, 8)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -1605,6 +1643,21 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
                             else:
                                 player.items.append(Item("pet cookie", "cookie", 200, 200,
                                                          graphic_dict["pet_cookie_img"], 1))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 7:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 8:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

@@ -108,10 +108,10 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                                      best_fish_counter)
     drawing_functions.draw_it(screen)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 

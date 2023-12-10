@@ -2389,39 +2389,44 @@ def hearthstone_animation(pygame, screen, player, seldon_hearth_screen, seldon_d
         pygame.display.flip()
 
 
-def loot_popups(time, loot_updated, font, loot_popup, battle_info_to_return_to_main_loop, leveled):
-    if not loot_updated:
-        loot_popup_container.clear()
-        loot_text_container.clear()
-        loot_popup_container.append(loot_popup)
-        if battle_info_to_return_to_main_loop["experience"] != "":
-            xp_info_surf = font.render("+" + str(battle_info_to_return_to_main_loop["experience"] + " xp"),
-                                       True, "black", (203, 195, 227))
-            xp_info_rect = xp_info_surf.get_rect()
-            xp_info_rect.center = (182, 492)
-            loot_text_container.append((xp_info_surf, xp_info_rect))
-        if battle_info_to_return_to_main_loop["knowledge"] != "":
-            know_info_surf = font.render(str(battle_info_to_return_to_main_loop["knowledge"]),
-                                         True, "black", (144, 238, 144))
-            know_info_rect = know_info_surf.get_rect()
-            know_info_rect.center = (205, 510)
-            loot_text_container.append((know_info_surf, know_info_rect))
-        if battle_info_to_return_to_main_loop["item dropped"] != "":
-            loot_info_surf = font.render(str(battle_info_to_return_to_main_loop["item dropped"]),
-                                         True, "black", "silver")
-            loot_info_rect = loot_info_surf.get_rect()
-            loot_info_rect.center = (170, 565)
-            loot_text_container.append((loot_info_surf, loot_info_rect))
-        loot_updated = True
-        loot_level_tic = time.perf_counter()
-        loot_info = True
-        if battle_info_to_return_to_main_loop["leveled_up"] and not leveled:
-            leveled = True
+def loot_popups(time, loot_updated, font, loot_popup, battle_info_to_return_to_main_loop, leveled, vanished):
+    if not vanished:
+        if not loot_updated:
+            loot_popup_container.clear()
+            loot_text_container.clear()
+            loot_popup_container.append(loot_popup)
+            if battle_info_to_return_to_main_loop["experience"] != "":
+                xp_info_surf = font.render("+" + str(battle_info_to_return_to_main_loop["experience"] + " xp"),
+                                           True, "black", (203, 195, 227))
+                xp_info_rect = xp_info_surf.get_rect()
+                xp_info_rect.center = (182, 492)
+                loot_text_container.append((xp_info_surf, xp_info_rect))
+            if battle_info_to_return_to_main_loop["knowledge"] != "":
+                know_info_surf = font.render(str(battle_info_to_return_to_main_loop["knowledge"]),
+                                             True, "black", (144, 238, 144))
+                know_info_rect = know_info_surf.get_rect()
+                know_info_rect.center = (205, 510)
+                loot_text_container.append((know_info_surf, know_info_rect))
+            if battle_info_to_return_to_main_loop["item dropped"] != "":
+                loot_info_surf = font.render(str(battle_info_to_return_to_main_loop["item dropped"]),
+                                             True, "black", "silver")
+                loot_info_rect = loot_info_surf.get_rect()
+                loot_info_rect.center = (170, 565)
+                loot_text_container.append((loot_info_surf, loot_info_rect))
+            loot_updated = True
+            loot_level_tic = time.perf_counter()
+            loot_info = True
+            if battle_info_to_return_to_main_loop["leveled_up"] and not leveled:
+                leveled = True
 
-        loot_popup_return = {"loot_updated": loot_updated, "loot_level_tic": loot_level_tic, "loot_info": loot_info,
-                             "leveled": leveled}
+            loot_popup_return = {"loot_updated": loot_updated, "loot_level_tic": loot_level_tic,
+                                 "loot_info": loot_info, "leveled": leveled}
 
-        return loot_popup_return
+            return loot_popup_return
+        else:
+            return
+    else:
+        return
 
 
 def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_button, eldream_map_button,

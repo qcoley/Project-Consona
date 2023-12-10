@@ -253,10 +253,10 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -276,7 +276,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
     move_mon = random.choice(jumanos.sprites())
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
+        if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
             move_mon.update_position([100, 800], [100, 500], direction_horizontal, direction_vertical)
 
@@ -525,10 +525,10 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -781,10 +781,10 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -972,10 +972,10 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -1227,10 +1227,10 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 

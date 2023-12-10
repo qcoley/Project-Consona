@@ -5176,7 +5176,7 @@ def load_graphics():
     loaded_dict["magmon_high"] = enemies_high_sheet[2]
     loaded_dict["bandile_high"] = enemies_high_sheet[3]
     loaded_dict["necrola_high"] = enemies_high_sheet[4]
-    loaded_dict["osodark_high"] = enemies_high_sheet[5]
+    loaded_dict["atmon_high"] = enemies_high_sheet[5]
     # enemies battle ---------------------------------------------------------------------------------------------------
     enemies_battle_url = resource_path('resources/art/sprites_enemies_battle.png')
     enemies_battle_sheet = sprite_sheet((300, 280), enemies_battle_url)

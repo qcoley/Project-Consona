@@ -19,7 +19,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers, eldream_flowers, interactables_eldream,
                  pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
                  sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay, basic_fish_counter,
-                 better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift):
+                 better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, bandiles_highlighted,
+                 bandiles_reset, ore_highlighted):
 
     if not talk_start:
         pygame.mixer.find_channel(True).play(sfx_talk)
@@ -31,25 +32,29 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, False, False)
     bandiles = respawned_dict["bandiles"]
 
-    for enemy_sprite in bandiles:  # update enemy sprite to a highlighted version
-        if not player.quest_complete["band hammer"]:
-            if player.quest_status["band hammer"]:
-                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                          graphic_dict["bandile_high"])
-    for enemy_sprite in bandiles:
-        if player.quest_complete["band hammer"]:
-            enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate, graphic_dict["bandile"])
+    if player.quest_status["band hammer"] and not player.quest_complete["band hammer"]:
+        if not bandiles_highlighted:
+            for enemy_sprite in bandiles:
+                if enemy_sprite.name == "Bandile":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["bandile_high"])
+            bandiles_highlighted = True
+    if player.quest_complete["band hammer"]:
+        if not bandiles_reset:
+            for enemy_sprite in bandiles:
+                if enemy_sprite.name == "Bandile":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["bandile"])
+            bandiles_reset = True
 
-    for ore_sprite in ores:
-        if not player.quest_complete["can't apothecary it"]:
-            if player.quest_status["can't apothecary it"]:
+    if player.quest_status["can't apothecary it"] and not player.quest_complete["can't apothecary it"]:
+        if not ore_highlighted:
+            for ore_sprite in ores:
                 ore_sprite.update(ore_sprite.x_coordinate, ore_sprite.y_coordinate, graphic_dict["sprite_ore_high_img"])
-    for ore_sprite in ores:
-        if player.quest_complete["can't apothecary it"]:
-            ore_sprite.update(ore_sprite.x_coordinate, ore_sprite.y_coordinate, graphic_dict["sprite_ore_img"])
+            ore_highlighted = True
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -65,8 +70,9 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     for bandile in bandiles:
         screen.blit(bandile.surf, bandile.rect)
-    for ore in ores:
-        screen.blit(ore.surf, ore.rect)
+    if not player.quest_complete["can't apothecary it"]:
+        for ore in ores:
+            screen.blit(ore.surf, ore.rect)
     screen.blit(npc_prime.surf, npc_prime.rect)
     screen.blit(npc_jez.surf, npc_jez.rect)
     try:
@@ -189,7 +195,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     move_mon = random.choice(bandiles.sprites())
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
+        if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
             move_mon.update_position([50, 500], [50, 250], direction_horizontal, direction_vertical)
 
@@ -238,10 +244,10 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     jez_text_rect.center = (jez_popup.x_coordinate, jez_popup.y_coordinate)
     screen.blit(jez_text_surf, jez_text_rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -251,6 +257,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                     "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                     "in_battle": in_battle, "movement_able": movement_able,
                     "current_enemy_battling": current_enemy_battling, "prime_1": prime_1, "prime_2": prime_2,
-                    "prime_3": prime_3, "jez_1": jez_1, "jez_2": jez_2, "jez_3": jez_3, "talk_start": talk_start}
+                    "prime_3": prime_3, "jez_1": jez_1, "jez_2": jez_2, "jez_3": jez_3, "talk_start": talk_start,
+                    "bandiles_highlighted": bandiles_highlighted, "bandiles_reset": bandiles_reset,
+                    "ore_highlighted": ore_highlighted}
 
     return mines_return

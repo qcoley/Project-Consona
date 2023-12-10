@@ -31,7 +31,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     building_top_2, building_top_3, sfx_item_pickup, sfx_flower, sfx_door, worker_1, worker_tic,
                     worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                     stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated, basic_fish_counter,
-                    better_fish_counter, even_better_fish_counter, best_fish_counter, barrier_small, apothis_gift):
+                    better_fish_counter, even_better_fish_counter, best_fish_counter, barrier_small, apothis_gift,
+                    snakes_highlighted, ghouls_highlighted, quest_logs_highlighted):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -53,67 +54,71 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, ectrenos_front_enemies, snakes)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies, snakes,
+                                                      False, False)
     seldon_enemies = respawned_dict["seldon_enemies"]
     snakes = respawned_dict["snakes"]
     ghouls = respawned_dict["ghouls"]
     flowers = respawned_dict["seldon_flowers"]
     interactables_seldon = respawned_dict["interactables_seldon"]
 
-    screen.blit(log_pile.surf, log_pile.rect)
-
-    for entity in most_sprites:
-        screen.blit(entity.surf, entity.rect)
-
-    for flower in flowers:
-        screen.blit(flower.surf, flower.rect)
-
-    for quest_item in quest_items_seldon:
-        if not player.quest_complete["village repairs"]:
-            if player.quest_status["village repairs"]:
+    if player.quest_status["village repairs"] and not player.quest_complete["village repairs"]:
+        if not quest_logs_highlighted:
+            for quest_item in quest_items_seldon:
                 if quest_item.name == "Pine logs":
                     quest_item.update(quest_item.x_coordinate, quest_item.y_coordinate,
                                       graphic_dict["pine_logs_high_img"])
-        else:
-            if not log_sprite_reset:
+            quest_logs_highlighted = True
+    if player.quest_complete["village repairs"]:
+        if not log_sprite_reset:
+            for quest_item in quest_items_seldon:
                 if quest_item.name == "Pine logs":
                     quest_item.update(quest_item.x_coordinate, quest_item.y_coordinate,
                                       graphic_dict["pine_logs_img"])
+            if log_pile.level == 0:
+                log_pile.update_level(log_pile.name, 1, graphic_dict["pine_logs_piled_img"])
+            log_sprite_reset = True
 
-    # condition to check if sprites have been reverted to original img after quest complete
-    if player.quest_complete["village repairs"]:
-        if log_pile.level == 0:
-            log_pile.update_level(log_pile.name, 1, graphic_dict["pine_logs_piled_img"])
-        log_sprite_reset = True
-
-    for enemy_sprite in seldon_enemies:  # update enemy sprite to a highlighted version
-        if not player.quest_complete["sneaky snakes"]:
-            if player.quest_status["sneaky snakes"]:
+    if player.quest_status["sneaky snakes"] and not player.quest_complete["sneaky snakes"]:
+        if not snakes_highlighted:
+            for enemy_sprite in seldon_enemies:
                 if enemy_sprite.name == "Snake":
                     enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
                                               graphic_dict["snake_high"])
-        else:  # revert to original snake sprite
-            if not snake_sprite_reset:
+            snakes_highlighted = True
+    if player.quest_complete["sneaky snakes"]:
+        if not snake_sprite_reset:
+            for enemy_sprite in seldon_enemies:
                 if enemy_sprite.name == "Snake":
                     enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
                                               graphic_dict["snake"])
-        if not player.quest_complete["ghouled again"]:
-            if player.quest_status["ghouled again"]:
+            snake_sprite_reset = True
+
+    if player.quest_status["ghouled again"] and not player.quest_complete["ghouled again"]:
+        if not ghouls_highlighted:
+            for enemy_sprite in seldon_enemies:  # update enemy sprite to a highlighted version
                 if enemy_sprite.name == "Ghoul":
                     enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
                                               graphic_dict["ghoul_high"])
-        else:  # revert to original ghoul sprite
-            if not ghoul_sprite_reset:
+            ghouls_highlighted = True
+    if player.quest_complete["ghouled again"]:
+        if not ghoul_sprite_reset:
+            for enemy_sprite in seldon_enemies:
                 if enemy_sprite.name == "Ghoul":
                     enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
                                               graphic_dict["ghoul"])
-        screen.blit(enemy_sprite.surf, enemy_sprite.rect)
+            ghoul_sprite_reset = True
 
-    # condition to check if sprites have been reverted to original img after quest complete
-    if player.quest_complete["sneaky snakes"]:
-        snake_sprite_reset = True
-    if player.quest_complete["ghouled again"]:
-        ghoul_sprite_reset = True
+    screen.blit(log_pile.surf, log_pile.rect)
+    for entity in most_sprites:
+        screen.blit(entity.surf, entity.rect)
+    for flower in flowers:
+        screen.blit(flower.surf, flower.rect)
+    if not player.quest_complete["village repairs"]:
+        for quest_item in quest_items_seldon:
+            screen.blit(quest_item.surf, quest_item.rect)
+    for enemy_sprite in seldon_enemies:
+        screen.blit(enemy_sprite.surf, enemy_sprite.rect)
     if player.quest_progress["where's nede?"] == 1:
         screen.blit(nede.surf, nede.rect)
 
@@ -419,10 +424,10 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     screen.blit(ui_elements.surf, ui_elements.rect)
             else:
                 screen.blit(ui_elements.surf, ui_elements.rect)
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -491,7 +496,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     move_ghoul = random.choice(ghouls.sprites())
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
+        if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
             move_snake.update_position([100, 300], [200, 300], direction_horizontal, direction_vertical)
             move_ghoul.update_position([700, 900], [200, 300], direction_horizontal, direction_vertical)
@@ -574,6 +579,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                      "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                      "in_battle": in_battle, "in_shop": in_shop, "in_academia": in_academia, "in_inn": in_inn,
                      "in_npc_interaction": in_npc_interaction, "movement_able": movement_able,
-                     "beyond_seldon": beyond_seldon, "worker_tic": worker_tic, "worker_move_tic": worker_move_tic}
+                     "beyond_seldon": beyond_seldon, "worker_tic": worker_tic, "worker_move_tic": worker_move_tic,
+                     "snakes_highlighted": snakes_highlighted, "ghouls_highlighted": ghouls_highlighted,
+                     "quest_logs_highlighted": quest_logs_highlighted}
 
     return seldon_return

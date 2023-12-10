@@ -49,13 +49,13 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         move_stelli = random.choice(stellis.sprites())
         if movement_able and in_over_world:
             enemy_toc = time.perf_counter()
-            if enemy_toc - enemy_tic > 2:
+            if enemy_toc - enemy_tic > 1:
                 enemy_tic = time.perf_counter()
-                if move_stelli.name == "stellia":
+                if move_stelli.name == "Stellia":
                     move_stelli.update_position([525, 900], [350, 650], direction_horizontal, direction_vertical)
-                if move_stelli.name == "stellib":
+                if move_stelli.name == "Stellib":
                     move_stelli.update_position([550, 900], [100, 380], direction_horizontal, direction_vertical)
-                if move_stelli.name == "stellic":
+                if move_stelli.name == "Stellic":
                     move_stelli.update_position([225, 550], [350, 625], direction_horizontal, direction_vertical)
 
     for stelli in stellis:
@@ -445,10 +445,10 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                 screen.blit(ui_elements.surf, ui_elements.rect)
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
     screen.blit(bar_backdrop.surf, bar_backdrop.rect)

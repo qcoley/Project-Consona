@@ -264,7 +264,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 4)
+                        item = random.randint(1, 7)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -286,6 +286,21 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                             info_text_2 = "Korlok Bait!"
                             player.items.append(Item("korlok bait", "bait", 200, 200,
                                                      graphic_dict["korlok_bait"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 7:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -302,10 +317,10 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 

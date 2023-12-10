@@ -25,7 +25,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       castle_crate_2, rock_9, rock_10, rope_wind_1, cell_1, cell_2, rope_wind_2, cell_3, castle_ladder,
                       castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth, cat,
                       marrow_barrier_small, seldon_barrier_small, card_cave, item_block_1, item_block_2,
-                      item_block_3, item_block_4, item_block_5, item_block_6):
+                      item_block_3, item_block_4, item_block_5, item_block_6, item_block_7, item_block_8,
+                      item_block_9):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -208,6 +209,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.sprite.spritecollideany(player, atmons):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, item_block_9):
+                interacted = True
             else:
                 interacted = False
         if player.current_zone == "marrow entrance":
@@ -254,6 +257,10 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             if pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1):
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, ramps_crate_5):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, item_block_7):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, item_block_8):
                 interacted = True
             else:
                 interacted = False
@@ -426,7 +433,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             if (not pygame.Rect.colliderect(player.rect, sub_marrow_rect)
                     and not pygame.Rect.colliderect(player.rect, dungeon_gate_marrow)
                     and not pygame.Rect.colliderect(player.rect, dungeon_chest_marrow_small)
-                    and not pygame.sprite.spritecollideany(player, atmons)):
+                    and not pygame.sprite.spritecollideany(player, atmons)
+                    and not pygame.Rect.colliderect(player.rect, item_block_9)):
                 interacted = False
         if player.current_zone == "marrow entrance":
             if (not pygame.sprite.spritecollideany(player, interactables_marrow_entrance)
@@ -453,7 +461,9 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "marrow ramps west end":
             if (not pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1)
-                    and not pygame.Rect.colliderect(player.rect, ramps_crate_5)):
+                    and not pygame.Rect.colliderect(player.rect, ramps_crate_5)
+                    and not pygame.Rect.colliderect(player.rect, item_block_7)
+                    and not pygame.Rect.colliderect(player.rect, item_block_8)):
                 interacted = False
         if player.current_zone == "forge" or player.current_zone == "altar":
             if not pygame.Rect.colliderect(player.rect, forge_rect):
@@ -2773,7 +2783,8 @@ def level_up(player, level_up_win, level_up_font):
 def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
                   interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers,
                   eldream_flowers, interactables_eldream, ectrenos_front_enemies, marrow_ghouls,
-                  ectrenos_alcove_enemies, atmons, jumanos):
+                  ectrenos_alcove_enemies, atmons, jumanos, artherian_task_start, artherian_gift, maydria_gift,
+                  prism_received):
     if player.current_zone == "seldon":
         snake_counter = 0
         ghoul_counter = 0
@@ -2801,19 +2812,31 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
         if snake_counter < 3:
-            new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                              Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
-                              graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]),
-                              "fighter")
+            if player.quest_status["sneaky snakes"] and not player.quest_complete["sneaky snakes"]:
+                new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+                                  Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                                  graphic_dict["snake_high"],
+                                  UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]),"fighter")
+            else:
+                new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+                                  Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                                  graphic_dict["snake"],
+                                  UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
             snakes.add(new_snake)
             seldon_enemies.add(new_snake)
             interactables_seldon.add(new_snake)
         # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
         if ghoul_counter < 3:
-            new_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
-                              Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
-                              graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]),
-                              "scout")
+            if player.quest_status["ghouled again"] and not player.quest_complete["ghouled again"]:
+                new_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
+                                  Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
+                                  graphic_dict["ghoul_high"],
+                                  UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+            else:
+                new_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
+                                  Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
+                                  graphic_dict["ghoul"],
+                                  UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
             ghouls.add(new_ghoul)
             seldon_enemies.add(new_ghoul)
             interactables_seldon.add(new_ghoul)
@@ -2842,10 +2865,16 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if magmon_counter < 3:
-            new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
-                               True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
-                               graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]),
-                               "mage")
+            if player.quest_status["elementary elementals"] and not player.quest_complete["elementary elementals"]:
+                new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
+                                   True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
+                                   graphic_dict["magmon_high"],
+                                   UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+            else:
+                new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
+                                   True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
+                                   graphic_dict["magmon"],
+                                   UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
             magmons.add(new_magmon)
             korlok_enemies.add(new_magmon)
             interactables_korlok.add(new_magmon)
@@ -2865,10 +2894,18 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if bandile_counter < 3:
-            new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
-                                random_bandile_y, True, Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
-                                graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
-                                "fighter")
+            if player.quest_status["band hammer"] and not player.quest_complete["band hammer"]:
+                new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
+                                    random_bandile_y, True,
+                                    Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                                    graphic_dict["bandile_high"],
+                                    UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+            else:
+                new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
+                                    random_bandile_y, True,
+                                    Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                                    graphic_dict["bandile"],
+                                    UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
             bandiles.add(new_bandile)
             interactables_mines.add(new_bandile)
 
@@ -2902,11 +2939,18 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if necrola_counter < 3:
-            new_necrola = Enemy("Necrola", "necrola", 100, 100, random_necrola_level, random_necrola_x,
-                                random_necrola_y, True, Item("oscura pluma", "pluma", 200, 200,
-                                                             graphic_dict["pluma_img"], 0),
-                                graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
-                                "scout")
+            if player.quest_status["shades of fear"] and not player.quest_complete["shades of fear"]:
+                new_necrola = Enemy("Necrola", "necrola", 100, 100, random_necrola_level, random_necrola_x,
+                                    random_necrola_y, True, Item("oscura pluma", "pluma", 200, 200,
+                                                                 graphic_dict["pluma_img"], 0),
+                                    graphic_dict["necrola_high"],
+                                    UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+            else:
+                new_necrola = Enemy("Necrola", "necrola", 100, 100, random_necrola_level, random_necrola_x,
+                                    random_necrola_y, True, Item("oscura pluma", "pluma", 200, 200,
+                                                                 graphic_dict["pluma_img"], 0),
+                                    graphic_dict["necrola"],
+                                    UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
             ectrenos_front_enemies.add(new_necrola)
 
     if player.current_zone == "ectrenos alcove":
@@ -2946,11 +2990,18 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if marrow_ghoul_counter < 3:
-            new_marrow_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_marrow_ghoul_level, random_marrow_ghoul_x,
-                                     random_marrow_ghoul_y, True, Item("bone shard", "shard", 200, 200,
-                                                                       graphic_dict["bone_shard"], 0),
-                                     graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]),
-                                     "scout")
+            if artherian_task_start and not artherian_gift:
+                new_marrow_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_marrow_ghoul_level, random_marrow_ghoul_x,
+                                         random_marrow_ghoul_y, True, Item("bone shard", "shard", 200, 200,
+                                                                           graphic_dict["bone_shard"], 0),
+                                         graphic_dict["ghoul_high"],
+                                         UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+            else:
+                new_marrow_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_marrow_ghoul_level, random_marrow_ghoul_x,
+                                         random_marrow_ghoul_y, True, Item("bone shard", "shard", 200, 200,
+                                                                           graphic_dict["bone_shard"], 0),
+                                         graphic_dict["ghoul"],
+                                         UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
             marrow_ghouls.add(new_marrow_ghoul)
 
     if player.current_zone == "sub marrow":
@@ -2968,11 +3019,18 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if marrow_atmon_counter < 3:
-            new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level, random_marrow_atmon_x,
-                                     random_marrow_atmon_y, True,
-                                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
-                                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]),
-                                     "mage")
+            if maydria_gift and not prism_received:
+                new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level, random_marrow_atmon_x,
+                                         random_marrow_atmon_y, True,
+                                         Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                                         graphic_dict["atmon_high"],
+                                         UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+            else:
+                new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level, random_marrow_atmon_x,
+                                         random_marrow_atmon_y, True,
+                                         Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                                         graphic_dict["atmon"],
+                                         UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
             atmons.add(new_marrow_atmon)
 
     if player.current_zone == "castle one":

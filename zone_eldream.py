@@ -25,7 +25,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite, critter, right_move, left_move,
                      critter_tic, walk_move, overlay_marrow_west, overlay_marrow_east, entrance_1, entrance_2,
                      entrance_3, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                     best_fish_counter):
+                     best_fish_counter, supplies_highlighted):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -40,6 +40,12 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
+    if player.quest_status["kart troubles"] and not player.quest_complete["kart troubles"]:
+        if not supplies_highlighted:
+            for supply in quest_supplies:
+                supply.update(supply.x_coordinate, supply.y_coordinate, graphic_dict["quest_supplies_high"])
+            supplies_highlighted = True
+
     if not player.quest_complete["kart troubles"]:
         screen.blit(quest_star_omoku.surf, quest_star_omoku.rect)
         for supplies in quest_supplies:
@@ -53,7 +59,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, False, False)
 
     eldream_flowers = respawned_dict["eldream_flowers"]
     interactables_eldream = respawned_dict["interactables_eldream"]
@@ -336,14 +342,6 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             if face_direction == "right":
                 omoku.update(graphic_dict["omoku_right"])
 
-    for supply in quest_supplies:
-        if not player.quest_complete["kart troubles"]:
-            if player.quest_status["kart troubles"]:
-                supply.update(supply.x_coordinate, supply.y_coordinate, graphic_dict["quest_supplies_high"])
-    for supply in quest_supplies:
-        if player.quest_complete["kart troubles"]:
-            supply.update(supply.x_coordinate, supply.y_coordinate, graphic_dict["quest_supplies"])
-
     eldream_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "info_text_1": info_text_1,
                       "info_text_2": info_text_2, "info_text_3": info_text_3, "info_text_4": info_text_4,
                       "interacted": interacted, "in_over_world": in_over_world, "in_battle": in_battle,
@@ -354,6 +352,6 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                       "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
                       "interactables_eldream": interactables_eldream, "right_move": right_move, "left_move": left_move,
                       "critter_tic": critter_tic, "walk_move": walk_move, "entrance_1": entrance_1,
-                      "entrance_2": entrance_2, "entrance_3": entrance_3}
+                      "entrance_2": entrance_2, "entrance_3": entrance_3, "supplies_highlighted": supplies_highlighted}
 
     return eldream_return

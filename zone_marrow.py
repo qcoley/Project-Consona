@@ -15,7 +15,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
                     maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
-                    prism_tic, sfx_chroma, barrier_small, apothis_gift):
+                    prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
+                    ghouls_reset):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -58,8 +59,23 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
-                                                      marrow_ghouls)
+                                                      marrow_ghouls, artherian_task_start, artherian.gift)
     marrow_ghouls = respawned_dict["marrow_ghouls"]
+
+    if artherian_task_start and not artherian.gift:
+        if not ghouls_highlighted:
+            for enemy_sprite in marrow_ghouls:
+                if enemy_sprite.name == "Ghoul":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["ghoul_high"])
+            ghouls_highlighted = True
+    if artherian.gift:
+        if not ghouls_reset:
+            for enemy_sprite in marrow_ghouls:
+                if enemy_sprite.name == "Ghoul":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["ghoul"])
+            ghouls_reset = True
 
     for ghoul in marrow_ghouls:
         screen.blit(ghoul.surf, ghoul.rect)
@@ -277,10 +293,10 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -379,7 +395,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     move_mon = random.choice(marrow_ghouls.sprites())
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
+        if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
             move_mon.update_position([125, 600], [100, 300], direction_horizontal, direction_vertical)
 
@@ -405,7 +421,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                               "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
                               "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
                               "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
-                              "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic}
+                              "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic,
+                              "ghouls_highlighted": ghouls_highlighted, "ghouls_reset": ghouls_reset}
 
     return marrow_district_return
 
@@ -690,10 +707,10 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -920,10 +937,10 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -1148,19 +1165,17 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
             player.y_coordinate = 550
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
-    ghouls = [ghoul, ghoul_2]
-    ghoul_choice = random.choice(ghouls)
     # enemy movement updates
-    direction_horizontal = random.choice(["left", "right"])
-    direction_vertical = random.choice(["up", "down"])
+    direction_horizontal_1 = random.choice(["left", "right"])
+    direction_horizontal_2 = random.choice(["left", "right"])
+    direction_vertical_1 = random.choice(["up", "down"])
+    direction_vertical_2 = random.choice(["up", "down"])
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
+        if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
-            if ghoul_choice.name == "ramps ghoul":
-                ghoul.update_position([100, 300], [200, 300], direction_horizontal, direction_vertical)
-            if ghoul_choice.name == "ramps ghoul 2":
-                ghoul_2.update_position([700, 900], [200, 300], direction_horizontal, direction_vertical)
+            ghoul.update_position([100, 300], [200, 300], direction_horizontal_1, direction_vertical_1)
+            ghoul_2.update_position([700, 900], [200, 300], direction_horizontal_2, direction_vertical_2)
 
     if player.y_coordinate >= 675:
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_left_end"])
@@ -1447,10 +1462,10 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -1520,7 +1535,8 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                           staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                           switch_1, marrow_switch_phase, main_switch, sfx_switch, flower, crate, crate_got, Item,
                           sfx_item_key, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                          best_fish_counter):
+                          best_fish_counter, item_block_7, item_block_7_got, item_block_8, item_block_8_got,
+                          sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1537,6 +1553,11 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
 
     screen.blit(switch_1.surf, switch_1.rect)
     screen.blit(flower.surf, flower.rect)
+
+    if not item_block_7_got:
+        screen.blit(item_block_7.surf, item_block_7.rect)
+    if not item_block_8_got:
+        screen.blit(item_block_8.surf, item_block_8.rect)
 
     if not crate_got:
         screen.blit(crate.surf, crate.rect)
@@ -1650,11 +1671,154 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                 info_text_2 = ""
             interacted = False
 
+    if pygame.sprite.collide_rect(player, item_block_7):
+        if not item_block_7_got:
+            interaction_popup.update(item_block_7.x_coordinate, item_block_7.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block_7.x_coordinate, item_block_7.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_7_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 8)
+                        item_block_7_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Marrow Bait!"
+                            player.items.append(Item("marrow bait", "bait", 200, 200,
+                                                     graphic_dict["marrow_bait"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Pet Snack!"
+                            if kasper_unlocked:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                            elif torok_unlocked:
+                                player.items.append(Item("pet candy", "candy", 200, 200,
+                                                         graphic_dict["pet_candy_img"], 1))
+                            elif iriana_unlocked:
+                                player.items.append(Item("pet tart", "tart", 200, 200,
+                                                         graphic_dict["pet_tart_img"], 1))
+                            else:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 7:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 8:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
+    if pygame.sprite.collide_rect(player, item_block_8):
+        if not item_block_8_got:
+            interaction_popup.update(item_block_8.x_coordinate, item_block_8.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block_8.x_coordinate, item_block_8.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_8_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 8)
+                        item_block_8_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Marrow Bait!"
+                            player.items.append(Item("marrow bait", "bait", 200, 200,
+                                                     graphic_dict["marrow_bait"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Pet Snack!"
+                            if kasper_unlocked:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                            elif torok_unlocked:
+                                player.items.append(Item("pet candy", "candy", 200, 200,
+                                                         graphic_dict["pet_candy_img"], 1))
+                            elif iriana_unlocked:
+                                player.items.append(Item("pet tart", "tart", 200, 200,
+                                                         graphic_dict["pet_tart_img"], 1))
+                            else:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 7:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 8:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
     marrow_ramps_west_end_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                                     "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                                     "info_text_4": info_text_4, "interacted": interacted,
                                     "in_over_world": in_over_world, "movement_able": movement_able,
-                                    "marrow_switch_phase": marrow_switch_phase, "ramps_crate_5_got": crate_got}
+                                    "marrow_switch_phase": marrow_switch_phase, "ramps_crate_5_got": crate_got,
+                                    "item_block_7_got": item_block_7_got, "item_block_8_got": item_block_8_got}
 
     return marrow_ramps_west_end_return
 
@@ -1668,7 +1832,9 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                even_better_fish_counter, best_fish_counter, sfx_ladder, sub_marrow_rect, dungeon_gate_rect, sfx_gate,
                has_key, dungeon_chest, sfx_chroma, chest_got, atmons, Enemy, UiElement, player_battle_sprite,
                barrier_active, sharp_sense_active, in_npc_interaction, atmon_battle_sprite, enemy_tic,
-               current_enemy_battling, sub_marrow_opened):
+               current_enemy_battling, sub_marrow_opened, item_block_9, item_block_9_got, sfx_item_block,
+               kasper_unlocked, torok_unlocked, iriana_unlocked, maydria_task_start, prism_received,
+               atmons_highlighted, atmons_reset):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1685,8 +1851,28 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
 
     respawned_dict = gameplay_functions.enemy_respawn(player, atmons, atmons, atmons, atmons, atmons, atmons,
                                                       atmons, atmons, atmons, Enemy, Item, graphic_dict, UiElement,
-                                                      atmons, atmons, atmons, atmons, atmons, atmons, atmons, atmons)
+                                                      atmons, atmons, atmons, atmons, atmons, atmons, atmons, atmons,
+                                                      False, False, maydria_task_start, prism_received)
+    if not item_block_9_got:
+        screen.blit(item_block_9.surf, item_block_9.rect)
+
     atmons = respawned_dict["ectrenos_alcove_enemies"]
+
+    if maydria_task_start and not prism_received:
+        if not atmons_highlighted:
+            for enemy_sprite in atmons:
+                if enemy_sprite.name == "Atmon":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["atmon_high"])
+            atmons_highlighted = True
+    if prism_received:
+        if not atmons_reset:
+            for enemy_sprite in atmons:
+                if enemy_sprite.name == "Atmon":
+                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                              graphic_dict["atmon"])
+            atmons_reset = True
+
     for enemy in atmons:
         screen.blit(enemy.surf, enemy.rect)
     if not chest_got:
@@ -1830,6 +2016,77 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                                                    atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite,
                                                    atmon_battle_sprite, False)
 
+    if pygame.sprite.collide_rect(player, item_block_9):
+        if not item_block_9_got:
+            interaction_popup.update(item_block_9.x_coordinate, item_block_9.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block_9.x_coordinate, item_block_9.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_9_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 8)
+                        item_block_9_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Marrow Bait!"
+                            player.items.append(Item("marrow bait", "bait", 200, 200,
+                                                     graphic_dict["marrow_bait"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Pet Snack!"
+                            if kasper_unlocked:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                            elif torok_unlocked:
+                                player.items.append(Item("pet candy", "candy", 200, 200,
+                                                         graphic_dict["pet_candy_img"], 1))
+                            elif iriana_unlocked:
+                                player.items.append(Item("pet tart", "tart", 200, 200,
+                                                         graphic_dict["pet_tart_img"], 1))
+                            else:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 7:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 8:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -1840,10 +2097,10 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
         else:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
+    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
+    if len(drawing_functions.loot_text_container) > 0 and not vanished:
         for loot_text in drawing_functions.loot_text_container:
             screen.blit(loot_text[0], loot_text[1])
 
@@ -1864,7 +2121,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     move_mon = random.choice(atmons.sprites())
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
+        if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
             move_mon.update_position([75, 400], [150, 400], direction_horizontal, direction_vertical)
 
@@ -1873,6 +2130,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                          "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                          "movement_able": movement_able, "has_key": has_key, "chest_got": chest_got, "atmons": atmons,
                          "enemy_tic": enemy_tic, "current_enemy_battling": current_enemy_battling, "sub_marrow_opened":
-                         sub_marrow_opened}
+                         sub_marrow_opened, "item_block_9_got": item_block_9_got,
+                         "atmons_highlighted": atmons_highlighted, "atmons_reset": atmons_reset}
 
     return sub_marrow_return
