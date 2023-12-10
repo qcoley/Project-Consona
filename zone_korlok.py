@@ -26,15 +26,13 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
                     even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset):
 
-    rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
-
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, False, False)
+                                                      ectrenos_front_enemies, False, False, False, False)
     magmons = respawned_dict["magmons"]
 
     if player.quest_status["elementary elementals"] and not player.quest_complete["elementary elementals"]:

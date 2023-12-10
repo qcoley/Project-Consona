@@ -55,7 +55,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
-                                                      jumanos)
+                                                      jumanos, False, False, False, False)
     jumanos = respawned_dict["jumanos"]
 
     for jumano in jumanos:
@@ -1007,7 +1007,8 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             pet_energy_window, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
             even_better_fish_counter, best_fish_counter, caldera_ladder, sfx_ladder, fishing_spot, fishing, walk_tic,
             fishing_timer, fishing_level, fish_caught, previous_surf, fishing_unlocked, sfx_fishing_cast, cat,
-            cats_pet, sfx_cat_meow, cat_rewarded, Item):
+            cats_pet, sfx_cat_meow, cat_rewarded, Item, item_block_10, item_block_10_got, sfx_item_block,
+            kasper_unlocked, torok_unlocked, iriana_unlocked):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1102,7 +1103,8 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     screen.blit(fishing_spot.surf, fishing_spot.rect)
-
+    if not item_block_10_got:
+        screen.blit(item_block_10.surf, item_block_10.rect)
     screen.blit(cat.surf, cat.rect)
 
     try:
@@ -1217,6 +1219,77 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
                         fish_caught = False
                         break
 
+    if pygame.sprite.collide_rect(player, item_block_10):
+        if not item_block_10_got:
+            interaction_popup.update(item_block_10.x_coordinate, item_block_10.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block_10.x_coordinate, item_block_10.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_10_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 8)
+                        item_block_10_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Marrow Bait!"
+                            player.items.append(Item("marrow bait", "bait", 200, 200,
+                                                     graphic_dict["marrow_bait"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Pet Snack!"
+                            if kasper_unlocked:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                            elif torok_unlocked:
+                                player.items.append(Item("pet candy", "candy", 200, 200,
+                                                         graphic_dict["pet_candy_img"], 1))
+                            elif iriana_unlocked:
+                                player.items.append(Item("pet tart", "tart", 200, 200,
+                                                         graphic_dict["pet_tart_img"], 1))
+                            else:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 7:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 8:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -1252,6 +1325,6 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
                       "fishing_timer": fishing_timer, "previous_surf": previous_surf,
                       "basic_fish_counter": basic_fish_counter, "better_fish_counter": better_fish_counter,
                       "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter,
-                      "cats_pet": cats_pet, "cat_rewarded": cat_rewarded}
+                      "cats_pet": cats_pet, "cat_rewarded": cat_rewarded, "item_block_10_got": item_block_10_got}
 
     return caldera_return

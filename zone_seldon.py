@@ -34,9 +34,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     better_fish_counter, even_better_fish_counter, best_fish_counter, barrier_small, apothis_gift,
                     snakes_highlighted, ghouls_highlighted, quest_logs_highlighted):
 
-    rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
-    hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -55,7 +52,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                                       flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies, snakes,
-                                                      False, False)
+                                                      False, False, False, False)
     seldon_enemies = respawned_dict["seldon_enemies"]
     snakes = respawned_dict["snakes"]
     ghouls = respawned_dict["ghouls"]

@@ -889,7 +889,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, False, False)
+                                                      ectrenos_front_enemies, False, False, False, False)
     ectrenos_front_enemies = respawned_dict["ectrenos_front_enemies"]
 
     if player.quest_status["shades of fear"] and not player.quest_complete["shades of fear"]:
@@ -1157,7 +1157,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     respawned_dict = gameplay_functions.enemy_respawn(player, enemies, enemies, enemies, enemies, enemies, enemies,
                                                       enemies, enemies, enemies, Enemy, Item, graphic_dict, UiElement,
                                                       eldream_flowers, eldream_flowers, enemies, enemies, enemies,
-                                                      enemies, enemies, enemies, False, False)
+                                                      enemies, enemies, enemies, False, False, False, False)
     enemies = respawned_dict["ectrenos_alcove_enemies"]
 
     if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:

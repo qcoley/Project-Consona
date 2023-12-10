@@ -5305,6 +5305,9 @@ def load_graphics():
     loaded_dict["marrow_bait"] = items_sheet[36]
     loaded_dict["cat_card"] = items_sheet[37]
     loaded_dict["trade_deck"] = items_sheet[38]
+    loaded_dict["nera_trinket"] = items_sheet[39]
+    loaded_dict["aren_trinket"] = items_sheet[40]
+    loaded_dict["spirit_trinket"] = items_sheet[41]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -5349,6 +5352,9 @@ def load_graphics():
     loaded_dict["info_marrow_bait"] = items_info_sheet[38]
     loaded_dict["info_cat_card"] = items_info_sheet[39]
     loaded_dict["info_trade_deck"] = items_info_sheet[40]
+    loaded_dict["info_nera"] = items_info_sheet[41]
+    loaded_dict["info_aren"] = items_info_sheet[42]
+    loaded_dict["info_spirit"] = items_info_sheet[43]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -5367,6 +5373,9 @@ def load_graphics():
     loaded_dict["b_seldon_bait"] = buy_items_sheet[12]
     loaded_dict["b_korlok_bait"] = buy_items_sheet[13]
     loaded_dict["b_eldream_bait"] = buy_items_sheet[14]
+    loaded_dict["b_nera"] = buy_items_sheet[15]
+    loaded_dict["b_aren"] = buy_items_sheet[16]
+    loaded_dict["b_spirit"] = buy_items_sheet[17]
     # sell items -------------------------------------------------------------------------------------------------------
     sell_items_url = resource_path('resources/art/overlay_sell_items.png')
     sell_items_sheet = sprite_sheet((246, 240), sell_items_url)
@@ -5397,6 +5406,9 @@ def load_graphics():
     loaded_dict["s_big_energy"] = sell_items_sheet[24]
     loaded_dict["s_super"] = sell_items_sheet[25]
     loaded_dict["s_cat"] = sell_items_sheet[26]
+    loaded_dict["s_nera"] = sell_items_sheet[27]
+    loaded_dict["s_aren"] = sell_items_sheet[28]
+    loaded_dict["s_spirit"] = sell_items_sheet[29]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)

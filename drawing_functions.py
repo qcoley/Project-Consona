@@ -530,6 +530,27 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["use_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "nera trinket":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_nera"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["equip_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "aren trinket":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_aren"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["equip_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "spirit trinket":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_spirit"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["equip_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -614,6 +635,24 @@ def buy_info_draw(buy_item, buy_items, yes_button, graphic):
             return buy_item
         if buy_item.name == "eldream bait":
             buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_eldream_bait"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "nera trinket":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_nera"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "aren trinket":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_aren"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "spirit trinket":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_spirit"])
             buy_info_window.append(buy_items)
             yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
@@ -774,6 +813,24 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "cat card":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_cat"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "nera trinket":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_nera"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "aren trinket":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_aren"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "spirit trinket":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_spirit"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
@@ -1628,6 +1685,18 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "trade deck":
                     item_here.update(first_coord, second_coord, graphic["trade_deck"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "nera trinket":
+                    item_here.update(first_coord, second_coord, graphic["nera_trinket"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "aren trinket":
+                    item_here.update(first_coord, second_coord, graphic["aren_trinket"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "spirit trinket":
+                    item_here.update(first_coord, second_coord, graphic["spirit_trinket"])
                     player_items.append(item_here)
                     inventory_counter += 1
 

@@ -32,7 +32,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, False, False)
+                                                      ectrenos_front_enemies, False, False, False, False)
     bandiles = respawned_dict["bandiles"]
 
     if player.quest_status["band hammer"] and not player.quest_complete["band hammer"]:

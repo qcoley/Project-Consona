@@ -1,4 +1,5 @@
 import time
+import random
 import drawing_functions
 
 
@@ -10,7 +11,9 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                   defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay, hearth_stone,
                   chroma_forge, forge_rect, Item, sfx_enchanting, overlay_smelting, using_forge, enchanted_casing,
                   artherian_2, task_star_artherian, basic_fish_counter, better_fish_counter,
-                  even_better_fish_counter, best_fish_counter):
+                  even_better_fish_counter, best_fish_counter, item_block_12, item_block_12_got, sfx_item_block,
+                  kasper_unlocked, torok_unlocked, iriana_unlocked):
+
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -24,6 +27,9 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
     screen.blit(defense_meter.surf, defense_meter.rect)
     screen.blit(chroma_forge.surf, chroma_forge.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if not item_block_12_got:
+        screen.blit(item_block_12.surf, item_block_12.rect)
 
     if using_forge and not enchanted_casing:
         npc_toc = time.perf_counter()
@@ -79,6 +85,77 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                 if not artherian_2:
                     info_text_2 = "First go to the Forge in Korlok."
 
+    if pygame.sprite.collide_rect(player, item_block_12):
+        if not item_block_12_got:
+            interaction_popup.update(item_block_12.x_coordinate, item_block_12.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Item Block"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (item_block_12.x_coordinate, item_block_12.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not item_block_12_got:
+                    if len(player.items) < 16:
+                        item = random.randint(1, 8)
+                        item_block_12_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_block)
+                        if item == 1:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Health Potion!"
+                            player.items.append(Item("big health potion", "potion", 200, 200,
+                                                     graphic_dict["health_pot_img"], 0))
+                        if item == 2:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Big Energy Potion!"
+                            player.items.append(Item("big energy potion", "potion", 200, 200,
+                                                     graphic_dict["energy_pot_img"], 0))
+                        if item == 3:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "50 Rupees!"
+                            player.rupees += 50
+                        if item == 4:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "Marrow Bait!"
+                            player.items.append(Item("marrow bait", "bait", 200, 200,
+                                                     graphic_dict["marrow_bait"], 0))
+                        if item == 5:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A Pet Snack!"
+                            if kasper_unlocked:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                            elif torok_unlocked:
+                                player.items.append(Item("pet candy", "candy", 200, 200,
+                                                         graphic_dict["pet_candy_img"], 1))
+                            elif iriana_unlocked:
+                                player.items.append(Item("pet tart", "tart", 200, 200,
+                                                         graphic_dict["pet_tart_img"], 1))
+                            else:
+                                player.items.append(Item("pet cookie", "cookie", 200, 200,
+                                                         graphic_dict["pet_cookie_img"], 1))
+                        if item == 6:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A mage book!"
+                            player.items.append(Item("mage book", "book", 200, 200,
+                                                     graphic_dict["mage_book"], 0))
+                        if item == 7:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A fighter book!"
+                            player.items.append(Item("fighter book", "book", 200, 200,
+                                                     graphic_dict["fighter_book"], 0))
+                        if item == 8:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A scout book!"
+                            player.items.append(Item("scout book", "book", 200, 200,
+                                                     graphic_dict["scout_book"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+
+            interacted = False
+
     if 700 < player.y_coordinate:
         using_forge = False
         player.current_zone = "ectrenos left"
@@ -120,6 +197,6 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                     "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                     "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                     "movement_able": movement_able, "using_forge": using_forge, "enchanted_casing": enchanted_casing,
-                    "artherian_2": artherian_2}
+                    "artherian_2": artherian_2, "item_block_12_got": item_block_12_got}
 
     return altar_return

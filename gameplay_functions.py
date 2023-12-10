@@ -26,7 +26,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth, cat,
                       marrow_barrier_small, seldon_barrier_small, card_cave, item_block_1, item_block_2,
                       item_block_3, item_block_4, item_block_5, item_block_6, item_block_7, item_block_8,
-                      item_block_9):
+                      item_block_9, item_block_10, item_block_11, item_block_12):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -264,8 +264,17 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             else:
                 interacted = False
-        if player.current_zone == "forge" or player.current_zone == "altar":
+        if player.current_zone == "forge":
             if pygame.Rect.colliderect(player.rect, forge_rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, item_block_11):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "altar":
+            if pygame.Rect.colliderect(player.rect, forge_rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, item_block_12):
                 interacted = True
             else:
                 interacted = False
@@ -319,6 +328,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             elif pygame.Rect.colliderect(player.rect, fishing_spot_caldera):
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, cat):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, item_block_10):
                 interacted = True
             else:
                 interacted = False
@@ -465,8 +476,13 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     and not pygame.Rect.colliderect(player.rect, item_block_7)
                     and not pygame.Rect.colliderect(player.rect, item_block_8)):
                 interacted = False
-        if player.current_zone == "forge" or player.current_zone == "altar":
-            if not pygame.Rect.colliderect(player.rect, forge_rect):
+        if player.current_zone == "forge":
+            if (not pygame.Rect.colliderect(player.rect, forge_rect) and
+                    not pygame.Rect.colliderect(player.rect, item_block_11)):
+                interacted = False
+        if player.current_zone == "altar":
+            if (not pygame.Rect.colliderect(player.rect, forge_rect) and
+                    not pygame.Rect.colliderect(player.rect, item_block_12)):
                 interacted = False
         if player.current_zone == "castle one":
             if (not pygame.Rect.colliderect(player.rect, castle_exit)
@@ -495,7 +511,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
         if player.current_zone == "caldera":
             if (not pygame.Rect.colliderect(player.rect, caldera_ladder) and
                     not pygame.Rect.colliderect(player.rect, fishing_spot_caldera) and
-                    not pygame.Rect.colliderect(player.rect, cat)):
+                    not pygame.Rect.colliderect(player.rect, cat) and
+                    not pygame.Rect.colliderect(player.rect, item_block_10)):
                 interacted = False
 
     return interacted

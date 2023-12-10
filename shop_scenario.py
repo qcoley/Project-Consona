@@ -4,7 +4,8 @@ import drawing_functions
 # go through shop items and assign inventory slots (coordinates) to them
 def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, basic_armor, forged_armor, mythical_armor,
                                cookie, candy, tart, small_health, small_energy, seldon_firework, korlok_firework,
-                               eldream_firework, seldon_bait, korlok_bait, eldream_bait):
+                               eldream_firework, seldon_bait, korlok_bait, eldream_bait, nera_trinket, aren_trinket,
+                               spirit_trinket):
 
     # if shopkeeper has items in their inventory
     if len(npc_amuna_shopkeeper.items) > 0:
@@ -67,6 +68,18 @@ def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, basic_arm
                 buy_inventory_counter += 1
             if shop_item.name == "eldream bait":
                 shop_item.update(buy_first_coord, buy_second_coord, eldream_bait)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "nera trinket":
+                shop_item.update(buy_first_coord, buy_second_coord, nera_trinket)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "aren trinket":
+                shop_item.update(buy_first_coord, buy_second_coord, aren_trinket)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "spirit trinket":
+                shop_item.update(buy_first_coord, buy_second_coord, spirit_trinket)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             buy_first_coord += 58
@@ -307,6 +320,33 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     player.rupees = player.rupees + 75
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "nera trinket":
+                    sell_return["info 1"] = "Sold Nera's Grace for 250 rupees."
+                    sell_return["info 2"] = "Nera's Grace removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 250
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "aren trinket":
+                    sell_return["info 1"] = "Sold Aren's Strength for 250 rupees."
+                    sell_return["info 2"] = "Aren's Strength removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 250
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "spirit trinket":
+                    sell_return["info 1"] = "Sold Spirit of Wisdom for 250 rupees."
+                    sell_return["info 2"] = "Spirit of Wisdom removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 250
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
                 if current_sell_item.name == "cat card":
                     sell_return["info 1"] = "Sold Cat Reward for 0 rupees."
                     sell_return["info 2"] = "Cat Reward removed from inventory."
@@ -326,7 +366,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
 
 def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img, energy_pot_img, basic_armor,
               forged_armor, mythical_armor, cookie, candy, tart, sfx_buy, seldon_firework, korlok_firework,
-              eldream_firework, seldon_bait, korlok_bait, eldream_bait):
+              eldream_firework, seldon_bait, korlok_bait, eldream_bait, spirit_trinket, aren_trinket, nera_trinket):
     buy_return = {"info 1": "", "info 2": "", "bought": False}
 
     if buy_choice == "yes":
@@ -461,7 +501,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
         if current_buy_item.name == "seldon firework":
             if len(player.items) < 16:
                 if player.rupees > 24:
-                    if player.reputation["amuna"] >= 20:
+                    if player.reputation["amuna"] >= 10:
                         buy_return["info 1"] = "Bought Firework for 25 rupees."
                         buy_return["info 2"] = "Firework added to inventory."
                         player.items.append(Item("seldon firework", "firework", 200, 200, seldon_firework, 0))
@@ -470,7 +510,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         buy_return["bought"] = True
                     else:
                         buy_return["info 1"] = "You need more reputation."
-                        buy_return["info 2"] = "20 Reputation with Amuna required."
+                        buy_return["info 2"] = "10 Reputation with Amuna required."
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Firework cost 25 rupees."
@@ -481,7 +521,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
         if current_buy_item.name == "korlok firework":
             if len(player.items) < 16:
                 if player.rupees > 24:
-                    if player.reputation["nuldar"] >= 20:
+                    if player.reputation["nuldar"] >= 10:
                         buy_return["info 1"] = "Bought Firework for 25 rupees."
                         buy_return["info 2"] = "Firework added to inventory."
                         player.items.append(Item("korlok firework", "firework", 200, 200, korlok_firework, 0))
@@ -490,7 +530,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         buy_return["bought"] = True
                     else:
                         buy_return["info 1"] = "You need more reputation."
-                        buy_return["info 2"] = "20 Reputation with Nuldar required."
+                        buy_return["info 2"] = "10 Reputation with Nuldar required."
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Firework cost 25 rupees."
@@ -501,7 +541,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
         if current_buy_item.name == "eldream firework":
             if len(player.items) < 16:
                 if player.rupees > 24:
-                    if player.reputation["sorae"] >= 20:
+                    if player.reputation["sorae"] >= 10:
                         buy_return["info 1"] = "Bought Firework for 25 rupees."
                         buy_return["info 2"] = "Firework added to inventory."
                         player.items.append(Item("eldream firework", "firework", 200, 200, eldream_firework, 0))
@@ -510,7 +550,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         buy_return["bought"] = True
                     else:
                         buy_return["info 1"] = "You need more reputation."
-                        buy_return["info 2"] = "20 Reputation with Sorae required."
+                        buy_return["info 2"] = "10 Reputation with Sorae required."
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Firework cost 25 rupees."
@@ -521,7 +561,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
         if current_buy_item.name == "seldon bait":
             if len(player.items) < 16:
                 if player.rupees > 9:
-                    if player.reputation["amuna"] >= 30:
+                    if player.reputation["amuna"] >= 20:
                         buy_return["info 1"] = "Bought Bait for 10 rupees."
                         buy_return["info 2"] = "Bait added to inventory."
                         player.items.append(Item("seldon bait", "bait", 200, 200, seldon_bait, 0))
@@ -530,7 +570,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         buy_return["bought"] = True
                     else:
                         buy_return["info 1"] = "You need more reputation."
-                        buy_return["info 2"] = "30 Reputation with Amuna required."
+                        buy_return["info 2"] = "20 Reputation with Amuna required."
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Bait cost 10 rupees."
@@ -541,7 +581,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
         if current_buy_item.name == "korlok bait":
             if len(player.items) < 16:
                 if player.rupees > 9:
-                    if player.reputation["nuldar"] >= 30:
+                    if player.reputation["nuldar"] >= 20:
                         buy_return["info 1"] = "Bought Bait for 10 rupees."
                         buy_return["info 2"] = "Bait added to inventory."
                         player.items.append(Item("korlok bait", "bait", 200, 200, korlok_bait, 0))
@@ -550,7 +590,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         buy_return["bought"] = True
                     else:
                         buy_return["info 1"] = "You need more reputation."
-                        buy_return["info 2"] = "30 Reputation with Nuldar required."
+                        buy_return["info 2"] = "20 Reputation with Nuldar required."
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Bait cost 10 rupees."
@@ -561,7 +601,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
         if current_buy_item.name == "eldream bait":
             if len(player.items) < 16:
                 if player.rupees > 9:
-                    if player.reputation["sorae"] >= 30:
+                    if player.reputation["sorae"] >= 20:
                         buy_return["info 1"] = "Bought Bait for 10 rupees."
                         buy_return["info 2"] = "Bait added to inventory."
                         player.items.append(Item("eldream bait", "bait", 200, 200, eldream_bait, 0))
@@ -570,10 +610,68 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         buy_return["bought"] = True
                     else:
                         buy_return["info 1"] = "You need more reputation."
-                        buy_return["info 2"] = "30 Reputation with Sorae required."
+                        buy_return["info 2"] = "20 Reputation with Sorae required."
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Bait cost 10 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+
+        if current_buy_item.name == "nera trinket":
+            if len(player.items) < 16:
+                if player.rupees > 499:
+                    if player.reputation["amuna"] >= 40:
+                        buy_return["info 1"] = "Bought Nera's Grace for 500 rupees."
+                        buy_return["info 2"] = "Nera's Grace added to inventory."
+                        player.items.append(Item("nera trinket", "trinket", 200, 200, nera_trinket, 0))
+                        player.rupees = player.rupees - 500
+                        pygame.mixer.find_channel(True).play(sfx_buy)
+                        buy_return["bought"] = True
+                    else:
+                        buy_return["info 1"] = "You need more reputation."
+                        buy_return["info 2"] = "40 Reputation with Amuna required."
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Nera's Grace cost 500 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+        if current_buy_item.name == "aren trinket":
+            if len(player.items) < 16:
+                if player.rupees > 499:
+                    if player.reputation["nuldar"] >= 40:
+                        buy_return["info 1"] = "Bought Aren's Strength for 500 rupees."
+                        buy_return["info 2"] = "Aren's Strength added to inventory."
+                        player.items.append(Item("aren trinket", "trinket", 200, 200, aren_trinket, 0))
+                        player.rupees = player.rupees - 500
+                        pygame.mixer.find_channel(True).play(sfx_buy)
+                        buy_return["bought"] = True
+                    else:
+                        buy_return["info 1"] = "You need more reputation."
+                        buy_return["info 2"] = "40 Reputation with Nuldar required."
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Aren's Strength cost 500 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+        if current_buy_item.name == "spirit trinket":
+            if len(player.items) < 16:
+                if player.rupees > 499:
+                    if player.reputation["sorae"] >= 40:
+                        buy_return["info 1"] = "Bought Spirit of Wisdom for 500 rupees."
+                        buy_return["info 2"] = "Spirit of Wisdom added to inventory."
+                        player.items.append(Item("spirit trinket", "trinket", 200, 200, spirit_trinket, 0))
+                        player.rupees = player.rupees - 500
+                        pygame.mixer.find_channel(True).play(sfx_buy)
+                        buy_return["bought"] = True
+                    else:
+                        buy_return["info 1"] = "You need more reputation."
+                        buy_return["info 2"] = "40 Reputation with Sorae required."
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Spirit of Wisdom cost 500 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""

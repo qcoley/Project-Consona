@@ -563,7 +563,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 power_gloves, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, has_key,
                 muchador_lights_on, hearth_stone, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                 defense_meter, weapon_select, pet_energy_window, sfx_chest, sfx_rocks, basic_fish_counter,
-                better_fish_counter, even_better_fish_counter, best_fish_counter):
+                better_fish_counter, even_better_fish_counter, best_fish_counter, rohir_gate):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -699,6 +699,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             player.y_coordinate = 550
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
             hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
+            rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
             interacted = False
 
     # --------------------------------------------------------------------------------------------------

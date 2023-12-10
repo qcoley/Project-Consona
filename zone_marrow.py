@@ -59,7 +59,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
-                                                      marrow_ghouls, artherian_task_start, artherian.gift)
+                                                      marrow_ghouls, artherian_task_start, artherian.gift, False, False)
     marrow_ghouls = respawned_dict["marrow_ghouls"]
 
     if artherian_task_start and not artherian.gift:

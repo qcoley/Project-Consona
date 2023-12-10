@@ -7638,6 +7638,7 @@ if __name__ == "__main__":
         Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
+        Item("nera trinket", "trinket", 200, 200, graphic_dict["nera_trinket"], 0),
         Item("seldon firework", "firework", 200, 200, graphic_dict["seldon_firework"], 0),
         Item("seldon bait", "bait", 200, 200, graphic_dict["seldon_bait"], 0)])
 
@@ -7646,6 +7647,7 @@ if __name__ == "__main__":
         Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
+        Item("aren trinket", "trinket", 200, 200, graphic_dict["aren_trinket"], 0),
         Item("korlok firework", "firework", 200, 200, graphic_dict["korlok_firework"], 0),
         Item("korlok bait", "bait", 200, 200, graphic_dict["korlok_bait"], 0)])
 
@@ -7654,6 +7656,7 @@ if __name__ == "__main__":
         Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
+        Item("spirit trinket", "trinket", 200, 200, graphic_dict["spirit_trinket"], 0),
         Item("eldream firework", "firework", 200, 200, graphic_dict["eldream_firework"], 0),
         Item("eldream bait", "bait", 200, 200, graphic_dict["eldream_bait"], 0)])
 
@@ -8213,19 +8216,19 @@ if __name__ == "__main__":
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 600, graphic_dict["chest_small"])
+
     item_block_1 = Item("item block 1", "block", 105, 175, graphic_dict["item_block"], 0)
     item_block_2 = Item("item block 2", "block", 650, 48, graphic_dict["item_block"], 0)
     item_block_3 = Item("item block 3", "block", 710, 530, graphic_dict["item_block"], 0)
-
     item_block_4 = Item("item block 4", "block", 950, 500, graphic_dict["item_block"], 0)
     item_block_5 = Item("item block 5", "block", 80, 500, graphic_dict["item_block"], 0)
     item_block_6 = Item("item block 6", "block", 100, 475, graphic_dict["item_block"], 0)
-
     item_block_7 = Item("item block 7", "block", 500, 600, graphic_dict["item_block"], 0)
     item_block_8 = Item("item block 8", "block", 650, 600, graphic_dict["item_block"], 0)
-
     item_block_9 = Item("item block 9", "block", 925, 175, graphic_dict["item_block"], 0)
-    item_block_10 = Item("item block 10", "block", 650, 600, graphic_dict["item_block"], 0)
+    item_block_10 = Item("item block 10", "block", 575, 450, graphic_dict["item_block"], 0)
+    item_block_11 = Item("item block 11", "block", 780, 400, graphic_dict["item_block"], 0)
+    item_block_12 = Item("item block 12", "block", 780, 400, graphic_dict["item_block"], 0)
 
     chest_small_castle_1 = UiElement("chest small castle 1", 700, 262, graphic_dict["chest_small"])
     chest_small_castle_2 = UiElement("chest small castle 2", 700, 262, graphic_dict["chest_small"])
@@ -8942,6 +8945,8 @@ if __name__ == "__main__":
     item_block_8_got = False
     item_block_9_got = False
     item_block_10_got = False
+    item_block_11_got = False
+    item_block_12_got = False
 
     marrow_ghouls_reset = False
     magmons_reset = False
@@ -10147,6 +10152,8 @@ if __name__ == "__main__":
                         if player.current_zone == "seldon":
                             player.x_coordinate = 860
                             player.y_coordinate = 655
+                            rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
+                            hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "stardust":
                             player.x_coordinate = 925
@@ -10155,6 +10162,7 @@ if __name__ == "__main__":
                         if player.current_zone == "korlok":
                             player.x_coordinate = 882
                             player.y_coordinate = 290
+                            rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
                             hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "fishing hut":
@@ -10725,7 +10733,9 @@ if __name__ == "__main__":
                                                                                   item_block_2, item_block_3,
                                                                                   item_block_4, item_block_5,
                                                                                   item_block_6, item_block_7,
-                                                                                  item_block_8, item_block_9)
+                                                                                  item_block_8, item_block_9,
+                                                                                  item_block_10, item_block_11,
+                                                                                  item_block_12)
 
                                 if interacted:
                                     cleared = False
@@ -11141,6 +11151,7 @@ if __name__ == "__main__":
                                         pass
 
                                     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
+                                    rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
                                     info_text_1 = "You recalled to the seldon stone."
                                     over_world_song_set = False
                                     stardust_song_set = False
@@ -11172,6 +11183,7 @@ if __name__ == "__main__":
                                         except AttributeError:
                                             pass
                                         hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
+                                        rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
                                         info_text_1 = "You recalled to the korlok stone."
                                         over_world_song_set = False
                                         stardust_song_set = False
@@ -13014,7 +13026,9 @@ if __name__ == "__main__":
                                                                fishing, walk_tic, fishing_timer, fishing_level,
                                                                fish_caught, previous_surf, fishing_unlocked,
                                                                sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
-                                                               cat_rewarded, Item)
+                                                               cat_rewarded, Item, item_block_10, item_block_10_got,
+                                                               sfx_item_block, kasper_unlocked, torok_unlocked,
+                                                               iriana_unlocked)
                     else:
                         caldera_returned = zone_castle.caldera(pygame, game_window, graphic_dict, player, caldera_bg,
                                                                over_world_song_set, caldera_music, interaction_popup,
@@ -13030,7 +13044,9 @@ if __name__ == "__main__":
                                                                fishing, walk_tic, fishing_timer, fishing_level,
                                                                fish_caught, previous_surf, fishing_unlocked,
                                                                sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
-                                                               cat_rewarded, Item)
+                                                               cat_rewarded, Item, item_block_10, item_block_10_got,
+                                                               sfx_item_block, kasper_unlocked, torok_unlocked,
+                                                               iriana_unlocked)
 
                     over_world_song_set = caldera_returned["over_world_song_set"]
                     interacted = caldera_returned["interacted"]
@@ -13050,6 +13066,7 @@ if __name__ == "__main__":
                     best_fish_counter = caldera_returned["best_fish_counter"]
                     cats_pet = caldera_returned["cats_pet"]
                     cat_rewarded = caldera_returned["cat_rewarded"]
+                    item_block_10_got = caldera_returned["item_block_10_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -13792,7 +13809,9 @@ if __name__ == "__main__":
                                                                  forge_rect, Item, sfx_smelting, overlay_smelting,
                                                                  using_forge, smelted_casing, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
-                                                                 best_fish_counter)
+                                                                 best_fish_counter, item_block_11, item_block_11_got,
+                                                                 sfx_item_block, kasper_unlocked, torok_unlocked,
+                                                                 iriana_unlocked)
                     else:
                         forge_returned = zone_forge.korlok_forge(pygame, game_window, graphic_dict, player,
                                                                  korlok_forge_bg, korlok_overworld_music,
@@ -13810,7 +13829,9 @@ if __name__ == "__main__":
                                                                  forge_rect, Item, sfx_smelting, overlay_smelting,
                                                                  using_forge, smelted_casing, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
-                                                                 best_fish_counter)
+                                                                 best_fish_counter, item_block_11, item_block_11_got,
+                                                                 sfx_item_block, kasper_unlocked, torok_unlocked,
+                                                                 iriana_unlocked)
 
                     over_world_song_set = forge_returned["over_world_song_set"]
                     interacted = forge_returned["interacted"]
@@ -13823,6 +13844,7 @@ if __name__ == "__main__":
                     info_text_4 = forge_returned["info_text_4"]
                     using_forge = forge_returned["using_forge"]
                     smelted_casing = forge_returned["smelted_casing"]
+                    item_block_11_got = forge_returned["item_block_11_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream altar ------------------------------------------------------------------------
@@ -13847,7 +13869,9 @@ if __name__ == "__main__":
                                                                   using_forge, enchanted_casing, artherian_2,
                                                                   task_star_artherian, basic_fish_counter,
                                                                   better_fish_counter, even_better_fish_counter,
-                                                                  best_fish_counter)
+                                                                  best_fish_counter, item_block_12, item_block_12_got, 
+                                                                  sfx_item_block, kasper_unlocked, torok_unlocked, 
+                                                                  iriana_unlocked)
                     else:
                         altar_returned = zone_altar.eldream_altar(pygame, game_window, graphic_dict, player,
                                                                   eldream_altar_bg, eldream_building_music,
@@ -13866,7 +13890,9 @@ if __name__ == "__main__":
                                                                   using_forge, enchanted_casing, artherian_2,
                                                                   task_star_artherian, basic_fish_counter,
                                                                   better_fish_counter, even_better_fish_counter,
-                                                                  best_fish_counter)
+                                                                  best_fish_counter, item_block_12, item_block_12_got, 
+                                                                  sfx_item_block, kasper_unlocked, torok_unlocked, 
+                                                                  iriana_unlocked)
 
                     over_world_song_set = altar_returned["over_world_song_set"]
                     interacted = altar_returned["interacted"]
@@ -13880,6 +13906,7 @@ if __name__ == "__main__":
                     using_forge = altar_returned["using_forge"]
                     enchanted_casing = altar_returned["enchanted_casing"]
                     artherian_2 = altar_returned["artherian_2"]
+                    item_block_12_got = altar_returned["item_block_12_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in terra trail --------------------------------------------------------------------------
@@ -14367,7 +14394,7 @@ if __name__ == "__main__":
                                                                           pet_energy_window, sfx_chest_open,
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter)
+                                                                          best_fish_counter, rohir_gate)
                     else:
                         reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -14389,7 +14416,7 @@ if __name__ == "__main__":
                                                                           pet_energy_window, sfx_chest_open,
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter)
+                                                                          best_fish_counter, rohir_gate)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -17338,7 +17365,10 @@ if __name__ == "__main__":
                                                                  graphic_dict["eldream_firework"],
                                                                  graphic_dict["seldon_bait"],
                                                                  graphic_dict["korlok_bait"],
-                                                                 graphic_dict["eldream_bait"])
+                                                                 graphic_dict["eldream_bait"],
+                                                                 graphic_dict["nera_trinket"],
+                                                                 graphic_dict["aren_trinket"],
+                                                                 graphic_dict["spirit_trinket"])
                             if buy_return["info 1"] != "":
                                 button_highlighted = False
                                 info_text_1 = buy_return["info 1"]
@@ -17448,7 +17478,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["eldream_firework"],
                                                                                  graphic_dict["seldon_bait"],
                                                                                  graphic_dict["korlok_bait"],
-                                                                                 graphic_dict["eldream_bait"])
+                                                                                 graphic_dict["eldream_bait"],
+                                                                                 graphic_dict["nera_trinket"],
+                                                                                 graphic_dict["aren_trinket"],
+                                                                                 graphic_dict["spirit_trinket"])
                                     if player.current_zone == "korlok":
                                         shop_scenario.shop_keeper_inventory_draw(npc_nuldar_shopkeeper,
                                                                                  shopkeeper_items,
@@ -17465,7 +17498,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["eldream_firework"],
                                                                                  graphic_dict["seldon_bait"],
                                                                                  graphic_dict["korlok_bait"],
-                                                                                 graphic_dict["eldream_bait"])
+                                                                                 graphic_dict["eldream_bait"],
+                                                                                 graphic_dict["nera_trinket"],
+                                                                                 graphic_dict["aren_trinket"],
+                                                                                 graphic_dict["spirit_trinket"])
                                     if player.current_zone == "ectrenos right":
                                         shop_scenario.shop_keeper_inventory_draw(npc_sorae_shopkeeper,
                                                                                  shopkeeper_items,
@@ -17482,7 +17518,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["eldream_firework"],
                                                                                  graphic_dict["seldon_bait"],
                                                                                  graphic_dict["korlok_bait"],
-                                                                                 graphic_dict["eldream_bait"])
+                                                                                 graphic_dict["eldream_bait"],
+                                                                                 graphic_dict["nera_trinket"],
+                                                                                 graphic_dict["aren_trinket"],
+                                                                                 graphic_dict["spirit_trinket"])
 
                         if shop_button == "leave":
                             if len(buy_shop_elements) > 0:
