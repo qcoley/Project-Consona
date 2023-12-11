@@ -2066,6 +2066,12 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("cat card", "card", 200, 200, graphics["cat_card"], 0))
                 if item == "trade deck":
                     player.items.append(Item("trade deck", "deck", 200, 200, graphics["trade_deck"], 0))
+                if item == "nera trinket":
+                    player.items.append(Item("nera trinket", "trinket", 200, 200, graphics["nera's_grace"], 0))
+                if item == "aren trinket":
+                    player.items.append(Item("aren trinket", "trinket", 200, 200, graphics["aren's_strength"], 0))
+                if item == "spirit trinket":
+                    player.items.append(Item("spirit trinket", "trinket", 200, 200, graphics["wisdom's_spirit"], 0))
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
                     player.equipment["boots"] = Item("chroma boots", "boots", 200, 200, graphics["boots_img"], 0)
@@ -2080,6 +2086,16 @@ def load_game(player, Item, graphics, Pet):
                 if equipped_item == "legendary armor":
                     player.equipment["armor"] = Item("legendary armor", "armor", 200, 200, graphics["legendary_armor"],
                                                      4)
+                if equipped_item == "nera trinket":
+                    player.equipment["trinket 1"] = Item("nera trinket", "trinket", 200, 200,
+                                                         graphics["nera's_grace"], 0)
+                if equipped_item == "aren trinket":
+                    player.equipment["trinket 2"] = Item("aren trinket", "trinket", 200, 200,
+                                                         graphics["aren's_strength"], 0)
+                if equipped_item == "spirit trinket":
+                    player.equipment["trinket 3"] = Item("spirit trinket", "trinket", 200, 200,
+                                                         graphics["wisdom's_spirit"], 0)
+
             player.current_quests = player_load_info["quests"]
             player.quest_progress = player_load_info["quest progress"]
             player.quest_status = player_load_info["quest status"]
@@ -2097,6 +2113,7 @@ def load_game(player, Item, graphics, Pet):
             player.rupees = player_load_info["rupees"]
             player.reputation = player_load_info["reputation"]
             player.current_zone = player_load_info["zone"]
+            player.velocity = player_load_info["velocity"]
             if player.current_zone == "nascent":
                 player.x_coordinate = 760
                 player.y_coordinate = 510
@@ -2284,6 +2301,12 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
         equipment_save.append(player.equipment["gloves"].name)
     if player.equipment["boots"] != "":
         equipment_save.append(player.equipment["boots"].name)
+    if player.equipment["trinket 1"] != "":
+        equipment_save.append(player.equipment["trinket 1"].name)
+    if player.equipment["trinket 2"] != "":
+        equipment_save.append(player.equipment["trinket 2"].name)
+    if player.equipment["trinket 3"] != "":
+        equipment_save.append(player.equipment["trinket 3"].name)
 
     pets = {"kasper_got": False, "torok_got": False, "iriana_got": False, "kasper_energy": 0, "torok_energy": 0,
             "iriana_energy": 0}
@@ -2379,7 +2402,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "chorizon": card_deck["chorizon"], "muchador": card_deck["muchador"],
                         "chinzilla": card_deck["chinzilla"], "erebyth": card_deck["erebyth"],
                         "fire_learned": fire_learned, "edge_learned": edge_learned, "arrow_learned": arrow_learned,
-                        "on_card_quest": on_card_quest}
+                        "on_card_quest": on_card_quest, "velocity": player.velocity}
 
     try:
         with open("save", "wb") as ff:

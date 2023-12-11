@@ -192,6 +192,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
                 player.equipment["trinket 1"] = ""
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 return_dict["equipment message"] = "Nera's Grace un-equipped."
+                player.velocity -= 1
             else:
                 return_dict["equipment message"] = "Your inventory is full."
 
@@ -710,6 +711,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
+                player.velocity += 1
                 return_dict["item message"] = "Nera's Grace equipped."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."

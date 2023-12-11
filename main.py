@@ -28,9 +28,6 @@ import zone_altar
 import zone_fishing_hut
 import zone_castle
 
-# global variable
-velocity = 3
-
 
 # class objects --------------------------------------------------------------------------------------------------------
 class Pet(pygame.sprite.Sprite):
@@ -69,7 +66,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
     def __init__(self, name, race, gender, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae, pets):
+                 flowers_sorae, pets, velocity):
         super(PlayerAmuna, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -103,6 +100,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
         self.flowers_amuna = flowers_amuna
         self.flowers_sorae = flowers_sorae
         self.pet = pets
+        self.velocity = 3
 
     # move the player sprite based on input keys
     def update(self, pressed_key, current_zone, walk_timed):
@@ -118,7 +116,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_amuna_male_up_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_amuna_male_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_amuna_male_down_1"]
@@ -128,7 +126,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_amuna_male_down_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_amuna_male_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_amuna_male_left_1"]
@@ -138,7 +136,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_amuna_male_left_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_amuna_male_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_amuna_male_right_1"]
@@ -148,7 +146,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_amuna_male_right_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_amuna_male_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -197,7 +195,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_amuna_male_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_amuna_male_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -245,7 +243,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_amuna_male_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_amuna_male_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -293,7 +291,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_amuna_male_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_amuna_male_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -341,7 +339,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_amuna_male_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_amuna_male_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -390,7 +388,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_amuna_male_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_amuna_male_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -438,7 +436,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_amuna_male_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_amuna_male_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -486,7 +484,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_amuna_male_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_amuna_male_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -534,7 +532,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_amuna_male_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_amuna_male_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -583,7 +581,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_male_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_amuna_male_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -631,7 +629,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_male_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_amuna_male_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -679,7 +677,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_male_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_amuna_male_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -727,7 +725,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_male_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_amuna_male_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
 
         if self.gender == "female":
             if self.role == "":
@@ -740,7 +738,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_amuna_female_up_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_amuna_female_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_amuna_female_down_1"]
@@ -750,7 +748,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_amuna_female_down_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_amuna_female_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_amuna_female_left_1"]
@@ -760,7 +758,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_amuna_female_left_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_amuna_female_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_amuna_female_right_1"]
@@ -770,7 +768,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_amuna_female_right_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_amuna_female_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -819,7 +817,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_amuna_female_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_amuna_female_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -867,7 +865,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_amuna_female_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_amuna_female_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -915,7 +913,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_amuna_female_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_amuna_female_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -963,7 +961,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_amuna_female_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_amuna_female_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -1012,7 +1010,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_amuna_female_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_amuna_female_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -1060,7 +1058,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_amuna_female_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_amuna_female_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -1108,7 +1106,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_amuna_female_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_amuna_female_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -1156,7 +1154,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_amuna_female_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_amuna_female_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -1205,7 +1203,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_female_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_amuna_female_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -1253,7 +1251,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_female_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_amuna_female_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -1301,7 +1299,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_female_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_amuna_female_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -1349,7 +1347,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_amuna_female_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_amuna_female_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
 
         if current_zone == "caldera":
             if self.x_coordinate < 262:
@@ -2127,244 +2125,244 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
                         if self.y_coordinate < chroma_bridge.y_coordinate:
-                            self.y_coordinate -= velocity
+                            self.y_coordinate -= self.velocity
                         if self.y_coordinate > chroma_bridge.y_coordinate:
-                            self.y_coordinate += velocity
+                            self.y_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
                     if self.y_coordinate < chroma_bridge.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > chroma_bridge.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "marrow ramps east end":
             if erebyth_defeated:
                 if pygame.Rect.colliderect(self.rect, dungeon_chest_ramps_rect):
                     if self.x_coordinate < dungeon_chest_ramps_rect.x:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > dungeon_chest_ramps_rect.x:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < dungeon_chest_ramps_rect.y:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > dungeon_chest_ramps_rect.y:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 8":
                     if self.x_coordinate < collided.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > collided.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < collided.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > collided.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(self, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "korlok":
             collided = pygame.sprite.spritecollideany(self, nuldar_buildings, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.Rect.colliderect(self.rect, volcano_rect):
                 if self.x_coordinate < volcano_rect.x:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > volcano_rect.x:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < volcano_rect.y:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > volcano_rect.y:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             collided = pygame.sprite.spritecollideany(self, korlok_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "mines":
             if pygame.sprite.collide_rect(self, mines_wall):
                 if self.y_coordinate < mines_wall.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > mines_wall.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.sprite.collide_rect(self, mines_light):
                 if self.y_coordinate < mines_light.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > mines_light.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if self.x_coordinate < mines_light.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > mines_light.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if pygame.sprite.collide_rect(self, mines_cart):
                 if self.x_coordinate < mines_cart.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > mines_cart.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < mines_cart.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > mines_cart.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "reservoir a":
             if mini_boss_1 or mini_boss_2:
                 if pygame.sprite.collide_rect(self, dungeon_drop_wall):
                     if self.x_coordinate < dungeon_drop_wall.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > dungeon_drop_wall.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
             collided = pygame.sprite.spritecollideany(self, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "reservoir b":
             collided = pygame.sprite.spritecollideany(self, muchador_crates, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "reservoir c":
             collided = pygame.sprite.spritecollideany(self, dungeon_rocks, pygame.sprite.collide_rect_ratio(0.90))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.Rect.colliderect(self.rect, dungeon_chest_rect):
                 if self.x_coordinate < dungeon_chest_rect.x:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > dungeon_chest_rect.x:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < dungeon_chest_rect.y:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > dungeon_chest_rect.y:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "terra trail":
             if pygame.sprite.collide_rect(self, terra_cave):
                 if self.x_coordinate < terra_cave.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > terra_cave.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 7":
                     if self.x_coordinate < collided.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > collided.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < collided.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > collided.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "stardust":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 3":
                     if self.x_coordinate < collided.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > collided.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < collided.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > collided.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_small):
                         if self.y_coordinate < chroma_bridge_small.y_coordinate:
-                            self.y_coordinate -= velocity
+                            self.y_coordinate -= self.velocity
                         if self.y_coordinate < 335:
-                            self.y_coordinate += velocity
+                            self.y_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_small):
                     if self.y_coordinate < chroma_bridge_small.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate < 335:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "eldream":
             collided = pygame.sprite.spritecollideany(self, eldream_river)
             if collided:
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.sprite.collide_rect(self, eldream_cart):
                 if self.x_coordinate < eldream_cart.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > eldream_cart.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < eldream_cart.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > eldream_cart.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "ectrenos left":
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge):
                         if self.x_coordinate < chroma_bridge.x_coordinate:
-                            self.x_coordinate -= velocity
+                            self.x_coordinate -= self.velocity
                         if self.x_coordinate > chroma_bridge.x_coordinate:
-                            self.x_coordinate += velocity
+                            self.x_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge):
                     if self.x_coordinate < chroma_bridge.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
         if current_zone == "forge":
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_forge):
                         if self.y_coordinate < chroma_bridge_forge.y_coordinate:
-                            self.y_coordinate -= velocity
+                            self.y_coordinate -= self.velocity
                         if self.y_coordinate < 620:
-                            self.y_coordinate += velocity
+                            self.y_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_forge):
                     if self.y_coordinate < chroma_bridge_forge.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate < 620:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "castle two":
             collided = pygame.sprite.spritecollideany(self, castle_rocks, pygame.sprite.collide_rect_ratio(0.90))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -2373,7 +2371,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
     def __init__(self, name, race, gender, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae, pets):
+                 flowers_sorae, pets, velocity):
         super(PlayerNuldar, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -2407,6 +2405,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
         self.flowers_amuna = flowers_amuna
         self.flowers_sorae = flowers_sorae
         self.pet = pets
+        self.velocity = 3
 
     def update(self, pressed_key, current_zone, walk_timed):
         if self.gender == "male":
@@ -2420,7 +2419,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_nuldar_male_up_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_nuldar_male_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
@@ -2430,7 +2429,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_nuldar_male_down_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_nuldar_male_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_nuldar_male_left_1"]
@@ -2440,7 +2439,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_nuldar_male_left_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_nuldar_male_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_nuldar_male_right_1"]
@@ -2450,7 +2449,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_nuldar_male_right_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_nuldar_male_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -2499,7 +2498,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_nuldar_male_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_nuldar_male_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -2547,7 +2546,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_nuldar_male_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_nuldar_male_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -2595,7 +2594,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_nuldar_male_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_nuldar_male_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -2643,7 +2642,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_nuldar_male_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_nuldar_male_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -2692,7 +2691,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_nuldar_male_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_nuldar_male_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -2740,7 +2739,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_nuldar_male_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_nuldar_male_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -2788,7 +2787,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_nuldar_male_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_nuldar_male_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -2836,7 +2835,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_nuldar_male_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_nuldar_male_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -2885,7 +2884,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_male_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_nuldar_male_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -2933,7 +2932,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_male_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_nuldar_male_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -2981,7 +2980,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_male_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_nuldar_male_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3029,7 +3028,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_male_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_nuldar_male_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
 
         if self.gender == "female":
             if self.role == "":
@@ -3042,7 +3041,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_nuldar_female_up_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_nuldar_female_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_nuldar_female_down_1"]
@@ -3052,7 +3051,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_nuldar_female_down_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_nuldar_female_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_nuldar_female_left_1"]
@@ -3062,7 +3061,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_nuldar_female_left_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_nuldar_female_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_nuldar_female_right_1"]
@@ -3072,7 +3071,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_nuldar_female_right_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_nuldar_female_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -3121,7 +3120,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_nuldar_female_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_nuldar_female_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3169,7 +3168,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_nuldar_female_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_nuldar_female_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3217,7 +3216,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_nuldar_female_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_nuldar_female_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3265,7 +3264,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_nuldar_female_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_nuldar_female_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -3314,7 +3313,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_nuldar_female_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_nuldar_female_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3362,7 +3361,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_nuldar_female_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_nuldar_female_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3410,7 +3409,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_nuldar_female_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_nuldar_female_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3458,7 +3457,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_nuldar_female_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_nuldar_female_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -3507,7 +3506,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_female_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_nuldar_female_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3555,7 +3554,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_female_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_nuldar_female_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3603,7 +3602,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_female_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_nuldar_female_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -3651,7 +3650,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_nuldar_female_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_nuldar_female_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
 
         if current_zone == "caldera":
             if self.x_coordinate < 262:
@@ -4429,244 +4428,244 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
                         if self.y_coordinate < chroma_bridge.y_coordinate:
-                            self.y_coordinate -= velocity
+                            self.y_coordinate -= self.velocity
                         if self.y_coordinate > chroma_bridge.y_coordinate:
-                            self.y_coordinate += velocity
+                            self.y_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
                     if self.y_coordinate < chroma_bridge.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > chroma_bridge.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "marrow ramps east end":
             if erebyth_defeated:
                 if pygame.Rect.colliderect(self.rect, dungeon_chest_ramps_rect):
                     if self.x_coordinate < dungeon_chest_ramps_rect.x:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > dungeon_chest_ramps_rect.x:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < dungeon_chest_ramps_rect.y:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > dungeon_chest_ramps_rect.y:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 8":
                     if self.x_coordinate < collided.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > collided.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < collided.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > collided.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(self, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "korlok":
             collided = pygame.sprite.spritecollideany(self, nuldar_buildings, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.Rect.colliderect(self.rect, volcano_rect):
                 if self.x_coordinate < volcano_rect.x:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > volcano_rect.x:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < volcano_rect.y:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > volcano_rect.y:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             collided = pygame.sprite.spritecollideany(self, korlok_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "mines":
             if pygame.sprite.collide_rect(self, mines_wall):
                 if self.y_coordinate < mines_wall.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > mines_wall.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.sprite.collide_rect(self, mines_light):
                 if self.y_coordinate < mines_light.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > mines_light.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if self.x_coordinate < mines_light.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > mines_light.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if pygame.sprite.collide_rect(self, mines_cart):
                 if self.x_coordinate < mines_cart.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > mines_cart.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < mines_cart.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > mines_cart.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "reservoir a":
             if mini_boss_1 or mini_boss_2:
                 if pygame.sprite.collide_rect(self, dungeon_drop_wall):
                     if self.x_coordinate < dungeon_drop_wall.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > dungeon_drop_wall.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
             collided = pygame.sprite.spritecollideany(self, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "reservoir b":
             collided = pygame.sprite.spritecollideany(self, muchador_crates, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "reservoir c":
             collided = pygame.sprite.spritecollideany(self, dungeon_rocks, pygame.sprite.collide_rect_ratio(0.90))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.Rect.colliderect(self.rect, dungeon_chest_rect):
                 if self.x_coordinate < dungeon_chest_rect.x:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > dungeon_chest_rect.x:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < dungeon_chest_rect.y:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > dungeon_chest_rect.y:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "terra trail":
             if pygame.sprite.collide_rect(self, terra_cave):
                 if self.x_coordinate < terra_cave.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > terra_cave.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 7":
                     if self.x_coordinate < collided.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > collided.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < collided.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > collided.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "stardust":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 3":
                     if self.x_coordinate < collided.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > collided.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < collided.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > collided.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_small):
                         if self.y_coordinate < chroma_bridge_small.y_coordinate:
-                            self.y_coordinate -= velocity
+                            self.y_coordinate -= self.velocity
                         if self.y_coordinate < 335:
-                            self.y_coordinate += velocity
+                            self.y_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_small):
                     if self.y_coordinate < chroma_bridge_small.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate < 335:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "eldream":
             collided = pygame.sprite.spritecollideany(self, eldream_river)
             if collided:
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.sprite.collide_rect(self, eldream_cart):
                 if self.x_coordinate < eldream_cart.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > eldream_cart.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < eldream_cart.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > eldream_cart.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "ectrenos left":
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge):
                         if self.x_coordinate < chroma_bridge.x_coordinate:
-                            self.x_coordinate -= velocity
+                            self.x_coordinate -= self.velocity
                         if self.x_coordinate > chroma_bridge.x_coordinate:
-                            self.x_coordinate += velocity
+                            self.x_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge):
                     if self.x_coordinate < chroma_bridge.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
         if current_zone == "forge":
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_forge):
                         if self.y_coordinate < chroma_bridge_forge.y_coordinate:
-                            self.y_coordinate -= velocity
+                            self.y_coordinate -= self.velocity
                         if self.y_coordinate < 620:
-                            self.y_coordinate += velocity
+                            self.y_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_forge):
                     if self.y_coordinate < chroma_bridge_forge.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate < 620:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "castle two":
             collided = pygame.sprite.spritecollideany(self, castle_rocks, pygame.sprite.collide_rect_ratio(0.90))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -4675,7 +4674,7 @@ class PlayerSorae(pygame.sprite.Sprite):
     def __init__(self, name, race, gender, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae, pets):
+                 flowers_sorae, pets, velocity):
         super(PlayerSorae, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -4709,6 +4708,7 @@ class PlayerSorae(pygame.sprite.Sprite):
         self.flowers_amuna = flowers_amuna
         self.flowers_sorae = flowers_sorae
         self.pet = pets
+        self.velocity = 3
 
     def update(self, pressed_key, current_zone, walk_timed):
         if self.gender == "male":
@@ -4722,7 +4722,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_sorae_a_up_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_sorae_a_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_sorae_a_down_1"]
@@ -4732,7 +4732,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_sorae_a_down_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_sorae_a_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_sorae_a_left_1"]
@@ -4742,7 +4742,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_sorae_a_left_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_sorae_a_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_sorae_a_right_1"]
@@ -4752,7 +4752,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_sorae_a_right_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_sorae_a_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -4801,7 +4801,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_sorae_a_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_sorae_a_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -4849,7 +4849,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_sorae_a_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_sorae_a_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -4897,7 +4897,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_sorae_a_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_sorae_a_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -4945,7 +4945,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_sorae_a_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_sorae_a_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -4994,7 +4994,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_sorae_a_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_sorae_a_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5042,7 +5042,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_sorae_a_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_sorae_a_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5090,7 +5090,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_sorae_a_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_sorae_a_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5138,7 +5138,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_sorae_a_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_sorae_a_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -5187,7 +5187,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_a_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_sorae_a_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5235,7 +5235,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_a_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_sorae_a_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5283,7 +5283,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_a_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_sorae_a_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5331,7 +5331,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_a_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_sorae_a_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
 
         if self.gender == "female":
             if self.role == "":
@@ -5344,7 +5344,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_sorae_b_up_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_sorae_b_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_sorae_b_down_1"]
@@ -5354,7 +5354,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_sorae_b_down_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_sorae_b_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_sorae_b_left_1"]
@@ -5364,7 +5364,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_sorae_b_left_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_sorae_b_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     if walk_timed < 0.2:
                         self.surf = graphic_dict["player_no_role_sorae_b_right_1"]
@@ -5374,7 +5374,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_no_role_sorae_b_right_3"]
                     if walk_timed > 0.6:
                         self.surf = graphic_dict["player_no_role_sorae_b_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -5423,7 +5423,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_sorae_b_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_sorae_b_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5471,7 +5471,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_sorae_b_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_sorae_b_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5519,7 +5519,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_sorae_b_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_sorae_b_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5567,7 +5567,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_mage_sorae_b_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_mage_sorae_b_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -5616,7 +5616,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_sorae_b_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_sorae_b_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5664,7 +5664,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_sorae_b_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_sorae_b_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5712,7 +5712,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_sorae_b_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_sorae_b_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5760,7 +5760,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_fighter_sorae_b_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_fighter_sorae_b_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if self.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
                     try:
@@ -5809,7 +5809,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_b_up_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_sorae_b_up_4"]
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if pressed_key == "down":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5857,7 +5857,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_b_down_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_sorae_b_down_4"]
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if pressed_key == "left":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5905,7 +5905,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_b_left_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_sorae_b_left_4"]
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if pressed_key == "right":
                     try:
                         if self.equipment["armor"].name == "basic armor":
@@ -5953,7 +5953,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                             self.surf = graphic_dict["player_scout_sorae_b_right_3"]
                         if walk_timed > 0.6:
                             self.surf = graphic_dict["player_scout_sorae_b_right_4"]
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
 
         if current_zone == "caldera":
             if self.x_coordinate < 262:
@@ -6731,244 +6731,244 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
                         if self.y_coordinate < chroma_bridge.y_coordinate:
-                            self.y_coordinate -= velocity
+                            self.y_coordinate -= self.velocity
                         if self.y_coordinate > chroma_bridge.y_coordinate:
-                            self.y_coordinate += velocity
+                            self.y_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
                     if self.y_coordinate < chroma_bridge.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > chroma_bridge.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "marrow ramps east end":
             if erebyth_defeated:
                 if pygame.Rect.colliderect(self.rect, dungeon_chest_ramps_rect):
                     if self.x_coordinate < dungeon_chest_ramps_rect.x:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > dungeon_chest_ramps_rect.x:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < dungeon_chest_ramps_rect.y:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > dungeon_chest_ramps_rect.y:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 8":
                     if self.x_coordinate < collided.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > collided.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < collided.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > collided.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(self, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "korlok":
             collided = pygame.sprite.spritecollideany(self, nuldar_buildings, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.Rect.colliderect(self.rect, volcano_rect):
                 if self.x_coordinate < volcano_rect.x:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > volcano_rect.x:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < volcano_rect.y:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > volcano_rect.y:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             collided = pygame.sprite.spritecollideany(self, korlok_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "mines":
             if pygame.sprite.collide_rect(self, mines_wall):
                 if self.y_coordinate < mines_wall.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > mines_wall.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.sprite.collide_rect(self, mines_light):
                 if self.y_coordinate < mines_light.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > mines_light.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
                 if self.x_coordinate < mines_light.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > mines_light.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             if pygame.sprite.collide_rect(self, mines_cart):
                 if self.x_coordinate < mines_cart.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > mines_cart.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < mines_cart.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > mines_cart.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "reservoir a":
             if mini_boss_1 or mini_boss_2:
                 if pygame.sprite.collide_rect(self, dungeon_drop_wall):
                     if self.x_coordinate < dungeon_drop_wall.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > dungeon_drop_wall.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
             collided = pygame.sprite.spritecollideany(self, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "reservoir b":
             collided = pygame.sprite.spritecollideany(self, muchador_crates, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "reservoir c":
             collided = pygame.sprite.spritecollideany(self, dungeon_rocks, pygame.sprite.collide_rect_ratio(0.90))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.Rect.colliderect(self.rect, dungeon_chest_rect):
                 if self.x_coordinate < dungeon_chest_rect.x:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > dungeon_chest_rect.x:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < dungeon_chest_rect.y:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > dungeon_chest_rect.y:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "terra trail":
             if pygame.sprite.collide_rect(self, terra_cave):
                 if self.x_coordinate < terra_cave.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > terra_cave.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 7":
                     if self.x_coordinate < collided.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > collided.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < collided.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > collided.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "stardust":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 3":
                     if self.x_coordinate < collided.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > collided.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
                     if self.y_coordinate < collided.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate > collided.y_coordinate:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_small):
                         if self.y_coordinate < chroma_bridge_small.y_coordinate:
-                            self.y_coordinate -= velocity
+                            self.y_coordinate -= self.velocity
                         if self.y_coordinate < 335:
-                            self.y_coordinate += velocity
+                            self.y_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_small):
                     if self.y_coordinate < chroma_bridge_small.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate < 335:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "eldream":
             collided = pygame.sprite.spritecollideany(self, eldream_river)
             if collided:
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
             if pygame.sprite.collide_rect(self, eldream_cart):
                 if self.x_coordinate < eldream_cart.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > eldream_cart.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < eldream_cart.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > eldream_cart.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
         if current_zone == "ectrenos left":
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge):
                         if self.x_coordinate < chroma_bridge.x_coordinate:
-                            self.x_coordinate -= velocity
+                            self.x_coordinate -= self.velocity
                         if self.x_coordinate > chroma_bridge.x_coordinate:
-                            self.x_coordinate += velocity
+                            self.x_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge):
                     if self.x_coordinate < chroma_bridge.x_coordinate:
-                        self.x_coordinate -= velocity
+                        self.x_coordinate -= self.velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
-                        self.x_coordinate += velocity
+                        self.x_coordinate += self.velocity
         if current_zone == "forge":
             try:
                 if self.equipment["boots"].name != "chroma boots":
                     if pygame.sprite.collide_rect(self, chroma_bridge_forge):
                         if self.y_coordinate < chroma_bridge_forge.y_coordinate:
-                            self.y_coordinate -= velocity
+                            self.y_coordinate -= self.velocity
                         if self.y_coordinate < 620:
-                            self.y_coordinate += velocity
+                            self.y_coordinate += self.velocity
             except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_forge):
                     if self.y_coordinate < chroma_bridge_forge.y_coordinate:
-                        self.y_coordinate -= velocity
+                        self.y_coordinate -= self.velocity
                     if self.y_coordinate < 620:
-                        self.y_coordinate += velocity
+                        self.y_coordinate += self.velocity
         if current_zone == "castle two":
             collided = pygame.sprite.spritecollideany(self, castle_rocks, pygame.sprite.collide_rect_ratio(0.90))
             if collided:
                 if self.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
+                    self.x_coordinate -= self.velocity
                 if self.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
+                    self.x_coordinate += self.velocity
                 if self.y_coordinate < collided.y_coordinate:
-                    self.y_coordinate -= velocity
+                    self.y_coordinate -= self.velocity
                 if self.y_coordinate > collided.y_coordinate:
-                    self.y_coordinate += velocity
+                    self.y_coordinate += self.velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -7571,7 +7571,7 @@ if __name__ == "__main__":
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                          1, 0, 100, 100,  # lvl, exp, health, energy
                          True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
-                         "", 0, 0, 0, 0, 0, [])  # zone, defence, offense, image
+                         "", 0, 0, 0, 0, 0, [], 3)  # zone, defence, offense, image
 
     # pets: name, type, stage, energy
     pet_kasper = Pet("kasper", "scout", 1, 100, graphic_dict["kasper"], False)
@@ -7643,7 +7643,7 @@ if __name__ == "__main__":
         Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
-        Item("nera trinket", "trinket", 200, 200, graphic_dict["nera_trinket"], 0),
+        Item("nera trinket", "trinket", 200, 200, graphic_dict["nera's_grace"], 0),
         Item("seldon firework", "firework", 200, 200, graphic_dict["seldon_firework"], 0),
         Item("seldon bait", "bait", 200, 200, graphic_dict["seldon_bait"], 0)])
 
@@ -7652,7 +7652,7 @@ if __name__ == "__main__":
         Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
-        Item("aren trinket", "trinket", 200, 200, graphic_dict["aren_trinket"], 0),
+        Item("aren trinket", "trinket", 200, 200, graphic_dict["aren's_strength"], 0),
         Item("korlok firework", "firework", 200, 200, graphic_dict["korlok_firework"], 0),
         Item("korlok bait", "bait", 200, 200, graphic_dict["korlok_bait"], 0)])
 
@@ -7661,7 +7661,7 @@ if __name__ == "__main__":
         Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
-        Item("spirit trinket", "trinket", 200, 200, graphic_dict["spirit_trinket"], 0),
+        Item("spirit trinket", "trinket", 200, 200, graphic_dict["wisdom's_spirit"], 0),
         Item("eldream firework", "firework", 200, 200, graphic_dict["eldream_firework"], 0),
         Item("eldream bait", "bait", 200, 200, graphic_dict["eldream_bait"], 0)])
 
@@ -8919,14 +8919,6 @@ if __name__ == "__main__":
     show_cat_card = False
     show_trade_deck = False
     in_card_cave = False
-    c_snake_popup = False
-    c_ghoul_popup = False
-    c_bandile_popup = False
-    c_magmon_popup = False
-    b_necrola_popup = False
-    b_osodark_popup = False
-    b_atmon_popup = False
-    b_jumano_popup = False
     card_drop_played = False
     cleared = False
     show_arrow = False
@@ -8948,6 +8940,7 @@ if __name__ == "__main__":
     item_block_10_got = False
     item_block_11_got = False
     item_block_12_got = False
+    loot_timer_reset = True
 
     marrow_ghouls_reset = False
     magmons_reset = False
@@ -9054,67 +9047,7 @@ if __name__ == "__main__":
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
         # print(player.x_coordinate, player.y_coordinate)
 
-        if in_over_world:
-            # hide UI elements if player walks under them --------------------------------------------------------------
-            try:
-                if player.x_coordinate < 420 and 600 < player.y_coordinate:
-                    if not alpha_set:
-                        message_box.surf.set_alpha(50)
-                        card_deck_button.surf.set_alpha(50)
-                        alpha_set = True
-                else:
-                    message_box.surf.set_alpha(255)
-                    card_deck_button.surf.set_alpha(255)
-                    alpha_set = False
-                if player.y_coordinate > 550 and player.x_coordinate > 800:
-                    if not alpha_set:
-                        mini_map_overlay.surf.set_alpha(50)
-                        character_button.surf.set_alpha(50)
-                        quests_button.surf.set_alpha(50)
-                        alpha_set = True
-                else:
-                    mini_map_overlay.surf.set_alpha(225)
-                    character_button.surf.set_alpha(255)
-                    quests_button.surf.set_alpha(255)
-                    alpha_set = False
-                if player.x_coordinate < 420 and player.y_coordinate < 125:
-                    if not alpha_set:
-                        hp_bar.surf.set_alpha(50)
-                        en_bar.surf.set_alpha(50)
-                        xp_bar.surf.set_alpha(50)
-                        bar_backdrop.surf.set_alpha(50)
-                        pet_energy_window.surf.set_alpha(50)
-                        alpha_set = True
-                else:
-                    hp_bar.surf.set_alpha(255)
-                    en_bar.surf.set_alpha(255)
-                    xp_bar.surf.set_alpha(255)
-                    bar_backdrop.surf.set_alpha(255)
-                    pet_energy_window.surf.set_alpha(255)
-                    alpha_set = False
-                if player.x_coordinate > 730 and player.y_coordinate < 125:
-                    if not alpha_set:
-                        save_button.surf.set_alpha(50)
-                        map_button.surf.set_alpha(50)
-                        location_overlay.surf.set_alpha(50)
-                        music_toggle_button.surf.set_alpha(50)
-                        alpha_set = True
-                else:
-                    save_button.surf.set_alpha(255)
-                    map_button.surf.set_alpha(255)
-                    location_overlay.surf.set_alpha(255)
-                    music_toggle_button.surf.set_alpha(255)
-                    alpha_set = False
-            except AttributeError:
-                pass
-
         # --------------------------------------------------------------------------------------------------------------
-
-        if not in_over_world:
-            if len(drawing_functions.level_up_visual) > 0:
-                level_visual = False
-                drawing_functions.level_up_visual.pop(0)
-
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
 
             if not start_logo_set:
@@ -9138,7 +9071,6 @@ if __name__ == "__main__":
                             screen.blit(start_screen_logo, (0, 0))
                             pygame.display.flip()
                         start_logo_set = True
-
             else:
                 game_window.blit(start_screen, (0, 0))
                 if start_logo_set:
@@ -9359,7 +9291,8 @@ if __name__ == "__main__":
                                                  player.level, player.experience, player.health, player.energy,
                                                  player.alive_status, player.rupees, player.reputation,
                                                  player.current_zone, player.defense, player.offense, player.star_power,
-                                                 player.flowers_amuna, player.flowers_sorae, player.pet)
+                                                 player.flowers_amuna, player.flowers_sorae, player.pet,
+                                                 player.velocity)
                             player.race = "amuna"
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_amuna_male_down_1"]
@@ -9378,7 +9311,7 @@ if __name__ == "__main__":
                                                   player.alive_status, player.rupees, player.reputation,
                                                   player.current_zone, player.defense, player.offense,
                                                   player.star_power, player.flowers_amuna, player.flowers_sorae,
-                                                  player.pet)
+                                                  player.pet, player.velocity)
                             player.race = "nuldar"
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
@@ -9396,7 +9329,8 @@ if __name__ == "__main__":
                                                  player.level, player.experience, player.health, player.energy,
                                                  player.alive_status, player.rupees, player.reputation,
                                                  player.current_zone, player.defense, player.offense, player.star_power,
-                                                 player.flowers_amuna, player.flowers_sorae, player.pet)
+                                                 player.flowers_amuna, player.flowers_sorae, player.pet,
+                                                 player.velocity)
                             player.race = "sorae"
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
@@ -9769,7 +9703,8 @@ if __name__ == "__main__":
                                                  player.level, player.experience, player.health, player.energy,
                                                  player.alive_status, player.rupees, player.reputation,
                                                  player.current_zone, player.defense, player.offense, player.star_power,
-                                                 player.flowers_amuna, player.flowers_sorae, player.pet)
+                                                 player.flowers_amuna, player.flowers_sorae, player.pet,
+                                                 player.velocity)
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_amuna_male_down_1"]
                             if player.gender == "female":
@@ -9784,7 +9719,7 @@ if __name__ == "__main__":
                                                   player.alive_status, player.rupees, player.reputation,
                                                   player.current_zone, player.defense, player.offense,
                                                   player.star_power, player.flowers_amuna, player.flowers_sorae,
-                                                  player.pet)
+                                                  player.pet, player.velocity)
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
                             if player.gender == "female":
@@ -9798,7 +9733,8 @@ if __name__ == "__main__":
                                                  player.level, player.experience, player.health, player.energy,
                                                  player.alive_status, player.rupees, player.reputation,
                                                  player.current_zone, player.defense, player.offense, player.star_power,
-                                                 player.flowers_amuna, player.flowers_sorae, player.pet)
+                                                 player.flowers_amuna, player.flowers_sorae, player.pet,
+                                                 player.velocity)
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
                             if player.gender == "female":
@@ -10174,76 +10110,132 @@ if __name__ == "__main__":
         if start_chosen:
             if player.alive_status:
 
-                if vanished:
-                    vanished_toc = time.perf_counter()
-                    if vanished_toc - vanished_tic > 2:
-                        vanished = False
-
-                # keep player pet with player as they move
-                try:
-                    for pet in player.pet:
-                        if pet.active:
-                            pet_update_x = player.x_coordinate + 35
-                            pet_update_y = player.y_coordinate - 25
-                            if pet_update_x > SCREEN_WIDTH - 275:
-                                pet_update_x = SCREEN_WIDTH - 275
-                            if pet_update_x < 0:
-                                pet_update_x = 0
-                            if pet_update_y > SCREEN_HEIGHT:
-                                pet_update_y = SCREEN_HEIGHT
-                            if pet_update_y < 0:
-                                pet_update_y = 0
-                            pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
-                except AttributeError:
-                    pass
-
-                gameplay_functions.npc_quest_star_updates(player, quest_star_garan, quest_star_maurelle,
-                                                          quest_star_celeste, quest_star_torune,
-                                                          graphic_dict["quest_progress_star"],
-                                                          graphic_dict["quest_complete_star"],
-                                                          quest_star_voruke, quest_star_zerah, quest_star_kirean,
-                                                          quest_star_dionte, quest_star_omoku, quest_star_leyre,
-                                                          quest_star_aitor, quest_star_everett, npc_artherian,
-                                                          task_star_artherian, graphic_dict["artherian_progress_star"],
-                                                          graphic_dict["artherian_complete_star"], artherian_2,
-                                                          npc_maydria, task_star_maydria,
-                                                          graphic_dict["maydria_progress_star"],
-                                                          graphic_dict["maydria_complete_star"], npc_boro, npc_noren,
-                                                          artherian_task_start)
-
-                # after battle, clear loot popup after about 3 seconds
-                if loot_info or leveled:
+                # player information updates
+                gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
+                                                              offense_meter, defense_meter, graphic_dict,
+                                                              basic_armor, forged_armor, mythical_armor,
+                                                              legendary_armor, power_gloves, chroma_boots,
+                                                              neras_grace, arens_strength, spirit_of_wisdom)
+                # after level, loot and cards, clear popups after about 3 seconds
+                if not loot_timer_reset:
                     loot_level_toc = time.perf_counter()
-                if loot_info:
                     if loot_level_toc - loot_level_tic > 4:
                         drawing_functions.loot_popup_container.clear()
                         drawing_functions.loot_text_container.clear()
-                        if trading_deck:
-                            c_snake_popup = False
-                            c_ghoul_popup = False
-                            c_bandile_popup = False
-                            c_magmon_popup = False
-                            b_necrola_popup = False
-                            b_osodark_popup = False
-                            b_atmon_popup = False
-                            b_jumano_popup = False
-                            card_drop_played = False
-                # if player leveled, clear level up popup after about 3 seconds
-                if leveled:
-                    if loot_level_toc - loot_level_tic > 4:
                         drawing_functions.level_up_draw(level_up_win, player, font, False)
                         drawing_functions.level_up_visual.clear()
                         leveled = False
-
-                # player information updates
-                gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
-                                                              offense_meter, defense_meter, graphic_dict, basic_armor,
-                                                              forged_armor, mythical_armor, legendary_armor,
-                                                              power_gloves, chroma_boots, neras_grace, arens_strength,
-                                                              spirit_of_wisdom)
+                        if trading_deck:
+                            card_deck["snake_popup"] = False
+                            card_deck["ghoul_popup"] = False
+                            card_deck["bandile_popup"] = False
+                            card_deck["magmon_popup"] = False
+                            card_deck["necrola_popup"] = False
+                            card_deck["osodark_popup"] = False
+                            card_deck["atmon_popup"] = False
+                            card_deck["jumano_popup"] = False
+                            card_drop_played = False
+                            card_popup_checked = True
+                        loot_timer_reset = True
 
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
                         and not in_academia:
+
+                    if vanished:
+                        vanished_toc = time.perf_counter()
+                        if vanished_toc - vanished_tic > 2:
+                            vanished = False
+
+                    # keep player pet with player as they move
+                    try:
+                        for pet in player.pet:
+                            if pet.active:
+                                pet_update_x = player.x_coordinate + 35
+                                pet_update_y = player.y_coordinate - 25
+                                if pet_update_x > SCREEN_WIDTH - 275:
+                                    pet_update_x = SCREEN_WIDTH - 275
+                                if pet_update_x < 0:
+                                    pet_update_x = 0
+                                if pet_update_y > SCREEN_HEIGHT:
+                                    pet_update_y = SCREEN_HEIGHT
+                                if pet_update_y < 0:
+                                    pet_update_y = 0
+                                pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
+                    except AttributeError:
+                        pass
+
+                    gameplay_functions.npc_quest_star_updates(player, quest_star_garan, quest_star_maurelle,
+                                                              quest_star_celeste, quest_star_torune,
+                                                              graphic_dict["quest_progress_star"],
+                                                              graphic_dict["quest_complete_star"],
+                                                              quest_star_voruke, quest_star_zerah,
+                                                              quest_star_kirean,
+                                                              quest_star_dionte, quest_star_omoku,
+                                                              quest_star_leyre,
+                                                              quest_star_aitor, quest_star_everett,
+                                                              npc_artherian,
+                                                              task_star_artherian,
+                                                              graphic_dict["artherian_progress_star"],
+                                                              graphic_dict["artherian_complete_star"],
+                                                              artherian_2,
+                                                              npc_maydria, task_star_maydria,
+                                                              graphic_dict["maydria_progress_star"],
+                                                              graphic_dict["maydria_complete_star"], npc_boro,
+                                                              npc_noren,
+                                                              artherian_task_start)
+
+                    # hide UI elements if player walks under them ------------------------------------------------------
+                    try:
+                        if player.x_coordinate < 420 and 600 < player.y_coordinate:
+                            if not alpha_set:
+                                message_box.surf.set_alpha(50)
+                                card_deck_button.surf.set_alpha(50)
+                                alpha_set = True
+                        else:
+                            message_box.surf.set_alpha(255)
+                            card_deck_button.surf.set_alpha(255)
+                            alpha_set = False
+                        if player.y_coordinate > 550 and player.x_coordinate > 800:
+                            if not alpha_set:
+                                mini_map_overlay.surf.set_alpha(50)
+                                character_button.surf.set_alpha(50)
+                                quests_button.surf.set_alpha(50)
+                                alpha_set = True
+                        else:
+                            mini_map_overlay.surf.set_alpha(225)
+                            character_button.surf.set_alpha(255)
+                            quests_button.surf.set_alpha(255)
+                            alpha_set = False
+                        if player.x_coordinate < 420 and player.y_coordinate < 125:
+                            if not alpha_set:
+                                hp_bar.surf.set_alpha(50)
+                                en_bar.surf.set_alpha(50)
+                                xp_bar.surf.set_alpha(50)
+                                bar_backdrop.surf.set_alpha(50)
+                                pet_energy_window.surf.set_alpha(50)
+                                alpha_set = True
+                        else:
+                            hp_bar.surf.set_alpha(255)
+                            en_bar.surf.set_alpha(255)
+                            xp_bar.surf.set_alpha(255)
+                            bar_backdrop.surf.set_alpha(255)
+                            pet_energy_window.surf.set_alpha(255)
+                            alpha_set = False
+                        if player.x_coordinate > 730 and player.y_coordinate < 125:
+                            if not alpha_set:
+                                save_button.surf.set_alpha(50)
+                                map_button.surf.set_alpha(50)
+                                location_overlay.surf.set_alpha(50)
+                                music_toggle_button.surf.set_alpha(50)
+                                alpha_set = True
+                        else:
+                            save_button.surf.set_alpha(255)
+                            map_button.surf.set_alpha(255)
+                            location_overlay.surf.set_alpha(255)
+                            music_toggle_button.surf.set_alpha(255)
+                            alpha_set = False
+                    except AttributeError:
+                        pass
 
                     if player.level < 10:
                         # checks if player has started any quest to show the quest popup info window for highlights
@@ -10471,33 +10463,17 @@ if __name__ == "__main__":
                                     show_cat_card = False
                                 if fish_caught:
                                     fish_caught = False
+
                                 if trading_deck:
-                                    if c_snake_popup:
-                                        combat_events["basic_snake"] = False
-                                        c_snake_popup = False
-                                    if c_ghoul_popup:
-                                        combat_events["basic_ghoul"] = False
-                                        c_ghoul_popup = False
-                                    if c_bandile_popup:
-                                        combat_events["basic_bandile"] = False
-                                        c_bandile_popup = False
-                                    if c_magmon_popup:
-                                        combat_events["basic_magmon"] = False
-                                        c_magmon_popup = False
-                                    if b_necrola_popup:
-                                        combat_events["better_necrola"] = False
-                                        b_necrola_popup = False
-                                    if b_osodark_popup:
-                                        combat_events["better_osodark"] = False
-                                        b_osodark_popup = False
-                                    if b_atmon_popup:
-                                        combat_events["better_atmon"] = False
-                                        b_atmon_popup = False
-                                    if b_jumano_popup:
-                                        combat_events["better_jumano"] = False
-                                        b_jumano_popup = False
-                                    if card_drop_played:
-                                        card_drop_played = False
+                                    card_deck["snake_popup"] = False
+                                    card_deck["ghoul_popup"] = False
+                                    card_deck["bandile_popup"] = False
+                                    card_deck["magmon_popup"] = False
+                                    card_deck["necrola_popup"] = False
+                                    card_deck["osodark_popup"] = False
+                                    card_deck["atmon_popup"] = False
+                                    card_deck["jumano_popup"] = False
+                                    card_drop_played = False
 
                                 # clear character or journal sheet
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
@@ -10584,9 +10560,6 @@ if __name__ == "__main__":
                                                                                   item_block_10, item_block_11,
                                                                                   item_block_12)
 
-                                if interacted:
-                                    cleared = False
-
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -10621,33 +10594,17 @@ if __name__ == "__main__":
                             if fish_caught:
                                 if fishing_popup.rect.collidepoint(pos):
                                     fish_caught = False
+
                             if trading_deck:
-                                if c_snake_popup:
-                                    combat_events["basic_snake"] = False
-                                    c_snake_popup = False
-                                if c_ghoul_popup:
-                                    combat_events["basic_ghoul"] = False
-                                    c_ghoul_popup = False
-                                if c_bandile_popup:
-                                    combat_events["basic_bandile"] = False
-                                    c_bandile_popup = False
-                                if c_magmon_popup:
-                                    combat_events["basic_magmon"] = False
-                                    c_magmon_popup = False
-                                if b_necrola_popup:
-                                    combat_events["better_necrola"] = False
-                                    b_necrola_popup = False
-                                if b_osodark_popup:
-                                    combat_events["better_osodark"] = False
-                                    b_osodark_popup = False
-                                if b_atmon_popup:
-                                    combat_events["better_atmon"] = False
-                                    b_atmon_popup = False
-                                if b_jumano_popup:
-                                    combat_events["better_jumano"] = False
-                                    b_jumano_popup = False
-                                if card_drop_played:
-                                    card_drop_played = False
+                                card_deck["snake_popup"] = False
+                                card_deck["ghoul_popup"] = False
+                                card_deck["bandile_popup"] = False
+                                card_deck["magmon_popup"] = False
+                                card_deck["necrola_popup"] = False
+                                card_deck["osodark_popup"] = False
+                                card_deck["atmon_popup"] = False
+                                card_deck["jumano_popup"] = False
+                                card_drop_played = False
 
                             # turn music off and on
                             if music_toggle_button.rect.collidepoint(pos):
@@ -10682,13 +10639,16 @@ if __name__ == "__main__":
                                     gameplay_functions.pet_call(pygame, player, False, False, True,
                                                                 sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
                             if trading_deck:
-                                if card_deck_button.rect.collidepoint(pos):
-                                    match show_trade_deck:
-                                        case True:
-                                            show_trade_deck = False
-                                        case False:
-                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                            show_trade_deck = True
+                                if (len(drawing_functions.quest_box) == 0 and
+                                        len(drawing_functions.quest_box_trading) == 0 and
+                                        len(drawing_functions.quest_box_fishing) == 0):
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
 
                             # click handlers
                             info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
@@ -14298,25 +14258,23 @@ if __name__ == "__main__":
                         and not in_npc_interaction:
 
                     # loot from any battle
-                    if not vanished:
-                        if (battle_info_to_return_to_main_loop["item dropped"] != ""
-                                or battle_info_to_return_to_main_loop["experience"] != 0
-                                or battle_info_to_return_to_main_loop["knowledge"] != ""):
-                            try:
-                                loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font,
-                                                                                    loot_popup,
-                                                                                    battle_info_to_return_to_main_loop,
-                                                                                    leveled, vanished)
-                            except TypeError:
-                                drawing_functions.loot_popup_container.clear()
-                                drawing_functions.loot_text_container.clear()
-                            try:
-                                loot_updated = loot_popup_returned["loot_updated"]
-                                loot_level_tic = loot_popup_returned["loot_level_tic"]
-                                loot_info = loot_popup_returned["loot_info"]
-                                leveled = loot_popup_returned["leveled"]
-                            except TypeError:
-                                pass
+                    if (battle_info_to_return_to_main_loop["item dropped"] != ""
+                            or battle_info_to_return_to_main_loop["experience"] != 0
+                            or battle_info_to_return_to_main_loop["knowledge"] != ""):
+                        try:
+                            loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font,
+                                                                                loot_popup,
+                                                                                battle_info_to_return_to_main_loop,
+                                                                                leveled)
+                        except TypeError:
+                            drawing_functions.loot_popup_container.clear()
+                            drawing_functions.loot_text_container.clear()
+                        try:
+                            loot_updated = loot_popup_returned["loot_updated"]
+                            loot_info = loot_popup_returned["loot_info"]
+                            leveled = loot_popup_returned["leveled"]
+                        except TypeError:
+                            pass
 
                     # fishing popup in areas that have fishing spots
                     if (player.current_zone == "fishing hut" or player.current_zone == "stardust"
@@ -14431,8 +14389,8 @@ if __name__ == "__main__":
                                 else:
                                     game_window.blit(button_highlight.surf, button_highlight.rect)
 
-                    if trading_deck:
-                        if c_snake_popup:
+                    if trading_deck and not card_popup_checked:
+                        if card_deck["snake_popup"]:
                             card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
                                                    graphic_dict["c_snake_popup"])
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14442,7 +14400,7 @@ if __name__ == "__main__":
                             if not card_drop_played:
                                 pygame.mixer.find_channel(True).play(sfx_card_drop)
                                 card_drop_played = True
-                        if c_ghoul_popup:
+                        if card_deck["ghoul_popup"]:
                             card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
                                                    graphic_dict["c_ghoul_popup"])
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14452,7 +14410,7 @@ if __name__ == "__main__":
                             if not card_drop_played:
                                 pygame.mixer.find_channel(True).play(sfx_card_drop)
                                 card_drop_played = True
-                        if c_bandile_popup:
+                        if card_deck["bandile_popup"]:
                             card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
                                                    graphic_dict["c_bandile_popup"])
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14462,7 +14420,7 @@ if __name__ == "__main__":
                             if not card_drop_played:
                                 pygame.mixer.find_channel(True).play(sfx_card_drop)
                                 card_drop_played = True
-                        if c_magmon_popup:
+                        if card_deck["magmon_popup"]:
                             card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
                                                    graphic_dict["c_magmon_popup"])
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14472,7 +14430,7 @@ if __name__ == "__main__":
                             if not card_drop_played:
                                 pygame.mixer.find_channel(True).play(sfx_card_drop)
                                 card_drop_played = True
-                        if b_necrola_popup:
+                        if card_deck["necrola_popup"]:
                             card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
                                                    graphic_dict["b_necrola_popup"])
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14482,7 +14440,7 @@ if __name__ == "__main__":
                             if not card_drop_played:
                                 pygame.mixer.find_channel(True).play(sfx_card_drop)
                                 card_drop_played = True
-                        if b_osodark_popup:
+                        if card_deck["osodark_popup"]:
                             card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
                                                    graphic_dict["b_osodark_popup"])
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14492,7 +14450,7 @@ if __name__ == "__main__":
                             if not card_drop_played:
                                 pygame.mixer.find_channel(True).play(sfx_card_drop)
                                 card_drop_played = True
-                        if b_atmon_popup:
+                        if card_deck["atmon_popup"]:
                             card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
                                                    graphic_dict["b_atmon_popup"])
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14502,7 +14460,7 @@ if __name__ == "__main__":
                             if not card_drop_played:
                                 pygame.mixer.find_channel(True).play(sfx_card_drop)
                                 card_drop_played = True
-                        if b_jumano_popup:
+                        if card_deck["jumano_popup"]:
                             card_drop_popup.update(card_drop_popup.x_coordinate, card_drop_popup.y_coordinate,
                                                    graphic_dict["b_jumano_popup"])
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14533,34 +14491,25 @@ if __name__ == "__main__":
                     # clearing loot and card popups at start of new encounter if not already
                     if not cleared:
                         if trading_deck:
-                            if c_snake_popup:
-                                c_snake_popup = False
-                            if c_ghoul_popup:
-                                c_ghoul_popup = False
-                            if c_bandile_popup:
-                                c_bandile_popup = False
-                            if c_magmon_popup:
-                                c_magmon_popup = False
-                            if b_necrola_popup:
-                                b_necrola_popup = False
-                            if b_osodark_popup:
-                                b_osodark_popup = False
-                            if b_atmon_popup:
-                                b_atmon_popup = False
-                            if b_jumano_popup:
-                                b_jumano_popup = False
-                            if card_drop_played:
-                                card_drop_played = False
+                            card_deck["snake_popup"] = False
+                            card_deck["ghoul_popup"] = False
+                            card_deck["bandile_popup"] = False
+                            card_deck["magmon_popup"] = False
+                            card_deck["necrola_popup"] = False
+                            card_deck["osodark_popup"] = False
+                            card_deck["atmon_popup"] = False
+                            card_deck["jumano_popup"] = False
+                            card_drop_played = False
                         drawing_functions.loot_popup_container.clear()
                         drawing_functions.loot_text_container.clear()
                         drawing_functions.level_up_draw(level_up_win, player, font, False)
                         drawing_functions.level_up_visual.clear()
+                        vanished = False
                         leveled = False
                         cleared = True
 
                     if erebyth_turn_counter == 4:
                         erebyth_turn_counter = 0
-
                     try:
                         if current_enemy_battling.name == "Erebyth":
                             if current_enemy_battling.health <= 25:
@@ -14595,8 +14544,9 @@ if __name__ == "__main__":
                                 show_advantage_arrow = False
                                 show_fire = False
                                 show_edge = False
-                                snake_popup = card_deck["snake_popup"]
-                                ghoul_popup = card_deck["ghoul_popup"]
+                                cleared = False
+                                loot_timer_reset = False
+                                loot_level_tic = time.perf_counter()
 
                         pygame.mixer.Sound.stop(sfx_no_weapon_attack)
                         pygame.mixer.Sound.stop(sfx_mage_attack)
@@ -14679,13 +14629,16 @@ if __name__ == "__main__":
                                     drawing_functions.game_guide_container.clear()
 
                                 if trading_deck:
-                                    if card_deck_button.rect.collidepoint(pos):
-                                        match show_trade_deck:
-                                            case True:
-                                                show_trade_deck = False
-                                            case False:
-                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                                show_trade_deck = True
+                                    if (len(drawing_functions.quest_box) == 0 and
+                                            len(drawing_functions.quest_box_trading) == 0 and
+                                            len(drawing_functions.quest_box_fishing) == 0):
+                                        if card_deck_button.rect.collidepoint(pos):
+                                            match show_trade_deck:
+                                                case True:
+                                                    show_trade_deck = False
+                                                case False:
+                                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                    show_trade_deck = True
 
                             # get which button player pressed during combat scenario
                             combat_button = click_handlers.combat_event_button(event, no_role_attack_button,
@@ -15114,9 +15067,14 @@ if __name__ == "__main__":
                                             show_advantage_arrow = False
                                             show_fire = False
                                             show_edge = False
-
-                                            snake_popup = card_deck["snake_popup"]
-                                            ghoul_popup = card_deck["ghoul_popup"]
+                                            cleared = False
+                                            loot_timer_reset = False
+                                            loot_level_tic = time.perf_counter()
+                                            if on_card_quest:
+                                                try:
+                                                    any_card_counter = combat_events["any_card_counter"]
+                                                except KeyError:
+                                                    pass
                                     except TypeError:
                                         pass
 
@@ -15138,6 +15096,7 @@ if __name__ == "__main__":
                                                     pygame.mixer.find_channel(True).play(sfx_mage_barrier)
                                                     info_text_1 = "Barrier spell is active."
                                                     barrier_active = True
+
                                                     player.energy -= 20
                                                     turn_taken = True
                                                     attack_hotkey = False
@@ -15463,8 +15422,14 @@ if __name__ == "__main__":
                                                         show_advantage_arrow = False
                                                         show_fire = False
                                                         show_edge = False
-                                                        snake_popup = card_deck["snake_popup"]
-                                                        ghoul_popup = card_deck["ghoul_popup"]
+                                                        cleared = False
+                                                        loot_timer_reset = False
+                                                        loot_level_tic = time.perf_counter()
+                                                        if on_card_quest:
+                                                            try:
+                                                                any_card_counter = combat_events["any_card_counter"]
+                                                            except KeyError:
+                                                                pass
                                                 except TypeError:
                                                     pass
 
@@ -15630,8 +15595,12 @@ if __name__ == "__main__":
                                                 show_fire = False
                                                 show_edge = False
                                                 vanished = True
+                                                cleared = False
+                                                leveled = False
+                                                battle_info_to_return_to_main_loop["item dropped"] = ""
+                                                battle_info_to_return_to_main_loop["experience"] = 0
+                                                battle_info_to_return_to_main_loop["knowledge"] = ""
                                                 vanished_tic = time.perf_counter()
-
                                     else:
                                         info_text_1 = "Not enough energy to use this skill."
 
@@ -15807,8 +15776,14 @@ if __name__ == "__main__":
                                                             show_advantage_arrow = False
                                                             show_fire = False
                                                             show_edge = False
-                                                            snake_popup = card_deck["snake_popup"]
-                                                            ghoul_popup = card_deck["ghoul_popup"]
+                                                            cleared = False
+                                                            loot_timer_reset = False
+                                                            loot_level_tic = time.perf_counter()
+                                                            if on_card_quest:
+                                                                try:
+                                                                    any_card_counter = combat_events["any_card_counter"]
+                                                                except KeyError:
+                                                                    pass
                                                     except TypeError:
                                                         pass
 
@@ -15996,8 +15971,14 @@ if __name__ == "__main__":
                                                         show_advantage_arrow = False
                                                         show_fire = False
                                                         show_edge = False
-                                                        snake_popup = card_deck["snake_popup"]
-                                                        ghoul_popup = card_deck["ghoul_popup"]
+                                                        cleared = False
+                                                        loot_timer_reset = False
+                                                        loot_level_tic = time.perf_counter()
+                                                        if on_card_quest:
+                                                            try:
+                                                                any_card_counter = combat_events["any_card_counter"]
+                                                            except KeyError:
+                                                                pass
                                                 except TypeError:
                                                     pass
                                                 gameplay_functions.player_info_and_ui_updates(player, hp_bar,
@@ -16183,8 +16164,14 @@ if __name__ == "__main__":
                                                             show_advantage_arrow = False
                                                             show_fire = False
                                                             show_edge = False
-                                                            snake_popup = card_deck["snake_popup"]
-                                                            ghoul_popup = card_deck["ghoul_popup"]
+                                                            cleared = False
+                                                            loot_timer_reset = False
+                                                            loot_level_tic = time.perf_counter()
+                                                            if on_card_quest:
+                                                                try:
+                                                                    any_card_counter = combat_events["any_card_counter"]
+                                                                except KeyError:
+                                                                    pass
                                                     except TypeError:
                                                         pass
                                                     gameplay_functions.player_info_and_ui_updates(player, hp_bar,
@@ -16632,6 +16619,9 @@ if __name__ == "__main__":
                                         show_advantage_arrow = False
                                         show_fire = False
                                         show_edge = False
+                                        cleared = False
+                                        loot_timer_reset = False
+                                        loot_level_tic = time.perf_counter()
                                         random_crate = random.choice(muchador_crates_list)
                                         muchador.update_image(random_crate.x_coordinate, random_crate.y_coordinate,
                                                               graphic_dict["muchador"])
@@ -17196,13 +17186,16 @@ if __name__ == "__main__":
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                              pressed_keys, sfx_button_role)
                             if trading_deck:
-                                if card_deck_button.rect.collidepoint(pos):
-                                    match show_trade_deck:
-                                        case True:
-                                            show_trade_deck = False
-                                        case False:
-                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                            show_trade_deck = True
+                                if (len(drawing_functions.quest_box) == 0 and
+                                        len(drawing_functions.quest_box_trading) == 0 and
+                                        len(drawing_functions.quest_box_fishing) == 0):
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
                             if player.current_zone == "seldon":
                                 cat_pet_button_overlay.update(505, 290, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
@@ -18061,13 +18054,16 @@ if __name__ == "__main__":
                             if show_cat_card:
                                 show_cat_card = False
                             if trading_deck:
-                                if card_deck_button.rect.collidepoint(pos):
-                                    match show_trade_deck:
-                                        case True:
-                                            show_trade_deck = False
-                                        case False:
-                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                            show_trade_deck = True
+                                if (len(drawing_functions.quest_box) == 0 and
+                                        len(drawing_functions.quest_box_trading) == 0 and
+                                        len(drawing_functions.quest_box_fishing) == 0):
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                              pressed_keys, sfx_button_role)
@@ -18406,13 +18402,16 @@ if __name__ == "__main__":
                             if show_cat_card:
                                 show_cat_card = False
                             if trading_deck:
-                                if card_deck_button.rect.collidepoint(pos):
-                                    match show_trade_deck:
-                                        case True:
-                                            show_trade_deck = False
-                                        case False:
-                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                            show_trade_deck = True
+                                if (len(drawing_functions.quest_box) == 0 and
+                                        len(drawing_functions.quest_box_trading) == 0 and
+                                        len(drawing_functions.quest_box_fishing) == 0):
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                              pressed_keys, sfx_button_role)
@@ -18981,13 +18980,16 @@ if __name__ == "__main__":
                             if show_cat_card:
                                 show_cat_card = False
                             if trading_deck:
-                                if card_deck_button.rect.collidepoint(pos):
-                                    match show_trade_deck:
-                                        case True:
-                                            show_trade_deck = False
-                                        case False:
-                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                            show_trade_deck = True
+                                if (len(drawing_functions.quest_box) == 0 and
+                                        len(drawing_functions.quest_box_trading) == 0 and
+                                        len(drawing_functions.quest_box_fishing) == 0):
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                              pressed_keys, sfx_button_role)
@@ -19171,6 +19173,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["sorae"] += 10
 
                                     # autosave on quest complete
@@ -19551,13 +19554,16 @@ if __name__ == "__main__":
                             if show_cat_card:
                                 show_cat_card = False
                             if trading_deck:
-                                if card_deck_button.rect.collidepoint(pos):
-                                    match show_trade_deck:
-                                        case True:
-                                            show_trade_deck = False
-                                        case False:
-                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                            show_trade_deck = True
+                                if (len(drawing_functions.quest_box) == 0 and
+                                        len(drawing_functions.quest_box_trading) == 0 and
+                                        len(drawing_functions.quest_box_fishing) == 0):
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
                                                              sword, bow, pressed_keys, sfx_button_role)
@@ -19873,6 +19879,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["sorae"] += 10
 
                                     # autosave on quest complete
@@ -20205,13 +20212,16 @@ if __name__ == "__main__":
                             if show_cat_card:
                                 show_cat_card = False
                             if trading_deck:
-                                if card_deck_button.rect.collidepoint(pos):
-                                    match show_trade_deck:
-                                        case True:
-                                            show_trade_deck = False
-                                        case False:
-                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                            show_trade_deck = True
+                                if (len(drawing_functions.quest_box) == 0 and
+                                        len(drawing_functions.quest_box_trading) == 0 and
+                                        len(drawing_functions.quest_box_fishing) == 0):
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
                                                              sword, bow, pressed_keys, sfx_button_role)
@@ -20717,13 +20727,16 @@ if __name__ == "__main__":
                             if show_cat_card:
                                 show_cat_card = False
                             if trading_deck:
-                                if card_deck_button.rect.collidepoint(pos):
-                                    match show_trade_deck:
-                                        case True:
-                                            show_trade_deck = False
-                                        case False:
-                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                            show_trade_deck = True
+                                if (len(drawing_functions.quest_box) == 0 and
+                                        len(drawing_functions.quest_box_trading) == 0 and
+                                        len(drawing_functions.quest_box_fishing) == 0):
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff,
                                                              sword, bow, pressed_keys, sfx_button_role)
@@ -21209,13 +21222,16 @@ if __name__ == "__main__":
                             if show_cat_card:
                                 show_cat_card = False
                             if trading_deck:
-                                if card_deck_button.rect.collidepoint(pos):
-                                    match show_trade_deck:
-                                        case True:
-                                            show_trade_deck = False
-                                        case False:
-                                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                            show_trade_deck = True
+                                if (len(drawing_functions.quest_box) == 0 and
+                                        len(drawing_functions.quest_box_trading) == 0 and
+                                        len(drawing_functions.quest_box_fishing) == 0):
+                                    if card_deck_button.rect.collidepoint(pos):
+                                        match show_trade_deck:
+                                            case True:
+                                                show_trade_deck = False
+                                            case False:
+                                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                                show_trade_deck = True
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                              pressed_keys, sfx_button_role)
@@ -21395,6 +21411,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["amuna"] += 10
 
                                     # autosave on quest complete
@@ -21511,6 +21528,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["sorae"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["where's nede?"]:
@@ -21567,6 +21585,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["amuna"] += 10
                                     player.rupees += 10
 
@@ -21626,6 +21645,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
 
                                     # autosave on quest complete
@@ -21740,6 +21760,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
 
                                 if not quest_clicked:
@@ -21799,6 +21820,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["elementary elementals"]:
@@ -21858,6 +21880,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["amuna"] += 10
 
                                     # autosave on quest complete
@@ -21974,6 +21997,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["kart troubles"]:
@@ -22031,6 +22055,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["sorae"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["las escondidas"]:
@@ -22088,6 +22113,7 @@ if __name__ == "__main__":
                                         level_visual = True
                                         loot_level_tic = time.perf_counter()
                                         level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
                                     player.reputation["amuna"] += 10
                                 if not quest_clicked:
                                     if not player.quest_complete["shades of fear"]:
@@ -22630,6 +22656,9 @@ if __name__ == "__main__":
                         show_advantage_arrow = False
                         show_fire = False
                         show_edge = False
+                        cleared = False
+                        loot_timer_reset = False
+                        loot_level_tic = time.perf_counter()
                         player.star_power += 4
                         apothis_gift = True
                         dreth.health = 75
@@ -22699,6 +22728,9 @@ if __name__ == "__main__":
                                     show_advantage_arrow = False
                                     show_fire = False
                                     show_edge = False
+                                    cleared = False
+                                    loot_timer_reset = False
+                                    loot_level_tic = time.perf_counter()
                                     player.current_zone = "castle one"
                                     player.x_coordinate = 515
                                     player.y_coordinate = 150
@@ -22791,6 +22823,9 @@ if __name__ == "__main__":
                                 show_advantage_arrow = False
                                 show_fire = False
                                 show_edge = False
+                                cleared = False
+                                loot_timer_reset = False
+                                loot_level_tic = time.perf_counter()
 
                                 if (player.current_zone == "korlok" or player.current_zone == "mines" or
                                         player.current_zone == "terra trail"):
