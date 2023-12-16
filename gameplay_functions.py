@@ -2582,6 +2582,9 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
     if sharp_sense_active:
         damage += damage - int(damage * 0.75)
 
+    if player.equipment["trinket 2"] != "":
+        damage += 5
+
     if mob.name == "Dreth":
         if player.offense == 4:
             damage = damage - 5

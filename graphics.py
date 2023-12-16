@@ -5502,8 +5502,11 @@ def load_graphics():
     loaded_dict["fish_button_img"] = buttons_sheet[19]
     loaded_dict["check_button_img"] = buttons_sheet[20]
     loaded_dict["trade_button_img"] = buttons_sheet[21]
-    loaded_dict["card_deck_img"] = buttons_sheet[22]
-    loaded_dict["card_deck_high"] = buttons_sheet[23]
+    # deck buttons -----------------------------------------------------------------------------------------------------
+    buttons_deck_url = resource_path('resources/art/buttons_deck.png')
+    buttons_deck_sheet = sprite_sheet((50, 50), buttons_deck_url)
+    loaded_dict["card_deck_img"] = buttons_deck_sheet[0]
+    loaded_dict["card_deck_high"] = buttons_deck_sheet[1]
     # fishing level overlay --------------------------------------------------------------------------------------------
     fishing_level_url = resource_path('resources/art/overlay_fishing_level.png')
     fishing_level_sheet = sprite_sheet((281, 31), fishing_level_url)
@@ -5550,6 +5553,15 @@ def load_graphics():
     loaded_dict["fire_button_img"] = skill_buttons_sheet[6]
     loaded_dict["edge_button_img"] = skill_buttons_sheet[7]
     loaded_dict["arrow_button_img"] = skill_buttons_sheet[8]
+    loaded_dict["barrier_less_button_img"] = skill_buttons_sheet[9]
+    loaded_dict["strike_less_button_img"] = skill_buttons_sheet[10]
+    loaded_dict["sense_less_button_img"] = skill_buttons_sheet[11]
+    loaded_dict["mirror_less_button_img"] = skill_buttons_sheet[12]
+    loaded_dict["stun_less_button_img"] = skill_buttons_sheet[13]
+    loaded_dict["vanish_less_button_img"] = skill_buttons_sheet[14]
+    loaded_dict["fire_less_button_img"] = skill_buttons_sheet[15]
+    loaded_dict["edge_less_button_img"] = skill_buttons_sheet[16]
+    loaded_dict["arrow_less_button_img"] = skill_buttons_sheet[17]
     # skill two overlays -----------------------------------------------------------------------------------------------
     skill_two_url = resource_path('resources/art/overlay_skills_two.png')
     skill_two_sheet = sprite_sheet((300, 300), skill_two_url)

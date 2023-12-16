@@ -176,7 +176,6 @@ def draw_it(screen):
                 screen.blit(e_button.surf, e_button.rect)
 
 
-
 def draw_level_up(screen, in_over_world):
     if len(level_up_visual) > 0:
         for visuals in level_up_visual:
@@ -247,7 +246,6 @@ def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
 
 
 def pet_button_draw(kasper_unlocked, kasper_button, torok_unlocked, torok_button, iriana_unlocked, iriana_button):
-
     if kasper_unlocked:
         extra_button_container.append(kasper_button)
     if torok_unlocked:
@@ -933,28 +931,28 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
     text_info_rect_1 = text_info_surf_1.get_rect()
     text_info_rect_1.midleft = (30, 630)
-    if player.x_coordinate < 420 and 600 < player.y_coordinate:
+    if player.x_coordinate < 350 and 600 < player.y_coordinate:
         text_info_surf_1.set_alpha(50)
     screen.blit(text_info_surf_1, text_info_rect_1)
     # current info text for message box in lower left corner of screen, second line-------------------------------------
     text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
     text_info_rect_2 = text_info_surf_2.get_rect()
     text_info_rect_2.midleft = (30, 650)
-    if player.x_coordinate < 420 and 600 < player.y_coordinate:
+    if player.x_coordinate < 350 and 600 < player.y_coordinate:
         text_info_surf_2.set_alpha(50)
     screen.blit(text_info_surf_2, text_info_rect_2)
     # current info text for message box in lower left corner of screen, third line--------------------------------------
     text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
     text_info_rect_3 = text_info_surf_3.get_rect()
     text_info_rect_3.midleft = (30, 670)
-    if player.x_coordinate < 420 and 600 < player.y_coordinate:
+    if player.x_coordinate < 350 and 600 < player.y_coordinate:
         text_info_surf_3.set_alpha(50)
     screen.blit(text_info_surf_3, text_info_rect_3)
     # current info text for message box in lower left corner of screen, fourth line-------------------------------------
     text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
     text_info_rect_4 = text_info_surf_4.get_rect()
     text_info_rect_4.midleft = (30, 690)
-    if player.x_coordinate < 420 and 600 < player.y_coordinate:
+    if player.x_coordinate < 350 and 600 < player.y_coordinate:
         text_info_surf_4.set_alpha(50)
     screen.blit(text_info_surf_4, text_info_rect_4)
 
@@ -1952,9 +1950,8 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
             button_highlight.update(1254, 25, graphic_dict["extra_inventory_high"])
             return True
         elif card_deck_button.rect.collidepoint(pos) and trade_deck_unlocked:
-            if len(quest_box) == 0 and len(quest_box_trading) == 0 and len(quest_box_fishing) == 0:
-                button_highlight.update(368, 680, graphic_dict["card_deck_high"])
-                return True
+            button_highlight.update(775, 680, graphic_dict["card_deck_high"])
+            return True
         elif armor.collidepoint(pos):
             if len(item_info_window) == 0:
                 if len(sell_info_window) == 0:
@@ -2174,35 +2171,36 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                             graphic_dict["main high"])
                     return True
 
-            # highlighting skill learn buttons inside of books once moused over
-            else:
-                if barrier_learn_button.rect.collidepoint(pos):
-                    button_highlight.update(barrier_learn_button.x_coordinate + 2,
-                                            barrier_learn_button.y_coordinate + 3,
-                                            graphic_dict["book_high"])
-                    return True
-                elif mirror_learn_button.rect.collidepoint(pos):
-                    button_highlight.update(mirror_learn_button.x_coordinate + 2,
-                                            mirror_learn_button.y_coordinate + 3,
-                                            graphic_dict["book_high"])
-                    return True
-                elif missile_learn_button.rect.collidepoint(pos):
-                    button_highlight.update(missile_learn_button.x_coordinate + 2,
-                                            missile_learn_button.y_coordinate + 3,
-                                            graphic_dict["book_high"])
-                    return True
-                elif close_button.rect.collidepoint(pos):
-                    button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
-                                            graphic_dict["close high"])
-                    return True
-                elif leave_button.rect.collidepoint(pos):
-                    button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                elif character_button.rect.collidepoint(pos):
-                    button_highlight.update(character_button.x_coordinate, character_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
+            elif ((mage_learn_clicked or fighter_learn_clicked or scout_learn_clicked)
+                  and barrier_learn_button.rect.collidepoint(pos)):
+                button_highlight.update(barrier_learn_button.x_coordinate + 2,
+                                        barrier_learn_button.y_coordinate + 3,
+                                        graphic_dict["book_high"])
+                return True
+            elif ((mage_learn_clicked or fighter_learn_clicked or scout_learn_clicked)
+                  and mirror_learn_button.rect.collidepoint(pos)):
+                button_highlight.update(mirror_learn_button.x_coordinate + 2,
+                                        mirror_learn_button.y_coordinate + 3,
+                                        graphic_dict["book_high"])
+                return True
+            elif ((mage_learn_clicked or fighter_learn_clicked or scout_learn_clicked)
+                  and missile_learn_button.rect.collidepoint(pos)):
+                button_highlight.update(missile_learn_button.x_coordinate + 2,
+                                        missile_learn_button.y_coordinate + 3,
+                                        graphic_dict["book_high"])
+                return True
+            elif close_button.rect.collidepoint(pos):
+                button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
+                                        graphic_dict["close high"])
+                return True
+            elif leave_button.rect.collidepoint(pos):
+                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif character_button.rect.collidepoint(pos):
+                button_highlight.update(character_button.x_coordinate, character_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
 
         if in_apothecary:
             if quest_button.rect.collidepoint(pos):

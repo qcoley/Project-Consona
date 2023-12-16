@@ -20,7 +20,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
                  sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay, basic_fish_counter,
                  better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, bandiles_highlighted,
-                 bandiles_reset, ore_highlighted, card_popup_checked):
+                 bandiles_reset, ore_highlighted):
 
     if not talk_start:
         pygame.mixer.find_channel(True).play(sfx_talk)
@@ -118,7 +118,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
-            card_popup_checked = False
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -144,30 +143,31 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
-    ore_pick = pygame.sprite.spritecollideany(player, ores)
-    if ore_pick:
-        interaction_popup.update(ore_pick.x_coordinate, ore_pick.y_coordinate - 40,
-                                 graphic_dict["popup_interaction"])
-        screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str(ore_pick.name), True, "black", "light yellow")
-        interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (ore_pick.x_coordinate, ore_pick.y_coordinate - 40)
-        screen.blit(interaction_info_surf, interaction_info_rect)
-        if not player.quest_status["can't apothecary it"]:
-            info_text_1 = "It's some kind of ore."
-            info_text_2 = ""
-            info_text_3 = ""
-            info_text_4 = ""
-        if player.quest_status["can't apothecary it"] and not player.quest_complete["can't apothecary it"]:
-            info_text_1 = "Press 'F' key to gather the ore."
-            info_text_2 = ""
-            info_text_3 = ""
-            info_text_4 = ""
-            if interacted and in_over_world and player.quest_progress["can't apothecary it"] < 4:
-                pygame.mixer.find_channel(True).play(sfx_item)
-                player.quest_progress["can't apothecary it"] += 1
-                ore_pick.kill()
-                interacted = False
+    if not player.quest_complete["can't apothecary it"]:
+        ore_pick = pygame.sprite.spritecollideany(player, ores)
+        if ore_pick:
+            interaction_popup.update(ore_pick.x_coordinate, ore_pick.y_coordinate - 40,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str(ore_pick.name), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (ore_pick.x_coordinate, ore_pick.y_coordinate - 40)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+            if not player.quest_status["can't apothecary it"]:
+                info_text_1 = "It's some kind of ore."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            if player.quest_status["can't apothecary it"] and not player.quest_complete["can't apothecary it"]:
+                info_text_1 = "Press 'F' key to gather the ore."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+                if interacted and in_over_world and player.quest_progress["can't apothecary it"] < 4:
+                    pygame.mixer.find_channel(True).play(sfx_item)
+                    player.quest_progress["can't apothecary it"] += 1
+                    ore_pick.kill()
+                    interacted = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -260,6 +260,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                     "current_enemy_battling": current_enemy_battling, "prime_1": prime_1, "prime_2": prime_2,
                     "prime_3": prime_3, "jez_1": jez_1, "jez_2": jez_2, "jez_3": jez_3, "talk_start": talk_start,
                     "bandiles_highlighted": bandiles_highlighted, "bandiles_reset": bandiles_reset,
-                    "ore_highlighted": ore_highlighted, "card_popup_checked": card_popup_checked}
+                    "ore_highlighted": ore_highlighted}
 
     return mines_return

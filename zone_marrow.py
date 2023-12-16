@@ -16,7 +16,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                     prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
-                    ghouls_reset, card_popup_checked):
+                    ghouls_reset):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -304,7 +304,6 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
-            card_popup_checked = False
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -423,8 +422,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                               "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
                               "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                               "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic,
-                              "ghouls_highlighted": ghouls_highlighted, "ghouls_reset": ghouls_reset,
-                              "card_popup_checked": card_popup_checked}
+                              "ghouls_highlighted": ghouls_highlighted, "ghouls_reset": ghouls_reset}
 
     return marrow_district_return
 
@@ -1836,7 +1834,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                barrier_active, sharp_sense_active, in_npc_interaction, atmon_battle_sprite, enemy_tic,
                current_enemy_battling, sub_marrow_opened, item_block_9, item_block_9_got, sfx_item_block,
                kasper_unlocked, torok_unlocked, iriana_unlocked, maydria_task_start, prism_received,
-               atmons_highlighted, atmons_reset, card_popup_checked):
+               atmons_highlighted, atmons_reset):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -2005,7 +2003,6 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
             current_enemy_battling = enemy
             in_over_world = False
             in_battle = True
-            card_popup_checked = False
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
@@ -2134,7 +2131,6 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                          "movement_able": movement_able, "has_key": has_key, "chest_got": chest_got, "atmons": atmons,
                          "enemy_tic": enemy_tic, "current_enemy_battling": current_enemy_battling, "sub_marrow_opened":
                          sub_marrow_opened, "item_block_9_got": item_block_9_got,
-                         "atmons_highlighted": atmons_highlighted, "atmons_reset": atmons_reset,
-                         "card_popup_checked": card_popup_checked}
+                         "atmons_highlighted": atmons_highlighted, "atmons_reset": atmons_reset}
 
     return sub_marrow_return
