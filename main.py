@@ -1726,8 +1726,8 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 80
             if self.x_coordinate < 335 and self.y_coordinate < 325 or \
                     self.x_coordinate > 490 and self.y_coordinate < 325:
-                if self.y_coordinate > 305:
-                    self.y_coordinate = 305
+                if self.y_coordinate > 295:
+                    self.y_coordinate = 295
             if self.y_coordinate > 315:
                 if self.x_coordinate < 340:
                     self.x_coordinate = 340
@@ -1774,13 +1774,17 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.x_coordinate = 390
             if 360 < self.y_coordinate < 525 < self.x_coordinate < 640:
                 self.x_coordinate = 640
-            if 205 > self.x_coordinate > 175 and 170 < self.y_coordinate < 725:
+            if 205 > self.x_coordinate > 175 and 170 < self.y_coordinate < 510:
+                self.x_coordinate = 205
+            if 205 > self.x_coordinate > 175 and 570 < self.y_coordinate < 725:
                 self.x_coordinate = 205
             if 200 < self.x_coordinate < 435 and 170 < self.y_coordinate < 190:
                 self.y_coordinate = 190
             if 5 < self.x_coordinate < 175 and 465 < self.y_coordinate > 565:
                 self.y_coordinate = 565
-            if 825 < self.x_coordinate < 845 and 170 < self.y_coordinate < 725:
+            if 825 < self.x_coordinate < 845 and 170 < self.y_coordinate < 510:
+                self.x_coordinate = 825
+            if 825 < self.x_coordinate < 845 and 570 < self.y_coordinate < 725:
                 self.x_coordinate = 825
             if 600 < self.x_coordinate < 840 and 170 < self.y_coordinate < 190:
                 self.y_coordinate = 190
@@ -4117,8 +4121,8 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 80
             if self.x_coordinate < 335 and self.y_coordinate < 325 or \
                     self.x_coordinate > 490 and self.y_coordinate < 325:
-                if self.y_coordinate > 305:
-                    self.y_coordinate = 305
+                if self.y_coordinate > 295:
+                    self.y_coordinate = 295
             if self.y_coordinate > 315:
                 if self.x_coordinate < 340:
                     self.x_coordinate = 340
@@ -4165,13 +4169,17 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.x_coordinate = 390
             if 360 < self.y_coordinate < 525 < self.x_coordinate < 640:
                 self.x_coordinate = 640
-            if 205 > self.x_coordinate > 175 and 170 < self.y_coordinate < 725:
+            if 205 > self.x_coordinate > 175 and 170 < self.y_coordinate < 510:
+                self.x_coordinate = 205
+            if 205 > self.x_coordinate > 175 and 570 < self.y_coordinate < 725:
                 self.x_coordinate = 205
             if 200 < self.x_coordinate < 435 and 170 < self.y_coordinate < 190:
                 self.y_coordinate = 190
             if 5 < self.x_coordinate < 175 and 465 < self.y_coordinate > 565:
                 self.y_coordinate = 565
-            if 825 < self.x_coordinate < 845 and 170 < self.y_coordinate < 725:
+            if 825 < self.x_coordinate < 845 and 170 < self.y_coordinate < 510:
+                self.x_coordinate = 825
+            if 825 < self.x_coordinate < 845 and 570 < self.y_coordinate < 725:
                 self.x_coordinate = 825
             if 600 < self.x_coordinate < 840 and 170 < self.y_coordinate < 190:
                 self.y_coordinate = 190
@@ -6509,8 +6517,8 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 80
             if self.x_coordinate < 335 and self.y_coordinate < 325 or \
                     self.x_coordinate > 490 and self.y_coordinate < 325:
-                if self.y_coordinate > 305:
-                    self.y_coordinate = 305
+                if self.y_coordinate > 295:
+                    self.y_coordinate = 295
             if self.y_coordinate > 315:
                 if self.x_coordinate < 340:
                     self.x_coordinate = 340
@@ -6557,13 +6565,17 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.x_coordinate = 390
             if 360 < self.y_coordinate < 525 < self.x_coordinate < 640:
                 self.x_coordinate = 640
-            if 205 > self.x_coordinate > 175 and 170 < self.y_coordinate < 725:
+            if 205 > self.x_coordinate > 175 and 170 < self.y_coordinate < 510:
+                self.x_coordinate = 205
+            if 205 > self.x_coordinate > 175 and 570 < self.y_coordinate < 725:
                 self.x_coordinate = 205
             if 200 < self.x_coordinate < 435 and 170 < self.y_coordinate < 190:
                 self.y_coordinate = 190
             if 5 < self.x_coordinate < 175 and 465 < self.y_coordinate > 565:
                 self.y_coordinate = 565
-            if 825 < self.x_coordinate < 845 and 170 < self.y_coordinate < 725:
+            if 825 < self.x_coordinate < 845 and 170 < self.y_coordinate < 510:
+                self.x_coordinate = 825
+            if 825 < self.x_coordinate < 845 and 570 < self.y_coordinate < 725:
                 self.x_coordinate = 825
             if 600 < self.x_coordinate < 840 and 170 < self.y_coordinate < 190:
                 self.y_coordinate = 190
@@ -8483,12 +8495,12 @@ if __name__ == "__main__":
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 600, graphic_dict["chest_small"])
 
-    item_block_1 = Item("item block 1", "block", 105, 175, graphic_dict["item_block"], 0)
-    item_block_2 = Item("item block 2", "block", 650, 48, graphic_dict["item_block"], 0)
-    item_block_3 = Item("item block 3", "block", 710, 530, graphic_dict["item_block"], 0)
-    item_block_4 = Item("item block 4", "block", 950, 500, graphic_dict["item_block"], 0)
-    item_block_5 = Item("item block 5", "block", 80, 500, graphic_dict["item_block"], 0)
-    item_block_6 = Item("item block 6", "block", 100, 475, graphic_dict["item_block"], 0)
+    item_block_1 = Item("item block 1", "block", 115, 211, graphic_dict["item_block"], 0)
+    item_block_2 = Item("item block 2", "block", 595, 45, graphic_dict["item_block"], 0)
+    item_block_3 = Item("item block 3", "block", 675, 510, graphic_dict["item_block"], 0)
+    item_block_4 = Item("item block 4", "block", 875, 480, graphic_dict["item_block"], 0)
+    item_block_5 = Item("item block 5", "block", 155, 480, graphic_dict["item_block"], 0)
+    item_block_6 = Item("item block 6", "block", 150, 500, graphic_dict["item_block"], 0)
     item_block_7 = Item("item block 7", "block", 500, 600, graphic_dict["item_block"], 0)
     item_block_8 = Item("item block 8", "block", 650, 600, graphic_dict["item_block"], 0)
     item_block_9 = Item("item block 9", "block", 925, 175, graphic_dict["item_block"], 0)
@@ -13799,7 +13811,7 @@ if __name__ == "__main__":
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, apothis_gift, bandiles_highlighted,
-                                                                 bandiles_reset, ore_highlighted, ore_reset)
+                                                                 bandiles_reset, ore_highlighted)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -22819,6 +22831,9 @@ if __name__ == "__main__":
                                 game_window.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Omoku":
+                                if player.quest_complete["kart troubles"]:
+                                    quest_visual.update(861, 295, graphic_dict["kart_full"])
+                                    game_window.blit(quest_visual.surf, quest_visual.rect)
                                 game_window.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
                                 npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Leyre":
