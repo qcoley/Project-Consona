@@ -1072,14 +1072,13 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
 
 
 def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_artherian, artherian_2, npc_maydria,
-                      npc_boro, npc_noren, apothis_gift):
+                      npc_boro, npc_noren, apothis_gift, seldon_button, korlok_button, eldream_button, marrow_button,
+                      district_selected):
     if not draw_condition:
         journal_text.clear()
         journal_window.clear()
     else:
-        if player.current_zone == "seldon" or player.current_zone == "stardust" or player.current_zone == "rohir" or \
-                player.current_zone == "reservoir a" or player.current_zone == "reservoir b" \
-                or player.current_zone == "reservoir c":
+        if district_selected == 0:
             text_quest1_surf = font.render("Sneaky snakes", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 142)
@@ -1128,41 +1127,39 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
 
-        if player.current_zone == "korlok" or player.current_zone == "mines" or \
-                player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
-                or player.current_zone == "forge":
-            text_quest1_surf = font.render("Band hammer", True, "black", "light yellow")
+        if district_selected == 1:
+            text_quest1_surf = font.render("Welcome to Consona", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 142)
-            text_quest1_info_surf = font.render(str(list(player.current_quests.values())[4]), True, "black",
+            text_quest1_info_surf = font.render(str(list(player.current_quests.values())[12]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
             text_quest1_info_rect.midleft = (540, 190)
-            text_quest1_prog_surf = font.render(str(player.quest_progress["band hammer"]) + " /4",
+            text_quest1_prog_surf = font.render(str(player.quest_progress["welcome to consona"]) + " /1",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
             text_quest1_prog_rect.midleft = (950, 145)
 
-            text_quest2_surf = font.render("Elementary elementals", True, "black", "light yellow")
+            text_quest2_surf = font.render("Band hammer", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
             text_quest2_rect.midleft = (600, 272)
-            text_quest2_info_surf = font.render(str(list(player.current_quests.values())[5]), True, "black",
+            text_quest2_info_surf = font.render(str(list(player.current_quests.values())[4]), True, "black",
                                                 "light yellow")
             text_quest2_info_rect = text_quest2_info_surf.get_rect()
             text_quest2_info_rect.midleft = (540, 320)
-            text_quest2_prog_surf = font.render(str(player.quest_progress["elementary elementals"]) + " /4",
+            text_quest2_prog_surf = font.render(str(player.quest_progress["band hammer"]) + " /4",
                                                 True, "black", "light yellow")
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
             text_quest2_prog_rect.midleft = (950, 272)
 
-            text_quest3_surf = font.render("Can't apothecary it", True, "black", "light yellow")
+            text_quest3_surf = font.render("Elementary elementals", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
             text_quest3_rect.midleft = (600, 404)
-            text_quest3_info_surf = font.render(str(list(player.current_quests.values())[6]), True, "black",
+            text_quest3_info_surf = font.render(str(list(player.current_quests.values())[5]), True, "black",
                                                 "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
             text_quest3_info_rect.midleft = (540, 455)
-            text_quest3_prog_surf = font.render(str(player.quest_progress["can't apothecary it"]) + " /4", True,
+            text_quest3_prog_surf = font.render(str(player.quest_progress["elementary elementals"]) + " /4", True,
                                                 "black", "light yellow")
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
             text_quest3_prog_rect.midleft = (950, 405)
@@ -1179,42 +1176,39 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
 
-        if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
-                player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" \
-                or player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" \
-                or player.current_zone == "altar" or player.current_zone == "fishing alcove":
-            text_quest1_surf = font.render("Kart troubles", True, "black", "light yellow")
+        if district_selected == 2:
+            text_quest1_surf = font.render("Disenchanted", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 142)
-            text_quest1_info_surf = font.render(str(list(player.current_quests.values())[8]), True, "black",
+            text_quest1_info_surf = font.render(str(list(player.current_quests.values())[13]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
             text_quest1_info_rect.midleft = (540, 190)
-            text_quest1_prog_surf = font.render(str(player.quest_progress["kart troubles"]) + " /4",
+            text_quest1_prog_surf = font.render(str(player.quest_progress["disenchanted"]) + " /1",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
             text_quest1_prog_rect.midleft = (950, 145)
 
-            text_quest2_surf = font.render("Las escondidas", True, "black", "light yellow")
+            text_quest2_surf = font.render("Kart troubles", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
             text_quest2_rect.midleft = (600, 272)
-            text_quest2_info_surf = font.render(str(list(player.current_quests.values())[9]), True, "black",
+            text_quest2_info_surf = font.render(str(list(player.current_quests.values())[8]), True, "black",
                                                 "light yellow")
             text_quest2_info_rect = text_quest2_info_surf.get_rect()
             text_quest2_info_rect.midleft = (540, 320)
-            text_quest2_prog_surf = font.render(str(player.quest_progress["las escondidas"]) + " /4",
+            text_quest2_prog_surf = font.render(str(player.quest_progress["kart troubles"]) + " /4",
                                                 True, "black", "light yellow")
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
             text_quest2_prog_rect.midleft = (950, 272)
 
-            text_quest3_surf = font.render("Hatch 'em all", True, "black", "light yellow")
+            text_quest3_surf = font.render("Las escondidas", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
             text_quest3_rect.midleft = (600, 403)
-            text_quest3_info_surf = font.render(str(list(player.current_quests.values())[10]), True, "black",
+            text_quest3_info_surf = font.render(str(list(player.current_quests.values())[9]), True, "black",
                                                 "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
             text_quest3_info_rect.midleft = (540, 455)
-            text_quest3_prog_surf = font.render(str(player.quest_progress["hatch 'em all"]) + " /1", True,
+            text_quest3_prog_surf = font.render(str(player.quest_progress["las escondidas"]) + " /4", True,
                                                 "black", "light yellow")
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
             text_quest3_prog_rect.midleft = (950, 405)
@@ -1231,30 +1225,16 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
 
-        if (player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west"
-                or player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west"
-                or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end"
-                or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
-                or player.current_zone == "sub marrow" or player.current_zone == "castle one"
-                or player.current_zone == "castle two" or player.current_zone == "castle three"
-                or player.current_zone == "caldera" or player.current_zone == "castle lair"):
-
-            text_quest1_surf = font.render("Barrier blockade", True, "black", "light yellow")
+        if district_selected == 3:
+            text_quest1_surf = font.render("Madness in Marrow", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 142)
-            text_quest1_info_surf = font.render("", True, "black",
+            text_quest1_info_surf = font.render(str(list(player.current_quests.values())[12]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
             text_quest1_info_rect.midleft = (540, 190)
-            if switch_phase != "complete":
-                text_quest1_prog_surf = font.render("0/1", True, "black", "light yellow")
-                text_quest1_info_surf = font.render("Activate the switch to access Marrow.",
-                                                    True, "black", "light yellow")
-            if switch_phase == "complete":
-                text_quest1_prog_surf = font.render("1/1", True, "black", "light yellow")
-                text_quest1_info_surf = font.render("You opened the barrier.",
-                                                    True, "black", "light yellow")
-
+            text_quest1_prog_surf = font.render(str(player.quest_progress["madness in marrow"]) + " /1",
+                                                True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
             text_quest1_prog_rect.midleft = (950, 145)
 
@@ -1262,7 +1242,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest2_rect = text_quest2_surf.get_rect()
             text_quest2_rect.midleft = (600, 272)
             if not npc_maydria.gift:
-                text_quest2_info_surf = font.render("Talk to Maydria to start this task.",
+                text_quest2_info_surf = font.render("Talk to Maydria to start this quest.",
                                                     True, "black", "light yellow")
             elif (npc_maydria.gift and not npc_boro.quest_complete and not npc_boro.quest_complete
                   and not npc_maydria.quest_complete):
@@ -1273,7 +1253,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
                 text_quest2_info_surf = font.render("Return to Maydria.",
                                                     True, "black", "light yellow")
             elif npc_maydria.quest_complete:
-                text_quest2_info_surf = font.render("You completed this task.",
+                text_quest2_info_surf = font.render("You completed this quest.",
                                                     True, "black", "light yellow")
             text_quest2_info_rect = text_quest2_info_surf.get_rect()
             text_quest2_info_rect.midleft = (540, 320)
@@ -1291,7 +1271,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest3_rect = text_quest3_surf.get_rect()
             text_quest3_rect.midleft = (600, 404)
             if not npc_artherian.gift:
-                text_quest3_info_surf = font.render("Talk to Artherian to start this task.",
+                text_quest3_info_surf = font.render("Talk to Artherian to start this quest.",
                                                     True, "black", "light yellow")
             if npc_artherian.gift and not artherian_2:
                 text_quest3_info_surf = font.render("Smelt and Enchant the armor casing.",
@@ -1300,7 +1280,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
                 text_quest3_info_surf = font.render("Return to Artherian with the Enchanted Casing.",
                                                     True, "black", "light yellow")
             if npc_artherian.quest_complete:
-                text_quest3_info_surf = font.render("You completed this task.", True, "black", "light yellow")
+                text_quest3_info_surf = font.render("You completed this quest.", True, "black", "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
             text_quest3_info_rect.midleft = (540, 455)
             text_quest3_prog_surf = font.render("0/2", True, "black", "light yellow")
@@ -1311,19 +1291,15 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
             text_quest3_prog_rect.midleft = (950, 405)
 
-            text_quest4_surf = font.render("Ultimate ultimatum", True, "black", "light yellow")
+            text_quest4_surf = font.render("Shades of fear", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
             text_quest4_rect.midleft = (600, 536)
-            if not apothis_gift:
-                text_quest4_info_surf = font.render("Battle Dreth.", True, "black", "light yellow")
-            else:
-                text_quest4_info_surf = font.render("You completed this task.", True, "black", "light yellow")
+            text_quest4_info_surf = font.render(str(list(player.current_quests.values())[11]), True, "black",
+                                                "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
             text_quest4_info_rect.midleft = (540, 585)
-            if not apothis_gift:
-                text_quest4_prog_surf = font.render("0/1", True, "black", "light yellow")
-            else:
-                text_quest4_prog_surf = font.render("1/1", True, "black", "light yellow")
+            text_quest4_prog_surf = font.render(str(player.quest_progress["shades of fear"]) + " /4", True,
+                                                "black", "light yellow")
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
 
@@ -1340,6 +1316,10 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         journal_text.append((text_quest4_info_surf, text_quest4_info_rect))
         journal_text.append((text_quest4_prog_surf, text_quest4_prog_rect))
         journal_window.append(journal)
+        journal_window.append(seldon_button)
+        journal_window.append(korlok_button)
+        journal_window.append(eldream_button)
+        journal_window.append(marrow_button)
 
 
 def level_up_draw(level_up_win, player, level_up_font, draw_condition):

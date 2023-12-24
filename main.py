@@ -8284,6 +8284,11 @@ if __name__ == "__main__":
     fire_button = UiElement("fire button", 960, 641, graphic_dict["fire_button_img"])
     edge_button = UiElement("edge button", 960, 641, graphic_dict["edge_button_img"])
     arrow_button = UiElement("arrow button", 960, 641, graphic_dict["arrow_button_img"])
+    seldon_quest_district_button = UiElement("seldon button", 772, 102, graphic_dict["seldon_district_button"])
+    korlok_quest_district_button = UiElement("korlok button", 842, 102, graphic_dict["korlok_district_button"])
+    eldream_quest_district_button = UiElement("eldream button", 912, 102, graphic_dict["eldream_district_button"])
+    marrow_quest_district_button = UiElement("marrow button", 982, 102, graphic_dict["marrow_district_button"])
+
     stun_overlay = UiElement("stun overlay", 700, 260, graphic_dict["stun_img"])
     vanish_overlay = UiElement("vanish overlay", 100, 600, graphic_dict["vanish_img"])
     type_advantage_overlay = UiElement("type advantage overlay", 580, 48, graphic_dict["mage_type_overlay"])
@@ -8293,9 +8298,9 @@ if __name__ == "__main__":
     hp_bar = UiElement("health bar", 165, 25, graphic_dict["hp_100"])
     en_bar = UiElement("energy bar", 165, 45, graphic_dict["en_100"])
     xp_bar = UiElement("xp bar", 165, 65, graphic_dict["xp_100"])
-    journal = UiElement("journal", 770, 380, graphic_dict["journal_window_img"])
+    journal = UiElement("journal", 770, 364, graphic_dict["journal_window_img"])
     level_up_win = UiElement("level up window", 165, 132, graphic_dict["level_up_win"])
-    character_sheet = UiElement("character sheet", 770, 380, graphic_dict["character_window_img"])
+    character_sheet = UiElement("character sheet", 770, 364, graphic_dict["character_window_img"])
     mage_book = UiElement("mage book", 670, 380, graphic_dict["mage_book_img"])
     fighter_book = UiElement("fighter book", 670, 380, graphic_dict["fighter_book_img"])
     scout_book = UiElement("scout book", 670, 380, graphic_dict["scout_book_img"])
@@ -8441,7 +8446,9 @@ if __name__ == "__main__":
     stardust_star_overlay_korlok = UiElement("stardust stars korlok", 236, 295, graphic_dict["stardust_star_01_korlok"])
     stardust_star_overlay_eldream = UiElement("stardust stars eldream", 500, 185,
                                               graphic_dict["stardust_star_01_eldream"])
-    stardust_star_overlay_marrow = UiElement("stardust star marrow", 763, 295, graphic_dict["overlay_marrow_star"])
+    stardust_star_overlay_marrow = UiElement("stardust stars marrow", 500, 295,
+                                             graphic_dict["stardust_star_01_marrow"])
+    apothis_star = UiElement("apothis star", 400, 500, graphic_dict["apothis_star"])
     directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
@@ -9311,6 +9318,7 @@ if __name__ == "__main__":
     previous_surf = player.surf
     rope_phase = 0
     light_switch = 0
+    quest_district_selected = 0
 
     # default objects for event loops, updated when player interacts with new object
     current_enemy_battling = snake_1
@@ -11184,7 +11192,12 @@ if __name__ == "__main__":
                                 # clears other open windows first, if they were open
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren, apothis_gift)
+                                                                    npc_noren, apothis_gift,
+                                                                    seldon_quest_district_button,
+                                                                    korlok_quest_district_button,
+                                                                    eldream_quest_district_button,
+                                                                    marrow_quest_district_button,
+                                                                    quest_district_selected)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -11216,14 +11229,24 @@ if __name__ == "__main__":
                                 if journal_button_clicked:
                                     drawing_functions.journal_info_draw(journal, player, font, False,
                                                                         marrow_switch_phase, npc_artherian, artherian_2,
-                                                                        npc_maydria, npc_boro, npc_noren, apothis_gift)
+                                                                        npc_maydria, npc_boro, npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected)
                                     journal_button_clicked = False
                                 else:
                                     if in_over_world:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     drawing_functions.journal_info_draw(journal, player, font, True,
                                                                         marrow_switch_phase, npc_artherian, artherian_2,
-                                                                        npc_maydria, npc_boro, npc_noren, apothis_gift)
+                                                                        npc_maydria, npc_boro, npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected)
                                     journal_button_clicked = True
 
                             # for clicking map buttons, when the map is open
@@ -11522,6 +11545,10 @@ if __name__ == "__main__":
                             drawing_functions.loot_text_container.clear()
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
+                            # game guide popups
+                            if not quest_guide_shown:
+                                drawing_functions.game_guide_container.append(game_guide_overlay)
+                                quest_guide_shown = True
 
                     face_direction = random.choice(["front", "back", "left", "right"])
                     if movement_able and in_over_world:
@@ -18343,8 +18370,45 @@ if __name__ == "__main__":
                                 screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
                                 stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
                                 screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if apothis_gift:
+                            if quests_complete == 13:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_01_marrow"])
                                 screen.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+                            if quests_complete == 14:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_02_marrow"])
+                                screen.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+                            if quests_complete == 15:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_03_marrow"])
+                                screen.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+                            if quests_complete == 16:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_04_marrow"])
+                                screen.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+
+                            if apothis_gift:
+                                screen.blit(apothis_star.surf, apothis_star.rect)
 
                             if buy_clicked:
                                 for element in stardust_upgrade_elements:
@@ -18418,8 +18482,45 @@ if __name__ == "__main__":
                                 game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
                                 stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
                                 game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if apothis_gift:
+                            if quests_complete == 13:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_01_marrow"])
                                 game_window.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+                            if quests_complete == 14:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_02_marrow"])
+                                game_window.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+                            if quests_complete == 15:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_03_marrow"])
+                                game_window.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+                            if quests_complete == 16:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_04_marrow"])
+                                game_window.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+
+                            if apothis_gift:
+                                game_window.blit(apothis_star.surf, apothis_star.rect)
 
                             if buy_clicked:
                                 for element in stardust_upgrade_elements:
@@ -19780,19 +19881,6 @@ if __name__ == "__main__":
                             if apothecary_cat_pet:
                                 cat_pet_animation_overlay.update(634, 63, graphic_dict["apothecary_cat_pet_img"])
                                 screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
-                            if not player.quest_complete["can't apothecary it"]:
-                                if not player.quest_status["can't apothecary it"]:
-                                    screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                                if player.quest_status["can't apothecary it"]:
-                                    quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                                 quest_star_apothecary.y_coordinate,
-                                                                 graphic_dict["building_npc_star_progress"])
-                                    screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                                if player.quest_progress["can't apothecary it"] == 4:
-                                    quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                                 quest_star_apothecary.y_coordinate,
-                                                                 graphic_dict["building_npc_star_complete"])
-                                    screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
                             if player.quest_complete["can't apothecary it"]:
                                 quest_visual.update(115, 380, graphic_dict["ore_big_pile_img"])
                                 screen.blit(quest_visual.surf, quest_visual.rect)
@@ -19821,20 +19909,6 @@ if __name__ == "__main__":
                             if apothecary_cat_pet:
                                 cat_pet_animation_overlay.update(634, 63, graphic_dict["apothecary_cat_pet_img"])
                                 game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
-                            if not player.quest_complete["can't apothecary it"]:
-                                if not player.quest_status["can't apothecary it"]:
-                                    game_window.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                                if player.quest_status["can't apothecary it"]:
-                                    quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                                 quest_star_apothecary.y_coordinate,
-                                                                 graphic_dict["building_npc_star_progress"])
-                                    game_window.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                                if player.quest_progress["can't apothecary it"] == 4:
-                                    quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                                 quest_star_apothecary.y_coordinate,
-                                                                 graphic_dict["building_npc_star_complete"])
-                                    game_window.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-
                             if player.quest_complete["can't apothecary it"]:
                                 quest_visual.update(115, 380, graphic_dict["ore_big_pile_img"])
                                 game_window.blit(quest_visual.surf, quest_visual.rect)
@@ -20313,10 +20387,9 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                     player.quest_complete["hatch 'em all"] = True
                                     player.current_quests["hatch 'em all"] = "You completed this quest!"
-                                    info_text_1 = "You've completed Aitor's quest!"
+                                    info_text_1 = "You've completed Aitor's task!"
                                     info_text_3 = ""
                                     info_text_4 = ""
-                                    player.star_power += 1
                                     player.experience += 50
                                     menagerie_access = True
                                     if player.experience >= 100:
@@ -20492,20 +20565,6 @@ if __name__ == "__main__":
                                 cat_pet_animation_overlay.update(953, 131, graphic_dict["menagerie_cat_pet_img"])
                                 screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
-                            if not player.quest_complete["hatch 'em all"]:
-                                if not player.quest_status["hatch 'em all"]:
-                                    screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
-                                if player.quest_status["hatch 'em all"]:
-                                    quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
-                                                                quest_star_menagerie.y_coordinate,
-                                                                graphic_dict["building_npc_star_progress"])
-                                    screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
-                                if player.quest_progress["hatch 'em all"] == 1:
-                                    quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
-                                                                quest_star_menagerie.y_coordinate,
-                                                                graphic_dict["building_npc_star_complete"])
-                                    screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
-
                         else:
                             game_window.blit(eldream_district_menagerie, (0, 0))
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -20527,20 +20586,6 @@ if __name__ == "__main__":
                             if menagerie_cat_pet:
                                 cat_pet_animation_overlay.update(953, 131, graphic_dict["menagerie_cat_pet_img"])
                                 game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
-
-                            if not player.quest_complete["hatch 'em all"]:
-                                if not player.quest_status["hatch 'em all"]:
-                                    game_window.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
-                                if player.quest_status["hatch 'em all"]:
-                                    quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
-                                                                quest_star_menagerie.y_coordinate,
-                                                                graphic_dict["building_npc_star_progress"])
-                                    game_window.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
-                                if player.quest_progress["hatch 'em all"] == 1:
-                                    quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
-                                                                quest_star_menagerie.y_coordinate,
-                                                                graphic_dict["building_npc_star_complete"])
-                                    game_window.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
 
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -21685,6 +21730,8 @@ if __name__ == "__main__":
                                 drawing_functions.type_advantage_window.clear()
                             if quest_accepted.rect.collidepoint(pos):
                                 drawing_functions.quest_accept_box.clear()
+                            if game_guide_overlay.rect.collidepoint(pos):
+                                drawing_functions.game_guide_container.clear()
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
@@ -22676,7 +22723,7 @@ if __name__ == "__main__":
                                         npc_artherian.gift = True
                                         task_star_artherian.update(210, 400, graphic_dict["artherian_progress_star"])
                                     else:
-                                        info_text_1 = "You completed the task, but "
+                                        info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
                                 if not quest_clicked:
                                     if not npc_artherian.gift:
@@ -22765,7 +22812,7 @@ if __name__ == "__main__":
                                         and not npc_maydria.quest_complete):
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                     npc_maydria.quest_complete = True
-                                    info_text_1 = "You've completed Maydria's task!"
+                                    info_text_1 = "You've completed Maydria's quest!"
                                     info_text_2 = ""
                                     info_text_3 = ""
                                     info_text_4 = ""
@@ -22879,10 +22926,6 @@ if __name__ == "__main__":
                             drawing_functions.quest_box.clear()
                             drawing_functions.type_advantage_window.clear()
                             drawing_functions.quest_accept_box.clear()
-                            # game guide popups
-                            if not quest_guide_shown:
-                                drawing_functions.game_guide_container.append(game_guide_overlay)
-                                quest_guide_shown = True
 
                     # outside event loop -------------------------------------------------------------------------------
                     if not encounter_started:
@@ -23085,19 +23128,22 @@ if __name__ == "__main__":
                                                              even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window)
 
-                        text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
-                                                         (203, 195, 227))
-                        text_npc_name_rect = text_npc_name_surf.get_rect()
-                        if current_npc_interacting.name == "Omoku":
-                            text_npc_name_rect.center = (605, 193)
-                        if current_npc_interacting.name != "Omoku":
-                            text_npc_name_rect.center = (675, 165)
-                            if current_npc_interacting.name == "Artherian":
-                                text_npc_name_rect.center = (680, 165)
-                            if current_npc_interacting.name == "Maydria":
-                                text_npc_name_rect.center = (685, 165)
+                        if (len(drawing_functions.type_advantage_window) == 0 and
+                                len(drawing_functions.game_guide_container) == 0):
+                            text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
+                                                             (203, 195, 227))
+                            text_npc_name_rect = text_npc_name_surf.get_rect()
+                            if current_npc_interacting.name == "Omoku":
+                                text_npc_name_rect.center = (605, 193)
+                            if current_npc_interacting.name != "Omoku":
+                                text_npc_name_rect.center = (675, 165)
+                                if current_npc_interacting.name == "Artherian":
+                                    text_npc_name_rect.center = (680, 165)
+                                if current_npc_interacting.name == "Maydria":
+                                    text_npc_name_rect.center = (685, 165)
 
-                        if len(drawing_functions.type_advantage_window) == 0:
+                        if (len(drawing_functions.type_advantage_window) == 0 and
+                                len(drawing_functions.game_guide_container) == 0):
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                 screen.blit(text_npc_name_surf, text_npc_name_rect)
                                 if button_highlighted:
