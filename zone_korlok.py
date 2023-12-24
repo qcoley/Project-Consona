@@ -18,7 +18,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, voruke, zerah, npcs,
                     seldon_enemies, snakes, ghouls, bandiles, interactables_seldon, interactables_korlok, Enemy, Item,
                     UiElement, interactables_mines, star_voruke, star_zerah, korlok_mountains, in_apothecary,
-                    star_apothecary, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
+                    equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
                     weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
                     eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
@@ -148,9 +148,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(top_1.surf, top_1.rect)
         screen.blit(top_2.surf, top_2.rect)
         screen.blit(top_3.surf, top_3.rect)
-
-    if not player.quest_complete["can't apothecary it"]:
-        screen.blit(star_apothecary.surf, star_apothecary.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     enemy = pygame.sprite.spritecollideany(player, korlok_enemies, pygame.sprite.collide_rect_ratio(0.75))

@@ -147,6 +147,7 @@ def load_graphics():
     reservoir_c_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_c.png')).convert_alpha()
     reservoir_battle = pygame.image.load(resource_path('resources/art/bg_reservoir_battle_screen.png')).convert_alpha()
     seldon_battle_screen = pygame.image.load(resource_path('resources/art/bg_seldon_battle_screen.png')).convert_alpha()
+    nascent_screen = pygame.image.load(resource_path('resources/art/bg_nascent_interaction_screen.png')).convert_alpha()
     seldon_shop_screen = pygame.image.load(resource_path('resources/art/bg_seldon_shop.png')).convert_alpha()
     seldon_inn_screen = pygame.image.load(resource_path('resources/art/bg_seldon_inn.png')).convert_alpha()
     seldon_academia_screen = pygame.image.load(resource_path('resources/art/bg_seldon_academia.png')).convert_alpha()
@@ -408,6 +409,7 @@ def load_graphics():
     loaded_dict["reservoir_c_screen"] = reservoir_c_screen
     loaded_dict["reservoir_battle_screen"] = reservoir_battle
     loaded_dict["seldon_battle_screen"] = seldon_battle_screen
+    loaded_dict["nascent_interaction_screen"] = nascent_screen
     loaded_dict["korlok_battle_screen"] = korlok_battle_screen
     loaded_dict["mines_battle_screen"] = mines_battle_screen
     loaded_dict["alcove_battle_screen"] = alcove_b
@@ -5006,6 +5008,13 @@ def load_graphics():
     loaded_dict["entrance_npc_left"] = entrance_npc_sheet[1]
     loaded_dict["entrance_npc_right"] = entrance_npc_sheet[2]
     loaded_dict["entrance_npc_up"] = entrance_npc_sheet[3]
+    # nascent npc ----------------------------------------------------------------------------------------------
+    nascent_npc_url = resource_path('resources/art/sprites_nascent_nuldar.png')
+    nascent_npc_sheet = sprite_sheet((50, 62), nascent_npc_url)
+    loaded_dict["nascent_npc_down"] = nascent_npc_sheet[0]
+    loaded_dict["nascent_npc_left"] = nascent_npc_sheet[1]
+    loaded_dict["nascent_npc_right"] = nascent_npc_sheet[2]
+    loaded_dict["nascent_npc_up"] = nascent_npc_sheet[3]
     # zerah npc -------------------------------------------------------------------------------------------------------
     zerah_url = resource_path('resources/art/sprites_zerah.png')
     zerah_sheet = sprite_sheet((50, 62), zerah_url)
@@ -5086,6 +5095,7 @@ def load_graphics():
     loaded_dict["everett_interaction"] = npc_interactions_sheet[9]
     loaded_dict["artherian_interaction"] = npc_interactions_sheet[10]
     loaded_dict["maydria_interaction"] = npc_interactions_sheet[11]
+    loaded_dict["kuba_interaction"] = npc_interactions_sheet[12]
     # interaction popup ------------------------------------------------------------------------------------------------
     interaction_popup_url = resource_path('resources/art/popup_interaction.png')
     interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)
@@ -5598,6 +5608,9 @@ def load_graphics():
     loaded_dict["maydria_quest"] = quest_windows_sheet[14]
     loaded_dict["jerry_quest"] = quest_windows_sheet[15]
     loaded_dict["prime_quest"] = quest_windows_sheet[16]
+    loaded_dict["kuba_quest"] = quest_windows_sheet[17]
+    loaded_dict["nahun_quest"] = quest_windows_sheet[18]
+    loaded_dict["illisare_quest"] = quest_windows_sheet[19]
     # quest complete popups --------------------------------------------------------------------------------------------
     quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
     quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)
@@ -5620,6 +5633,9 @@ def load_graphics():
     loaded_dict["maydria_complete"] = quest_popups_2_sheet[5]
     loaded_dict["jerry_complete"] = quest_popups_2_sheet[6]
     loaded_dict["prime_complete"] = quest_popups_2_sheet[7]
+    loaded_dict["kuba_complete"] = quest_popups_2_sheet[8]
+    loaded_dict["nahun_complete"] = quest_popups_2_sheet[9]
+    loaded_dict["illisare_complete"] = quest_popups_2_sheet[10]
     # quest stars ------------------------------------------------------------------------------------------------------
     quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
     quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)
@@ -5632,12 +5648,6 @@ def load_graphics():
     loaded_dict["maydria_start_star"] = quest_stars_sheet[6]
     loaded_dict["maydria_progress_star"] = quest_stars_sheet[7]
     loaded_dict["maydria_complete_star"] = quest_stars_sheet[8]
-    # quest stars ------------------------------------------------------------------------------------------------------
-    building_quest_stars_url = resource_path('resources/art/overlay_building_npc_stars.png')
-    building_quest_stars_sheet = sprite_sheet((125, 125), building_quest_stars_url)
-    loaded_dict["building_npc_star_available"] = building_quest_stars_sheet[0]
-    loaded_dict["building_npc_star_progress"] = building_quest_stars_sheet[1]
-    loaded_dict["building_npc_star_complete"] = building_quest_stars_sheet[2]
     # star power -------------------------------------------------------------------------------------------------------
     star_power_url = resource_path('resources/art/overlay_star_power.png')
     star_power_sheet = sprite_sheet((150, 50), star_power_url)

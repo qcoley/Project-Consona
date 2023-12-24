@@ -1003,6 +1003,8 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
             text_rolled_surf = font.render("Fighter", True, "black", "light yellow")
         if player.role == "scout":
             text_rolled_surf = font.render("Scout", True, "black", "light yellow")
+        if player.role == "":
+            text_rolled_surf = font.render("", True, "black", "light yellow")
         text_rolled_rect = text_rolled_surf.get_rect()
         text_rolled_rect.midleft = (588, 228)
         text_health_surf = font.render(str(player.health), True, "black", "light yellow")
@@ -1358,7 +1360,7 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
                    torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
                    dionte_quest_window, accept_button, decline_button, omoku_quest_window, leyre_quest_window,
                    aitor_quest_window, everett_quest_window, artherian_quest_window, artherian_quest_window_2,
-                   artherian_1, maydria_quest_window):
+                   artherian_1, maydria_quest_window, kuba_quest_window, nahun_quest_window, illisare_quest_window):
     if not draw_condition:
         quest_box.clear()
     else:
@@ -1394,6 +1396,12 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
                     quest_box.append(artherian_quest_window_2)
             if quest_npc.name == "Maydria":
                 quest_box.append(maydria_quest_window)
+            if quest_npc.name == "Kuba":
+                quest_box.append(kuba_quest_window)
+            if quest_npc.name == "Nahun":
+                quest_box.append(nahun_quest_window)
+            if quest_npc.name == "Illisare":
+                quest_box.append(illisare_quest_window)
 
         except AttributeError:
             if quest_npc == "Kirean":
@@ -1408,7 +1416,8 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
 def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
                         torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
                         dionte_quest_window, omoku_quest_window, leyre_quest_window, aitor_quest_window,
-                        everett_quest_window, artherian_quest_window, maydria_task_window):
+                        everett_quest_window, artherian_quest_window, maydria_task_window, kuba_quest_window,
+                        nahun_quest_window, illisare_quest_window):
     if not draw_condition:
         quest_complete_box.clear()
     else:
@@ -1441,6 +1450,12 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
                 quest_complete_box.append(artherian_quest_window)
             if quest_npc.name == "Maydria":
                 quest_complete_box.append(maydria_task_window)
+            if quest_npc.name == "Kuba":
+                quest_complete_box.append(kuba_quest_window)
+            if quest_npc.name == "Nahun":
+                quest_complete_box.append(nahun_quest_window)
+            if quest_npc.name == "Illisare":
+                quest_complete_box.append(illisare_quest_window)
         except AttributeError:
             if quest_npc == "Kirean":
                 quest_complete_box.append(kirean_quest_window)

@@ -7658,6 +7658,7 @@ if __name__ == "__main__":
     fishing_hut_screen_bg = graphic_dict["fishing_hut_screen"]
     seldon_district_bg = graphic_dict["seldon_bg_screen"]
     seldon_district_battle = graphic_dict["seldon_battle_screen"]
+    nascent_interaction_screen = graphic_dict["nascent_interaction_screen"]
     korlok_district_battle = graphic_dict["korlok_battle_screen"]
     mines_battle = graphic_dict["mines_battle_screen"]
     seldon_district_shop = graphic_dict["seldon_shop_screen"]
@@ -7830,19 +7831,24 @@ if __name__ == "__main__":
                           "kart troubles": "Speak to Omoku to start this quest",
                           "las escondidas": "Speak to Leyre to start this quest",
                           "hatch 'em all": "Speak to the menagerie owner to start this quest",
-                          "shades of fear": "Speak to Everett to start this quest"},
+                          "shades of fear": "Speak to Everett to start this quest",
+                          "welcome to consona": "Speak to Kuba to start this quest",
+                          "disenchanted": "Speak to Kuba to start this quest",
+                          "madness in marrow": "Speak to Kuba to start this quest"},
                          {"sneaky snakes": 0, "village repairs": 0, "where's nede?": 0, "ghouled again": 0,
                           "band hammer": 0, "elementary elementals": 0, "can't apothecary it": 0,
                           "it's dangerous to go alone": 0, "kart troubles": 0, "las escondidas": 0, "hatch 'em all": 0,
-                          "shades of fear": 0},
+                          "shades of fear": 0, "welcome to consona": 0, "disenchanted": 0},
                          {"sneaky snakes": False, "village repairs": False, "where's nede?": False,
                           "ghouled again": False, "band hammer": False, "elementary elementals": False,
                           "can't apothecary it": False, "it's dangerous to go alone": False, "kart troubles": False,
-                          "las escondidas": False, "hatch 'em all": False, "shades of fear": False},
+                          "las escondidas": False, "hatch 'em all": False, "shades of fear": False,
+                          "welcome to consona": False, "disenchanted": False, "madness in marrow": False},
                          {"sneaky snakes": False, "village repairs": False, "where's nede?": False,
                           "ghouled again": False, "band hammer": False, "elementary elementals": False,
                           "can't apothecary it": False, "it's dangerous to go alone": False, "kart troubles": False,
-                          "las escondidas": False, "hatch 'em all": False, "shades of fear": False},
+                          "las escondidas": False, "hatch 'em all": False, "shades of fear": False,
+                          "welcome to consona": False, "disenchanted": False, "madness in marrow": False},
                          {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
@@ -7901,6 +7907,8 @@ if __name__ == "__main__":
 
     npc_marrow_entrance = NPC("m.e.n.", "nuldar", "", "", "", 675, 152, True, False, ["Items"], False,
                               graphic_dict["entrance_npc_down"])
+    npc_nascent = NPC("Kuba", "nuldar", "", "", "", 625, 120, True, False, ["Items"], False,
+                      graphic_dict["nascent_npc_down"])
 
     npc_artherian = NPC("Artherian", "amuna", "legends never die", "hail", "", 210, 450,
                         True, False, ["Items"], False, graphic_dict["artherian_down"])
@@ -7955,6 +7963,7 @@ if __name__ == "__main__":
     npc_everett_interaction = UiElement("everett interaction", 678, 325, graphic_dict["everett_interaction"])
     npc_artherian_interaction = UiElement("artherian interaction", 678, 325, graphic_dict["artherian_interaction"])
     npc_maydria_interaction = UiElement("maydria interaction", 678, 325, graphic_dict["maydria_interaction"])
+    npc_kuba_interaction = UiElement("kuba interaction", 676, 325, graphic_dict["kuba_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -8353,6 +8362,12 @@ if __name__ == "__main__":
     jerry_complete_window = UiElement("jerry complete window", 550, 350, graphic_dict["jerry_complete"])
     prime_task_window = UiElement("prime task window", 262, 443, graphic_dict["prime_quest"])
     prime_complete_window = UiElement("prime complete window", 550, 350, graphic_dict["prime_complete"])
+    kuba_quest_window = UiElement("kuba quest window", 262, 443, graphic_dict["kuba_quest"])
+    kuba_complete_quest_window = UiElement("kuba complete window", 550, 350, graphic_dict["kuba_complete"])
+    nahun_quest_window = UiElement("nahun quest window", 262, 443, graphic_dict["nahun_quest"])
+    nahun_complete_quest_window = UiElement("nahun complete window", 550, 350, graphic_dict["nahun_complete"])
+    illisare_quest_window = UiElement("illisare quest window", 262, 443, graphic_dict["illisare_quest"])
+    illisare_complete_quest_window = UiElement("illisare complete window", 550, 350, graphic_dict["illisare_complete"])
 
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
@@ -8361,6 +8376,10 @@ if __name__ == "__main__":
     quest_accepted = UiElement("quest accept overlay", 550, 325, graphic_dict["quest_accepted"])
     task_accepted = UiElement("task accept overlay", 550, 325, graphic_dict["task_accepted"])
 
+    quest_star_nascent = UiElement("quest star kuba", 624, 80, graphic_dict["quest_start_star"])
+    quest_star_nahun = UiElement("quest star nahun", 624, 80, graphic_dict["quest_start_star"])
+    quest_star_illisare = UiElement("quest star illisare", 624, 80, graphic_dict["quest_start_star"])
+
     quest_star_garan = UiElement("quest star garan", 209, 390, graphic_dict["quest_start_star"])
     quest_star_maurelle = UiElement("quest star maurelle", 744, 575, graphic_dict["quest_start_star"])
     quest_star_celeste = UiElement("quest star maurelle", 760, 373, graphic_dict["quest_start_star"])
@@ -8368,16 +8387,12 @@ if __name__ == "__main__":
 
     quest_star_voruke = UiElement("quest star voruke", 262, 385, graphic_dict["quest_start_star"])
     quest_star_zerah = UiElement("quest star zerah", 651, 50, graphic_dict["quest_start_star"])
-    quest_star_kirean = UiElement("quest star kirean", 746, 225, graphic_dict["quest_start_star"])
     quest_star_dionte = UiElement("quest star dionte", 585, 60, graphic_dict["quest_start_star"])
 
     quest_star_omoku = UiElement("quest star omoku", 460, 610, graphic_dict["quest_start_star"])
     quest_star_leyre = UiElement("quest star leyre", 682, 375, graphic_dict["quest_start_star"])
     quest_star_aitor = UiElement("quest star aitor", 818, 200, graphic_dict["quest_start_star"])
     quest_star_everett = UiElement("quest star everett", 749, 278, graphic_dict["quest_start_star"])
-
-    quest_star_apothecary = UiElement("quest star apothecary", 796, 85, graphic_dict["building_npc_star_available"])
-    quest_star_menagerie = UiElement("quest star menagerie", 790, 150, graphic_dict["building_npc_star_available"])
 
     task_star_artherian = UiElement("task star artherian", 210, 400, graphic_dict["artherian_start_star"])
     task_star_maydria = UiElement("task star maydria", 861, 132, graphic_dict["maydria_start_star"])
@@ -8743,7 +8758,7 @@ if __name__ == "__main__":
                      rohir_gate)
     user_interface.add(character_button, quests_button, save_button, map_button, message_box, location_overlay,
                        star_power_meter)
-    interactables_nascent.add(nascent_gate, rock_8)
+    interactables_nascent.add(nascent_gate, rock_8, npc_nascent)
     interactables_seldon.add(npcs_seldon, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon,
                              seldon_flowers)
     interactables_stardust.add(stardust_entrance, nede, ghoul_nede, rock_3, stelli_a, stelli_b, stelli_c)
@@ -9044,6 +9059,9 @@ if __name__ == "__main__":
     maydria_complete_shown = False
     fishing_complete_shown = False
     trading_complete_shown = False
+    kuba_complete_shown = False
+    nahun_complete_shown = False
+    illisare_complete_shown = False
     snake_sprite_reset = False
     ghoul_sprite_reset = False
     log_sprite_reset = False
@@ -10446,20 +10464,16 @@ if __name__ == "__main__":
                                                               graphic_dict["quest_progress_star"],
                                                               graphic_dict["quest_complete_star"],
                                                               quest_star_voruke, quest_star_zerah,
-                                                              quest_star_kirean,
                                                               quest_star_dionte, quest_star_omoku,
-                                                              quest_star_leyre,
-                                                              quest_star_aitor, quest_star_everett,
-                                                              npc_artherian,
+                                                              quest_star_leyre,quest_star_everett,
                                                               task_star_artherian,
                                                               graphic_dict["artherian_progress_star"],
                                                               graphic_dict["artherian_complete_star"],
-                                                              artherian_2,
-                                                              npc_maydria, task_star_maydria,
+                                                              artherian_2, npc_maydria, task_star_maydria,
                                                               graphic_dict["maydria_progress_star"],
                                                               graphic_dict["maydria_complete_star"], npc_boro,
-                                                              npc_noren,
-                                                              artherian_task_start)
+                                                              npc_noren, artherian_task_start, quest_star_nascent,
+                                                              quest_star_nahun, quest_star_illisare)
 
                     # hide UI elements if player walks under them ------------------------------------------------------
                     try:
@@ -11386,11 +11400,17 @@ if __name__ == "__main__":
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(nascent_gate.surf, nascent_gate.rect)
                         screen.blit(rock_8.surf, rock_8.rect)
+                        screen.blit(npc_nascent.surf, npc_nascent.rect)
+                        if not player.quest_complete["welcome to consona"]:
+                            screen.blit(quest_star_nascent.surf, quest_star_nascent.rect)
                     else:
                         game_window.blit(nascent_grove_bg, (0, 0))
                         game_window.blit(equipment_screen.surf, equipment_screen.rect)
                         game_window.blit(nascent_gate.surf, nascent_gate.rect)
                         game_window.blit(rock_8.surf, rock_8.rect)
+                        game_window.blit(npc_nascent.surf, npc_nascent.rect)
+                        if not player.quest_complete["welcome to consona"]:
+                            game_window.blit(quest_star_nascent.surf, quest_star_nascent.rect)
                     try:
                         for pet in player.pet:
                             if pet.active:
@@ -11434,6 +11454,23 @@ if __name__ == "__main__":
                                             graphic_dict["nascent_gate_closed"])
 
                     if pygame.sprite.collide_rect(player, rock_8):
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            interaction_popup.update(rock_8.x_coordinate, rock_8.y_coordinate - 50,
+                                                     graphic_dict["popup_interaction"])
+                            screen.blit(interaction_popup.surf, interaction_popup.rect)
+                            interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
+                            interaction_info_rect = interaction_info_surf.get_rect()
+                            interaction_info_rect.center = (rock_8.x_coordinate, rock_8.y_coordinate - 50)
+                            screen.blit(interaction_info_surf, interaction_info_rect)
+                        else:
+                            interaction_popup.update(rock_8.x_coordinate, rock_8.y_coordinate - 50,
+                                                     graphic_dict["popup_interaction"])
+                            game_window.blit(interaction_popup.surf, interaction_popup.rect)
+                            interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
+                            interaction_info_rect = interaction_info_surf.get_rect()
+                            interaction_info_rect.center = (rock_8.x_coordinate, rock_8.y_coordinate - 50)
+                            game_window.blit(interaction_info_surf, interaction_info_rect)
+
                         if interacted and in_over_world:
                             try:
                                 if player.equipment["gloves"].name == "power gloves":
@@ -11442,15 +11479,63 @@ if __name__ == "__main__":
                                                       graphic_dict["rock_small"])
                                         if not rock_8_con:
                                             pygame.mixer.find_channel(True).play(sfx_item_rupee)
-                                            player.rupees += 50
+                                            player.rupees += 100
                                             rock_8_con = True
-                                            info_text_1 = "You found 50 Rupees under the rock!"
+                                            info_text_1 = "You found 100 Rupees under the rock!"
                                             info_text_2 = ""
                                 else:
                                     pass
                             except AttributeError:
                                 pass
                             interacted = False
+
+                    if pygame.sprite.collide_rect(player, npc_nascent):
+                        interaction_popup.update(npc_nascent.x_coordinate, npc_nascent.y_coordinate - 50,
+                                                 graphic_dict["popup_interaction_purple"])
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(interaction_popup.surf, interaction_popup.rect)
+                            interaction_info_surf = font.render(str(' Press "F" key '),
+                                                                True, "black", (203, 195, 227))
+                            interaction_info_rect = interaction_info_surf.get_rect()
+                            interaction_info_rect.center = (npc_nascent.x_coordinate, npc_nascent.y_coordinate - 50)
+                            screen.blit(interaction_info_surf, interaction_info_rect)
+                        else:
+                            game_window.blit(interaction_popup.surf, interaction_popup.rect)
+                            interaction_info_surf = font.render(str(' Press "F" key '),
+                                                                True, "black", (203, 195, 227))
+                            interaction_info_rect = interaction_info_surf.get_rect()
+                            interaction_info_rect.center = (npc_nascent.x_coordinate, npc_nascent.y_coordinate - 50)
+                            game_window.blit(interaction_info_surf, interaction_info_rect)
+
+                        info_text_1 = "Press 'F' key to talk to NPC."
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
+
+                        if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                                and not in_npc_interaction:
+                            current_npc_interacting = npc_nascent
+                            in_over_world = False
+                            in_npc_interaction = True
+                            movement_able = False
+                            drawing_functions.loot_popup_container.clear()
+                            drawing_functions.loot_text_container.clear()
+                            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                                    sharp_sense_active, graphic_dict)
+
+                    face_direction = random.choice(["front", "back", "left", "right"])
+                    if movement_able and in_over_world:
+                        npc_toc = time.perf_counter()
+                        if npc_toc - npc_tic > 5:
+                            npc_tic = time.perf_counter()
+                            if face_direction == "front":
+                                npc_nascent.update(graphic_dict["nascent_npc_down"])
+                            if face_direction == "back":
+                                npc_nascent.update(graphic_dict["nascent_npc_up"])
+                            if face_direction == "left":
+                                npc_nascent.update(graphic_dict["nascent_npc_left"])
+                            if face_direction == "right":
+                                npc_nascent.update(graphic_dict["nascent_npc_right"])
 
                     # move player to seldon district when they approach nascent grove exit
                     if player.x_coordinate > 700 and player.y_coordinate < 80:
@@ -11459,6 +11544,11 @@ if __name__ == "__main__":
                         in_over_world = True
                         player.x_coordinate = 425
                         player.y_coordinate = 690
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        drawing_functions.draw_it(screen)
+                    else:
+                        drawing_functions.draw_it(game_window)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -11712,7 +11802,7 @@ if __name__ == "__main__":
                                                                       interactables_korlok, Enemy, Item, UiElement,
                                                                       interactables_mines, quest_star_voruke,
                                                                       quest_star_zerah, korlok_mountains, in_apothecary,
-                                                                      quest_star_kirean, equipment_screen, staff, sword,
+                                                                      equipment_screen, staff, sword,
                                                                       bow, npc_garan, offense_meter, defense_meter,
                                                                       weapon_select, rock_4, rock_5, rock_6, rock_4_con,
                                                                       rock_5_con, rock_6_con, seldon_flowers,
@@ -11759,7 +11849,7 @@ if __name__ == "__main__":
                                                                       interactables_korlok, Enemy, Item, UiElement,
                                                                       interactables_mines, quest_star_voruke,
                                                                       quest_star_zerah, korlok_mountains, in_apothecary,
-                                                                      quest_star_kirean, equipment_screen, staff, sword,
+                                                                      equipment_screen, staff, sword,
                                                                       bow, npc_garan, offense_meter, defense_meter,
                                                                       weapon_select, rock_4, rock_5, rock_6, rock_4_con,
                                                                       rock_5_con, rock_6_con, seldon_flowers,
@@ -19521,10 +19611,9 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                     player.quest_complete["can't apothecary it"] = True
                                     player.current_quests["can't apothecary it"] = "You completed this quest!"
-                                    info_text_1 = "You've completed Kirean's quest!"
+                                    info_text_1 = "You've completed Kirean's task!"
                                     info_text_3 = ""
                                     info_text_4 = ""
-                                    player.star_power += 1
                                     player.experience += 50
                                     apothecary_access = True
                                     if player.experience >= 100:
@@ -21590,24 +21679,6 @@ if __name__ == "__main__":
                                                              pressed_keys, sfx_button_role)
                             if garan_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
-                            if maurelle_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
-                            if celeste_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
-                            if torune_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
-                            if voruke_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
-                            if zerah_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
-                            if dionte_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
-                            if omoku_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
-                            if leyre_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
-                            if everett_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False)
                             if role_select_overlay.rect.collidepoint(pos):
@@ -21631,13 +21702,13 @@ if __name__ == "__main__":
                                         if current_npc_interacting.name != "Maydria":
                                             drawing_functions.quest_accept_box.append(quest_accepted)
                                         else:
-                                            info_text_1 = "You've accepted the task!"
+                                            info_text_1 = "You've accepted the quest!"
                                             info_text_2 = ""
                                             drawing_functions.quest_accept_box.append(task_accepted)
                                             task_star_maydria.update(860, 128, graphic_dict["maydria_progress_star"])
                                             npc_maydria.gift = True
                                     else:
-                                        info_text_1 = "You've accepted the task!"
+                                        info_text_1 = "You've accepted the quest"
                                         info_text_2 = ""
                                         drawing_functions.quest_accept_box.append(task_accepted)
                                         task_star_artherian.update(210, 400, graphic_dict["artherian_progress_star"])
@@ -21689,6 +21760,16 @@ if __name__ == "__main__":
                                     player.quest_status["shades of fear"] = True
                                     player.current_quests["shades of fear"] = "Everett hopes you'll defeat some " \
                                                                               "of the Necrolas around. "
+                                if current_npc_interacting.name == "Kuba":
+                                    player.quest_status["welcome to consona"] = True
+                                    player.current_quests["welcome to consona"] = "Find Nahun in the Korlok District."
+                                if current_npc_interacting.name == "Nahun":
+                                    player.quest_status["disenchanted"] = True
+                                    player.current_quests["disenchanted"] = ("Find Illisare within Ectrenos in "
+                                                                             "the Eldream District")
+                                if current_npc_interacting.name == "Illisare":
+                                    player.quest_status["madness in marrow"] = True
+                                    player.current_quests["madness in marrow"] = "Find the Vanguard in Marrow"
                                 quest_clicked = False
                                 drawing_functions.quest_box.clear()
 
@@ -21836,6 +21917,9 @@ if __name__ == "__main__":
                                                                          leyre_quest_window, aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window,
                                                                          artherian_task_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -21852,6 +21936,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -21894,7 +21981,10 @@ if __name__ == "__main__":
                                                                          omoku_quest_window, leyre_quest_window,
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window, artherian_task_window_2,
-                                                                         artherian_1, artherian_task_window_2)
+                                                                         artherian_1, artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not celeste_complete_shown:
@@ -21910,6 +22000,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -21954,6 +22047,9 @@ if __name__ == "__main__":
                                                                          leyre_quest_window, aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -21970,6 +22066,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -22069,6 +22168,9 @@ if __name__ == "__main__":
                                                                          leyre_quest_window, aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22085,6 +22187,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -22129,6 +22234,9 @@ if __name__ == "__main__":
                                                                          leyre_quest_window, aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22145,6 +22253,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -22187,6 +22298,9 @@ if __name__ == "__main__":
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22203,6 +22317,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -22306,6 +22423,9 @@ if __name__ == "__main__":
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22322,6 +22442,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -22364,6 +22487,9 @@ if __name__ == "__main__":
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22380,6 +22506,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -22422,6 +22551,9 @@ if __name__ == "__main__":
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22438,6 +22570,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -22480,6 +22615,9 @@ if __name__ == "__main__":
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22496,6 +22634,9 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
@@ -22530,7 +22671,6 @@ if __name__ == "__main__":
                                         info_text_2 = ""
                                         info_text_3 = ""
                                         info_text_4 = ""
-                                        player.reputation["amuna"] += 10
                                         player.items.append(Item("casing", "casing", 200, 200, graphic_dict["casing"],
                                                                  0))
                                         npc_artherian.gift = True
@@ -22554,7 +22694,9 @@ if __name__ == "__main__":
                                                                          aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
-                                                                         artherian_task_window_2)
+                                                                         artherian_task_window_2,
+                                                                         kuba_quest_window, nahun_quest_window,
+                                                                         illisare_quest_window)
                                         quest_clicked = True
                                     else:  # artherian task 2
                                         if not artherian_2:
@@ -22574,7 +22716,10 @@ if __name__ == "__main__":
                                                                              artherian_task_window,
                                                                              artherian_task_window_2,
                                                                              npc_artherian.gift,
-                                                                             artherian_task_window_2)
+                                                                             artherian_task_window_2,
+                                                                             kuba_quest_window,
+                                                                             nahun_quest_window,
+                                                                             illisare_quest_window)
                                             quest_clicked = True
                                         else:
                                             if not npc_artherian.quest_complete:
@@ -22583,6 +22728,9 @@ if __name__ == "__main__":
                                                         player.items.remove(item)
                                                 player.items.append(Item("legendary armor", "armor", 200, 200,
                                                                          graphic_dict["legendary_armor"], 4))
+                                                player.reputation["amuna"] += 10
+                                                player.star_power += 1
+                                                player.experience += 50
                                                 npc_artherian.quest_complete = True
                                             if not artherian_complete_shown:
                                                 pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -22600,7 +22748,10 @@ if __name__ == "__main__":
                                                                                       aitor_complete_quest_window,
                                                                                       everett_complete_quest_window,
                                                                                       artherian_complete_window,
-                                                                                      artherian_complete_window)
+                                                                                      artherian_complete_window,
+                                                                                      kuba_complete_window,
+                                                                                      nahun_complete_window,
+                                                                                      illisare_complete_window)
                                                 artherian_complete_shown = True
                                                 quest_clicked = True
 
@@ -22621,6 +22772,8 @@ if __name__ == "__main__":
                                     player.reputation["amuna"] += 10
                                     player.reputation["sorae"] += 10
                                     player.reputation["nuldar"] += 10
+                                    player.star_power += 1
+                                    player.experience += 50
 
                                 if not quest_clicked:
                                     if not npc_maydria.quest_complete:
@@ -22664,6 +22817,56 @@ if __name__ == "__main__":
                                     drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
+                            # everett npc, check player's quest progress and reward if completed -----------------------
+                            if current_npc_interacting.name == "Kuba":
+                                if not quest_clicked:
+                                    if not player.quest_complete["welcome to consona"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window,
+                                                                         celeste_quest_window,
+                                                                         torune_quest_window,
+                                                                         voruke_quest_window,
+                                                                         zerah_quest_window,
+                                                                         kirean_quest_window,
+                                                                         dionte_quest_window,
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window,
+                                                                         everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         kuba_quest_window,
+                                                                         nahun_quest_window,
+                                                                         illisare_quest_window)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not kuba_complete_shown:
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window,
+                                                                                  kirean_complete_quest_window,
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  kuba_complete_quest_window,
+                                                                                  nahun_complete_quest_window,
+                                                                                  illisare_complete_quest_window)
+                                            kuba_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box.clear()
+                                    quest_clicked = False
+
                         if npc_button == "leave":
                             movement_able = True
                             interacted = False
@@ -22676,6 +22879,10 @@ if __name__ == "__main__":
                             drawing_functions.quest_box.clear()
                             drawing_functions.type_advantage_window.clear()
                             drawing_functions.quest_accept_box.clear()
+                            # game guide popups
+                            if not quest_guide_shown:
+                                drawing_functions.game_guide_container.append(game_guide_overlay)
+                                quest_guide_shown = True
 
                     # outside event loop -------------------------------------------------------------------------------
                     if not encounter_started:
@@ -22690,6 +22897,8 @@ if __name__ == "__main__":
                             in_academia and not in_battle:
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            if player.current_zone == "nascent":
+                                screen.blit(nascent_interaction_screen, (0, 0))
                             if player.current_zone == "seldon":
                                 screen.blit(seldon_district_battle, (0, 0))
                             if player.current_zone == "korlok":
@@ -22765,6 +22974,9 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "Maydria":
                                 screen.blit(npc_maydria_interaction.surf, npc_maydria_interaction.rect)
                                 npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "Kuba":
+                                screen.blit(npc_kuba_interaction.surf, npc_kuba_interaction.rect)
+                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(npc_name_plate.surf, npc_name_plate.rect)
@@ -22773,6 +22985,8 @@ if __name__ == "__main__":
                                 screen.blit(star_power_meter.surf, star_power_meter.rect)
 
                         else:
+                            if player.current_zone == "nascent":
+                                game_window.blit(nascent_interaction_screen, (0, 0))
                             if player.current_zone == "seldon":
                                 game_window.blit(seldon_district_battle, (0, 0))
                             if player.current_zone == "korlok":
@@ -22848,6 +23062,9 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "Maydria":
                                 game_window.blit(npc_maydria_interaction.surf, npc_maydria_interaction.rect)
                                 npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "Kuba":
+                                game_window.blit(npc_kuba_interaction.surf, npc_kuba_interaction.rect)
+                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(npc_name_plate.surf, npc_name_plate.rect)

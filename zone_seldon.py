@@ -481,11 +481,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         player.x_coordinate = 925
         player.y_coordinate = 275
 
-    # game guide popups
-    if not quest_guide_shown:
-        drawing_functions.game_guide_container.append(game_guide_overlay)
-        quest_guide_shown = True
-
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])
     direction_vertical = random.choice(["up", "down"])
