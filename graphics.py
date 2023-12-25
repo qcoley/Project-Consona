@@ -537,6 +537,8 @@ def load_graphics():
     loaded_dict["korlok_district_button"] = quest_district_buttons_sheet[1]
     loaded_dict["eldream_district_button"] = quest_district_buttons_sheet[2]
     loaded_dict["marrow_district_button"] = quest_district_buttons_sheet[3]
+    loaded_dict["district_button_highlight"] = quest_district_buttons_sheet[4]
+    loaded_dict["district_button_select"] = quest_district_buttons_sheet[5]
     # muchador crate ---------------------------------------------------------------------------------------------------
     muchador_crate_url = resource_path('resources/art/overlay_muchador_crate.png')
     muchador_crate_sheet = sprite_sheet((125, 125), muchador_crate_url)

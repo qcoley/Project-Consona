@@ -988,7 +988,7 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
     else:
         text_name_surf = font.render(str(player.name), True, "black", "light yellow")
         text_name_rect = text_name_surf.get_rect()
-        text_name_rect.midleft = (595, 152)
+        text_name_rect.midleft = (595, 154)
         if player.race == "amuna":
             text_race_surf = font.render("Amuna", True, "black", "light yellow")
         if player.race == "nuldar":
@@ -996,7 +996,7 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         if player.race == "sorae":
             text_race_surf = font.render("Sorae", True, "black", "light yellow")
         text_race_rect = text_race_surf.get_rect()
-        text_race_rect.midleft = (592, 189)
+        text_race_rect.midleft = (592, 191)
         if player.role == "mage":
             text_rolled_surf = font.render("Mage", True, "black", "light yellow")
         if player.role == "fighter":
@@ -1006,52 +1006,52 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         if player.role == "":
             text_rolled_surf = font.render("", True, "black", "light yellow")
         text_rolled_rect = text_rolled_surf.get_rect()
-        text_rolled_rect.midleft = (588, 228)
+        text_rolled_rect.midleft = (588, 230)
         text_health_surf = font.render(str(player.health), True, "black", "light yellow")
         text_health_rect = text_health_surf.get_rect()
-        text_health_rect.midleft = (855, 151)
+        text_health_rect.midleft = (855, 153)
         text_energy_surf = font.render(str(player.energy), True, "black", "light yellow")
         text_energy_rect = text_energy_surf.get_rect()
-        text_energy_rect.midleft = (855, 189)
+        text_energy_rect.midleft = (855, 191)
         text_experience_surf = font.render(str(player.experience), True, "black", "light yellow")
         text_experience_rect = text_experience_surf.get_rect()
-        text_experience_rect.midleft = (890, 228)
+        text_experience_rect.midleft = (890, 230)
         text_mage_surf = font.render(str(player.knowledge["mage"]), True, "black", "light yellow")
         text_mage_rect = text_mage_surf.get_rect()
-        text_mage_rect.midleft = (680, 309)
+        text_mage_rect.midleft = (680, 311)
         text_fighter_surf = font.render(str(player.knowledge["fighter"]), True, "black", "light yellow")
         text_fighter_rect = text_fighter_surf.get_rect()
-        text_fighter_rect.midleft = (688, 347)
+        text_fighter_rect.midleft = (688, 349)
         text_scout_surf = font.render(str(player.knowledge["scout"]), True, "black", "light yellow")
         text_scout_rect = text_scout_surf.get_rect()
-        text_scout_rect.midleft = (680, 385)
+        text_scout_rect.midleft = (680, 387)
         text_amuna_surf = font.render(str(player.reputation["amuna"]), True, "black", "light yellow")
         text_amuna_rect = text_amuna_surf.get_rect()
-        text_amuna_rect.midleft = (940, 310)
+        text_amuna_rect.midleft = (940, 312)
         text_nuldar_surf = font.render(str(player.reputation["nuldar"]), True, "black", "light yellow")
         text_nuldar_rect = text_nuldar_surf.get_rect()
-        text_nuldar_rect.midleft = (940, 347)
+        text_nuldar_rect.midleft = (940, 349)
         text_sorae_surf = font.render(str(player.reputation["sorae"]), True, "black", "light yellow")
         text_sorae_rect = text_sorae_surf.get_rect()
-        text_sorae_rect.midleft = (935, 385)
+        text_sorae_rect.midleft = (935, 387)
         text_mage_skills_surf = font.render(str(player.skills_mage["skill 2"]) + ", " +
                                             str(player.skills_mage["skill 3"]) + ", " +
                                             str(player.skills_mage["skill 4"]),
                                             True, "black", "light yellow")
         text_mage_skills_rect = text_mage_skills_surf.get_rect()
-        text_mage_skills_rect.midleft = (650, 504)
+        text_mage_skills_rect.midleft = (650, 506)
         text_fighter_skills_surf = font.render(str(player.skills_fighter["skill 2"]) + ", " +
                                                str(player.skills_fighter["skill 3"]) + ", " +
                                                str(player.skills_fighter["skill 4"]),
                                                True, "black", "light yellow")
         text_fighter_skills_rect = text_fighter_skills_surf.get_rect()
-        text_fighter_skills_rect.midleft = (650, 542)
+        text_fighter_skills_rect.midleft = (650, 544)
         text_scout_skills_surf = font.render(str(player.skills_scout["skill 2"]) + ", " +
                                              str(player.skills_scout["skill 3"]) + ", " +
                                              str(player.skills_scout["skill 4"]),
                                              True, "black", "light yellow")
         text_scout_skills_rect = text_scout_skills_surf.get_rect()
-        text_scout_skills_rect.midleft = (650, 580)
+        text_scout_skills_rect.midleft = (650, 582)
 
         character_sheet_text.append((text_name_surf, text_name_rect))
         character_sheet_text.append((text_race_surf, text_race_rect))
@@ -1073,7 +1073,7 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
 
 def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_artherian, artherian_2, npc_maydria,
                       npc_boro, npc_noren, apothis_gift, seldon_button, korlok_button, eldream_button, marrow_button,
-                      district_selected):
+                      district_selected, district_select):
     if not draw_condition:
         journal_text.clear()
         journal_window.clear()
@@ -1081,47 +1081,47 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if district_selected == 0:
             text_quest1_surf = font.render("Sneaky snakes", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
-            text_quest1_rect.midleft = (600, 142)
+            text_quest1_rect.midleft = (600, 144)
             text_quest1_info_surf = font.render(str(list(player.current_quests.values())[0]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
-            text_quest1_info_rect.midleft = (540, 190)
+            text_quest1_info_rect.midleft = (540, 192)
             text_quest1_prog_surf = font.render(str(player.quest_progress["sneaky snakes"]) + " /4",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
-            text_quest1_prog_rect.midleft = (950, 145)
+            text_quest1_prog_rect.midleft = (950, 147)
 
             text_quest2_surf = font.render("Village repairs", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
-            text_quest2_rect.midleft = (600, 272)
+            text_quest2_rect.midleft = (600, 274)
             text_quest2_info_surf = font.render(str(list(player.current_quests.values())[1]), True, "black",
                                                 "light yellow")
             text_quest2_info_rect = text_quest2_info_surf.get_rect()
-            text_quest2_info_rect.midleft = (540, 320)
+            text_quest2_info_rect.midleft = (540, 322)
             text_quest2_prog_surf = font.render(str(player.quest_progress["village repairs"]) + " /4",
                                                 True, "black", "light yellow")
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
-            text_quest2_prog_rect.midleft = (950, 272)
+            text_quest2_prog_rect.midleft = (950, 274)
 
             text_quest3_surf = font.render("Where's nede?", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
-            text_quest3_rect.midleft = (600, 404)
+            text_quest3_rect.midleft = (600, 406)
             text_quest3_info_surf = font.render(str(list(player.current_quests.values())[2]), True, "black",
                                                 "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
-            text_quest3_info_rect.midleft = (540, 455)
+            text_quest3_info_rect.midleft = (540, 457)
             text_quest3_prog_surf = font.render(str(player.quest_progress["where's nede?"]) + " /1", True,
                                                 "black", "light yellow")
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
-            text_quest3_prog_rect.midleft = (950, 405)
+            text_quest3_prog_rect.midleft = (950, 407)
 
             text_quest4_surf = font.render("Ghouled again", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
-            text_quest4_rect.midleft = (600, 536)
+            text_quest4_rect.midleft = (600, 537)
             text_quest4_info_surf = font.render(str(list(player.current_quests.values())[3]), True, "black",
                                                 "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
-            text_quest4_info_rect.midleft = (540, 585)
+            text_quest4_info_rect.midleft = (540, 586)
             text_quest4_prog_surf = font.render(str(player.quest_progress["ghouled again"]) + " /4", True,
                                                 "black", "light yellow")
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
@@ -1130,47 +1130,47 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if district_selected == 1:
             text_quest1_surf = font.render("Welcome to Consona", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
-            text_quest1_rect.midleft = (600, 142)
+            text_quest1_rect.midleft = (600, 144)
             text_quest1_info_surf = font.render(str(list(player.current_quests.values())[12]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
-            text_quest1_info_rect.midleft = (540, 190)
+            text_quest1_info_rect.midleft = (540, 192)
             text_quest1_prog_surf = font.render(str(player.quest_progress["welcome to consona"]) + " /1",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
-            text_quest1_prog_rect.midleft = (950, 145)
+            text_quest1_prog_rect.midleft = (950, 147)
 
             text_quest2_surf = font.render("Band hammer", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
-            text_quest2_rect.midleft = (600, 272)
+            text_quest2_rect.midleft = (600, 274)
             text_quest2_info_surf = font.render(str(list(player.current_quests.values())[4]), True, "black",
                                                 "light yellow")
             text_quest2_info_rect = text_quest2_info_surf.get_rect()
-            text_quest2_info_rect.midleft = (540, 320)
+            text_quest2_info_rect.midleft = (540, 322)
             text_quest2_prog_surf = font.render(str(player.quest_progress["band hammer"]) + " /4",
                                                 True, "black", "light yellow")
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
-            text_quest2_prog_rect.midleft = (950, 272)
+            text_quest2_prog_rect.midleft = (950, 274)
 
             text_quest3_surf = font.render("Elementary elementals", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
-            text_quest3_rect.midleft = (600, 404)
+            text_quest3_rect.midleft = (600, 406)
             text_quest3_info_surf = font.render(str(list(player.current_quests.values())[5]), True, "black",
                                                 "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
-            text_quest3_info_rect.midleft = (540, 455)
+            text_quest3_info_rect.midleft = (540, 457)
             text_quest3_prog_surf = font.render(str(player.quest_progress["elementary elementals"]) + " /4", True,
                                                 "black", "light yellow")
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
-            text_quest3_prog_rect.midleft = (950, 405)
+            text_quest3_prog_rect.midleft = (950, 407)
 
             text_quest4_surf = font.render("It's dangerous to go alone", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
-            text_quest4_rect.midleft = (600, 536)
+            text_quest4_rect.midleft = (600, 537)
             text_quest4_info_surf = font.render(str(list(player.current_quests.values())[7]), True, "black",
                                                 "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
-            text_quest4_info_rect.midleft = (540, 585)
+            text_quest4_info_rect.midleft = (540, 586)
             text_quest4_prog_surf = font.render(str(player.quest_progress["it's dangerous to go alone"]) + " /1", True,
                                                 "black", "light yellow")
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
@@ -1179,47 +1179,47 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if district_selected == 2:
             text_quest1_surf = font.render("Disenchanted", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
-            text_quest1_rect.midleft = (600, 142)
+            text_quest1_rect.midleft = (600, 144)
             text_quest1_info_surf = font.render(str(list(player.current_quests.values())[13]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
-            text_quest1_info_rect.midleft = (540, 190)
+            text_quest1_info_rect.midleft = (540, 192)
             text_quest1_prog_surf = font.render(str(player.quest_progress["disenchanted"]) + " /1",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
-            text_quest1_prog_rect.midleft = (950, 145)
+            text_quest1_prog_rect.midleft = (950, 147)
 
             text_quest2_surf = font.render("Kart troubles", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
-            text_quest2_rect.midleft = (600, 272)
+            text_quest2_rect.midleft = (600, 274)
             text_quest2_info_surf = font.render(str(list(player.current_quests.values())[8]), True, "black",
                                                 "light yellow")
             text_quest2_info_rect = text_quest2_info_surf.get_rect()
-            text_quest2_info_rect.midleft = (540, 320)
+            text_quest2_info_rect.midleft = (540, 322)
             text_quest2_prog_surf = font.render(str(player.quest_progress["kart troubles"]) + " /4",
                                                 True, "black", "light yellow")
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
-            text_quest2_prog_rect.midleft = (950, 272)
+            text_quest2_prog_rect.midleft = (950, 274)
 
             text_quest3_surf = font.render("Las escondidas", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
-            text_quest3_rect.midleft = (600, 403)
+            text_quest3_rect.midleft = (600, 405)
             text_quest3_info_surf = font.render(str(list(player.current_quests.values())[9]), True, "black",
                                                 "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
-            text_quest3_info_rect.midleft = (540, 455)
+            text_quest3_info_rect.midleft = (540, 457)
             text_quest3_prog_surf = font.render(str(player.quest_progress["las escondidas"]) + " /4", True,
                                                 "black", "light yellow")
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
-            text_quest3_prog_rect.midleft = (950, 405)
+            text_quest3_prog_rect.midleft = (950, 407)
 
             text_quest4_surf = font.render("Shades of fear", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
-            text_quest4_rect.midleft = (600, 536)
+            text_quest4_rect.midleft = (600, 537)
             text_quest4_info_surf = font.render(str(list(player.current_quests.values())[11]), True, "black",
                                                 "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
-            text_quest4_info_rect.midleft = (540, 585)
+            text_quest4_info_rect.midleft = (540, 586)
             text_quest4_prog_surf = font.render(str(player.quest_progress["shades of fear"]) + " /4", True,
                                                 "black", "light yellow")
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
@@ -1228,19 +1228,19 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if district_selected == 3:
             text_quest1_surf = font.render("Madness in Marrow", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
-            text_quest1_rect.midleft = (600, 142)
+            text_quest1_rect.midleft = (600, 144)
             text_quest1_info_surf = font.render(str(list(player.current_quests.values())[12]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
-            text_quest1_info_rect.midleft = (540, 190)
+            text_quest1_info_rect.midleft = (540, 192)
             text_quest1_prog_surf = font.render(str(player.quest_progress["madness in marrow"]) + " /1",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
-            text_quest1_prog_rect.midleft = (950, 145)
+            text_quest1_prog_rect.midleft = (950, 147)
 
             text_quest2_surf = font.render("Vamos Vanguard", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
-            text_quest2_rect.midleft = (600, 272)
+            text_quest2_rect.midleft = (600, 274)
             if not npc_maydria.gift:
                 text_quest2_info_surf = font.render("Talk to Maydria to start this quest.",
                                                     True, "black", "light yellow")
@@ -1256,20 +1256,20 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
                 text_quest2_info_surf = font.render("You completed this quest.",
                                                     True, "black", "light yellow")
             text_quest2_info_rect = text_quest2_info_surf.get_rect()
-            text_quest2_info_rect.midleft = (540, 320)
+            text_quest2_info_rect.midleft = (540, 322)
             if not npc_boro.quest_complete and not npc_noren.quest_complete:
-                text_quest2_prog_surf = font.render("0/2", True, "black", "light yellow")
+                text_quest2_prog_surf = font.render("0 /2", True, "black", "light yellow")
             elif (npc_boro.quest_complete and not npc_noren.quest_complete or npc_noren.quest_complete
                   and not npc_boro.quest_complete):
-                text_quest2_prog_surf = font.render("1/2", True, "black", "light yellow")
+                text_quest2_prog_surf = font.render("1 /2", True, "black", "light yellow")
             elif npc_boro.quest_complete and npc_noren.quest_complete:
-                text_quest2_prog_surf = font.render("2/2", True, "black", "light yellow")
+                text_quest2_prog_surf = font.render("2 /2", True, "black", "light yellow")
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
-            text_quest2_prog_rect.midleft = (950, 272)
+            text_quest2_prog_rect.midleft = (950, 274)
 
             text_quest3_surf = font.render("Legends never die", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
-            text_quest3_rect.midleft = (600, 404)
+            text_quest3_rect.midleft = (600, 406)
             if not npc_artherian.gift:
                 text_quest3_info_surf = font.render("Talk to Artherian to start this quest.",
                                                     True, "black", "light yellow")
@@ -1282,22 +1282,22 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             if npc_artherian.quest_complete:
                 text_quest3_info_surf = font.render("You completed this quest.", True, "black", "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
-            text_quest3_info_rect.midleft = (540, 455)
-            text_quest3_prog_surf = font.render("0/2", True, "black", "light yellow")
+            text_quest3_info_rect.midleft = (540, 457)
+            text_quest3_prog_surf = font.render("0 /2", True, "black", "light yellow")
             if npc_artherian.gift and not artherian_2:
-                text_quest3_prog_surf = font.render("1/2", True, "black", "light yellow")
+                text_quest3_prog_surf = font.render("1 /2", True, "black", "light yellow")
             if artherian_2:
-                text_quest3_prog_surf = font.render("2/2", True, "black", "light yellow")
+                text_quest3_prog_surf = font.render("2 /2", True, "black", "light yellow")
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
-            text_quest3_prog_rect.midleft = (950, 405)
+            text_quest3_prog_rect.midleft = (950, 407)
 
             text_quest4_surf = font.render("Shades of fear", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
-            text_quest4_rect.midleft = (600, 536)
+            text_quest4_rect.midleft = (600, 537)
             text_quest4_info_surf = font.render(str(list(player.current_quests.values())[11]), True, "black",
                                                 "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
-            text_quest4_info_rect.midleft = (540, 585)
+            text_quest4_info_rect.midleft = (540, 586)
             text_quest4_prog_surf = font.render(str(player.quest_progress["shades of fear"]) + " /4", True,
                                                 "black", "light yellow")
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
@@ -1320,6 +1320,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         journal_window.append(korlok_button)
         journal_window.append(eldream_button)
         journal_window.append(marrow_button)
+        journal_window.append(district_select)
 
 
 def level_up_draw(level_up_win, player, level_up_font, draw_condition):
@@ -1746,7 +1747,9 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       trade_atmon, trade_jumano, trade_chorizon, trade_muchador, trade_chinzilla, trade_erebyth,
                       missile_learn_button, fire_button, edge_button, arrow_button, kasper_button, torok_button,
                       iriana_button, card_deck_button, trade_deck_unlocked, neras_grace, arens_strength,
-                      spirit_of_wisdom):
+                      spirit_of_wisdom, seldon_district_button, korlok_district_button, eldream_district_button,
+                      marrow_district_button):
+
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1979,6 +1982,24 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
             if item_info_button.rect.collidepoint(pos):
                 button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
                                         graphic_dict["main high"])
+                return True
+
+        if len(journal_window) > 0:
+            if seldon_district_button.rect.collidepoint(pos):
+                button_highlight.update(seldon_district_button.x_coordinate, seldon_district_button.y_coordinate,
+                                        graphic_dict["district_button_highlight"])
+                return True
+            elif korlok_district_button.rect.collidepoint(pos):
+                button_highlight.update(korlok_district_button.x_coordinate, korlok_district_button.y_coordinate,
+                                        graphic_dict["district_button_highlight"])
+                return True
+            elif eldream_district_button.rect.collidepoint(pos):
+                button_highlight.update(eldream_district_button.x_coordinate, eldream_district_button.y_coordinate,
+                                        graphic_dict["district_button_highlight"])
+                return True
+            elif marrow_district_button.rect.collidepoint(pos):
+                button_highlight.update(marrow_district_button.x_coordinate, marrow_district_button.y_coordinate,
+                                        graphic_dict["district_button_highlight"])
                 return True
 
         if in_inn:

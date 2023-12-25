@@ -7518,7 +7518,11 @@ def button_highlighter(posit):
                                                               fire_button, edge_button, arrow_button,
                                                               kasper_whistle_button, torok_whistle_button,
                                                               iriana_whistle_button, card_deck_button, trading_deck,
-                                                              nera_button, aren_button, spirit_button)
+                                                              nera_button, aren_button, spirit_button,
+                                                              seldon_quest_district_button,
+                                                              korlok_quest_district_button,
+                                                              eldream_quest_district_button,
+                                                              marrow_quest_district_button)
     return button_highlighters
 
 
@@ -7833,12 +7837,12 @@ if __name__ == "__main__":
                           "hatch 'em all": "Speak to the menagerie owner to start this quest",
                           "shades of fear": "Speak to Everett to start this quest",
                           "welcome to consona": "Speak to Kuba to start this quest",
-                          "disenchanted": "Speak to Kuba to start this quest",
-                          "madness in marrow": "Speak to Kuba to start this quest"},
+                          "disenchanted": "Speak to Nahun to start this quest",
+                          "madness in marrow": "Speak to Illisare to start this quest"},
                          {"sneaky snakes": 0, "village repairs": 0, "where's nede?": 0, "ghouled again": 0,
                           "band hammer": 0, "elementary elementals": 0, "can't apothecary it": 0,
                           "it's dangerous to go alone": 0, "kart troubles": 0, "las escondidas": 0, "hatch 'em all": 0,
-                          "shades of fear": 0, "welcome to consona": 0, "disenchanted": 0},
+                          "shades of fear": 0, "welcome to consona": 0, "disenchanted": 0, "madness in marrow": 0},
                          {"sneaky snakes": False, "village repairs": False, "where's nede?": False,
                           "ghouled again": False, "band hammer": False, "elementary elementals": False,
                           "can't apothecary it": False, "it's dangerous to go alone": False, "kart troubles": False,
@@ -8288,6 +8292,7 @@ if __name__ == "__main__":
     korlok_quest_district_button = UiElement("korlok button", 842, 102, graphic_dict["korlok_district_button"])
     eldream_quest_district_button = UiElement("eldream button", 912, 102, graphic_dict["eldream_district_button"])
     marrow_quest_district_button = UiElement("marrow button", 982, 102, graphic_dict["marrow_district_button"])
+    district_button_select = UiElement("district select", 772, 102, graphic_dict["district_button_select"])
 
     stun_overlay = UiElement("stun overlay", 700, 260, graphic_dict["stun_img"])
     vanish_overlay = UiElement("vanish overlay", 100, 600, graphic_dict["vanish_img"])
@@ -10473,7 +10478,7 @@ if __name__ == "__main__":
                                                               graphic_dict["quest_complete_star"],
                                                               quest_star_voruke, quest_star_zerah,
                                                               quest_star_dionte, quest_star_omoku,
-                                                              quest_star_leyre,quest_star_everett,
+                                                              quest_star_leyre, quest_star_everett,
                                                               task_star_artherian,
                                                               graphic_dict["artherian_progress_star"],
                                                               graphic_dict["artherian_complete_star"],
@@ -10778,7 +10783,12 @@ if __name__ == "__main__":
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren, apothis_gift)
+                                                                    npc_noren, apothis_gift,
+                                                                    seldon_quest_district_button,
+                                                                    korlok_quest_district_button,
+                                                                    eldream_quest_district_button,
+                                                                    marrow_quest_district_button,
+                                                                    quest_district_selected)
 
                             # "F" key for player interaction
                             if event.key == K_f:
@@ -10905,6 +10915,104 @@ if __name__ == "__main__":
                                 card_deck["jumano_popup"] = False
                                 card_drop_played = False
 
+                            if len(drawing_functions.journal_window) > 0:
+                                if seldon_quest_district_button.rect.collidepoint(pos):
+                                    district_button_select.update(772, 102, graphic_dict["district_button_select"])
+                                    drawing_functions.journal_info_draw(journal, player, font, False,
+                                                                        marrow_switch_phase, npc_artherian,
+                                                                        artherian_2, npc_maydria, npc_boro,
+                                                                        npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected,
+                                                                        district_button_select)
+                                    quest_district_selected = 0
+                                    drawing_functions.journal_info_draw(journal, player, font, True,
+                                                                        marrow_switch_phase, npc_artherian,
+                                                                        artherian_2, npc_maydria, npc_boro,
+                                                                        npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected,
+                                                                        district_button_select)
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                if korlok_quest_district_button.rect.collidepoint(pos):
+                                    district_button_select.update(842, 102, graphic_dict["district_button_select"])
+                                    drawing_functions.journal_info_draw(journal, player, font, False,
+                                                                        marrow_switch_phase, npc_artherian,
+                                                                        artherian_2, npc_maydria, npc_boro,
+                                                                        npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected,
+                                                                        district_button_select)
+                                    quest_district_selected = 1
+                                    drawing_functions.journal_info_draw(journal, player, font, True,
+                                                                        marrow_switch_phase, npc_artherian,
+                                                                        artherian_2, npc_maydria, npc_boro,
+                                                                        npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected,
+                                                                        district_button_select)
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                if eldream_quest_district_button.rect.collidepoint(pos):
+                                    district_button_select.update(912, 102, graphic_dict["district_button_select"])
+                                    drawing_functions.journal_info_draw(journal, player, font, False,
+                                                                        marrow_switch_phase, npc_artherian,
+                                                                        artherian_2, npc_maydria, npc_boro,
+                                                                        npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected,
+                                                                        district_button_select)
+                                    quest_district_selected = 2
+                                    drawing_functions.journal_info_draw(journal, player, font, True,
+                                                                        marrow_switch_phase, npc_artherian,
+                                                                        artherian_2, npc_maydria, npc_boro,
+                                                                        npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected,
+                                                                        district_button_select)
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                if marrow_quest_district_button.rect.collidepoint(pos):
+                                    district_button_select.update(982, 102, graphic_dict["district_button_select"])
+                                    drawing_functions.journal_info_draw(journal, player, font, False,
+                                                                        marrow_switch_phase, npc_artherian,
+                                                                        artherian_2, npc_maydria, npc_boro,
+                                                                        npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected,
+                                                                        district_button_select)
+                                    quest_district_selected = 3
+                                    drawing_functions.journal_info_draw(journal, player, font, True,
+                                                                        marrow_switch_phase, npc_artherian,
+                                                                        artherian_2, npc_maydria, npc_boro,
+                                                                        npc_noren, apothis_gift,
+                                                                        seldon_quest_district_button,
+                                                                        korlok_quest_district_button,
+                                                                        eldream_quest_district_button,
+                                                                        marrow_quest_district_button,
+                                                                        quest_district_selected,
+                                                                        district_button_select)
+                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+
                             # turn music off and on
                             if music_toggle_button.rect.collidepoint(pos):
                                 if not music_toggle:
@@ -11010,7 +11118,13 @@ if __name__ == "__main__":
                                 # clears other windows first, if they were open
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren, apothis_gift)
+                                                                    npc_noren, apothis_gift,
+                                                                    seldon_quest_district_button,
+                                                                    korlok_quest_district_button,
+                                                                    eldream_quest_district_button,
+                                                                    marrow_quest_district_button,
+                                                                    quest_district_selected,
+                                                                    district_button_select)
                                 journal_button_clicked = False
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 character_button_clicked = False
@@ -11043,7 +11157,13 @@ if __name__ == "__main__":
                                 drawing_functions.journal_info_draw(journal, player, font, False,
                                                                     marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren, apothis_gift)
+                                                                    npc_noren, apothis_gift,
+                                                                    seldon_quest_district_button,
+                                                                    korlok_quest_district_button,
+                                                                    eldream_quest_district_button,
+                                                                    marrow_quest_district_button,
+                                                                    quest_district_selected,
+                                                                    district_button_select)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -11197,7 +11317,8 @@ if __name__ == "__main__":
                                                                     korlok_quest_district_button,
                                                                     eldream_quest_district_button,
                                                                     marrow_quest_district_button,
-                                                                    quest_district_selected)
+                                                                    quest_district_selected,
+                                                                    district_button_select)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -11234,7 +11355,8 @@ if __name__ == "__main__":
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
-                                                                        quest_district_selected)
+                                                                        quest_district_selected,
+                                                                        district_button_select)
                                     journal_button_clicked = False
                                 else:
                                     if in_over_world:
@@ -11246,7 +11368,8 @@ if __name__ == "__main__":
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
-                                                                        quest_district_selected)
+                                                                        quest_district_selected,
+                                                                        district_button_select)
                                     journal_button_clicked = True
 
                             # for clicking map buttons, when the map is open
