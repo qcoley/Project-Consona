@@ -5024,6 +5024,13 @@ def load_graphics():
     loaded_dict["nascent_npc_left"] = nascent_npc_sheet[1]
     loaded_dict["nascent_npc_right"] = nascent_npc_sheet[2]
     loaded_dict["nascent_npc_up"] = nascent_npc_sheet[3]
+    # nahun npc ----------------------------------------------------------------------------------------------
+    nahun_npc_url = resource_path('resources/art/sprites_nahun.png')
+    nahun_npc_sheet = sprite_sheet((50, 62), nahun_npc_url)
+    loaded_dict["nahun_down"] = nahun_npc_sheet[0]
+    loaded_dict["nahun_left"] = nahun_npc_sheet[1]
+    loaded_dict["nahun_right"] = nahun_npc_sheet[2]
+    loaded_dict["nahun_up"] = nahun_npc_sheet[3]
     # zerah npc -------------------------------------------------------------------------------------------------------
     zerah_url = resource_path('resources/art/sprites_zerah.png')
     zerah_sheet = sprite_sheet((50, 62), zerah_url)

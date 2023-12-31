@@ -24,7 +24,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
                     worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
-                    even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset):
+                    even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset,
+                    nahun, star_nahun):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -73,6 +74,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(building.surf, building.rect)
     screen.blit(voruke.surf, voruke.rect)
     screen.blit(zerah.surf, zerah.rect)
+    screen.blit(nahun.surf, nahun.rect)
     screen.blit(mines_entrance.surf, mines_entrance.rect)
     screen.blit(hearth_stone.surf, hearth_stone.rect)
     for magmon in magmons:
@@ -120,6 +122,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(star_voruke.surf, star_voruke.rect)
     if not player.quest_complete["elementary elementals"]:
         screen.blit(star_zerah.surf, star_zerah.rect)
+    if not player.quest_complete["disenchanted"]:
+        screen.blit(star_nahun.surf, star_nahun.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -501,21 +505,29 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         if npc_toc - npc_tic > 5:
             npc_tic = time.perf_counter()
             if face_direction == "front":
+                if face_this_npc.name == "Nahun":
+                    nahun.update(graphic_dict["nahun_down"])
                 if face_this_npc.name == "Voruke":
                     voruke.update(graphic_dict["voruke_down"])
                 if face_this_npc.name == "Zerah":
                     zerah.update(graphic_dict["zerah_down"])
             if face_direction == "back":
+                if face_this_npc.name == "Nahun":
+                    nahun.update(graphic_dict["nahun_up"])
                 if face_this_npc.name == "Voruke":
                     voruke.update(graphic_dict["voruke_up"])
                 if face_this_npc.name == "Zerah":
                     zerah.update(graphic_dict["zerah_up"])
             if face_direction == "left":
+                if face_this_npc.name == "Nahun":
+                    nahun.update(graphic_dict["nahun_left"])
                 if face_this_npc.name == "Voruke":
                     voruke.update(graphic_dict["voruke_left"])
                 if face_this_npc.name == "Zerah":
                     zerah.update(graphic_dict["zerah_left"])
             if face_direction == "right":
+                if face_this_npc.name == "Nahun":
+                    nahun.update(graphic_dict["nahun_right"])
                 if face_this_npc.name == "Voruke":
                     voruke.update(graphic_dict["voruke_right"])
                 if face_this_npc.name == "Zerah":

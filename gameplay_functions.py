@@ -1846,7 +1846,7 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
                            npc_noren, artherian_task_start, star_kuba, star_nahun, star_illisare):
 
     if player.current_zone == "nascent":
-        if player.quest_status["welcome to consona"] and player.quest_progress["welcome to consona"] != 1:
+        if player.quest_status["welcome to consona"] and not player.quest_complete["welcome to consona"]:
             star_kuba.update(624, 80, quest_progress_star)
 
     if player.current_zone == "seldon":
@@ -1877,9 +1877,9 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
         elif player.quest_status["elementary elementals"] and player.quest_progress["elementary elementals"] != 4:
             star_zerah.update(651, 50, quest_progress_star)
         if player.quest_progress["welcome to consona"] == 1 and not player.quest_status["disenchanted"]:
-            star_nahun.update(624, 80, quest_complete_star)
-        elif player.quest_status["disenchanted"]:
-            star_nahun.update(624, 80, quest_progress_star)
+            star_nahun.update(791, 410, quest_complete_star)
+        elif player.quest_status["disenchanted"] and not player.quest_complete["disenchanted"]:
+            star_nahun.update(791, 410, quest_progress_star)
 
     if player.current_zone == "terra trail":
         if player.quest_progress["it's dangerous to go alone"] == 1:

@@ -7892,6 +7892,8 @@ if __name__ == "__main__":
     npc_torune = NPC("Torune", "nuldar", "Onur-oh.", "ghouled again", "", 430, 120,
                      True, False, ["Items"], False, graphic_dict["torune_down"])
 
+    npc_nahun = NPC("Nahun", "nuldar", "Onur-oh.", "Disenchanted", "", 792, 450,
+                     True, False, ["Items"], False, graphic_dict["nahun_down"])
     npc_voruke = NPC("Voruke", "nuldar", "Onur-oh.", "band hammer", "", 262, 425,
                      True, False, ["Items"], False, graphic_dict["voruke_down"])
     npc_zerah = NPC("Zerah", "nuldar", "Onur-oh.", "elementary elementals", "", 652, 90,
@@ -8387,7 +8389,7 @@ if __name__ == "__main__":
     task_accepted = UiElement("task accept overlay", 550, 325, graphic_dict["task_accepted"])
 
     quest_star_nascent = UiElement("quest star kuba", 624, 80, graphic_dict["quest_start_star"])
-    quest_star_nahun = UiElement("quest star nahun", 624, 80, graphic_dict["quest_start_star"])
+    quest_star_nahun = UiElement("quest star nahun", 791, 410, graphic_dict["quest_start_star"])
     quest_star_illisare = UiElement("quest star illisare", 624, 80, graphic_dict["quest_start_star"])
 
     quest_star_garan = UiElement("quest star garan", 209, 390, graphic_dict["quest_start_star"])
@@ -8737,7 +8739,7 @@ if __name__ == "__main__":
     atmons.add(atmon_1, atmon_2, atmon_3, atmon_4)
     jumanos.add(jumano_1, jumano_2, jumano_3, jumano_4)
     npcs_seldon.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
-    npcs_korlok.add(npc_voruke, npc_zerah)
+    npcs_korlok.add(npc_voruke, npc_zerah, npc_nahun)
     npcs_marrow.add(npc_maydria, npc_noren, npc_boro, npc_artherian)
     seldon_enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     korlok_enemies.add(magmon_1, magmon_2, magmon_3, magmon_4)
@@ -11968,7 +11970,8 @@ if __name__ == "__main__":
                                                                       forge_entrance, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
-                                                                      magmons_highlighted, magmons_reset)
+                                                                      magmons_highlighted, magmons_reset, npc_nahun,
+                                                                      quest_star_nahun)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -12015,7 +12018,8 @@ if __name__ == "__main__":
                                                                       forge_entrance, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
-                                                                      magmons_highlighted, magmons_reset)
+                                                                      magmons_highlighted, magmons_reset, npc_nahun,
+                                                                      quest_star_nahun)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -19912,7 +19916,9 @@ if __name__ == "__main__":
                                                                      omoku_quest_window, leyre_quest_window,
                                                                      aitor_quest_window, everett_quest_window,
                                                                      artherian_task_window, artherian_task_window_2,
-                                                                     artherian_1, artherian_task_window)
+                                                                     artherian_1, artherian_task_window,
+                                                                     kuba_quest_window, nahun_quest_window,
+                                                                     illisare_quest_window)
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not kirean_complete_shown:
@@ -19930,6 +19936,9 @@ if __name__ == "__main__":
                                                                               aitor_complete_quest_window,
                                                                               everett_complete_quest_window,
                                                                               everett_complete_quest_window,
+                                                                              everett_complete_quest_window,
+                                                                              everett_complete_quest_window,
+                                                                              everett_complete_quest_window,
                                                                               everett_complete_quest_window)
                                         kirean_complete_shown = True
                                         quest_clicked = True
@@ -19940,9 +19949,9 @@ if __name__ == "__main__":
                         # options once quest window is open ------------------------------------------------------------
                         if len(drawing_functions.quest_box) > 1:
                             if quest_buttons == "accept":
-                                drawing_functions.quest_accept_box.append(quest_accepted)
+                                drawing_functions.quest_accept_box.append(task_accepted)
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
-                                info_text_1 = "You've accepted the quest!"
+                                info_text_1 = "You've accepted the task!"
                                 button_highlighted = False
                                 player.quest_status["can't apothecary it"] = True
                                 player.current_quests["can't apothecary it"] = "Kirean asked you to gather ore."
@@ -21933,13 +21942,16 @@ if __name__ == "__main__":
                                 if current_npc_interacting.name == "Kuba":
                                     player.quest_status["welcome to consona"] = True
                                     player.current_quests["welcome to consona"] = "Find Nahun in the Korlok District."
+                                    player.quest_progress["welcome to consona"] = 1
                                 if current_npc_interacting.name == "Nahun":
                                     player.quest_status["disenchanted"] = True
                                     player.current_quests["disenchanted"] = ("Find Illisare within Ectrenos in "
                                                                              "the Eldream District")
+                                    player.quest_progress["disenchanted"] = 1
                                 if current_npc_interacting.name == "Illisare":
                                     player.quest_status["madness in marrow"] = True
                                     player.current_quests["madness in marrow"] = "Find the Vanguard in Marrow"
+                                    player.quest_progress["madness in marrow"] = 1
                                 quest_clicked = False
                                 drawing_functions.quest_box.clear()
 
