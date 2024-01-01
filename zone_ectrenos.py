@@ -18,7 +18,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
                   npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite, critter,
                   right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter, better_fish_counter,
-                  even_better_fish_counter, best_fish_counter, vanished):
+                  even_better_fish_counter, best_fish_counter, vanished, illisare, star_illisare):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -80,6 +80,9 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         npc_leyre.update_position(682, 420)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
 
+    screen.blit(illisare.surf, illisare.rect)
+    if not player.quest_complete["madness in marrow"]:
+        screen.blit(star_illisare.surf, star_illisare.rect)
     try:
         for pet in player.pet:
             if pet.active:

@@ -1838,7 +1838,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
 
 
 # quest stars for npcs that update based on player quest progress
-def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star_torune,
+def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star_torune, quest_start_star,
                            quest_progress_star, quest_complete_star, star_voruke, star_zerah,
                            star_dionte, star_omoku, star_leyre, star_everett, star_artherian,
                            artherian_progress_star, artherian_complete_star, artherian_2,
@@ -1876,8 +1876,10 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
             star_zerah.update(651, 50, quest_complete_star)
         elif player.quest_status["elementary elementals"] and player.quest_progress["elementary elementals"] != 4:
             star_zerah.update(651, 50, quest_progress_star)
-        if player.quest_progress["welcome to consona"] == 1 and not player.quest_status["disenchanted"]:
+        if player.quest_progress["welcome to consona"] == 1 and not player.quest_complete["welcome to consona"]:
             star_nahun.update(791, 410, quest_complete_star)
+        elif player.quest_complete["welcome to consona"] and not player.quest_status["disenchanted"]:
+            star_nahun.update(791, 410, quest_start_star)
         elif player.quest_status["disenchanted"] and not player.quest_complete["disenchanted"]:
             star_nahun.update(791, 410, quest_progress_star)
 
@@ -1898,10 +1900,12 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
             star_leyre.update(682, 375, quest_complete_star)
         elif player.quest_status["las escondidas"] and player.quest_progress["las escondidas"] != 4:
             star_leyre.update(682, 375, quest_progress_star)
-        if player.quest_progress["disenchanted"] == 1 and not player.quest_status["madness in marrow"]:
-            star_illisare.update(624, 80, quest_complete_star)
+        if player.quest_progress["disenchanted"] == 1 and not player.quest_complete["disenchanted"]:
+            star_illisare.update(515, 60, quest_complete_star)
+        elif player.quest_complete["disenchanted"] and not player.quest_status["madness in marrow"]:
+            star_illisare.update(515, 60, quest_start_star)
         elif player.quest_status["madness in marrow"]:
-            star_illisare.update(624, 80, quest_progress_star)
+            star_illisare.update(515, 60, quest_progress_star)
     if player.current_zone == "ectrenos front":
         if player.quest_progress["shades of fear"] == 4:
             star_everett.update(749, 278, quest_complete_star)

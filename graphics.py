@@ -5031,6 +5031,13 @@ def load_graphics():
     loaded_dict["nahun_left"] = nahun_npc_sheet[1]
     loaded_dict["nahun_right"] = nahun_npc_sheet[2]
     loaded_dict["nahun_up"] = nahun_npc_sheet[3]
+    # illisare npc ----------------------------------------------------------------------------------------------
+    illisare_npc_url = resource_path('resources/art/sprites_illisare.png')
+    illisare_npc_sheet = sprite_sheet((50, 62), illisare_npc_url)
+    loaded_dict["illisare_down"] = illisare_npc_sheet[0]
+    loaded_dict["illisare_left"] = illisare_npc_sheet[1]
+    loaded_dict["illisare_right"] = illisare_npc_sheet[2]
+    loaded_dict["illisare_up"] = illisare_npc_sheet[3]
     # zerah npc -------------------------------------------------------------------------------------------------------
     zerah_url = resource_path('resources/art/sprites_zerah.png')
     zerah_sheet = sprite_sheet((50, 62), zerah_url)
@@ -5112,6 +5119,8 @@ def load_graphics():
     loaded_dict["artherian_interaction"] = npc_interactions_sheet[10]
     loaded_dict["maydria_interaction"] = npc_interactions_sheet[11]
     loaded_dict["kuba_interaction"] = npc_interactions_sheet[12]
+    loaded_dict["nahun_interaction"] = npc_interactions_sheet[13]
+    loaded_dict["illisare_interaction"] = npc_interactions_sheet[14]
     # interaction popup ------------------------------------------------------------------------------------------------
     interaction_popup_url = resource_path('resources/art/popup_interaction.png')
     interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)

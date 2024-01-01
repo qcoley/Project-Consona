@@ -7901,6 +7901,8 @@ if __name__ == "__main__":
     npc_dionte = NPC("Dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 585, 100,
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
+    npc_illisare = NPC("Illisare", "sorae", "idk.", "Disenchanted", "", 518, 100,
+                    True, False, ["Items"], False, graphic_dict["illisare_down"])
     npc_omoku = NPC("Omoku", "nuldar", "Onur-oh.", "kart troubles", "", 460, 655,
                     True, False, ["Items"], False, graphic_dict["omoku_down"])
     npc_leyre = NPC("Leyre", "sorae", "Hola.", "las escondidas", "", 682, 420,
@@ -7970,6 +7972,8 @@ if __name__ == "__main__":
     npc_artherian_interaction = UiElement("artherian interaction", 678, 325, graphic_dict["artherian_interaction"])
     npc_maydria_interaction = UiElement("maydria interaction", 678, 325, graphic_dict["maydria_interaction"])
     npc_kuba_interaction = UiElement("kuba interaction", 676, 325, graphic_dict["kuba_interaction"])
+    npc_nahun_interaction = UiElement("nahun interaction", 676, 325, graphic_dict["nahun_interaction"])
+    npc_illisare_interaction = UiElement("illisare interaction", 676, 325, graphic_dict["illisare_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -8390,7 +8394,7 @@ if __name__ == "__main__":
 
     quest_star_nascent = UiElement("quest star kuba", 624, 80, graphic_dict["quest_start_star"])
     quest_star_nahun = UiElement("quest star nahun", 791, 410, graphic_dict["quest_start_star"])
-    quest_star_illisare = UiElement("quest star illisare", 624, 80, graphic_dict["quest_start_star"])
+    quest_star_illisare = UiElement("quest star illisare", 515, 60, graphic_dict["quest_start_star"])
 
     quest_star_garan = UiElement("quest star garan", 209, 390, graphic_dict["quest_start_star"])
     quest_star_maurelle = UiElement("quest star maurelle", 744, 575, graphic_dict["quest_start_star"])
@@ -8777,7 +8781,7 @@ if __name__ == "__main__":
                              seldon_flowers)
     interactables_stardust.add(stardust_entrance, nede, ghoul_nede, rock_3, stelli_a, stelli_b, stelli_c)
     interactables_korlok.add(nuldar_buildings, reservoir_enter, rohir_gate, hearth_stone, korlok_enemies,
-                             mines_entrance, npc_voruke, npc_zerah, rock_4, rock_5, rock_6)
+                             mines_entrance, npc_voruke, npc_zerah, rock_4, rock_5, rock_6, npc_nahun)
     interactables_reservoir_a.add(dungeon_items, chorizon_1, chorizon_2, dungeon_teleporter)
     interactables_reservoir_b.add(dungeon_gate, dungeon_teleporter, dungeon_crate_5, muchador, reservoir_passage)
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
@@ -10476,6 +10480,7 @@ if __name__ == "__main__":
 
                     gameplay_functions.npc_quest_star_updates(player, quest_star_garan, quest_star_maurelle,
                                                               quest_star_celeste, quest_star_torune,
+                                                              graphic_dict["quest_start_star"],
                                                               graphic_dict["quest_progress_star"],
                                                               graphic_dict["quest_complete_star"],
                                                               quest_star_voruke, quest_star_zerah,
@@ -12069,7 +12074,7 @@ if __name__ == "__main__":
                                                                          quest_star_garan, quest_star_maurelle,
                                                                          quest_star_celeste, quest_star_torune,
                                                                          quest_star_voruke, quest_star_zerah,
-                                                                         quest_star_apothecary, terra_mountains,
+                                                                         quest_star_voruke, terra_mountains,
                                                                          terra_cave, npc_dionte, quest_star_dionte,
                                                                          Enemy,
                                                                          player_battle_sprite, snake_battle_sprite,
@@ -12123,7 +12128,7 @@ if __name__ == "__main__":
                                                                          quest_star_garan, quest_star_maurelle,
                                                                          quest_star_celeste, quest_star_torune,
                                                                          quest_star_voruke, quest_star_zerah,
-                                                                         quest_star_apothecary, terra_mountains,
+                                                                         quest_star_voruke, terra_mountains,
                                                                          terra_cave, npc_dionte, quest_star_dionte,
                                                                          Enemy,
                                                                          player_battle_sprite, snake_battle_sprite,
@@ -13442,7 +13447,8 @@ if __name__ == "__main__":
                                                                              mini_map_overlay, basic_fish_counter,
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
-                                                                             best_fish_counter, vanished)
+                                                                             best_fish_counter, vanished, npc_illisare,
+                                                                             quest_star_illisare)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -13485,7 +13491,8 @@ if __name__ == "__main__":
                                                                              mini_map_overlay, basic_fish_counter,
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
-                                                                             best_fish_counter, vanished)
+                                                                             best_fish_counter, vanished, npc_illisare,
+                                                                             quest_star_illisare)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -23023,8 +23030,55 @@ if __name__ == "__main__":
                                                                          nahun_quest_window,
                                                                          illisare_quest_window)
                                         quest_clicked = True
-                                    else:  # quest complete popup
-                                        if not kuba_complete_shown:
+                                else:
+                                    drawing_functions.quest_box.clear()
+                                    quest_clicked = False
+
+                            # voruke npc, check player's quest progress and reward if completed ------------------------
+                            if current_npc_interacting.name == "Nahun":
+                                if player.quest_progress["welcome to consona"] == 1 and not \
+                                        player.quest_complete["welcome to consona"]:
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["welcome to consona"] = True
+                                    player.current_quests["welcome to consona"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Kuba's quest!"
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
+                                    player.reputation["nuldar"] += 10
+
+                                if not quest_clicked:
+                                    if not player.quest_complete["disenchanted"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window,
+                                                                         celeste_quest_window,
+                                                                         torune_quest_window,
+                                                                         voruke_quest_window,
+                                                                         zerah_quest_window,
+                                                                         kirean_quest_window,
+                                                                         dionte_quest_window, accept_button,
+                                                                         decline_button, omoku_quest_window,
+                                                                         leyre_quest_window, aitor_quest_window,
+                                                                         everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         kuba_quest_window,
+                                                                         nahun_quest_window,
+                                                                         artherian_task_window_2)
+                                        quest_clicked = True
+                                    if player.quest_complete["welcome to consona"]:
+                                        if not nahun_complete_shown:
                                             drawing_functions.quest_complete_draw(current_npc_interacting, True,
                                                                                   garan_complete_quest_window,
                                                                                   maurelle_complete_quest_window,
@@ -23039,11 +23093,11 @@ if __name__ == "__main__":
                                                                                   aitor_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
-                                                                                  everett_complete_quest_window,
+                                                                                  nahun_complete_quest_window,
                                                                                   kuba_complete_quest_window,
                                                                                   nahun_complete_quest_window,
-                                                                                  illisare_complete_quest_window)
-                                            kuba_complete_shown = True
+                                                                                  nahun_complete_quest_window)
+                                            nahun_complete_shown = True
                                             quest_clicked = True
                                 else:
                                     drawing_functions.quest_box.clear()
@@ -23155,6 +23209,12 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "Kuba":
                                 screen.blit(npc_kuba_interaction.surf, npc_kuba_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "Nahun":
+                                screen.blit(npc_nahun_interaction.surf, npc_nahun_interaction.rect)
+                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "Illisare":
+                                screen.blit(npc_illisare_interaction.surf, npc_illisare_interaction.rect)
+                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(npc_name_plate.surf, npc_name_plate.rect)
@@ -23242,6 +23302,12 @@ if __name__ == "__main__":
                                 npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Kuba":
                                 game_window.blit(npc_kuba_interaction.surf, npc_kuba_interaction.rect)
+                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "Nahun":
+                                game_window.blit(npc_nahun_interaction.surf, npc_nahun_interaction.rect)
+                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "Illisare":
+                                game_window.blit(npc_illisare_interaction.surf, npc_illisare_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)

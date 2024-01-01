@@ -1434,9 +1434,9 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
             if quest_npc.name == "Kuba":
                 quest_complete_box.append(kuba_quest_window)
             if quest_npc.name == "Nahun":
-                quest_complete_box.append(nahun_quest_window)
+                quest_complete_box.append(kuba_quest_window)
             if quest_npc.name == "Illisare":
-                quest_complete_box.append(illisare_quest_window)
+                quest_complete_box.append(nahun_quest_window)
         except AttributeError:
             if quest_npc == "Kirean":
                 quest_complete_box.append(kirean_quest_window)
