@@ -5033,7 +5033,7 @@ def load_graphics():
     loaded_dict["nahun_up"] = nahun_npc_sheet[3]
     # illisare npc ----------------------------------------------------------------------------------------------
     illisare_npc_url = resource_path('resources/art/sprites_illisare.png')
-    illisare_npc_sheet = sprite_sheet((50, 62), illisare_npc_url)
+    illisare_npc_sheet = sprite_sheet((45, 62), illisare_npc_url)
     loaded_dict["illisare_down"] = illisare_npc_sheet[0]
     loaded_dict["illisare_left"] = illisare_npc_sheet[1]
     loaded_dict["illisare_right"] = illisare_npc_sheet[2]

@@ -26,7 +26,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth, cat,
                       marrow_barrier_small, seldon_barrier_small, card_cave, item_block_1, item_block_2,
                       item_block_3, item_block_4, item_block_5, item_block_6, item_block_7, item_block_8,
-                      item_block_9, item_block_10, item_block_11, item_block_12):
+                      item_block_9, item_block_10, item_block_11, item_block_12, illisare):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -125,6 +125,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             if pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect):
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, illisare.rect):
                 interacted = True
             else:
                 interacted = False
@@ -399,7 +401,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "ectrenos":
             if (not pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect)
-                    and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)):
+                    and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)
+                    and not pygame.Rect.colliderect(player.rect, illisare.rect)):
                 interacted = False
         if player.current_zone == "ectrenos right":
             if (not pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance)
@@ -1843,7 +1846,8 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
                            star_dionte, star_omoku, star_leyre, star_everett, star_artherian,
                            artherian_progress_star, artherian_complete_star, artherian_2,
                            npc_maydria, star_maydria, maydria_progress_star, maydria_complete_star, npc_boro,
-                           npc_noren, artherian_task_start, star_kuba, star_nahun, star_illisare):
+                           npc_noren, artherian_task_start, star_kuba, star_nahun, star_illisare,
+                           maydria_start_star):
 
     if player.current_zone == "nascent":
         if player.quest_status["welcome to consona"] and not player.quest_complete["welcome to consona"]:
@@ -1917,10 +1921,15 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
             star_artherian.update(210, 400, artherian_progress_star)
         elif artherian_2:
             star_artherian.update(210, 400, artherian_complete_star)
-        if npc_maydria.gift and not npc_boro.quest_complete and not npc_noren.quest_complete:
+
+        if player.quest_complete["madness in marrow"] and not npc_maydria.gift:
+            star_maydria.update(861, 132, maydria_start_star)
+        elif npc_maydria.gift and not npc_boro.quest_complete and not npc_noren.quest_complete:
             star_maydria.update(861, 132, maydria_progress_star)
         elif npc_boro.quest_complete and npc_noren.quest_complete:
             star_maydria.update(861, 132, maydria_complete_star)
+        elif player.quest_status["madness in marrow"] and not player.quest_complete["madness in marrow"]:
+            star_maydria.update(861, 132, quest_complete_star)
 
 
 def load_game(player, Item, graphics, Pet):

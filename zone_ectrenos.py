@@ -152,6 +152,31 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                         sharp_sense_active, graphic_dict)
 
+    if pygame.sprite.collide_rect(player, illisare):
+        interaction_popup.update(illisare.x_coordinate, illisare.y_coordinate - 50,
+                                 graphic_dict["popup_interaction_purple"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(illisare.name), True, "black", (203, 195, 227))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (illisare.x_coordinate, illisare.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to talk to NPC."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                and not in_npc_interaction:
+            current_npc_interacting = illisare
+            in_over_world = False
+            in_npc_interaction = True
+            movement_able = False
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -211,18 +236,31 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
 
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
+    this_npc = random.choice(["illisare", "leyre"])
     if movement_able and in_over_world:
         npc_toc = time.perf_counter()
         if npc_toc - npc_tic > 5:
             npc_tic = time.perf_counter()
             if face_direction == "front":
-                npc_leyre.update(graphic_dict["leyre_down"])
+                if this_npc == "leyre":
+                    npc_leyre.update(graphic_dict["leyre_down"])
+                if this_npc == "illisare":
+                    illisare.update(graphic_dict["illisare_down"])
             if face_direction == "back":
-                npc_leyre.update(graphic_dict["leyre_up"])
+                if this_npc == "leyre":
+                    npc_leyre.update(graphic_dict["leyre_up"])
+                if this_npc == "illisare":
+                    illisare.update(graphic_dict["illisare_up"])
             if face_direction == "left":
-                npc_leyre.update(graphic_dict["leyre_left"])
+                if this_npc == "leyre":
+                    npc_leyre.update(graphic_dict["leyre_left"])
+                if this_npc == "illisare":
+                    illisare.update(graphic_dict["illisare_left"])
             if face_direction == "right":
-                npc_leyre.update(graphic_dict["leyre_right"])
+                if this_npc == "leyre":
+                    npc_leyre.update(graphic_dict["leyre_right"])
+                if this_npc == "illisare":
+                    illisare.update(graphic_dict["illisare_right"])
 
     ectrenos_main_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "info_text_1": info_text_1,
                             "info_text_2": info_text_2, "info_text_3": info_text_3, "info_text_4": info_text_4,
@@ -266,9 +304,6 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
 
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
-
-    if not player.quest_complete["hatch 'em all"]:
-        screen.blit(quest_star_aitor.surf, quest_star_aitor.rect)
 
     if player.quest_progress["las escondidas"] == 0 and player.quest_status["las escondidas"]:
         npc_leyre.update_position(626, 355)
@@ -918,7 +953,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     screen.blit(npc_everett.surf, npc_everett.rect)
 
     if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
-        npc_leyre.update_position(828, 532)
+        npc_leyre.update_position(672, 532)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
 
     try:
@@ -1164,7 +1199,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     enemies = respawned_dict["ectrenos_alcove_enemies"]
 
     if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:
-        npc_leyre.update_position(563, 530)
+        npc_leyre.update_position(965, 382)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
 
     for enemy in enemies:

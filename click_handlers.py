@@ -780,7 +780,8 @@ def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attac
 
 
 # getting event based on user click related to npc
-def npc_event_button(npc_event, quest_button, leave_button, pygame, sfx_page, SCREEN_WIDTH, SCREEN_HEIGHT):
+def npc_event_button(npc_event, quest_button, leave_button, pygame, sfx_page, SCREEN_WIDTH, SCREEN_HEIGHT,
+                     quest_complete):
     if npc_event.type == pygame.MOUSEBUTTONUP:
 
         init_pos = list(pygame.mouse.get_pos())
@@ -789,7 +790,8 @@ def npc_event_button(npc_event, quest_button, leave_button, pygame, sfx_page, SC
         npc_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
 
         if quest_button.rect.collidepoint(npc_mouse):
-            pygame.mixer.find_channel(True).play(sfx_page)
+            if not quest_complete:
+                pygame.mixer.find_channel(True).play(sfx_page)
             return "quest"
         if leave_button.rect.collidepoint(npc_mouse):
             return "leave"

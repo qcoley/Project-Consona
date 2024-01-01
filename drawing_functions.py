@@ -1089,7 +1089,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest1_prog_surf = font.render(str(player.quest_progress["sneaky snakes"]) + " /4",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
-            text_quest1_prog_rect.midleft = (950, 147)
+            text_quest1_prog_rect.midleft = (950, 145)
 
             text_quest2_surf = font.render("Village repairs", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
@@ -1138,7 +1138,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest1_prog_surf = font.render(str(player.quest_progress["welcome to consona"]) + " /1",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
-            text_quest1_prog_rect.midleft = (950, 147)
+            text_quest1_prog_rect.midleft = (950, 145)
 
             text_quest2_surf = font.render("Band hammer", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
@@ -1187,7 +1187,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest1_prog_surf = font.render(str(player.quest_progress["disenchanted"]) + " /1",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
-            text_quest1_prog_rect.midleft = (950, 147)
+            text_quest1_prog_rect.midleft = (950, 145)
 
             text_quest2_surf = font.render("Kart troubles", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
@@ -1229,14 +1229,14 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest1_surf = font.render("Madness in Marrow", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 144)
-            text_quest1_info_surf = font.render(str(list(player.current_quests.values())[12]), True, "black",
+            text_quest1_info_surf = font.render(str(list(player.current_quests.values())[14]), True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
             text_quest1_info_rect.midleft = (540, 192)
             text_quest1_prog_surf = font.render(str(player.quest_progress["madness in marrow"]) + " /1",
                                                 True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
-            text_quest1_prog_rect.midleft = (950, 147)
+            text_quest1_prog_rect.midleft = (950, 145)
 
             text_quest2_surf = font.render("Vamos Vanguard", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()

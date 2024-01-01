@@ -7901,7 +7901,7 @@ if __name__ == "__main__":
     npc_dionte = NPC("Dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 585, 100,
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
-    npc_illisare = NPC("Illisare", "sorae", "idk.", "Disenchanted", "", 518, 100,
+    npc_illisare = NPC("Illisare", "sorae", "idk.", "Disenchanted", "", 515, 100,
                     True, False, ["Items"], False, graphic_dict["illisare_down"])
     npc_omoku = NPC("Omoku", "nuldar", "Onur-oh.", "kart troubles", "", 460, 655,
                     True, False, ["Items"], False, graphic_dict["omoku_down"])
@@ -7973,7 +7973,7 @@ if __name__ == "__main__":
     npc_maydria_interaction = UiElement("maydria interaction", 678, 325, graphic_dict["maydria_interaction"])
     npc_kuba_interaction = UiElement("kuba interaction", 676, 325, graphic_dict["kuba_interaction"])
     npc_nahun_interaction = UiElement("nahun interaction", 676, 325, graphic_dict["nahun_interaction"])
-    npc_illisare_interaction = UiElement("illisare interaction", 676, 325, graphic_dict["illisare_interaction"])
+    npc_illisare_interaction = UiElement("illisare interaction", 676, 350, graphic_dict["illisare_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -8379,11 +8379,11 @@ if __name__ == "__main__":
     prime_task_window = UiElement("prime task window", 262, 443, graphic_dict["prime_quest"])
     prime_complete_window = UiElement("prime complete window", 550, 350, graphic_dict["prime_complete"])
     kuba_quest_window = UiElement("kuba quest window", 262, 443, graphic_dict["kuba_quest"])
-    kuba_complete_quest_window = UiElement("kuba complete window", 550, 350, graphic_dict["kuba_complete"])
+    kuba_complete_window = UiElement("kuba complete window", 550, 350, graphic_dict["kuba_complete"])
     nahun_quest_window = UiElement("nahun quest window", 262, 443, graphic_dict["nahun_quest"])
-    nahun_complete_quest_window = UiElement("nahun complete window", 550, 350, graphic_dict["nahun_complete"])
+    nahun_complete_window = UiElement("nahun complete window", 550, 350, graphic_dict["nahun_complete"])
     illisare_quest_window = UiElement("illisare quest window", 262, 443, graphic_dict["illisare_quest"])
-    illisare_complete_quest_window = UiElement("illisare complete window", 550, 350, graphic_dict["illisare_complete"])
+    illisare_complete_window = UiElement("illisare complete window", 550, 350, graphic_dict["illisare_complete"])
 
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
@@ -10493,7 +10493,8 @@ if __name__ == "__main__":
                                                               graphic_dict["maydria_progress_star"],
                                                               graphic_dict["maydria_complete_star"], npc_boro,
                                                               npc_noren, artherian_task_start, quest_star_nascent,
-                                                              quest_star_nahun, quest_star_illisare)
+                                                              quest_star_nahun, quest_star_illisare,
+                                                              graphic_dict["maydria_start_star"])
 
                     # hide UI elements if player walks under them ------------------------------------------------------
                     try:
@@ -10874,7 +10875,7 @@ if __name__ == "__main__":
                                                                                   item_block_6, item_block_7,
                                                                                   item_block_8, item_block_9,
                                                                                   item_block_10, item_block_11,
-                                                                                  item_block_12)
+                                                                                  item_block_12, npc_illisare)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -13001,6 +13002,7 @@ if __name__ == "__main__":
                     item_block_9_got = sub_marrow_returned["item_block_9_got"]
                     atmons_highlighted = sub_marrow_returned["atmons_highlighted"]
                     atmons_reset = sub_marrow_returned["atmons_reset"]
+                    current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle area one ---------------------------------------------------------------
@@ -19791,7 +19793,8 @@ if __name__ == "__main__":
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
-                                                                     sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                     sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                     player.quest_complete["can't apothecary it"])
                         # in quest window pop-up, if accept or decline buttons are clicked
                         quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame,
                                                                           SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -20472,7 +20475,8 @@ if __name__ == "__main__":
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
-                                                                     sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                     sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                     player.quest_complete["hatch 'em all"])
                         # in quest window pop-up, if accept or decline buttons are clicked
                         quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame,
                                                                           SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -20525,7 +20529,7 @@ if __name__ == "__main__":
                                 if len(player.items) < 16:
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                     player.quest_complete["hatch 'em all"] = True
-                                    player.current_quests["hatch 'em all"] = "You completed this quest!"
+                                    player.current_quests["hatch 'em all"] = "You completed this task!"
                                     info_text_1 = "You've completed Aitor's task!"
                                     info_text_3 = ""
                                     info_text_4 = ""
@@ -20606,7 +20610,9 @@ if __name__ == "__main__":
                                                                      omoku_quest_window, leyre_quest_window,
                                                                      aitor_quest_window, everett_quest_window,
                                                                      artherian_task_window, artherian_task_window_2,
-                                                                     artherian_1, artherian_task_window)
+                                                                     artherian_1, artherian_task_window,
+                                                                     artherian_task_window, artherian_task_window,
+                                                                     artherian_task_window)
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not aitor_complete_shown:
@@ -20624,6 +20630,9 @@ if __name__ == "__main__":
                                                                               aitor_complete_quest_window,
                                                                               everett_complete_quest_window,
                                                                               everett_complete_quest_window,
+                                                                              everett_complete_quest_window,
+                                                                              everett_complete_quest_window,
+                                                                              everett_complete_quest_window,
                                                                               everett_complete_quest_window)
                                         aitor_complete_shown = True
                                         quest_clicked = True
@@ -20634,9 +20643,9 @@ if __name__ == "__main__":
                         # options once quest window is open ------------------------------------------------------------
                         if len(drawing_functions.quest_box) > 1:
                             if quest_buttons == "accept":
-                                drawing_functions.quest_accept_box.append(quest_accepted)
+                                drawing_functions.quest_accept_box.append(task_accepted)
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
-                                info_text_1 = "You've accepted the quest!"
+                                info_text_1 = "You've accepted the task!"
                                 button_highlighted = False
                                 player.quest_status["hatch 'em all"] = True
                                 player.current_quests["hatch 'em all"] = "Defeat enemies to hatch your creature."
@@ -20966,7 +20975,8 @@ if __name__ == "__main__":
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button_fish = click_handlers.npc_event_button_fishing(event, quest_button, leave_button,
                                                                                   pygame, sfx_sheet_paper, SCREEN_WIDTH,
-                                                                                  SCREEN_HEIGHT)
+                                                                                  SCREEN_HEIGHT,
+                                                                                  fishing_journal_unlocked)
 
                         # in quest window pop-up, if accept or decline buttons are clicked
                         quest_button_fish = click_handlers.quest_event_button_fishing(event, accept_button,
@@ -21550,7 +21560,8 @@ if __name__ == "__main__":
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button_trade = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
-                                                                           sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                           sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                           trading_task_complete)
                         # in quest window pop-up, if accept or decline buttons are clicked
                         quest_button_trade = click_handlers.quest_event_button(event, accept_button, decline_button,
                                                                                pygame, SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -21874,7 +21885,8 @@ if __name__ == "__main__":
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
-                                                                     sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                     sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                     False)
                         # in quest window pop-up, if accept or decline buttons are clicked
                         quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame,
                                                                           SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -21890,13 +21902,13 @@ if __name__ == "__main__":
                                         else:
                                             info_text_1 = "You've accepted the quest!"
                                             info_text_2 = ""
-                                            drawing_functions.quest_accept_box.append(task_accepted)
+                                            drawing_functions.quest_accept_box.append(quest_accepted)
                                             task_star_maydria.update(860, 128, graphic_dict["maydria_progress_star"])
                                             npc_maydria.gift = True
                                     else:
                                         info_text_1 = "You've accepted the quest"
                                         info_text_2 = ""
-                                        drawing_functions.quest_accept_box.append(task_accepted)
+                                        drawing_functions.quest_accept_box.append(quest_accepted)
                                         task_star_artherian.update(210, 400, graphic_dict["artherian_progress_star"])
                                         artherian_task_start = True
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
@@ -21953,11 +21965,11 @@ if __name__ == "__main__":
                                 if current_npc_interacting.name == "Nahun":
                                     player.quest_status["disenchanted"] = True
                                     player.current_quests["disenchanted"] = ("Find Illisare within Ectrenos in "
-                                                                             "the Eldream District")
+                                                                             "the Eldream District.")
                                     player.quest_progress["disenchanted"] = 1
                                 if current_npc_interacting.name == "Illisare":
                                     player.quest_status["madness in marrow"] = True
-                                    player.current_quests["madness in marrow"] = "Find the Vanguard in Marrow"
+                                    player.current_quests["madness in marrow"] = "Find the Vanguard in Marrow."
                                     player.quest_progress["madness in marrow"] = 1
                                 quest_clicked = False
                                 drawing_functions.quest_box.clear()
@@ -22950,6 +22962,19 @@ if __name__ == "__main__":
 
                             # maydria npc, check player's quest progress and reward if completed -----------------------
                             if current_npc_interacting.name == "Maydria":
+                                if (player.quest_progress["madness in marrow"] == 1
+                                        and not player.quest_complete["madness in marrow"]):
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["madness in marrow"] = True
+                                    player.current_quests["madness in marrow"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Illisare's quest!"
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.reputation["sorae"] += 10
+                                    player.star_power += 1
+                                    player.experience += 50
+
                                 if (npc_boro.quest_complete and npc_noren.quest_complete
                                         and not npc_maydria.quest_complete):
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -22965,22 +22990,42 @@ if __name__ == "__main__":
                                     player.experience += 50
 
                                 if not quest_clicked:
+                                    if not kuba_complete_shown:
+                                        drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                              garan_complete_quest_window,
+                                                                              maurelle_complete_quest_window,
+                                                                              celeste_complete_quest_window,
+                                                                              torune_complete_quest_window,
+                                                                              voruke_complete_quest_window,
+                                                                              zerah_complete_quest_window,
+                                                                              kirean_complete_quest_window,
+                                                                              dionte_complete_quest_window,
+                                                                              omoku_complete_quest_window,
+                                                                              leyre_complete_quest_window,
+                                                                              aitor_complete_quest_window,
+                                                                              everett_complete_quest_window,
+                                                                              everett_complete_quest_window,
+                                                                              illisare_complete_window,
+                                                                              illisare_complete_window,
+                                                                              illisare_complete_window,
+                                                                              illisare_complete_window)
+                                        kuba_complete_shown = True
+                                        quest_clicked = True
+
                                     if not npc_maydria.quest_complete:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
-                                                                         garan_quest_window,
-                                                                         maurelle_quest_window,
-                                                                         celeste_quest_window,
-                                                                         torune_quest_window,
-                                                                         voruke_quest_window,
-                                                                         zerah_quest_window,
-                                                                         kirean_quest_window,
-                                                                         dionte_quest_window,
+                                                                         garan_quest_window, maurelle_quest_window,
+                                                                         celeste_quest_window, torune_quest_window,
+                                                                         voruke_quest_window, zerah_quest_window,
+                                                                         kirean_quest_window, dionte_quest_window,
                                                                          accept_button, decline_button,
                                                                          omoku_quest_window, leyre_quest_window,
-                                                                         aitor_quest_window,
-                                                                         everett_quest_window,
+                                                                         aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         maydria_task_window,
+                                                                         maydria_task_window,
+                                                                         maydria_task_window,
                                                                          maydria_task_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22999,6 +23044,9 @@ if __name__ == "__main__":
                                                                                   aitor_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
+                                                                                  maydria_complete_window,
+                                                                                  maydria_complete_window,
+                                                                                  maydria_complete_window,
                                                                                   maydria_complete_window)
                                             maydria_complete_shown = True
                                             quest_clicked = True
@@ -23034,7 +23082,7 @@ if __name__ == "__main__":
                                     drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
-                            # voruke npc, check player's quest progress and reward if completed ------------------------
+                            # nahun npc, check player's quest progress and reward if completed -------------------------
                             if current_npc_interacting.name == "Nahun":
                                 if player.quest_progress["welcome to consona"] == 1 and not \
                                         player.quest_complete["welcome to consona"]:
@@ -23078,6 +23126,75 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     if player.quest_complete["welcome to consona"]:
+                                        if not nahun_complete_shown:
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window,
+                                                                                  kirean_complete_quest_window,
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  nahun_complete_quest_window,
+                                                                                  kuba_complete_quest_window,
+                                                                                  nahun_complete_quest_window,
+                                                                                  nahun_complete_quest_window)
+                                            nahun_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box.clear()
+                                    quest_clicked = False
+
+                            # nahun npc, check player's quest progress and reward if completed -------------------------
+                            if current_npc_interacting.name == "Illisare":
+                                if player.quest_progress["disenchanted"] == 1 and not \
+                                        player.quest_complete["disenchanted"]:
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["disenchanted"] = True
+                                    player.current_quests["disenchanted"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Nahun's quest!"
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
+                                    player.reputation["nuldar"] += 10
+
+                                if not quest_clicked:
+                                    if not player.quest_complete["madness in marrow"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window,
+                                                                         celeste_quest_window,
+                                                                         torune_quest_window,
+                                                                         voruke_quest_window,
+                                                                         zerah_quest_window,
+                                                                         kirean_quest_window,
+                                                                         dionte_quest_window, accept_button,
+                                                                         decline_button, omoku_quest_window,
+                                                                         leyre_quest_window, aitor_quest_window,
+                                                                         everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         kuba_quest_window,
+                                                                         nahun_quest_window,
+                                                                         illisare_quest_window)
+                                        quest_clicked = True
+                                    if player.quest_complete["disenchanted"]:
                                         if not nahun_complete_shown:
                                             drawing_functions.quest_complete_draw(current_npc_interacting, True,
                                                                                   garan_complete_quest_window,
