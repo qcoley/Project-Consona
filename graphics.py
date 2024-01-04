@@ -5103,6 +5103,13 @@ def load_graphics():
     loaded_dict["maydria_up"] = adria_sheet[1]
     loaded_dict["maydria_left"] = adria_sheet[2]
     loaded_dict["maydria_right"] = adria_sheet[3]
+    # roroc npc --------------------------------------------------------------------------------------------------------
+    roroc_url = resource_path('resources/art/sprites_roroc.png')
+    roroc_sheet = sprite_sheet((50, 62), roroc_url)
+    loaded_dict["roroc_down"] = roroc_sheet[0]
+    loaded_dict["roroc_up"] = roroc_sheet[1]
+    loaded_dict["roroc_left"] = roroc_sheet[2]
+    loaded_dict["roroc_right"] = roroc_sheet[3]
     # npc interactions -------------------------------------------------------------------------------------------------
     npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
     npc_interactions_sheet = sprite_sheet((220, 300), npc_interactions_url)
@@ -5121,6 +5128,7 @@ def load_graphics():
     loaded_dict["kuba_interaction"] = npc_interactions_sheet[12]
     loaded_dict["nahun_interaction"] = npc_interactions_sheet[13]
     loaded_dict["illisare_interaction"] = npc_interactions_sheet[14]
+    loaded_dict["roroc_interaction"] = npc_interactions_sheet[15]
     # interaction popup ------------------------------------------------------------------------------------------------
     interaction_popup_url = resource_path('resources/art/popup_interaction.png')
     interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)

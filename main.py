@@ -23141,10 +23141,10 @@ if __name__ == "__main__":
                                                                                   aitor_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
-                                                                                  nahun_complete_quest_window,
-                                                                                  kuba_complete_quest_window,
-                                                                                  nahun_complete_quest_window,
-                                                                                  nahun_complete_quest_window)
+                                                                                  nahun_complete_window,
+                                                                                  kuba_complete_window,
+                                                                                  nahun_complete_window,
+                                                                                  nahun_complete_window)
                                             nahun_complete_shown = True
                                             quest_clicked = True
                                 else:
@@ -23210,10 +23210,10 @@ if __name__ == "__main__":
                                                                                   aitor_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
-                                                                                  nahun_complete_quest_window,
-                                                                                  kuba_complete_quest_window,
-                                                                                  nahun_complete_quest_window,
-                                                                                  nahun_complete_quest_window)
+                                                                                  nahun_complete_window,
+                                                                                  kuba_complete_window,
+                                                                                  nahun_complete_window,
+                                                                                  nahun_complete_window)
                                             nahun_complete_shown = True
                                             quest_clicked = True
                                 else:
