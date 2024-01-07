@@ -11,7 +11,7 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay, hearth_stone,
                  chroma_forge, forge_rect, Item, sfx_smelting, overlay_smelting, using_forge, smelted_casing,
                  basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter, item_block_11,
-                 item_block_11_got, sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked):
+                 item_block_11_got, sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -25,7 +25,7 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     screen.blit(chroma_forge.surf, chroma_forge.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not item_block_11_got:
         screen.blit(item_block_11.surf, item_block_11.rect)
@@ -179,7 +179,7 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:

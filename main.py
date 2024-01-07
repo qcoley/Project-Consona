@@ -4526,6 +4526,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if 390 < self.x_coordinate < 635:
                 if self.y_coordinate < 215:
                     self.y_coordinate = 215
+
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -7826,33 +7827,37 @@ if __name__ == "__main__":
                           "trinket 1": "", "trinket 2": "", "trinket 3": ""},
                          {"sneaky snakes": "Speak to Garan to start this quest.",
                           "village repairs": "Speak to Maurelle to start this quest.",
-                          "where's nede?": "Speak to Celeste to start this quest",
+                          "where's nede?": "Speak to Celeste to start this quest.",
                           "ghouled again": "Speak to the gate Guard to start this quest.",
                           "band hammer": "Speak to Voruke to start this quest.",
                           "elementary elementals": "Speak to Zerah to start this quest.",
                           "can't apothecary it": "Speak to the apothecary owner to start this quest.",
-                          "it's dangerous to go alone": "Speak to Dionte to start this quest",
-                          "kart troubles": "Speak to Omoku to start this quest",
-                          "las escondidas": "Speak to Leyre to start this quest",
-                          "hatch 'em all": "Speak to the menagerie owner to start this quest",
-                          "shades of fear": "Speak to Everett to start this quest",
-                          "welcome to consona": "Speak to Kuba to start this quest",
-                          "disenchanted": "Speak to Nahun to start this quest",
-                          "madness in marrow": "Speak to Illisare to start this quest"},
+                          "it's dangerous to go alone": "Speak to Dionte to start this quest.",
+                          "kart troubles": "Speak to Omoku to start this quest.",
+                          "las escondidas": "Speak to Leyre to start this quest.",
+                          "hatch 'em all": "Speak to the menagerie owner to start this quest.",
+                          "shades of fear": "Speak to Everett to start this quest.",
+                          "welcome to consona": "Speak to Kuba to start this quest.",
+                          "disenchanted": "Speak to Nahun to start this quest.",
+                          "madness in marrow": "Speak to Illisare to start this quest.",
+                          "re recycling": "Speak with Roroc to start this quest. "},
                          {"sneaky snakes": 0, "village repairs": 0, "where's nede?": 0, "ghouled again": 0,
                           "band hammer": 0, "elementary elementals": 0, "can't apothecary it": 0,
                           "it's dangerous to go alone": 0, "kart troubles": 0, "las escondidas": 0, "hatch 'em all": 0,
-                          "shades of fear": 0, "welcome to consona": 0, "disenchanted": 0, "madness in marrow": 0},
+                          "shades of fear": 0, "welcome to consona": 0, "disenchanted": 0, "madness in marrow": 0,
+                          "re recycling": 0},
                          {"sneaky snakes": False, "village repairs": False, "where's nede?": False,
                           "ghouled again": False, "band hammer": False, "elementary elementals": False,
                           "can't apothecary it": False, "it's dangerous to go alone": False, "kart troubles": False,
                           "las escondidas": False, "hatch 'em all": False, "shades of fear": False,
-                          "welcome to consona": False, "disenchanted": False, "madness in marrow": False},
+                          "welcome to consona": False, "disenchanted": False, "madness in marrow": False,
+                          "re recycling": False},
                          {"sneaky snakes": False, "village repairs": False, "where's nede?": False,
                           "ghouled again": False, "band hammer": False, "elementary elementals": False,
                           "can't apothecary it": False, "it's dangerous to go alone": False, "kart troubles": False,
                           "las escondidas": False, "hatch 'em all": False, "shades of fear": False,
-                          "welcome to consona": False, "disenchanted": False, "madness in marrow": False},
+                          "welcome to consona": False, "disenchanted": False, "madness in marrow": False,
+                          "re recycling": False},
                          {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
@@ -7918,13 +7923,15 @@ if __name__ == "__main__":
     npc_nascent = NPC("Kuba", "nuldar", "", "", "", 625, 120, True, False, ["Items"], False,
                       graphic_dict["nascent_npc_down"])
 
+    npc_roroc = NPC("Roroc", "nuldar", "re recycling", "Onur-oh", "", 960, 180,
+                    True, False, ["Items"], False, graphic_dict["roroc_down"])
     npc_artherian = NPC("Artherian", "amuna", "legends never die", "hail", "", 210, 450,
                         True, False, ["Items"], False, graphic_dict["artherian_down"])
-    npc_noren = NPC("Noren", "sorae", "vamos vanguard", "Hola", "", 860, 375, True, False, ["Items"], False,
+    npc_noren = NPC("Noren", "sorae", "vamos vanguard", "Hola", "", 825, 375, True, False, ["Items"], False,
                     graphic_dict["noren_down"])
     npc_boro = NPC("Boro", "nuldar", "vamos vanguard", "Onur-oh", "", 580, 375, True, False, ["Items"], False,
                    graphic_dict["boro_down"])
-    npc_maydria = NPC("Maydria", "amuna", "vamos", "hail", "", 860, 175, True, False, ["Items"], False,
+    npc_maydria = NPC("Maydria", "amuna", "vamos", "hail", "", 825, 175, True, False, ["Items"], False,
                       graphic_dict["maydria_down"])
 
     npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
@@ -7971,9 +7978,10 @@ if __name__ == "__main__":
     npc_everett_interaction = UiElement("everett interaction", 678, 325, graphic_dict["everett_interaction"])
     npc_artherian_interaction = UiElement("artherian interaction", 678, 325, graphic_dict["artherian_interaction"])
     npc_maydria_interaction = UiElement("maydria interaction", 678, 325, graphic_dict["maydria_interaction"])
-    npc_kuba_interaction = UiElement("kuba interaction", 676, 325, graphic_dict["kuba_interaction"])
+    npc_kuba_interaction = UiElement("kuba interaction", 676, 335, graphic_dict["kuba_interaction"])
     npc_nahun_interaction = UiElement("nahun interaction", 676, 325, graphic_dict["nahun_interaction"])
     npc_illisare_interaction = UiElement("illisare interaction", 676, 350, graphic_dict["illisare_interaction"])
+    npc_roroc_interaction = UiElement("roroc interaction", 676, 350, graphic_dict["roroc_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -8172,6 +8180,11 @@ if __name__ == "__main__":
     mines_ore_2 = Item("Mines ore", "ore", 200, 230, graphic_dict["sprite_ore_img"], 0)
     mines_ore_3 = Item("Mines ore", "ore", 275, 230, graphic_dict["sprite_ore_img"], 0)
     mines_ore_4 = Item("Mines ore", "ore", 275, 150, graphic_dict["sprite_ore_img"], 0)
+
+    construct_part_1 = Item("Construct part", "part", 700, 460, graphic_dict["construct_part"], 0)
+    construct_part_2 = Item("Construct part", "part", 560, 50, graphic_dict["construct_part"], 0)
+    construct_part_3 = Item("Construct part", "part", 335, 460, graphic_dict["construct_part"], 0)
+    construct_part_4 = Item("Construct part", "part", 472, 50, graphic_dict["construct_part"], 0)
 
     hearth_stone = Building("hearth", "seldon hearth", 860, 595, graphic_dict["hearth_stone"])
     marrow_hearth = Building("hearth", "marrow hearth", 960, 350, graphic_dict["hearth_stone"])
@@ -8384,6 +8397,8 @@ if __name__ == "__main__":
     nahun_complete_window = UiElement("nahun complete window", 550, 350, graphic_dict["nahun_complete"])
     illisare_quest_window = UiElement("illisare quest window", 262, 443, graphic_dict["illisare_quest"])
     illisare_complete_window = UiElement("illisare complete window", 550, 350, graphic_dict["illisare_complete"])
+    roroc_quest_window = UiElement("illisare quest window", 262, 443, graphic_dict["roroc_quest"])
+    roroc_complete_window = UiElement("illisare complete window", 550, 350, graphic_dict["roroc_complete"])
 
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
@@ -8395,6 +8410,7 @@ if __name__ == "__main__":
     quest_star_nascent = UiElement("quest star kuba", 624, 80, graphic_dict["quest_start_star"])
     quest_star_nahun = UiElement("quest star nahun", 791, 410, graphic_dict["quest_start_star"])
     quest_star_illisare = UiElement("quest star illisare", 515, 60, graphic_dict["quest_start_star"])
+    quest_star_roroc = UiElement("quest star roroc", 960, 132, graphic_dict["quest_start_star"])
 
     quest_star_garan = UiElement("quest star garan", 209, 390, graphic_dict["quest_start_star"])
     quest_star_maurelle = UiElement("quest star maurelle", 744, 575, graphic_dict["quest_start_star"])
@@ -8411,7 +8427,7 @@ if __name__ == "__main__":
     quest_star_everett = UiElement("quest star everett", 749, 278, graphic_dict["quest_start_star"])
 
     task_star_artherian = UiElement("task star artherian", 210, 400, graphic_dict["artherian_start_star"])
-    task_star_maydria = UiElement("task star maydria", 861, 132, graphic_dict["maydria_start_star"])
+    task_star_maydria = UiElement("task star maydria", 825, 132, graphic_dict["maydria_start_star"])
 
     player_battle_sprite = BattleCharacter("stan battle", 375, 450, graphic_dict["player_no_role_amuna_battle"])
     snake_battle_sprite = BattleCharacter("snake battle", 715, 250, graphic_dict["snake_battle"])
@@ -8459,7 +8475,7 @@ if __name__ == "__main__":
                                               graphic_dict["stardust_star_01_eldream"])
     stardust_star_overlay_marrow = UiElement("stardust stars marrow", 500, 295,
                                              graphic_dict["stardust_star_01_marrow"])
-    apothis_star = UiElement("apothis star", 400, 500, graphic_dict["apothis_star"])
+    apothis_star = UiElement("apothis star", 519, 223, graphic_dict["apothis_star"])
     directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
@@ -8527,6 +8543,7 @@ if __name__ == "__main__":
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 600, graphic_dict["chest_small"])
+    recycle_crate = UiElement("recycle_crate", 1007, 107, graphic_dict["recycle_crate"])
 
     item_block_1 = Item("item block 1", "block", 115, 211, graphic_dict["item_block"], 0)
     item_block_2 = Item("item block 2", "block", 595, 45, graphic_dict["item_block"], 0)
@@ -8699,6 +8716,8 @@ if __name__ == "__main__":
     stardust_stelli = pygame.sprite.Group()
     trees = pygame.sprite.Group()
     ores = pygame.sprite.Group()
+    parts_one = pygame.sprite.Group()
+    parts_two = pygame.sprite.Group()
     dungeon_rocks = pygame.sprite.Group()
     korlok_rocks = pygame.sprite.Group()
     other_rocks = pygame.sprite.Group()
@@ -8744,7 +8763,7 @@ if __name__ == "__main__":
     jumanos.add(jumano_1, jumano_2, jumano_3, jumano_4)
     npcs_seldon.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
     npcs_korlok.add(npc_voruke, npc_zerah, npc_nahun)
-    npcs_marrow.add(npc_maydria, npc_noren, npc_boro, npc_artherian)
+    npcs_marrow.add(npc_maydria, npc_noren, npc_boro, npc_artherian, npc_roroc)
     seldon_enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     korlok_enemies.add(magmon_1, magmon_2, magmon_3, magmon_4)
     mine_enemies.add(bandile_1, bandile_2, bandile_3, bandile_4)
@@ -8753,6 +8772,8 @@ if __name__ == "__main__":
     boss_enemies.add(chorizon_1, chorizon_2)
     trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
     ores.add(mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
+    parts_one.add(construct_part_1, construct_part_2)
+    parts_two.add(construct_part_3, construct_part_4)
     dungeon_rocks.add(rock_1, rock_2)
     korlok_rocks.add(rock_4, rock_5, rock_6)
     other_rocks.add(rock_3, rock_7, rock_8)
@@ -9080,6 +9101,7 @@ if __name__ == "__main__":
     kuba_complete_shown = False
     nahun_complete_shown = False
     illisare_complete_shown = False
+    roroc_complete_shown = False
     snake_sprite_reset = False
     ghoul_sprite_reset = False
     log_sprite_reset = False
@@ -9272,6 +9294,8 @@ if __name__ == "__main__":
     quest_logs_highlighted = False
     ore_highlighted = False
     supplies_highlighted = False
+    construct_parts_one_highlighted = False
+    construct_parts_two_highlighted = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -9949,8 +9973,6 @@ if __name__ == "__main__":
                         dreth_taunt_2 = load_returned["dreth_taunt_2"]
                         dreth_taunt_3 = load_returned["dreth_taunt_3"]
                         dreth_taunt_4 = load_returned["dreth_taunt_4"]
-                        mirage_updated = load_returned["mirage_updated"]
-                        mirage_2_updated = load_returned["mirage_2_updated"]
                         mirage_saved = load_returned["mirage_saved"]
                         mirage_2_saved = load_returned["mirage_2_saved"]
                         rope_phase = load_returned["rope_phase"]
@@ -10008,6 +10030,10 @@ if __name__ == "__main__":
                         if npc_noren.quest_complete and npc_boro.quest_complete:
                             castle_bridge.update(castle_bridge.x_coordinate, castle_bridge.y_coordinate,
                                                  graphic_dict["castle_bridge_finished"])
+
+                        if player.quest_complete["re recycling"]:
+                            recycle_crate.update(recycle_crate.x_coordinate, recycle_crate.y_coordinate,
+                                                 graphic_dict["recycle_crate_full"])
 
                         if player.race == "amuna":
                             player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
@@ -10494,7 +10520,8 @@ if __name__ == "__main__":
                                                               graphic_dict["maydria_complete_star"], npc_boro,
                                                               npc_noren, artherian_task_start, quest_star_nascent,
                                                               quest_star_nahun, quest_star_illisare,
-                                                              graphic_dict["maydria_start_star"])
+                                                              graphic_dict["maydria_start_star"],
+                                                              quest_star_roroc)
 
                     # hide UI elements if player walks under them ------------------------------------------------------
                     try:
@@ -10875,7 +10902,11 @@ if __name__ == "__main__":
                                                                                   item_block_6, item_block_7,
                                                                                   item_block_8, item_block_9,
                                                                                   item_block_10, item_block_11,
-                                                                                  item_block_12, npc_illisare)
+                                                                                  item_block_12, npc_illisare,
+                                                                                  npc_roroc, construct_part_1,
+                                                                                  construct_part_2,
+                                                                                  construct_part_3,
+                                                                                  construct_part_4)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -11037,6 +11068,9 @@ if __name__ == "__main__":
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_nede_bark)
                                     info_text_1 = "For the best boy. "
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
 
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
@@ -11409,6 +11443,10 @@ if __name__ == "__main__":
                                     over_world_song_set = False
                                     stardust_song_set = False
                                     drawing_functions.world_map_container.clear()
+                                    if show_cat_card:
+                                        show_cat_card = False
+                                    if fish_caught:
+                                        fish_caught = False
                                     map_button_clicked = False
                                 if korlok_map_button.rect.collidepoint(pos):
                                     if korlok_attuned:
@@ -11441,6 +11479,10 @@ if __name__ == "__main__":
                                         over_world_song_set = False
                                         stardust_song_set = False
                                         drawing_functions.world_map_container.clear()
+                                        if show_cat_card:
+                                            show_cat_card = False
+                                        if fish_caught:
+                                            fish_caught = False
                                         map_button_clicked = False
                                         using_forge = False
                                     else:
@@ -11476,6 +11518,10 @@ if __name__ == "__main__":
                                         over_world_song_set = False
                                         stardust_song_set = False
                                         drawing_functions.world_map_container.clear()
+                                        if show_cat_card:
+                                            show_cat_card = False
+                                        if fish_caught:
+                                            fish_caught = False
                                         map_button_clicked = False
                                         using_forge = False
                                     else:
@@ -11510,6 +11556,10 @@ if __name__ == "__main__":
                                         over_world_song_set = False
                                         stardust_song_set = False
                                         drawing_functions.world_map_container.clear()
+                                        if show_cat_card:
+                                            show_cat_card = False
+                                        if fish_caught:
+                                            fish_caught = False
                                         map_button_clicked = False
                                     else:
                                         info_text_1 = "You have not yet attuned there. "
@@ -11704,9 +11754,9 @@ if __name__ == "__main__":
                         player.y_coordinate = 690
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        drawing_functions.draw_it(screen)
+                        drawing_functions.draw_it(screen, in_battle)
                     else:
-                        drawing_functions.draw_it(game_window)
+                        drawing_functions.draw_it(game_window, in_battle)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -11731,7 +11781,8 @@ if __name__ == "__main__":
                                                                     in_over_world, fishing_hut_rect, interaction_popup,
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
                                                                     pet_energy_window, sfx_fishing_cast, item_block_2,
-                                                                    item_block_2_got, Item, sfx_item_block)
+                                                                    item_block_2_got, Item, sfx_item_block,
+                                                                    apothis_gift)
                     else:
                         hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
                                                                     fishing_music, fishing, walk_tic,
@@ -11749,7 +11800,8 @@ if __name__ == "__main__":
                                                                     in_over_world, fishing_hut_rect, interaction_popup,
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
                                                                     pet_energy_window, sfx_fishing_cast, item_block_2,
-                                                                    item_block_2_got, Item, sfx_item_block)
+                                                                    item_block_2_got, Item, sfx_item_block,
+                                                                    apothis_gift)
 
                     over_world_song_set = hut_returned["over_world_song_set"]
                     basic_fish_counter = hut_returned["basic_fish_counter"]
@@ -11977,7 +12029,7 @@ if __name__ == "__main__":
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
                                                                       magmons_highlighted, magmons_reset, npc_nahun,
-                                                                      quest_star_nahun)
+                                                                      quest_star_nahun, apothis_gift)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -12025,7 +12077,7 @@ if __name__ == "__main__":
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
                                                                       magmons_highlighted, magmons_reset, npc_nahun,
-                                                                      quest_star_nahun)
+                                                                      quest_star_nahun, apothis_gift)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -12113,7 +12165,7 @@ if __name__ == "__main__":
                                                                          entrance_2, entrance_3, mini_map_overlay,
                                                                          basic_fish_counter, better_fish_counter,
                                                                          even_better_fish_counter, best_fish_counter,
-                                                                         supplies_highlighted)
+                                                                         supplies_highlighted, apothis_gift)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -12167,7 +12219,7 @@ if __name__ == "__main__":
                                                                          entrance_2, entrance_3, mini_map_overlay,
                                                                          basic_fish_counter, better_fish_counter,
                                                                          even_better_fish_counter, best_fish_counter,
-                                                                         supplies_highlighted)
+                                                                         supplies_highlighted, apothis_gift)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -12237,7 +12289,8 @@ if __name__ == "__main__":
                                                                                marrow_barrier_small, apothis_gift,
                                                                                artherian_task_start,
                                                                                marrow_ghouls_highlighted,
-                                                                               marrow_ghouls_reset)
+                                                                               marrow_ghouls_reset, npc_roroc,
+                                                                               recycle_crate, quest_star_roroc)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -12273,7 +12326,8 @@ if __name__ == "__main__":
                                                                                marrow_barrier_small, apothis_gift,
                                                                                artherian_task_start,
                                                                                marrow_ghouls_highlighted,
-                                                                               marrow_ghouls_reset)
+                                                                               marrow_ghouls_reset, npc_roroc,
+                                                                               recycle_crate, quest_star_roroc)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -12326,7 +12380,7 @@ if __name__ == "__main__":
                                                                                mini_map_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter)
+                                                                               best_fish_counter, apothis_gift)
                     else:
                         marrow_entrance_returned = zone_marrow.marrow_entrance(pygame, game_window, graphic_dict,
                                                                                player, marrow_entrance_bg,
@@ -12354,7 +12408,7 @@ if __name__ == "__main__":
                                                                                mini_map_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter)
+                                                                               best_fish_counter, apothis_gift)
 
                     over_world_song_set = marrow_entrance_returned["over_world_song_set"]
                     interacted = marrow_entrance_returned["interacted"]
@@ -12410,7 +12464,8 @@ if __name__ == "__main__":
                                                                                    even_better_fish_counter,
                                                                                    best_fish_counter, sfx_sheet_paper,
                                                                                    sfx_item_snack, kasper_unlocked,
-                                                                                   torok_unlocked, iriana_unlocked)
+                                                                                   torok_unlocked, iriana_unlocked,
+                                                                                   apothis_gift)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -12446,7 +12501,8 @@ if __name__ == "__main__":
                                                                                    even_better_fish_counter,
                                                                                    best_fish_counter, sfx_sheet_paper,
                                                                                    sfx_item_snack, kasper_unlocked,
-                                                                                   torok_unlocked, iriana_unlocked)
+                                                                                   torok_unlocked, iriana_unlocked,
+                                                                                   apothis_gift)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -12499,7 +12555,7 @@ if __name__ == "__main__":
                                                                                    vanish_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter)
+                                                                                   best_fish_counter, apothis_gift)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -12533,7 +12589,7 @@ if __name__ == "__main__":
                                                                                    vanish_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter)
+                                                                                   best_fish_counter, apothis_gift)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -12581,7 +12637,7 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter)
+                                                                                   best_fish_counter, apothis_gift)
                     else:
                         marrow_ramps_west_returned = zone_marrow.marrow_ramps_west(pygame, game_window,
                                                                                    graphic_dict,
@@ -12611,7 +12667,7 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter)
+                                                                                   best_fish_counter, apothis_gift)
 
                     over_world_song_set = marrow_ramps_west_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_returned["interacted"]
@@ -12651,7 +12707,7 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter)
+                                                                                   best_fish_counter, apothis_gift)
                     else:
                         marrow_ramps_east_returned = zone_marrow.marrow_ramps_east(pygame, game_window,
                                                                                    graphic_dict,
@@ -12676,7 +12732,7 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter)
+                                                                                   best_fish_counter, apothis_gift)
 
                     over_world_song_set = marrow_ramps_east_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_returned["interacted"]
@@ -12732,7 +12788,8 @@ if __name__ == "__main__":
                                                                                            sfx_item_block,
                                                                                            kasper_unlocked,
                                                                                            torok_unlocked,
-                                                                                           iriana_unlocked)
+                                                                                           iriana_unlocked,
+                                                                                           apothis_gift)
                     else:
                         marrow_ramps_west_end_returned = zone_marrow.marrow_ramps_west_end(pygame, game_window,
                                                                                            graphic_dict, player,
@@ -12773,7 +12830,8 @@ if __name__ == "__main__":
                                                                                            sfx_item_block,
                                                                                            kasper_unlocked,
                                                                                            torok_unlocked,
-                                                                                           iriana_unlocked)
+                                                                                           iriana_unlocked,
+                                                                                           apothis_gift)
 
                     over_world_song_set = marrow_ramps_west_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_end_returned["interacted"]
@@ -12848,7 +12906,8 @@ if __name__ == "__main__":
                                                                                            basic_fish_counter,
                                                                                            better_fish_counter,
                                                                                            even_better_fish_counter,
-                                                                                           best_fish_counter)
+                                                                                           best_fish_counter,
+                                                                                           apothis_gift)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -12905,7 +12964,8 @@ if __name__ == "__main__":
                                                                                            basic_fish_counter,
                                                                                            better_fish_counter,
                                                                                            even_better_fish_counter,
-                                                                                           best_fish_counter)
+                                                                                           best_fish_counter,
+                                                                                           apothis_gift)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -12956,7 +13016,7 @@ if __name__ == "__main__":
                                                                      item_block_9, item_block_9_got, sfx_item_block,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
-                                                                     atmons_highlighted, atmons_reset)
+                                                                     atmons_highlighted, atmons_reset, apothis_gift)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -12982,7 +13042,7 @@ if __name__ == "__main__":
                                                                      item_block_9, item_block_9_got, sfx_item_block,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
-                                                                     atmons_highlighted, atmons_reset)
+                                                                     atmons_highlighted, atmons_reset, apothis_gift)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -13040,7 +13100,7 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite)
+                                                                     atmon_battle_sprite, apothis_gift)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -13072,7 +13132,7 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite)
+                                                                     atmon_battle_sprite, apothis_gift)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -13128,7 +13188,9 @@ if __name__ == "__main__":
                                                                      cell_popup, chest_small_castle_1, mirage_saved,
                                                                      castle_chest_1_got, sfx_item_rupee,
                                                                      sfx_enemy_atmon_loud, atmon_castle,
-                                                                     atmon_battle_sprite)
+                                                                     atmon_battle_sprite, parts_one,
+                                                                     construct_parts_one_highlighted,
+                                                                     sfx_item_pickup, apothis_gift)
                     else:
                         castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
                                                                      castle_two_bg, over_world_song_set, castle_music,
@@ -13155,7 +13217,9 @@ if __name__ == "__main__":
                                                                      cell_popup, chest_small_castle_1, mirage_saved,
                                                                      castle_chest_1_got, sfx_item_rupee,
                                                                      sfx_enemy_atmon_loud, atmon_castle,
-                                                                     atmon_battle_sprite)
+                                                                     atmon_battle_sprite, parts_one,
+                                                                     construct_parts_one_highlighted,
+                                                                     sfx_item_pickup, apothis_gift)
 
                     over_world_song_set = castle_two_returned["over_world_song_set"]
                     interacted = castle_two_returned["interacted"]
@@ -13176,6 +13240,7 @@ if __name__ == "__main__":
                     mirage_updated = castle_two_returned["mirage_updated"]
                     mirage_saved = castle_two_returned["mirage_saved"]
                     castle_chest_1_got = castle_two_returned["castle_chest_1_got"]
+                    construct_parts_one_highlighted = castle_two_returned["parts_highlighted"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle area two ---------------------------------------------------------------
@@ -13216,7 +13281,9 @@ if __name__ == "__main__":
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
                                                                          jumano_hall, thanked, critter_up_move,
                                                                          jumano_battle_sprite, sfx_surprise_attack,
-                                                                         surprised, apothis_gift)
+                                                                         surprised, apothis_gift, parts_two,
+                                                                         construct_parts_two_highlighted,
+                                                                         sfx_item_pickup)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -13251,7 +13318,9 @@ if __name__ == "__main__":
                                                                          atmon_battle_sprite, castle_ladder, sfx_ladder,
                                                                          jumano_hall, thanked, critter_up_move,
                                                                          jumano_battle_sprite, sfx_surprise_attack,
-                                                                         surprised, apothis_gift)
+                                                                         surprised, apothis_gift, parts_two,
+                                                                         construct_parts_two_highlighted,
+                                                                         sfx_item_pickup)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -13275,6 +13344,7 @@ if __name__ == "__main__":
                     thanked = castle_three_returned["thanked"]
                     critter_up_move = castle_three_returned["critter_up_move"]
                     surprised = castle_three_returned["surprised"]
+                    construct_parts_two_highlighted = castle_three_returned["parts_highlighted"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow castle lair -------------------------------------------------------------------
@@ -13362,7 +13432,7 @@ if __name__ == "__main__":
                                                                sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
                                                                cat_rewarded, Item, item_block_10, item_block_10_got,
                                                                sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                               iriana_unlocked)
+                                                               iriana_unlocked, apothis_gift)
                     else:
                         caldera_returned = zone_castle.caldera(pygame, game_window, graphic_dict, player, caldera_bg,
                                                                over_world_song_set, caldera_music, interaction_popup,
@@ -13380,7 +13450,7 @@ if __name__ == "__main__":
                                                                sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
                                                                cat_rewarded, Item, item_block_10, item_block_10_got,
                                                                sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                               iriana_unlocked)
+                                                               iriana_unlocked, apothis_gift)
 
                     over_world_song_set = caldera_returned["over_world_song_set"]
                     interacted = caldera_returned["interacted"]
@@ -13450,7 +13520,7 @@ if __name__ == "__main__":
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
                                                                              best_fish_counter, vanished, npc_illisare,
-                                                                             quest_star_illisare)
+                                                                             quest_star_illisare, apothis_gift)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -13494,7 +13564,7 @@ if __name__ == "__main__":
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
                                                                              best_fish_counter, vanished, npc_illisare,
-                                                                             quest_star_illisare)
+                                                                             quest_star_illisare, apothis_gift)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -13559,7 +13629,7 @@ if __name__ == "__main__":
                                                                              best_fish_counter, item_block_5,
                                                                              item_block_5_got, sfx_item_block, Item,
                                                                              kasper_unlocked, torok_unlocked,
-                                                                             iriana_unlocked)
+                                                                             iriana_unlocked, apothis_gift)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -13593,7 +13663,7 @@ if __name__ == "__main__":
                                                                              best_fish_counter, item_block_5,
                                                                              item_block_5_got, sfx_item_block, Item,
                                                                              kasper_unlocked, torok_unlocked,
-                                                                             iriana_unlocked)
+                                                                             iriana_unlocked, apothis_gift)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -13658,7 +13728,7 @@ if __name__ == "__main__":
                                                                                best_fish_counter, item_block_4,
                                                                                item_block_4_got, sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked)
+                                                                               iriana_unlocked, apothis_gift)
                     else:
                         ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_right_bg,
@@ -13690,7 +13760,7 @@ if __name__ == "__main__":
                                                                                best_fish_counter, item_block_4,
                                                                                item_block_4_got, sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked)
+                                                                               iriana_unlocked, apothis_gift)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -13770,7 +13840,7 @@ if __name__ == "__main__":
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, necrolas_highlighted,
-                                                                               necrolas_reset)
+                                                                               necrolas_reset, apothis_gift)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -13818,7 +13888,7 @@ if __name__ == "__main__":
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, necrolas_highlighted,
-                                                                               necrolas_reset)
+                                                                               necrolas_reset, apothis_gift)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -13884,7 +13954,7 @@ if __name__ == "__main__":
                                                                                  basic_fish_counter,
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
-                                                                                 best_fish_counter)
+                                                                                 best_fish_counter, apothis_gift)
                     else:
                         ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
                                                                                  player, ectrenos_alcove_bg,
@@ -13921,7 +13991,7 @@ if __name__ == "__main__":
                                                                                  basic_fish_counter,
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
-                                                                                 best_fish_counter)
+                                                                                 best_fish_counter, apothis_gift)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -13977,7 +14047,7 @@ if __name__ == "__main__":
                                                                                item_block_6, item_block_6_got,
                                                                                sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked)
+                                                                               iriana_unlocked, apothis_gift)
                     else:
                         fishing_alcove_returned = zone_ectrenos.fishing_alcove(pygame, game_window, player,
                                                                                over_world_song_set,
@@ -14005,7 +14075,7 @@ if __name__ == "__main__":
                                                                                item_block_6, item_block_6_got,
                                                                                sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked)
+                                                                               iriana_unlocked, apothis_gift)
 
                     over_world_song_set = fishing_alcove_returned["over_world_song_set"]
                     basic_fish_counter = fishing_alcove_returned["basic_fish_counter"]
@@ -14147,7 +14217,7 @@ if __name__ == "__main__":
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, item_block_11, item_block_11_got,
                                                                  sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                                 iriana_unlocked)
+                                                                 iriana_unlocked, apothis_gift)
                     else:
                         forge_returned = zone_forge.korlok_forge(pygame, game_window, graphic_dict, player,
                                                                  korlok_forge_bg, korlok_overworld_music,
@@ -14167,7 +14237,7 @@ if __name__ == "__main__":
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, item_block_11, item_block_11_got,
                                                                  sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                                 iriana_unlocked)
+                                                                 iriana_unlocked, apothis_gift)
 
                     over_world_song_set = forge_returned["over_world_song_set"]
                     interacted = forge_returned["interacted"]
@@ -14207,7 +14277,7 @@ if __name__ == "__main__":
                                                                   better_fish_counter, even_better_fish_counter,
                                                                   best_fish_counter, item_block_12, item_block_12_got, 
                                                                   sfx_item_block, kasper_unlocked, torok_unlocked, 
-                                                                  iriana_unlocked)
+                                                                  iriana_unlocked, apothis_gift)
                     else:
                         altar_returned = zone_altar.eldream_altar(pygame, game_window, graphic_dict, player,
                                                                   eldream_altar_bg, eldream_building_music,
@@ -14228,7 +14298,7 @@ if __name__ == "__main__":
                                                                   better_fish_counter, even_better_fish_counter,
                                                                   best_fish_counter, item_block_12, item_block_12_got, 
                                                                   sfx_item_block, kasper_unlocked, torok_unlocked, 
-                                                                  iriana_unlocked)
+                                                                  iriana_unlocked, apothis_gift)
 
                     over_world_song_set = altar_returned["over_world_song_set"]
                     interacted = altar_returned["interacted"]
@@ -14286,7 +14356,7 @@ if __name__ == "__main__":
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
-                                                                      sfx_item_block, Item, sfx_gate_open)
+                                                                      sfx_item_block, Item, sfx_gate_open, apothis_gift)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -14324,7 +14394,7 @@ if __name__ == "__main__":
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
-                                                                      sfx_item_block, Item, sfx_gate_open)
+                                                                      sfx_item_block, Item, sfx_gate_open, apothis_gift)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -14482,7 +14552,7 @@ if __name__ == "__main__":
                                                                 beyond_seldon, pet_energy_window, basic_fish_counter,
                                                                 better_fish_counter, even_better_fish_counter,
                                                                 best_fish_counter, item_block_1, item_block_1_got,
-                                                                Item, sfx_item_block)
+                                                                Item, sfx_item_block, dungeon_teleporter, apothis_gift)
                     else:
                         rohir_returned = zone_rohir.rohir_river(pygame, game_window, player, over_world_song_set,
                                                                 rohir_river_bg,
@@ -14498,7 +14568,7 @@ if __name__ == "__main__":
                                                                 beyond_seldon, pet_energy_window, basic_fish_counter,
                                                                 better_fish_counter, even_better_fish_counter,
                                                                 best_fish_counter, item_block_1, item_block_1_got,
-                                                                Item, sfx_item_block)
+                                                                Item, sfx_item_block, dungeon_teleporter, apothis_gift)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -14730,7 +14800,7 @@ if __name__ == "__main__":
                                                                           pet_energy_window, sfx_chest_open,
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter, rohir_gate)
+                                                                          best_fish_counter, rohir_gate, apothis_gift)
                     else:
                         reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -14752,7 +14822,7 @@ if __name__ == "__main__":
                                                                           pet_energy_window, sfx_chest_open,
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter, rohir_gate)
+                                                                          best_fish_counter, rohir_gate, apothis_gift)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -16983,7 +17053,7 @@ if __name__ == "__main__":
                                 screen.blit(offense_meter.surf, offense_meter.rect)
                                 screen.blit(defense_meter.surf, defense_meter.rect)
                                 drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                              weapon_select)
+                                                              weapon_select, apothis_gift)
                                 screen.blit(skill_bar.surf, skill_bar.rect)
                                 screen.blit(enemy_status.surf, enemy_status.rect)
                                 screen.blit(text_enemy_name_surf, text_enemy_name_rect)
@@ -17102,7 +17172,7 @@ if __name__ == "__main__":
                                 game_window.blit(offense_meter.surf, offense_meter.rect)
                                 game_window.blit(defense_meter.surf, defense_meter.rect)
                                 drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                              weapon_select)
+                                                              weapon_select, apothis_gift)
                                 game_window.blit(skill_bar.surf, skill_bar.rect)
                                 game_window.blit(enemy_status.surf, enemy_status.rect)
                                 game_window.blit(text_enemy_name_surf, text_enemy_name_rect)
@@ -17177,13 +17247,13 @@ if __name__ == "__main__":
                                                                  info_text_3, info_text_4, in_over_world,
                                                                  basic_fish_counter, better_fish_counter,
                                                                  even_better_fish_counter, best_fish_counter)
-                                drawing_functions.draw_it(screen)
+                                drawing_functions.draw_it(screen, in_battle)
                             else:
                                 drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                                  info_text_3, info_text_4, in_over_world,
                                                                  basic_fish_counter, better_fish_counter,
                                                                  even_better_fish_counter, best_fish_counter)
-                                drawing_functions.draw_it(game_window)
+                                drawing_functions.draw_it(game_window, in_battle)
 
                             if not combat_cooldown:
                                 if button_highlighted:
@@ -17350,7 +17420,7 @@ if __name__ == "__main__":
                                 screen.blit(offense_meter.surf, offense_meter.rect)
                                 screen.blit(defense_meter.surf, defense_meter.rect)
                                 drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                              weapon_select)
+                                                              weapon_select, apothis_gift)
                                 screen.blit(skill_bar.surf, skill_bar.rect)
                                 screen.blit(enemy_status.surf, enemy_status.rect)
                                 screen.blit(text_enemy_name_surf, text_enemy_name_rect)
@@ -17457,7 +17527,7 @@ if __name__ == "__main__":
                                 game_window.blit(offense_meter.surf, offense_meter.rect)
                                 game_window.blit(defense_meter.surf, defense_meter.rect)
                                 drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                              weapon_select)
+                                                              weapon_select, apothis_gift)
                                 game_window.blit(skill_bar.surf, skill_bar.rect)
                                 game_window.blit(enemy_status.surf, enemy_status.rect)
                                 game_window.blit(text_enemy_name_surf, text_enemy_name_rect)
@@ -17496,13 +17566,13 @@ if __name__ == "__main__":
                                                                  info_text_3, info_text_4, in_over_world,
                                                                  basic_fish_counter, better_fish_counter,
                                                                  even_better_fish_counter, best_fish_counter)
-                                drawing_functions.draw_it(screen)
+                                drawing_functions.draw_it(screen, in_battle)
                             else:
                                 drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                                  info_text_3, info_text_4, in_over_world,
                                                                  basic_fish_counter, better_fish_counter,
                                                                  even_better_fish_counter, best_fish_counter)
-                                drawing_functions.draw_it(game_window)
+                                drawing_functions.draw_it(game_window, in_battle)
 
                             if not combat_cooldown:
                                 if button_highlighted:
@@ -18076,7 +18146,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             screen.blit(buy_button.surf, buy_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
@@ -18088,7 +18158,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             game_window.blit(buy_button.surf, buy_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
@@ -18100,13 +18170,13 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -18175,7 +18245,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             screen.blit(buy_button.surf, buy_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
@@ -18187,7 +18257,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             game_window.blit(buy_button.surf, buy_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
@@ -18199,13 +18269,13 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -18276,7 +18346,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             screen.blit(buy_button.surf, buy_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
@@ -18288,7 +18358,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             game_window.blit(buy_button.surf, buy_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
@@ -18300,13 +18370,13 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -18375,7 +18445,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             screen.blit(upgrade_button.surf, upgrade_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
@@ -18387,7 +18457,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             game_window.blit(upgrade_button.surf, upgrade_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
@@ -18399,13 +18469,13 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -18427,21 +18497,29 @@ if __name__ == "__main__":
                             quests_complete += 1
                         if player.quest_complete["ghouled again"]:
                             quests_complete += 1
-                        if player.quest_complete["band hammer"]:
+                        if player.quest_complete["welcome to consona"]:
                             quests_complete += 1
-                        if player.quest_complete["can't apothecary it"]:
+                        if player.quest_complete["band hammer"]:
                             quests_complete += 1
                         if player.quest_complete["elementary elementals"]:
                             quests_complete += 1
                         if player.quest_complete["it's dangerous to go alone"]:
                             quests_complete += 1
+                        if player.quest_complete["disenchanted"]:
+                            quests_complete += 1
                         if player.quest_complete["kart troubles"]:
                             quests_complete += 1
                         if player.quest_complete["las escondidas"]:
                             quests_complete += 1
-                        if player.quest_complete["hatch 'em all"]:
-                            quests_complete += 1
                         if player.quest_complete["shades of fear"]:
+                            quests_complete += 1
+                        if player.quest_complete["madness in marrow"]:
+                            quests_complete += 1
+                        if npc_maydria.quest_complete:
+                            quests_complete += 1
+                        if npc_artherian.quest_complete:
+                            quests_complete += 1
+                        if player.quest_complete["re recycling"]:
                             quests_complete += 1
 
                         # stardust outpost stars on the wall representing player progress in each zone
@@ -18545,15 +18623,12 @@ if __name__ == "__main__":
 
                             if apothis_gift:
                                 screen.blit(apothis_star.surf, apothis_star.rect)
-
                             if buy_clicked:
                                 for element in stardust_upgrade_elements:
                                     screen.blit(element.surf, element.rect)
-
                             if first_shop_cond:
                                 directional_arrow.update(855, 620, graphic_dict["arrow_down"])
                                 screen.blit(directional_arrow.surf, directional_arrow.rect)
-
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
 
@@ -18657,15 +18732,12 @@ if __name__ == "__main__":
 
                             if apothis_gift:
                                 game_window.blit(apothis_star.surf, apothis_star.rect)
-
                             if buy_clicked:
                                 for element in stardust_upgrade_elements:
                                     game_window.blit(element.surf, element.rect)
-
                             if first_shop_cond:
                                 directional_arrow.update(855, 620, graphic_dict["arrow_down"])
                                 game_window.blit(directional_arrow.surf, directional_arrow.rect)
-
                             if button_highlighted:
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
 
@@ -18955,7 +19027,8 @@ if __name__ == "__main__":
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(offense_meter.surf, offense_meter.rect)
                         screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select,
+                                                      apothis_gift)
                         screen.blit(rest_button.surf, rest_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         if len(drawing_functions.item_info_window) == 0:
@@ -18964,7 +19037,8 @@ if __name__ == "__main__":
                     else:
                         game_window.blit(offense_meter.surf, offense_meter.rect)
                         game_window.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select,
+                                                      apothis_gift)
                         game_window.blit(rest_button.surf, rest_button.rect)
                         game_window.blit(leave_button.surf, leave_button.rect)
                         if len(drawing_functions.item_info_window) == 0:
@@ -18976,13 +19050,13 @@ if __name__ == "__main__":
                                                          info_text_3, info_text_4, in_over_world,
                                                          basic_fish_counter, better_fish_counter,
                                                          even_better_fish_counter, best_fish_counter)
-                        drawing_functions.draw_it(screen)
+                        drawing_functions.draw_it(screen, in_battle)
                     else:
                         drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world,
                                                          basic_fish_counter, better_fish_counter,
                                                          even_better_fish_counter, best_fish_counter)
-                        drawing_functions.draw_it(game_window)
+                        drawing_functions.draw_it(game_window, in_battle)
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)
@@ -19451,7 +19525,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             screen.blit(mage_learn_button.surf, mage_learn_button.rect)
                             screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
                             screen.blit(scout_learn_button.surf, scout_learn_button.rect)
@@ -19476,7 +19550,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             game_window.blit(mage_learn_button.surf, mage_learn_button.rect)
                             game_window.blit(fighter_learn_button.surf, fighter_learn_button.rect)
                             game_window.blit(scout_learn_button.surf, scout_learn_button.rect)
@@ -19577,14 +19651,14 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1,
                                                              info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             if button_highlighted:
@@ -20008,7 +20082,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -20035,7 +20109,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -20064,13 +20138,13 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                         # if player has access to apothecary functions by completing quest and window is open
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -20697,7 +20771,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -20719,7 +20793,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -20741,13 +20815,13 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                         # if player has access to menagerie functions by completing quest and window is open
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -20892,9 +20966,9 @@ if __name__ == "__main__":
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                         fishing_level += 0.5
-                                        player.rupees += 400
+                                        player.rupees += 200
                                         info_text_1 = "You gained fishing experience"
-                                        info_text_2 = "And 400 Rupees!"
+                                        info_text_2 = "And 200 Rupees!"
                                         basic_fish_reward = True
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_button_click)
@@ -20914,9 +20988,9 @@ if __name__ == "__main__":
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                         fishing_level += 0.5
-                                        player.rupees += 600
+                                        player.rupees += 400
                                         info_text_1 = "You gained fishing experience"
-                                        info_text_2 = "And 600 Rupees!"
+                                        info_text_2 = "And 400 Rupees!"
                                         better_fish_reward = True
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_button_click)
@@ -20975,8 +21049,7 @@ if __name__ == "__main__":
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button_fish = click_handlers.npc_event_button_fishing(event, quest_button, leave_button,
                                                                                   pygame, sfx_sheet_paper, SCREEN_WIDTH,
-                                                                                  SCREEN_HEIGHT,
-                                                                                  fishing_journal_unlocked)
+                                                                                  SCREEN_HEIGHT)
 
                         # in quest window pop-up, if accept or decline buttons are clicked
                         quest_button_fish = click_handlers.quest_event_button_fishing(event, accept_button,
@@ -21163,7 +21236,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -21180,7 +21253,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -21197,13 +21270,13 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                         if fishing_level == 1.5 or fishing_level == 2.5 or fishing_level == 3.5:
                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
@@ -21743,7 +21816,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -21763,7 +21836,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -21783,7 +21856,7 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
                         else:
@@ -21791,7 +21864,7 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
                             if button_highlighted:
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
 
@@ -21971,6 +22044,10 @@ if __name__ == "__main__":
                                     player.quest_status["madness in marrow"] = True
                                     player.current_quests["madness in marrow"] = "Find the Vanguard in Marrow."
                                     player.quest_progress["madness in marrow"] = 1
+                                if current_npc_interacting.name == "Roroc":
+                                    player.quest_status["re recycling"] = True
+                                    player.current_quests["re recycling"] = ("Look for construct parts inside "
+                                                                             "Marrow Castle. ")
                                 quest_clicked = False
                                 drawing_functions.quest_box.clear()
 
@@ -22121,6 +22198,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window,
                                                                          artherian_task_window,
                                                                          artherian_task_window,
+                                                                         artherian_task_window,
                                                                          artherian_task_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22137,6 +22215,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
@@ -22185,6 +22264,7 @@ if __name__ == "__main__":
                                                                          artherian_1, artherian_task_window_2,
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22201,6 +22281,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
@@ -22251,6 +22332,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22267,6 +22349,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
@@ -22372,6 +22455,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22388,6 +22472,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
@@ -22438,6 +22523,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22454,6 +22540,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
@@ -22502,6 +22589,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22523,6 +22611,7 @@ if __name__ == "__main__":
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             zerah_complete_shown = True
                                             quest_clicked = True
@@ -22537,7 +22626,7 @@ if __name__ == "__main__":
 
                                     pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                     player.quest_complete["it's dangerous to go alone"] = True
-                                    player.current_quests["it's dangerous to go alone"] = "You completed this" \
+                                    player.current_quests["it's dangerous to go alone"] = "You completed this " \
                                                                                           "quest!"
                                     info_text_1 = "You've completed Dionte's quest!"
                                     info_text_2 = "Your game has been saved. "
@@ -22627,6 +22716,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22643,6 +22733,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
@@ -22691,6 +22782,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22707,6 +22799,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
@@ -22755,6 +22848,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22771,6 +22865,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
@@ -22819,6 +22914,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
                                                                          artherian_task_window_2,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -22835,6 +22931,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
@@ -22897,6 +22994,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2, artherian_1,
                                                                          artherian_task_window_2,
                                                                          kuba_quest_window, nahun_quest_window,
+                                                                         illisare_quest_window,
                                                                          illisare_quest_window)
                                         quest_clicked = True
                                     else:  # artherian task 2
@@ -22920,6 +23018,7 @@ if __name__ == "__main__":
                                                                              artherian_task_window_2,
                                                                              kuba_quest_window,
                                                                              nahun_quest_window,
+                                                                             illisare_quest_window,
                                                                              illisare_quest_window)
                                             quest_clicked = True
                                         else:
@@ -22952,6 +23051,7 @@ if __name__ == "__main__":
                                                                                       artherian_complete_window,
                                                                                       kuba_complete_window,
                                                                                       nahun_complete_window,
+                                                                                      illisare_complete_window,
                                                                                       illisare_complete_window)
                                                 artherian_complete_shown = True
                                                 quest_clicked = True
@@ -23008,6 +23108,7 @@ if __name__ == "__main__":
                                                                               illisare_complete_window,
                                                                               illisare_complete_window,
                                                                               illisare_complete_window,
+                                                                              illisare_complete_window,
                                                                               illisare_complete_window)
                                         kuba_complete_shown = True
                                         quest_clicked = True
@@ -23023,6 +23124,7 @@ if __name__ == "__main__":
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
                                                                          artherian_task_window_2, artherian_1,
+                                                                         maydria_task_window,
                                                                          maydria_task_window,
                                                                          maydria_task_window,
                                                                          maydria_task_window,
@@ -23044,6 +23146,7 @@ if __name__ == "__main__":
                                                                                   aitor_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
+                                                                                  maydria_complete_window,
                                                                                   maydria_complete_window,
                                                                                   maydria_complete_window,
                                                                                   maydria_complete_window,
@@ -23076,6 +23179,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          kuba_quest_window,
                                                                          nahun_quest_window,
+                                                                         illisare_quest_window,
                                                                          illisare_quest_window)
                                         quest_clicked = True
                                 else:
@@ -23123,6 +23227,7 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          kuba_quest_window,
                                                                          nahun_quest_window,
+                                                                         artherian_task_window_2,
                                                                          artherian_task_window_2)
                                         quest_clicked = True
                                     if player.quest_complete["welcome to consona"]:
@@ -23143,6 +23248,7 @@ if __name__ == "__main__":
                                                                                   everett_complete_quest_window,
                                                                                   nahun_complete_window,
                                                                                   kuba_complete_window,
+                                                                                  nahun_complete_window,
                                                                                   nahun_complete_window,
                                                                                   nahun_complete_window)
                                             nahun_complete_shown = True
@@ -23192,10 +23298,11 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2,
                                                                          kuba_quest_window,
                                                                          nahun_quest_window,
+                                                                         illisare_quest_window,
                                                                          illisare_quest_window)
                                         quest_clicked = True
                                     if player.quest_complete["disenchanted"]:
-                                        if not nahun_complete_shown:
+                                        if not illisare_complete_shown:
                                             drawing_functions.quest_complete_draw(current_npc_interacting, True,
                                                                                   garan_complete_quest_window,
                                                                                   maurelle_complete_quest_window,
@@ -23213,8 +23320,82 @@ if __name__ == "__main__":
                                                                                   nahun_complete_window,
                                                                                   kuba_complete_window,
                                                                                   nahun_complete_window,
+                                                                                  nahun_complete_window,
                                                                                   nahun_complete_window)
-                                            nahun_complete_shown = True
+                                            illisare_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box.clear()
+                                    quest_clicked = False
+
+                            # roroc npc, check player's quest progress and reward if completed -------------------------
+                            if current_npc_interacting.name == "Roroc":
+                                if player.quest_progress["re recycling"] == 4 and not \
+                                        player.quest_complete["re recycling"]:
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["re recycling"] = True
+                                    player.current_quests["re recycling"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Roroc's quest!"
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    recycle_crate.update(recycle_crate.x_coordinate, recycle_crate.y_coordinate,
+                                                         graphic_dict["recycle_crate_full"])
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
+                                    player.reputation["nuldar"] += 10
+                                if not quest_clicked:
+                                    if not player.quest_complete["re recycling"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window,
+                                                                         celeste_quest_window,
+                                                                         torune_quest_window,
+                                                                         voruke_quest_window,
+                                                                         zerah_quest_window,
+                                                                         kirean_quest_window,
+                                                                         dionte_quest_window,
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window,
+                                                                         everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         artherian_task_window_2,
+                                                                         roroc_quest_window)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not roroc_complete_shown:
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window,
+                                                                                  kirean_complete_quest_window,
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  roroc_complete_window)
+                                            roroc_complete_shown = True
                                             quest_clicked = True
                                 else:
                                     drawing_functions.quest_box.clear()
@@ -23266,7 +23447,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -23325,12 +23506,15 @@ if __name__ == "__main__":
                                 npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Kuba":
                                 screen.blit(npc_kuba_interaction.surf, npc_kuba_interaction.rect)
-                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 150, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Nahun":
                                 screen.blit(npc_nahun_interaction.surf, npc_nahun_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Illisare":
                                 screen.blit(npc_illisare_interaction.surf, npc_illisare_interaction.rect)
+                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "Roroc":
+                                screen.blit(npc_roroc_interaction.surf, npc_roroc_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
@@ -23360,7 +23544,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
+                                                          weapon_select, apothis_gift)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -23419,12 +23603,15 @@ if __name__ == "__main__":
                                 npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Kuba":
                                 game_window.blit(npc_kuba_interaction.surf, npc_kuba_interaction.rect)
-                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 150, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Nahun":
                                 game_window.blit(npc_nahun_interaction.surf, npc_nahun_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Illisare":
                                 game_window.blit(npc_illisare_interaction.surf, npc_illisare_interaction.rect)
+                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "Roroc":
+                                game_window.blit(npc_roroc_interaction.surf, npc_roroc_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
@@ -23438,13 +23625,13 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_battle)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world,
                                                              basic_fish_counter, better_fish_counter,
                                                              even_better_fish_counter, best_fish_counter)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                         if (len(drawing_functions.type_advantage_window) == 0 and
                                 len(drawing_functions.game_guide_container) == 0):
@@ -23459,6 +23646,8 @@ if __name__ == "__main__":
                                     text_npc_name_rect.center = (680, 165)
                                 if current_npc_interacting.name == "Maydria":
                                     text_npc_name_rect.center = (685, 165)
+                                if current_npc_interacting.name == "Kuba":
+                                    text_npc_name_rect.center = (677, 150)
 
                         if (len(drawing_functions.type_advantage_window) == 0 and
                                 len(drawing_functions.game_guide_container) == 0):
@@ -23596,7 +23785,6 @@ if __name__ == "__main__":
                         cleared = False
                         loot_timer_reset = False
                         loot_level_tic = time.perf_counter()
-                        player.star_power += 4
                         apothis_gift = True
                         dreth.health = 75
                         combat_scenario.enemy_health_bar(dreth, graphic_dict)

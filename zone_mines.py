@@ -67,7 +67,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     for bandile in bandiles:
         screen.blit(bandile.surf, bandile.rect)
     if not player.quest_complete["can't apothecary it"]:
@@ -142,7 +142,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         player.y_coordinate = 430
         hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
 
-    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     if not player.quest_complete["can't apothecary it"]:
         ore_pick = pygame.sprite.spritecollideany(player, ores)
         if ore_pick:
@@ -188,7 +187,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])

@@ -45,7 +45,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
@@ -437,7 +437,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     # pop up notifications for situations like low health or first weapon acquire
     if not knowledge_academia_show and not beyond_seldon:

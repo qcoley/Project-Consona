@@ -8,7 +8,8 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
                 in_over_world, button_highlighted, button_highlight, rohir_river_music, interaction_popup, interacted,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                 beyond_seldon, pet_energy_window, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                best_fish_counter, item_block, item_block_got, Item, sfx_item_block):
+                best_fish_counter, item_block, item_block_got, Item, sfx_item_block, dungeon_teleporter,
+                apothis_gift):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(100)
@@ -17,7 +18,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(dungeon_entrance.surf, dungeon_entrance.rect)
     screen.blit(water_1.surf, water_1.rect)
@@ -73,7 +74,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
                                      info_text_4, in_over_world, basic_fish_counter, better_fish_counter,
                                      even_better_fish_counter, best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, False)
 
     # water movement animation -------------------------------------------------------------------------
     if 1000 > water_1.x_coordinate > 294:
@@ -127,6 +128,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
         info_text_4 = ""
 
         if interacted and in_over_world:
+            dungeon_teleporter.update(519, 316, graphic_dict["dungeon_teleporter"])
             player.current_zone = "reservoir a"
             in_over_world = True
             over_world_song_set = False

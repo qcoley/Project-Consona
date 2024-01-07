@@ -16,7 +16,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                     prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
-                    ghouls_reset):
+                    ghouls_reset, roroc, recycle_crate, star_roroc):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -29,11 +29,13 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+    screen.blit(recycle_crate.surf, recycle_crate.rect)
     screen.blit(artherian.surf, artherian.rect)
     screen.blit(noren.surf, noren.rect)
     screen.blit(boro.surf, boro.rect)
     screen.blit(maydria.surf, maydria.rect)
+    screen.blit(roroc.surf, roroc.rect)
 
     if noren.quest_complete or boro.quest_complete:
         screen.blit(castle_bridge.surf, castle_bridge.rect)
@@ -51,6 +53,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         screen.blit(artherian_star.surf, artherian_star.rect)
     if not maydria.quest_complete:
         screen.blit(maydria_star.surf, maydria_star.rect)
+    if not player.quest_complete["re recycling"]:
+        screen.blit(star_roroc.surf, star_roroc.rect)
 
     screen.blit(hearth_stone.surf, hearth_stone.rect)
 
@@ -207,6 +211,31 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             combat_scenario.battle_animation_player(player, player_battle_sprite, False,
                                                     False, graphic_dict)
 
+    if pygame.sprite.collide_rect(player, roroc):
+        interaction_popup.update(roroc.x_coordinate, roroc.y_coordinate - 50,
+                                 graphic_dict["popup_interaction_purple"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(roroc.name), True, "black", (203, 195, 227))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (roroc.x_coordinate, roroc.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to talk to NPC."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            current_npc_interacting = roroc
+            in_over_world = False
+            in_npc_interaction = True
+            movement_able = False
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.battle_animation_player(player, player_battle_sprite, False,
+                                                    False, graphic_dict)
+
     if pygame.sprite.collide_rect(player, hearth_stone):
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
                                  graphic_dict["popup_interaction"])
@@ -343,7 +372,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
@@ -361,6 +390,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     face_this_npc.update(graphic_dict["boro_down"])
                 if face_this_npc.name == "Artherian":
                     face_this_npc.update(graphic_dict["artherian_down"])
+                if face_this_npc.name == "Roroc":
+                    face_this_npc.update(graphic_dict["roroc_down"])
             if face_direction == "back":
                 if face_this_npc.name == "Maydria":
                     face_this_npc.update(graphic_dict["maydria_up"])
@@ -370,6 +401,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     face_this_npc.update(graphic_dict["boro_up"])
                 if face_this_npc.name == "Artherian":
                     face_this_npc.update(graphic_dict["artherian_up"])
+                if face_this_npc.name == "Roroc":
+                    face_this_npc.update(graphic_dict["roroc_up"])
             if face_direction == "left":
                 if face_this_npc.name == "Maydria":
                     face_this_npc.update(graphic_dict["maydria_left"])
@@ -379,6 +412,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     face_this_npc.update(graphic_dict["boro_left"])
                 if face_this_npc.name == "Artherian":
                     face_this_npc.update(graphic_dict["artherian_left"])
+                if face_this_npc.name == "Roroc":
+                    face_this_npc.update(graphic_dict["roroc_left"])
             if face_direction == "right":
                 if face_this_npc.name == "Maydria":
                     face_this_npc.update(graphic_dict["maydria_right"])
@@ -388,6 +423,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     face_this_npc.update(graphic_dict["boro_right"])
                 if face_this_npc.name == "Artherian":
                     face_this_npc.update(graphic_dict["artherian_right"])
+                if face_this_npc.name == "Roroc":
+                    face_this_npc.update(graphic_dict["roroc_right"])
 
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])
@@ -435,7 +472,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     overlay_marrow_west, overlay_marrow_east, overlay_switch, switch_shadow, switch_phase, switch_box,
                     marrow_entrance_bg_open, entrance_music, entrance_npc, entrance_1, entrance_2, entrance_3,
                     entrance_popup, sfx_switch, hearth_stone, mini_map, basic_fish_counter, better_fish_counter,
-                    even_better_fish_counter, best_fish_counter):
+                    even_better_fish_counter, best_fish_counter, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -451,7 +488,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(entrance_npc.surf, entrance_npc.rect)
 
@@ -566,7 +603,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, False)
 
     if switch_phase != "complete":
         face_direction = random.choice(["left", "right", "front", "back"])
@@ -610,10 +647,11 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     entrance_npc.update(graphic_dict["entrance_npc_up"])
             entrance_text_surf = font.render("Thank you.", True, "black", "light yellow")
 
-    screen.blit(entrance_popup.surf, entrance_popup.rect)
-    entrance_text_rect = entrance_text_surf.get_rect()
-    entrance_text_rect.center = (entrance_popup.x_coordinate, entrance_popup.y_coordinate)
-    screen.blit(entrance_text_surf, entrance_text_rect)
+    if len(drawing_functions.journal_window) == 0:
+        screen.blit(entrance_popup.surf, entrance_popup.rect)
+        entrance_text_rect = entrance_text_surf.get_rect()
+        entrance_text_rect.center = (entrance_popup.x_coordinate, entrance_popup.y_coordinate)
+        screen.blit(entrance_text_surf, entrance_text_rect)
 
     if 450 < player.x_coordinate < 550 and player.y_coordinate < 40:
         hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
@@ -650,7 +688,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       player_battle_sprite, barrier_active, sharp_sense_active, necrola_battle_sprite, in_battle,
                       current_enemy_battling, sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter,
                       better_fish_counter, even_better_fish_counter, best_fish_counter, sfx_paper, sfx_munch,
-                      kasper_unlocked, torok_unlocked, iriana_unlocked):
+                      kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -663,7 +701,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not ramps_crate_1_got:
         screen.blit(crate_1.surf, crate_1.rect)
@@ -725,7 +763,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if pygame.sprite.collide_rect(player, crate_1):
         if not ramps_crate_1_got:
@@ -882,7 +920,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       sfx_item_potion, Item, necrola_3, in_battle, necrola_rect_3, player_battle_sprite,
                       barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling,
                       sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                      even_better_fish_counter, best_fish_counter):
+                      even_better_fish_counter, best_fish_counter, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -895,7 +933,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not ramps_crate_3_got:
         screen.blit(crate_3.surf, crate_3.rect)
@@ -955,7 +993,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if pygame.sprite.collide_rect(player, crate_3):
         if not ramps_crate_3_got:
@@ -1076,7 +1114,7 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_west, chroma_bridge, ghoul, ghoul_2, enemy_tic, mini_map, basic_fish_counter,
-                      better_fish_counter, even_better_fish_counter, best_fish_counter):
+                      better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1089,7 +1127,7 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(chroma_bridge.surf, chroma_bridge.rect)
     screen.blit(ghoul.surf, ghoul.rect)
@@ -1142,7 +1180,7 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, False)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_west):
         interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
@@ -1199,7 +1237,7 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_east, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                      best_fish_counter):
+                      best_fish_counter, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1212,7 +1250,7 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     try:
         for pet in player.pet:
@@ -1261,7 +1299,7 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, False)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_east):
         interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
@@ -1314,7 +1352,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle, boss_music,
                           erebyth_battle_sprite, apothis_push, apothis, apothis_popup, apothis_1, apothis_2,
                           enemy_vanish, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                          even_better_fish_counter, best_fish_counter):
+                          even_better_fish_counter, best_fish_counter, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1331,7 +1369,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if erebyth_defeated and not apothis_push:
         npc_toc = time.perf_counter()
@@ -1480,7 +1518,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if player.y_coordinate <= 75:
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_right"])
@@ -1536,7 +1574,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                           switch_1, marrow_switch_phase, main_switch, sfx_switch, flower, crate, crate_got, Item,
                           sfx_item_key, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                           best_fish_counter, item_block_7, item_block_7_got, item_block_8, item_block_8_got,
-                          sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked):
+                          sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1549,7 +1587,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(switch_1.surf, switch_1.rect)
     screen.blit(flower.surf, flower.rect)
@@ -1609,7 +1647,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, False)
 
     if player.y_coordinate <= 75:
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_left"])
@@ -1834,7 +1872,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                barrier_active, sharp_sense_active, in_npc_interaction, atmon_battle_sprite, enemy_tic,
                current_enemy_battling, sub_marrow_opened, item_block_9, item_block_9_got, sfx_item_block,
                kasper_unlocked, torok_unlocked, iriana_unlocked, maydria_task_start, prism_received,
-               atmons_highlighted, atmons_reset):
+               atmons_highlighted, atmons_reset, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1847,7 +1885,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     respawned_dict = gameplay_functions.enemy_respawn(player, atmons, atmons, atmons, atmons, atmons, atmons,
                                                       atmons, atmons, atmons, Enemy, Item, graphic_dict, UiElement,
@@ -2113,7 +2151,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])

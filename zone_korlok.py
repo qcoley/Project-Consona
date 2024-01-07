@@ -25,7 +25,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
                     even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset,
-                    nahun, star_nahun):
+                    nahun, star_nahun, apothis_gift):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -68,7 +68,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(rohir_gate.surf, rohir_gate.rect)
     for building in nuldar_buildings:
         screen.blit(building.surf, building.rect)
@@ -470,7 +470,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])

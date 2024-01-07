@@ -34,7 +34,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if player.level > 3:
         if not level_checked:
@@ -56,7 +56,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                 if move_stelli.name == "Stellib":
                     move_stelli.update_position([550, 900], [100, 380], direction_horizontal, direction_vertical)
                 if move_stelli.name == "Stellic":
-                    move_stelli.update_position([225, 550], [350, 625], direction_horizontal, direction_vertical)
+                    move_stelli.update_position([250, 550], [350, 625], direction_horizontal, direction_vertical)
 
     for stelli in stellis:
         screen.blit(stelli.surf, stelli.rect)
@@ -459,7 +459,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                      info_text_3, info_text_4, in_over_world, basic_fish_counter, better_fish_counter,
                                      even_better_fish_counter, best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if len(drawing_functions.outpost_window) > 0:
         for outpost_item in drawing_functions.outpost_window:

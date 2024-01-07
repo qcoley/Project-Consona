@@ -18,7 +18,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, castle_crate_1_got,
                castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_phase,
                castle_one_roped_bg, castle_one_keyed_bg, key_got, castle_key, boss_door, sfx_item_key, jumanos,
-               jumano_battle_sprite):
+               jumano_battle_sprite, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -37,7 +37,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not castle_crate_1_got:
         screen.blit(crate_1.surf, crate_1.rect)
@@ -269,7 +269,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     direction_horizontal = random.choice(["left", "right"])
     direction_vertical = random.choice(["up", "down"])
@@ -317,7 +317,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                even_better_fish_counter, best_fish_counter, prism_tic, chandelier, rock_1, rock_2, sfx_rocks,
                dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_two_roped_bg, sfx_rope,
                cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_saved, chest_1_got,
-               sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite):
+               sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, parts, parts_highlighted, sfx_item, apothis_gift):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -356,10 +356,20 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(rock_1.surf, rock_1.rect)
     screen.blit(rock_2.surf, rock_2.rect)
+
+    if player.quest_status["re recycling"] and not player.quest_complete["re recycling"]:
+        if not parts_highlighted:
+            for part in parts:
+                part.update(part.x_coordinate, part.y_coordinate, graphic_dict["construct_part_high"])
+            parts_highlighted = True
+
+    if not player.quest_complete["re recycling"]:
+        for part in parts:
+            screen.blit(part.surf, part.rect)
 
     if not mirage_saved:
         if player.gender == "male":
@@ -515,6 +525,32 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                 info_text_1 = "You found 50 Rupees. Wow!"
                 info_text_2 = ""
 
+    if not player.quest_complete["re recycling"]:
+        part_pick = pygame.sprite.spritecollideany(player, parts)
+        if part_pick:
+            interaction_popup.update(part_pick.x_coordinate, part_pick.y_coordinate - 40,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str(part_pick.name), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (part_pick.x_coordinate, part_pick.y_coordinate - 40)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+            if not player.quest_status["re recycling"]:
+                info_text_1 = "It's some kind of construct."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            if player.quest_status["re recycling"] and not player.quest_complete["re recycling"]:
+                info_text_1 = "Press 'F' key to pick up the part."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+                if interacted and in_over_world and player.quest_progress["re recycling"] < 4:
+                    pygame.mixer.find_channel(True).play(sfx_item)
+                    player.quest_progress["re recycling"] += 1
+                    part_pick.kill()
+                    interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -541,7 +577,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if not mirage_saved:
         entrance_text_surf = font.render("Please.. help me.", True, "black", "light yellow")
@@ -565,7 +601,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                          "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
                          "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt,
                          "rope_phase": rope_phase, "mirage_updated": mirage_updated, "mirage_saved": mirage_saved,
-                         "castle_chest_1_got": chest_1_got}
+                         "castle_chest_1_got": chest_1_got, "parts_highlighted": parts_highlighted}
 
     return castle_two_return
 
@@ -581,7 +617,8 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                  dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_three_roped_bg, sfx_rope,
                  cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_2_saved, chest_1_got,
                  sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall, thanked,
-                 up_move, jumano_battle_sprite, sfx_surprise, surprised, apothis_gift):
+                 up_move, jumano_battle_sprite, sfx_surprise, surprised, apothis_gift, parts, parts_highlighted,
+                 sfx_item):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -602,7 +639,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if jumano_hall.alive_status:
         if not surprised:
@@ -620,6 +657,16 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                     up_move = True
             jumano_hall.rect = jumano_hall.surf.get_rect(center=(jumano_hall.x_coordinate, jumano_hall.y_coordinate))
         screen.blit(jumano_hall.surf, jumano_hall.rect)
+
+    if player.quest_status["re recycling"] and not player.quest_complete["re recycling"]:
+        if not parts_highlighted:
+            for part in parts:
+                part.update(part.x_coordinate, part.y_coordinate, graphic_dict["construct_part_high"])
+            parts_highlighted = True
+
+    if not player.quest_complete["re recycling"]:
+        for part in parts:
+            screen.blit(part.surf, part.rect)
 
     if not mirage_2_saved:
         if player.gender == "male":
@@ -771,6 +818,32 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                                                        False, jumano_battle_sprite, 0, jumano_battle_sprite,
                                                        jumano_battle_sprite, jumano_battle_sprite, apothis_gift)
 
+    if not player.quest_complete["re recycling"]:
+        part_pick = pygame.sprite.spritecollideany(player, parts)
+        if part_pick:
+            interaction_popup.update(part_pick.x_coordinate, part_pick.y_coordinate - 40,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str(part_pick.name), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (part_pick.x_coordinate, part_pick.y_coordinate - 40)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+            if not player.quest_status["re recycling"]:
+                info_text_1 = "It's some kind of construct."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            if player.quest_status["re recycling"] and not player.quest_complete["re recycling"]:
+                info_text_1 = "Press 'F' key to pick up the part."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+                if interacted and in_over_world and player.quest_progress["re recycling"] < 4:
+                    pygame.mixer.find_channel(True).play(sfx_item)
+                    player.quest_progress["re recycling"] += 1
+                    part_pick.kill()
+                    interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -797,7 +870,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if not mirage_2_saved:
         entrance_text_surf = font.render("Please.. help me.", True, "black", "light yellow")
@@ -832,7 +905,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                            "marrow_ghouls": marrow_ghouls, "prism_tic": prism_tic, "dreth_taunt": dreth_taunt,
                            "rope_phase": rope_phase, "mirage_2_updated": mirage_updated,
                            "mirage_2_saved": mirage_2_saved, "castle_chest_1_got": chest_1_got, "thanked": thanked,
-                           "critter_up_move": up_move, "surprised": surprised}
+                           "critter_up_move": up_move, "surprised": surprised, "parts_highlighted": parts_highlighted}
 
     return castle_three_return
 
@@ -881,7 +954,7 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     try:
         for pet in player.pet:
@@ -988,7 +1061,7 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     castle_lair_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                           "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
@@ -1008,7 +1081,7 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             even_better_fish_counter, best_fish_counter, caldera_ladder, sfx_ladder, fishing_spot, fishing, walk_tic,
             fishing_timer, fishing_level, fish_caught, previous_surf, fishing_unlocked, sfx_fishing_cast, cat,
             cats_pet, sfx_cat_meow, cat_rewarded, Item, item_block_10, item_block_10_got, sfx_item_block,
-            kasper_unlocked, torok_unlocked, iriana_unlocked):
+            kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1101,7 +1174,7 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(fishing_spot.surf, fishing_spot.rect)
     if not item_block_10_got:
         screen.blit(item_block_10.surf, item_block_10.rect)
@@ -1316,7 +1389,7 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, False)
 
     caldera_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                       "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,

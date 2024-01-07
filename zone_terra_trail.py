@@ -20,7 +20,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                 dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay, critter, right_move, left_move,
                 critter_tic, walk_move, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                best_fish_counter, item_block, item_block_got, sfx_item_block, Item, sfx_gate):
+                best_fish_counter, item_block, item_block_got, sfx_item_block, Item, sfx_gate, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -34,7 +34,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(terra_mountains.surf, terra_mountains.rect)
     screen.blit(terra_cave.surf, terra_cave.rect)
     screen.blit(npc_dionte.surf, npc_dionte.rect)
@@ -333,7 +333,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if player.x_coordinate < 75 and player.y_coordinate < 225:
         player.current_zone = "korlok"

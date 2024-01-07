@@ -51,7 +51,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     for wall in dungeon_walls:
         screen.blit(wall.surf, wall.rect)
@@ -288,7 +288,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     # info to return to main loop --------------------------------------------------------------------------------------
     reservoir_a_return = {"over_world_song_set": over_world_song_set, "interacted": interacted, "crate_1": crate_1,
@@ -332,7 +332,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(dungeon_gate.surf, dungeon_gate.rect)
     if not crate_5:
@@ -543,7 +543,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     # info to return to main loop --------------------------------------------------------------------------------------
     reservoir_b_return = {"over_world_song_set": over_world_song_set, "interacted": interacted, "muchador_lights_on":
@@ -563,7 +563,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 power_gloves, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, has_key,
                 muchador_lights_on, hearth_stone, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                 defense_meter, weapon_select, pet_energy_window, sfx_chest, sfx_rocks, basic_fish_counter,
-                better_fish_counter, even_better_fish_counter, best_fish_counter, rohir_gate):
+                better_fish_counter, even_better_fish_counter, best_fish_counter, rohir_gate, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -576,7 +576,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(dungeon_chest.surf, dungeon_chest.rect)
     screen.blit(reservoir_exit.surf, reservoir_exit.rect)
@@ -728,7 +728,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, False)
 
     # info to return to main loop --------------------------------------------------------------------------------------
     reservoir_c_return = {"over_world_song_set": over_world_song_set, "interacted": interacted,

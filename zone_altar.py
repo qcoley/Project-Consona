@@ -12,7 +12,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                   chroma_forge, forge_rect, Item, sfx_enchanting, overlay_smelting, using_forge, enchanted_casing,
                   artherian_2, task_star_artherian, basic_fish_counter, better_fish_counter,
                   even_better_fish_counter, best_fish_counter, item_block_12, item_block_12_got, sfx_item_block,
-                  kasper_unlocked, torok_unlocked, iriana_unlocked):
+                  kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -26,7 +26,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     screen.blit(chroma_forge.surf, chroma_forge.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not item_block_12_got:
         screen.blit(item_block_12.surf, item_block_12.rect)
@@ -183,7 +183,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:

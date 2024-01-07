@@ -530,6 +530,13 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # recycle crate ---------------------------------------------------------------------------------------------------
+    recycle_crate_url = resource_path('resources/art/sprites_recycle_crates.png')
+    recycle_crate_sheet = sprite_sheet((75, 75), recycle_crate_url)
+    loaded_dict["recycle_crate"] = recycle_crate_sheet[0]
+    loaded_dict["recycle_crate_full"] = recycle_crate_sheet[1]
+    loaded_dict["construct_part"] = recycle_crate_sheet[2]
+    loaded_dict["construct_part_high"] = recycle_crate_sheet[3]
     # quest district buttons -------------------------------------------------------------------------------------------
     quest_district_buttons_url = resource_path('resources/art/buttons_quest_district.png')
     quest_district_buttons_sheet = sprite_sheet((69, 32), quest_district_buttons_url)
@@ -5299,6 +5306,24 @@ def load_graphics():
     loaded_dict["bow_2"] = weapons_sheet[12]
     loaded_dict["bow_3"] = weapons_sheet[13]
     loaded_dict["bow_4"] = weapons_sheet[14]
+    # weapons ----------------------------------------------------------------------------------------------------------
+    weapons_apothis_url = resource_path('resources/art/overlay_weapon_tiers_apothis.png')
+    weapons_apothis_sheet = sprite_sheet((50, 50), weapons_apothis_url)
+    loaded_dict["staff_0_apothis"] = weapons_apothis_sheet[0]
+    loaded_dict["staff_1_apothis"] = weapons_apothis_sheet[1]
+    loaded_dict["staff_2_apothis"] = weapons_apothis_sheet[2]
+    loaded_dict["staff_3_apothis"] = weapons_apothis_sheet[3]
+    loaded_dict["staff_4_apothis"] = weapons_apothis_sheet[4]
+    loaded_dict["sword_0_apothis"] = weapons_apothis_sheet[5]
+    loaded_dict["sword_1_apothis"] = weapons_apothis_sheet[6]
+    loaded_dict["sword_2_apothis"] = weapons_apothis_sheet[7]
+    loaded_dict["sword_3_apothis"] = weapons_apothis_sheet[8]
+    loaded_dict["sword_4_apothis"] = weapons_apothis_sheet[9]
+    loaded_dict["bow_0_apothis"] = weapons_apothis_sheet[10]
+    loaded_dict["bow_1_apothis"] = weapons_apothis_sheet[11]
+    loaded_dict["bow_2_apothis"] = weapons_apothis_sheet[12]
+    loaded_dict["bow_3_apothis"] = weapons_apothis_sheet[13]
+    loaded_dict["bow_4_apothis"] = weapons_apothis_sheet[14]
     # armor ------------------------------------------------------------------------------------------------------------
     armor_url = resource_path('resources/art/overlay_armor_tiers.png')
     armor_sheet = sprite_sheet((50, 50), armor_url)
@@ -5644,6 +5669,7 @@ def load_graphics():
     loaded_dict["kuba_quest"] = quest_windows_sheet[17]
     loaded_dict["nahun_quest"] = quest_windows_sheet[18]
     loaded_dict["illisare_quest"] = quest_windows_sheet[19]
+    loaded_dict["roroc_quest"] = quest_windows_sheet[20]
     # quest complete popups --------------------------------------------------------------------------------------------
     quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
     quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)
@@ -5669,6 +5695,7 @@ def load_graphics():
     loaded_dict["kuba_complete"] = quest_popups_2_sheet[8]
     loaded_dict["nahun_complete"] = quest_popups_2_sheet[9]
     loaded_dict["illisare_complete"] = quest_popups_2_sheet[10]
+    loaded_dict["roroc_complete"] = quest_popups_2_sheet[11]
     # quest stars ------------------------------------------------------------------------------------------------------
     quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
     quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)

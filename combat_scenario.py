@@ -3851,7 +3851,8 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
             if not turn_taken:
 
                 # returns players damage to the enemy based on level and equipment
-                attack_dict = gameplay_functions.attack_enemy(player, enemy_combating, sharp_sense_active, arrow_active)
+                attack_dict = gameplay_functions.attack_enemy(player, enemy_combating, sharp_sense_active, arrow_active,
+                                                              apothis_gift)
                 combat_event_dictionary["effective player"] = attack_dict["effective"]
                 combat_event_dictionary["non effective player"] = attack_dict["non effective"]
                 combat_event_dictionary["effective pet"] = attack_dict["pet effective"]
@@ -4207,7 +4208,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 # if player has unlocked trading deck, add cards if they are dropped by mob type
                 if trading_deck:
                     card_chance = random.randrange(1, 10)
-                    if card_chance > 5:
+                    if card_chance > 4:
                         # if player has initial task to collect 4 cards
                         if not trading_task_complete and any_card_counter < 4:
                             any_card_counter += 1
@@ -4454,7 +4455,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         # if player has unlocked trading deck, add cards if they are dropped by mob type
                         if trading_deck:
                             card_chance = random.randrange(1, 10)
-                            if card_chance > 5:
+                            if card_chance > 4:
                                 # if player has initial task to collect 4 cards
                                 if not trading_task_complete and any_card_counter < 4:
                                     any_card_counter += 1

@@ -25,7 +25,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite, critter, right_move, left_move,
                      critter_tic, walk_move, overlay_marrow_west, overlay_marrow_east, entrance_1, entrance_2,
                      entrance_3, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                     best_fish_counter, supplies_highlighted):
+                     best_fish_counter, supplies_highlighted, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -38,7 +38,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if player.quest_status["kart troubles"] and not player.quest_complete["kart troubles"]:
         if not supplies_highlighted:
@@ -303,7 +303,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if player.x_coordinate < 100 and player.y_coordinate < 175:
         player.current_zone = "terra trail"

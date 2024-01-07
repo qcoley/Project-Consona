@@ -26,7 +26,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       castle_key, boss_door, caldera_ladder, fishing_spot_caldera, jumanos, lair_exit, dreth, cat,
                       marrow_barrier_small, seldon_barrier_small, card_cave, item_block_1, item_block_2,
                       item_block_3, item_block_4, item_block_5, item_block_6, item_block_7, item_block_8,
-                      item_block_9, item_block_10, item_block_11, item_block_12, illisare):
+                      item_block_9, item_block_10, item_block_11, item_block_12, illisare, roroc, part_1, part_2,
+                      part_3, part_4):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -200,6 +201,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, marrow_barrier_small):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, roroc.rect):
+                interacted = True
             else:
                 interacted = False
         if player.current_zone == "sub marrow":
@@ -306,6 +309,10 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, cell_2):
                 interacted = True
+            elif pygame.Rect.colliderect(player.rect, part_1):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, part_2):
+                interacted = True
             else:
                 interacted = False
         if player.current_zone == "castle three":
@@ -314,6 +321,10 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             elif pygame.Rect.colliderect(player.rect, cell_3):
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, castle_ladder):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, part_3):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, part_4):
                 interacted = True
             else:
                 interacted = False
@@ -441,7 +452,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     and not pygame.Rect.colliderect(player.rect, npc_noren.rect)
                     and not pygame.Rect.colliderect(player.rect, npc_boro.rect)
                     and not pygame.Rect.colliderect(player.rect, sub_marrow_rect)
-                    and not pygame.Rect.colliderect(player.rect, marrow_barrier_small)):
+                    and not pygame.Rect.colliderect(player.rect, marrow_barrier_small)
+                    and not pygame.Rect.colliderect(player.rect, roroc.rect)):
                 interacted = False
         if player.current_zone == "sub marrow":
             if (not pygame.Rect.colliderect(player.rect, sub_marrow_rect)
@@ -500,12 +512,16 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                     not pygame.Rect.colliderect(player.rect, rock_10) and
                     not pygame.Rect.colliderect(player.rect, rope_wind_1) and
                     not pygame.Rect.colliderect(player.rect, cell_1) and
-                    not pygame.Rect.colliderect(player.rect, cell_2)):
+                    not pygame.Rect.colliderect(player.rect, cell_2) and
+                    not pygame.Rect.colliderect(player.rect, part_1) and
+                    not pygame.Rect.colliderect(player.rect, part_2)):
                 interacted = False
         if player.current_zone == "castle three":
             if (not pygame.Rect.colliderect(player.rect, rope_wind_2) and
                     not pygame.Rect.colliderect(player.rect, cell_3) and
-                    not pygame.Rect.colliderect(player.rect, castle_ladder)):
+                    not pygame.Rect.colliderect(player.rect, castle_ladder) and
+                    not pygame.Rect.colliderect(player.rect, part_3) and
+                    not pygame.Rect.colliderect(player.rect, part_4)):
                 interacted = False
         if player.current_zone == "castle lair":
             if (not pygame.Rect.colliderect(player.rect, lair_exit) and
@@ -1847,7 +1863,7 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
                            artherian_progress_star, artherian_complete_star, artherian_2,
                            npc_maydria, star_maydria, maydria_progress_star, maydria_complete_star, npc_boro,
                            npc_noren, artherian_task_start, star_kuba, star_nahun, star_illisare,
-                           maydria_start_star):
+                           maydria_start_star, star_roroc):
 
     if player.current_zone == "nascent":
         if player.quest_status["welcome to consona"] and not player.quest_complete["welcome to consona"]:
@@ -1921,15 +1937,18 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
             star_artherian.update(210, 400, artherian_progress_star)
         elif artherian_2:
             star_artherian.update(210, 400, artherian_complete_star)
-
         if player.quest_complete["madness in marrow"] and not npc_maydria.gift:
-            star_maydria.update(861, 132, maydria_start_star)
+            star_maydria.update(825, 132, maydria_start_star)
         elif npc_maydria.gift and not npc_boro.quest_complete and not npc_noren.quest_complete:
-            star_maydria.update(861, 132, maydria_progress_star)
+            star_maydria.update(825, 132, maydria_progress_star)
         elif npc_boro.quest_complete and npc_noren.quest_complete:
-            star_maydria.update(861, 132, maydria_complete_star)
+            star_maydria.update(825, 132, maydria_complete_star)
         elif player.quest_status["madness in marrow"] and not player.quest_complete["madness in marrow"]:
-            star_maydria.update(861, 132, quest_complete_star)
+            star_maydria.update(825, 132, quest_complete_star)
+        if player.quest_progress["re recycling"] == 4:
+            star_roroc.update(960, 132, quest_complete_star)
+        elif player.quest_status["re recycling"] and player.quest_progress["re recycling"] != 4:
+            star_roroc.update(960, 132, quest_progress_star)
 
 
 def load_game(player, Item, graphics, Pet):
@@ -2513,7 +2532,7 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
 
 
 # player attacks enemy, gets damage to enemy done based on player's role and offense
-def attack_enemy(player, mob, sharp_sense_active, arrow_active):
+def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift):
     level_difference = mob.level - player.level
 
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False,
@@ -2604,9 +2623,9 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
         damage += 5
 
     if mob.name == "Dreth":
-        if player.offense == 4:
+        if apothis_gift:
             damage = damage - 5
-        elif player.offense < 4:
+        else:
             damage = random.randint(1, 5)
 
     if damage >= 0:
@@ -2625,7 +2644,7 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
 
                 if arrow_active:
                     if mob.name == "Dreth":
-                        if player.offense < 4:
+                        if not apothis_gift:
                             attack_dict["pet damage"] = 1
                         else:
                             attack_dict["pet damage"] = 3
@@ -2636,7 +2655,7 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
                 else:
                     if pet.name == "iriana":
                         if mob.name == "Dreth":
-                            if player.offense < 4:
+                            if not apothis_gift:
                                 attack_dict["pet damage"] = 0
                             else:
                                 attack_dict["pet damage"] = 1
@@ -2668,7 +2687,7 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active):
 
                     if pet.name == "torok":
                         if mob.name == "Dreth":
-                            if player.offense < 4:
+                            if not apothis_gift:
                                 attack_dict["pet damage"] = 1
                                 attack_dict["pet effective"] = True
                             else:

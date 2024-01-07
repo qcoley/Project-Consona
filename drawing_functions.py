@@ -47,7 +47,7 @@ fish_pop_up_window_text = []
 
 
 # draws elements on screen that have been appended to list by below functions
-def draw_it(screen):
+def draw_it(screen, in_battle):
     if len(character_sheet_window) > 0:
         for character_window in character_sheet_window:
             screen.blit(character_window.surf, character_window.rect)
@@ -170,7 +170,8 @@ def draw_it(screen):
     if len(extra_button_container) > 0:
         for e_button in extra_button_container:
             if e_button.name == "card deck button":
-                if len(quest_box) == 0 and len(quest_box_trading) == 0 and len(quest_box_fishing) == 0:
+                if (len(quest_box) == 0 and len(quest_box_trading) == 0 and len(quest_box_fishing) == 0
+                        and not in_battle):
                     screen.blit(e_button.surf, e_button.rect)
             else:
                 screen.blit(e_button.surf, e_button.rect)
@@ -186,50 +187,75 @@ def draw_level_up(screen, in_over_world):
                 screen.blit(visuals.surf, visuals.rect)
 
 
-def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
+def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select, apothis_gift):
     if npc_garan.gift:
         if player.offense == 0:
             if len(weapon_container) > 3:
                 weapon_container.clear()
-            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_0"])
-            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_0"])
-            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_0"])
+            if apothis_gift:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_0_apothis"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_0_apothis"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_0_apothis"])
+            else:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_0"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_0"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_0"])
             weapon_container.append(staff)
             weapon_container.append(sword)
             weapon_container.append(bow)
         if player.offense == 1:
             if len(weapon_container) > 3:
                 weapon_container.clear()
-            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_1"])
-            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_1"])
-            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_1"])
+            if apothis_gift:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_1_apothis"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_1_apothis"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_1_apothis"])
+            else:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_1"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_1"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_1"])
             weapon_container.append(staff)
             weapon_container.append(sword)
             weapon_container.append(bow)
         if player.offense == 2:
             if len(weapon_container) > 3:
                 weapon_container.clear()
-            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_2"])
-            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_2"])
-            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_2"])
+            if apothis_gift:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_2_apothis"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_2_apothis"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_2_apothis"])
+            else:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_2"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_2"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_2"])
             weapon_container.append(staff)
             weapon_container.append(sword)
             weapon_container.append(bow)
         if player.offense == 3:
             if len(weapon_container) > 3:
                 weapon_container.clear()
-            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_3"])
-            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_3"])
-            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_3"])
+            if apothis_gift:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_3_apothis"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_3_apothis"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_3_apothis"])
+            else:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_3"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_3"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_3"])
             weapon_container.append(staff)
             weapon_container.append(sword)
             weapon_container.append(bow)
         if player.offense == 4:
             if len(weapon_container) > 3:
                 weapon_container.clear()
-            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_4"])
-            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_4"])
-            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_4"])
+            if apothis_gift:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_4_apothis"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_4_apothis"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_4_apothis"])
+            else:
+                staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_4"])
+                sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_4"])
+                bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_4"])
             weapon_container.append(staff)
             weapon_container.append(sword)
             weapon_container.append(bow)
@@ -1291,14 +1317,14 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
             text_quest3_prog_rect.midleft = (950, 407)
 
-            text_quest4_surf = font.render("Shades of fear", True, "black", "light yellow")
+            text_quest4_surf = font.render("Re recycling", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
             text_quest4_rect.midleft = (600, 537)
-            text_quest4_info_surf = font.render(str(list(player.current_quests.values())[11]), True, "black",
+            text_quest4_info_surf = font.render(str(list(player.current_quests.values())[15]), True, "black",
                                                 "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
             text_quest4_info_rect.midleft = (540, 586)
-            text_quest4_prog_surf = font.render(str(player.quest_progress["shades of fear"]) + " /4", True,
+            text_quest4_prog_surf = font.render(str(player.quest_progress["re recycling"]) + " /4", True,
                                                 "black", "light yellow")
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
@@ -1341,7 +1367,8 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
                    torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
                    dionte_quest_window, accept_button, decline_button, omoku_quest_window, leyre_quest_window,
                    aitor_quest_window, everett_quest_window, artherian_quest_window, artherian_quest_window_2,
-                   artherian_1, maydria_quest_window, kuba_quest_window, nahun_quest_window, illisare_quest_window):
+                   artherian_1, maydria_quest_window, kuba_quest_window, nahun_quest_window, illisare_quest_window,
+                   roroc_quest_window):
     if not draw_condition:
         quest_box.clear()
     else:
@@ -1383,6 +1410,8 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
                 quest_box.append(nahun_quest_window)
             if quest_npc.name == "Illisare":
                 quest_box.append(illisare_quest_window)
+            if quest_npc.name == "Roroc":
+                quest_box.append(roroc_quest_window)
 
         except AttributeError:
             if quest_npc == "Kirean":
@@ -1398,7 +1427,7 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
                         torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
                         dionte_quest_window, omoku_quest_window, leyre_quest_window, aitor_quest_window,
                         everett_quest_window, artherian_quest_window, maydria_task_window, kuba_quest_window,
-                        nahun_quest_window, illisare_quest_window):
+                        nahun_quest_window, illisare_quest_window, roroc_quest_window):
     if not draw_condition:
         quest_complete_box.clear()
     else:
@@ -1437,6 +1466,8 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
                 quest_complete_box.append(kuba_quest_window)
             if quest_npc.name == "Illisare":
                 quest_complete_box.append(nahun_quest_window)
+            if quest_npc.name == "Roroc":
+                quest_complete_box.append(roroc_quest_window)
         except AttributeError:
             if quest_npc == "Kirean":
                 quest_complete_box.append(kirean_quest_window)

@@ -12,7 +12,8 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                 sword, bow, npc_garan, weapon_select, save_check_window, user_interface, bar_backdrop, hp_bar,
                 en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 fishing_hut_rect, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
-                pet_energy_window, sfx_fishing_cast, item_block, item_block_got, Item, sfx_item_block):
+                pet_energy_window, sfx_fishing_cast, item_block, item_block_got, Item, sfx_item_block,
+                apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -129,7 +130,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
     screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
 
@@ -169,7 +170,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, False)
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)

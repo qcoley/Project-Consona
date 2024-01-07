@@ -18,7 +18,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
                   npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite, critter,
                   right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter, better_fish_counter,
-                  even_better_fish_counter, best_fish_counter, vanished, illisare, star_illisare):
+                  even_better_fish_counter, best_fish_counter, vanished, illisare, star_illisare, apothis_gift):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -30,7 +30,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(critter.surf, critter.rect)
 
@@ -205,7 +205,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if 380 < player.x_coordinate < 650 and player.y_coordinate > 700:
         player.current_zone = "eldream"
@@ -287,7 +287,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find, critter, right_move,
                   left_move, critter_tic, walk_move, altar, mini_map, basic_fish_counter, better_fish_counter,
                   even_better_fish_counter, best_fish_counter, item_block, item_block_got, sfx_item_block, Item,
-                  kasper_unlocked, torok_unlocked, iriana_unlocked):
+                  kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -300,7 +300,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
@@ -533,7 +533,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if 990 < player.x_coordinate and 395 < player.y_coordinate < 625:
         player.current_zone = "ectrenos"
@@ -593,7 +593,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre, sfx_find, critter,
                    right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, item_block, item_block_got,
-                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked):
+                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -606,7 +606,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
@@ -841,7 +841,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if 50 > player.x_coordinate and 400 < player.y_coordinate < 620:
         player.current_zone = "ectrenos"
@@ -907,7 +907,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
                    sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, necrolas_highlighted,
-                   necrolas_reset):
+                   necrolas_reset, apothis_gift):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -919,7 +919,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -1103,7 +1103,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     if 85 > player.x_coordinate and player.y_coordinate < 375:
         player.current_zone = "ectrenos left"
@@ -1178,7 +1178,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder,
                     vanished, vanish_overlay, mini_map, osodark_battle_sprite, player_battle_sprite,
                     barrier_active, sharp_sense_active, Enemy, Item, UiElement, alcove_rect, basic_fish_counter,
-                    better_fish_counter, even_better_fish_counter, best_fish_counter):
+                    better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1190,7 +1190,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     respawned_dict = gameplay_functions.enemy_respawn(player, enemies, enemies, enemies, enemies, enemies, enemies,
                                                       enemies, enemies, enemies, Enemy, Item, graphic_dict, UiElement,
@@ -1359,7 +1359,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, in_battle)
 
     # npc movement updates
     if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
@@ -1408,7 +1408,7 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
                    bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4,
                    in_over_world, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
                    pet_energy_window, alcove_rect, mini_map, sfx_fishing_cast, item_block, item_block_got,
-                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked):
+                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1518,7 +1518,7 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
     screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
 
@@ -1730,7 +1730,7 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                                      best_fish_counter)
-    drawing_functions.draw_it(screen)
+    drawing_functions.draw_it(screen, False)
 
     fishing_alcove_return = {"over_world_song_set": over_world_song_set, "basic_fish_counter": basic_fish_counter,
                              "better_fish_counter": better_fish_counter,
