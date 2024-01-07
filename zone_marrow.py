@@ -16,7 +16,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                     prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
-                    ghouls_reset, roroc, recycle_crate, star_roroc):
+                    ghouls_reset, roroc, recycle_crate, star_roroc, rohir_gate):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -299,6 +299,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             info_text_4 = ""
 
             if interacted and in_over_world:
+                rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
                 over_world_song_set = False
                 interacted = False
                 player.current_zone = "seldon"
@@ -471,7 +472,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                     overlay_marrow_west, overlay_marrow_east, overlay_switch, switch_shadow, switch_phase, switch_box,
                     marrow_entrance_bg_open, entrance_music, entrance_npc, entrance_1, entrance_2, entrance_3,
-                    entrance_popup, sfx_switch, hearth_stone, mini_map, basic_fish_counter, better_fish_counter,
+                    entrance_popup, sfx_switch, mini_map, basic_fish_counter, better_fish_counter,
                     even_better_fish_counter, best_fish_counter, apothis_gift):
 
     if not over_world_song_set:
@@ -654,7 +655,6 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         screen.blit(entrance_text_surf, entrance_text_rect)
 
     if 450 < player.x_coordinate < 550 and player.y_coordinate < 40:
-        hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
         player.current_zone = "eldream"
         in_over_world = True
         over_world_song_set = False

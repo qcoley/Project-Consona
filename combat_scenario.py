@@ -3864,7 +3864,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                 if show_edge:
                     if enemy_combating.name == "Dreth":
-                        if player.offense < 4:
+                        if not apothis_gift:
                             edge_damage = 1
                         else:
                             edge_damage = random.randint(25, 35)
@@ -3876,7 +3876,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                 if fire_active:
                     if enemy_combating.name == "Dreth":
-                        if player.offense < 4:
+                        if not apothis_gift:
                             combat_event_dictionary["fire damage"] = 1
                         else:
                             combat_event_dictionary["fire damage"] = random.randint(4, 8)
@@ -3888,7 +3888,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     if attack_dict["effective"]:
                         combat_event_dictionary["mirror damage"] = 5
                         if enemy_combating.name == "Dreth":
-                            if player.offense < 4:
+                            if not apothis_gift:
                                 damage_to_enemy += 1
                             else:
                                 damage_to_enemy += 4
@@ -3900,7 +3900,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     else:
                         combat_event_dictionary["mirror damage"] = 3
                         if enemy_combating.name == "Dreth":
-                            if player.offense < 4:
+                            if not apothis_gift:
                                 damage_to_enemy += 1
                             else:
                                 damage_to_enemy += 3

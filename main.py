@@ -2131,6 +2131,14 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if 390 < self.x_coordinate < 635:
                 if self.y_coordinate < 215:
                     self.y_coordinate = 215
+        if current_zone == "marrow":
+            if pygame.Rect.colliderect(self.rect, recycle_crate_rect):
+                if pressed_key == "up":
+                    if self.y_coordinate > recycle_crate_rect.y:
+                        self.y_coordinate += self.velocity
+                if pressed_key == "right":
+                    if self.x_coordinate < recycle_crate_rect.x:
+                        self.x_coordinate -= self.velocity
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -4527,6 +4535,14 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.y_coordinate < 215:
                     self.y_coordinate = 215
 
+        if current_zone == "marrow":
+            if pygame.Rect.colliderect(self.rect, recycle_crate_rect):
+                if pressed_key == "up":
+                    if self.y_coordinate > recycle_crate_rect.y:
+                        self.y_coordinate += self.velocity
+                if pressed_key == "right":
+                    if self.x_coordinate < recycle_crate_rect.x:
+                        self.x_coordinate -= self.velocity
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -6923,6 +6939,14 @@ class PlayerSorae(pygame.sprite.Sprite):
             if 390 < self.x_coordinate < 635:
                 if self.y_coordinate < 215:
                     self.y_coordinate = 215
+        if current_zone == "marrow":
+            if pygame.Rect.colliderect(self.rect, recycle_crate_rect):
+                if pressed_key == "up":
+                    if self.y_coordinate > recycle_crate_rect.y:
+                        self.y_coordinate += self.velocity
+                if pressed_key == "right":
+                    if self.x_coordinate < recycle_crate_rect.x:
+                        self.x_coordinate -= self.velocity
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -7923,7 +7947,7 @@ if __name__ == "__main__":
     npc_nascent = NPC("Kuba", "nuldar", "", "", "", 625, 120, True, False, ["Items"], False,
                       graphic_dict["nascent_npc_down"])
 
-    npc_roroc = NPC("Roroc", "nuldar", "re recycling", "Onur-oh", "", 960, 180,
+    npc_roroc = NPC("Roroc", "nuldar", "re recycling", "Onur-oh", "", 960, 179,
                     True, False, ["Items"], False, graphic_dict["roroc_down"])
     npc_artherian = NPC("Artherian", "amuna", "legends never die", "hail", "", 210, 450,
                         True, False, ["Items"], False, graphic_dict["artherian_down"])
@@ -8102,16 +8126,16 @@ if __name__ == "__main__":
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # marrow enemies ---------------------------------------------------------------------------------------------------
-    erebyth = Enemy("Erebyth", "erebyth", 100, 100, 25, 575, 450, True, "item", graphic_dict["erebyth"],
+    erebyth = Enemy("Erebyth", "erebyth", 100, 100, 26, 575, 450, True, "item", graphic_dict["erebyth"],
                     UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     apothis = Enemy("Apothis", "apothis", 100, 100, 75, 575, 450, True, "item", graphic_dict["apothis_back"],
                     UiElement("apothis hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    necrola_ramps_1 = Enemy("Necrola", "necrola", 100, 100, 22, 198, 360, True,
+    necrola_ramps_1 = Enemy("Necrola", "necrola", 100, 100, 21, 198, 360, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
     necrola_rect_1 = pygame.Rect((25, 360), (150, 100))
-    necrola_ramps_2 = Enemy("Necrola", "necrola", 100, 100, 22, 835, 360, True,
+    necrola_ramps_2 = Enemy("Necrola", "necrola", 100, 100, 21, 835, 360, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
@@ -8186,8 +8210,11 @@ if __name__ == "__main__":
     construct_part_3 = Item("Construct part", "part", 335, 460, graphic_dict["construct_part"], 0)
     construct_part_4 = Item("Construct part", "part", 472, 50, graphic_dict["construct_part"], 0)
 
-    hearth_stone = Building("hearth", "seldon hearth", 860, 595, graphic_dict["hearth_stone"])
-    marrow_hearth = Building("hearth", "marrow hearth", 960, 350, graphic_dict["hearth_stone"])
+    hearth_stone_seldon = Building("hearth", "seldon hearth", 860, 595, graphic_dict["hearth_stone"])
+    hearth_stone_korlok = Building("hearth", "korlok hearth", 885, 230, graphic_dict["hearth_stone"])
+    hearth_stone_eldream = Building("hearth", "eldream hearth", 968, 595, graphic_dict["hearth_stone"])
+    hearth_stone_marrow = Building("hearth", "marrow hearth", 960, 350, graphic_dict["hearth_stone"])
+
     castle_bridge = UiElement("castle bridge", 710, 486, graphic_dict["castle_bridge_unfinished"])
 
     stardust_entrance = Building("Shop", "Stardust Post", 530, 325, graphic_dict["stardust_entrance"])
@@ -8543,7 +8570,8 @@ if __name__ == "__main__":
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
     dungeon_chest_small_marrow = UiElement("dungeon chest ramps small", 857, 600, graphic_dict["chest_small"])
-    recycle_crate = UiElement("recycle_crate", 1007, 107, graphic_dict["recycle_crate"])
+    recycle_crate = UiElement("recycle crate", 1007, 107, graphic_dict["recycle_crate"])
+    recycle_crate_overlay = UiElement("recycle crate overlay", 915, 250, graphic_dict["recycle_crate_overlay"])
 
     item_block_1 = Item("item block 1", "block", 115, 211, graphic_dict["item_block"], 0)
     item_block_2 = Item("item block 2", "block", 595, 45, graphic_dict["item_block"], 0)
@@ -8659,6 +8687,7 @@ if __name__ == "__main__":
     marrow_barrier_small = pygame.Rect((30, 260), (75, 70))
     seldon_barrier_small = pygame.Rect((925, 260), (75, 70))
     stardust_card_cave = pygame.Rect((225, 75), (75, 75))
+    recycle_crate_rect = pygame.Rect((995, 25), (50, 50))
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
     mines_cart = UiElement("mines cart", 885, 475, graphic_dict["mines_light"])
     mines_shard_1 = UiElement("mines shard 1", 885, 370, graphic_dict["mines_light"])
@@ -8793,22 +8822,22 @@ if __name__ == "__main__":
     environments.add(trees, amuna_buildings)
     quest_items_seldon.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
     quest_items_eldream.add(quest_supplies_1, quest_supplies_2, quest_supplies_3, quest_supplies_4)
-    most_sprites.add(npcs_seldon, trees, amuna_buildings, quest_items_seldon, seldon_enemies, hearth_stone,
+    most_sprites.add(npcs_seldon, trees, amuna_buildings, quest_items_seldon, seldon_enemies, hearth_stone_seldon,
                      rohir_gate)
     user_interface.add(character_button, quests_button, save_button, map_button, message_box, location_overlay,
                        star_power_meter)
     interactables_nascent.add(nascent_gate, rock_8, npc_nascent)
-    interactables_seldon.add(npcs_seldon, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon,
+    interactables_seldon.add(npcs_seldon, seldon_enemies, amuna_buildings, hearth_stone_seldon, quest_items_seldon,
                              seldon_flowers)
     interactables_stardust.add(stardust_entrance, nede, ghoul_nede, rock_3, stelli_a, stelli_b, stelli_c)
-    interactables_korlok.add(nuldar_buildings, reservoir_enter, rohir_gate, hearth_stone, korlok_enemies,
+    interactables_korlok.add(nuldar_buildings, reservoir_enter, rohir_gate, hearth_stone_korlok, korlok_enemies,
                              mines_entrance, npc_voruke, npc_zerah, rock_4, rock_5, rock_6, npc_nahun)
     interactables_reservoir_a.add(dungeon_items, chorizon_1, chorizon_2, dungeon_teleporter)
     interactables_reservoir_b.add(dungeon_gate, dungeon_teleporter, dungeon_crate_5, muchador, reservoir_passage)
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
     interactables_mines.add(bandiles, mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
     interactables_terra_trail.add(npc_dionte, terra_cave, rock_7, terra_cave_enter)
-    interactables_eldream.add(eldream_flowers, hearth_stone, quest_items_eldream, npc_omoku)
+    interactables_eldream.add(eldream_flowers, hearth_stone_eldream, quest_items_eldream, npc_omoku)
     interactables_marrow_entrance.add(overlay_marrow_ramps_west, overlay_marrow_ramps_east)
 
     # music tracks
@@ -10019,6 +10048,18 @@ if __name__ == "__main__":
                         edge_learned = load_returned["edge_learned"]
                         arrow_learned = load_returned["arrow_learned"]
                         on_card_quest = load_returned["on_card_quest"]
+                        item_block_1_got = load_returned["item_block_1_got"]
+                        item_block_2_got = load_returned["item_block_2_got"]
+                        item_block_3_got = load_returned["item_block_3_got"]
+                        item_block_4_got = load_returned["item_block_4_got"]
+                        item_block_5_got = load_returned["item_block_5_got"]
+                        item_block_6_got = load_returned["item_block_6_got"]
+                        item_block_7_got = load_returned["item_block_7_got"]
+                        item_block_8_got = load_returned["item_block_8_got"]
+                        item_block_9_got = load_returned["item_block_9_got"]
+                        item_block_10_got = load_returned["item_block_10_got"]
+                        item_block_11_got = load_returned["item_block_11_got"]
+                        item_block_12_got = load_returned["item_block_12_got"]
 
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -10034,6 +10075,9 @@ if __name__ == "__main__":
                         if player.quest_complete["re recycling"]:
                             recycle_crate.update(recycle_crate.x_coordinate, recycle_crate.y_coordinate,
                                                  graphic_dict["recycle_crate_full"])
+                            recycle_crate_overlay.update(recycle_crate_overlay.x_coordinate,
+                                                         recycle_crate_overlay.y_coordinate,
+                                                         graphic_dict["recycle_crate_overlay_full"])
 
                         if player.race == "amuna":
                             player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
@@ -10275,7 +10319,6 @@ if __name__ == "__main__":
                             player.x_coordinate = 860
                             player.y_coordinate = 655
                             rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
-                            hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "stardust":
                             player.x_coordinate = 925
@@ -10285,12 +10328,10 @@ if __name__ == "__main__":
                             player.x_coordinate = 882
                             player.y_coordinate = 290
                             rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
-                            hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "fishing hut":
                             player.x_coordinate = 410
                             player.y_coordinate = 265
-                            hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "mines":
                             player.x_coordinate = 815
@@ -10321,7 +10362,6 @@ if __name__ == "__main__":
                         if player.current_zone == "eldream":
                             player.x_coordinate = 255
                             player.y_coordinate = 175
-                            hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "ectrenos":
                             mini_map_overlay.update(915, 596, graphic_dict["ectrenos_mini_map"])
@@ -10865,7 +10905,7 @@ if __name__ == "__main__":
                                                                                   ectrenos_pet_entrance, altar_entrance,
                                                                                   npc_everett, ectrenos_front_enemies,
                                                                                   alcove_ladder_rect, ghouls_marrow,
-                                                                                  npc_artherian, marrow_hearth,
+                                                                                  npc_artherian, hearth_stone_marrow,
                                                                                   npc_maydria, npc_noren, npc_boro,
                                                                                   sub_marrow_rect,
                                                                                   interactables_marrow_entrance,
@@ -11280,7 +11320,13 @@ if __name__ == "__main__":
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
                                                                         card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest)
+                                                                        arrow_learned, on_card_quest, item_block_1_got,
+                                                                        item_block_2_got, item_block_3_got,
+                                                                        item_block_4_got, item_block_5_got,
+                                                                        item_block_6_got, item_block_7_got,
+                                                                        item_block_8_got, item_block_9_got,
+                                                                        item_block_10_got, item_block_11_got,
+                                                                        item_block_12_got)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -11339,7 +11385,13 @@ if __name__ == "__main__":
                                                                     cat_rewarded, cats_pet, credits_shown, trading_deck,
                                                                     trading_task_complete, any_card_counter, card_deck,
                                                                     fire_learned, edge_learned, arrow_learned,
-                                                                    on_card_quest)
+                                                                    on_card_quest, item_block_1_got,
+                                                                    item_block_2_got, item_block_3_got,
+                                                                    item_block_4_got, item_block_5_got,
+                                                                    item_block_6_got, item_block_7_got,
+                                                                    item_block_8_got, item_block_9_got,
+                                                                    item_block_10_got, item_block_11_got,
+                                                                    item_block_12_got)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -11437,7 +11489,6 @@ if __name__ == "__main__":
                                     except AttributeError:
                                         pass
 
-                                    hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
                                     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
                                     info_text_1 = "You recalled to the seldon stone."
                                     over_world_song_set = False
@@ -11473,7 +11524,6 @@ if __name__ == "__main__":
                                                     pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
                                         except AttributeError:
                                             pass
-                                        hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                                         rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
                                         info_text_1 = "You recalled to the korlok stone."
                                         over_world_song_set = False
@@ -11513,7 +11563,6 @@ if __name__ == "__main__":
                                                     pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
                                         except AttributeError:
                                             pass
-                                        hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                                         info_text_1 = "You recalled to the eldream stone."
                                         over_world_song_set = False
                                         stardust_song_set = False
@@ -11829,7 +11878,7 @@ if __name__ == "__main__":
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, screen, graphic_dict, rohir_gate,
-                                                                      hearth_stone, over_world_song_set,
+                                                                      hearth_stone_seldon, over_world_song_set,
                                                                       seldon_overworld_music, seldon_district_bg,
                                                                       seldon_enemies, korlok_enemies, snakes,
                                                                       ghouls, magmons, bandiles, interactables_seldon,
@@ -11885,7 +11934,8 @@ if __name__ == "__main__":
                                                                       quest_logs_highlighted)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
-                                                                      rohir_gate, hearth_stone, over_world_song_set,
+                                                                      rohir_gate, hearth_stone_seldon,
+                                                                      over_world_song_set,
                                                                       seldon_overworld_music, seldon_district_bg,
                                                                       seldon_enemies, korlok_enemies, snakes,
                                                                       ghouls, magmons, bandiles, interactables_seldon,
@@ -11986,7 +12036,7 @@ if __name__ == "__main__":
                         korlok_returned = zone_korlok.korlok_district(pygame, screen, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
                                                                       over_world_song_set, nuldar_buildings, rohir_gate,
-                                                                      hearth_stone, mines_entrance, magmons,
+                                                                      hearth_stone_korlok, mines_entrance, magmons,
                                                                       interaction_popup, font, bridge_not_repaired,
                                                                       reservoir_enter, rock_1, rock_2,
                                                                       save_check_window,
@@ -12034,7 +12084,7 @@ if __name__ == "__main__":
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
                                                                       over_world_song_set, nuldar_buildings, rohir_gate,
-                                                                      hearth_stone, mines_entrance, magmons,
+                                                                      hearth_stone_korlok, mines_entrance, magmons,
                                                                       interaction_popup, font, bridge_not_repaired,
                                                                       reservoir_enter, rock_1, rock_2,
                                                                       save_check_window,
@@ -12136,7 +12186,7 @@ if __name__ == "__main__":
                                                                          bandile_battle_sprite, chinzilla_battle_sprite,
                                                                          barrier_active, sharp_sense_active,
                                                                          current_npc_interacting, chinzilla,
-                                                                         quest_star_dionte, hearth_stone,
+                                                                         quest_star_dionte, hearth_stone_eldream,
                                                                          equipment_screen,
                                                                          staff, sword, bow, npc_garan, offense_meter,
                                                                          defense_meter, weapon_select, rock_7,
@@ -12190,7 +12240,7 @@ if __name__ == "__main__":
                                                                          bandile_battle_sprite, chinzilla_battle_sprite,
                                                                          barrier_active, sharp_sense_active,
                                                                          current_npc_interacting, chinzilla,
-                                                                         quest_star_dionte, hearth_stone,
+                                                                         quest_star_dionte, hearth_stone_eldream,
                                                                          equipment_screen,
                                                                          staff, sword, bow, npc_garan, offense_meter,
                                                                          defense_meter, weapon_select, rock_7,
@@ -12271,7 +12321,7 @@ if __name__ == "__main__":
                                                                                weapon_select, pet_energy_window,
                                                                                npc_artherian, player_battle_sprite,
                                                                                current_npc_interacting,
-                                                                               in_npc_interaction, marrow_hearth,
+                                                                               in_npc_interaction, hearth_stone_marrow,
                                                                                marrow_attuned, sfx_map_teleport,
                                                                                ghouls_marrow, enemy_tic, barrier_active,
                                                                                sharp_sense_active, ghoul_battle_sprite,
@@ -12290,7 +12340,8 @@ if __name__ == "__main__":
                                                                                artherian_task_start,
                                                                                marrow_ghouls_highlighted,
                                                                                marrow_ghouls_reset, npc_roroc,
-                                                                               recycle_crate, quest_star_roroc)
+                                                                               recycle_crate, quest_star_roroc,
+                                                                               rohir_gate)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -12308,7 +12359,7 @@ if __name__ == "__main__":
                                                                                weapon_select, pet_energy_window,
                                                                                npc_artherian, player_battle_sprite,
                                                                                current_npc_interacting,
-                                                                               in_npc_interaction, marrow_hearth,
+                                                                               in_npc_interaction, hearth_stone_marrow,
                                                                                marrow_attuned, sfx_map_teleport,
                                                                                ghouls_marrow, enemy_tic, barrier_active,
                                                                                sharp_sense_active, ghoul_battle_sprite,
@@ -12327,7 +12378,8 @@ if __name__ == "__main__":
                                                                                artherian_task_start,
                                                                                marrow_ghouls_highlighted,
                                                                                marrow_ghouls_reset, npc_roroc,
-                                                                               recycle_crate, quest_star_roroc)
+                                                                               recycle_crate, quest_star_roroc,
+                                                                               rohir_gate)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -12376,7 +12428,7 @@ if __name__ == "__main__":
                                                                                marrow_entrance_music,
                                                                                npc_marrow_entrance, entrance_1,
                                                                                entrance_2, entrance_3, entrance_popup,
-                                                                               sfx_activate_switch, hearth_stone,
+                                                                               sfx_activate_switch,
                                                                                mini_map_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
@@ -12404,7 +12456,7 @@ if __name__ == "__main__":
                                                                                marrow_entrance_music,
                                                                                npc_marrow_entrance, entrance_1,
                                                                                entrance_2, entrance_3, entrance_popup,
-                                                                               sfx_activate_switch, hearth_stone,
+                                                                               sfx_activate_switch,
                                                                                mini_map_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
@@ -13082,7 +13134,7 @@ if __name__ == "__main__":
                                                                      defense_meter, weapon_select, pet_energy_window,
                                                                      npc_artherian, player_battle_sprite,
                                                                      current_npc_interacting, in_npc_interaction,
-                                                                     marrow_hearth, marrow_attuned, sfx_map_teleport,
+                                                                     marrow_attuned, sfx_map_teleport,
                                                                      ghouls_marrow, enemy_tic, barrier_active,
                                                                      sharp_sense_active, ghoul_battle_sprite, in_battle,
                                                                      current_enemy_battling, Enemy, Item, UiElement,
@@ -13114,7 +13166,7 @@ if __name__ == "__main__":
                                                                      defense_meter, weapon_select, pet_energy_window,
                                                                      npc_artherian, player_battle_sprite,
                                                                      current_npc_interacting, in_npc_interaction,
-                                                                     marrow_hearth, marrow_attuned, sfx_map_teleport,
+                                                                     marrow_attuned, sfx_map_teleport,
                                                                      ghouls_marrow, enemy_tic, barrier_active,
                                                                      sharp_sense_active, ghoul_battle_sprite, in_battle,
                                                                      current_enemy_battling, Enemy, Item, UiElement,
@@ -13500,7 +13552,7 @@ if __name__ == "__main__":
                                                                              chinzilla_battle_sprite, barrier_active,
                                                                              sharp_sense_active,
                                                                              current_npc_interacting,
-                                                                             hearth_stone, equipment_screen, staff,
+                                                                             equipment_screen, staff,
                                                                              sword,
                                                                              bow, npc_garan, offense_meter,
                                                                              defense_meter,
@@ -13544,7 +13596,7 @@ if __name__ == "__main__":
                                                                              chinzilla_battle_sprite, barrier_active,
                                                                              sharp_sense_active,
                                                                              current_npc_interacting,
-                                                                             hearth_stone, equipment_screen, staff,
+                                                                             equipment_screen, staff,
                                                                              sword,
                                                                              bow, npc_garan, offense_meter,
                                                                              defense_meter,
@@ -14123,7 +14175,7 @@ if __name__ == "__main__":
                                                                  interactables_korlok, Enemy, Item, UiElement,
                                                                  interactables_mines, ores, equipment_screen, staff,
                                                                  sword, bow, npc_garan, offense_meter, defense_meter,
-                                                                 weapon_select, hearth_stone, npc_prime, npc_jez,
+                                                                 weapon_select, npc_prime, npc_jez,
                                                                  prime_popup, jez_popup, prime_1, prime_2, prime_3,
                                                                  jez_1,
                                                                  jez_2, jez_3, seldon_flowers, eldream_flowers,
@@ -14157,7 +14209,7 @@ if __name__ == "__main__":
                                                                  interactables_korlok, Enemy, Item, UiElement,
                                                                  interactables_mines, ores, equipment_screen, staff,
                                                                  sword, bow, npc_garan, offense_meter, defense_meter,
-                                                                 weapon_select, hearth_stone, npc_prime, npc_jez,
+                                                                 weapon_select, npc_prime, npc_jez,
                                                                  prime_popup, jez_popup, prime_1, prime_2, prime_3,
                                                                  jez_1,
                                                                  jez_2, jez_3, seldon_flowers, eldream_flowers,
@@ -14211,7 +14263,7 @@ if __name__ == "__main__":
                                                                  movement_able, equipment_screen, staff, sword, bow,
                                                                  npc_garan, offense_meter, defense_meter,
                                                                  weapon_select, pet_energy_window, vanished,
-                                                                 vanish_overlay, hearth_stone, chroma_bridge_forge,
+                                                                 vanish_overlay, chroma_bridge_forge,
                                                                  forge_rect, Item, sfx_smelting, overlay_smelting,
                                                                  using_forge, smelted_casing, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
@@ -14231,7 +14283,7 @@ if __name__ == "__main__":
                                                                  movement_able, equipment_screen, staff, sword, bow,
                                                                  npc_garan, offense_meter, defense_meter,
                                                                  weapon_select, pet_energy_window, vanished,
-                                                                 vanish_overlay, hearth_stone, chroma_bridge_forge,
+                                                                 vanish_overlay, chroma_bridge_forge,
                                                                  forge_rect, Item, sfx_smelting, overlay_smelting,
                                                                  using_forge, smelted_casing, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
@@ -14270,7 +14322,7 @@ if __name__ == "__main__":
                                                                   movement_able, equipment_screen, staff, sword, bow,
                                                                   npc_garan, offense_meter, defense_meter,
                                                                   weapon_select, pet_energy_window, vanished,
-                                                                  vanish_overlay, hearth_stone, chroma_bridge_forge,
+                                                                  vanish_overlay, chroma_bridge_forge,
                                                                   forge_rect, Item, sfx_enchanting, overlay_enchanting,
                                                                   using_forge, enchanted_casing, artherian_2,
                                                                   task_star_artherian, basic_fish_counter,
@@ -14291,7 +14343,7 @@ if __name__ == "__main__":
                                                                   movement_able, equipment_screen, staff, sword, bow,
                                                                   npc_garan, offense_meter, defense_meter,
                                                                   weapon_select, pet_energy_window, vanished,
-                                                                  vanish_overlay, hearth_stone, chroma_bridge_forge,
+                                                                  vanish_overlay, chroma_bridge_forge,
                                                                   forge_rect, Item, sfx_enchanting, overlay_enchanting,
                                                                   using_forge, enchanted_casing, artherian_2,
                                                                   task_star_artherian, basic_fish_counter,
@@ -14338,7 +14390,7 @@ if __name__ == "__main__":
                                                                       magmon_battle_sprite, bandile_battle_sprite,
                                                                       chinzilla_battle_sprite, barrier_active,
                                                                       sharp_sense_active, current_npc_interacting,
-                                                                      chinzilla, hearth_stone,
+                                                                      chinzilla,
                                                                       equipment_screen, staff, sword, bow, npc_garan,
                                                                       offense_meter, defense_meter, weapon_select,
                                                                       rock_7,
@@ -14356,7 +14408,8 @@ if __name__ == "__main__":
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
-                                                                      sfx_item_block, Item, sfx_gate_open, apothis_gift)
+                                                                      sfx_item_block, Item, sfx_gate_open, apothis_gift,
+                                                                      rohir_gate)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -14376,7 +14429,7 @@ if __name__ == "__main__":
                                                                       magmon_battle_sprite, bandile_battle_sprite,
                                                                       chinzilla_battle_sprite, barrier_active,
                                                                       sharp_sense_active, current_npc_interacting,
-                                                                      chinzilla, hearth_stone,
+                                                                      chinzilla,
                                                                       equipment_screen, staff, sword, bow, npc_garan,
                                                                       offense_meter, defense_meter, weapon_select,
                                                                       rock_7,
@@ -14394,7 +14447,8 @@ if __name__ == "__main__":
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
-                                                                      sfx_item_block, Item, sfx_gate_open, apothis_gift)
+                                                                      sfx_item_block, Item, sfx_gate_open, apothis_gift,
+                                                                      rohir_gate)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -14793,14 +14847,15 @@ if __name__ == "__main__":
                                                                           power_gloves, info_text_1, info_text_2,
                                                                           info_text_3, info_text_4, in_over_world,
                                                                           has_key,
-                                                                          muchador_lights_on, hearth_stone,
+                                                                          muchador_lights_on,
                                                                           equipment_screen, staff, sword, bow,
                                                                           npc_garan,
                                                                           offense_meter, defense_meter, weapon_select,
                                                                           pet_energy_window, sfx_chest_open,
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter, rohir_gate, apothis_gift)
+                                                                          best_fish_counter, rohir_gate, apothis_gift,
+                                                                          dungeon_teleporter)
                     else:
                         reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -14815,14 +14870,15 @@ if __name__ == "__main__":
                                                                           power_gloves, info_text_1, info_text_2,
                                                                           info_text_3, info_text_4, in_over_world,
                                                                           has_key,
-                                                                          muchador_lights_on, hearth_stone,
+                                                                          muchador_lights_on,
                                                                           equipment_screen, staff, sword, bow,
                                                                           npc_garan,
                                                                           offense_meter, defense_meter, weapon_select,
                                                                           pet_energy_window, sfx_chest_open,
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter, rohir_gate, apothis_gift)
+                                                                          best_fish_counter, rohir_gate, apothis_gift,
+                                                                          dungeon_teleporter)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -19987,7 +20043,13 @@ if __name__ == "__main__":
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
                                                                         card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest)
+                                                                        arrow_learned, on_card_quest, item_block_1_got,
+                                                                        item_block_2_got, item_block_3_got,
+                                                                        item_block_4_got, item_block_5_got,
+                                                                        item_block_6_got, item_block_7_got,
+                                                                        item_block_8_got, item_block_9_got,
+                                                                        item_block_10_got, item_block_11_got,
+                                                                        item_block_12_got)
                                     info_text_2 = info
 
                             if not quest_clicked:
@@ -20002,6 +20064,7 @@ if __name__ == "__main__":
                                                                      artherian_task_window, artherian_task_window_2,
                                                                      artherian_1, artherian_task_window,
                                                                      kuba_quest_window, nahun_quest_window,
+                                                                     illisare_quest_window, illisare_quest_window,
                                                                      illisare_quest_window)
                                     quest_clicked = True
                                 else:  # quest complete popup
@@ -20618,62 +20681,6 @@ if __name__ == "__main__":
                                         loot_timer_reset = False
                                     player.reputation["sorae"] += 10
 
-                                    # autosave on quest complete
-                                    info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                        sharp_sense_learned, saved, npc_garan.gift,
-                                                                        rest_recover_show, knowledge_academia_show,
-                                                                        quest_guide_shown, battle_guide_shown,
-                                                                        rest_shown_before, quest_highlight_popup,
-                                                                        bridge_not_repaired, nede_ghoul_defeated,
-                                                                        bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                        crate_3,
-                                                                        crate_4, crate_5, switch_1, switch_2, switch_3,
-                                                                        muchador_defeated, has_key,
-                                                                        mini_boss_1_defeated,
-                                                                        mini_boss_2_defeated, gloves_obtained,
-                                                                        korlok_attuned,
-                                                                        eldream_attuned, rock_4_con, rock_5_con,
-                                                                        rock_6_con,
-                                                                        rock_7_con, chinzilla_defeated,
-                                                                        apothecary_access,
-                                                                        beyond_seldon, seed_given, hatch_ready,
-                                                                        menagerie_access, kasper_unlocked,
-                                                                        torok_unlocked,
-                                                                        iriana_unlocked, rock_8_con, rock_3_con,
-                                                                        seed_scout_count, seed_fighter_count,
-                                                                        seed_mage_count,
-                                                                        dreth_cutscenes_not_viewed, mirror_learned,
-                                                                        stun_learned, vanish_learned, boots_obtained,
-                                                                        marrow_switch_phase, erebyth_defeated,
-                                                                        ramps_crate_1_got, ramps_crate_2_got,
-                                                                        ramps_crate_3_got, ramps_crate_4_got,
-                                                                        ramps_crate_5_got, marrow_attuned,
-                                                                        npc_artherian.gift,
-                                                                        artherian_2, npc_artherian.quest_complete,
-                                                                        fishing_unlocked, fishing_journal_unlocked,
-                                                                        bait_given,
-                                                                        basic_fish_counter, better_fish_counter,
-                                                                        even_better_fish_counter, best_fish_counter,
-                                                                        fishing_level, basic_fish_reward,
-                                                                        better_fish_reward,
-                                                                        even_better_fish_reward, best_fish_reward,
-                                                                        marrow_small_chest_got,
-                                                                        npc_noren.quest_complete,
-                                                                        npc_boro.quest_complete, npc_maydria,
-                                                                        artherian_task_start, prism_received,
-                                                                        castle_crate_1_got, castle_crate_2_got,
-                                                                        castle_chest_1_got, castle_chest_2_got,
-                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
-                                                                        mirage_updated, mirage_2_updated, mirage_saved,
-                                                                        mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown, trading_deck,
-                                                                        trading_task_complete, any_card_counter,
-                                                                        card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest)
-                                    info_text_2 = info
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
                                     drawing_functions.quest_box_draw("Aitor", True, garan_quest_window,
@@ -20686,7 +20693,7 @@ if __name__ == "__main__":
                                                                      artherian_task_window, artherian_task_window_2,
                                                                      artherian_1, artherian_task_window,
                                                                      artherian_task_window, artherian_task_window,
-                                                                     artherian_task_window)
+                                                                     artherian_task_window, artherian_task_window)
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not aitor_complete_shown:
@@ -20702,6 +20709,7 @@ if __name__ == "__main__":
                                                                               omoku_complete_quest_window,
                                                                               leyre_complete_quest_window,
                                                                               aitor_complete_quest_window,
+                                                                              everett_complete_quest_window,
                                                                               everett_complete_quest_window,
                                                                               everett_complete_quest_window,
                                                                               everett_complete_quest_window,
@@ -21156,7 +21164,14 @@ if __name__ == "__main__":
                                                                     sub_marrow_opened, cat_rewarded, cats_pet,
                                                                     credits_shown, trading_deck, trading_task_complete,
                                                                     any_card_counter, card_deck, fire_learned,
-                                                                    edge_learned, arrow_learned, on_card_quest)
+                                                                    edge_learned, arrow_learned, on_card_quest,
+                                                                    item_block_1_got,
+                                                                    item_block_2_got, item_block_3_got,
+                                                                    item_block_4_got, item_block_5_got,
+                                                                    item_block_6_got, item_block_7_got,
+                                                                    item_block_8_got, item_block_9_got,
+                                                                    item_block_10_got, item_block_11_got,
+                                                                    item_block_12_got)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -21737,7 +21752,14 @@ if __name__ == "__main__":
                                                                     sub_marrow_opened, cat_rewarded, cats_pet,
                                                                     credits_shown, trading_deck, trading_task_complete,
                                                                     any_card_counter, card_deck, fire_learned,
-                                                                    edge_learned, arrow_learned, on_card_quest)
+                                                                    edge_learned, arrow_learned, on_card_quest,
+                                                                    item_block_1_got,
+                                                                    item_block_2_got, item_block_3_got,
+                                                                    item_block_4_got, item_block_5_got,
+                                                                    item_block_6_got, item_block_7_got,
+                                                                    item_block_8_got, item_block_9_got,
+                                                                    item_block_10_got, item_block_11_got,
+                                                                    item_block_12_got)
                                 info_text_2 = info
 
                             if not quest_clicked:
@@ -22181,7 +22203,13 @@ if __name__ == "__main__":
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
                                                                         card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest)
+                                                                        arrow_learned, on_card_quest, item_block_1_got,
+                                                                        item_block_2_got, item_block_3_got,
+                                                                        item_block_4_got, item_block_5_got,
+                                                                        item_block_6_got, item_block_7_got,
+                                                                        item_block_8_got, item_block_9_got,
+                                                                        item_block_10_got, item_block_11_got,
+                                                                        item_block_12_got)
                                     info_text_2 = info
                                 if not quest_clicked:
                                     if not player.quest_complete["sneaky snakes"]:
@@ -22237,7 +22265,7 @@ if __name__ == "__main__":
                                     player.quest_complete["where's nede?"] = True
                                     player.current_quests["where's nede?"] = "You completed this quest!"
                                     info_text_1 = "You've completed Celeste's quest!"
-                                    info_text_2 = "Your game has been saved. "
+                                    info_text_2 = ""
                                     info_text_3 = ""
                                     info_text_4 = ""
                                     player.star_power += 1
@@ -22302,7 +22330,7 @@ if __name__ == "__main__":
                                     player.quest_complete["village repairs"] = True
                                     player.current_quests["village repairs"] = "You completed this quest!"
                                     info_text_1 = "You've completed Maurelle's quest!"
-                                    info_text_2 = "Your game has been saved. "
+                                    info_text_2 = ""
                                     info_text_3 = ""
                                     info_text_4 = ""
                                     player.star_power += 1
@@ -22439,7 +22467,13 @@ if __name__ == "__main__":
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
                                                                         card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest)
+                                                                        arrow_learned, on_card_quest, item_block_1_got,
+                                                                        item_block_2_got, item_block_3_got,
+                                                                        item_block_4_got, item_block_5_got,
+                                                                        item_block_6_got, item_block_7_got,
+                                                                        item_block_8_got, item_block_9_got,
+                                                                        item_block_10_got, item_block_11_got,
+                                                                        item_block_12_got)
                                 if not quest_clicked:
                                     if not player.quest_complete["ghouled again"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -22493,7 +22527,7 @@ if __name__ == "__main__":
                                     player.quest_complete["band hammer"] = True
                                     player.current_quests["band hammer"] = "You completed this quest!"
                                     info_text_1 = "You've completed Voruke's quest!"
-                                    info_text_2 = "Your game has been saved. "
+                                    info_text_2 = ""
                                     info_text_3 = ""
                                     info_text_4 = ""
                                     player.star_power += 1
@@ -22561,7 +22595,7 @@ if __name__ == "__main__":
                                     player.quest_complete["elementary elementals"] = True
                                     player.current_quests["elementary elementals"] = "You completed this quest!"
                                     info_text_1 = "You've completed Zerah's quest!"
-                                    info_text_2 = "Your game has been saved. "
+                                    info_text_2 = ""
                                     info_text_3 = ""
                                     info_text_4 = ""
                                     player.star_power += 1
@@ -22698,7 +22732,13 @@ if __name__ == "__main__":
                                                                         credits_shown, trading_deck,
                                                                         trading_task_complete, any_card_counter,
                                                                         card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest)
+                                                                        arrow_learned, on_card_quest, item_block_1_got,
+                                                                        item_block_2_got, item_block_3_got,
+                                                                        item_block_4_got, item_block_5_got,
+                                                                        item_block_6_got, item_block_7_got,
+                                                                        item_block_8_got, item_block_9_got,
+                                                                        item_block_10_got, item_block_11_got,
+                                                                        item_block_12_got)
                                     info_text_2 = info
 
                                 if not quest_clicked:
@@ -23031,6 +23071,13 @@ if __name__ == "__main__":
                                                 player.reputation["amuna"] += 10
                                                 player.star_power += 1
                                                 player.experience += 50
+                                                if player.experience >= 100:
+                                                    gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                                    leveled = True
+                                                    level_visual = True
+                                                    loot_level_tic = time.perf_counter()
+                                                    level_visual_tic = time.perf_counter()
+                                                    loot_timer_reset = False
                                                 npc_artherian.quest_complete = True
                                             if not artherian_complete_shown:
                                                 pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -23074,6 +23121,13 @@ if __name__ == "__main__":
                                     player.reputation["sorae"] += 10
                                     player.star_power += 1
                                     player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
 
                                 if (npc_boro.quest_complete and npc_noren.quest_complete
                                         and not npc_maydria.quest_complete):
@@ -23088,6 +23142,13 @@ if __name__ == "__main__":
                                     player.reputation["nuldar"] += 10
                                     player.star_power += 1
                                     player.experience += 50
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        level_visual = True
+                                        loot_level_tic = time.perf_counter()
+                                        level_visual_tic = time.perf_counter()
+                                        loot_timer_reset = False
 
                                 if not quest_clicked:
                                     if not kuba_complete_shown:
@@ -23343,6 +23404,9 @@ if __name__ == "__main__":
                                     player.experience += 50
                                     recycle_crate.update(recycle_crate.x_coordinate, recycle_crate.y_coordinate,
                                                          graphic_dict["recycle_crate_full"])
+                                    recycle_crate_overlay.update(recycle_crate_overlay.x_coordinate,
+                                                                 recycle_crate_overlay.y_coordinate,
+                                                                 graphic_dict["recycle_crate_overlay_full"])
                                     if player.experience >= 100:
                                         gameplay_functions.level_up(player, level_up_win, level_up_font)
                                         leveled = True
@@ -23514,6 +23578,7 @@ if __name__ == "__main__":
                                 screen.blit(npc_illisare_interaction.surf, npc_illisare_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Roroc":
+                                screen.blit(recycle_crate_overlay.surf, recycle_crate_overlay.rect)
                                 screen.blit(npc_roroc_interaction.surf, npc_roroc_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
@@ -23611,6 +23676,7 @@ if __name__ == "__main__":
                                 game_window.blit(npc_illisare_interaction.surf, npc_illisare_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Roroc":
+                                game_window.blit(recycle_crate_overlay.surf, recycle_crate_overlay.rect)
                                 game_window.blit(npc_roroc_interaction.surf, npc_roroc_interaction.rect)
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
@@ -23959,13 +24025,11 @@ if __name__ == "__main__":
                                     player.y_coordinate = 290
                                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                   player.y_coordinate))
-                                    hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                                 elif (player.current_zone == "ectrenos front" or
                                       player.current_zone == "ectrenos alcove"):
                                     player.current_zone = "eldream"
                                     player.x_coordinate = 890
                                     player.y_coordinate = 635
-                                    hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                   player.y_coordinate))
                                 elif (player.current_zone == "marrow tower east" or

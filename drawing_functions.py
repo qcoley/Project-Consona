@@ -170,8 +170,7 @@ def draw_it(screen, in_battle):
     if len(extra_button_container) > 0:
         for e_button in extra_button_container:
             if e_button.name == "card deck button":
-                if (len(quest_box) == 0 and len(quest_box_trading) == 0 and len(quest_box_fishing) == 0
-                        and not in_battle):
+                if not in_battle:
                     screen.blit(e_button.surf, e_button.rect)
             else:
                 screen.blit(e_button.surf, e_button.rect)
@@ -189,9 +188,9 @@ def draw_level_up(screen, in_over_world):
 
 def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select, apothis_gift):
     if npc_garan.gift:
+        if len(weapon_container) > 3:
+            weapon_container.clear()
         if player.offense == 0:
-            if len(weapon_container) > 3:
-                weapon_container.clear()
             if apothis_gift:
                 staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_0_apothis"])
                 sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_0_apothis"])

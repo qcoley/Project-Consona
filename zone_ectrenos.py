@@ -12,7 +12,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able,
                   current_enemy_battling, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                   chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
-                  chinzilla_battle_sprite, barrier_active, sharp_sense_active, current_npc_interacting, hearth_stone,
+                  chinzilla_battle_sprite, barrier_active, sharp_sense_active, current_npc_interacting,
                   equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                   eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic, eldream_flowers,
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
@@ -214,7 +214,6 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         player.x_coordinate = 540
         player.y_coordinate = 565
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-        hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
 
     if player.x_coordinate < 35 and 565 > player.y_coordinate > 470:
         player.current_zone = "ectrenos left"

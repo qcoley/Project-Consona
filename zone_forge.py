@@ -8,7 +8,7 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                  info_text_1, info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic, in_battle, in_npc_interaction,
                  movement_able, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                 defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay, hearth_stone,
+                 defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay,
                  chroma_forge, forge_rect, Item, sfx_smelting, overlay_smelting, using_forge, smelted_casing,
                  basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter, item_block_11,
                  item_block_11_got, sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
@@ -158,7 +158,6 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         in_over_world = True
         player.x_coordinate = 540
         player.y_coordinate = 225
-        hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

@@ -10,7 +10,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
                info_text_3, info_text_4, npc_tic, movement_able, equipment_screen, staff, sword, bow, npc_garan,
                offense_meter, defense_meter, weapon_select, pet_energy_window, artherian, player_battle_sprite,
-               current_npc_interacting, in_npc_interaction, hearth_stone, marrow_attuned, sfx_hearth,
+               current_npc_interacting, in_npc_interaction, marrow_attuned, sfx_hearth,
                marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
                current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
                maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,

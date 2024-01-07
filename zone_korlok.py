@@ -270,7 +270,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 player.y_coordinate = 175
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
-                hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
 
     if pygame.sprite.collide_rect(player, reservoir_enter):
         interaction_popup.update(reservoir_enter.x_coordinate + 50, reservoir_enter.y_coordinate - 55,

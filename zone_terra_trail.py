@@ -13,14 +13,15 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 terra_mountains, terra_cave, npc_dionte, quest_star_dionte, enemy,
                 player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                 muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, hearth_stone,
+                barrier_active, sharp_sense_active, current_npc_interacting, chinzilla,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
                 rock_7_con, chinzilla_defeated, eldream_gate_rect, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_rupee, stelli_battle_sprite, apothis_music, scene_1, scene_2, scene_3,
                 scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                 dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay, critter, right_move, left_move,
                 critter_tic, walk_move, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                best_fish_counter, item_block, item_block_got, sfx_item_block, Item, sfx_gate, apothis_gift):
+                best_fish_counter, item_block, item_block_got, sfx_item_block, Item, sfx_gate, apothis_gift,
+                rohir_gate):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -231,7 +232,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 player.x_coordinate = 255
                 player.y_coordinate = 175
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
+
                 if dreth_cutscenes_not_viewed:
                     cutscene_tic = time.perf_counter()
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -336,12 +337,12 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     drawing_functions.draw_it(screen, in_battle)
 
     if player.x_coordinate < 75 and player.y_coordinate < 225:
+        rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
         player.current_zone = "korlok"
         in_over_world = True
         player.x_coordinate = 900
         player.y_coordinate = 175
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-        hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
 
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])

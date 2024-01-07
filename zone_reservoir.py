@@ -393,7 +393,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                     if item.name == "boss key":
                         player.items.remove(item)
                         has_key = True
-                if has_key:
+                if has_key or muchador_defeated:
                     if not muchador_lights_on:
                         muchador.update_image(350, 360, graphic_dict["muchador"])
                         muchador_lights_on = True
@@ -561,9 +561,10 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 interacted, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
                 button_highlight, reservoir_c_bg, dungeon_chest, reservoir_exit, rock_1, rock_2, gloves_obtained,
                 power_gloves, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, has_key,
-                muchador_lights_on, hearth_stone, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
+                muchador_lights_on, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                 defense_meter, weapon_select, pet_energy_window, sfx_chest, sfx_rocks, basic_fish_counter,
-                better_fish_counter, even_better_fish_counter, best_fish_counter, rohir_gate, apothis_gift):
+                better_fish_counter, even_better_fish_counter, best_fish_counter, rohir_gate, apothis_gift,
+                dungeon_teleporter):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -603,6 +604,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
     # move player back to reservoir b if they approach passage
     if 1000 > player.x_coordinate > 950 and 400 < player.y_coordinate:
+        dungeon_teleporter.update(853, 540, graphic_dict["dungeon_teleporter"])
         player.current_zone = "reservoir b"
         in_over_world = True
         muchador_lights_on = True
@@ -698,7 +700,6 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             player.x_coordinate = 100
             player.y_coordinate = 550
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-            hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
             rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
             interacted = False
 

@@ -2295,6 +2295,18 @@ def load_game(player, Item, graphics, Pet):
             load_return["edge_learned"] = player_load_info["edge_learned"]
             load_return["arrow_learned"] = player_load_info["arrow_learned"]
             load_return["on_card_quest"] = player_load_info["on_card_quest"]
+            load_return["item_block_1_got"] = player_load_info["item_block_1_got"]
+            load_return["item_block_2_got"] = player_load_info["item_block_2_got"]
+            load_return["item_block_3_got"] = player_load_info["item_block_3_got"]
+            load_return["item_block_4_got"] = player_load_info["item_block_4_got"]
+            load_return["item_block_5_got"] = player_load_info["item_block_5_got"]
+            load_return["item_block_6_got"] = player_load_info["item_block_6_got"]
+            load_return["item_block_7_got"] = player_load_info["item_block_7_got"]
+            load_return["item_block_8_got"] = player_load_info["item_block_8_got"]
+            load_return["item_block_9_got"] = player_load_info["item_block_9_got"]
+            load_return["item_block_10_got"] = player_load_info["item_block_10_got"]
+            load_return["item_block_11_got"] = player_load_info["item_block_11_got"]
+            load_return["item_block_12_got"] = player_load_info["item_block_12_got"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2323,7 +2335,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               dreth_taunt_2, dreth_taunt_3, mirage_updated, mirage_2_updated, mirage_saved, mirage_2_saved,
               rope_phase, mirage_alive, thanked, dreth_taunt_4, dreth_defeated, apothis_gift, sub_marrow_opened,
               cat_rewarded, cats_pet, credits_shown, trading_deck, trading_task_complete, any_card_counter,
-              card_deck, fire_learned, edge_learned, arrow_learned, on_card_quest):
+              card_deck, fire_learned, edge_learned, arrow_learned, on_card_quest, item_block_1_got, item_block_2_got,
+              item_block_3_got, item_block_4_got, item_block_5_got, item_block_6_got, item_block_7_got,
+              item_block_8_got, item_block_9_got, item_block_10_got, item_block_11_got, item_block_12_got):
 
     inventory_save = []
     equipment_save = []
@@ -2439,7 +2453,13 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "chorizon": card_deck["chorizon"], "muchador": card_deck["muchador"],
                         "chinzilla": card_deck["chinzilla"], "erebyth": card_deck["erebyth"],
                         "fire_learned": fire_learned, "edge_learned": edge_learned, "arrow_learned": arrow_learned,
-                        "on_card_quest": on_card_quest, "velocity": player.velocity}
+                        "on_card_quest": on_card_quest, "velocity": player.velocity,
+                        "item_block_1_got": item_block_1_got, "item_block_2_got": item_block_2_got,
+                        "item_block_3_got": item_block_3_got, "item_block_4_got": item_block_4_got,
+                        "item_block_5_got": item_block_5_got, "item_block_6_got": item_block_6_got,
+                        "item_block_7_got": item_block_7_got, "item_block_8_got": item_block_8_got,
+                        "item_block_9_got": item_block_9_got, "item_block_10_got": item_block_10_got,
+                        "item_block_11_got": item_block_11_got, "item_block_12_got": item_block_12_got}
 
     try:
         with open("save", "wb") as ff:

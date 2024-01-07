@@ -15,7 +15,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, seldon_enemies, korlok_enemies,
                  snakes, ghouls, magmons, interactables_seldon, interactables_korlok, Enemy, Item, UiElement,
                  interactables_mines, ores, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                 defense_meter, weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup, jez_popup, prime_1,
+                 defense_meter, weapon_select, npc_prime, npc_jez, prime_popup, jez_popup, prime_1,
                  prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers, eldream_flowers, interactables_eldream,
                  pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
                  sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay, basic_fish_counter,
@@ -140,7 +140,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         pygame.mixer.Sound.stop(sfx_talk)
         player.x_coordinate = 430
         player.y_coordinate = 430
-        hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
 
     if not player.quest_complete["can't apothecary it"]:
         ore_pick = pygame.sprite.spritecollideany(player, ores)

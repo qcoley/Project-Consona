@@ -530,6 +530,11 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # recycle crate overlay --------------------------------------------------------------------------------------------
+    recycle_crate_overlay_url = resource_path('resources/art/overlay_recycle_crate.png')
+    recycle_crate_overlay_sheet = sprite_sheet((200, 200), recycle_crate_overlay_url)
+    loaded_dict["recycle_crate_overlay"] = recycle_crate_overlay_sheet[0]
+    loaded_dict["recycle_crate_overlay_full"] = recycle_crate_overlay_sheet[1]
     # recycle crate ---------------------------------------------------------------------------------------------------
     recycle_crate_url = resource_path('resources/art/sprites_recycle_crates.png')
     recycle_crate_sheet = sprite_sheet((75, 75), recycle_crate_url)
