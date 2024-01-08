@@ -20,7 +20,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      stelli_battle_sprite, vanished, vanish_overlay, waterfall, level_checked, fishing_spot_1,
                      fishing_spot_2, fishing, walk_tic, fishing_unlocked, fishing_timer, fish_caught, previous_surf,
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                     best_fish_counter, sfx_fishing_cast, apothis_gift, card_cave, in_card_cave):
+                     best_fish_counter, sfx_fishing_cast, apothis_gift, card_cave, in_card_cave, apothis_upgrade):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
@@ -34,7 +34,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
 
     if player.level > 3:
         if not level_checked:

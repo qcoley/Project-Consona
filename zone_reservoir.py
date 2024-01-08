@@ -317,7 +317,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 sfx_rupee, sfx_gate, directional_arrow, stelli_battle_sprite, vanished, vanish_overlay,
                 sfx_item_potion, Item, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                 best_fish_counter, apothis_gift, muchador_crate_1_top, muchador_crate_2_top, muchador_crate_3_top,
-                muchador_crate_4_top):
+                muchador_crate_4_top, apothis_upgrade):
 
     in_battle = False
 
@@ -332,7 +332,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
 
     screen.blit(dungeon_gate.surf, dungeon_gate.rect)
     if not crate_5:

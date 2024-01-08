@@ -16,7 +16,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                     prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
-                    ghouls_reset, roroc, recycle_crate, star_roroc, rohir_gate):
+                    ghouls_reset, roroc, recycle_crate, star_roroc, rohir_gate, apothis_upgrade):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -29,7 +29,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
     screen.blit(recycle_crate.surf, recycle_crate.rect)
     screen.blit(artherian.surf, artherian.rect)
     screen.blit(noren.surf, noren.rect)

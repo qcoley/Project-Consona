@@ -20,7 +20,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
                  sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay, basic_fish_counter,
                  better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, bandiles_highlighted,
-                 bandiles_reset, ore_highlighted):
+                 bandiles_reset, ore_highlighted, apothis_upgrade):
 
     if not talk_start:
         pygame.mixer.find_channel(True).play(sfx_talk)
@@ -67,7 +67,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
     for bandile in bandiles:
         screen.blit(bandile.surf, bandile.rect)
     if not player.quest_complete["can't apothecary it"]:

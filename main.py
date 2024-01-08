@@ -9277,6 +9277,7 @@ if __name__ == "__main__":
     thanked = False
     surprised = False
     apothis_gift = False
+    apothis_upgrade = False
     sub_marrow_opened = False
     credits_shown = False
     cat_rewarded = False
@@ -10858,8 +10859,7 @@ if __name__ == "__main__":
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren, apothis_gift,
-                                                                    seldon_quest_district_button,
+                                                                    npc_noren, seldon_quest_district_button,
                                                                     korlok_quest_district_button,
                                                                     eldream_quest_district_button,
                                                                     marrow_quest_district_button,
@@ -11000,8 +11000,7 @@ if __name__ == "__main__":
                                     drawing_functions.journal_info_draw(journal, player, font, False,
                                                                         marrow_switch_phase, npc_artherian,
                                                                         artherian_2, npc_maydria, npc_boro,
-                                                                        npc_noren, apothis_gift,
-                                                                        seldon_quest_district_button,
+                                                                        npc_noren, seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
@@ -11011,8 +11010,7 @@ if __name__ == "__main__":
                                     drawing_functions.journal_info_draw(journal, player, font, True,
                                                                         marrow_switch_phase, npc_artherian,
                                                                         artherian_2, npc_maydria, npc_boro,
-                                                                        npc_noren, apothis_gift,
-                                                                        seldon_quest_district_button,
+                                                                        npc_noren, seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
@@ -11024,8 +11022,7 @@ if __name__ == "__main__":
                                     drawing_functions.journal_info_draw(journal, player, font, False,
                                                                         marrow_switch_phase, npc_artherian,
                                                                         artherian_2, npc_maydria, npc_boro,
-                                                                        npc_noren, apothis_gift,
-                                                                        seldon_quest_district_button,
+                                                                        npc_noren, seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
@@ -11035,8 +11032,7 @@ if __name__ == "__main__":
                                     drawing_functions.journal_info_draw(journal, player, font, True,
                                                                         marrow_switch_phase, npc_artherian,
                                                                         artherian_2, npc_maydria, npc_boro,
-                                                                        npc_noren, apothis_gift,
-                                                                        seldon_quest_district_button,
+                                                                        npc_noren, seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
@@ -11048,8 +11044,7 @@ if __name__ == "__main__":
                                     drawing_functions.journal_info_draw(journal, player, font, False,
                                                                         marrow_switch_phase, npc_artherian,
                                                                         artherian_2, npc_maydria, npc_boro,
-                                                                        npc_noren, apothis_gift,
-                                                                        seldon_quest_district_button,
+                                                                        npc_noren, seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
@@ -11059,8 +11054,7 @@ if __name__ == "__main__":
                                     drawing_functions.journal_info_draw(journal, player, font, True,
                                                                         marrow_switch_phase, npc_artherian,
                                                                         artherian_2, npc_maydria, npc_boro,
-                                                                        npc_noren, apothis_gift,
-                                                                        seldon_quest_district_button,
+                                                                        npc_noren, seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
@@ -11072,8 +11066,7 @@ if __name__ == "__main__":
                                     drawing_functions.journal_info_draw(journal, player, font, False,
                                                                         marrow_switch_phase, npc_artherian,
                                                                         artherian_2, npc_maydria, npc_boro,
-                                                                        npc_noren, apothis_gift,
-                                                                        seldon_quest_district_button,
+                                                                        npc_noren, seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
@@ -11083,8 +11076,7 @@ if __name__ == "__main__":
                                     drawing_functions.journal_info_draw(journal, player, font, True,
                                                                         marrow_switch_phase, npc_artherian,
                                                                         artherian_2, npc_maydria, npc_boro,
-                                                                        npc_noren, apothis_gift,
-                                                                        seldon_quest_district_button,
+                                                                        npc_noren, seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
                                                                         marrow_quest_district_button,
@@ -11200,8 +11192,7 @@ if __name__ == "__main__":
                                 # clears other windows first, if they were open
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren, apothis_gift,
-                                                                    seldon_quest_district_button,
+                                                                    npc_noren, seldon_quest_district_button,
                                                                     korlok_quest_district_button,
                                                                     eldream_quest_district_button,
                                                                     marrow_quest_district_button,
@@ -11239,8 +11230,7 @@ if __name__ == "__main__":
                                 drawing_functions.journal_info_draw(journal, player, font, False,
                                                                     marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren, apothis_gift,
-                                                                    seldon_quest_district_button,
+                                                                    npc_noren, seldon_quest_district_button,
                                                                     korlok_quest_district_button,
                                                                     eldream_quest_district_button,
                                                                     marrow_quest_district_button,
@@ -11406,8 +11396,7 @@ if __name__ == "__main__":
                                 # clears other open windows first, if they were open
                                 drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2, npc_maydria, npc_boro,
-                                                                    npc_noren, apothis_gift,
-                                                                    seldon_quest_district_button,
+                                                                    npc_noren, seldon_quest_district_button,
                                                                     korlok_quest_district_button,
                                                                     eldream_quest_district_button,
                                                                     marrow_quest_district_button,
@@ -11444,7 +11433,7 @@ if __name__ == "__main__":
                                 if journal_button_clicked:
                                     drawing_functions.journal_info_draw(journal, player, font, False,
                                                                         marrow_switch_phase, npc_artherian, artherian_2,
-                                                                        npc_maydria, npc_boro, npc_noren, apothis_gift,
+                                                                        npc_maydria, npc_boro, npc_noren,
                                                                         seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
@@ -11457,7 +11446,7 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     drawing_functions.journal_info_draw(journal, player, font, True,
                                                                         marrow_switch_phase, npc_artherian, artherian_2,
-                                                                        npc_maydria, npc_boro, npc_noren, apothis_gift,
+                                                                        npc_maydria, npc_boro, npc_noren,
                                                                         seldon_quest_district_button,
                                                                         korlok_quest_district_button,
                                                                         eldream_quest_district_button,
@@ -11831,7 +11820,7 @@ if __name__ == "__main__":
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
                                                                     pet_energy_window, sfx_fishing_cast, item_block_2,
                                                                     item_block_2_got, Item, sfx_item_block,
-                                                                    apothis_gift)
+                                                                    apothis_upgrade)
                     else:
                         hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
                                                                     fishing_music, fishing, walk_tic,
@@ -11850,7 +11839,7 @@ if __name__ == "__main__":
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
                                                                     pet_energy_window, sfx_fishing_cast, item_block_2,
                                                                     item_block_2_got, Item, sfx_item_block,
-                                                                    apothis_gift)
+                                                                    apothis_upgrade)
 
                     over_world_song_set = hut_returned["over_world_song_set"]
                     basic_fish_counter = hut_returned["basic_fish_counter"]
@@ -11931,7 +11920,7 @@ if __name__ == "__main__":
                                                                       even_better_fish_counter, best_fish_counter,
                                                                       seldon_barrier_small, apothis_gift,
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
-                                                                      quest_logs_highlighted)
+                                                                      quest_logs_highlighted, apothis_upgrade)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone_seldon,
@@ -11987,7 +11976,7 @@ if __name__ == "__main__":
                                                                       even_better_fish_counter, best_fish_counter,
                                                                       seldon_barrier_small, apothis_gift,
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
-                                                                      quest_logs_highlighted)
+                                                                      quest_logs_highlighted, apothis_upgrade)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -12079,7 +12068,7 @@ if __name__ == "__main__":
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
                                                                       magmons_highlighted, magmons_reset, npc_nahun,
-                                                                      quest_star_nahun, apothis_gift)
+                                                                      quest_star_nahun, apothis_upgrade)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -12127,7 +12116,7 @@ if __name__ == "__main__":
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
                                                                       magmons_highlighted, magmons_reset, npc_nahun,
-                                                                      quest_star_nahun, apothis_gift)
+                                                                      quest_star_nahun, apothis_upgrade)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -12215,7 +12204,7 @@ if __name__ == "__main__":
                                                                          entrance_2, entrance_3, mini_map_overlay,
                                                                          basic_fish_counter, better_fish_counter,
                                                                          even_better_fish_counter, best_fish_counter,
-                                                                         supplies_highlighted, apothis_gift)
+                                                                         supplies_highlighted, apothis_upgrade)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -12269,7 +12258,7 @@ if __name__ == "__main__":
                                                                          entrance_2, entrance_3, mini_map_overlay,
                                                                          basic_fish_counter, better_fish_counter,
                                                                          even_better_fish_counter, best_fish_counter,
-                                                                         supplies_highlighted, apothis_gift)
+                                                                         supplies_highlighted, apothis_upgrade)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -12341,7 +12330,7 @@ if __name__ == "__main__":
                                                                                marrow_ghouls_highlighted,
                                                                                marrow_ghouls_reset, npc_roroc,
                                                                                recycle_crate, quest_star_roroc,
-                                                                               rohir_gate)
+                                                                               rohir_gate, apothis_upgrade)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -12379,7 +12368,7 @@ if __name__ == "__main__":
                                                                                marrow_ghouls_highlighted,
                                                                                marrow_ghouls_reset, npc_roroc,
                                                                                recycle_crate, quest_star_roroc,
-                                                                               rohir_gate)
+                                                                               rohir_gate, apothis_upgrade)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -12432,7 +12421,7 @@ if __name__ == "__main__":
                                                                                mini_map_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter, apothis_gift)
+                                                                               best_fish_counter, apothis_upgrade)
                     else:
                         marrow_entrance_returned = zone_marrow.marrow_entrance(pygame, game_window, graphic_dict,
                                                                                player, marrow_entrance_bg,
@@ -12460,7 +12449,7 @@ if __name__ == "__main__":
                                                                                mini_map_overlay, basic_fish_counter,
                                                                                better_fish_counter,
                                                                                even_better_fish_counter,
-                                                                               best_fish_counter, apothis_gift)
+                                                                               best_fish_counter, apothis_upgrade)
 
                     over_world_song_set = marrow_entrance_returned["over_world_song_set"]
                     interacted = marrow_entrance_returned["interacted"]
@@ -12517,7 +12506,7 @@ if __name__ == "__main__":
                                                                                    best_fish_counter, sfx_sheet_paper,
                                                                                    sfx_item_snack, kasper_unlocked,
                                                                                    torok_unlocked, iriana_unlocked,
-                                                                                   apothis_gift)
+                                                                                   apothis_upgrade)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -12554,7 +12543,7 @@ if __name__ == "__main__":
                                                                                    best_fish_counter, sfx_sheet_paper,
                                                                                    sfx_item_snack, kasper_unlocked,
                                                                                    torok_unlocked, iriana_unlocked,
-                                                                                   apothis_gift)
+                                                                                   apothis_upgrade)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -12607,7 +12596,7 @@ if __name__ == "__main__":
                                                                                    vanish_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_gift)
+                                                                                   best_fish_counter, apothis_upgrade)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -12641,7 +12630,7 @@ if __name__ == "__main__":
                                                                                    vanish_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_gift)
+                                                                                   best_fish_counter, apothis_upgrade)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -12689,7 +12678,7 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_gift)
+                                                                                   best_fish_counter, apothis_upgrade)
                     else:
                         marrow_ramps_west_returned = zone_marrow.marrow_ramps_west(pygame, game_window,
                                                                                    graphic_dict,
@@ -12719,7 +12708,7 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_gift)
+                                                                                   best_fish_counter, apothis_upgrade)
 
                     over_world_song_set = marrow_ramps_west_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_returned["interacted"]
@@ -12759,7 +12748,7 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_gift)
+                                                                                   best_fish_counter, apothis_upgrade)
                     else:
                         marrow_ramps_east_returned = zone_marrow.marrow_ramps_east(pygame, game_window,
                                                                                    graphic_dict,
@@ -12784,7 +12773,7 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_gift)
+                                                                                   best_fish_counter, apothis_upgrade)
 
                     over_world_song_set = marrow_ramps_east_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_returned["interacted"]
@@ -12841,7 +12830,7 @@ if __name__ == "__main__":
                                                                                            kasper_unlocked,
                                                                                            torok_unlocked,
                                                                                            iriana_unlocked,
-                                                                                           apothis_gift)
+                                                                                           apothis_upgrade)
                     else:
                         marrow_ramps_west_end_returned = zone_marrow.marrow_ramps_west_end(pygame, game_window,
                                                                                            graphic_dict, player,
@@ -12883,7 +12872,7 @@ if __name__ == "__main__":
                                                                                            kasper_unlocked,
                                                                                            torok_unlocked,
                                                                                            iriana_unlocked,
-                                                                                           apothis_gift)
+                                                                                           apothis_upgrade)
 
                     over_world_song_set = marrow_ramps_west_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_end_returned["interacted"]
@@ -12959,7 +12948,7 @@ if __name__ == "__main__":
                                                                                            better_fish_counter,
                                                                                            even_better_fish_counter,
                                                                                            best_fish_counter,
-                                                                                           apothis_gift)
+                                                                                           apothis_upgrade)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -13017,7 +13006,7 @@ if __name__ == "__main__":
                                                                                            better_fish_counter,
                                                                                            even_better_fish_counter,
                                                                                            best_fish_counter,
-                                                                                           apothis_gift)
+                                                                                           apothis_upgrade)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -13068,7 +13057,7 @@ if __name__ == "__main__":
                                                                      item_block_9, item_block_9_got, sfx_item_block,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
-                                                                     atmons_highlighted, atmons_reset, apothis_gift)
+                                                                     atmons_highlighted, atmons_reset, apothis_upgrade)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -13094,7 +13083,7 @@ if __name__ == "__main__":
                                                                      item_block_9, item_block_9_got, sfx_item_block,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
-                                                                     atmons_highlighted, atmons_reset, apothis_gift)
+                                                                     atmons_highlighted, atmons_reset, apothis_upgrade)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -13152,7 +13141,7 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite, apothis_gift)
+                                                                     atmon_battle_sprite, apothis_upgrade)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -13184,7 +13173,7 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite, apothis_gift)
+                                                                     atmon_battle_sprite, apothis_upgrade)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -13242,7 +13231,7 @@ if __name__ == "__main__":
                                                                      sfx_enemy_atmon_loud, atmon_castle,
                                                                      atmon_battle_sprite, parts_one,
                                                                      construct_parts_one_highlighted,
-                                                                     sfx_item_pickup, apothis_gift)
+                                                                     sfx_item_pickup, apothis_upgrade)
                     else:
                         castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
                                                                      castle_two_bg, over_world_song_set, castle_music,
@@ -13271,7 +13260,7 @@ if __name__ == "__main__":
                                                                      sfx_enemy_atmon_loud, atmon_castle,
                                                                      atmon_battle_sprite, parts_one,
                                                                      construct_parts_one_highlighted,
-                                                                     sfx_item_pickup, apothis_gift)
+                                                                     sfx_item_pickup, apothis_upgrade)
 
                     over_world_song_set = castle_two_returned["over_world_song_set"]
                     interacted = castle_two_returned["interacted"]
@@ -13335,7 +13324,7 @@ if __name__ == "__main__":
                                                                          jumano_battle_sprite, sfx_surprise_attack,
                                                                          surprised, apothis_gift, parts_two,
                                                                          construct_parts_two_highlighted,
-                                                                         sfx_item_pickup)
+                                                                         sfx_item_pickup, apothis_upgrade)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -13372,7 +13361,7 @@ if __name__ == "__main__":
                                                                          jumano_battle_sprite, sfx_surprise_attack,
                                                                          surprised, apothis_gift, parts_two,
                                                                          construct_parts_two_highlighted,
-                                                                         sfx_item_pickup)
+                                                                         sfx_item_pickup, apothis_upgrade)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -13424,7 +13413,7 @@ if __name__ == "__main__":
                                                                        castle_lair_one_bg,
                                                                        castle_lair_two_bg, castle_lair_bg, dreth,
                                                                        dreth_battle_sprite, dreth_defeated,
-                                                                       apothis_gift)
+                                                                       apothis_upgrade)
                     else:
                         castle_lair_returned = zone_castle.castle_lair(pygame, game_window, graphic_dict, player,
                                                                        castle_lair_zero_bg, over_world_song_set,
@@ -13446,7 +13435,7 @@ if __name__ == "__main__":
                                                                        castle_lair_one_bg,
                                                                        castle_lair_two_bg, castle_lair_bg, dreth,
                                                                        dreth_battle_sprite, dreth_defeated,
-                                                                       apothis_gift)
+                                                                       apothis_upgrade)
 
                     over_world_song_set = castle_lair_returned["over_world_song_set"]
                     interacted = castle_lair_returned["interacted"]
@@ -13484,7 +13473,7 @@ if __name__ == "__main__":
                                                                sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
                                                                cat_rewarded, Item, item_block_10, item_block_10_got,
                                                                sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                               iriana_unlocked, apothis_gift)
+                                                               iriana_unlocked, apothis_upgrade)
                     else:
                         caldera_returned = zone_castle.caldera(pygame, game_window, graphic_dict, player, caldera_bg,
                                                                over_world_song_set, caldera_music, interaction_popup,
@@ -13502,7 +13491,7 @@ if __name__ == "__main__":
                                                                sfx_fishing_cast, marrow_cat, cats_pet, sfx_cat_meow,
                                                                cat_rewarded, Item, item_block_10, item_block_10_got,
                                                                sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                               iriana_unlocked, apothis_gift)
+                                                               iriana_unlocked, apothis_upgrade)
 
                     over_world_song_set = caldera_returned["over_world_song_set"]
                     interacted = caldera_returned["interacted"]
@@ -13572,7 +13561,7 @@ if __name__ == "__main__":
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
                                                                              best_fish_counter, vanished, npc_illisare,
-                                                                             quest_star_illisare, apothis_gift)
+                                                                             quest_star_illisare, apothis_upgrade)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -13616,7 +13605,7 @@ if __name__ == "__main__":
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
                                                                              best_fish_counter, vanished, npc_illisare,
-                                                                             quest_star_illisare, apothis_gift)
+                                                                             quest_star_illisare, apothis_upgrade)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -13681,7 +13670,7 @@ if __name__ == "__main__":
                                                                              best_fish_counter, item_block_5,
                                                                              item_block_5_got, sfx_item_block, Item,
                                                                              kasper_unlocked, torok_unlocked,
-                                                                             iriana_unlocked, apothis_gift)
+                                                                             iriana_unlocked, apothis_upgrade)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -13715,7 +13704,7 @@ if __name__ == "__main__":
                                                                              best_fish_counter, item_block_5,
                                                                              item_block_5_got, sfx_item_block, Item,
                                                                              kasper_unlocked, torok_unlocked,
-                                                                             iriana_unlocked, apothis_gift)
+                                                                             iriana_unlocked, apothis_upgrade)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -13780,7 +13769,7 @@ if __name__ == "__main__":
                                                                                best_fish_counter, item_block_4,
                                                                                item_block_4_got, sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked, apothis_gift)
+                                                                               iriana_unlocked, apothis_upgrade)
                     else:
                         ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_right_bg,
@@ -13812,7 +13801,7 @@ if __name__ == "__main__":
                                                                                best_fish_counter, item_block_4,
                                                                                item_block_4_got, sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked, apothis_gift)
+                                                                               iriana_unlocked, apothis_upgrade)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -13892,7 +13881,7 @@ if __name__ == "__main__":
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, necrolas_highlighted,
-                                                                               necrolas_reset, apothis_gift)
+                                                                               necrolas_reset, apothis_upgrade)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -13940,7 +13929,7 @@ if __name__ == "__main__":
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, necrolas_highlighted,
-                                                                               necrolas_reset, apothis_gift)
+                                                                               necrolas_reset, apothis_upgrade)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -14006,7 +13995,7 @@ if __name__ == "__main__":
                                                                                  basic_fish_counter,
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
-                                                                                 best_fish_counter, apothis_gift)
+                                                                                 best_fish_counter, apothis_upgrade)
                     else:
                         ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
                                                                                  player, ectrenos_alcove_bg,
@@ -14043,7 +14032,7 @@ if __name__ == "__main__":
                                                                                  basic_fish_counter,
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
-                                                                                 best_fish_counter, apothis_gift)
+                                                                                 best_fish_counter, apothis_upgrade)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -14099,7 +14088,7 @@ if __name__ == "__main__":
                                                                                item_block_6, item_block_6_got,
                                                                                sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked, apothis_gift)
+                                                                               iriana_unlocked, apothis_upgrade)
                     else:
                         fishing_alcove_returned = zone_ectrenos.fishing_alcove(pygame, game_window, player,
                                                                                over_world_song_set,
@@ -14127,7 +14116,7 @@ if __name__ == "__main__":
                                                                                item_block_6, item_block_6_got,
                                                                                sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked, apothis_gift)
+                                                                               iriana_unlocked, apothis_upgrade)
 
                     over_world_song_set = fishing_alcove_returned["over_world_song_set"]
                     basic_fish_counter = fishing_alcove_returned["basic_fish_counter"]
@@ -14186,7 +14175,7 @@ if __name__ == "__main__":
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, apothis_gift, bandiles_highlighted,
-                                                                 bandiles_reset, ore_highlighted)
+                                                                 bandiles_reset, ore_highlighted, apothis_upgrade)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -14220,7 +14209,7 @@ if __name__ == "__main__":
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, apothis_gift, bandiles_highlighted,
-                                                                 bandiles_reset, ore_highlighted)
+                                                                 bandiles_reset, ore_highlighted, apothis_upgrade)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -14269,7 +14258,7 @@ if __name__ == "__main__":
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, item_block_11, item_block_11_got,
                                                                  sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                                 iriana_unlocked, apothis_gift)
+                                                                 iriana_unlocked, apothis_upgrade)
                     else:
                         forge_returned = zone_forge.korlok_forge(pygame, game_window, graphic_dict, player,
                                                                  korlok_forge_bg, korlok_overworld_music,
@@ -14289,7 +14278,7 @@ if __name__ == "__main__":
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, item_block_11, item_block_11_got,
                                                                  sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                                 iriana_unlocked, apothis_gift)
+                                                                 iriana_unlocked, apothis_upgrade)
 
                     over_world_song_set = forge_returned["over_world_song_set"]
                     interacted = forge_returned["interacted"]
@@ -14329,7 +14318,7 @@ if __name__ == "__main__":
                                                                   better_fish_counter, even_better_fish_counter,
                                                                   best_fish_counter, item_block_12, item_block_12_got, 
                                                                   sfx_item_block, kasper_unlocked, torok_unlocked, 
-                                                                  iriana_unlocked, apothis_gift)
+                                                                  iriana_unlocked, apothis_upgrade)
                     else:
                         altar_returned = zone_altar.eldream_altar(pygame, game_window, graphic_dict, player,
                                                                   eldream_altar_bg, eldream_building_music,
@@ -14350,7 +14339,7 @@ if __name__ == "__main__":
                                                                   better_fish_counter, even_better_fish_counter,
                                                                   best_fish_counter, item_block_12, item_block_12_got, 
                                                                   sfx_item_block, kasper_unlocked, torok_unlocked, 
-                                                                  iriana_unlocked, apothis_gift)
+                                                                  iriana_unlocked, apothis_upgrade)
 
                     over_world_song_set = altar_returned["over_world_song_set"]
                     interacted = altar_returned["interacted"]
@@ -14408,8 +14397,8 @@ if __name__ == "__main__":
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
-                                                                      sfx_item_block, Item, sfx_gate_open, apothis_gift,
-                                                                      rohir_gate)
+                                                                      sfx_item_block, Item, sfx_gate_open,
+                                                                      apothis_upgrade, rohir_gate)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -14447,8 +14436,8 @@ if __name__ == "__main__":
                                                                       critter_tic, walk_move, basic_fish_counter,
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
-                                                                      sfx_item_block, Item, sfx_gate_open, apothis_gift,
-                                                                      rohir_gate)
+                                                                      sfx_item_block, Item, sfx_gate_open,
+                                                                      apothis_upgrade, rohir_gate)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -14515,7 +14504,8 @@ if __name__ == "__main__":
                                                                            basic_fish_counter, better_fish_counter,
                                                                            even_better_fish_counter, best_fish_counter,
                                                                            sfx_fishing_cast, apothis_gift,
-                                                                           stardust_card_cave, in_card_cave)
+                                                                           stardust_card_cave, in_card_cave,
+                                                                           apothis_upgrade)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -14556,7 +14546,8 @@ if __name__ == "__main__":
                                                                            basic_fish_counter, better_fish_counter,
                                                                            even_better_fish_counter, best_fish_counter,
                                                                            sfx_fishing_cast, apothis_gift,
-                                                                           stardust_card_cave, in_card_cave)
+                                                                           stardust_card_cave, in_card_cave,
+                                                                           apothis_upgrade)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -14606,7 +14597,8 @@ if __name__ == "__main__":
                                                                 beyond_seldon, pet_energy_window, basic_fish_counter,
                                                                 better_fish_counter, even_better_fish_counter,
                                                                 best_fish_counter, item_block_1, item_block_1_got,
-                                                                Item, sfx_item_block, dungeon_teleporter, apothis_gift)
+                                                                Item, sfx_item_block, dungeon_teleporter,
+                                                                apothis_upgrade)
                     else:
                         rohir_returned = zone_rohir.rohir_river(pygame, game_window, player, over_world_song_set,
                                                                 rohir_river_bg,
@@ -14622,7 +14614,8 @@ if __name__ == "__main__":
                                                                 beyond_seldon, pet_energy_window, basic_fish_counter,
                                                                 better_fish_counter, even_better_fish_counter,
                                                                 best_fish_counter, item_block_1, item_block_1_got,
-                                                                Item, sfx_item_block, dungeon_teleporter, apothis_gift)
+                                                                Item, sfx_item_block, dungeon_teleporter,
+                                                                apothis_upgrade)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -14675,7 +14668,7 @@ if __name__ == "__main__":
                                                                           vanished, vanish_overlay, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
                                                                           best_fish_counter, sfx_sheet_paper,
-                                                                          apothis_gift)
+                                                                          apothis_upgrade)
                     else:
                         reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
                                                                           graphic_dict,
@@ -14713,7 +14706,7 @@ if __name__ == "__main__":
                                                                           vanished, vanish_overlay,
                                                                           basic_fish_counter, better_fish_counter,
                                                                           even_better_fish_counter, best_fish_counter,
-                                                                          sfx_sheet_paper, apothis_gift)
+                                                                          sfx_sheet_paper, apothis_upgrade)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -14774,7 +14767,7 @@ if __name__ == "__main__":
                                                                           even_better_fish_counter, best_fish_counter,
                                                                           apothis_gift, muchador_crate_1_top,
                                                                           muchador_crate_2_top, muchador_crate_3_top,
-                                                                          muchador_crate_4_top)
+                                                                          muchador_crate_4_top, apothis_upgrade)
                     else:
                         reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -14812,7 +14805,7 @@ if __name__ == "__main__":
                                                                           even_better_fish_counter, best_fish_counter,
                                                                           apothis_gift, muchador_crate_1_top,
                                                                           muchador_crate_2_top, muchador_crate_3_top,
-                                                                          muchador_crate_4_top)
+                                                                          muchador_crate_4_top, apothis_upgrade)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -14854,8 +14847,8 @@ if __name__ == "__main__":
                                                                           pet_energy_window, sfx_chest_open,
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter, rohir_gate, apothis_gift,
-                                                                          dungeon_teleporter)
+                                                                          best_fish_counter, rohir_gate,
+                                                                          apothis_upgrade, dungeon_teleporter)
                     else:
                         reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -14877,8 +14870,8 @@ if __name__ == "__main__":
                                                                           pet_energy_window, sfx_chest_open,
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter, rohir_gate, apothis_gift,
-                                                                          dungeon_teleporter)
+                                                                          best_fish_counter, rohir_gate,
+                                                                          apothis_upgrade, dungeon_teleporter)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -15326,7 +15319,8 @@ if __name__ == "__main__":
                                                                                             atmon_counter,
                                                                                             prism_received,
                                                                                             dreth_turn_counter,
-                                                                                            apothis_gift, trading_deck,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
@@ -15371,7 +15365,8 @@ if __name__ == "__main__":
                                                                                             atmon_counter,
                                                                                             prism_received,
                                                                                             dreth_turn_counter,
-                                                                                            apothis_gift, trading_deck,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
@@ -15415,7 +15410,8 @@ if __name__ == "__main__":
                                                                                             atmon_counter,
                                                                                             prism_received,
                                                                                             dreth_turn_counter,
-                                                                                            apothis_gift, trading_deck,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
@@ -15534,7 +15530,7 @@ if __name__ == "__main__":
                                                                                     erebyth_turn_counter,
                                                                                     atmon_counter, prism_received,
                                                                                     dreth_turn_counter,
-                                                                                    apothis_gift, trading_deck,
+                                                                                    apothis_upgrade, trading_deck,
                                                                                     trading_task_complete,
                                                                                     any_card_counter, card_deck,
                                                                                     arrow_active, fire_active,
@@ -15786,7 +15782,7 @@ if __name__ == "__main__":
                                                                                         erebyth_turn_counter,
                                                                                         atmon_counter, prism_received,
                                                                                         dreth_turn_counter,
-                                                                                        apothis_gift, trading_deck,
+                                                                                        apothis_upgrade, trading_deck,
                                                                                         trading_task_complete,
                                                                                         any_card_counter, card_deck,
                                                                                         arrow_active, fire_active,
@@ -15889,7 +15885,7 @@ if __name__ == "__main__":
                                                                                         erebyth_turn_counter,
                                                                                         atmon_counter, prism_received,
                                                                                         dreth_turn_counter,
-                                                                                        apothis_gift, trading_deck,
+                                                                                        apothis_upgrade, trading_deck,
                                                                                         trading_task_complete,
                                                                                         any_card_counter, card_deck,
                                                                                         arrow_active, fire_active,
@@ -15958,7 +15954,7 @@ if __name__ == "__main__":
                                                                                                 atmon_counter,
                                                                                                 prism_received,
                                                                                                 dreth_turn_counter,
-                                                                                                apothis_gift,
+                                                                                                apothis_upgrade,
                                                                                                 trading_deck,
                                                                                                 trading_task_complete,
                                                                                                 any_card_counter,
@@ -16143,7 +16139,7 @@ if __name__ == "__main__":
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
                                                         erebyth_turn_counter, atmon_counter, prism_received,
-                                                        dreth_turn_counter, apothis_gift, trading_deck,
+                                                        dreth_turn_counter, apothis_upgrade, trading_deck,
                                                         trading_task_complete, any_card_counter, card_deck,
                                                         arrow_active, fire_active, show_edge)
                                                     try:
@@ -16321,7 +16317,7 @@ if __name__ == "__main__":
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
                                                         erebyth_turn_counter, atmon_counter, prism_received,
-                                                        dreth_turn_counter, apothis_gift, trading_deck,
+                                                        dreth_turn_counter, apothis_upgrade, trading_deck,
                                                         trading_task_complete, any_card_counter, card_deck,
                                                         arrow_active, fire_active, show_edge)
 
@@ -16522,7 +16518,7 @@ if __name__ == "__main__":
                                                     level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                     barrier_active, turn_taken, stun_them, mirror_image,
                                                     erebyth_turn_counter, atmon_counter, prism_received,
-                                                    dreth_turn_counter, apothis_gift, trading_deck,
+                                                    dreth_turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
                                                     arrow_active, fire_active, show_edge)
 
@@ -16646,21 +16642,24 @@ if __name__ == "__main__":
                                                                 pass
                                                 except TypeError:
                                                     pass
-                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar,
-                                                                                              en_bar, xp_bar,
-                                                                                              star_power_meter,
-                                                                                              offense_meter,
-                                                                                              defense_meter,
-                                                                                              graphic_dict,
-                                                                                              basic_armor,
-                                                                                              forged_armor,
-                                                                                              mythical_armor,
-                                                                                              legendary_armor,
-                                                                                              power_gloves,
-                                                                                              chroma_boots,
-                                                                                              neras_grace,
-                                                                                              arens_strength,
-                                                                                              spirit_of_wisdom)
+                                                try:
+                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                                  en_bar, xp_bar,
+                                                                                                  star_power_meter,
+                                                                                                  offense_meter,
+                                                                                                  defense_meter,
+                                                                                                  graphic_dict,
+                                                                                                  basic_armor,
+                                                                                                  forged_armor,
+                                                                                                  mythical_armor,
+                                                                                                  legendary_armor,
+                                                                                                  power_gloves,
+                                                                                                  chroma_boots,
+                                                                                                  neras_grace,
+                                                                                                  arens_strength,
+                                                                                                  spirit_of_wisdom)
+                                                except AttributeError:
+                                                    pass
                                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                     frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                   SCREEN_HEIGHT))
@@ -16721,7 +16720,7 @@ if __name__ == "__main__":
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
                                                         erebyth_turn_counter, atmon_counter, prism_received,
-                                                        dreth_turn_counter, apothis_gift, trading_deck,
+                                                        dreth_turn_counter, apothis_upgrade, trading_deck,
                                                         trading_task_complete, any_card_counter, card_deck,
                                                         arrow_active, fire_active, show_edge)
 
@@ -17109,7 +17108,7 @@ if __name__ == "__main__":
                                 screen.blit(offense_meter.surf, offense_meter.rect)
                                 screen.blit(defense_meter.surf, defense_meter.rect)
                                 drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                              weapon_select, apothis_gift)
+                                                              weapon_select, apothis_upgrade)
                                 screen.blit(skill_bar.surf, skill_bar.rect)
                                 screen.blit(enemy_status.surf, enemy_status.rect)
                                 screen.blit(text_enemy_name_surf, text_enemy_name_rect)
@@ -17228,7 +17227,7 @@ if __name__ == "__main__":
                                 game_window.blit(offense_meter.surf, offense_meter.rect)
                                 game_window.blit(defense_meter.surf, defense_meter.rect)
                                 drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                              weapon_select, apothis_gift)
+                                                              weapon_select, apothis_upgrade)
                                 game_window.blit(skill_bar.surf, skill_bar.rect)
                                 game_window.blit(enemy_status.surf, enemy_status.rect)
                                 game_window.blit(text_enemy_name_surf, text_enemy_name_rect)
@@ -17476,7 +17475,7 @@ if __name__ == "__main__":
                                 screen.blit(offense_meter.surf, offense_meter.rect)
                                 screen.blit(defense_meter.surf, defense_meter.rect)
                                 drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                              weapon_select, apothis_gift)
+                                                              weapon_select, apothis_upgrade)
                                 screen.blit(skill_bar.surf, skill_bar.rect)
                                 screen.blit(enemy_status.surf, enemy_status.rect)
                                 screen.blit(text_enemy_name_surf, text_enemy_name_rect)
@@ -17583,7 +17582,7 @@ if __name__ == "__main__":
                                 game_window.blit(offense_meter.surf, offense_meter.rect)
                                 game_window.blit(defense_meter.surf, defense_meter.rect)
                                 drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                              weapon_select, apothis_gift)
+                                                              weapon_select, apothis_upgrade)
                                 game_window.blit(skill_bar.surf, skill_bar.rect)
                                 game_window.blit(enemy_status.surf, enemy_status.rect)
                                 game_window.blit(text_enemy_name_surf, text_enemy_name_rect)
@@ -17872,6 +17871,13 @@ if __name__ == "__main__":
                                             player.star_power -= 4
                                             info_text_1 = "You consumed 4 stars,"
                                             info_text_2 = "Upgrading your weapon to level 2."
+                                            stardust_upgrade_elements.clear()
+                                        elif apothis_gift and not apothis_upgrade:
+                                            pygame.mixer.find_channel(True).play(sfx_power_up)
+                                            buy_clicked = False
+                                            apothis_upgrade = True
+                                            info_text_1 = "You consumed Apothis's star,"
+                                            info_text_2 = "Enhancing your weapons."
                                             stardust_upgrade_elements.clear()
                                         else:
                                             info_text_1 = "4 stars are required to upgrade."
@@ -18202,7 +18208,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             screen.blit(buy_button.surf, buy_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
@@ -18214,7 +18220,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             game_window.blit(buy_button.surf, buy_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
@@ -18301,7 +18307,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             screen.blit(buy_button.surf, buy_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
@@ -18313,7 +18319,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             game_window.blit(buy_button.surf, buy_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
@@ -18402,7 +18408,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             screen.blit(buy_button.surf, buy_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
@@ -18414,7 +18420,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             game_window.blit(buy_button.surf, buy_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
@@ -18501,7 +18507,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             screen.blit(upgrade_button.surf, upgrade_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
@@ -18513,7 +18519,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             game_window.blit(upgrade_button.surf, upgrade_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
@@ -19084,7 +19090,7 @@ if __name__ == "__main__":
                         screen.blit(offense_meter.surf, offense_meter.rect)
                         screen.blit(defense_meter.surf, defense_meter.rect)
                         drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select,
-                                                      apothis_gift)
+                                                      apothis_upgrade)
                         screen.blit(rest_button.surf, rest_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         if len(drawing_functions.item_info_window) == 0:
@@ -19094,7 +19100,7 @@ if __name__ == "__main__":
                         game_window.blit(offense_meter.surf, offense_meter.rect)
                         game_window.blit(defense_meter.surf, defense_meter.rect)
                         drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select,
-                                                      apothis_gift)
+                                                      apothis_upgrade)
                         game_window.blit(rest_button.surf, rest_button.rect)
                         game_window.blit(leave_button.surf, leave_button.rect)
                         if len(drawing_functions.item_info_window) == 0:
@@ -19581,7 +19587,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             screen.blit(mage_learn_button.surf, mage_learn_button.rect)
                             screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
                             screen.blit(scout_learn_button.surf, scout_learn_button.rect)
@@ -19606,7 +19612,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             game_window.blit(mage_learn_button.surf, mage_learn_button.rect)
                             game_window.blit(fighter_learn_button.surf, fighter_learn_button.rect)
                             game_window.blit(scout_learn_button.surf, scout_learn_button.rect)
@@ -20145,7 +20151,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -20172,7 +20178,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -20779,7 +20785,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -20801,7 +20807,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -21251,7 +21257,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -21268,7 +21274,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -21838,7 +21844,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -21858,7 +21864,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -23511,7 +23517,7 @@ if __name__ == "__main__":
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -23609,7 +23615,7 @@ if __name__ == "__main__":
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select, apothis_gift)
+                                                          weapon_select, apothis_upgrade)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)

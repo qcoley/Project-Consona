@@ -32,7 +32,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                     stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, barrier_small, apothis_gift,
-                    snakes_highlighted, ghouls_highlighted, quest_logs_highlighted):
+                    snakes_highlighted, ghouls_highlighted, quest_logs_highlighted, apothis_upgrade):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -45,7 +45,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,

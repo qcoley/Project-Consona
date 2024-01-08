@@ -186,12 +186,12 @@ def draw_level_up(screen, in_over_world):
                 screen.blit(visuals.surf, visuals.rect)
 
 
-def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select, apothis_gift):
+def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade):
     if npc_garan.gift:
         if len(weapon_container) > 3:
             weapon_container.clear()
         if player.offense == 0:
-            if apothis_gift:
+            if apothis_upgrade:
                 staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_0_apothis"])
                 sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_0_apothis"])
                 bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_0_apothis"])
@@ -205,7 +205,7 @@ def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select, a
         if player.offense == 1:
             if len(weapon_container) > 3:
                 weapon_container.clear()
-            if apothis_gift:
+            if apothis_upgrade:
                 staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_1_apothis"])
                 sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_1_apothis"])
                 bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_1_apothis"])
@@ -219,7 +219,7 @@ def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select, a
         if player.offense == 2:
             if len(weapon_container) > 3:
                 weapon_container.clear()
-            if apothis_gift:
+            if apothis_upgrade:
                 staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_2_apothis"])
                 sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_2_apothis"])
                 bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_2_apothis"])
@@ -233,7 +233,7 @@ def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select, a
         if player.offense == 3:
             if len(weapon_container) > 3:
                 weapon_container.clear()
-            if apothis_gift:
+            if apothis_upgrade:
                 staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_3_apothis"])
                 sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_3_apothis"])
                 bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_3_apothis"])
@@ -247,7 +247,7 @@ def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select, a
         if player.offense == 4:
             if len(weapon_container) > 3:
                 weapon_container.clear()
-            if apothis_gift:
+            if apothis_upgrade:
                 staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_4_apothis"])
                 sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_4_apothis"])
                 bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_4_apothis"])
@@ -1097,7 +1097,7 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
 
 
 def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_artherian, artherian_2, npc_maydria,
-                      npc_boro, npc_noren, apothis_gift, seldon_button, korlok_button, eldream_button, marrow_button,
+                      npc_boro, npc_noren, seldon_button, korlok_button, eldream_button, marrow_button,
                       district_selected, district_select):
     if not draw_condition:
         journal_text.clear()
