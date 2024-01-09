@@ -8340,6 +8340,25 @@ if __name__ == "__main__":
     marrow_quest_district_button = UiElement("marrow button", 982, 102, graphic_dict["marrow_district_button"])
     district_button_select = UiElement("district select", 772, 102, graphic_dict["district_button_select"])
 
+    sneaky_snake_stardust_star = UiElement("", 160, 191, graphic_dict["overlay_stardust_star"])
+    village_repairs_stardust_star = UiElement("", 211, 191, graphic_dict["overlay_stardust_star"])
+    where_nede_stardust_star = UiElement("", 262, 191, graphic_dict["overlay_stardust_star"])
+    ghouled_again_stardust_star = UiElement("", 313, 191, graphic_dict["overlay_stardust_star"])
+    welcome_to_consona_stardust_star = UiElement("", 722, 191, graphic_dict["overlay_stardust_star"])
+    band_hammer_stardust_star = UiElement("", 773, 191, graphic_dict["overlay_stardust_star"])
+    elementary_elementals_stardust_star = UiElement("", 824, 191, graphic_dict["overlay_stardust_star"])
+    dangerous_alone_stardust_star = UiElement("", 875, 191, graphic_dict["overlay_stardust_star"])
+
+    disenchanted_stardust_star = UiElement("", 160, 301, graphic_dict["overlay_stardust_star"])
+    kart_troubles_stardust_star = UiElement("", 211, 301, graphic_dict["overlay_stardust_star"])
+    las_escondidas_stardust_star = UiElement("", 262, 301, graphic_dict["overlay_stardust_star"])
+    shades_of_fear_stardust_star = UiElement("", 313, 301, graphic_dict["overlay_stardust_star"])
+
+    madness_marrow_stardust_star = UiElement("", 722, 301, graphic_dict["overlay_stardust_star"])
+    vamos_vanguard_stardust_star = UiElement("", 773, 301, graphic_dict["overlay_stardust_star"])
+    legends_stardust_star = UiElement("", 824, 301, graphic_dict["overlay_stardust_star"])
+    re_recycling_stardust_star = UiElement("", 875, 301, graphic_dict["overlay_stardust_star"])
+
     stun_overlay = UiElement("stun overlay", 700, 260, graphic_dict["stun_img"])
     vanish_overlay = UiElement("vanish overlay", 100, 600, graphic_dict["vanish_img"])
     type_advantage_overlay = UiElement("type advantage overlay", 580, 48, graphic_dict["mage_type_overlay"])
@@ -8496,12 +8515,6 @@ if __name__ == "__main__":
     game_guide_overlay = UiElement("game guide overlay", 776, 256, graphic_dict["guide_basics_quest_img"])
     cat_pet_button_overlay = UiElement("cat pet button", 505, 235, graphic_dict["cat_pet_button_overlay"])
     cat_pet_animation_overlay = UiElement("cat pet animation", 507, 242, graphic_dict["seldon_shop_cat_pet_img"])
-    stardust_star_overlay = UiElement("stardust stars", 236, 185, graphic_dict["stardust_star_01"])
-    stardust_star_overlay_korlok = UiElement("stardust stars korlok", 236, 295, graphic_dict["stardust_star_01_korlok"])
-    stardust_star_overlay_eldream = UiElement("stardust stars eldream", 500, 185,
-                                              graphic_dict["stardust_star_01_eldream"])
-    stardust_star_overlay_marrow = UiElement("stardust stars marrow", 500, 295,
-                                             graphic_dict["stardust_star_01_marrow"])
     apothis_star = UiElement("apothis star", 519, 223, graphic_dict["apothis_star"])
     directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
@@ -18550,138 +18563,41 @@ if __name__ == "__main__":
                             game_window.blit(en_bar.surf, en_bar.rect)
                             game_window.blit(xp_bar.surf, xp_bar.rect)
 
-                        quests_complete = 0
-                        if player.quest_complete["sneaky snakes"]:
-                            quests_complete += 1
-                        if player.quest_complete["village repairs"]:
-                            quests_complete += 1
-                        if player.quest_complete["where's nede?"]:
-                            quests_complete += 1
-                        if player.quest_complete["ghouled again"]:
-                            quests_complete += 1
-                        if player.quest_complete["welcome to consona"]:
-                            quests_complete += 1
-                        if player.quest_complete["band hammer"]:
-                            quests_complete += 1
-                        if player.quest_complete["elementary elementals"]:
-                            quests_complete += 1
-                        if player.quest_complete["it's dangerous to go alone"]:
-                            quests_complete += 1
-                        if player.quest_complete["disenchanted"]:
-                            quests_complete += 1
-                        if player.quest_complete["kart troubles"]:
-                            quests_complete += 1
-                        if player.quest_complete["las escondidas"]:
-                            quests_complete += 1
-                        if player.quest_complete["shades of fear"]:
-                            quests_complete += 1
-                        if player.quest_complete["madness in marrow"]:
-                            quests_complete += 1
-                        if npc_maydria.quest_complete:
-                            quests_complete += 1
-                        if npc_artherian.quest_complete:
-                            quests_complete += 1
-                        if player.quest_complete["re recycling"]:
-                            quests_complete += 1
-
-                        # stardust outpost stars on the wall representing player progress in each zone
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            if quests_complete == 1:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_01"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            if quests_complete == 2:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_02"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            if quests_complete == 3:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_03"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            if quests_complete == 4:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            if quests_complete == 5:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_01_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            if quests_complete == 6:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_02_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            if quests_complete == 7:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_03_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            if quests_complete == 8:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            if quests_complete == 9:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_01_eldream"])
-                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if quests_complete == 10:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_02_eldream"])
-                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if quests_complete == 11:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_03_eldream"])
-                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if quests_complete == 12:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if quests_complete == 13:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_01_marrow"])
-                                screen.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
-                            if quests_complete == 14:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_02_marrow"])
-                                screen.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
-                            if quests_complete == 15:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_03_marrow"])
-                                screen.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
-                            if quests_complete == 16:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_04_marrow"])
-                                screen.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+                            if player.quest_complete["sneaky snakes"]:
+                                screen.blit(sneaky_snake_stardust_star.surf, sneaky_snake_stardust_star.rect)
+                            if player.quest_complete["village repairs"]:
+                                screen.blit(village_repairs_stardust_star.surf, village_repairs_stardust_star.rect)
+                            if player.quest_complete["where's nede?"]:
+                                screen.blit(where_nede_stardust_star.surf, where_nede_stardust_star.rect)
+                            if player.quest_complete["ghouled again"]:
+                                screen.blit(ghouled_again_stardust_star.surf, ghouled_again_stardust_star.rect)
+                            if player.quest_complete["welcome to consona"]:
+                                screen.blit(welcome_to_consona_stardust_star.surf,
+                                                 welcome_to_consona_stardust_star.rect)
+                            if player.quest_complete["band hammer"]:
+                                screen.blit(band_hammer_stardust_star.surf, band_hammer_stardust_star.rect)
+                            if player.quest_complete["elementary elementals"]:
+                                screen.blit(elementary_elementals_stardust_star.surf,
+                                                 elementary_elementals_stardust_star.rect)
+                            if player.quest_complete["it's dangerous to go alone"]:
+                                screen.blit(dangerous_alone_stardust_star.surf, dangerous_alone_stardust_star.rect)
+                            if player.quest_complete["disenchanted"]:
+                                screen.blit(disenchanted_stardust_star.surf, disenchanted_stardust_star.rect)
+                            if player.quest_complete["kart troubles"]:
+                                screen.blit(kart_troubles_stardust_star.surf, kart_troubles_stardust_star.rect)
+                            if player.quest_complete["las escondidas"]:
+                                screen.blit(las_escondidas_stardust_star.surf, las_escondidas_stardust_star.rect)
+                            if player.quest_complete["shades of fear"]:
+                                screen.blit(shades_of_fear_stardust_star.surf, shades_of_fear_stardust_star.rect)
+                            if player.quest_complete["madness in marrow"]:
+                                screen.blit(madness_marrow_stardust_star.surf, madness_marrow_stardust_star.rect)
+                            if npc_maydria.quest_complete:
+                                screen.blit(vamos_vanguard_stardust_star.surf, vamos_vanguard_stardust_star.rect)
+                            if npc_artherian.quest_complete:
+                                screen.blit(legends_stardust_star.surf, legends_stardust_star.rect)
+                            if player.quest_complete["re recycling"]:
+                                screen.blit(re_recycling_stardust_star.surf, re_recycling_stardust_star.rect)
 
                             if apothis_gift:
                                 screen.blit(apothis_star.surf, apothis_star.rect)
@@ -18695,102 +18611,40 @@ if __name__ == "__main__":
                                 screen.blit(button_highlight.surf, button_highlight.rect)
 
                         else:
-                            if quests_complete == 1:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_01"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            if quests_complete == 2:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_02"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            if quests_complete == 3:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_03"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            if quests_complete == 4:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            if quests_complete == 5:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_01_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            if quests_complete == 6:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_02_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            if quests_complete == 7:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_03_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            if quests_complete == 8:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            if quests_complete == 9:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_01_eldream"])
-                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if quests_complete == 10:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_02_eldream"])
-                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if quests_complete == 11:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_03_eldream"])
-                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if quests_complete == 12:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                            if quests_complete == 13:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_01_marrow"])
-                                game_window.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
-                            if quests_complete == 14:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_02_marrow"])
-                                game_window.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
-                            if quests_complete == 15:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_03_marrow"])
-                                game_window.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
-                            if quests_complete == 16:
-                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                                stardust_star_overlay_marrow.update(798, 295, graphic_dict["stardust_star_04_marrow"])
-                                game_window.blit(stardust_star_overlay_marrow.surf, stardust_star_overlay_marrow.rect)
+                            if player.quest_complete["sneaky snakes"]:
+                                game_window.blit(sneaky_snake_stardust_star.surf, sneaky_snake_stardust_star.rect)
+                            if player.quest_complete["village repairs"]:
+                                game_window.blit(village_repairs_stardust_star.surf, village_repairs_stardust_star.rect)
+                            if player.quest_complete["where's nede?"]:
+                                game_window.blit(where_nede_stardust_star.surf, where_nede_stardust_star.rect)
+                            if player.quest_complete["ghouled again"]:
+                                game_window.blit(ghouled_again_stardust_star.surf, ghouled_again_stardust_star.rect)
+                            if player.quest_complete["welcome to consona"]:
+                                game_window.blit(welcome_to_consona_stardust_star.surf,
+                                                 welcome_to_consona_stardust_star.rect)
+                            if player.quest_complete["band hammer"]:
+                                game_window.blit(band_hammer_stardust_star.surf, band_hammer_stardust_star.rect)
+                            if player.quest_complete["elementary elementals"]:
+                                game_window.blit(elementary_elementals_stardust_star.surf,
+                                                 elementary_elementals_stardust_star.rect)
+                            if player.quest_complete["it's dangerous to go alone"]:
+                                game_window.blit(dangerous_alone_stardust_star.surf, dangerous_alone_stardust_star.rect)
+                            if player.quest_complete["disenchanted"]:
+                                game_window.blit(disenchanted_stardust_star.surf, disenchanted_stardust_star.rect)
+                            if player.quest_complete["kart troubles"]:
+                                game_window.blit(kart_troubles_stardust_star.surf, kart_troubles_stardust_star.rect)
+                            if player.quest_complete["las escondidas"]:
+                                game_window.blit(las_escondidas_stardust_star.surf, las_escondidas_stardust_star.rect)
+                            if player.quest_complete["shades of fear"]:
+                                game_window.blit(shades_of_fear_stardust_star.surf, shades_of_fear_stardust_star.rect)
+                            if player.quest_complete["madness in marrow"]:
+                                game_window.blit(madness_marrow_stardust_star.surf, madness_marrow_stardust_star.rect)
+                            if npc_maydria.quest_complete:
+                                game_window.blit(vamos_vanguard_stardust_star.surf, vamos_vanguard_stardust_star.rect)
+                            if npc_artherian.quest_complete:
+                                game_window.blit(legends_stardust_star.surf, legends_stardust_star.rect)
+                            if player.quest_complete["re recycling"]:
+                                game_window.blit(re_recycling_stardust_star.surf, re_recycling_stardust_star.rect)
 
                             if apothis_gift:
                                 game_window.blit(apothis_star.surf, apothis_star.rect)
@@ -23157,7 +23011,7 @@ if __name__ == "__main__":
                                         loot_timer_reset = False
 
                                 if not quest_clicked:
-                                    if not kuba_complete_shown:
+                                    if not kuba_complete_shown and player.quest_complete["madness in marrow"]:
                                         drawing_functions.quest_complete_draw(current_npc_interacting, True,
                                                                               garan_complete_quest_window,
                                                                               maurelle_complete_quest_window,

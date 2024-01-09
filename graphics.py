@@ -237,6 +237,7 @@ def load_graphics():
     overlay_flower_counts = pygame.image.load(resource_path('resources/art/overlay_flower_counts.png')).convert_alpha()
     overlay_fish_counts = pygame.image.load(resource_path('resources/art/overlay_fish_counts.png')).convert_alpha()
     apothis_star = pygame.image.load(resource_path('resources/art/apothis_gift_star_overlay.png')).convert_alpha()
+    overlay_stardust_star = pygame.image.load(resource_path('resources/art/overlay_stardust_star.png')).convert_alpha()
 
     m_switch = pygame.image.load(resource_path('resources/art/overlay_marrow_switch.png')).convert_alpha()
     m_switch_b = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_blue.png')).convert_alpha()
@@ -299,7 +300,7 @@ def load_graphics():
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
                   m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_box, popup_wide,
                   overlay_enemy_vanish, chroma_forge, overlay_smelting, overlay_enchanting, chest_small, overlay_prism,
-                  apothis_star]
+                  apothis_star, overlay_stardust_star]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -528,6 +529,7 @@ def load_graphics():
     loaded_dict["marrow_ramparts_battle"] = ramparts_battle
     loaded_dict["marrow_tower_battle"] = tower_battle
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
+    loaded_dict["overlay_stardust_star"] = overlay_stardust_star
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # recycle crate overlay --------------------------------------------------------------------------------------------
@@ -5799,34 +5801,6 @@ def load_graphics():
     loaded_dict["eldream_shop_cat_pet_img"] = cat_pet_sheet[4]
     loaded_dict["menagerie_cat_pet_img"] = cat_pet_sheet[5]
     loaded_dict["marrow_cat_pet_img"] = cat_pet_sheet[6]
-    # stardust outpost star overlays -----------------------------------------------------------------------------------
-    stardust_stars_url = resource_path('resources/art/overlays_stardust_stars.png')
-    stardust_stars_sheet = sprite_sheet((271, 105), stardust_stars_url)
-    loaded_dict["stardust_star_01"] = stardust_stars_sheet[0]
-    loaded_dict["stardust_star_02"] = stardust_stars_sheet[1]
-    loaded_dict["stardust_star_03"] = stardust_stars_sheet[2]
-    loaded_dict["stardust_star_04"] = stardust_stars_sheet[3]
-    # stardust outpost korlok star overlays ----------------------------------------------------------------------------
-    stardust_stars_korlok_url = resource_path('resources/art/overlays_stardust_stars_korlok.png')
-    stardust_stars_korlok_sheet = sprite_sheet((271, 105), stardust_stars_korlok_url)
-    loaded_dict["stardust_star_01_korlok"] = stardust_stars_korlok_sheet[0]
-    loaded_dict["stardust_star_02_korlok"] = stardust_stars_korlok_sheet[1]
-    loaded_dict["stardust_star_03_korlok"] = stardust_stars_korlok_sheet[2]
-    loaded_dict["stardust_star_04_korlok"] = stardust_stars_korlok_sheet[3]
-    # stardust outpost eldream star overlays ----------------------------------------------------------------------------
-    stardust_stars_eldream_url = resource_path('resources/art/overlays_stardust_stars_eldream.png')
-    stardust_stars_eldream_sheet = sprite_sheet((271, 105), stardust_stars_eldream_url)
-    loaded_dict["stardust_star_01_eldream"] = stardust_stars_eldream_sheet[0]
-    loaded_dict["stardust_star_02_eldream"] = stardust_stars_eldream_sheet[1]
-    loaded_dict["stardust_star_03_eldream"] = stardust_stars_eldream_sheet[2]
-    loaded_dict["stardust_star_04_eldream"] = stardust_stars_eldream_sheet[3]
-    # stardust outpost marrow star overlays ----------------------------------------------------------------------------
-    stardust_stars_marrow_url = resource_path('resources/art/overlays_stardust_stars_marrow.png')
-    stardust_stars_marrow_sheet = sprite_sheet((271, 105), stardust_stars_marrow_url)
-    loaded_dict["stardust_star_01_marrow"] = stardust_stars_marrow_sheet[0]
-    loaded_dict["stardust_star_02_marrow"] = stardust_stars_marrow_sheet[1]
-    loaded_dict["stardust_star_03_marrow"] = stardust_stars_marrow_sheet[2]
-    loaded_dict["stardust_star_04_marrow"] = stardust_stars_marrow_sheet[3]
     # hearth stone sprites ---------------------------------------------------------------------------------------------
     hearth_stones_url = resource_path('resources/art/sprite_hearth_stone.png')
     hearth_stones_sheet = sprite_sheet((100, 100), hearth_stones_url)
