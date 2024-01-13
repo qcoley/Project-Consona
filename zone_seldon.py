@@ -32,7 +32,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                     stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, barrier_small, apothis_gift,
-                    snakes_highlighted, ghouls_highlighted, quest_logs_highlighted, apothis_upgrade):
+                    snakes_highlighted, ghouls_highlighted, quest_logs_highlighted, apothis_upgrade,
+                    morning, afternoon, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -42,10 +43,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             over_world_song_set = True
 
     screen.blit(seldon_district_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
@@ -161,6 +158,18 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         screen.blit(building_top_1.surf, building_top_1.rect)
         screen.blit(building_top_2.surf, building_top_2.rect)
         screen.blit(building_top_3.surf, building_top_3.rect)
+
+    if time_of_day == 0:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 3:
+        screen.blit(night, (0, 0))
+
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
 
     # player encounters objects and draws popup information box ----------------------------------------
     # player encounters a quest item. check progress and add to if interacted with

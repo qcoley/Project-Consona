@@ -286,6 +286,10 @@ def load_graphics():
     credit_scene_4 = pygame.image.load(resource_path('resources/art/screen_credits_eldream.png')).convert_alpha()
     credit_scene_5 = pygame.image.load(resource_path('resources/art/screen_credits_thanks.png')).convert_alpha()
 
+    effect_morning = pygame.image.load(resource_path('resources/art/effect_morning.png')).convert_alpha()
+    effect_afternoon = pygame.image.load(resource_path('resources/art/effect_afternoon.png')).convert_alpha()
+    effect_night = pygame.image.load(resource_path('resources/art/effect_night.png')).convert_alpha()
+
     color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree,
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up_win,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
@@ -305,6 +309,9 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["effect_morning"] = effect_morning
+    loaded_dict["effect_afternoon"] = effect_afternoon
+    loaded_dict["effect_night"] = effect_night
     loaded_dict["trading_deck"] = trading_deck_window
     loaded_dict["trading_window"] = trading_card_window
     loaded_dict["card_shop_bg"] = card_shop_screen

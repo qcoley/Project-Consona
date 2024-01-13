@@ -7810,6 +7810,14 @@ if __name__ == "__main__":
     player_cutscene_overlay = UiElement("player cutscene", 800, 225, graphic_dict["amuna_cutscene"])
     player_cutscene_overlay_2 = UiElement("player cutscene 2", 300, 400, graphic_dict["amuna_cutscene_2"])
 
+    # effects ----------------------------------------------------------------------------------------------------------
+    morning = graphic_dict["effect_morning"]
+    morning.set_alpha(25)
+    afternoon = graphic_dict["effect_afternoon"]
+    afternoon.set_alpha(25)
+    night = graphic_dict["effect_night"]
+    night.set_alpha(75)
+
     # display notifications --------------------------------------------------------------------------------------------
     knowledge_academia = Notification("knowledge academia notification", False, 510, 365,
                                       graphic_dict["knowledge_popup"])
@@ -9340,6 +9348,8 @@ if __name__ == "__main__":
     construct_parts_one_highlighted = False
     construct_parts_two_highlighted = False
 
+    time_of_day = 1
+
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
     # apothecary flower counters
@@ -9421,6 +9431,7 @@ if __name__ == "__main__":
     fishing_timer = time.perf_counter()
     prism_activate_tic = time.perf_counter()
     combat_tic = time.perf_counter()
+    day_timer = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -11933,7 +11944,8 @@ if __name__ == "__main__":
                                                                       even_better_fish_counter, best_fish_counter,
                                                                       seldon_barrier_small, apothis_gift,
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
-                                                                      quest_logs_highlighted, apothis_upgrade)
+                                                                      quest_logs_highlighted, apothis_upgrade, morning,
+                                                                      afternoon, night, time_of_day)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone_seldon,
@@ -11989,7 +12001,8 @@ if __name__ == "__main__":
                                                                       even_better_fish_counter, best_fish_counter,
                                                                       seldon_barrier_small, apothis_gift,
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
-                                                                      quest_logs_highlighted, apothis_upgrade)
+                                                                      quest_logs_highlighted, apothis_upgrade, morning,
+                                                                      afternoon, night, time_of_day)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -15122,6 +15135,19 @@ if __name__ == "__main__":
                         game_window.blit(cat_card_portrait, (60, 105))
                 if show_trade_deck:
                     render_card_deck()
+
+                day_timer_toc = time.perf_counter()
+                if day_timer_toc - day_timer > 50:
+                    day_timer = time.perf_counter()
+                    match time_of_day:
+                        case 0:
+                            time_of_day = 1
+                        case 1:
+                            time_of_day = 2
+                        case 2:
+                            time_of_day = 3
+                        case 3:
+                            time_of_day = 0
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
