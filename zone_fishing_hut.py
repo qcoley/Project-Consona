@@ -13,7 +13,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                 en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 fishing_hut_rect, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
                 pet_energy_window, sfx_fishing_cast, item_block, item_block_got, Item, sfx_item_block,
-                apothis_gift):
+                apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -127,10 +127,6 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     screen.blit(water_fish_1.surf, water_fish_1.rect)
     screen.blit(water_fish_3.surf, water_fish_3.rect)
     screen.blit(water_fish_4.surf, water_fish_4.rect)
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
     screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
 
@@ -154,6 +150,26 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)

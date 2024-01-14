@@ -7811,12 +7811,20 @@ if __name__ == "__main__":
     player_cutscene_overlay_2 = UiElement("player cutscene 2", 300, 400, graphic_dict["amuna_cutscene_2"])
 
     # effects ----------------------------------------------------------------------------------------------------------
+    dawn = graphic_dict["effect_dawn"]
+    dawn.set_alpha(75)
+    early_morning = graphic_dict["effect_early_morning"]
+    early_morning.set_alpha(50)
     morning = graphic_dict["effect_morning"]
-    morning.set_alpha(25)
+    morning.set_alpha(50)
+    early_afternoon = graphic_dict["effect_early_afternoon"]
+    early_afternoon.set_alpha(50)
     afternoon = graphic_dict["effect_afternoon"]
-    afternoon.set_alpha(25)
+    afternoon.set_alpha(50)
+    dusk = graphic_dict["effect_dusk"]
+    dusk.set_alpha(75)
     night = graphic_dict["effect_night"]
-    night.set_alpha(75)
+    night.set_alpha(100)
 
     # display notifications --------------------------------------------------------------------------------------------
     knowledge_academia = Notification("knowledge academia notification", False, 510, 365,
@@ -8454,7 +8462,7 @@ if __name__ == "__main__":
     roroc_quest_window = UiElement("illisare quest window", 262, 443, graphic_dict["roroc_quest"])
     roroc_complete_window = UiElement("illisare complete window", 550, 350, graphic_dict["roroc_complete"])
 
-    message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
+    message_box = UiElement("message box", 173, 650, graphic_dict["message_box_day"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
     enemy_status_bar_back = UiElement("enemy bar backdrop", 700, 90, graphic_dict["enemy_bar_backdrop"])
 
@@ -9071,6 +9079,11 @@ if __name__ == "__main__":
     sfx_card_drop = pygame.mixer.Sound(resource_path("resources/sounds/card_drop.mp3"))
     sfx_card_drop.set_volume(0.25)
 
+    sfx_howl = pygame.mixer.Sound(resource_path("resources/sounds/wolf_howl.mp3"))
+    sfx_howl.set_volume(0.25)
+    sfx_chirp = pygame.mixer.Sound(resource_path("resources/sounds/bird_chirp.mp3"))
+    sfx_chirp.set_volume(0.15)
+
     # main loop variables ----------------------------------------------------------------------------------------------
     bait_given = False
     level_checked = False
@@ -9349,6 +9362,7 @@ if __name__ == "__main__":
     construct_parts_two_highlighted = False
 
     time_of_day = 1
+    day_timer_started = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -9431,7 +9445,6 @@ if __name__ == "__main__":
     fishing_timer = time.perf_counter()
     prism_activate_tic = time.perf_counter()
     combat_tic = time.perf_counter()
-    day_timer = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -10514,6 +10527,11 @@ if __name__ == "__main__":
         # player has chosen to start game ------------------------------------------------------------------------------
         if start_chosen:
             if player.alive_status:
+
+                # keep track of time of day while player is active
+                if not day_timer_started:
+                    day_timer = time.perf_counter()
+                    day_timer_started = True
 
                 # player information updates
                 gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
@@ -11663,6 +11681,20 @@ if __name__ == "__main__":
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(nascent_grove_bg, (0, 0))
+                        if time_of_day == 0:
+                            screen.blit(dawn, (0, 0))
+                        if time_of_day == 1:
+                            screen.blit(early_morning, (0, 0))
+                        if time_of_day == 2:
+                            screen.blit(morning, (0, 0))
+                        if time_of_day == 4:
+                            screen.blit(early_afternoon, (0, 0))
+                        if time_of_day == 5:
+                            screen.blit(afternoon, (0, 0))
+                        if time_of_day == 6:
+                            screen.blit(dusk, (0, 0))
+                        if time_of_day == 7:
+                            screen.blit(night, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(nascent_gate.surf, nascent_gate.rect)
                         screen.blit(rock_8.surf, rock_8.rect)
@@ -11671,6 +11703,20 @@ if __name__ == "__main__":
                             screen.blit(quest_star_nascent.surf, quest_star_nascent.rect)
                     else:
                         game_window.blit(nascent_grove_bg, (0, 0))
+                        if time_of_day == 0:
+                            game_window.blit(dawn, (0, 0))
+                        if time_of_day == 1:
+                            game_window.blit(early_morning, (0, 0))
+                        if time_of_day == 2:
+                            game_window.blit(morning, (0, 0))
+                        if time_of_day == 4:
+                            game_window.blit(early_afternoon, (0, 0))
+                        if time_of_day == 5:
+                            game_window.blit(afternoon, (0, 0))
+                        if time_of_day == 6:
+                            game_window.blit(dusk, (0, 0))
+                        if time_of_day == 7:
+                            game_window.blit(night, (0, 0))
                         game_window.blit(equipment_screen.surf, equipment_screen.rect)
                         game_window.blit(nascent_gate.surf, nascent_gate.rect)
                         game_window.blit(rock_8.surf, rock_8.rect)
@@ -11690,16 +11736,14 @@ if __name__ == "__main__":
                     text_rupee_surf = font.render(str(player.rupees), True, "black",
                                                   "light green")
                     text_rupee_rect = text_rupee_surf.get_rect()
-                    text_rupee_rect.center = (1120, 693)
+                    text_rupee_rect.center = (1125, 693)
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(player.surf, player.rect)
                         screen.blit(text_rupee_surf, text_rupee_rect)
-                        screen.blit(player.surf, player.rect)
                     else:
                         game_window.blit(player.surf, player.rect)
                         game_window.blit(text_rupee_surf, text_rupee_rect)
-                        game_window.blit(player.surf, player.rect)
 
                     if pygame.sprite.collide_rect(player, nascent_gate):
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -11844,7 +11888,9 @@ if __name__ == "__main__":
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
                                                                     pet_energy_window, sfx_fishing_cast, item_block_2,
                                                                     item_block_2_got, Item, sfx_item_block,
-                                                                    apothis_upgrade)
+                                                                    apothis_upgrade, dawn, early_morning, morning,
+                                                                    early_afternoon, afternoon, dusk, night,
+                                                                    time_of_day)
                     else:
                         hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
                                                                     fishing_music, fishing, walk_tic,
@@ -11863,7 +11909,9 @@ if __name__ == "__main__":
                                                                     interacted, fishing_unlocked, movement_able, in_hut,
                                                                     pet_energy_window, sfx_fishing_cast, item_block_2,
                                                                     item_block_2_got, Item, sfx_item_block,
-                                                                    apothis_upgrade)
+                                                                    apothis_upgrade, dawn, early_morning, morning,
+                                                                    early_afternoon, afternoon, dusk, night,
+                                                                    time_of_day)
 
                     over_world_song_set = hut_returned["over_world_song_set"]
                     basic_fish_counter = hut_returned["basic_fish_counter"]
@@ -11944,8 +11992,9 @@ if __name__ == "__main__":
                                                                       even_better_fish_counter, best_fish_counter,
                                                                       seldon_barrier_small, apothis_gift,
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
-                                                                      quest_logs_highlighted, apothis_upgrade, morning,
-                                                                      afternoon, night, time_of_day)
+                                                                      quest_logs_highlighted, apothis_upgrade, dawn,
+                                                                      early_morning, morning, early_afternoon,
+                                                                      afternoon, dusk, night, time_of_day)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone_seldon,
@@ -12001,8 +12050,9 @@ if __name__ == "__main__":
                                                                       even_better_fish_counter, best_fish_counter,
                                                                       seldon_barrier_small, apothis_gift,
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
-                                                                      quest_logs_highlighted, apothis_upgrade, morning,
-                                                                      afternoon, night, time_of_day)
+                                                                      quest_logs_highlighted, apothis_upgrade, dawn,
+                                                                      early_morning, morning, early_afternoon,
+                                                                      afternoon, dusk, night, time_of_day)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -12094,7 +12144,9 @@ if __name__ == "__main__":
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
                                                                       magmons_highlighted, magmons_reset, npc_nahun,
-                                                                      quest_star_nahun, apothis_upgrade)
+                                                                      quest_star_nahun, apothis_upgrade, dawn,
+                                                                      early_morning, morning, early_afternoon,
+                                                                      afternoon, dusk, night, time_of_day)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -12142,7 +12194,9 @@ if __name__ == "__main__":
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, sfx_sheet_paper,
                                                                       magmons_highlighted, magmons_reset, npc_nahun,
-                                                                      quest_star_nahun, apothis_upgrade)
+                                                                      quest_star_nahun, apothis_upgrade, dawn,
+                                                                      early_morning, morning, early_afternoon,
+                                                                      afternoon, dusk, night, time_of_day)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -12230,7 +12284,9 @@ if __name__ == "__main__":
                                                                          entrance_2, entrance_3, mini_map_overlay,
                                                                          basic_fish_counter, better_fish_counter,
                                                                          even_better_fish_counter, best_fish_counter,
-                                                                         supplies_highlighted, apothis_upgrade)
+                                                                         supplies_highlighted, apothis_upgrade, dawn,
+                                                                         early_morning, morning, early_afternoon,
+                                                                         afternoon, dusk, night, time_of_day)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -12284,7 +12340,9 @@ if __name__ == "__main__":
                                                                          entrance_2, entrance_3, mini_map_overlay,
                                                                          basic_fish_counter, better_fish_counter,
                                                                          even_better_fish_counter, best_fish_counter,
-                                                                         supplies_highlighted, apothis_upgrade)
+                                                                         supplies_highlighted, apothis_upgrade, dawn,
+                                                                         early_morning, morning, early_afternoon,
+                                                                         afternoon, dusk, night, time_of_day)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -12356,7 +12414,9 @@ if __name__ == "__main__":
                                                                                marrow_ghouls_highlighted,
                                                                                marrow_ghouls_reset, npc_roroc,
                                                                                recycle_crate, quest_star_roroc,
-                                                                               rohir_gate, apothis_upgrade)
+                                                                               rohir_gate, apothis_upgrade, dawn,
+                                                                               early_morning, morning, early_afternoon,
+                                                                               afternoon, dusk, night, time_of_day)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -12394,7 +12454,9 @@ if __name__ == "__main__":
                                                                                marrow_ghouls_highlighted,
                                                                                marrow_ghouls_reset, npc_roroc,
                                                                                recycle_crate, quest_star_roroc,
-                                                                               rohir_gate, apothis_upgrade)
+                                                                               rohir_gate, apothis_upgrade, dawn,
+                                                                               early_morning, morning, early_afternoon,
+                                                                               afternoon, dusk, night, time_of_day)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -12704,7 +12766,10 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_upgrade)
+                                                                                   best_fish_counter, apothis_upgrade,
+                                                                                   dawn, early_morning, morning,
+                                                                                   early_afternoon, afternoon, dusk,
+                                                                                   night, time_of_day)
                     else:
                         marrow_ramps_west_returned = zone_marrow.marrow_ramps_west(pygame, game_window,
                                                                                    graphic_dict,
@@ -12734,7 +12799,10 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_upgrade)
+                                                                                   best_fish_counter, apothis_upgrade,
+                                                                                   dawn, early_morning, morning,
+                                                                                   early_afternoon, afternoon, dusk,
+                                                                                   night, time_of_day)
 
                     over_world_song_set = marrow_ramps_west_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_returned["interacted"]
@@ -12774,7 +12842,10 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_upgrade)
+                                                                                   best_fish_counter, apothis_upgrade,
+                                                                                   dawn, early_morning, morning,
+                                                                                   early_afternoon, afternoon, dusk,
+                                                                                   night, time_of_day)
                     else:
                         marrow_ramps_east_returned = zone_marrow.marrow_ramps_east(pygame, game_window,
                                                                                    graphic_dict,
@@ -12799,7 +12870,10 @@ if __name__ == "__main__":
                                                                                    mini_map_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_upgrade)
+                                                                                   best_fish_counter, apothis_upgrade,
+                                                                                   dawn, early_morning, morning,
+                                                                                   early_afternoon, afternoon, dusk,
+                                                                                   night, time_of_day)
 
                     over_world_song_set = marrow_ramps_east_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_returned["interacted"]
@@ -12856,7 +12930,10 @@ if __name__ == "__main__":
                                                                                            kasper_unlocked,
                                                                                            torok_unlocked,
                                                                                            iriana_unlocked,
-                                                                                           apothis_upgrade)
+                                                                                           apothis_upgrade, dawn,
+                                                                                           early_morning, morning,
+                                                                                           early_afternoon, afternoon,
+                                                                                           dusk, night, time_of_day)
                     else:
                         marrow_ramps_west_end_returned = zone_marrow.marrow_ramps_west_end(pygame, game_window,
                                                                                            graphic_dict, player,
@@ -12898,7 +12975,10 @@ if __name__ == "__main__":
                                                                                            kasper_unlocked,
                                                                                            torok_unlocked,
                                                                                            iriana_unlocked,
-                                                                                           apothis_upgrade)
+                                                                                           apothis_upgrade, dawn,
+                                                                                           early_morning, morning,
+                                                                                           early_afternoon, afternoon,
+                                                                                           dusk, night, time_of_day)
 
                     over_world_song_set = marrow_ramps_west_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_end_returned["interacted"]
@@ -12974,7 +13054,10 @@ if __name__ == "__main__":
                                                                                            better_fish_counter,
                                                                                            even_better_fish_counter,
                                                                                            best_fish_counter,
-                                                                                           apothis_upgrade)
+                                                                                           apothis_upgrade, dawn,
+                                                                                           early_morning, morning,
+                                                                                           early_afternoon, afternoon,
+                                                                                           dusk, night, time_of_day)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -13032,7 +13115,10 @@ if __name__ == "__main__":
                                                                                            better_fish_counter,
                                                                                            even_better_fish_counter,
                                                                                            best_fish_counter,
-                                                                                           apothis_upgrade)
+                                                                                           apothis_upgrade, dawn,
+                                                                                           early_morning, morning,
+                                                                                           early_afternoon, afternoon,
+                                                                                           dusk, night, time_of_day)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -13696,7 +13782,9 @@ if __name__ == "__main__":
                                                                              best_fish_counter, item_block_5,
                                                                              item_block_5_got, sfx_item_block, Item,
                                                                              kasper_unlocked, torok_unlocked,
-                                                                             iriana_unlocked, apothis_upgrade)
+                                                                             iriana_unlocked, apothis_upgrade, dawn,
+                                                                             early_morning, morning, early_afternoon,
+                                                                             afternoon, dusk, night, time_of_day)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -13730,7 +13818,9 @@ if __name__ == "__main__":
                                                                              best_fish_counter, item_block_5,
                                                                              item_block_5_got, sfx_item_block, Item,
                                                                              kasper_unlocked, torok_unlocked,
-                                                                             iriana_unlocked, apothis_upgrade)
+                                                                             iriana_unlocked, apothis_upgrade, dawn,
+                                                                             early_morning, morning, early_afternoon,
+                                                                             afternoon, dusk, night, time_of_day)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -13795,7 +13885,9 @@ if __name__ == "__main__":
                                                                                best_fish_counter, item_block_4,
                                                                                item_block_4_got, sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked, apothis_upgrade)
+                                                                               iriana_unlocked, apothis_upgrade, dawn,
+                                                                               early_morning, morning, early_afternoon,
+                                                                               afternoon, dusk, night, time_of_day)
                     else:
                         ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_right_bg,
@@ -13827,7 +13919,9 @@ if __name__ == "__main__":
                                                                                best_fish_counter, item_block_4,
                                                                                item_block_4_got, sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked, apothis_upgrade)
+                                                                               iriana_unlocked, apothis_upgrade, dawn,
+                                                                               early_morning, morning, early_afternoon,
+                                                                               afternoon, dusk, night, time_of_day)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -13907,7 +14001,9 @@ if __name__ == "__main__":
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, necrolas_highlighted,
-                                                                               necrolas_reset, apothis_upgrade)
+                                                                               necrolas_reset, apothis_upgrade, dawn,
+                                                                               early_morning, morning, early_afternoon,
+                                                                               afternoon, dusk, night, time_of_day)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -13955,7 +14051,9 @@ if __name__ == "__main__":
                                                                                basic_fish_counter, better_fish_counter,
                                                                                even_better_fish_counter,
                                                                                best_fish_counter, necrolas_highlighted,
-                                                                               necrolas_reset, apothis_upgrade)
+                                                                               necrolas_reset, apothis_upgrade, dawn,
+                                                                               early_morning, morning, early_afternoon,
+                                                                               afternoon, dusk, night, time_of_day)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -14424,7 +14522,9 @@ if __name__ == "__main__":
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
                                                                       sfx_item_block, Item, sfx_gate_open,
-                                                                      apothis_upgrade, rohir_gate)
+                                                                      apothis_upgrade, rohir_gate, dawn, early_morning,
+                                                                      morning, early_afternoon, afternoon, dusk, night,
+                                                                      time_of_day)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -14463,7 +14563,9 @@ if __name__ == "__main__":
                                                                       better_fish_counter, even_better_fish_counter,
                                                                       best_fish_counter, item_block_3, item_block_3_got,
                                                                       sfx_item_block, Item, sfx_gate_open,
-                                                                      apothis_upgrade, rohir_gate)
+                                                                      apothis_upgrade, rohir_gate, dawn, early_morning,
+                                                                      morning, early_afternoon, afternoon, dusk, night,
+                                                                      time_of_day)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -14531,7 +14633,9 @@ if __name__ == "__main__":
                                                                            even_better_fish_counter, best_fish_counter,
                                                                            sfx_fishing_cast, apothis_gift,
                                                                            stardust_card_cave, in_card_cave,
-                                                                           apothis_upgrade)
+                                                                           apothis_upgrade, dawn, early_morning, 
+                                                                           morning, early_afternoon, afternoon, dusk, 
+                                                                           night, time_of_day)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -14573,7 +14677,9 @@ if __name__ == "__main__":
                                                                            even_better_fish_counter, best_fish_counter,
                                                                            sfx_fishing_cast, apothis_gift,
                                                                            stardust_card_cave, in_card_cave,
-                                                                           apothis_upgrade)
+                                                                           apothis_upgrade, dawn, early_morning, 
+                                                                           morning, early_afternoon, afternoon, dusk, 
+                                                                           night, time_of_day)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -14624,7 +14730,8 @@ if __name__ == "__main__":
                                                                 better_fish_counter, even_better_fish_counter,
                                                                 best_fish_counter, item_block_1, item_block_1_got,
                                                                 Item, sfx_item_block, dungeon_teleporter,
-                                                                apothis_upgrade)
+                                                                apothis_upgrade, dawn, early_morning, morning,
+                                                                early_afternoon, afternoon, dusk, night, time_of_day)
                     else:
                         rohir_returned = zone_rohir.rohir_river(pygame, game_window, player, over_world_song_set,
                                                                 rohir_river_bg,
@@ -14641,7 +14748,8 @@ if __name__ == "__main__":
                                                                 better_fish_counter, even_better_fish_counter,
                                                                 best_fish_counter, item_block_1, item_block_1_got,
                                                                 Item, sfx_item_block, dungeon_teleporter,
-                                                                apothis_upgrade)
+                                                                apothis_upgrade, dawn, early_morning, morning,
+                                                                early_afternoon, afternoon, dusk, night, time_of_day)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -14932,6 +15040,23 @@ if __name__ == "__main__":
                         except TypeError:
                             pass
 
+                    if dreth_defeated and not credits_shown:
+                        cutscene_tic = time.perf_counter()
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
+                                                        credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
+                                                        SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                        else:
+                            cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
+                                                        credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
+                                                        SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                        credits_shown = True
+                        over_world_song_set = False
+                        player.current_zone = "seldon"
+                        player.x_coordinate = 860
+                        player.y_coordinate = 655
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
                     # fishing popup in areas that have fishing spots
                     if (player.current_zone == "fishing hut" or player.current_zone == "stardust"
                             or player.current_zone == "fishing alcove" or player.current_zone == "caldera"):
@@ -15031,19 +15156,13 @@ if __name__ == "__main__":
                                 else:
                                     game_window.blit(overlay_seldon_fireworks.surf, overlay_seldon_fireworks.rect)
 
-                    # music button visual toggle and flower/fish counter buttons
+                    # music button visual toggle
                     if player.current_zone != "nascent":
                         if len(drawing_functions.game_guide_container) == 0:
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                 screen.blit(music_toggle_button.surf, music_toggle_button.rect)
                             else:
                                 game_window.blit(music_toggle_button.surf, music_toggle_button.rect)
-
-                            if button_highlighted:
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(button_highlight.surf, button_highlight.rect)
-                                else:
-                                    game_window.blit(button_highlight.surf, button_highlight.rect)
 
                     if trading_deck and not card_popup_checked:
                         if card_deck["snake_popup"]:
@@ -15127,27 +15246,20 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_card_drop)
                                 card_drop_played = True
 
-                # cat card or trade deck was clicked on, can be shown almost anywhere
-                if show_cat_card:
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(cat_card_portrait, (60, 105))
-                    else:
-                        game_window.blit(cat_card_portrait, (60, 105))
-                if show_trade_deck:
-                    render_card_deck()
+                    # cat card or trade deck was clicked on, can be shown almost anywhere
+                    if show_cat_card:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(cat_card_portrait, (60, 105))
+                        else:
+                            game_window.blit(cat_card_portrait, (60, 105))
+                    if show_trade_deck:
+                        render_card_deck()
 
-                day_timer_toc = time.perf_counter()
-                if day_timer_toc - day_timer > 50:
-                    day_timer = time.perf_counter()
-                    match time_of_day:
-                        case 0:
-                            time_of_day = 1
-                        case 1:
-                            time_of_day = 2
-                        case 2:
-                            time_of_day = 3
-                        case 3:
-                            time_of_day = 0
+                    if button_highlighted and player.current_zone != "nascent":
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(button_highlight.surf, button_highlight.rect)
+                        else:
+                            game_window.blit(button_highlight.surf, button_highlight.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
@@ -19037,6 +19149,7 @@ if __name__ == "__main__":
                                     pygame.display.flip()
                             player.health = 100
                             player.energy = 100
+                            time_of_day = 0
                             rested = True
 
                     if first_inn_cond:
@@ -19950,8 +20063,7 @@ if __name__ == "__main__":
                                                                      artherian_task_window, artherian_task_window_2,
                                                                      artherian_1, artherian_task_window,
                                                                      kuba_quest_window, nahun_quest_window,
-                                                                     illisare_quest_window, illisare_quest_window,
-                                                                     illisare_quest_window)
+                                                                     illisare_quest_window, illisare_quest_window)
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not kirean_complete_shown:
@@ -19967,6 +20079,7 @@ if __name__ == "__main__":
                                                                               omoku_complete_quest_window,
                                                                               leyre_complete_quest_window,
                                                                               aitor_complete_quest_window,
+                                                                              everett_complete_quest_window,
                                                                               everett_complete_quest_window,
                                                                               everett_complete_quest_window,
                                                                               everett_complete_quest_window,
@@ -23628,6 +23741,44 @@ if __name__ == "__main__":
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------
+
+                # keep track of time of day, switch when enough time has elapsed
+                day_timer_toc = time.perf_counter()
+                if day_timer_toc - day_timer > 5:
+                    match time_of_day:
+                        case 0:  # dawn
+                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                            pygame.mixer.find_channel(True).play(sfx_chirp)
+                            time_of_day = 1
+                            day_timer = time.perf_counter()
+                        case 1:  # early morning
+                            time_of_day = 2
+                            day_timer = time.perf_counter()
+                        case 2:  # morning
+                            message_box.update(173, 650, graphic_dict["message_box_day"])
+                            time_of_day = 3
+                            day_timer = time.perf_counter()
+                        case 3:  # day
+                            if day_timer_toc - day_timer > 10:
+                                time_of_day = 4
+                                day_timer = time.perf_counter()
+                        case 4:  # early afternoon
+                            message_box.update(173, 650, graphic_dict["message_box_dusk"])
+                            time_of_day = 5
+                            day_timer = time.perf_counter()
+                        case 5:  # afternoon
+                            time_of_day = 6
+                            day_timer = time.perf_counter()
+                        case 6:  # dusk
+                            message_box.update(173, 650, graphic_dict["message_box_night"])
+                            pygame.mixer.find_channel(True).play(sfx_howl)
+                            time_of_day = 7
+                            day_timer = time.perf_counter()
+                        case 7:  # night
+                            if day_timer_toc - day_timer > 10:
+                                time_of_day = 0
+                                day_timer = time.perf_counter()
+
                 # check each iteration if creature seed is ready to hatch from counters
                 hatch_ready = gameplay_functions.creature_update(player, seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, hatch_ready,
@@ -23639,23 +23790,6 @@ if __name__ == "__main__":
                     pygame.display.flip()
                 else:
                     pygame.display.flip()
-
-                if dreth_defeated and not credits_shown:
-                    cutscene_tic = time.perf_counter()
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
-                                                    credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
-                                                    SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
-                    else:
-                        cutscenes.cutscenes_credits(pygame, credit_music, screen, credit_scene_1, credit_scene_2,
-                                                    credit_scene_3, credit_scene_4, credit_scene_5, cutscene_tic,
-                                                    SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
-                    credits_shown = True
-                    over_world_song_set = False
-                    player.current_zone = "seldon"
-                    player.x_coordinate = 860
-                    player.y_coordinate = 655
-                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
                 clock.tick(60)
 

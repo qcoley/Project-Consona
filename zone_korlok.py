@@ -25,7 +25,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
                     even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset,
-                    nahun, star_nahun, apothis_gift):
+                    nahun, star_nahun, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon,
+                    dusk, night, time_of_day):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -117,13 +118,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
 
         screen.blit(worker.surf, worker.rect)
     # ------------------------------------------------------------------------------------------------------------------
-
-    if not player.quest_complete["band hammer"]:
-        screen.blit(star_voruke.surf, star_voruke.rect)
-    if not player.quest_complete["elementary elementals"]:
-        screen.blit(star_zerah.surf, star_zerah.rect)
-    if not player.quest_complete["disenchanted"]:
-        screen.blit(star_nahun.surf, star_nahun.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -152,6 +146,28 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(top_1.surf, top_1.rect)
         screen.blit(top_2.surf, top_2.rect)
         screen.blit(top_3.surf, top_3.rect)
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
+    if not player.quest_complete["band hammer"]:
+        screen.blit(star_voruke.surf, star_voruke.rect)
+    if not player.quest_complete["elementary elementals"]:
+        screen.blit(star_zerah.surf, star_zerah.rect)
+    if not player.quest_complete["disenchanted"]:
+        screen.blit(star_nahun.surf, star_nahun.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     enemy = pygame.sprite.spritecollideany(player, korlok_enemies, pygame.sprite.collide_rect_ratio(0.75))
@@ -444,6 +460,11 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:

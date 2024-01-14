@@ -16,7 +16,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     maydria_star, sub_marrow_ladder, sfx_ladder, vanished, vanish_overlay, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                     prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
-                    ghouls_reset, roroc, recycle_crate, star_roroc, rohir_gate, apothis_upgrade):
+                    ghouls_reset, roroc, recycle_crate, star_roroc, rohir_gate, apothis_upgrade, dawn, early_morning,
+                    morning, early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -26,10 +27,6 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             over_world_song_set = True
 
     screen.blit(marrow_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
     screen.blit(recycle_crate.surf, recycle_crate.rect)
     screen.blit(artherian.surf, artherian.rect)
     screen.blit(noren.surf, noren.rect)
@@ -39,22 +36,6 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
 
     if noren.quest_complete or boro.quest_complete:
         screen.blit(castle_bridge.surf, castle_bridge.rect)
-
-    if noren.quest_complete or boro.quest_complete:
-        prism_toc = time.perf_counter()
-        if prism_toc - prism_tic < 1.5:
-            screen.blit(prism_activate.surf, prism_activate.rect)
-            if noren.quest_complete:
-                noren.surf = graphic_dict["noren_prism"]
-            if boro.quest_complete:
-                boro.surf = graphic_dict["boro_prism"]
-
-    if not artherian.quest_complete:
-        screen.blit(artherian_star.surf, artherian_star.rect)
-    if not maydria.quest_complete:
-        screen.blit(maydria_star.surf, maydria_star.rect)
-    if not player.quest_complete["re recycling"]:
-        screen.blit(star_roroc.surf, star_roroc.rect)
 
     screen.blit(hearth_stone.surf, hearth_stone.rect)
 
@@ -104,6 +85,37 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
+    if noren.quest_complete or boro.quest_complete:
+        prism_toc = time.perf_counter()
+        if prism_toc - prism_tic < 1.5:
+            screen.blit(prism_activate.surf, prism_activate.rect)
+            if noren.quest_complete:
+                noren.surf = graphic_dict["noren_prism"]
+            if boro.quest_complete:
+                boro.surf = graphic_dict["boro_prism"]
+
+    if not artherian.quest_complete:
+        screen.blit(artherian_star.surf, artherian_star.rect)
+    if not maydria.quest_complete:
+        screen.blit(maydria_star.surf, maydria_star.rect)
+    if not player.quest_complete["re recycling"]:
+        screen.blit(star_roroc.surf, star_roroc.rect)
 
     if pygame.sprite.collide_rect(player, artherian):
         interaction_popup.update(artherian.x_coordinate, artherian.y_coordinate - 50,
@@ -348,6 +360,11 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                    ghoul_battle_sprite, False)
 
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
@@ -1114,7 +1131,8 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_west, chroma_bridge, ghoul, ghoul_2, enemy_tic, mini_map, basic_fish_counter,
-                      better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift):
+                      better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, dawn,
+                      early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1124,11 +1142,6 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
             over_world_song_set = True
 
     screen.blit(marrow_ramps_w_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
     screen.blit(chroma_bridge.surf, chroma_bridge.rect)
     screen.blit(ghoul.surf, ghoul.rect)
     screen.blit(ghoul_2.surf, ghoul_2.rect)
@@ -1152,7 +1165,27 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     except AttributeError:
         pass
 
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
@@ -1237,7 +1270,8 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_east, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                      best_fish_counter, apothis_gift):
+                      best_fish_counter, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk,
+                      night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1247,10 +1281,6 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
             over_world_song_set = True
 
     screen.blit(marrow_ramps_e_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     try:
         for pet in player.pet:
@@ -1270,6 +1300,26 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -1352,7 +1402,8 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle, boss_music,
                           erebyth_battle_sprite, apothis_push, apothis, apothis_popup, apothis_1, apothis_2,
                           enemy_vanish, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                          even_better_fish_counter, best_fish_counter, apothis_gift):
+                          even_better_fish_counter, best_fish_counter, apothis_gift, dawn, early_morning, morning,
+                          early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1366,10 +1417,6 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     else:
         screen.blit(marrow_ramps_e_end_bg_block, (0, 0))
         screen.blit(erebyth.surf, erebyth.rect)
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if erebyth_defeated and not apothis_push:
         npc_toc = time.perf_counter()
@@ -1427,6 +1474,21 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
 
     if erebyth_defeated:
         if pygame.sprite.collide_rect(player, dungeon_chest):
@@ -1491,6 +1553,11 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                                                        erebyth_battle_sprite, erebyth_battle_sprite, False)
 
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
@@ -1574,7 +1641,8 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                           switch_1, marrow_switch_phase, main_switch, sfx_switch, flower, crate, crate_got, Item,
                           sfx_item_key, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                           best_fish_counter, item_block_7, item_block_7_got, item_block_8, item_block_8_got,
-                          sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
+                          sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, dawn,
+                          early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1584,11 +1652,6 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
             over_world_song_set = True
 
     screen.blit(marrow_ramps_w_end_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
     screen.blit(switch_1.surf, switch_1.rect)
     screen.blit(flower.surf, flower.rect)
 
@@ -1619,7 +1682,27 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     except AttributeError:
         pass
 
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:

@@ -9,7 +9,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                 beyond_seldon, pet_energy_window, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                 best_fish_counter, item_block, item_block_got, Item, sfx_item_block, dungeon_teleporter,
-                apothis_gift):
+                apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(100)
@@ -55,6 +55,26 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
         if player.x_coordinate > 285:
             water_player.update(player.x_coordinate, player.y_coordinate - 5, graphic_dict["water_player"])
             screen.blit(water_player.surf, water_player.rect)
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)

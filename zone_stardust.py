@@ -20,7 +20,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      stelli_battle_sprite, vanished, vanish_overlay, waterfall, level_checked, fishing_spot_1,
                      fishing_spot_2, fishing, walk_tic, fishing_unlocked, fishing_timer, fish_caught, previous_surf,
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                     best_fish_counter, sfx_fishing_cast, apothis_gift, card_cave, in_card_cave, apothis_upgrade):
+                     best_fish_counter, sfx_fishing_cast, apothis_gift, card_cave, in_card_cave, apothis_upgrade, dawn,
+                     early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
@@ -31,10 +32,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
 
     screen.blit(stardust_cove_bg, (0, 0))
     screen.blit(rock.surf, rock.rect)
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
 
     if player.level > 3:
         if not level_checked:
@@ -184,6 +181,21 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     except AttributeError:
         pass
 
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
     # player encounters Nede for Celeste's quest
     if pygame.sprite.collide_rect(player, nede) and player.quest_progress["where's nede?"] < 1:
         interaction_popup.update(nede.x_coordinate, nede.y_coordinate - 25,
@@ -299,7 +311,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock.x_coordinate == 675:
-                        rock.update(rock.x_coordinate - 110, rock.y_coordinate, graphic_dict["rock_small"])
+                        rock.update(rock.x_coordinate - 75, rock.y_coordinate, graphic_dict["rock_small"])
                         if not rock_3_con:
                             pygame.mixer.find_channel(True).play(sfx_rupee)
                             player.rupees += 50
@@ -435,6 +447,11 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             interacted = False
             in_card_cave = True
             in_over_world = False
+
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

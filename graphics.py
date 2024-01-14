@@ -163,7 +163,6 @@ def load_graphics():
     enemy_status = pygame.image.load(resource_path('resources/art/overlay_enemy_status_backdrop.png')).convert_alpha()
     enemy_bar_backdrop = pygame.image.load(resource_path('resources/art/overlay_enemy_status_bar.png')).convert_alpha()
     buy_inventory = pygame.image.load(resource_path('resources/art/overlay_buy_inventory.png')).convert_alpha()
-    message_box = pygame.image.load(resource_path('resources/art/overlay_message_box.png')).convert_alpha()
     pine_tree = pygame.image.load(resource_path('resources/art/sprite_pine_tree.png')).convert_alpha()
     rohir_gate = pygame.image.load(resource_path('resources/art/overlay_rohir_gate.png')).convert_alpha()
     lets_go_button = pygame.image.load(resource_path('resources/art/button_lets_go.png')).convert_alpha()
@@ -286,11 +285,15 @@ def load_graphics():
     credit_scene_4 = pygame.image.load(resource_path('resources/art/screen_credits_eldream.png')).convert_alpha()
     credit_scene_5 = pygame.image.load(resource_path('resources/art/screen_credits_thanks.png')).convert_alpha()
 
+    effect_dawn = pygame.image.load(resource_path('resources/art/effect_dawn.png')).convert_alpha()
+    effect_e_morning = pygame.image.load(resource_path('resources/art/effect_early_morning.png')).convert_alpha()
     effect_morning = pygame.image.load(resource_path('resources/art/effect_morning.png')).convert_alpha()
+    effect_e_afternoon = pygame.image.load(resource_path('resources/art/effect_early_afternoon.png')).convert_alpha()
     effect_afternoon = pygame.image.load(resource_path('resources/art/effect_afternoon.png')).convert_alpha()
+    effect_dusk = pygame.image.load(resource_path('resources/art/effect_dusk.png')).convert_alpha()
     effect_night = pygame.image.load(resource_path('resources/art/effect_night.png')).convert_alpha()
 
-    color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree,
+    color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, pine_tree,
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up_win,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
@@ -309,8 +312,12 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["effect_dawn"] = effect_dawn
+    loaded_dict["effect_early_morning"] = effect_e_morning
     loaded_dict["effect_morning"] = effect_morning
+    loaded_dict["effect_early_afternoon"] = effect_e_afternoon
     loaded_dict["effect_afternoon"] = effect_afternoon
+    loaded_dict["effect_dusk"] = effect_dusk
     loaded_dict["effect_night"] = effect_night
     loaded_dict["trading_deck"] = trading_deck_window
     loaded_dict["trading_window"] = trading_card_window
@@ -440,7 +447,6 @@ def load_graphics():
     loaded_dict["enemy_status"] = enemy_status
     loaded_dict["enemy_bar_backdrop"] = enemy_bar_backdrop
     loaded_dict["buy_inventory"] = buy_inventory
-    loaded_dict["message_box"] = message_box
     loaded_dict["pine_tree"] = pine_tree
     loaded_dict["rohir_gate"] = rohir_gate
     loaded_dict["lets_go_button"] = lets_go_button
@@ -539,6 +545,13 @@ def load_graphics():
     loaded_dict["overlay_stardust_star"] = overlay_stardust_star
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # message_box ---------------------------------------------------------------------------------------------------
+    message_box_url = resource_path('resources/art/overlay_message_box.png')
+    message_box_sheet = sprite_sheet((320, 110), message_box_url)
+    loaded_dict["message_box_day"] = message_box_sheet[0]
+    loaded_dict["message_box_dusk"] = message_box_sheet[1]
+    loaded_dict["message_box_dawn"] = message_box_sheet[2]
+    loaded_dict["message_box_night"] = message_box_sheet[3]
     # recycle crate overlay --------------------------------------------------------------------------------------------
     recycle_crate_overlay_url = resource_path('resources/art/overlay_recycle_crate.png')
     recycle_crate_overlay_sheet = sprite_sheet((200, 200), recycle_crate_overlay_url)

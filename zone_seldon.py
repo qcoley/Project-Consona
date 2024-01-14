@@ -32,8 +32,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                     stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, barrier_small, apothis_gift,
-                    snakes_highlighted, ghouls_highlighted, quest_logs_highlighted, apothis_upgrade,
-                    morning, afternoon, night, time_of_day):
+                    snakes_highlighted, ghouls_highlighted, quest_logs_highlighted, apothis_upgrade, dawn,
+                    early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -116,15 +116,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     if player.quest_progress["where's nede?"] == 1:
         screen.blit(nede.surf, nede.rect)
 
-    if not player.quest_complete["sneaky snakes"]:
-        screen.blit(quest_star_garan.surf, quest_star_garan.rect)
-    if not player.quest_complete["where's nede?"]:
-        screen.blit(quest_star_celeste.surf, quest_star_celeste.rect)
-    if not player.quest_complete["village repairs"]:
-        screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
-    if not player.quest_complete["ghouled again"]:
-        screen.blit(quest_star_torune.surf, quest_star_torune.rect)
-
     if not erebyth_defeated:
         screen.blit(worker_1.surf, worker_1.rect)
 
@@ -160,11 +151,28 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         screen.blit(building_top_3.surf, building_top_3.rect)
 
     if time_of_day == 0:
-        screen.blit(morning, (0, 0))
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
     if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
         screen.blit(afternoon, (0, 0))
-    if time_of_day == 3:
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    if not player.quest_complete["sneaky snakes"]:
+        screen.blit(quest_star_garan.surf, quest_star_garan.rect)
+    if not player.quest_complete["where's nede?"]:
+        screen.blit(quest_star_celeste.surf, quest_star_celeste.rect)
+    if not player.quest_complete["village repairs"]:
+        screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
+    if not player.quest_complete["ghouled again"]:
+        screen.blit(quest_star_torune.surf, quest_star_torune.rect)
 
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)

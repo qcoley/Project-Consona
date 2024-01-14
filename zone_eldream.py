@@ -25,7 +25,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite, critter, right_move, left_move,
                      critter_tic, walk_move, overlay_marrow_west, overlay_marrow_east, entrance_1, entrance_2,
                      entrance_3, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                     best_fish_counter, supplies_highlighted, apothis_gift):
+                     best_fish_counter, supplies_highlighted, apothis_gift, dawn, early_morning, morning,
+                     early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -35,10 +36,6 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             over_world_song_set = True
 
     screen.blit(eldream_district_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if player.quest_status["kart troubles"] and not player.quest_complete["kart troubles"]:
         if not supplies_highlighted:
@@ -47,7 +44,6 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             supplies_highlighted = True
 
     if not player.quest_complete["kart troubles"]:
-        screen.blit(quest_star_omoku.surf, quest_star_omoku.rect)
         for supplies in quest_supplies:
             screen.blit(supplies.surf, supplies.rect)
     if player.quest_complete["kart troubles"]:
@@ -151,6 +147,24 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
+    if not player.quest_complete["kart troubles"]:
+        screen.blit(quest_star_omoku.surf, quest_star_omoku.rect)
 
     # player collides with flower, if collected adds to player flower count
     flower = pygame.sprite.spritecollideany(player, eldream_flowers)
@@ -278,6 +292,11 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                                                     sharp_sense_active, graphic_dict)
 
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:

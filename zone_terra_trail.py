@@ -21,7 +21,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay, critter, right_move, left_move,
                 critter_tic, walk_move, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                 best_fish_counter, item_block, item_block_got, sfx_item_block, Item, sfx_gate, apothis_gift,
-                rohir_gate):
+                rohir_gate, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -32,10 +32,6 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
 
     screen.blit(mountain_trail_bg, (0, 0))
     screen.blit(rock_7.surf, rock_7.rect)
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(terra_mountains.surf, terra_mountains.rect)
     screen.blit(terra_cave.surf, terra_cave.rect)
     screen.blit(npc_dionte.surf, npc_dionte.rect)
@@ -84,9 +80,6 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 critter.x_coordinate += 1
                 critter_tic = time.perf_counter()
             critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
-
-    if not player.quest_complete["it's dangerous to go alone"]:
-        screen.blit(quest_star_dionte.surf, quest_star_dionte.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -108,6 +101,24 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
+    if not player.quest_complete["it's dangerous to go alone"]:
+        screen.blit(quest_star_dionte.surf, quest_star_dionte.rect)
 
     if pygame.sprite.collide_rect(player, npc_dionte):
         interaction_popup.update(npc_dionte.x_coordinate, npc_dionte.y_coordinate - 50,
@@ -196,7 +207,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock_7.x_coordinate == 515:
-                        rock_7.update(rock_7.x_coordinate - 120, rock_7.y_coordinate, graphic_dict["rock_small"])
+                        rock_7.update(rock_7.x_coordinate - 75, rock_7.y_coordinate, graphic_dict["rock_small"])
                         if not rock_7_con:
                             pygame.mixer.find_channel(True).play(sfx_rupee)
                             player.rupees += 20
@@ -309,6 +320,11 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:

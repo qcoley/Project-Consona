@@ -286,7 +286,8 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find, critter, right_move,
                   left_move, critter_tic, walk_move, altar, mini_map, basic_fish_counter, better_fish_counter,
                   even_better_fish_counter, best_fish_counter, item_block, item_block_got, sfx_item_block, Item,
-                  kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
+                  kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, dawn, early_morning, morning,
+                  early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -296,10 +297,6 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
             over_world_song_set = True
 
     screen.blit(ectrenos_left_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
@@ -368,6 +365,21 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
 
     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
         interaction_popup.update(816, 178, graphic_dict["popup_interaction"])
@@ -505,6 +517,11 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
@@ -592,7 +609,8 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre, sfx_find, critter,
                    right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, item_block, item_block_got,
-                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
+                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, dawn,
+                   early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -602,10 +620,6 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
             over_world_song_set = True
 
     screen.blit(ectrenos_right_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
@@ -674,6 +688,21 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
 
     if pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance):
         interaction_popup.update(217, 178, graphic_dict["popup_interaction"])
@@ -813,6 +842,11 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
@@ -906,7 +940,9 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
                    sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, necrolas_highlighted,
-                   necrolas_reset, apothis_gift):
+                   necrolas_reset, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night,
+                   time_of_day):
+
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -915,10 +951,6 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
             over_world_song_set = True
 
     screen.blit(ectrenos_front_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -946,9 +978,6 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
 
     for enemy in ectrenos_front_enemies:
         screen.blit(enemy.surf, enemy.rect)
-
-    if not player.quest_complete["shades of fear"]:
-        screen.blit(quest_star_everett.surf, quest_star_everett.rect)
     screen.blit(npc_everett.surf, npc_everett.rect)
 
     if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
@@ -976,6 +1005,24 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if time_of_day == 0:
+        screen.blit(dawn, (0, 0))
+    if time_of_day == 1:
+        screen.blit(early_morning, (0, 0))
+    if time_of_day == 2:
+        screen.blit(morning, (0, 0))
+    if time_of_day == 4:
+        screen.blit(early_afternoon, (0, 0))
+    if time_of_day == 5:
+        screen.blit(afternoon, (0, 0))
+    if time_of_day == 6:
+        screen.blit(dusk, (0, 0))
+    if time_of_day == 7:
+        screen.blit(night, (0, 0))
+
+    if not player.quest_complete["shades of fear"]:
+        screen.blit(quest_star_everett.surf, quest_star_everett.rect)
 
     # if player collides with npc sprite and chooses to interact with it
     if pygame.sprite.collide_rect(player, npc_everett):
@@ -1075,6 +1122,11 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    ectrenos_front_enemies, stelli_battle_sprite, False)
 
     # --------------------------------------------------------------------------------------------------
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
