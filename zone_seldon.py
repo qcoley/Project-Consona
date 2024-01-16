@@ -129,7 +129,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -164,6 +163,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    drawing_functions.draw_level_up(screen, in_over_world)
 
     if not player.quest_complete["sneaky snakes"]:
         screen.blit(quest_star_garan.surf, quest_star_garan.rect)

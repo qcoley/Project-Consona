@@ -287,7 +287,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   left_move, critter_tic, walk_move, altar, mini_map, basic_fish_counter, better_fish_counter,
                   even_better_fish_counter, best_fish_counter, item_block, item_block_got, sfx_item_block, Item,
                   kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, dawn, early_morning, morning,
-                  early_afternoon, afternoon, dusk, night, time_of_day):
+                  early_afternoon, afternoon, dusk, night, time_of_day, sfx_door):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -354,7 +354,6 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -381,6 +380,8 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     if time_of_day == 7:
         screen.blit(night, (0, 0))
 
+    drawing_functions.draw_level_up(screen, in_over_world)
+
     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
         interaction_popup.update(816, 178, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
@@ -395,6 +396,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         info_text_4 = ""
 
         if interacted and in_over_world:
+            pygame.mixer.find_channel(True).play(sfx_door)
             interacted = False
             movement_able = False
             in_over_world = False
@@ -610,7 +612,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, item_block, item_block_got,
                    sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, dawn,
-                   early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
+                   early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, sfx_door):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -677,7 +679,6 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -704,6 +705,8 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     if time_of_day == 7:
         screen.blit(night, (0, 0))
 
+    drawing_functions.draw_level_up(screen, in_over_world)
+
     if pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance):
         interaction_popup.update(217, 178, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
@@ -718,6 +721,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
         info_text_4 = ""
 
         if interacted and in_over_world:
+            pygame.mixer.find_channel(True).play(sfx_door)
             interacted = False
             movement_able = False
             in_over_world = False
@@ -994,7 +998,6 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -1020,6 +1023,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    drawing_functions.draw_level_up(screen, in_over_world)
 
     if not player.quest_complete["shades of fear"]:
         screen.blit(quest_star_everett.surf, quest_star_everett.rect)

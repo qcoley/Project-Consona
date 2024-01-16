@@ -13,7 +13,8 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                 en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 fishing_hut_rect, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
                 pet_energy_window, sfx_fishing_cast, item_block, item_block_got, Item, sfx_item_block,
-                apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
+                apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day,
+                sfx_door):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -139,7 +140,6 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -165,6 +165,8 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    drawing_functions.draw_level_up(screen, in_over_world)
 
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
@@ -208,6 +210,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
         info_text_4 = ""
 
         if interacted and in_over_world:
+            pygame.mixer.find_channel(True).play(sfx_door)
             interacted = False
             movement_able = False
             in_over_world = False

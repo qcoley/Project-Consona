@@ -136,7 +136,6 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -162,6 +161,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    drawing_functions.draw_level_up(screen, in_over_world)
 
     if not player.quest_complete["kart troubles"]:
         screen.blit(quest_star_omoku.surf, quest_star_omoku.rect)

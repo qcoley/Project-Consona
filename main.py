@@ -9080,9 +9080,9 @@ if __name__ == "__main__":
     sfx_card_drop.set_volume(0.25)
 
     sfx_howl = pygame.mixer.Sound(resource_path("resources/sounds/wolf_howl.mp3"))
-    sfx_howl.set_volume(0.25)
+    sfx_howl.set_volume(0.30)
     sfx_chirp = pygame.mixer.Sound(resource_path("resources/sounds/bird_chirp.mp3"))
-    sfx_chirp.set_volume(0.15)
+    sfx_chirp.set_volume(0.10)
 
     # main loop variables ----------------------------------------------------------------------------------------------
     bait_given = False
@@ -10905,7 +10905,7 @@ if __name__ == "__main__":
                                                                     korlok_quest_district_button,
                                                                     eldream_quest_district_button,
                                                                     marrow_quest_district_button,
-                                                                    quest_district_selected)
+                                                                    quest_district_selected, district_button_select)
 
                             # "F" key for player interaction
                             if event.key == K_f:
@@ -11890,7 +11890,7 @@ if __name__ == "__main__":
                                                                     item_block_2_got, Item, sfx_item_block,
                                                                     apothis_upgrade, dawn, early_morning, morning,
                                                                     early_afternoon, afternoon, dusk, night,
-                                                                    time_of_day)
+                                                                    time_of_day, sfx_door_open)
                     else:
                         hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
                                                                     fishing_music, fishing, walk_tic,
@@ -11911,7 +11911,7 @@ if __name__ == "__main__":
                                                                     item_block_2_got, Item, sfx_item_block,
                                                                     apothis_upgrade, dawn, early_morning, morning,
                                                                     early_afternoon, afternoon, dusk, night,
-                                                                    time_of_day)
+                                                                    time_of_day, sfx_door_open)
 
                     over_world_song_set = hut_returned["over_world_song_set"]
                     basic_fish_counter = hut_returned["basic_fish_counter"]
@@ -13784,7 +13784,8 @@ if __name__ == "__main__":
                                                                              kasper_unlocked, torok_unlocked,
                                                                              iriana_unlocked, apothis_upgrade, dawn,
                                                                              early_morning, morning, early_afternoon,
-                                                                             afternoon, dusk, night, time_of_day)
+                                                                             afternoon, dusk, night, time_of_day,
+                                                                             sfx_door_open)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -13820,7 +13821,8 @@ if __name__ == "__main__":
                                                                              kasper_unlocked, torok_unlocked,
                                                                              iriana_unlocked, apothis_upgrade, dawn,
                                                                              early_morning, morning, early_afternoon,
-                                                                             afternoon, dusk, night, time_of_day)
+                                                                             afternoon, dusk, night, time_of_day,
+                                                                             sfx_door_open)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -13887,7 +13889,8 @@ if __name__ == "__main__":
                                                                                kasper_unlocked, torok_unlocked,
                                                                                iriana_unlocked, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
-                                                                               afternoon, dusk, night, time_of_day)
+                                                                               afternoon, dusk, night, time_of_day,
+                                                                               sfx_door_open)
                     else:
                         ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_right_bg,
@@ -13921,7 +13924,8 @@ if __name__ == "__main__":
                                                                                kasper_unlocked, torok_unlocked,
                                                                                iriana_unlocked, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
-                                                                               afternoon, dusk, night, time_of_day)
+                                                                               afternoon, dusk, night, time_of_day,
+                                                                               sfx_door_open)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -17072,6 +17076,22 @@ if __name__ == "__main__":
                                         screen.blit(sub_marrow_battle_screen, (0, 0))
                                     if player.current_zone == "castle lair":
                                         screen.blit(dreth_battle_screen, (0, 0))
+
+                                    if time_of_day == 0:
+                                        screen.blit(dawn, (0, 0))
+                                    if time_of_day == 1:
+                                        screen.blit(early_morning, (0, 0))
+                                    if time_of_day == 2:
+                                        screen.blit(morning, (0, 0))
+                                    if time_of_day == 4:
+                                        screen.blit(early_afternoon, (0, 0))
+                                    if time_of_day == 5:
+                                        screen.blit(afternoon, (0, 0))
+                                    if time_of_day == 6:
+                                        screen.blit(dusk, (0, 0))
+                                    if time_of_day == 7:
+                                        screen.blit(night, (0, 0))
+
                                     try:
                                         if not show_fire or not combat_happened:
                                             screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
@@ -17114,6 +17134,21 @@ if __name__ == "__main__":
                                         game_window.blit(sub_marrow_battle_screen, (0, 0))
                                     if player.current_zone == "castle lair":
                                         game_window.blit(dreth_battle_screen, (0, 0))
+
+                                    if time_of_day == 0:
+                                        game_window.blit(dawn, (0, 0))
+                                    if time_of_day == 1:
+                                        game_window.blit(early_morning, (0, 0))
+                                    if time_of_day == 2:
+                                        game_window.blit(morning, (0, 0))
+                                    if time_of_day == 4:
+                                        game_window.blit(early_afternoon, (0, 0))
+                                    if time_of_day == 5:
+                                        game_window.blit(afternoon, (0, 0))
+                                    if time_of_day == 6:
+                                        game_window.blit(dusk, (0, 0))
+                                    if time_of_day == 7:
+                                        game_window.blit(night, (0, 0))
 
                                     try:
                                         if not show_fire or not combat_happened:
@@ -23506,6 +23541,22 @@ if __name__ == "__main__":
                                 screen.blit(ectrenos_front_interaction_bg, (0, 0))
                             if player.current_zone == "marrow":
                                 screen.blit(marrow_interaction_bg, (0, 0))
+
+                            if time_of_day == 0:
+                                screen.blit(dawn, (0, 0))
+                            if time_of_day == 1:
+                                screen.blit(early_morning, (0, 0))
+                            if time_of_day == 2:
+                                screen.blit(morning, (0, 0))
+                            if time_of_day == 4:
+                                screen.blit(early_afternoon, (0, 0))
+                            if time_of_day == 5:
+                                screen.blit(afternoon, (0, 0))
+                            if time_of_day == 6:
+                                screen.blit(dusk, (0, 0))
+                            if time_of_day == 7:
+                                screen.blit(night, (0, 0))
+
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
@@ -23604,6 +23655,22 @@ if __name__ == "__main__":
                                 game_window.blit(ectrenos_front_interaction_bg, (0, 0))
                             if player.current_zone == "marrow":
                                 game_window.blit(marrow_interaction_bg, (0, 0))
+
+                            if time_of_day == 0:
+                                game_window.blit(dawn, (0, 0))
+                            if time_of_day == 1:
+                                game_window.blit(early_morning, (0, 0))
+                            if time_of_day == 2:
+                                game_window.blit(morning, (0, 0))
+                            if time_of_day == 4:
+                                game_window.blit(early_afternoon, (0, 0))
+                            if time_of_day == 5:
+                                game_window.blit(afternoon, (0, 0))
+                            if time_of_day == 6:
+                                game_window.blit(dusk, (0, 0))
+                            if time_of_day == 7:
+                                game_window.blit(night, (0, 0))
+
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)

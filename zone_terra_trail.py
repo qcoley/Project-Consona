@@ -90,7 +90,6 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -116,6 +115,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    drawing_functions.draw_level_up(screen, in_over_world)
 
     if not player.quest_complete["it's dangerous to go alone"]:
         screen.blit(quest_star_dionte.surf, quest_star_dionte.rect)

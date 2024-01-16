@@ -164,7 +164,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     if len(drawing_functions.character_sheet_window) == 0 and len(drawing_functions.journal_window) == 0 and \
             len(drawing_functions.world_map_container) == 0:
         screen.blit(stardust_top.surf, stardust_top.rect)
@@ -195,6 +194,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    drawing_functions.draw_level_up(screen, in_over_world)
 
     # player encounters Nede for Celeste's quest
     if pygame.sprite.collide_rect(player, nede) and player.quest_progress["where's nede?"] < 1:

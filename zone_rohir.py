@@ -36,7 +36,6 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -70,6 +69,8 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    drawing_functions.draw_level_up(screen, in_over_world)
 
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
