@@ -945,7 +945,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, necrolas_highlighted,
                    necrolas_reset, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night,
-                   time_of_day):
+                   time_of_day, cloaked):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1124,7 +1124,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, ectrenos_front_enemies,
-                                                   ectrenos_front_enemies, stelli_battle_sprite, False)
+                                                   ectrenos_front_enemies, stelli_battle_sprite, False, cloaked)
 
     # --------------------------------------------------------------------------------------------------
     screen.blit(equipment_screen.surf, equipment_screen.rect)

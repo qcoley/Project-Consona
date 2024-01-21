@@ -21,7 +21,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      fishing_spot_2, fishing, walk_tic, fishing_unlocked, fishing_timer, fish_caught, previous_surf,
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                      best_fish_counter, sfx_fishing_cast, apothis_gift, card_cave, in_card_cave, apothis_upgrade, dawn,
-                     early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
+                     early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, apothis_popup,
+                     apothis_popup_shown):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
@@ -278,6 +279,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
 
                     info_text_1 = "What's a ghoul doing here?"
                     interacted = False
+
     # player collides with stardust inn entrance
     if pygame.sprite.collide_rect(player, stardust_entrance):
         interaction_popup.update(stardust_entrance.x_coordinate, stardust_entrance.y_coordinate - 50,
@@ -512,6 +514,10 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                     drawing_functions.outpost_window.append(outpost_notify)
                     outpost_show = False
 
+    if apothis_gift and not apothis_popup_shown:
+        drawing_functions.apothis_popup_window.append(apothis_popup)
+        apothis_popup_shown = True
+
     else:
         if player.quest_progress["where's nede?"] < 1:
             face_direction = random.choice(["left", "right"])
@@ -534,6 +540,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                        "fishing": fishing, "fishing_timer": fishing_timer, "previous_surf": previous_surf,
                        "fish_caught": fish_caught, "basic_fish_counter": basic_fish_counter, "better_fish_counter":
                        better_fish_counter, "even_better_fish_counter": even_better_fish_counter,
-                       "best_fish_counter": best_fish_counter, "in_card_cave": in_card_cave}
+                       "best_fish_counter": best_fish_counter, "in_card_cave": in_card_cave,
+                       "apothis_popup_shown": apothis_popup_shown}
 
     return stardust_return

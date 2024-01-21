@@ -26,7 +26,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
                     even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset,
                     nahun, star_nahun, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon,
-                    dusk, night, time_of_day):
+                    dusk, night, time_of_day, snow_fall_tic, snow_fall_phase):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -138,6 +138,23 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    snow_fall_toc = time.perf_counter()
+    if snow_fall_toc - snow_fall_tic > 2:
+        match snow_fall_phase:
+            case 0:
+                korlok_mountains.update(241, 251, graphic_dict["korlok_mountains"])
+                snow_fall_phase = 1
+                snow_fall_tic = time.perf_counter()
+            case 1:
+                korlok_mountains.update(241, 251, graphic_dict["korlok_mountains_1"])
+                snow_fall_phase = 2
+                snow_fall_tic = time.perf_counter()
+            case 2:
+                korlok_mountains.update(241, 251, graphic_dict["korlok_mountains_2"])
+                snow_fall_phase = 0
+                snow_fall_tic = time.perf_counter()
+
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)
     screen.blit(bridge_gate.surf, bridge_gate.rect)
     if len(drawing_functions.character_sheet_window) == 0 and len(drawing_functions.game_guide_container) == 0 \
@@ -566,6 +583,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                      "current_npc_interacting": current_npc_interacting,
                      "in_apothecary": in_apothecary, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
                      "rock_6_con": rock_6_con, "worker_tic": worker_tic, "worker_delay_tic": worker_delay_tic,
-                     "magmons_highlighted": magmons_highlighted, "magmons_reset": magmons_reset}
+                     "magmons_highlighted": magmons_highlighted, "magmons_reset": magmons_reset,
+                     "snow_fall_tic": snow_fall_tic, "snow_fall_phase": snow_fall_phase}
 
     return korlok_return

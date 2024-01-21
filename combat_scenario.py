@@ -1560,13 +1560,16 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            in_battle, in_npc_interaction, graphics, necrola_battle_sprite, osodark_battle_sprite,
                            stelli_battle_sprite, chorizon_phase, erebyth_battle_sprite, erebyth_counter,
-                           atmon_battle_sprite, jumano_battle_sprite, dreth_battle_sprite, apothis_gift):
+                           atmon_battle_sprite, jumano_battle_sprite, dreth_battle_sprite, apothis_gift, cloaked):
 
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
             snake_battle_sprite.update(715, 250, graphics["snake_battle"])
         if enemy.name == "Ghoul":
-            ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
+            if cloaked:
+                ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle_cloaked"])
+            else:
+                ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
         if enemy.name == "Chorizon":
             if chorizon_phase:
                 chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase"])
@@ -1581,7 +1584,10 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "chinzilla":
             chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_battle"])
         if enemy.kind == "necrola":
-            necrola_battle_sprite.update(705, 300, graphics["necrola_battle"])
+            if cloaked:
+                necrola_battle_sprite.update(705, 300, graphics["necrola_battle_cloaked"])
+            else:
+                necrola_battle_sprite.update(705, 300, graphics["necrola_battle"])
         if enemy.kind == "osodark":
             osodark_battle_sprite.update(705, 300, graphics["osodark_battle"])
         if enemy.name == "Stellia":
@@ -3766,13 +3772,16 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite,
                            chorizon_phase, damage, erebyth_battle_sprite, erebyth_counter, atmon_battle_sprite,
-                           jumano_battle_sprite, dreth_battle_sprite, dreth_counter, apothis_gift):
+                           jumano_battle_sprite, dreth_battle_sprite, dreth_counter, apothis_gift, cloaked):
 
     if damage > 0:
         if enemy.kind == "snake":
             snake_battle_sprite.update(715, 250, graphics["snake_attack"])
         if enemy.name == "Ghoul":
-            ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack"])
+            if cloaked:
+                ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack_cloaked"])
+            else:
+                ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack"])
         if enemy.name == "Chorizon":
             if chorizon_phase:
                 chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase_attack"])
@@ -3787,7 +3796,10 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "chinzilla":
             chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_attack"])
         if enemy.kind == "necrola":
-            necrola_battle_sprite.update(705, 300, graphics["necrola_attack"])
+            if cloaked:
+                necrola_battle_sprite.update(705, 300, graphics["necrola_attack_cloaked"])
+            else:
+                necrola_battle_sprite.update(705, 300, graphics["necrola_attack"])
         if enemy.kind == "osodark":
             osodark_battle_sprite.update(705, 300, graphics["osodark_attack"])
         if enemy.kind == "stelli":
@@ -3838,7 +3850,8 @@ def enemy_health_bar(enemys, graphics):
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
                     sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter,
                     atmon_counter, prism_received, dreth_counter, apothis_gift, trading_deck,
-                    trading_task_complete, any_card_counter, card_deck, arrow_active, fire_active, show_edge):
+                    trading_task_complete, any_card_counter, card_deck, arrow_active, fire_active, show_edge,
+                    cloaked):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {"damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -3852,7 +3865,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                 # returns players damage to the enemy based on level and equipment
                 attack_dict = gameplay_functions.attack_enemy(player, enemy_combating, sharp_sense_active, arrow_active,
-                                                              apothis_gift)
+                                                              apothis_gift, cloaked)
                 combat_event_dictionary["effective player"] = attack_dict["effective"]
                 combat_event_dictionary["non effective player"] = attack_dict["non effective"]
                 combat_event_dictionary["effective pet"] = attack_dict["pet effective"]

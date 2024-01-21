@@ -204,7 +204,6 @@ def load_graphics():
     mines_entrance = pygame.image.load(resource_path('resources/art/overlay_mines_entrance.png')).convert_alpha()
     mines_wall = pygame.image.load(resource_path('resources/art/overlay_mines_wall.png')).convert_alpha()
     mines_light = pygame.image.load(resource_path('resources/art/overlay_mines_light.png')).convert_alpha()
-    korlok_mountains = pygame.image.load(resource_path('resources/art/overlay_korlok_mountains.png')).convert_alpha()
     terra_mountains = pygame.image.load(resource_path('resources/art/'
                                                       'overlay_terra_trail_mountains.png')).convert_alpha()
     terra_cave = pygame.image.load(resource_path('resources/art/overlay_trail_cave.png')).convert_alpha()
@@ -300,7 +299,7 @@ def load_graphics():
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
                   reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
-                  mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
+                  mines_wall, mines_light, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
                   chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
@@ -524,7 +523,6 @@ def load_graphics():
     loaded_dict["korlok_mines"] = korlok_mines_screen
     loaded_dict["mines_wall"] = mines_wall
     loaded_dict["mines_light"] = mines_light
-    loaded_dict["korlok_mountains"] = korlok_mountains
     loaded_dict["korlok_apothecary"] = korlok_apothecary
     loaded_dict["terra_mountains"] = terra_mountains
     loaded_dict["terra_cave"] = terra_cave
@@ -545,6 +543,12 @@ def load_graphics():
     loaded_dict["overlay_stardust_star"] = overlay_stardust_star
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # korlok_mountains -------------------------------------------------------------------------------------------------
+    korlok_mountains_url = resource_path('resources/art/overlay_korlok_mountains.png')
+    korlok_mountains_sheet = sprite_sheet((483, 136), korlok_mountains_url)
+    loaded_dict["korlok_mountains"] = korlok_mountains_sheet[0]
+    loaded_dict["korlok_mountains_1"] = korlok_mountains_sheet[1]
+    loaded_dict["korlok_mountains_2"] = korlok_mountains_sheet[2]
     # message_box ---------------------------------------------------------------------------------------------------
     message_box_url = resource_path('resources/art/overlay_message_box.png')
     message_box_sheet = sprite_sheet((320, 110), message_box_url)
@@ -5273,6 +5277,13 @@ def load_graphics():
     loaded_dict["atmon_attack"] = enemies_battle_sheet[13]
     loaded_dict["jumano_battle"] = enemies_battle_sheet[14]
     loaded_dict["jumano_attack"] = enemies_battle_sheet[15]
+    # enemies battle effects -------------------------------------------------------------------------------------------
+    enemies_battle_effects_url = resource_path('resources/art/sprites_enemies_battle_effects.png')
+    enemies_battle_effects_sheet = sprite_sheet((300, 280), enemies_battle_effects_url)
+    loaded_dict["ghoul_battle_cloaked"] = enemies_battle_effects_sheet[0]
+    loaded_dict["ghoul_attack_cloaked"] = enemies_battle_effects_sheet[1]
+    loaded_dict["necrola_battle_cloaked"] = enemies_battle_effects_sheet[2]
+    loaded_dict["necrola_attack_cloaked"] = enemies_battle_effects_sheet[3]
     # boss enemies battle ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_battle.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)
@@ -5753,6 +5764,7 @@ def load_graphics():
     loaded_dict["save_not_found"] = popups_sheet[4]
     loaded_dict["quest_popup"] = popups_sheet[5]
     loaded_dict["outpost_popup"] = popups_sheet[6]
+    loaded_dict["apothis_popup"] = popups_sheet[7]
     # pop up notifications ---------------------------------------------------------------------------------------------
     card_popups_url = resource_path('resources/art/popups_cards.png')
     card_popups_sheet = sprite_sheet((270, 130), card_popups_url)

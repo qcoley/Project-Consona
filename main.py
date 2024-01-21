@@ -7836,6 +7836,7 @@ if __name__ == "__main__":
     first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
     dreth_taunt_popup = Notification("dreth taunt", False, 510, 365, graphic_dict["dreth_taunt_1"])
     card_drop_popup = Notification("card popup", False, 885, 150, graphic_dict["c_snake_popup"])
+    apothis_gift_popup = Notification("apothis popup", False, 510, 365, graphic_dict["apothis_popup"])
     # weapons
     staff = UiElement("staff", 1080, 283, graphic_dict["staff_0"])
     sword = UiElement("sword", 1155, 283, graphic_dict["sword_0"])
@@ -8551,7 +8552,7 @@ if __name__ == "__main__":
     prime_popup = UiElement("prime popup", 130, 475, graphic_dict["popup_interaction"])
     jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
     entrance_popup = UiElement("entrance popup", 675, 97, graphic_dict["popup_wide"])
-    apothis_popup = UiElement("apothis popup", 575, 375, graphic_dict["popup_wide"])
+    apothis_popup = UiElement("apothis popup", 575, 375, graphic_dict["apothis_popup"])
     cell_popup = UiElement("cell popup", 420, 205, graphic_dict["popup_wide"])
     cell_popup_2 = UiElement("cell popup", 610, 205, graphic_dict["popup_wide"])
     world_map = UiElement("world map", 769, 332, graphic_dict["world_map"])
@@ -9171,6 +9172,7 @@ if __name__ == "__main__":
     nede_sprite_reset = False
     quest_guide_shown = False
     battle_guide_shown = False
+    apothis_popup_shown = False
     quest_highlight_popup = True
     shop_cat_pet = False
     academia_cat_pet = False
@@ -9364,6 +9366,8 @@ if __name__ == "__main__":
     time_of_day = 1
     day_timer_started = False
 
+    cloaked = False
+
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
     # apothecary flower counters
@@ -9375,8 +9379,7 @@ if __name__ == "__main__":
     even_better_fish_counter = 0
     best_fish_counter = 0
     # combat event counters
-    erebyth_turn_counter = 0
-    dreth_turn_counter = 0
+    turn_counter = 0
     # counter to count number of atmons killed for prism task/drop
     atmon_counter = 0
 
@@ -9421,6 +9424,7 @@ if __name__ == "__main__":
     rope_phase = 0
     light_switch = 0
     quest_district_selected = 0
+    snow_fall_phase = 0
 
     # default objects for event loops, updated when player interacts with new object
     current_enemy_battling = snake_1
@@ -9445,6 +9449,7 @@ if __name__ == "__main__":
     fishing_timer = time.perf_counter()
     prism_activate_tic = time.perf_counter()
     combat_tic = time.perf_counter()
+    snow_fall_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -11663,6 +11668,8 @@ if __name__ == "__main__":
                                 drawing_functions.outpost_window.clear()
                                 if len(drawing_functions.outpost_window) > 0:
                                     outpost_show = False
+                            if apothis_gift_popup.rect.collidepoint(pos):
+                                drawing_functions.apothis_popup_window.clear()
                             if dreth_taunt_popup.rect.collidepoint(pos):
                                 drawing_functions.dreth_taunt_window.clear()
 
@@ -12146,7 +12153,8 @@ if __name__ == "__main__":
                                                                       magmons_highlighted, magmons_reset, npc_nahun,
                                                                       quest_star_nahun, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
-                                                                      afternoon, dusk, night, time_of_day)
+                                                                      afternoon, dusk, night, time_of_day,
+                                                                      snow_fall_tic, snow_fall_phase)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -12196,7 +12204,8 @@ if __name__ == "__main__":
                                                                       magmons_highlighted, magmons_reset, npc_nahun,
                                                                       quest_star_nahun, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
-                                                                      afternoon, dusk, night, time_of_day)
+                                                                      afternoon, dusk, night, time_of_day,
+                                                                      snow_fall_tic, snow_fall_phase)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -12225,6 +12234,8 @@ if __name__ == "__main__":
                     worker_delay_tic = korlok_returned["worker_delay_tic"]
                     magmons_highlighted = korlok_returned["magmons_highlighted"]
                     magmons_reset = korlok_returned["magmons_reset"]
+                    snow_fall_tic = korlok_returned["snow_fall_tic"]
+                    snow_fall_phase = korlok_returned["snow_fall_phase"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -14007,7 +14018,8 @@ if __name__ == "__main__":
                                                                                best_fish_counter, necrolas_highlighted,
                                                                                necrolas_reset, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
-                                                                               afternoon, dusk, night, time_of_day)
+                                                                               afternoon, dusk, night, time_of_day,
+                                                                               cloaked)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -14057,7 +14069,8 @@ if __name__ == "__main__":
                                                                                best_fish_counter, necrolas_highlighted,
                                                                                necrolas_reset, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
-                                                                               afternoon, dusk, night, time_of_day)
+                                                                               afternoon, dusk, night, time_of_day,
+                                                                               cloaked)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -14639,7 +14652,8 @@ if __name__ == "__main__":
                                                                            stardust_card_cave, in_card_cave,
                                                                            apothis_upgrade, dawn, early_morning, 
                                                                            morning, early_afternoon, afternoon, dusk, 
-                                                                           night, time_of_day)
+                                                                           night, time_of_day, apothis_gift_popup,
+                                                                           apothis_popup_shown)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -14683,7 +14697,8 @@ if __name__ == "__main__":
                                                                            stardust_card_cave, in_card_cave,
                                                                            apothis_upgrade, dawn, early_morning, 
                                                                            morning, early_afternoon, afternoon, dusk, 
-                                                                           night, time_of_day)
+                                                                           night, time_of_day, apothis_gift_popup,
+                                                                           apothis_popup_shown)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -14712,6 +14727,7 @@ if __name__ == "__main__":
                     even_better_fish_counter = stardust_returned["even_better_fish_counter"]
                     best_fish_counter = stardust_returned["best_fish_counter"]
                     in_card_cave = stardust_returned["in_card_cave"]
+                    apothis_popup_shown = stardust_returned["apothis_popup_shown"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in rohir river (after apothis cutscene) -------------------------------------------------
@@ -15293,10 +15309,10 @@ if __name__ == "__main__":
                         leveled = False
                         cleared = True
 
-                    if erebyth_turn_counter == 4:
-                        erebyth_turn_counter = 0
                     try:
                         if current_enemy_battling.name == "Erebyth":
+                            if turn_counter == 4:
+                                turn_counter = 0
                             if current_enemy_battling.health <= 25:
                                 current_enemy_battling.health = 25
                                 npc_tic = time.perf_counter()
@@ -15452,10 +15468,7 @@ if __name__ == "__main__":
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
                                 try:
-                                    if current_enemy_battling.name == "Erebyth":
-                                        erebyth_turn_counter += 1
-                                    if current_enemy_battling.name == "Dreth":
-                                        dreth_turn_counter += 1
+                                    turn_counter += 1
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "small energy potion" or \
                                             current_info_item.name == "big energy potion":
@@ -15470,16 +15483,16 @@ if __name__ == "__main__":
                                                                                             sharp_sense_active,
                                                                                             barrier_active, turn_taken,
                                                                                             stun_them, mirror_image,
-                                                                                            erebyth_turn_counter,
+                                                                                            turn_counter,
                                                                                             atmon_counter,
                                                                                             prism_received,
-                                                                                            dreth_turn_counter,
+                                                                                            turn_counter,
                                                                                             apothis_upgrade,
                                                                                             trading_deck,
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge)
+                                                                                            show_edge, cloaked)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15516,16 +15529,16 @@ if __name__ == "__main__":
                                                                                             sharp_sense_active,
                                                                                             barrier_active, turn_taken,
                                                                                             stun_them, mirror_image,
-                                                                                            erebyth_turn_counter,
+                                                                                            turn_counter,
                                                                                             atmon_counter,
                                                                                             prism_received,
-                                                                                            dreth_turn_counter,
+                                                                                            turn_counter,
                                                                                             apothis_upgrade,
                                                                                             trading_deck,
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge)
+                                                                                            show_edge, cloaked)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15561,16 +15574,16 @@ if __name__ == "__main__":
                                                                                             sharp_sense_active,
                                                                                             barrier_active, turn_taken,
                                                                                             stun_them, mirror_image,
-                                                                                            erebyth_turn_counter,
+                                                                                            turn_counter,
                                                                                             atmon_counter,
                                                                                             prism_received,
-                                                                                            dreth_turn_counter,
+                                                                                            turn_counter,
                                                                                             apothis_upgrade,
                                                                                             trading_deck,
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge)
+                                                                                            show_edge, cloaked)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15634,6 +15647,9 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_snake)
                                 if current_enemy_battling.name == "Ghoul":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_ghoul)
+                                    if (turn_counter + 1) % 4 == 0:
+                                        if not cloaked:
+                                            cloaked = True
                                 if current_enemy_battling.name == "Chorizon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_chorizon)
                                 if current_enemy_battling.kind == "muchador":
@@ -15646,17 +15662,20 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_chinzilla)
                                 if current_enemy_battling.kind == "necrola":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
+                                    if (turn_counter + 1) % 4 == 0:
+                                        if not cloaked:
+                                            cloaked = True
                                 if current_enemy_battling.kind == "stelli":
                                     pygame.mixer.find_channel(True).play(sfx_stelli_battle)
                                 if current_enemy_battling.kind == "osodark":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_osodark)
                                 if current_enemy_battling.kind == "erebyth":
-                                    if erebyth_turn_counter == 2:
+                                    if turn_counter == 2:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_flame)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
                                 if current_enemy_battling.kind == "dreth":
-                                    if (dreth_turn_counter + 1) % 4 == 0:
+                                    if (turn_counter + 1) % 4 == 0:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth_shatter)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth)
@@ -15670,10 +15689,7 @@ if __name__ == "__main__":
                                     drawing_functions.game_guide_container.clear()
 
                                 if not combat_cooldown:
-                                    if current_enemy_battling.name == "Erebyth":
-                                        erebyth_turn_counter += 1
-                                    if current_enemy_battling.name == "Dreth":
-                                        dreth_turn_counter += 1
+                                    turn_counter += 1
                                     attack_hotkey = False
                                     # combat event function that handles and returns damage and health
                                     combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
@@ -15682,14 +15698,14 @@ if __name__ == "__main__":
                                                                                     graphic_dict, sharp_sense_active,
                                                                                     barrier_active, turn_taken,
                                                                                     stun_them, mirror_image,
-                                                                                    erebyth_turn_counter,
+                                                                                    turn_counter,
                                                                                     atmon_counter, prism_received,
-                                                                                    dreth_turn_counter,
+                                                                                    turn_counter,
                                                                                     apothis_upgrade, trading_deck,
                                                                                     trading_task_complete,
                                                                                     any_card_counter, card_deck,
                                                                                     arrow_active, fire_active,
-                                                                                    show_edge)
+                                                                                    show_edge, cloaked)
                                     combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                             barrier_active, sharp_sense_active,
                                                                             hard_strike, graphic_dict, turn_taken)
@@ -15702,10 +15718,10 @@ if __name__ == "__main__":
                                                                            osodark_battle_sprite, stelli_battle_sprite,
                                                                            chorizon_phase,
                                                                            combat_events["damage taken"],
-                                                                           erebyth_battle_sprite, erebyth_turn_counter,
+                                                                           erebyth_battle_sprite, turn_counter,
                                                                            atmon_battle_sprite, jumano_battle_sprite,
-                                                                           dreth_battle_sprite, dreth_turn_counter,
-                                                                           apothis_gift)
+                                                                           dreth_battle_sprite, turn_counter,
+                                                                           apothis_gift, cloaked)
                                     if player.role == "scout":
                                         show_arrow = True
                                     try:
@@ -15857,6 +15873,8 @@ if __name__ == "__main__":
                                             show_fire = False
                                             show_edge = False
                                             cleared = False
+                                            cloaked = False
+                                            turn_counter = 0
                                             card_popup_checked = False
                                             loot_timer_reset = False
                                             loot_level_tic = time.perf_counter()
@@ -15874,10 +15892,7 @@ if __name__ == "__main__":
                                     skill_1_hotkey = False
                                     # make sure player has enough energy to use the skill
                                     if player.energy > 19:
-                                        if current_enemy_battling.name == "Erebyth":
-                                            erebyth_turn_counter += 1
-                                        if current_enemy_battling.name == "Dreth":
-                                            dreth_turn_counter += 1
+                                        turn_counter += 1
                                         # player is a mage and uses the barrier spell. Set barrier active to true
                                         # save original defence value to be re applied upon enemy or player defeat
                                         if player.role == "mage":
@@ -15913,11 +15928,11 @@ if __name__ == "__main__":
                                                                                            stelli_battle_sprite,
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
-                                                                                           erebyth_turn_counter,
+                                                                                           turn_counter,
                                                                                            atmon_battle_sprite,
                                                                                            jumano_battle_sprite,
                                                                                            dreth_battle_sprite,
-                                                                                           apothis_gift)
+                                                                                           apothis_gift, cloaked)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -15934,14 +15949,14 @@ if __name__ == "__main__":
                                                                                         sharp_sense_active,
                                                                                         barrier_active, turn_taken,
                                                                                         stun_them, mirror_image,
-                                                                                        erebyth_turn_counter,
+                                                                                        turn_counter,
                                                                                         atmon_counter, prism_received,
-                                                                                        dreth_turn_counter,
+                                                                                        turn_counter,
                                                                                         apothis_upgrade, trading_deck,
                                                                                         trading_task_complete,
                                                                                         any_card_counter, card_deck,
                                                                                         arrow_active, fire_active,
-                                                                                        show_edge)
+                                                                                        show_edge, cloaked)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -16016,11 +16031,11 @@ if __name__ == "__main__":
                                                                                            stelli_battle_sprite,
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
-                                                                                           erebyth_turn_counter,
+                                                                                           turn_counter,
                                                                                            atmon_battle_sprite,
                                                                                            jumano_battle_sprite,
                                                                                            dreth_battle_sprite,
-                                                                                           apothis_gift)
+                                                                                           apothis_gift, cloaked)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -16037,14 +16052,14 @@ if __name__ == "__main__":
                                                                                         sharp_sense_active,
                                                                                         barrier_active, turn_taken,
                                                                                         stun_them, mirror_image,
-                                                                                        erebyth_turn_counter,
+                                                                                        turn_counter,
                                                                                         atmon_counter, prism_received,
-                                                                                        dreth_turn_counter,
+                                                                                        turn_counter,
                                                                                         apothis_upgrade, trading_deck,
                                                                                         trading_task_complete,
                                                                                         any_card_counter, card_deck,
                                                                                         arrow_active, fire_active,
-                                                                                        show_edge)
+                                                                                        show_edge, cloaked)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -16105,16 +16120,17 @@ if __name__ == "__main__":
                                                                                                 barrier_active,
                                                                                                 turn_taken, stun_them,
                                                                                                 mirror_image,
-                                                                                                erebyth_turn_counter,
+                                                                                                turn_counter,
                                                                                                 atmon_counter,
                                                                                                 prism_received,
-                                                                                                dreth_turn_counter,
+                                                                                                turn_counter,
                                                                                                 apothis_upgrade,
                                                                                                 trading_deck,
                                                                                                 trading_task_complete,
                                                                                                 any_card_counter,
                                                                                                 card_deck, arrow_active,
-                                                                                                fire_active, show_edge)
+                                                                                                fire_active, show_edge,
+                                                                                                cloaked)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -16221,6 +16237,8 @@ if __name__ == "__main__":
                                                         show_fire = False
                                                         show_edge = False
                                                         cleared = False
+                                                        cloaked = False
+                                                        turn_counter = 0
                                                         card_popup_checked = False
                                                         loot_timer_reset = False
                                                         loot_level_tic = time.perf_counter()
@@ -16237,11 +16255,7 @@ if __name__ == "__main__":
                                     skill_2_hotkey = False
                                     # make sure player has enough energy to use the skill
                                     if player.energy > 39:
-                                        if current_enemy_battling.name == "Erebyth":
-                                            erebyth_turn_counter += 1
-                                        if current_enemy_battling.name == "Dreth":
-                                            dreth_turn_counter += 1
-
+                                        turn_counter += 1
                                         if player.role == "mage":
                                             if mirror_learned:
                                                 if not mirror_image:
@@ -16274,11 +16288,11 @@ if __name__ == "__main__":
                                                                                            stelli_battle_sprite,
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
-                                                                                           erebyth_turn_counter,
+                                                                                           turn_counter,
                                                                                            atmon_battle_sprite,
                                                                                            jumano_battle_sprite,
                                                                                            dreth_battle_sprite,
-                                                                                           apothis_gift)
+                                                                                           apothis_gift, cloaked)
                                                     turn_taken = True
                                                     attack_hotkey = False
 
@@ -16293,10 +16307,10 @@ if __name__ == "__main__":
                                                         current_enemy_battling, "attack", player, hard_strike_learned,
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
-                                                        erebyth_turn_counter, atmon_counter, prism_received,
-                                                        dreth_turn_counter, apothis_upgrade, trading_deck,
+                                                        turn_counter, atmon_counter, prism_received,
+                                                        turn_counter, apothis_upgrade, trading_deck,
                                                         trading_task_complete, any_card_counter, card_deck,
-                                                        arrow_active, fire_active, show_edge)
+                                                        arrow_active, fire_active, show_edge, cloaked)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -16405,6 +16419,8 @@ if __name__ == "__main__":
                                                 vanished = True
                                                 cleared = False
                                                 leveled = False
+                                                cloaked = False
+                                                turn_counter = 0
                                                 battle_info_to_return_to_main_loop["item dropped"] = ""
                                                 battle_info_to_return_to_main_loop["experience"] = 0
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
@@ -16417,11 +16433,7 @@ if __name__ == "__main__":
                                     skill_3_hotkey = False
                                     # make sure player has enough energy to use the skill
                                     if player.energy > 79:
-                                        if current_enemy_battling.name == "Erebyth":
-                                            erebyth_turn_counter += 1
-                                        if current_enemy_battling.name == "Dreth":
-                                            dreth_turn_counter += 1
-
+                                        turn_counter += 1
                                         if player.role == "mage":
                                             if fire_learned:
                                                 if not fire_active:
@@ -16455,11 +16467,11 @@ if __name__ == "__main__":
                                                                                            stelli_battle_sprite,
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
-                                                                                           erebyth_turn_counter,
+                                                                                           turn_counter,
                                                                                            atmon_battle_sprite,
                                                                                            jumano_battle_sprite,
                                                                                            dreth_battle_sprite,
-                                                                                           apothis_gift)
+                                                                                           apothis_gift, cloaked)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -16471,10 +16483,10 @@ if __name__ == "__main__":
                                                         current_enemy_battling, "attack", player, hard_strike_learned,
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
-                                                        erebyth_turn_counter, atmon_counter, prism_received,
-                                                        dreth_turn_counter, apothis_upgrade, trading_deck,
+                                                        turn_counter, atmon_counter, prism_received,
+                                                        turn_counter, apothis_upgrade, trading_deck,
                                                         trading_task_complete, any_card_counter, card_deck,
-                                                        arrow_active, fire_active, show_edge)
+                                                        arrow_active, fire_active, show_edge, cloaked)
 
                                                     turn_taken = True
                                                     attack_hotkey = False
@@ -16588,6 +16600,8 @@ if __name__ == "__main__":
                                                             show_fire = False
                                                             show_edge = False
                                                             cleared = False
+                                                            cloaked = False
+                                                            turn_counter = 0
                                                             card_popup_checked = False
                                                             loot_timer_reset = False
                                                             loot_level_tic = time.perf_counter()
@@ -16655,11 +16669,11 @@ if __name__ == "__main__":
                                                                                        stelli_battle_sprite,
                                                                                        chorizon_phase,
                                                                                        erebyth_battle_sprite,
-                                                                                       erebyth_turn_counter,
+                                                                                       turn_counter,
                                                                                        atmon_battle_sprite,
                                                                                        jumano_battle_sprite,
                                                                                        dreth_battle_sprite,
-                                                                                       apothis_gift)
+                                                                                       apothis_gift, cloaked)
                                                 if mirror_image:
                                                     combat_scenario.battle_animation_player(player,
                                                                                             mirror_battle_sprite,
@@ -16672,10 +16686,10 @@ if __name__ == "__main__":
                                                     current_enemy_battling, "attack", player, hard_strike_learned,
                                                     level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                     barrier_active, turn_taken, stun_them, mirror_image,
-                                                    erebyth_turn_counter, atmon_counter, prism_received,
-                                                    dreth_turn_counter, apothis_upgrade, trading_deck,
+                                                    turn_counter, atmon_counter, prism_received,
+                                                    turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
-                                                    arrow_active, fire_active, show_edge)
+                                                    arrow_active, fire_active, show_edge, cloaked)
 
                                                 turn_taken = True
                                                 attack_hotkey = False
@@ -16787,6 +16801,8 @@ if __name__ == "__main__":
                                                         show_fire = False
                                                         show_edge = False
                                                         cleared = False
+                                                        cloaked = False
+                                                        turn_counter = 0
                                                         card_popup_checked = False
                                                         loot_timer_reset = False
                                                         loot_level_tic = time.perf_counter()
@@ -16857,11 +16873,11 @@ if __name__ == "__main__":
                                                                                            stelli_battle_sprite,
                                                                                            chorizon_phase,
                                                                                            erebyth_battle_sprite,
-                                                                                           erebyth_turn_counter,
+                                                                                           turn_counter,
                                                                                            atmon_battle_sprite,
                                                                                            jumano_battle_sprite,
                                                                                            dreth_battle_sprite,
-                                                                                           apothis_gift)
+                                                                                           apothis_gift, cloaked)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -16874,10 +16890,10 @@ if __name__ == "__main__":
                                                         current_enemy_battling, "attack", player, hard_strike_learned,
                                                         level_up_win, level_up_font, graphic_dict, sharp_sense_active,
                                                         barrier_active, turn_taken, stun_them, mirror_image,
-                                                        erebyth_turn_counter, atmon_counter, prism_received,
-                                                        dreth_turn_counter, apothis_upgrade, trading_deck,
+                                                        turn_counter, atmon_counter, prism_received,
+                                                        turn_counter, apothis_upgrade, trading_deck,
                                                         trading_task_complete, any_card_counter, card_deck,
-                                                        arrow_active, fire_active, show_edge)
+                                                        arrow_active, fire_active, show_edge, cloaked)
 
                                                     turn_taken = True
                                                     attack_hotkey = False
@@ -16987,6 +17003,8 @@ if __name__ == "__main__":
                                                             show_fire = False
                                                             show_edge = False
                                                             cleared = False
+                                                            cloaked = False
+                                                            turn_counter = 0
                                                             card_popup_checked = False
                                                             loot_timer_reset = False
                                                             loot_level_tic = time.perf_counter()
@@ -17233,9 +17251,9 @@ if __name__ == "__main__":
                                                                    in_battle, in_npc_interaction, graphic_dict,
                                                                    necrola_battle_sprite, osodark_battle_sprite,
                                                                    stelli_battle_sprite, chorizon_phase,
-                                                                   erebyth_battle_sprite, erebyth_turn_counter,
+                                                                   erebyth_battle_sprite, turn_counter,
                                                                    atmon_battle_sprite, jumano_battle_sprite,
-                                                                   dreth_battle_sprite, apothis_gift)
+                                                                   dreth_battle_sprite, apothis_gift, cloaked)
                             if mirror_image:
                                 combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, graphic_dict)
@@ -17568,10 +17586,10 @@ if __name__ == "__main__":
                                                                    graphic_dict, necrola_battle_sprite,
                                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                                    chorizon_phase, combat_events["damage taken"],
-                                                                   erebyth_battle_sprite, erebyth_turn_counter,
+                                                                   erebyth_battle_sprite, turn_counter,
                                                                    atmon_battle_sprite, jumano_battle_sprite,
-                                                                   dreth_battle_sprite, dreth_turn_counter,
-                                                                   apothis_gift)
+                                                                   dreth_battle_sprite, turn_counter,
+                                                                   apothis_gift, cloaked)
                             if mirror_image:
                                 combat_scenario.attack_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, hard_strike, graphic_dict,
@@ -24007,6 +24025,8 @@ if __name__ == "__main__":
                                     show_fire = False
                                     show_edge = False
                                     cleared = False
+                                    cloaked = False
+                                    turn_counter = 0
                                     loot_timer_reset = False
                                     loot_level_tic = time.perf_counter()
                                     player.current_zone = "castle one"
@@ -24020,7 +24040,7 @@ if __name__ == "__main__":
                                     rest_recover_show = True
                                     dreth.health = 100
                                     combat_scenario.enemy_health_bar(dreth, graphic_dict)
-                                    dreth_turn_counter = 0
+                                    turn_counter = 0
                             elif event.type == QUIT:
                                 pygame.mixer.quit()
                                 sys.exit()
@@ -24102,6 +24122,8 @@ if __name__ == "__main__":
                                 show_fire = False
                                 show_edge = False
                                 cleared = False
+                                cloaked = False
+                                turn_counter = 0
                                 loot_timer_reset = False
                                 loot_level_tic = time.perf_counter()
 
@@ -24200,7 +24222,7 @@ if __name__ == "__main__":
                                 combat_scenario.enemy_health_bar(chinzilla, graphic_dict)
                                 erebyth.health = 100
                                 combat_scenario.enemy_health_bar(erebyth, graphic_dict)
-                                erebyth_turn_counter = 0
+                                turn_counter = 0
                                 necrola_ramps_1.health = 100
                                 combat_scenario.enemy_health_bar(necrola_ramps_1, graphic_dict)
                                 necrola_ramps_2.health = 100
@@ -24209,7 +24231,6 @@ if __name__ == "__main__":
                                 combat_scenario.enemy_health_bar(necrola_ramps_3, graphic_dict)
                                 dreth.health = 100
                                 combat_scenario.enemy_health_bar(dreth, graphic_dict)
-                                dreth_turn_counter = 0
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()

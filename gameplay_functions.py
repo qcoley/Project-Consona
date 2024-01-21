@@ -2552,7 +2552,7 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
 
 
 # player attacks enemy, gets damage to enemy done based on player's role and offense
-def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift):
+def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cloaked):
     level_difference = mob.level - player.level
 
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False,
@@ -2648,6 +2648,11 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift):
         else:
             damage = random.randint(1, 5)
 
+    if mob.name == "Ghoul" or mob.name == "Necrola":
+        if cloaked:
+            if not sharp_sense_active:
+                damage = random.randint(0, 2)
+
     if damage >= 0:
         attack_dict["damage"] = damage
     else:
@@ -2669,8 +2674,12 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift):
                         else:
                             attack_dict["pet damage"] = 3
                     else:
-                        attack_dict["pet damage"] = 4
-                        attack_dict["pet effective"] = True
+                        if cloaked:
+                            attack_dict["pet damage"] = 0
+                            attack_dict["pet effective"] = False
+                        else:
+                            attack_dict["pet damage"] = 4
+                            attack_dict["pet effective"] = True
 
                 else:
                     if pet.name == "iriana":
@@ -2680,30 +2689,38 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift):
                             else:
                                 attack_dict["pet damage"] = 1
                         else:
-                            attack_dict["pet damage"] = 2
-                            # super effective
-                            if mob.type == "scout":
-                                attack_dict["pet damage"] = 4
-                                attack_dict["pet effective"] = True
-                            # not effective
-                            if mob.type == "fighter":
-                                attack_dict["pet damage"] = 1
-                                attack_dict["pet non effective"] = True
+                            if cloaked:
+                                attack_dict["pet damage"] = 0
+                                attack_dict["pet effective"] = False
+                            else:
+                                attack_dict["pet damage"] = 2
+                                # super effective
+                                if mob.type == "scout":
+                                    attack_dict["pet damage"] = 4
+                                    attack_dict["pet effective"] = True
+                                # not effective
+                                if mob.type == "fighter":
+                                    attack_dict["pet damage"] = 1
+                                    attack_dict["pet non effective"] = True
 
                     if pet.name == "kasper":
                         if mob.name == "Dreth":
                             attack_dict["pet damage"] = 0
                             attack_dict["pet non effective"] = True
                         else:
-                            attack_dict["pet damage"] = 2
-                            # super effective
-                            if mob.type == "fighter":
-                                attack_dict["pet damage"] = 4
-                                attack_dict["pet effective"] = True
-                            # not effective
-                            if mob.type == "mage":
-                                attack_dict["pet damage"] = 1
-                                attack_dict["pet non effective"] = True
+                            if cloaked:
+                                attack_dict["pet damage"] = 0
+                                attack_dict["pet effective"] = False
+                            else:
+                                attack_dict["pet damage"] = 2
+                                # super effective
+                                if mob.type == "fighter":
+                                    attack_dict["pet damage"] = 4
+                                    attack_dict["pet effective"] = True
+                                # not effective
+                                if mob.type == "mage":
+                                    attack_dict["pet damage"] = 1
+                                    attack_dict["pet non effective"] = True
 
                     if pet.name == "torok":
                         if mob.name == "Dreth":
@@ -2714,15 +2731,19 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift):
                                 attack_dict["pet damage"] = 3
                                 attack_dict["pet effective"] = True
                         else:
-                            attack_dict["pet damage"] = 2
-                            # super effective
-                            if mob.type == "mage":
-                                attack_dict["pet damage"] = 4
-                                attack_dict["pet effective"] = True
-                            # not effective
-                            if mob.type == "scout":
-                                attack_dict["pet damage"] = 1
-                                attack_dict["pet non effective"] = True
+                            if cloaked:
+                                attack_dict["pet damage"] = 0
+                                attack_dict["pet effective"] = False
+                            else:
+                                attack_dict["pet damage"] = 2
+                                # super effective
+                                if mob.type == "mage":
+                                    attack_dict["pet damage"] = 4
+                                    attack_dict["pet effective"] = True
+                                # not effective
+                                if mob.type == "scout":
+                                    attack_dict["pet damage"] = 1
+                                    attack_dict["pet non effective"] = True
 
     return attack_dict
 
