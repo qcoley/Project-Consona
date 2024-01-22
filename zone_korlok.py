@@ -26,7 +26,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
                     even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset,
                     nahun, star_nahun, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon,
-                    dusk, night, time_of_day, snow_fall_tic, snow_fall_phase):
+                    dusk, night, time_of_day, snow_fall_tic, snow_fall_phase, cloaked):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -221,7 +221,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                   stelli_battle_sprite, stelli_battle_sprite, False)
+                                                   stelli_battle_sprite, stelli_battle_sprite, False, cloaked)
 
     # if player collides with npc sprite and chooses to interact with it
     npc = pygame.sprite.spritecollideany(player, npcs, pygame.sprite.collide_rect_ratio(0.75))

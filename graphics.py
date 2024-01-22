@@ -3411,6 +3411,12 @@ def load_graphics():
     loaded_dict["torok_attack"] = player_battle_pets_sheet[3]
     loaded_dict["iriana_battle"] = player_battle_pets_sheet[4]
     loaded_dict["iriana_attack"] = player_battle_pets_sheet[5]
+    # battle effects ---------------------------------------------------------------------------------------------------
+    battle_effects_url = resource_path('resources/art/sprites_battle_effects.png')
+    battle_effects_sheet = sprite_sheet((750, 624), battle_effects_url)
+    loaded_dict["burn_battle_effect"] = battle_effects_sheet[0]
+    loaded_dict["poison_battle_effect"] = battle_effects_sheet[1]
+    loaded_dict["bleed_battle_effect"] = battle_effects_sheet[2]
     # player battle amuna race -----------------------------------------------------------------------------------------
     # male -------------------------------------------------------------------------------------------------------------
     player_battle_amuna_url = resource_path('resources/art/player_battle_sprites_amuna.png')
@@ -4987,6 +4993,8 @@ def load_graphics():
     loaded_dict["non_effective_pet_damage_img"] = damage_overlays_sheet[10]
     loaded_dict["fire_damage_img"] = damage_overlays_sheet[11]
     loaded_dict["edge_health_img"] = damage_overlays_sheet[12]
+    loaded_dict["burn_damage_img"] = damage_overlays_sheet[13]
+    loaded_dict["poison_damage_img"] = damage_overlays_sheet[14]
     # worker 1 npc -----------------------------------------------------------------------------------------------------
     worker_1_url = resource_path('resources/art/sprites_worker_1.png')
     worker_1_sheet = sprite_sheet((50, 60), worker_1_url)
@@ -5765,6 +5773,7 @@ def load_graphics():
     loaded_dict["quest_popup"] = popups_sheet[5]
     loaded_dict["outpost_popup"] = popups_sheet[6]
     loaded_dict["apothis_popup"] = popups_sheet[7]
+    loaded_dict["cloaked_popup"] = popups_sheet[8]
     # pop up notifications ---------------------------------------------------------------------------------------------
     card_popups_url = resource_path('resources/art/popups_cards.png')
     card_popups_sheet = sprite_sheet((270, 130), card_popups_url)

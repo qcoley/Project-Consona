@@ -29,6 +29,7 @@ first_quest_window = []
 rest_recover_window = []
 outpost_window = []
 apothis_popup_window = []
+cloaked_popup_window = []
 first_item_window = []
 game_guide_container = []
 world_map_container = []
@@ -131,6 +132,9 @@ def draw_it(screen, in_battle):
     if len(apothis_popup_window) > 0:
         for apothis_item in apothis_popup_window:
             screen.blit(apothis_item.surf, apothis_item.rect)
+    if len(cloaked_popup_window) > 0:
+        for cloaked_item in cloaked_popup_window:
+            screen.blit(cloaked_item.surf, cloaked_item.rect)
     if len(game_guide_container) > 0:
         for guide_overlay in game_guide_container:
             screen.blit(guide_overlay.surf, guide_overlay.rect)

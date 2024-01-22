@@ -7837,6 +7837,7 @@ if __name__ == "__main__":
     dreth_taunt_popup = Notification("dreth taunt", False, 510, 365, graphic_dict["dreth_taunt_1"])
     card_drop_popup = Notification("card popup", False, 885, 150, graphic_dict["c_snake_popup"])
     apothis_gift_popup = Notification("apothis popup", False, 510, 365, graphic_dict["apothis_popup"])
+    cloaked_popup = Notification("cloaked popup", False, 510, 365, graphic_dict["cloaked_popup"])
     # weapons
     staff = UiElement("staff", 1080, 283, graphic_dict["staff_0"])
     sword = UiElement("sword", 1155, 283, graphic_dict["sword_0"])
@@ -7939,7 +7940,7 @@ if __name__ == "__main__":
                      True, False, ["Items"], False, graphic_dict["torune_down"])
 
     npc_nahun = NPC("Nahun", "nuldar", "Onur-oh.", "Disenchanted", "", 792, 450,
-                     True, False, ["Items"], False, graphic_dict["nahun_down"])
+                    True, False, ["Items"], False, graphic_dict["nahun_down"])
     npc_voruke = NPC("Voruke", "nuldar", "Onur-oh.", "band hammer", "", 262, 425,
                      True, False, ["Items"], False, graphic_dict["voruke_down"])
     npc_zerah = NPC("Zerah", "nuldar", "Onur-oh.", "elementary elementals", "", 652, 90,
@@ -8523,6 +8524,8 @@ if __name__ == "__main__":
     torok_battle_sprite = BattleCharacter("torok battle", 825, 520, graphic_dict["torok_battle"])
     iriana_battle_sprite = BattleCharacter("iriana battle", 825, 520, graphic_dict["iriana_battle"])
 
+    battle_sprite_effect = UiElement("battle effect", 325, 500, graphic_dict["burn_battle_effect"])
+
     nascent_gate_popup = UiElement("nascent gate popup", 418, 200, graphic_dict["nascent_gate_popup"])
     sell_items = UiElement("sell items", 1155, 270, graphic_dict["s_health_pot_img"])
     info_items = UiElement("info items", 1155, 270, graphic_dict["info_health_pot_img"])
@@ -8541,6 +8544,7 @@ if __name__ == "__main__":
     pet_damage_overlay = UiElement("pet damage overlay", 750, 250, graphic_dict["pet_damage_img"])
     mirror_damage_overlay = UiElement("mirror damage overlay", 800, 200, graphic_dict["dealt_damage_img"])
     received_damage_overlay = UiElement("received damage overlay", 125, 275, graphic_dict["received_damage_img"])
+    condition_damage_overlay = UiElement("edge health overlay", 250, 300, graphic_dict["burn_damage_img"])
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
     button_highlight = UiElement("button_highlight", 200, 200, graphic_dict["main high"])
@@ -8967,6 +8971,12 @@ if __name__ == "__main__":
     sfx_enemy_dreth_shatter = pygame.mixer.Sound(resource_path("resources/sounds/enemy_dreth_shatter.mp3"))
     sfx_enemy_dreth_shatter.set_volume(0.25)
 
+    sfx_cloaked = pygame.mixer.Sound(resource_path("resources/sounds/sfx_cloak.mp3"))
+    sfx_cloaked.set_volume(0.35)
+
+    sfx_burned = pygame.mixer.Sound(resource_path("resources/sounds/sfx_burn.mp3"))
+    sfx_burned.set_volume(0.15)
+
     sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
     sfx_surprise_attack.set_volume(0.20)
 
@@ -9179,6 +9189,7 @@ if __name__ == "__main__":
     apothecary_cat_pet = False
     menagerie_cat_pet = False
     rest_shown_before = False
+    cloaked_popup_shown = False
     leveled = False
     button_highlighted = False
     book_appended = False
@@ -9367,6 +9378,9 @@ if __name__ == "__main__":
     day_timer_started = False
 
     cloaked = False
+    burned = False
+    poisoned = False
+    bleeding = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -12154,7 +12168,7 @@ if __name__ == "__main__":
                                                                       quest_star_nahun, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
                                                                       afternoon, dusk, night, time_of_day,
-                                                                      snow_fall_tic, snow_fall_phase)
+                                                                      snow_fall_tic, snow_fall_phase, cloaked)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -12205,7 +12219,7 @@ if __name__ == "__main__":
                                                                       quest_star_nahun, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
                                                                       afternoon, dusk, night, time_of_day,
-                                                                      snow_fall_tic, snow_fall_phase)
+                                                                      snow_fall_tic, snow_fall_phase, cloaked)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -15429,6 +15443,8 @@ if __name__ == "__main__":
 
                                 if game_guide_overlay.rect.collidepoint(pos):
                                     drawing_functions.game_guide_container.clear()
+                                if cloaked_popup.rect.collidepoint(pos):
+                                    drawing_functions.cloaked_popup_window.clear()
 
                                 if trading_deck:
                                     if (len(drawing_functions.quest_box) == 0 and
@@ -15492,7 +15508,7 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked)
+                                                                                            show_edge, cloaked, burned)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15504,6 +15520,12 @@ if __name__ == "__main__":
                                                     info_text_2 = ""
                                                 else:
                                                     info_text_2 = str(combat_events["damage taken string"])
+                                                try:
+                                                    if burned:
+                                                        info_text_3 = ("You burn for " +
+                                                                       str(combat_events["burn_damage"]) + " damage.")
+                                                except KeyError:
+                                                    pass
                                             except TypeError:
                                                 pass
                                             gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
@@ -15538,7 +15560,7 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked)
+                                                                                            show_edge, cloaked, burned)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15550,6 +15572,12 @@ if __name__ == "__main__":
                                                     info_text_2 = ""
                                                 else:
                                                     info_text_2 = str(combat_events["damage taken string"])
+                                                try:
+                                                    if burned:
+                                                        info_text_3 = ("You burn for " +
+                                                                       str(combat_events["burn_damage"]) + " damage.")
+                                                except KeyError:
+                                                    pass
                                             except TypeError:
                                                 pass
                                             gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
@@ -15583,7 +15611,7 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked)
+                                                                                            show_edge, cloaked, burned)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15595,6 +15623,12 @@ if __name__ == "__main__":
                                                     info_text_2 = ""
                                                 else:
                                                     info_text_2 = str(combat_events["damage taken string"])
+                                                try:
+                                                    if burned:
+                                                        info_text_3 = ("You burn for " +
+                                                                       str(combat_events["burn_damage"]) + " damage.")
+                                                except KeyError:
+                                                    pass
                                             except TypeError:
                                                 pass
                                             gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
@@ -15646,10 +15680,14 @@ if __name__ == "__main__":
                                 if current_enemy_battling.kind == "snake":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_snake)
                                 if current_enemy_battling.name == "Ghoul":
+                                    if not cloaked_popup_shown:
+                                        drawing_functions.cloaked_popup_window.append(cloaked_popup)
+                                        cloaked_popup_shown = True
                                     pygame.mixer.find_channel(True).play(sfx_enemy_ghoul)
                                     if (turn_counter + 1) % 4 == 0:
                                         if not cloaked:
                                             cloaked = True
+                                            pygame.mixer.find_channel(True).play(sfx_cloaked)
                                 if current_enemy_battling.name == "Chorizon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_chorizon)
                                 if current_enemy_battling.kind == "muchador":
@@ -15658,17 +15696,28 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_bandile)
                                 if current_enemy_battling.kind == "magmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
+                                    if (turn_counter + 1) % 4 == 0:
+                                        if not burned and not barrier_active:
+                                            burned = True
+
                                 if current_enemy_battling.kind == "chinzilla":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_chinzilla)
+                                    if not bleeding and not barrier_active:
+                                        bleeding = True
+                                        pygame.mixer.find_channel(True).play(sfx_cloaked)
                                 if current_enemy_battling.kind == "necrola":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
                                     if (turn_counter + 1) % 4 == 0:
                                         if not cloaked:
                                             cloaked = True
+                                            pygame.mixer.find_channel(True).play(sfx_cloaked)
                                 if current_enemy_battling.kind == "stelli":
                                     pygame.mixer.find_channel(True).play(sfx_stelli_battle)
                                 if current_enemy_battling.kind == "osodark":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_osodark)
+                                    if not bleeding and not barrier_active:
+                                        bleeding = True
+                                        pygame.mixer.find_channel(True).play(sfx_cloaked)
                                 if current_enemy_battling.kind == "erebyth":
                                     if turn_counter == 2:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_flame)
@@ -15681,6 +15730,9 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth)
                                 if current_enemy_battling.kind == "atmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_atmon)
+                                    if not poisoned and not barrier_active:
+                                        poisoned = True
+                                        pygame.mixer.find_channel(True).play(sfx_cloaked)
                                 if current_enemy_battling.kind == "jumano":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_jumano)
 
@@ -15705,7 +15757,7 @@ if __name__ == "__main__":
                                                                                     trading_task_complete,
                                                                                     any_card_counter, card_deck,
                                                                                     arrow_active, fire_active,
-                                                                                    show_edge, cloaked)
+                                                                                    show_edge, cloaked, burned)
                                     combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                             barrier_active, sharp_sense_active,
                                                                             hard_strike, graphic_dict, turn_taken)
@@ -15740,6 +15792,12 @@ if __name__ == "__main__":
                                             info_text_2 = ""
                                         else:
                                             info_text_2 = str(combat_events["damage taken string"])
+                                        try:
+                                            if burned:
+                                                info_text_3 = ("You burn for " +
+                                                               str(combat_events["burn_damage"]) + " damage.")
+                                        except KeyError:
+                                            pass
                                     except TypeError:
                                         pass
 
@@ -15874,6 +15932,9 @@ if __name__ == "__main__":
                                             show_edge = False
                                             cleared = False
                                             cloaked = False
+                                            burned = False
+                                            poisoned = False
+                                            bleeding = False
                                             turn_counter = 0
                                             card_popup_checked = False
                                             loot_timer_reset = False
@@ -15956,7 +16017,7 @@ if __name__ == "__main__":
                                                                                         trading_task_complete,
                                                                                         any_card_counter, card_deck,
                                                                                         arrow_active, fire_active,
-                                                                                        show_edge, cloaked)
+                                                                                        show_edge, cloaked, burned)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -15968,6 +16029,13 @@ if __name__ == "__main__":
                                                             info_text_2 = ""
                                                         else:
                                                             info_text_2 = str(combat_events["damage taken string"])
+                                                        try:
+                                                            if burned:
+                                                                info_text_3 = ("You burn for " +
+                                                                               str(combat_events[
+                                                                                       "burn_damage"]) + " damage.")
+                                                        except KeyError:
+                                                            pass
                                                     except TypeError:
                                                         pass
                                                     gameplay_functions.player_info_and_ui_updates(player, hp_bar,
@@ -16059,7 +16127,7 @@ if __name__ == "__main__":
                                                                                         trading_task_complete,
                                                                                         any_card_counter, card_deck,
                                                                                         arrow_active, fire_active,
-                                                                                        show_edge, cloaked)
+                                                                                        show_edge, cloaked, burned)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -16071,6 +16139,13 @@ if __name__ == "__main__":
                                                             info_text_2 = ""
                                                         else:
                                                             info_text_2 = str(combat_events["damage taken string"])
+                                                        try:
+                                                            if burned:
+                                                                info_text_3 = ("You burn for " +
+                                                                               str(combat_events[
+                                                                                       "burn_damage"]) + " damage.")
+                                                        except KeyError:
+                                                            pass
                                                     except TypeError:
                                                         pass
                                                     gameplay_functions.player_info_and_ui_updates(player, hp_bar,
@@ -16130,7 +16205,7 @@ if __name__ == "__main__":
                                                                                                 any_card_counter,
                                                                                                 card_deck, arrow_active,
                                                                                                 fire_active, show_edge,
-                                                                                                cloaked)
+                                                                                                cloaked, burned)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -16146,6 +16221,13 @@ if __name__ == "__main__":
                                                         info_text_2 = ""
                                                     else:
                                                         info_text_2 = str(combat_events["damage taken string"])
+                                                    try:
+                                                        if burned:
+                                                            info_text_3 = ("You burn for " +
+                                                                           str(combat_events[
+                                                                                   "burn_damage"]) + " damage.")
+                                                    except KeyError:
+                                                        pass
                                                 except TypeError:
                                                     pass
                                                 try:
@@ -16238,6 +16320,9 @@ if __name__ == "__main__":
                                                         show_edge = False
                                                         cleared = False
                                                         cloaked = False
+                                                        burned = False
+                                                        poisoned = False
+                                                        bleeding = False
                                                         turn_counter = 0
                                                         card_popup_checked = False
                                                         loot_timer_reset = False
@@ -16310,7 +16395,7 @@ if __name__ == "__main__":
                                                         turn_counter, atmon_counter, prism_received,
                                                         turn_counter, apothis_upgrade, trading_deck,
                                                         trading_task_complete, any_card_counter, card_deck,
-                                                        arrow_active, fire_active, show_edge, cloaked)
+                                                        arrow_active, fire_active, show_edge, cloaked, burned)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -16323,6 +16408,13 @@ if __name__ == "__main__":
                                                             info_text_2 = ""
                                                         else:
                                                             info_text_2 = str(combat_events["damage taken string"])
+                                                        try:
+                                                            if burned:
+                                                                info_text_3 = ("You burn for " +
+                                                                               str(combat_events[
+                                                                                       "burn_damage"]) + " damage.")
+                                                        except KeyError:
+                                                            pass
                                                     except TypeError:
                                                         pass
                                                     gameplay_functions.player_info_and_ui_updates(player, hp_bar,
@@ -16420,6 +16512,9 @@ if __name__ == "__main__":
                                                 cleared = False
                                                 leveled = False
                                                 cloaked = False
+                                                burned = False
+                                                poisoned = False
+                                                bleeding = False
                                                 turn_counter = 0
                                                 battle_info_to_return_to_main_loop["item dropped"] = ""
                                                 battle_info_to_return_to_main_loop["experience"] = 0
@@ -16486,7 +16581,7 @@ if __name__ == "__main__":
                                                         turn_counter, atmon_counter, prism_received,
                                                         turn_counter, apothis_upgrade, trading_deck,
                                                         trading_task_complete, any_card_counter, card_deck,
-                                                        arrow_active, fire_active, show_edge, cloaked)
+                                                        arrow_active, fire_active, show_edge, cloaked, burned)
 
                                                     turn_taken = True
                                                     attack_hotkey = False
@@ -16507,6 +16602,13 @@ if __name__ == "__main__":
                                                             info_text_2 = ""
                                                         else:
                                                             info_text_2 = str(combat_events["damage taken string"])
+                                                        try:
+                                                            if burned:
+                                                                info_text_3 = ("You burn for " +
+                                                                               str(combat_events[
+                                                                                       "burn_damage"]) + " damage.")
+                                                        except KeyError:
+                                                            pass
                                                     except TypeError:
                                                         pass
                                                     try:
@@ -16601,6 +16703,9 @@ if __name__ == "__main__":
                                                             show_edge = False
                                                             cleared = False
                                                             cloaked = False
+                                                            burned = False
+                                                            poisoned = False
+                                                            bleeding = False
                                                             turn_counter = 0
                                                             card_popup_checked = False
                                                             loot_timer_reset = False
@@ -16689,7 +16794,7 @@ if __name__ == "__main__":
                                                     turn_counter, atmon_counter, prism_received,
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
-                                                    arrow_active, fire_active, show_edge, cloaked)
+                                                    arrow_active, fire_active, show_edge, cloaked, burned)
 
                                                 turn_taken = True
                                                 attack_hotkey = False
@@ -16710,6 +16815,13 @@ if __name__ == "__main__":
                                                         info_text_2 = ""
                                                     else:
                                                         info_text_2 = str(combat_events["damage taken string"])
+                                                    try:
+                                                        if burned:
+                                                            info_text_3 = ("You burn for " +
+                                                                           str(combat_events[
+                                                                                   "burn_damage"]) + " damage.")
+                                                    except KeyError:
+                                                        pass
                                                 except TypeError:
                                                     pass
                                                 try:
@@ -16802,6 +16914,9 @@ if __name__ == "__main__":
                                                         show_edge = False
                                                         cleared = False
                                                         cloaked = False
+                                                        burned = False
+                                                        poisoned = False
+                                                        bleeding = False
                                                         turn_counter = 0
                                                         card_popup_checked = False
                                                         loot_timer_reset = False
@@ -16893,7 +17008,7 @@ if __name__ == "__main__":
                                                         turn_counter, atmon_counter, prism_received,
                                                         turn_counter, apothis_upgrade, trading_deck,
                                                         trading_task_complete, any_card_counter, card_deck,
-                                                        arrow_active, fire_active, show_edge, cloaked)
+                                                        arrow_active, fire_active, show_edge, cloaked, burned)
 
                                                     turn_taken = True
                                                     attack_hotkey = False
@@ -16914,6 +17029,13 @@ if __name__ == "__main__":
                                                             info_text_2 = ""
                                                         else:
                                                             info_text_2 = str(combat_events["damage taken string"])
+                                                        try:
+                                                            if burned:
+                                                                info_text_3 = ("You burn for " +
+                                                                               str(combat_events[
+                                                                                       "burn_damage"]) + " damage.")
+                                                        except KeyError:
+                                                            pass
                                                     except TypeError:
                                                         pass
                                                     try:
@@ -17004,6 +17126,9 @@ if __name__ == "__main__":
                                                             show_edge = False
                                                             cleared = False
                                                             cloaked = False
+                                                            burned = False
+                                                            poisoned = False
+                                                            bleeding = False
                                                             turn_counter = 0
                                                             card_popup_checked = False
                                                             loot_timer_reset = False
@@ -17305,6 +17430,7 @@ if __name__ == "__main__":
                                     screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                                     screen.blit(mirror_overlay.surf, mirror_overlay.rect)
                                 screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+
                                 screen.blit(message_box.surf, message_box.rect)
                                 screen.blit(equipment_screen.surf, equipment_screen.rect)
                                 if len(drawing_functions.item_info_window) == 0:
@@ -17672,6 +17798,11 @@ if __name__ == "__main__":
                                     screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                                     screen.blit(mirror_overlay.surf, mirror_overlay.rect)
                                 screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+
+                                if burned:
+                                    pygame.mixer.find_channel(True).play(sfx_burned)
+                                    screen.blit(battle_sprite_effect.surf, battle_sprite_effect.rect)
+
                                 screen.blit(message_box.surf, message_box.rect)
                                 screen.blit(equipment_screen.surf, equipment_screen.rect)
                                 if len(drawing_functions.item_info_window) == 0:
@@ -17779,6 +17910,11 @@ if __name__ == "__main__":
                                     game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                                     game_window.blit(mirror_overlay.surf, mirror_overlay.rect)
                                 game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+
+                                if burned:
+                                    pygame.mixer.find_channel(True).play(sfx_burned)
+                                    game_window.blit(battle_sprite_effect.surf, battle_sprite_effect.rect)
+
                                 game_window.blit(message_box.surf, message_box.rect)
                                 game_window.blit(equipment_screen.surf, equipment_screen.rect)
                                 if len(drawing_functions.item_info_window) == 0:
@@ -17987,6 +18123,15 @@ if __name__ == "__main__":
                                         received_damage_overlay.update(125, 275,
                                                                        graphic_dict["effective_received_damage_img"])
 
+                                    if burned:
+                                        try:
+                                            burn_damage_surf = level_up_font.render(str(combat_events["burn_damage"]),
+                                                                                    True, "black", "white")
+                                            burn_damage_rect = burn_damage_surf.get_rect()
+                                            burn_damage_rect.center = (255, 300)
+                                        except KeyError:
+                                            pass
+
                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                         screen.blit(received_damage_overlay.surf, received_damage_overlay.rect)
                                         damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
@@ -17996,6 +18141,9 @@ if __name__ == "__main__":
                                         screen.blit(damage_received_surf, damage_received_rect)
                                         if combat_events["critical received"]:
                                             screen.blit(critical_received_overlay.surf, critical_received_overlay.rect)
+                                        if burned:
+                                            screen.blit(condition_damage_overlay.surf, condition_damage_overlay.rect)
+                                            screen.blit(burn_damage_surf, burn_damage_rect)
                                     else:
                                         game_window.blit(received_damage_overlay.surf, received_damage_overlay.rect)
                                         damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
@@ -18006,6 +18154,10 @@ if __name__ == "__main__":
                                         if combat_events["critical received"]:
                                             game_window.blit(critical_received_overlay.surf,
                                                              critical_received_overlay.rect)
+                                        if burned:
+                                            game_window.blit(condition_damage_overlay.surf,
+                                                             condition_damage_overlay.rect)
+                                            game_window.blit(burn_damage_surf, burn_damage_rect)
                             except TypeError:
                                 pass
 
@@ -18765,12 +18917,12 @@ if __name__ == "__main__":
                                 screen.blit(ghouled_again_stardust_star.surf, ghouled_again_stardust_star.rect)
                             if player.quest_complete["welcome to consona"]:
                                 screen.blit(welcome_to_consona_stardust_star.surf,
-                                                 welcome_to_consona_stardust_star.rect)
+                                            welcome_to_consona_stardust_star.rect)
                             if player.quest_complete["band hammer"]:
                                 screen.blit(band_hammer_stardust_star.surf, band_hammer_stardust_star.rect)
                             if player.quest_complete["elementary elementals"]:
                                 screen.blit(elementary_elementals_stardust_star.surf,
-                                                 elementary_elementals_stardust_star.rect)
+                                            elementary_elementals_stardust_star.rect)
                             if player.quest_complete["it's dangerous to go alone"]:
                                 screen.blit(dangerous_alone_stardust_star.surf, dangerous_alone_stardust_star.rect)
                             if player.quest_complete["disenchanted"]:
@@ -23829,7 +23981,7 @@ if __name__ == "__main__":
 
                 # keep track of time of day, switch when enough time has elapsed
                 day_timer_toc = time.perf_counter()
-                if day_timer_toc - day_timer > 5:
+                if day_timer_toc - day_timer > 25:
                     match time_of_day:
                         case 0:  # dawn
                             message_box.update(173, 650, graphic_dict["message_box_dawn"])
@@ -23844,7 +23996,7 @@ if __name__ == "__main__":
                             time_of_day = 3
                             day_timer = time.perf_counter()
                         case 3:  # day
-                            if day_timer_toc - day_timer > 10:
+                            if day_timer_toc - day_timer > 50:
                                 time_of_day = 4
                                 day_timer = time.perf_counter()
                         case 4:  # early afternoon
@@ -23860,7 +24012,7 @@ if __name__ == "__main__":
                             time_of_day = 7
                             day_timer = time.perf_counter()
                         case 7:  # night
-                            if day_timer_toc - day_timer > 10:
+                            if day_timer_toc - day_timer > 50:
                                 time_of_day = 0
                                 day_timer = time.perf_counter()
 
@@ -24026,6 +24178,9 @@ if __name__ == "__main__":
                                     show_edge = False
                                     cleared = False
                                     cloaked = False
+                                    burned = False
+                                    poisoned = False
+                                    bleeding = False
                                     turn_counter = 0
                                     loot_timer_reset = False
                                     loot_level_tic = time.perf_counter()
@@ -24123,6 +24278,9 @@ if __name__ == "__main__":
                                 show_edge = False
                                 cleared = False
                                 cloaked = False
+                                burned = False
+                                poisoned = False
+                                bleeding = False
                                 turn_counter = 0
                                 loot_timer_reset = False
                                 loot_level_tic = time.perf_counter()
