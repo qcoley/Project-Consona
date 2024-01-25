@@ -358,7 +358,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                    in_battle, in_npc_interaction, graphic_dict, ghoul_battle_sprite,
                                                    ghoul_battle_sprite, ghoul_battle_sprite, False,
                                                    ghoul_battle_sprite, 0, ghoul_battle_sprite, ghoul_battle_sprite,
-                                                   ghoul_battle_sprite, False)
+                                                   ghoul_battle_sprite, False, False)
 
     # --------------------------------------------------------------------------------------------------
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -2140,7 +2140,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                                                    in_npc_interaction, graphic_dict, atmon_battle_sprite,
                                                    atmon_battle_sprite, atmon_battle_sprite, False,
                                                    atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite,
-                                                   atmon_battle_sprite, False)
+                                                   atmon_battle_sprite, False, False)
 
     if pygame.sprite.collide_rect(player, item_block_9):
         if not item_block_9_got:

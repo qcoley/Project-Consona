@@ -131,7 +131,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, ectrenos_front_enemies,
-                                                   stelli_battle_sprite, stelli_battle_sprite, apothis_gift)
+                                                   stelli_battle_sprite, stelli_battle_sprite, apothis_gift, False)
 
     if player.x_coordinate > 660 and 685 < player.y_coordinate:
         player.current_zone = "korlok"

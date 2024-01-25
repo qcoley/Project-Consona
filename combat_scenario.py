@@ -3851,7 +3851,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter,
                     atmon_counter, prism_received, dreth_counter, apothis_gift, trading_deck,
                     trading_task_complete, any_card_counter, card_deck, arrow_active, fire_active, show_edge,
-                    cloaked, burned):
+                    cloaked, burned, poisoned, bleeding):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {"damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -3954,14 +3954,28 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                             combat_event_dictionary["effective enemy"] = "effective"
 
                     if burned:
-                        burn_damage = random.randint(2, 10)
+                        burn_damage = random.randint(5, 15)
                         combat_event_dictionary["burn_damage"] = burn_damage
+                    if poisoned:
+                        poison_damage = random.randint(5, 10)
+                        combat_event_dictionary["poison_damage"] = poison_damage
+                    if bleeding:
+                        bleed_damage = random.randint(5, 15)
+                        combat_event_dictionary["bleed_damage"] = bleed_damage
 
                     if damage_to_player > 0:
-                        attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.kind}."
-                        player.health = player.health - damage_to_player
+
+                        total_damage = damage_to_player
                         if burned:
-                            player.health -= burn_damage
+                            total_damage += burn_damage
+                        if poisoned:
+                            total_damage += poison_damage
+                        if bleeding:
+                            total_damage += bleed_damage
+
+                        attacked_player_string = f"You take {total_damage} damage."
+                        player.health = player.health - total_damage
+
                         if show_edge:
                             player.health += int(0.75 * damage_to_enemy)
                             if player.health >= 100:
