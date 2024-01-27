@@ -4995,6 +4995,7 @@ def load_graphics():
     loaded_dict["edge_health_img"] = damage_overlays_sheet[12]
     loaded_dict["burn_damage_img"] = damage_overlays_sheet[13]
     loaded_dict["poison_damage_img"] = damage_overlays_sheet[14]
+    loaded_dict["bleed_damage_img"] = damage_overlays_sheet[15]
     # worker 1 npc -----------------------------------------------------------------------------------------------------
     worker_1_url = resource_path('resources/art/sprites_worker_1.png')
     worker_1_sheet = sprite_sheet((50, 60), worker_1_url)

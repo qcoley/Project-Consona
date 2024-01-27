@@ -8548,7 +8548,7 @@ if __name__ == "__main__":
     received_damage_overlay = UiElement("received damage overlay", 125, 275, graphic_dict["received_damage_img"])
     burn_damage_overlay = UiElement("burn damage overlay", 250, 275, graphic_dict["burn_damage_img"])
     poison_damage_overlay = UiElement("poison damage overlay", 350, 275, graphic_dict["poison_damage_img"])
-    bleed_damage_overlay = UiElement("bleed damage overlay", 275, 375, graphic_dict["burn_damage_img"])
+    bleed_damage_overlay = UiElement("bleed damage overlay", 300, 375, graphic_dict["bleed_damage_img"])
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
     button_highlight = UiElement("button_highlight", 200, 200, graphic_dict["main high"])
@@ -17147,20 +17147,28 @@ if __name__ == "__main__":
                                     if player.current_zone == "castle lair":
                                         screen.blit(dreth_battle_screen, (0, 0))
 
-                                    if time_of_day == 0:
-                                        screen.blit(dawn, (0, 0))
-                                    if time_of_day == 1:
-                                        screen.blit(early_morning, (0, 0))
-                                    if time_of_day == 2:
-                                        screen.blit(morning, (0, 0))
-                                    if time_of_day == 4:
-                                        screen.blit(early_afternoon, (0, 0))
-                                    if time_of_day == 5:
-                                        screen.blit(afternoon, (0, 0))
-                                    if time_of_day == 6:
-                                        screen.blit(dusk, (0, 0))
-                                    if time_of_day == 7:
-                                        screen.blit(night, (0, 0))
+                                    if (player.current_zone == "marrow"
+                                            or player.current_zone == "marrow ramps east end"
+                                            or player.current_zone == "ectrenos_front"
+                                            or player.current_zone == "terra trail"
+                                            or player.current_zone == "stardust"
+                                            or player.current_zone == "korlok"
+                                            or player.current_zone == "seldon"):
+
+                                        if time_of_day == 0:
+                                            screen.blit(dawn, (0, 0))
+                                        if time_of_day == 1:
+                                            screen.blit(early_morning, (0, 0))
+                                        if time_of_day == 2:
+                                            screen.blit(morning, (0, 0))
+                                        if time_of_day == 4:
+                                            screen.blit(early_afternoon, (0, 0))
+                                        if time_of_day == 5:
+                                            screen.blit(afternoon, (0, 0))
+                                        if time_of_day == 6:
+                                            screen.blit(dusk, (0, 0))
+                                        if time_of_day == 7:
+                                            screen.blit(night, (0, 0))
 
                                     try:
                                         if not show_fire or not combat_happened:
@@ -17205,20 +17213,28 @@ if __name__ == "__main__":
                                     if player.current_zone == "castle lair":
                                         game_window.blit(dreth_battle_screen, (0, 0))
 
-                                    if time_of_day == 0:
-                                        game_window.blit(dawn, (0, 0))
-                                    if time_of_day == 1:
-                                        game_window.blit(early_morning, (0, 0))
-                                    if time_of_day == 2:
-                                        game_window.blit(morning, (0, 0))
-                                    if time_of_day == 4:
-                                        game_window.blit(early_afternoon, (0, 0))
-                                    if time_of_day == 5:
-                                        game_window.blit(afternoon, (0, 0))
-                                    if time_of_day == 6:
-                                        game_window.blit(dusk, (0, 0))
-                                    if time_of_day == 7:
-                                        game_window.blit(night, (0, 0))
+                                    if (player.current_zone == "marrow"
+                                            or player.current_zone == "marrow ramps east end"
+                                            or player.current_zone == "ectrenos_front"
+                                            or player.current_zone == "terra trail"
+                                            or player.current_zone == "stardust"
+                                            or player.current_zone == "korlok"
+                                            or player.current_zone == "seldon"):
+
+                                        if time_of_day == 0:
+                                            game_window.blit(dawn, (0, 0))
+                                        if time_of_day == 1:
+                                            game_window.blit(early_morning, (0, 0))
+                                        if time_of_day == 2:
+                                            game_window.blit(morning, (0, 0))
+                                        if time_of_day == 4:
+                                            game_window.blit(early_afternoon, (0, 0))
+                                        if time_of_day == 5:
+                                            game_window.blit(afternoon, (0, 0))
+                                        if time_of_day == 6:
+                                            game_window.blit(dusk, (0, 0))
+                                        if time_of_day == 7:
+                                            game_window.blit(night, (0, 0))
 
                                     try:
                                         if not show_fire or not combat_happened:
@@ -18081,9 +18097,9 @@ if __name__ == "__main__":
                                     if bleeding:
                                         try:
                                             bleed_damage_surf = level_up_font.render(str(combat_events["bleed_damage"]),
-                                                                                    True, "black", "white")
+                                                                                     True, "black", "white")
                                             bleed_damage_rect = bleed_damage_surf.get_rect()
-                                            bleed_damage_rect.center = (280, 375)
+                                            bleed_damage_rect.center = (302, 375)
                                         except KeyError:
                                             pass
 
@@ -23678,20 +23694,21 @@ if __name__ == "__main__":
                             if player.current_zone == "marrow":
                                 screen.blit(marrow_interaction_bg, (0, 0))
 
-                            if time_of_day == 0:
-                                screen.blit(dawn, (0, 0))
-                            if time_of_day == 1:
-                                screen.blit(early_morning, (0, 0))
-                            if time_of_day == 2:
-                                screen.blit(morning, (0, 0))
-                            if time_of_day == 4:
-                                screen.blit(early_afternoon, (0, 0))
-                            if time_of_day == 5:
-                                screen.blit(afternoon, (0, 0))
-                            if time_of_day == 6:
-                                screen.blit(dusk, (0, 0))
-                            if time_of_day == 7:
-                                screen.blit(night, (0, 0))
+                            if player.current_zone != "ectrenos":
+                                if time_of_day == 0:
+                                    screen.blit(dawn, (0, 0))
+                                if time_of_day == 1:
+                                    screen.blit(early_morning, (0, 0))
+                                if time_of_day == 2:
+                                    screen.blit(morning, (0, 0))
+                                if time_of_day == 4:
+                                    screen.blit(early_afternoon, (0, 0))
+                                if time_of_day == 5:
+                                    screen.blit(afternoon, (0, 0))
+                                if time_of_day == 6:
+                                    screen.blit(dusk, (0, 0))
+                                if time_of_day == 7:
+                                    screen.blit(night, (0, 0))
 
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
                             screen.blit(offense_meter.surf, offense_meter.rect)
@@ -23792,20 +23809,21 @@ if __name__ == "__main__":
                             if player.current_zone == "marrow":
                                 game_window.blit(marrow_interaction_bg, (0, 0))
 
-                            if time_of_day == 0:
-                                game_window.blit(dawn, (0, 0))
-                            if time_of_day == 1:
-                                game_window.blit(early_morning, (0, 0))
-                            if time_of_day == 2:
-                                game_window.blit(morning, (0, 0))
-                            if time_of_day == 4:
-                                game_window.blit(early_afternoon, (0, 0))
-                            if time_of_day == 5:
-                                game_window.blit(afternoon, (0, 0))
-                            if time_of_day == 6:
-                                game_window.blit(dusk, (0, 0))
-                            if time_of_day == 7:
-                                game_window.blit(night, (0, 0))
+                            if player.current_zone != "ectrenos":
+                                if time_of_day == 0:
+                                    game_window.blit(dawn, (0, 0))
+                                if time_of_day == 1:
+                                    game_window.blit(early_morning, (0, 0))
+                                if time_of_day == 2:
+                                    game_window.blit(morning, (0, 0))
+                                if time_of_day == 4:
+                                    game_window.blit(early_afternoon, (0, 0))
+                                if time_of_day == 5:
+                                    game_window.blit(afternoon, (0, 0))
+                                if time_of_day == 6:
+                                    game_window.blit(dusk, (0, 0))
+                                if time_of_day == 7:
+                                    game_window.blit(night, (0, 0))
 
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
                             game_window.blit(offense_meter.surf, offense_meter.rect)

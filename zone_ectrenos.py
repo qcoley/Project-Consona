@@ -1385,7 +1385,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                                                    in_npc_interaction, graphic_dict, osodark_battle_sprite,
                                                    osodark_battle_sprite, osodark_battle_sprite, False,
                                                    osodark_battle_sprite, 0, osodark_battle_sprite,
-                                                   osodark_battle_sprite, osodark_battle_sprite, False)
+                                                   osodark_battle_sprite, osodark_battle_sprite, False, False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
