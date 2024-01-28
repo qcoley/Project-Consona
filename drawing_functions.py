@@ -588,6 +588,35 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
             item_info_window.append(item_info_button)
             return inventory_item
 
+        if inventory_item.name == "cure poison potion":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_poison_cure"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "cure burn potion":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_burn_cure"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "bandage wrap":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_bandage_wrap"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "big cure potion":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_big_cure"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
     if buy_item:
@@ -689,6 +718,24 @@ def buy_info_draw(buy_item, buy_items, yes_button, graphic):
             return buy_item
         if buy_item.name == "spirit trinket":
             buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_spirit"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "cure poison potion":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_poison_potion"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "cure burn potion":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_burn_potion"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "bandage wrap":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_bandage_wrap"])
             buy_info_window.append(buy_items)
             yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
@@ -867,6 +914,31 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "spirit trinket":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_spirit"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+
+        if sell_item.name == "cure poison potion":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_poison_potion"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "cure burn potion":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_burn_potion"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "bandage wrap":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_bandage_wrap"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "big cure potion":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_big_cure"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
@@ -1750,6 +1822,22 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "spirit trinket":
                     item_here.update(first_coord, second_coord, graphic["spirit_trinket"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "cure poison potion":
+                    item_here.update(first_coord, second_coord, graphic["poison_cure"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "cure burn potion":
+                    item_here.update(first_coord, second_coord, graphic["burn_cure"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "bandage wrap":
+                    item_here.update(first_coord, second_coord, graphic["bandage_wrap"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "big cure potion":
+                    item_here.update(first_coord, second_coord, graphic["big_cure_potion"])
                     player_items.append(item_here)
                     inventory_counter += 1
 

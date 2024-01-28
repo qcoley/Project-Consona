@@ -3417,6 +3417,7 @@ def load_graphics():
     loaded_dict["burn_battle_effect"] = battle_effects_sheet[0]
     loaded_dict["poison_battle_effect"] = battle_effects_sheet[1]
     loaded_dict["bleed_battle_effect"] = battle_effects_sheet[2]
+    loaded_dict["barrier_battle_effect"] = battle_effects_sheet[3]
     # player battle amuna race -----------------------------------------------------------------------------------------
     # male -------------------------------------------------------------------------------------------------------------
     player_battle_amuna_url = resource_path('resources/art/player_battle_sprites_amuna.png')
@@ -3430,16 +3431,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle"] = player_battle_amuna_sheet[6]
     loaded_dict["player_scout_amuna_attack"] = player_battle_amuna_sheet[7]
     loaded_dict["player_fighter_amuna_strike"] = player_battle_amuna_sheet[8]
-    # barrier ----------------------------------------------------------------------------------------------------------
-    player_battle_amuna_url_barrier = resource_path('resources/art/player_battle_sprites_amuna_barrier.png')
-    player_battle_amuna_sheet_barrier = sprite_sheet((750, 624), player_battle_amuna_url_barrier)
-    loaded_dict["player_mage_amuna_battle_barrier"] = player_battle_amuna_sheet_barrier[2]
-    loaded_dict["player_mage_amuna_attack_barrier"] = player_battle_amuna_sheet_barrier[3]
-    loaded_dict["player_fighter_amuna_battle_barrier"] = player_battle_amuna_sheet_barrier[4]
-    loaded_dict["player_fighter_amuna_attack_barrier"] = player_battle_amuna_sheet_barrier[5]
-    loaded_dict["player_scout_amuna_battle_barrier"] = player_battle_amuna_sheet_barrier[6]
-    loaded_dict["player_scout_amuna_attack_barrier"] = player_battle_amuna_sheet_barrier[7]
-    loaded_dict["player_fighter_amuna_strike_barrier"] = player_battle_amuna_sheet_barrier[8]
     # sense ------------------------------------------------------------------------------------------------------------
     player_battle_amuna_url_sense = resource_path('resources/art/player_battle_sprites_amuna_sense.png')
     player_battle_amuna_sheet_sense = sprite_sheet((750, 624), player_battle_amuna_url_sense)
@@ -3450,16 +3441,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle_sense"] = player_battle_amuna_sheet_sense[6]
     loaded_dict["player_scout_amuna_attack_sense"] = player_battle_amuna_sheet_sense[7]
     loaded_dict["player_fighter_amuna_strike_sense"] = player_battle_amuna_sheet_sense[8]
-    # barrier sense ----------------------------------------------------------------------------------------------------
-    player_battle_amuna_url_barrier_sense = resource_path('resources/art/player_battle_sprites_amuna_barrier_sense.png')
-    player_battle_amuna_sheet_barrier_sense = sprite_sheet((750, 624), player_battle_amuna_url_barrier_sense)
-    loaded_dict["player_mage_amuna_battle_barrier_sense"] = player_battle_amuna_sheet_barrier_sense[2]
-    loaded_dict["player_mage_amuna_attack_barrier_sense"] = player_battle_amuna_sheet_barrier_sense[3]
-    loaded_dict["player_fighter_amuna_battle_barrier_sense"] = player_battle_amuna_sheet_barrier_sense[4]
-    loaded_dict["player_fighter_amuna_attack_barrier_sense"] = player_battle_amuna_sheet_barrier_sense[5]
-    loaded_dict["player_scout_amuna_battle_barrier_sense"] = player_battle_amuna_sheet_barrier_sense[6]
-    loaded_dict["player_scout_amuna_attack_barrier_sense"] = player_battle_amuna_sheet_barrier_sense[7]
-    loaded_dict["player_fighter_amuna_strike_barrier_sense"] = player_battle_amuna_sheet_barrier_sense[8]
     # basic
     player_battle_amuna_url_basic = resource_path('resources/art/player_battle_sprites_amuna_basic.png')
     player_battle_amuna_sheet_basic = sprite_sheet((750, 624), player_battle_amuna_url_basic)
@@ -3470,16 +3451,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle_basic"] = player_battle_amuna_sheet_basic[4]
     loaded_dict["player_scout_amuna_attack_basic"] = player_battle_amuna_sheet_basic[5]
     loaded_dict["player_fighter_amuna_strike_basic"] = player_battle_amuna_sheet_basic[6]
-    # basic barrier
-    player_battle_amuna_url_basic_barrier = resource_path('resources/art/player_battle_sprites_amuna_basic_barrier.png')
-    player_battle_amuna_sheet_basic_barrier = sprite_sheet((750, 624), player_battle_amuna_url_basic_barrier)
-    loaded_dict["player_mage_amuna_battle_basic_barrier"] = player_battle_amuna_sheet_basic_barrier[0]
-    loaded_dict["player_mage_amuna_attack_basic_barrier"] = player_battle_amuna_sheet_basic_barrier[1]
-    loaded_dict["player_fighter_amuna_battle_basic_barrier"] = player_battle_amuna_sheet_basic_barrier[2]
-    loaded_dict["player_fighter_amuna_attack_basic_barrier"] = player_battle_amuna_sheet_basic_barrier[3]
-    loaded_dict["player_scout_amuna_battle_basic_barrier"] = player_battle_amuna_sheet_basic_barrier[4]
-    loaded_dict["player_scout_amuna_attack_basic_barrier"] = player_battle_amuna_sheet_basic_barrier[5]
-    loaded_dict["player_fighter_amuna_strike_basic_barrier"] = player_battle_amuna_sheet_basic_barrier[6]
     # basic sense
     player_battle_amuna_url_basic_sense = resource_path('resources/art/player_battle_sprites_amuna_basic_sense.png')
     player_battle_amuna_sheet_basic_sense = sprite_sheet((750, 624), player_battle_amuna_url_basic_sense)
@@ -3490,18 +3461,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle_basic_sense"] = player_battle_amuna_sheet_basic_sense[4]
     loaded_dict["player_scout_amuna_attack_basic_sense"] = player_battle_amuna_sheet_basic_sense[5]
     loaded_dict["player_fighter_amuna_strike_basic_sense"] = player_battle_amuna_sheet_basic_sense[6]
-    # basic barrier sense
-    player_battle_amuna_url_basic_barrier_sense = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                'basic_barrier_sense.png')
-    player_battle_amuna_sheet_basic_barrier_sense = sprite_sheet((750, 624),
-                                                                 player_battle_amuna_url_basic_barrier_sense)
-    loaded_dict["player_mage_amuna_battle_basic_barrier_sense"] = player_battle_amuna_sheet_basic_barrier_sense[0]
-    loaded_dict["player_mage_amuna_attack_basic_barrier_sense"] = player_battle_amuna_sheet_basic_barrier_sense[1]
-    loaded_dict["player_fighter_amuna_battle_basic_barrier_sense"] = player_battle_amuna_sheet_basic_barrier_sense[2]
-    loaded_dict["player_fighter_amuna_attack_basic_barrier_sense"] = player_battle_amuna_sheet_basic_barrier_sense[3]
-    loaded_dict["player_scout_amuna_battle_basic_barrier_sense"] = player_battle_amuna_sheet_basic_barrier_sense[4]
-    loaded_dict["player_scout_amuna_attack_basic_barrier_sense"] = player_battle_amuna_sheet_basic_barrier_sense[5]
-    loaded_dict["player_fighter_amuna_strike_basic_barrier_sense"] = player_battle_amuna_sheet_basic_barrier_sense[6]
     # forged
     player_battle_amuna_url_forged = resource_path('resources/art/player_battle_sprites_amuna_forged.png')
     player_battle_amuna_sheet_forged = sprite_sheet((750, 624), player_battle_amuna_url_forged)
@@ -3512,17 +3471,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle_forged"] = player_battle_amuna_sheet_forged[4]
     loaded_dict["player_scout_amuna_attack_forged"] = player_battle_amuna_sheet_forged[5]
     loaded_dict["player_fighter_amuna_strike_forged"] = player_battle_amuna_sheet_forged[6]
-    # forged barrier
-    player_battle_amuna_url_forged_barrier = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                           'forged_barrier.png')
-    player_battle_amuna_sheet_forged_barrier = sprite_sheet((750, 624), player_battle_amuna_url_forged_barrier)
-    loaded_dict["player_mage_amuna_battle_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[0]
-    loaded_dict["player_mage_amuna_attack_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[1]
-    loaded_dict["player_fighter_amuna_battle_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[2]
-    loaded_dict["player_fighter_amuna_attack_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[3]
-    loaded_dict["player_scout_amuna_battle_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[4]
-    loaded_dict["player_scout_amuna_attack_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[5]
-    loaded_dict["player_fighter_amuna_strike_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[6]
     # forged sense
     player_battle_amuna_url_forged_sense = resource_path('resources/art/player_battle_sprites_amuna_'
                                                          'forged_sense.png')
@@ -3534,18 +3482,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle_forged_sense"] = player_battle_amuna_sheet_forged_sense[4]
     loaded_dict["player_scout_amuna_attack_forged_sense"] = player_battle_amuna_sheet_forged_sense[5]
     loaded_dict["player_fighter_amuna_strike_forged_sense"] = player_battle_amuna_sheet_forged_sense[6]
-    # forged barrier sense
-    player_battle_amuna_url_forged_barrier_sense = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                 'forged_barrier_sense.png')
-    player_battle_amuna_sheet_forged_barrier_sense = sprite_sheet((750, 624),
-                                                                  player_battle_amuna_url_forged_barrier_sense)
-    loaded_dict["player_mage_amuna_battle_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[0]
-    loaded_dict["player_mage_amuna_attack_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[1]
-    loaded_dict["player_fighter_amuna_battle_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[2]
-    loaded_dict["player_fighter_amuna_attack_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[3]
-    loaded_dict["player_scout_amuna_battle_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[4]
-    loaded_dict["player_scout_amuna_attack_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[5]
-    loaded_dict["player_fighter_amuna_strike_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[6]
     # mythic
     player_battle_amuna_url_mythic = resource_path('resources/art/player_battle_sprites_amuna_mythic.png')
     player_battle_amuna_sheet_mythic = sprite_sheet((750, 624), player_battle_amuna_url_mythic)
@@ -3556,17 +3492,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle_mythic"] = player_battle_amuna_sheet_mythic[4]
     loaded_dict["player_scout_amuna_attack_mythic"] = player_battle_amuna_sheet_mythic[5]
     loaded_dict["player_fighter_amuna_strike_mythic"] = player_battle_amuna_sheet_mythic[6]
-    # mythic barrier
-    player_battle_amuna_url_mythic_barrier = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                           'mythic_barrier.png')
-    player_battle_amuna_sheet_mythic_barrier = sprite_sheet((750, 624), player_battle_amuna_url_mythic_barrier)
-    loaded_dict["player_mage_amuna_battle_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[0]
-    loaded_dict["player_mage_amuna_attack_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[1]
-    loaded_dict["player_fighter_amuna_battle_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[2]
-    loaded_dict["player_fighter_amuna_attack_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[3]
-    loaded_dict["player_scout_amuna_battle_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[4]
-    loaded_dict["player_scout_amuna_attack_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[5]
-    loaded_dict["player_fighter_amuna_strike_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[6]
     # mythic sense
     player_battle_amuna_url_mythic_sense = resource_path('resources/art/player_battle_sprites_amuna_'
                                                          'mythic_sense.png')
@@ -3578,18 +3503,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle_mythic_sense"] = player_battle_amuna_sheet_mythic_sense[4]
     loaded_dict["player_scout_amuna_attack_mythic_sense"] = player_battle_amuna_sheet_mythic_sense[5]
     loaded_dict["player_fighter_amuna_strike_mythic_sense"] = player_battle_amuna_sheet_mythic_sense[6]
-    # mythic barrier sense
-    player_battle_amuna_url_mythic_barrier_sense = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                 'mythic_barrier_sense.png')
-    player_battle_amuna_sheet_mythic_barrier_sense = sprite_sheet((750, 624),
-                                                                  player_battle_amuna_url_mythic_barrier_sense)
-    loaded_dict["player_mage_amuna_battle_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[0]
-    loaded_dict["player_mage_amuna_attack_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[1]
-    loaded_dict["player_fighter_amuna_battle_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[2]
-    loaded_dict["player_fighter_amuna_attack_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[3]
-    loaded_dict["player_scout_amuna_battle_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[4]
-    loaded_dict["player_scout_amuna_attack_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[5]
-    loaded_dict["player_fighter_amuna_strike_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[6]
     # legend
     player_battle_amuna_url_legend = resource_path('resources/art/player_battle_sprites_amuna_legend.png')
     player_battle_amuna_sheet_legend = sprite_sheet((750, 624), player_battle_amuna_url_legend)
@@ -3600,17 +3513,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle_legend"] = player_battle_amuna_sheet_legend[4]
     loaded_dict["player_scout_amuna_attack_legend"] = player_battle_amuna_sheet_legend[5]
     loaded_dict["player_fighter_amuna_strike_legend"] = player_battle_amuna_sheet_legend[6]
-    # legend barrier
-    player_battle_amuna_url_legend_barrier = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                           'legend_barrier.png')
-    player_battle_amuna_sheet_legend_barrier = sprite_sheet((750, 624), player_battle_amuna_url_legend_barrier)
-    loaded_dict["player_mage_amuna_battle_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[0]
-    loaded_dict["player_mage_amuna_attack_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[1]
-    loaded_dict["player_fighter_amuna_battle_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[2]
-    loaded_dict["player_fighter_amuna_attack_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[3]
-    loaded_dict["player_scout_amuna_battle_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[4]
-    loaded_dict["player_scout_amuna_attack_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[5]
-    loaded_dict["player_fighter_amuna_strike_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[6]
     # legend sense
     player_battle_amuna_url_legend_sense = resource_path('resources/art/player_battle_sprites_amuna_'
                                                          'legend_sense.png')
@@ -3622,18 +3524,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_battle_legend_sense"] = player_battle_amuna_sheet_legend_sense[4]
     loaded_dict["player_scout_amuna_attack_legend_sense"] = player_battle_amuna_sheet_legend_sense[5]
     loaded_dict["player_fighter_amuna_strike_legend_sense"] = player_battle_amuna_sheet_legend_sense[6]
-    # legend barrier sense
-    player_battle_amuna_url_legend_barrier_sense = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                 'legend_barrier_sense.png')
-    player_battle_amuna_sheet_legend_barrier_sense = sprite_sheet((750, 624),
-                                                                  player_battle_amuna_url_legend_barrier_sense)
-    loaded_dict["player_mage_amuna_battle_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[0]
-    loaded_dict["player_mage_amuna_attack_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[1]
-    loaded_dict["player_fighter_amuna_battle_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[2]
-    loaded_dict["player_fighter_amuna_attack_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[3]
-    loaded_dict["player_scout_amuna_battle_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[4]
-    loaded_dict["player_scout_amuna_attack_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[5]
-    loaded_dict["player_fighter_amuna_strike_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[6]
     # female -----------------------------------------------------------------------------------------------------------
     player_battle_amuna_female_url = resource_path('resources/art/player_battle_sprites_amuna_female.png')
     player_battle_amuna_female_sheet = sprite_sheet((750, 624), player_battle_amuna_female_url)
@@ -3646,19 +3536,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle"] = player_battle_amuna_female_sheet[6]
     loaded_dict["player_scout_amuna_female_attack"] = player_battle_amuna_female_sheet[7]
     loaded_dict["player_fighter_amuna_female_strike"] = player_battle_amuna_female_sheet[8]
-    # barrier
-    player_battle_amuna_female_barrier_url = resource_path('resources/art/player_battle_sprites'
-                                                           '_amuna_female_barrier.png')
-    player_battle_amuna_female_barrier_sheet = sprite_sheet((750, 624), player_battle_amuna_female_barrier_url)
-    loaded_dict["player_no_role_amuna_female_battle_barrier"] = player_battle_amuna_female_barrier_sheet[0]
-    loaded_dict["player_no_role_amuna_female_attack_barrier"] = player_battle_amuna_female_barrier_sheet[1]
-    loaded_dict["player_mage_amuna_female_battle_barrier"] = player_battle_amuna_female_barrier_sheet[2]
-    loaded_dict["player_mage_amuna_female_attack_barrier"] = player_battle_amuna_female_barrier_sheet[3]
-    loaded_dict["player_fighter_amuna_female_battle_barrier"] = player_battle_amuna_female_barrier_sheet[4]
-    loaded_dict["player_fighter_amuna_female_attack_barrier"] = player_battle_amuna_female_barrier_sheet[5]
-    loaded_dict["player_scout_amuna_female_battle_barrier"] = player_battle_amuna_female_barrier_sheet[6]
-    loaded_dict["player_scout_amuna_female_attack_barrier"] = player_battle_amuna_female_barrier_sheet[7]
-    loaded_dict["player_fighter_amuna_female_strike_barrier"] = player_battle_amuna_female_barrier_sheet[8]
     # sense
     player_battle_amuna_female_sense_url = resource_path('resources/art/player_battle_sprites'
                                                          '_amuna_female_sense.png')
@@ -3672,20 +3549,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle_sense"] = player_battle_amuna_female_sense_sheet[6]
     loaded_dict["player_scout_amuna_female_attack_sense"] = player_battle_amuna_female_sense_sheet[7]
     loaded_dict["player_fighter_amuna_female_strike_sense"] = player_battle_amuna_female_sense_sheet[8]
-    # barrier sense
-    player_battle_amuna_female_barrier_sense_url = resource_path('resources/art/player_battle_sprites'
-                                                                 '_amuna_female_barrier_sense.png')
-    player_battle_amuna_female_barrier_sense_sheet = sprite_sheet((750, 624),
-                                                                  player_battle_amuna_female_barrier_sense_url)
-    loaded_dict["player_no_role_amuna_female_battle_barrier_sense"] = player_battle_amuna_female_barrier_sense_sheet[0]
-    loaded_dict["player_no_role_amuna_female_attack_barrier_sense"] = player_battle_amuna_female_barrier_sense_sheet[1]
-    loaded_dict["player_mage_amuna_female_battle_barrier_sense"] = player_battle_amuna_female_barrier_sense_sheet[2]
-    loaded_dict["player_mage_amuna_female_attack_barrier_sense"] = player_battle_amuna_female_barrier_sense_sheet[3]
-    loaded_dict["player_fighter_amuna_female_battle_barrier_sense"] = player_battle_amuna_female_barrier_sense_sheet[4]
-    loaded_dict["player_fighter_amuna_female_attack_barrier_sense"] = player_battle_amuna_female_barrier_sense_sheet[5]
-    loaded_dict["player_scout_amuna_female_battle_barrier_sense"] = player_battle_amuna_female_barrier_sense_sheet[6]
-    loaded_dict["player_scout_amuna_female_attack_barrier_sense"] = player_battle_amuna_female_barrier_sense_sheet[7]
-    loaded_dict["player_fighter_amuna_female_strike_barrier_sense"] = player_battle_amuna_female_barrier_sense_sheet[8]
     # basic ------------------------------------------------------------------------------------------------------------
     player_battle_amuna_female_url_basic = resource_path('resources/art/player_battle_sprites_amuna_female_basic.png')
     player_battle_amuna_female_sheet_basic = sprite_sheet((750, 624), player_battle_amuna_female_url_basic)
@@ -3696,18 +3559,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle_basic"] = player_battle_amuna_female_sheet_basic[4]
     loaded_dict["player_scout_amuna_female_attack_basic"] = player_battle_amuna_female_sheet_basic[5]
     loaded_dict["player_fighter_amuna_female_strike_basic"] = player_battle_amuna_female_sheet_basic[6]
-    # basic barrier
-    player_battle_amuna_female_barrier_url_basic = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                 'female_basic_barrier.png')
-    player_battle_amuna_female_barrier_sheet_basic = sprite_sheet((750, 624),
-                                                                  player_battle_amuna_female_barrier_url_basic)
-    loaded_dict["player_mage_amuna_female_battle_basic_barrier"] = player_battle_amuna_female_barrier_sheet_basic[0]
-    loaded_dict["player_mage_amuna_female_attack_basic_barrier"] = player_battle_amuna_female_barrier_sheet_basic[1]
-    loaded_dict["player_fighter_amuna_female_battle_basic_barrier"] = player_battle_amuna_female_barrier_sheet_basic[2]
-    loaded_dict["player_fighter_amuna_female_attack_basic_barrier"] = player_battle_amuna_female_barrier_sheet_basic[3]
-    loaded_dict["player_scout_amuna_female_battle_basic_barrier"] = player_battle_amuna_female_barrier_sheet_basic[4]
-    loaded_dict["player_scout_amuna_female_attack_basic_barrier"] = player_battle_amuna_female_barrier_sheet_basic[5]
-    loaded_dict["player_fighter_amuna_female_strike_basic_barrier"] = player_battle_amuna_female_barrier_sheet_basic[6]
     # basic sense
     player_battle_amuna_female_sense_url_basic = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                'female_basic_sense.png')
@@ -3720,25 +3571,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle_basic_sense"] = player_battle_amuna_female_sense_sheet_basic[4]
     loaded_dict["player_scout_amuna_female_attack_basic_sense"] = player_battle_amuna_female_sense_sheet_basic[5]
     loaded_dict["player_fighter_amuna_female_strike_basic_sense"] = player_battle_amuna_female_sense_sheet_basic[6]
-    # basic barrier sense
-    player_battle_amuna_female_barrier_sense_url_basic = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                       'female_basic_barrier_sense.png')
-    player_battle_amuna_female_barrier_sense_sheet_basic = \
-        sprite_sheet((750, 624), player_battle_amuna_female_barrier_sense_url_basic)
-    loaded_dict["player_mage_amuna_female_battle_basic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_basic[0]
-    loaded_dict["player_mage_amuna_female_attack_basic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_basic[1]
-    loaded_dict["player_fighter_amuna_female_battle_basic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_basic[2]
-    loaded_dict["player_fighter_amuna_female_attack_basic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_basic[3]
-    loaded_dict["player_scout_amuna_female_battle_basic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_basic[4]
-    loaded_dict["player_scout_amuna_female_attack_basic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_basic[5]
-    loaded_dict["player_fighter_amuna_female_strike_basic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_basic[6]
     # forged -----------------------------------------------------------------------------------------------------------
     player_battle_amuna_female_url_forged = resource_path('resources/art/player_battle_sprites_amuna_female_forged.png')
     player_battle_amuna_female_sheet_forged = sprite_sheet((750, 624), player_battle_amuna_female_url_forged)
@@ -3749,21 +3581,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle_forged"] = player_battle_amuna_female_sheet_forged[4]
     loaded_dict["player_scout_amuna_female_attack_forged"] = player_battle_amuna_female_sheet_forged[5]
     loaded_dict["player_fighter_amuna_female_strike_forged"] = player_battle_amuna_female_sheet_forged[6]
-    # forged barrier
-    player_battle_amuna_female_barrier_url_forged = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                  'female_forged_barrier.png')
-    player_battle_amuna_female_barrier_sheet_forged = \
-        sprite_sheet((750, 624), player_battle_amuna_female_barrier_url_forged)
-    loaded_dict["player_mage_amuna_female_battle_forged_barrier"] = player_battle_amuna_female_barrier_sheet_forged[0]
-    loaded_dict["player_mage_amuna_female_attack_forged_barrier"] = player_battle_amuna_female_barrier_sheet_forged[1]
-    loaded_dict["player_fighter_amuna_female_battle_forged_barrier"] = \
-        player_battle_amuna_female_barrier_sheet_forged[2]
-    loaded_dict["player_fighter_amuna_female_attack_forged_barrier"] = \
-        player_battle_amuna_female_barrier_sheet_forged[3]
-    loaded_dict["player_scout_amuna_female_battle_forged_barrier"] = player_battle_amuna_female_barrier_sheet_forged[4]
-    loaded_dict["player_scout_amuna_female_attack_forged_barrier"] = player_battle_amuna_female_barrier_sheet_forged[5]
-    loaded_dict["player_fighter_amuna_female_strike_forged_barrier"] = \
-        player_battle_amuna_female_barrier_sheet_forged[6]
     # forged sense
     player_battle_amuna_female_sense_url_forged = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                 'female_forged_sense.png')
@@ -3776,25 +3593,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle_forged_sense"] = player_battle_amuna_female_sense_sheet_forged[4]
     loaded_dict["player_scout_amuna_female_attack_forged_sense"] = player_battle_amuna_female_sense_sheet_forged[5]
     loaded_dict["player_fighter_amuna_female_strike_forged_sense"] = player_battle_amuna_female_sense_sheet_forged[6]
-    # forged barrier sense
-    player_battle_amuna_female_barrier_sense_url_forged = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                        'female_forged_barrier_sense.png')
-    player_battle_amuna_female_barrier_sense_sheet_forged = \
-        sprite_sheet((750, 624), player_battle_amuna_female_barrier_sense_url_forged)
-    loaded_dict["player_mage_amuna_female_battle_forged_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_forged[0]
-    loaded_dict["player_mage_amuna_female_attack_forged_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_forged[1]
-    loaded_dict["player_fighter_amuna_female_battle_forged_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_forged[2]
-    loaded_dict["player_fighter_amuna_female_attack_forged_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_forged[3]
-    loaded_dict["player_scout_amuna_female_battle_forged_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_forged[4]
-    loaded_dict["player_scout_amuna_female_attack_forged_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_forged[5]
-    loaded_dict["player_fighter_amuna_female_strike_forged_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_forged[6]
     # mythic -----------------------------------------------------------------------------------------------------------
     player_battle_amuna_female_url_mythic = resource_path('resources/art/player_battle_sprites_amuna_female_mythic.png')
     player_battle_amuna_female_sheet_mythic = sprite_sheet((750, 624), player_battle_amuna_female_url_mythic)
@@ -3805,21 +3603,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle_mythic"] = player_battle_amuna_female_sheet_mythic[4]
     loaded_dict["player_scout_amuna_female_attack_mythic"] = player_battle_amuna_female_sheet_mythic[5]
     loaded_dict["player_fighter_amuna_female_strike_mythic"] = player_battle_amuna_female_sheet_mythic[6]
-    # mythic barrier
-    player_battle_amuna_female_barrier_url_mythic = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                  'female_mythic_barrier.png')
-    player_battle_amuna_female_barrier_sheet_mythic = \
-        sprite_sheet((750, 624), player_battle_amuna_female_barrier_url_mythic)
-    loaded_dict["player_mage_amuna_female_battle_mythic_barrier"] = player_battle_amuna_female_barrier_sheet_mythic[0]
-    loaded_dict["player_mage_amuna_female_attack_mythic_barrier"] = player_battle_amuna_female_barrier_sheet_mythic[1]
-    loaded_dict["player_fighter_amuna_female_battle_mythic_barrier"] = \
-        player_battle_amuna_female_barrier_sheet_mythic[2]
-    loaded_dict["player_fighter_amuna_female_attack_mythic_barrier"] = \
-        player_battle_amuna_female_barrier_sheet_mythic[3]
-    loaded_dict["player_scout_amuna_female_battle_mythic_barrier"] = player_battle_amuna_female_barrier_sheet_mythic[4]
-    loaded_dict["player_scout_amuna_female_attack_mythic_barrier"] = player_battle_amuna_female_barrier_sheet_mythic[5]
-    loaded_dict["player_fighter_amuna_female_strike_mythic_barrier"] = \
-        player_battle_amuna_female_barrier_sheet_mythic[6]
     # mythic sense
     player_battle_amuna_female_sense_url_mythic = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                 'female_mythic_sense.png')
@@ -3832,25 +3615,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle_mythic_sense"] = player_battle_amuna_female_sense_sheet_mythic[4]
     loaded_dict["player_scout_amuna_female_attack_mythic_sense"] = player_battle_amuna_female_sense_sheet_mythic[5]
     loaded_dict["player_fighter_amuna_female_strike_mythic_sense"] = player_battle_amuna_female_sense_sheet_mythic[6]
-    # forged barrier sense
-    player_battle_amuna_female_barrier_sense_url_mythic = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                        'female_mythic_barrier_sense.png')
-    player_battle_amuna_female_barrier_sense_sheet_mythic = \
-        sprite_sheet((750, 624), player_battle_amuna_female_barrier_sense_url_mythic)
-    loaded_dict["player_mage_amuna_female_battle_mythic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_mythic[0]
-    loaded_dict["player_mage_amuna_female_attack_mythic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_mythic[1]
-    loaded_dict["player_fighter_amuna_female_battle_mythic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_mythic[2]
-    loaded_dict["player_fighter_amuna_female_attack_mythic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_mythic[3]
-    loaded_dict["player_scout_amuna_female_battle_mythic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_mythic[4]
-    loaded_dict["player_scout_amuna_female_attack_mythic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_mythic[5]
-    loaded_dict["player_fighter_amuna_female_strike_mythic_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_mythic[6]
     # legend -----------------------------------------------------------------------------------------------------------
     player_battle_amuna_female_url_legend = resource_path('resources/art/player_battle_sprites_amuna_female_legend.png')
     player_battle_amuna_female_sheet_legend = sprite_sheet((750, 624), player_battle_amuna_female_url_legend)
@@ -3861,21 +3625,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle_legend"] = player_battle_amuna_female_sheet_legend[4]
     loaded_dict["player_scout_amuna_female_attack_legend"] = player_battle_amuna_female_sheet_legend[5]
     loaded_dict["player_fighter_amuna_female_strike_legend"] = player_battle_amuna_female_sheet_legend[6]
-    # legend barrier
-    player_battle_amuna_female_barrier_url_legend = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                  'female_legend_barrier.png')
-    player_battle_amuna_female_barrier_sheet_legend = \
-        sprite_sheet((750, 624), player_battle_amuna_female_barrier_url_legend)
-    loaded_dict["player_mage_amuna_female_battle_legend_barrier"] = player_battle_amuna_female_barrier_sheet_legend[0]
-    loaded_dict["player_mage_amuna_female_attack_legend_barrier"] = player_battle_amuna_female_barrier_sheet_legend[1]
-    loaded_dict["player_fighter_amuna_female_battle_legend_barrier"] = \
-        player_battle_amuna_female_barrier_sheet_legend[2]
-    loaded_dict["player_fighter_amuna_female_attack_legend_barrier"] = \
-        player_battle_amuna_female_barrier_sheet_legend[3]
-    loaded_dict["player_scout_amuna_female_battle_legend_barrier"] = player_battle_amuna_female_barrier_sheet_legend[4]
-    loaded_dict["player_scout_amuna_female_attack_legend_barrier"] = player_battle_amuna_female_barrier_sheet_legend[5]
-    loaded_dict["player_fighter_amuna_female_strike_legend_barrier"] = \
-        player_battle_amuna_female_barrier_sheet_legend[6]
     # legend sense
     player_battle_amuna_female_sense_url_legend = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                 'female_legend_sense.png')
@@ -3888,25 +3637,6 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_battle_legend_sense"] = player_battle_amuna_female_sense_sheet_legend[4]
     loaded_dict["player_scout_amuna_female_attack_legend_sense"] = player_battle_amuna_female_sense_sheet_legend[5]
     loaded_dict["player_fighter_amuna_female_strike_legend_sense"] = player_battle_amuna_female_sense_sheet_legend[6]
-    # forged barrier sense
-    player_battle_amuna_female_barrier_sense_url_legend = resource_path('resources/art/player_battle_sprites_amuna_'
-                                                                        'female_legend_barrier_sense.png')
-    player_battle_amuna_female_barrier_sense_sheet_legend = \
-        sprite_sheet((750, 624), player_battle_amuna_female_barrier_sense_url_legend)
-    loaded_dict["player_mage_amuna_female_battle_legend_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_legend[0]
-    loaded_dict["player_mage_amuna_female_attack_legend_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_legend[1]
-    loaded_dict["player_fighter_amuna_female_battle_legend_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_legend[2]
-    loaded_dict["player_fighter_amuna_female_attack_legend_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_legend[3]
-    loaded_dict["player_scout_amuna_female_battle_legend_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_legend[4]
-    loaded_dict["player_scout_amuna_female_attack_legend_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_legend[5]
-    loaded_dict["player_fighter_amuna_female_strike_legend_barrier_sense"] = \
-        player_battle_amuna_female_barrier_sense_sheet_legend[6]
     # player battle sorae race -----------------------------------------------------------------------------------------
     # alpha ------------------------------------------------------------------------------------------------------------
     player_battle_sorae_url = resource_path('resources/art/player_battle_sprites_sorae.png')
@@ -3920,16 +3650,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle"] = player_battle_sorae_sheet[6]
     loaded_dict["player_scout_sorae_attack"] = player_battle_sorae_sheet[7]
     loaded_dict["player_fighter_sorae_strike"] = player_battle_sorae_sheet[8]
-    # barrier
-    player_battle_sorae_url_barrier = resource_path('resources/art/player_battle_sprites_sorae_barrier.png')
-    player_battle_sorae_sheet_barrier = sprite_sheet((750, 624), player_battle_sorae_url_barrier)
-    loaded_dict["player_mage_sorae_battle_barrier"] = player_battle_sorae_sheet_barrier[2]
-    loaded_dict["player_mage_sorae_attack_barrier"] = player_battle_sorae_sheet_barrier[3]
-    loaded_dict["player_fighter_sorae_battle_barrier"] = player_battle_sorae_sheet_barrier[4]
-    loaded_dict["player_fighter_sorae_attack_barrier"] = player_battle_sorae_sheet_barrier[5]
-    loaded_dict["player_scout_sorae_battle_barrier"] = player_battle_sorae_sheet_barrier[6]
-    loaded_dict["player_scout_sorae_attack_barrier"] = player_battle_sorae_sheet_barrier[7]
-    loaded_dict["player_fighter_sorae_strike_barrier"] = player_battle_sorae_sheet_barrier[8]
     # sense
     player_battle_sorae_url_sense = resource_path('resources/art/player_battle_sprites_sorae_sense.png')
     player_battle_sorae_sheet_sense = sprite_sheet((750, 624), player_battle_sorae_url_sense)
@@ -3940,16 +3660,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle_sense"] = player_battle_sorae_sheet_sense[6]
     loaded_dict["player_scout_sorae_attack_sense"] = player_battle_sorae_sheet_sense[7]
     loaded_dict["player_fighter_sorae_strike_sense"] = player_battle_sorae_sheet_sense[8]
-    # barrier sense
-    player_battle_sorae_url_barrier_sense = resource_path('resources/art/player_battle_sprites_sorae_barrier_sense.png')
-    player_battle_sorae_sheet_barrier_sense = sprite_sheet((750, 624), player_battle_sorae_url_barrier_sense)
-    loaded_dict["player_mage_sorae_battle_barrier_sense"] = player_battle_sorae_sheet_barrier_sense[2]
-    loaded_dict["player_mage_sorae_attack_barrier_sense"] = player_battle_sorae_sheet_barrier_sense[3]
-    loaded_dict["player_fighter_sorae_battle_barrier_sense"] = player_battle_sorae_sheet_barrier_sense[4]
-    loaded_dict["player_fighter_sorae_attack_barrier_sense"] = player_battle_sorae_sheet_barrier_sense[5]
-    loaded_dict["player_scout_sorae_battle_barrier_sense"] = player_battle_sorae_sheet_barrier_sense[6]
-    loaded_dict["player_scout_sorae_attack_barrier_sense"] = player_battle_sorae_sheet_barrier_sense[7]
-    loaded_dict["player_fighter_sorae_strike_barrier_sense"] = player_battle_sorae_sheet_barrier_sense[8]
     # basic
     player_battle_sorae_url_basic = resource_path('resources/art/player_battle_sprites_sorae_basic.png')
     player_battle_sorae_sheet_basic = sprite_sheet((750, 624), player_battle_sorae_url_basic)
@@ -3960,16 +3670,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle_basic"] = player_battle_sorae_sheet_basic[4]
     loaded_dict["player_scout_sorae_attack_basic"] = player_battle_sorae_sheet_basic[5]
     loaded_dict["player_fighter_sorae_strike_basic"] = player_battle_sorae_sheet_basic[6]
-    # basic barrier
-    player_battle_sorae_url_basic_barrier = resource_path('resources/art/player_battle_sprites_sorae_basic_barrier.png')
-    player_battle_sorae_sheet_basic_barrier = sprite_sheet((750, 624), player_battle_sorae_url_basic_barrier)
-    loaded_dict["player_mage_sorae_battle_basic_barrier"] = player_battle_sorae_sheet_basic_barrier[0]
-    loaded_dict["player_mage_sorae_attack_basic_barrier"] = player_battle_sorae_sheet_basic_barrier[1]
-    loaded_dict["player_fighter_sorae_battle_basic_barrier"] = player_battle_sorae_sheet_basic_barrier[2]
-    loaded_dict["player_fighter_sorae_attack_basic_barrier"] = player_battle_sorae_sheet_basic_barrier[3]
-    loaded_dict["player_scout_sorae_battle_basic_barrier"] = player_battle_sorae_sheet_basic_barrier[4]
-    loaded_dict["player_scout_sorae_attack_basic_barrier"] = player_battle_sorae_sheet_basic_barrier[5]
-    loaded_dict["player_fighter_sorae_strike_basic_barrier"] = player_battle_sorae_sheet_basic_barrier[6]
     # basic sense
     player_battle_sorae_url_basic_sense = resource_path('resources/art/player_battle_sprites_sorae_basic_sense.png')
     player_battle_sorae_sheet_basic_sense = sprite_sheet((750, 624), player_battle_sorae_url_basic_sense)
@@ -3980,18 +3680,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle_basic_sense"] = player_battle_sorae_sheet_basic_sense[4]
     loaded_dict["player_scout_sorae_attack_basic_sense"] = player_battle_sorae_sheet_basic_sense[5]
     loaded_dict["player_fighter_sorae_strike_basic_sense"] = player_battle_sorae_sheet_basic_sense[6]
-    # basic barrier sense
-    player_battle_sorae_url_basic_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_sorae_basic_barrier_sense.png')
-    player_battle_sorae_sheet_basic_barrier_sense = \
-        sprite_sheet((750, 624), player_battle_sorae_url_basic_barrier_sense)
-    loaded_dict["player_mage_sorae_battle_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense[0]
-    loaded_dict["player_mage_sorae_attack_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense[1]
-    loaded_dict["player_fighter_sorae_battle_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense[2]
-    loaded_dict["player_fighter_sorae_attack_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense[3]
-    loaded_dict["player_scout_sorae_battle_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense[4]
-    loaded_dict["player_scout_sorae_attack_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense[5]
-    loaded_dict["player_fighter_sorae_strike_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense[6]
     # forged
     player_battle_sorae_url_forged = resource_path('resources/art/player_battle_sprites_sorae_forged.png')
     player_battle_sorae_sheet_forged = sprite_sheet((750, 624), player_battle_sorae_url_forged)
@@ -4002,17 +3690,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle_forged"] = player_battle_sorae_sheet_forged[4]
     loaded_dict["player_scout_sorae_attack_forged"] = player_battle_sorae_sheet_forged[5]
     loaded_dict["player_fighter_sorae_strike_forged"] = player_battle_sorae_sheet_forged[6]
-    # forged barrier
-    player_battle_sorae_url_forged_barrier = \
-        resource_path('resources/art/player_battle_sprites_sorae_forged_barrier.png')
-    player_battle_sorae_sheet_forged_barrier = sprite_sheet((750, 624), player_battle_sorae_url_forged_barrier)
-    loaded_dict["player_mage_sorae_battle_forged_barrier"] = player_battle_sorae_sheet_forged_barrier[0]
-    loaded_dict["player_mage_sorae_attack_forged_barrier"] = player_battle_sorae_sheet_forged_barrier[1]
-    loaded_dict["player_fighter_sorae_battle_forged_barrier"] = player_battle_sorae_sheet_forged_barrier[2]
-    loaded_dict["player_fighter_sorae_attack_forged_barrier"] = player_battle_sorae_sheet_forged_barrier[3]
-    loaded_dict["player_scout_sorae_battle_forged_barrier"] = player_battle_sorae_sheet_forged_barrier[4]
-    loaded_dict["player_scout_sorae_attack_forged_barrier"] = player_battle_sorae_sheet_forged_barrier[5]
-    loaded_dict["player_fighter_sorae_strike_forged_barrier"] = player_battle_sorae_sheet_forged_barrier[6]
     # forged sense
     player_battle_sorae_url_forged_sense = resource_path('resources/art/player_battle_sprites_sorae_forged_sense.png')
     player_battle_sorae_sheet_forged_sense = sprite_sheet((750, 624), player_battle_sorae_url_forged_sense)
@@ -4023,18 +3700,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle_forged_sense"] = player_battle_sorae_sheet_forged_sense[4]
     loaded_dict["player_scout_sorae_attack_forged_sense"] = player_battle_sorae_sheet_forged_sense[5]
     loaded_dict["player_fighter_sorae_strike_forged_sense"] = player_battle_sorae_sheet_forged_sense[6]
-    # forged barrier sense
-    player_battle_sorae_url_forged_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_sorae_forged_barrier_sense.png')
-    player_battle_sorae_sheet_forged_barrier_sense = \
-        sprite_sheet((750, 624), player_battle_sorae_url_forged_barrier_sense)
-    loaded_dict["player_mage_sorae_battle_forged_barrier_sense"] = player_battle_sorae_sheet_forged_barrier_sense[0]
-    loaded_dict["player_mage_sorae_attack_forged_barrier_sense"] = player_battle_sorae_sheet_forged_barrier_sense[1]
-    loaded_dict["player_fighter_sorae_battle_forged_barrier_sense"] = player_battle_sorae_sheet_forged_barrier_sense[2]
-    loaded_dict["player_fighter_sorae_attack_forged_barrier_sense"] = player_battle_sorae_sheet_forged_barrier_sense[3]
-    loaded_dict["player_scout_sorae_battle_forged_barrier_sense"] = player_battle_sorae_sheet_forged_barrier_sense[4]
-    loaded_dict["player_scout_sorae_attack_forged_barrier_sense"] = player_battle_sorae_sheet_forged_barrier_sense[5]
-    loaded_dict["player_fighter_sorae_strike_forged_barrier_sense"] = player_battle_sorae_sheet_forged_barrier_sense[6]
     # mythic
     player_battle_sorae_url_mythic = resource_path('resources/art/player_battle_sprites_sorae_mythic.png')
     player_battle_sorae_sheet_mythic = sprite_sheet((750, 624), player_battle_sorae_url_mythic)
@@ -4045,17 +3710,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle_mythic"] = player_battle_sorae_sheet_mythic[4]
     loaded_dict["player_scout_sorae_attack_mythic"] = player_battle_sorae_sheet_mythic[5]
     loaded_dict["player_fighter_sorae_strike_mythic"] = player_battle_sorae_sheet_mythic[6]
-    # mythic barrier
-    player_battle_sorae_url_mythic_barrier = \
-        resource_path('resources/art/player_battle_sprites_sorae_mythic_barrier.png')
-    player_battle_sorae_sheet_mythic_barrier = sprite_sheet((750, 624), player_battle_sorae_url_mythic_barrier)
-    loaded_dict["player_mage_sorae_battle_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier[0]
-    loaded_dict["player_mage_sorae_attack_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier[1]
-    loaded_dict["player_fighter_sorae_battle_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier[2]
-    loaded_dict["player_fighter_sorae_attack_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier[3]
-    loaded_dict["player_scout_sorae_battle_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier[4]
-    loaded_dict["player_scout_sorae_attack_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier[5]
-    loaded_dict["player_fighter_sorae_strike_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier[6]
     # mythic sense
     player_battle_sorae_url_mythic_sense = resource_path('resources/art/player_battle_sprites_sorae_mythic_sense.png')
     player_battle_sorae_sheet_mythic_sense = sprite_sheet((750, 624), player_battle_sorae_url_mythic_sense)
@@ -4066,18 +3720,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle_mythic_sense"] = player_battle_sorae_sheet_mythic_sense[4]
     loaded_dict["player_scout_sorae_attack_mythic_sense"] = player_battle_sorae_sheet_mythic_sense[5]
     loaded_dict["player_fighter_sorae_strike_mythic_sense"] = player_battle_sorae_sheet_mythic_sense[6]
-    # mythic barrier sense
-    player_battle_sorae_url_mythic_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_sorae_mythic_barrier_sense.png')
-    player_battle_sorae_sheet_mythic_barrier_sense = \
-        sprite_sheet((750, 624), player_battle_sorae_url_mythic_barrier_sense)
-    loaded_dict["player_mage_sorae_battle_mythic_barrier_sense"] = player_battle_sorae_sheet_mythic_barrier_sense[0]
-    loaded_dict["player_mage_sorae_attack_mythic_barrier_sense"] = player_battle_sorae_sheet_mythic_barrier_sense[1]
-    loaded_dict["player_fighter_sorae_battle_mythic_barrier_sense"] = player_battle_sorae_sheet_mythic_barrier_sense[2]
-    loaded_dict["player_fighter_sorae_attack_mythic_barrier_sense"] = player_battle_sorae_sheet_mythic_barrier_sense[3]
-    loaded_dict["player_scout_sorae_battle_mythic_barrier_sense"] = player_battle_sorae_sheet_mythic_barrier_sense[4]
-    loaded_dict["player_scout_sorae_attack_mythic_barrier_sense"] = player_battle_sorae_sheet_mythic_barrier_sense[5]
-    loaded_dict["player_fighter_sorae_strike_mythic_barrier_sense"] = player_battle_sorae_sheet_mythic_barrier_sense[6]
     # legend
     player_battle_sorae_url_legend = resource_path('resources/art/player_battle_sprites_sorae_legend.png')
     player_battle_sorae_sheet_legend = sprite_sheet((750, 624), player_battle_sorae_url_legend)
@@ -4088,17 +3730,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle_legend"] = player_battle_sorae_sheet_legend[4]
     loaded_dict["player_scout_sorae_attack_legend"] = player_battle_sorae_sheet_legend[5]
     loaded_dict["player_fighter_sorae_strike_legend"] = player_battle_sorae_sheet_legend[6]
-    # legend barrier
-    player_battle_sorae_url_legend_barrier = \
-        resource_path('resources/art/player_battle_sprites_sorae_legend_barrier.png')
-    player_battle_sorae_sheet_legend_barrier = sprite_sheet((750, 624), player_battle_sorae_url_legend_barrier)
-    loaded_dict["player_mage_sorae_battle_legend_barrier"] = player_battle_sorae_sheet_legend_barrier[0]
-    loaded_dict["player_mage_sorae_attack_legend_barrier"] = player_battle_sorae_sheet_legend_barrier[1]
-    loaded_dict["player_fighter_sorae_battle_legend_barrier"] = player_battle_sorae_sheet_legend_barrier[2]
-    loaded_dict["player_fighter_sorae_attack_legend_barrier"] = player_battle_sorae_sheet_legend_barrier[3]
-    loaded_dict["player_scout_sorae_battle_legend_barrier"] = player_battle_sorae_sheet_legend_barrier[4]
-    loaded_dict["player_scout_sorae_attack_legend_barrier"] = player_battle_sorae_sheet_legend_barrier[5]
-    loaded_dict["player_fighter_sorae_strike_legend_barrier"] = player_battle_sorae_sheet_legend_barrier[6]
     # legend sense
     player_battle_sorae_url_legend_sense = resource_path('resources/art/player_battle_sprites_sorae_legend_sense.png')
     player_battle_sorae_sheet_legend_sense = sprite_sheet((750, 624), player_battle_sorae_url_legend_sense)
@@ -4109,18 +3740,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_battle_legend_sense"] = player_battle_sorae_sheet_legend_sense[4]
     loaded_dict["player_scout_sorae_attack_legend_sense"] = player_battle_sorae_sheet_legend_sense[5]
     loaded_dict["player_fighter_sorae_strike_legend_sense"] = player_battle_sorae_sheet_legend_sense[6]
-    # legend barrier sense
-    player_battle_sorae_url_legend_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_sorae_legend_barrier_sense.png')
-    player_battle_sorae_sheet_legend_barrier_sense = \
-        sprite_sheet((750, 624), player_battle_sorae_url_legend_barrier_sense)
-    loaded_dict["player_mage_sorae_battle_legend_barrier_sense"] = player_battle_sorae_sheet_legend_barrier_sense[0]
-    loaded_dict["player_mage_sorae_attack_legend_barrier_sense"] = player_battle_sorae_sheet_legend_barrier_sense[1]
-    loaded_dict["player_fighter_sorae_battle_legend_barrier_sense"] = player_battle_sorae_sheet_legend_barrier_sense[2]
-    loaded_dict["player_fighter_sorae_attack_legend_barrier_sense"] = player_battle_sorae_sheet_legend_barrier_sense[3]
-    loaded_dict["player_scout_sorae_battle_legend_barrier_sense"] = player_battle_sorae_sheet_legend_barrier_sense[4]
-    loaded_dict["player_scout_sorae_attack_legend_barrier_sense"] = player_battle_sorae_sheet_legend_barrier_sense[5]
-    loaded_dict["player_fighter_sorae_strike_legend_barrier_sense"] = player_battle_sorae_sheet_legend_barrier_sense[6]
     # beta -------------------------------------------------------------------------------------------------------------
     player_battle_sorae_url_b = resource_path('resources/art/player_battle_sprites_sorae_b.png')
     player_battle_sorae_sheet_b = sprite_sheet((750, 624), player_battle_sorae_url_b)
@@ -4133,16 +3752,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle"] = player_battle_sorae_sheet_b[6]
     loaded_dict["player_scout_sorae_b_attack"] = player_battle_sorae_sheet_b[7]
     loaded_dict["player_fighter_sorae_b_strike"] = player_battle_sorae_sheet_b[8]
-    # barrier
-    player_battle_sorae_url_barrier_b = resource_path('resources/art/player_battle_sprites_sorae_b_barrier.png')
-    player_battle_sorae_sheet_barrier_b = sprite_sheet((750, 624), player_battle_sorae_url_barrier_b)
-    loaded_dict["player_mage_sorae_b_battle_barrier"] = player_battle_sorae_sheet_barrier_b[2]
-    loaded_dict["player_mage_sorae_b_attack_barrier"] = player_battle_sorae_sheet_barrier_b[3]
-    loaded_dict["player_fighter_sorae_b_battle_barrier"] = player_battle_sorae_sheet_barrier_b[4]
-    loaded_dict["player_fighter_sorae_b_attack_barrier"] = player_battle_sorae_sheet_barrier_b[5]
-    loaded_dict["player_scout_sorae_b_battle_barrier"] = player_battle_sorae_sheet_barrier_b[6]
-    loaded_dict["player_scout_sorae_b_attack_barrier"] = player_battle_sorae_sheet_barrier_b[7]
-    loaded_dict["player_fighter_sorae_b_strike_barrier"] = player_battle_sorae_sheet_barrier_b[8]
     # sense
     player_battle_sorae_url_sense_b = resource_path('resources/art/player_battle_sprites_sorae_b_sense.png')
     player_battle_sorae_sheet_sense_b = sprite_sheet((750, 624), player_battle_sorae_url_sense_b)
@@ -4153,17 +3762,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle_sense"] = player_battle_sorae_sheet_sense_b[6]
     loaded_dict["player_scout_sorae_b_attack_sense"] = player_battle_sorae_sheet_sense_b[7]
     loaded_dict["player_fighter_sorae_b_strike_sense"] = player_battle_sorae_sheet_sense_b[8]
-    # barrier sense
-    player_battle_sorae_url_barrier_sense_b = \
-        resource_path('resources/art/player_battle_sprites_sorae_b_barrier_sense.png')
-    player_battle_sorae_sheet_barrier_sense_b = sprite_sheet((750, 624), player_battle_sorae_url_barrier_sense_b)
-    loaded_dict["player_mage_sorae_b_battle_barrier_sense"] = player_battle_sorae_sheet_barrier_sense_b[2]
-    loaded_dict["player_mage_sorae_b_attack_barrier_sense"] = player_battle_sorae_sheet_barrier_sense_b[3]
-    loaded_dict["player_fighter_sorae_b_battle_barrier_sense"] = player_battle_sorae_sheet_barrier_sense_b[4]
-    loaded_dict["player_fighter_sorae_b_attack_barrier_sense"] = player_battle_sorae_sheet_barrier_sense_b[5]
-    loaded_dict["player_scout_sorae_b_battle_barrier_sense"] = player_battle_sorae_sheet_barrier_sense_b[6]
-    loaded_dict["player_scout_sorae_b_attack_barrier_sense"] = player_battle_sorae_sheet_barrier_sense_b[7]
-    loaded_dict["player_fighter_sorae_b_strike_barrier_sense"] = player_battle_sorae_sheet_barrier_sense_b[8]
     # basic
     player_battle_sorae_url_basic_b = resource_path('resources/art/player_battle_sprites_sorae_b_basic.png')
     player_battle_sorae_sheet_basic_b = sprite_sheet((750, 624), player_battle_sorae_url_basic_b)
@@ -4174,17 +3772,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle_basic"] = player_battle_sorae_sheet_basic_b[4]
     loaded_dict["player_scout_sorae_b_attack_basic"] = player_battle_sorae_sheet_basic_b[5]
     loaded_dict["player_fighter_sorae_b_strike_basic"] = player_battle_sorae_sheet_basic_b[6]
-    # basic barrier
-    player_battle_sorae_url_basic_barrier_b = \
-        resource_path('resources/art/player_battle_sprites_sorae_b_basic_barrier.png')
-    player_battle_sorae_sheet_basic_barrier_b = sprite_sheet((750, 624), player_battle_sorae_url_basic_barrier_b)
-    loaded_dict["player_mage_sorae_b_battle_basic_barrier"] = player_battle_sorae_sheet_basic_barrier_b[0]
-    loaded_dict["player_mage_sorae_b_attack_basic_barrier"] = player_battle_sorae_sheet_basic_barrier_b[1]
-    loaded_dict["player_fighter_sorae_b_battle_basic_barrier"] = player_battle_sorae_sheet_basic_barrier_b[2]
-    loaded_dict["player_fighter_sorae_b_attack_basic_barrier"] = player_battle_sorae_sheet_basic_barrier_b[3]
-    loaded_dict["player_scout_sorae_b_battle_basic_barrier"] = player_battle_sorae_sheet_basic_barrier_b[4]
-    loaded_dict["player_scout_sorae_b_attack_basic_barrier"] = player_battle_sorae_sheet_basic_barrier_b[5]
-    loaded_dict["player_fighter_sorae_b_strike_basic_barrier"] = player_battle_sorae_sheet_basic_barrier_b[6]
     # basic sense
     player_battle_sorae_url_basic_sense_b = resource_path('resources/art/player_battle_sprites_sorae_b_basic_sense.png')
     player_battle_sorae_sheet_basic_sense_b = sprite_sheet((750, 624), player_battle_sorae_url_basic_sense_b)
@@ -4195,21 +3782,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle_basic_sense"] = player_battle_sorae_sheet_basic_sense_b[4]
     loaded_dict["player_scout_sorae_b_attack_basic_sense"] = player_battle_sorae_sheet_basic_sense_b[5]
     loaded_dict["player_fighter_sorae_b_strike_basic_sense"] = player_battle_sorae_sheet_basic_sense_b[6]
-    # basic barrier sense
-    player_battle_sorae_url_basic_barrier_sense_b = \
-        resource_path('resources/art/player_battle_sprites_sorae_b_basic_barrier_sense.png')
-    player_battle_sorae_sheet_basic_barrier_sense_b = \
-        sprite_sheet((750, 624), player_battle_sorae_url_basic_barrier_sense_b)
-    loaded_dict["player_mage_sorae_b_battle_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense_b[0]
-    loaded_dict["player_mage_sorae_b_attack_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense_b[1]
-    loaded_dict["player_fighter_sorae_b_battle_basic_barrier_sense"] = \
-        player_battle_sorae_sheet_basic_barrier_sense_b[2]
-    loaded_dict["player_fighter_sorae_b_attack_basic_barrier_sense"] = \
-        player_battle_sorae_sheet_basic_barrier_sense_b[3]
-    loaded_dict["player_scout_sorae_b_battle_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense_b[4]
-    loaded_dict["player_scout_sorae_b_attack_basic_barrier_sense"] = player_battle_sorae_sheet_basic_barrier_sense_b[5]
-    loaded_dict["player_fighter_sorae_b_strike_basic_barrier_sense"] = \
-        player_battle_sorae_sheet_basic_barrier_sense_b[6]
     # forged
     player_battle_sorae_url_forged_b = resource_path('resources/art/player_battle_sprites_sorae_b_forged.png')
     player_battle_sorae_sheet_forged_b = sprite_sheet((750, 624), player_battle_sorae_url_forged_b)
@@ -4220,17 +3792,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle_forged"] = player_battle_sorae_sheet_forged_b[4]
     loaded_dict["player_scout_sorae_b_attack_forged"] = player_battle_sorae_sheet_forged_b[5]
     loaded_dict["player_fighter_sorae_b_strike_forged"] = player_battle_sorae_sheet_forged_b[6]
-    # forged barrier
-    player_battle_sorae_url_forged_barrier_b = \
-        resource_path('resources/art/player_battle_sprites_sorae_b_forged_barrier.png')
-    player_battle_sorae_sheet_forged_barrier_b = sprite_sheet((750, 624), player_battle_sorae_url_forged_barrier_b)
-    loaded_dict["player_mage_sorae_b_battle_forged_barrier"] = player_battle_sorae_sheet_forged_barrier_b[0]
-    loaded_dict["player_mage_sorae_b_attack_forged_barrier"] = player_battle_sorae_sheet_forged_barrier_b[1]
-    loaded_dict["player_fighter_sorae_b_battle_forged_barrier"] = player_battle_sorae_sheet_forged_barrier_b[2]
-    loaded_dict["player_fighter_sorae_b_attack_forged_barrier"] = player_battle_sorae_sheet_forged_barrier_b[3]
-    loaded_dict["player_scout_sorae_b_battle_forged_barrier"] = player_battle_sorae_sheet_forged_barrier_b[4]
-    loaded_dict["player_scout_sorae_b_attack_forged_barrier"] = player_battle_sorae_sheet_forged_barrier_b[5]
-    loaded_dict["player_fighter_sorae_b_strike_forged_barrier"] = player_battle_sorae_sheet_forged_barrier_b[6]
     # forged sense
     player_battle_sorae_url_forged_sense_b = \
         resource_path('resources/art/player_battle_sprites_sorae_b_forged_sense.png')
@@ -4242,23 +3803,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle_forged_sense"] = player_battle_sorae_sheet_forged_sense_b[4]
     loaded_dict["player_scout_sorae_b_attack_forged_sense"] = player_battle_sorae_sheet_forged_sense_b[5]
     loaded_dict["player_fighter_sorae_b_strike_forged_sense"] = player_battle_sorae_sheet_forged_sense_b[6]
-    # forged barrier sense
-    player_battle_sorae_url_forged_barrier_sense_b = \
-        resource_path('resources/art/player_battle_sprites_sorae_b_forged_barrier_sense.png')
-    player_battle_sorae_sheet_forged_barrier_sense_b = \
-        sprite_sheet((750, 624), player_battle_sorae_url_forged_barrier_sense_b)
-    loaded_dict["player_mage_sorae_b_battle_forged_barrier_sense"] = player_battle_sorae_sheet_forged_barrier_sense_b[0]
-    loaded_dict["player_mage_sorae_b_attack_forged_barrier_sense"] = player_battle_sorae_sheet_forged_barrier_sense_b[1]
-    loaded_dict["player_fighter_sorae_b_battle_forged_barrier_sense"] = \
-        player_battle_sorae_sheet_forged_barrier_sense_b[2]
-    loaded_dict["player_fighter_sorae_b_attack_forged_barrier_sense"] = \
-        player_battle_sorae_sheet_forged_barrier_sense_b[3]
-    loaded_dict["player_scout_sorae_b_battle_forged_barrier_sense"] = \
-        player_battle_sorae_sheet_forged_barrier_sense_b[4]
-    loaded_dict["player_scout_sorae_b_attack_forged_barrier_sense"] = \
-        player_battle_sorae_sheet_forged_barrier_sense_b[5]
-    loaded_dict["player_fighter_sorae_b_strike_forged_barrier_sense"] = \
-        player_battle_sorae_sheet_forged_barrier_sense_b[6]
     # mythic
     player_battle_sorae_url_mythic_b = resource_path('resources/art/player_battle_sprites_sorae_b_mythic.png')
     player_battle_sorae_sheet_mythic_b = sprite_sheet((750, 624), player_battle_sorae_url_mythic_b)
@@ -4269,17 +3813,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle_mythic"] = player_battle_sorae_sheet_mythic_b[4]
     loaded_dict["player_scout_sorae_b_attack_mythic"] = player_battle_sorae_sheet_mythic_b[5]
     loaded_dict["player_fighter_sorae_b_strike_mythic"] = player_battle_sorae_sheet_mythic_b[6]
-    # mythic barrier
-    player_battle_sorae_url_mythic_barrier_b = \
-        resource_path('resources/art/player_battle_sprites_sorae_b_mythic_barrier.png')
-    player_battle_sorae_sheet_mythic_barrier_b = sprite_sheet((750, 624), player_battle_sorae_url_mythic_barrier_b)
-    loaded_dict["player_mage_sorae_b_battle_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier_b[0]
-    loaded_dict["player_mage_sorae_b_attack_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier_b[1]
-    loaded_dict["player_fighter_sorae_b_battle_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier_b[2]
-    loaded_dict["player_fighter_sorae_b_attack_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier_b[3]
-    loaded_dict["player_scout_sorae_b_battle_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier_b[4]
-    loaded_dict["player_scout_sorae_b_attack_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier_b[5]
-    loaded_dict["player_fighter_sorae_b_strike_mythic_barrier"] = player_battle_sorae_sheet_mythic_barrier_b[6]
     # mythic sense
     player_battle_sorae_url_mythic_sense_b = \
         resource_path('resources/art/player_battle_sprites_sorae_b_mythic_sense.png')
@@ -4291,23 +3824,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle_mythic_sense"] = player_battle_sorae_sheet_mythic_sense_b[4]
     loaded_dict["player_scout_sorae_b_attack_mythic_sense"] = player_battle_sorae_sheet_mythic_sense_b[5]
     loaded_dict["player_fighter_sorae_b_strike_mythic_sense"] = player_battle_sorae_sheet_mythic_sense_b[6]
-    # mythic barrier sense
-    player_battle_sorae_url_mythic_barrier_sense_b = \
-        resource_path('resources/art/player_battle_sprites_sorae_b_mythic_barrier_sense.png')
-    player_battle_sorae_sheet_mythic_barrier_sense_b = \
-        sprite_sheet((750, 624), player_battle_sorae_url_mythic_barrier_sense_b)
-    loaded_dict["player_mage_sorae_b_battle_mythic_barrier_sense"] = player_battle_sorae_sheet_mythic_barrier_sense_b[0]
-    loaded_dict["player_mage_sorae_b_attack_mythic_barrier_sense"] = player_battle_sorae_sheet_mythic_barrier_sense_b[1]
-    loaded_dict["player_fighter_sorae_b_battle_mythic_barrier_sense"] = \
-        player_battle_sorae_sheet_mythic_barrier_sense_b[2]
-    loaded_dict["player_fighter_sorae_b_attack_mythic_barrier_sense"] = \
-        player_battle_sorae_sheet_mythic_barrier_sense_b[3]
-    loaded_dict["player_scout_sorae_b_battle_mythic_barrier_sense"] = \
-        player_battle_sorae_sheet_mythic_barrier_sense_b[4]
-    loaded_dict["player_scout_sorae_b_attack_mythic_barrier_sense"] = \
-        player_battle_sorae_sheet_mythic_barrier_sense_b[5]
-    loaded_dict["player_fighter_sorae_b_strike_mythic_barrier_sense"] = \
-        player_battle_sorae_sheet_mythic_barrier_sense_b[6]
     # legend
     player_battle_sorae_url_legend_b = resource_path('resources/art/player_battle_sprites_sorae_b_legend.png')
     player_battle_sorae_sheet_legend_b = sprite_sheet((750, 624), player_battle_sorae_url_legend_b)
@@ -4318,17 +3834,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle_legend"] = player_battle_sorae_sheet_legend_b[4]
     loaded_dict["player_scout_sorae_b_attack_legend"] = player_battle_sorae_sheet_legend_b[5]
     loaded_dict["player_fighter_sorae_b_strike_legend"] = player_battle_sorae_sheet_legend_b[6]
-    # legend barrier
-    player_battle_sorae_url_legend_barrier_b = \
-        resource_path('resources/art/player_battle_sprites_sorae_b_legend_barrier.png')
-    player_battle_sorae_sheet_legend_barrier_b = sprite_sheet((750, 624), player_battle_sorae_url_legend_barrier_b)
-    loaded_dict["player_mage_sorae_b_battle_legend_barrier"] = player_battle_sorae_sheet_legend_barrier_b[0]
-    loaded_dict["player_mage_sorae_b_attack_legend_barrier"] = player_battle_sorae_sheet_legend_barrier_b[1]
-    loaded_dict["player_fighter_sorae_b_battle_legend_barrier"] = player_battle_sorae_sheet_legend_barrier_b[2]
-    loaded_dict["player_fighter_sorae_b_attack_legend_barrier"] = player_battle_sorae_sheet_legend_barrier_b[3]
-    loaded_dict["player_scout_sorae_b_battle_legend_barrier"] = player_battle_sorae_sheet_legend_barrier_b[4]
-    loaded_dict["player_scout_sorae_b_attack_legend_barrier"] = player_battle_sorae_sheet_legend_barrier_b[5]
-    loaded_dict["player_fighter_sorae_b_strike_legend_barrier"] = player_battle_sorae_sheet_legend_barrier_b[6]
     # legend sense
     player_battle_sorae_url_legend_sense_b = \
         resource_path('resources/art/player_battle_sprites_sorae_b_legend_sense.png')
@@ -4340,23 +3845,6 @@ def load_graphics():
     loaded_dict["player_scout_sorae_b_battle_legend_sense"] = player_battle_sorae_sheet_legend_sense_b[4]
     loaded_dict["player_scout_sorae_b_attack_legend_sense"] = player_battle_sorae_sheet_legend_sense_b[5]
     loaded_dict["player_fighter_sorae_b_strike_legend_sense"] = player_battle_sorae_sheet_legend_sense_b[6]
-    # legend barrier sense
-    player_battle_sorae_url_legend_barrier_sense_b = \
-        resource_path('resources/art/player_battle_sprites_sorae_b_legend_barrier_sense.png')
-    player_battle_sorae_sheet_legend_barrier_sense_b = \
-        sprite_sheet((750, 624), player_battle_sorae_url_legend_barrier_sense_b)
-    loaded_dict["player_mage_sorae_b_battle_legend_barrier_sense"] = player_battle_sorae_sheet_legend_barrier_sense_b[0]
-    loaded_dict["player_mage_sorae_b_attack_legend_barrier_sense"] = player_battle_sorae_sheet_legend_barrier_sense_b[1]
-    loaded_dict["player_fighter_sorae_b_battle_legend_barrier_sense"] = \
-        player_battle_sorae_sheet_legend_barrier_sense_b[2]
-    loaded_dict["player_fighter_sorae_b_attack_legend_barrier_sense"] = \
-        player_battle_sorae_sheet_legend_barrier_sense_b[3]
-    loaded_dict["player_scout_sorae_b_battle_legend_barrier_sense"] = \
-        player_battle_sorae_sheet_legend_barrier_sense_b[4]
-    loaded_dict["player_scout_sorae_b_attack_legend_barrier_sense"] = \
-        player_battle_sorae_sheet_legend_barrier_sense_b[5]
-    loaded_dict["player_fighter_sorae_b_strike_legend_barrier_sense"] = \
-        player_battle_sorae_sheet_legend_barrier_sense_b[6]
     # player battle nuldar race ----------------------------------------------------------------------------------------
     # male -------------------------------------------------------------------------------------------------------------
     player_battle_nuldar_url = resource_path('resources/art/player_battle_sprites_nuldar.png')
@@ -4370,18 +3858,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle"] = player_battle_nuldar_sheet[6]
     loaded_dict["player_scout_nuldar_attack"] = player_battle_nuldar_sheet[7]
     loaded_dict["player_fighter_nuldar_strike"] = player_battle_nuldar_sheet[8]
-    # barrier
-    player_battle_nuldar_url_barrier = resource_path('resources/art/player_battle_sprites_nuldar_barrier.png')
-    player_battle_nuldar_sheet_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_barrier)
-    loaded_dict["player_no_role_nuldar_battle_barrier"] = player_battle_nuldar_sheet_barrier[0]
-    loaded_dict["player_no_role_nuldar_attack_barrier"] = player_battle_nuldar_sheet_barrier[1]
-    loaded_dict["player_mage_nuldar_battle_barrier"] = player_battle_nuldar_sheet_barrier[2]
-    loaded_dict["player_mage_nuldar_attack_barrier"] = player_battle_nuldar_sheet_barrier[3]
-    loaded_dict["player_fighter_nuldar_battle_barrier"] = player_battle_nuldar_sheet_barrier[4]
-    loaded_dict["player_fighter_nuldar_attack_barrier"] = player_battle_nuldar_sheet_barrier[5]
-    loaded_dict["player_scout_nuldar_battle_barrier"] = player_battle_nuldar_sheet_barrier[6]
-    loaded_dict["player_scout_nuldar_attack_barrier"] = player_battle_nuldar_sheet_barrier[7]
-    loaded_dict["player_fighter_nuldar_strike_barrier"] = player_battle_nuldar_sheet_barrier[8]
     # sense
     player_battle_nuldar_url_sense = resource_path('resources/art/player_battle_sprites_nuldar_sense.png')
     player_battle_nuldar_sheet_sense = sprite_sheet((750, 624), player_battle_nuldar_url_sense)
@@ -4394,19 +3870,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_sense"] = player_battle_nuldar_sheet_sense[6]
     loaded_dict["player_scout_nuldar_attack_sense"] = player_battle_nuldar_sheet_sense[7]
     loaded_dict["player_fighter_nuldar_strike_sense"] = player_battle_nuldar_sheet_sense[8]
-    # barrier sense
-    player_battle_nuldar_url_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_nuldar_barrier_sense.png')
-    player_battle_nuldar_sheet_barrier_sense = sprite_sheet((750, 624), player_battle_nuldar_url_barrier_sense)
-    loaded_dict["player_no_role_nuldar_battle_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[0]
-    loaded_dict["player_no_role_nuldar_attack_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[1]
-    loaded_dict["player_mage_nuldar_battle_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[2]
-    loaded_dict["player_mage_nuldar_attack_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[3]
-    loaded_dict["player_fighter_nuldar_battle_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[4]
-    loaded_dict["player_fighter_nuldar_attack_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[5]
-    loaded_dict["player_scout_nuldar_battle_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[6]
-    loaded_dict["player_scout_nuldar_attack_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[7]
-    loaded_dict["player_fighter_nuldar_strike_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[8]
     # basic
     player_battle_nuldar_url_basic = resource_path('resources/art/player_battle_sprites_nuldar_basic.png')
     player_battle_nuldar_sheet_basic = sprite_sheet((750, 624), player_battle_nuldar_url_basic)
@@ -4417,17 +3880,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_basic"] = player_battle_nuldar_sheet_basic[4]
     loaded_dict["player_scout_nuldar_attack_basic"] = player_battle_nuldar_sheet_basic[5]
     loaded_dict["player_fighter_nuldar_strike_basic"] = player_battle_nuldar_sheet_basic[6]
-    # basic barrier
-    player_battle_nuldar_url_basic_barrier = resource_path('resources/art/player_battle_sprites_nuldar_'
-                                                           'basic_barrier.png')
-    player_battle_nuldar_sheet_basic_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_basic_barrier)
-    loaded_dict["player_mage_nuldar_battle_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[0]
-    loaded_dict["player_mage_nuldar_attack_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[1]
-    loaded_dict["player_fighter_nuldar_battle_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[2]
-    loaded_dict["player_fighter_nuldar_attack_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[3]
-    loaded_dict["player_scout_nuldar_battle_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[4]
-    loaded_dict["player_scout_nuldar_attack_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[5]
-    loaded_dict["player_fighter_nuldar_strike_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[6]
     # basic sense
     player_battle_nuldar_url_basic_sense = resource_path('resources/art/player_battle_sprites_nuldar_basic_sense.png')
     player_battle_nuldar_sheet_basic_sense = sprite_sheet((750, 624), player_battle_nuldar_url_basic_sense)
@@ -4438,18 +3890,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_basic_sense"] = player_battle_nuldar_sheet_basic_sense[4]
     loaded_dict["player_scout_nuldar_attack_basic_sense"] = player_battle_nuldar_sheet_basic_sense[5]
     loaded_dict["player_fighter_nuldar_strike_basic_sense"] = player_battle_nuldar_sheet_basic_sense[6]
-    # basic barrier sense
-    player_battle_nuldar_url_basic_barrier_sense = resource_path('resources/art/player_battle_sprites_nuldar_'
-                                                                 'basic_barrier_sense.png')
-    player_battle_nuldar_sheet_basic_barrier_sense = sprite_sheet((750, 624),
-                                                                  player_battle_nuldar_url_basic_barrier_sense)
-    loaded_dict["player_mage_nuldar_battle_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[0]
-    loaded_dict["player_mage_nuldar_attack_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[1]
-    loaded_dict["player_fighter_nuldar_battle_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[2]
-    loaded_dict["player_fighter_nuldar_attack_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[3]
-    loaded_dict["player_scout_nuldar_battle_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[4]
-    loaded_dict["player_scout_nuldar_attack_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[5]
-    loaded_dict["player_fighter_nuldar_strike_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[6]
     # forged
     player_battle_nuldar_url_forged = resource_path('resources/art/player_battle_sprites_nuldar_forged.png')
     player_battle_nuldar_sheet_forged = sprite_sheet((750, 624), player_battle_nuldar_url_forged)
@@ -4460,17 +3900,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_forged"] = player_battle_nuldar_sheet_forged[4]
     loaded_dict["player_scout_nuldar_attack_forged"] = player_battle_nuldar_sheet_forged[5]
     loaded_dict["player_fighter_nuldar_strike_forged"] = player_battle_nuldar_sheet_forged[6]
-    # forged barrier
-    player_battle_nuldar_url_forged_barrier = resource_path('resources/art/player_battle_sprites_nuldar_'
-                                                            'forged_barrier.png')
-    player_battle_nuldar_sheet_forged_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_forged_barrier)
-    loaded_dict["player_mage_nuldar_battle_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[0]
-    loaded_dict["player_mage_nuldar_attack_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[1]
-    loaded_dict["player_fighter_nuldar_battle_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[2]
-    loaded_dict["player_fighter_nuldar_attack_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[3]
-    loaded_dict["player_scout_nuldar_battle_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[4]
-    loaded_dict["player_scout_nuldar_attack_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[5]
-    loaded_dict["player_fighter_nuldar_strike_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[6]
     # forged sense
     player_battle_nuldar_url_forged_sense = resource_path('resources/art/player_battle_sprites_nuldar_forged_sense.png')
     player_battle_nuldar_sheet_forged_sense = sprite_sheet((750, 624), player_battle_nuldar_url_forged_sense)
@@ -4481,21 +3910,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_forged_sense"] = player_battle_nuldar_sheet_forged_sense[4]
     loaded_dict["player_scout_nuldar_attack_forged_sense"] = player_battle_nuldar_sheet_forged_sense[5]
     loaded_dict["player_fighter_nuldar_strike_forged_sense"] = player_battle_nuldar_sheet_forged_sense[6]
-    # forged barrier sense
-    player_battle_nuldar_url_forged_barrier_sense = resource_path('resources/art/player_battle_sprites_nuldar_'
-                                                                  'forged_barrier_sense.png')
-    player_battle_nuldar_sheet_forged_barrier_sense = sprite_sheet((750, 624),
-                                                                   player_battle_nuldar_url_forged_barrier_sense)
-    loaded_dict["player_mage_nuldar_battle_forged_barrier_sense"] = player_battle_nuldar_sheet_forged_barrier_sense[0]
-    loaded_dict["player_mage_nuldar_attack_forged_barrier_sense"] = player_battle_nuldar_sheet_forged_barrier_sense[1]
-    loaded_dict["player_fighter_nuldar_battle_forged_barrier_sense"] = \
-        player_battle_nuldar_sheet_forged_barrier_sense[2]
-    loaded_dict["player_fighter_nuldar_attack_forged_barrier_sense"] = \
-        player_battle_nuldar_sheet_forged_barrier_sense[3]
-    loaded_dict["player_scout_nuldar_battle_forged_barrier_sense"] = player_battle_nuldar_sheet_forged_barrier_sense[4]
-    loaded_dict["player_scout_nuldar_attack_forged_barrier_sense"] = player_battle_nuldar_sheet_forged_barrier_sense[5]
-    loaded_dict["player_fighter_nuldar_strike_forged_barrier_sense"] = \
-        player_battle_nuldar_sheet_forged_barrier_sense[6]
     # mythic
     player_battle_nuldar_url_mythic = resource_path('resources/art/player_battle_sprites_nuldar_mythic.png')
     player_battle_nuldar_sheet_mythic = sprite_sheet((750, 624), player_battle_nuldar_url_mythic)
@@ -4506,17 +3920,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_mythic"] = player_battle_nuldar_sheet_mythic[4]
     loaded_dict["player_scout_nuldar_attack_mythic"] = player_battle_nuldar_sheet_mythic[5]
     loaded_dict["player_fighter_nuldar_strike_mythic"] = player_battle_nuldar_sheet_mythic[6]
-    # mythic barrier
-    player_battle_nuldar_url_mythic_barrier = resource_path('resources/art/player_battle_sprites_nuldar_'
-                                                            'mythic_barrier.png')
-    player_battle_nuldar_sheet_mythic_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_mythic_barrier)
-    loaded_dict["player_mage_nuldar_battle_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[0]
-    loaded_dict["player_mage_nuldar_attack_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[1]
-    loaded_dict["player_fighter_nuldar_battle_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[2]
-    loaded_dict["player_fighter_nuldar_attack_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[3]
-    loaded_dict["player_scout_nuldar_battle_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[4]
-    loaded_dict["player_scout_nuldar_attack_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[5]
-    loaded_dict["player_fighter_nuldar_strike_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[6]
     # mythic sense
     player_battle_nuldar_url_mythic_sense = resource_path('resources/art/player_battle_sprites_nuldar_mythic_sense.png')
     player_battle_nuldar_sheet_mythic_sense = sprite_sheet((750, 624), player_battle_nuldar_url_mythic_sense)
@@ -4527,21 +3930,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[4]
     loaded_dict["player_scout_nuldar_attack_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[5]
     loaded_dict["player_fighter_nuldar_strike_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[6]
-    # mythic barrier sense
-    player_battle_nuldar_url_mythic_barrier_sense = resource_path('resources/art/player_battle_sprites_nuldar_'
-                                                                  'mythic_barrier_sense.png')
-    player_battle_nuldar_sheet_mythic_barrier_sense = sprite_sheet((750, 624),
-                                                                   player_battle_nuldar_url_mythic_barrier_sense)
-    loaded_dict["player_mage_nuldar_battle_mythic_barrier_sense"] = player_battle_nuldar_sheet_mythic_barrier_sense[0]
-    loaded_dict["player_mage_nuldar_attack_mythic_barrier_sense"] = player_battle_nuldar_sheet_mythic_barrier_sense[1]
-    loaded_dict["player_fighter_nuldar_battle_mythic_barrier_sense"] = \
-        player_battle_nuldar_sheet_mythic_barrier_sense[2]
-    loaded_dict["player_fighter_nuldar_attack_mythic_barrier_sense"] = \
-        player_battle_nuldar_sheet_mythic_barrier_sense[3]
-    loaded_dict["player_scout_nuldar_battle_mythic_barrier_sense"] = player_battle_nuldar_sheet_mythic_barrier_sense[4]
-    loaded_dict["player_scout_nuldar_attack_mythic_barrier_sense"] = player_battle_nuldar_sheet_mythic_barrier_sense[5]
-    loaded_dict["player_fighter_nuldar_strike_mythic_barrier_sense"] = \
-        player_battle_nuldar_sheet_mythic_barrier_sense[6]
     # legend
     player_battle_nuldar_url_legend = resource_path('resources/art/player_battle_sprites_nuldar_legend.png')
     player_battle_nuldar_sheet_legend = sprite_sheet((750, 624), player_battle_nuldar_url_legend)
@@ -4552,17 +3940,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_legend"] = player_battle_nuldar_sheet_legend[4]
     loaded_dict["player_scout_nuldar_attack_legend"] = player_battle_nuldar_sheet_legend[5]
     loaded_dict["player_fighter_nuldar_strike_legend"] = player_battle_nuldar_sheet_legend[6]
-    # legend barrier
-    player_battle_nuldar_url_legend_barrier = resource_path('resources/art/player_battle_sprites_nuldar_'
-                                                            'legend_barrier.png')
-    player_battle_nuldar_sheet_legend_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_legend_barrier)
-    loaded_dict["player_mage_nuldar_battle_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[0]
-    loaded_dict["player_mage_nuldar_attack_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[1]
-    loaded_dict["player_fighter_nuldar_battle_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[2]
-    loaded_dict["player_fighter_nuldar_attack_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[3]
-    loaded_dict["player_scout_nuldar_battle_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[4]
-    loaded_dict["player_scout_nuldar_attack_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[5]
-    loaded_dict["player_fighter_nuldar_strike_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[6]
     # legend sense
     player_battle_nuldar_url_legend_sense = resource_path('resources/art/player_battle_sprites_nuldar_legend_sense.png')
     player_battle_nuldar_sheet_legend_sense = sprite_sheet((750, 624), player_battle_nuldar_url_legend_sense)
@@ -4573,21 +3950,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_legend_sense"] = player_battle_nuldar_sheet_legend_sense[4]
     loaded_dict["player_scout_nuldar_attack_legend_sense"] = player_battle_nuldar_sheet_legend_sense[5]
     loaded_dict["player_fighter_nuldar_strike_legend_sense"] = player_battle_nuldar_sheet_legend_sense[6]
-    # legend barrier sense
-    player_battle_nuldar_url_legend_barrier_sense = resource_path('resources/art/player_battle_sprites_nuldar_'
-                                                                  'legend_barrier_sense.png')
-    player_battle_nuldar_sheet_legend_barrier_sense = sprite_sheet((750, 624),
-                                                                   player_battle_nuldar_url_legend_barrier_sense)
-    loaded_dict["player_mage_nuldar_battle_legend_barrier_sense"] = player_battle_nuldar_sheet_legend_barrier_sense[0]
-    loaded_dict["player_mage_nuldar_attack_legend_barrier_sense"] = player_battle_nuldar_sheet_legend_barrier_sense[1]
-    loaded_dict["player_fighter_nuldar_battle_legend_barrier_sense"] = \
-        player_battle_nuldar_sheet_legend_barrier_sense[2]
-    loaded_dict["player_fighter_nuldar_attack_legend_barrier_sense"] = \
-        player_battle_nuldar_sheet_legend_barrier_sense[3]
-    loaded_dict["player_scout_nuldar_battle_legend_barrier_sense"] = player_battle_nuldar_sheet_legend_barrier_sense[4]
-    loaded_dict["player_scout_nuldar_attack_legend_barrier_sense"] = player_battle_nuldar_sheet_legend_barrier_sense[5]
-    loaded_dict["player_fighter_nuldar_strike_legend_barrier_sense"] = \
-        player_battle_nuldar_sheet_legend_barrier_sense[6]
     # female -----------------------------------------------------------------------------------------------------------
     player_battle_nuldar_female_url = resource_path('resources/art/player_battle_sprites_nuldar_female.png')
     player_battle_nuldar_female_sheet = sprite_sheet((750, 624), player_battle_nuldar_female_url)
@@ -4600,19 +3962,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle"] = player_battle_nuldar_female_sheet[6]
     loaded_dict["player_scout_nuldar_female_attack"] = player_battle_nuldar_female_sheet[7]
     loaded_dict["player_fighter_nuldar_female_strike"] = player_battle_nuldar_female_sheet[8]
-    # barrier
-    player_battle_nuldar_female_url_barrier = \
-        resource_path('resources/art/player_battle_sprites_nuldar_female_barrier.png')
-    player_battle_nuldar_female_sheet_barrier = sprite_sheet((750, 624), player_battle_nuldar_female_url_barrier)
-    loaded_dict["player_no_role_nuldar_female_battle_barrier"] = player_battle_nuldar_female_sheet_barrier[0]
-    loaded_dict["player_no_role_nuldar_female_attack_barrier"] = player_battle_nuldar_female_sheet_barrier[1]
-    loaded_dict["player_mage_nuldar_female_battle_barrier"] = player_battle_nuldar_female_sheet_barrier[2]
-    loaded_dict["player_mage_nuldar_female_attack_barrier"] = player_battle_nuldar_female_sheet_barrier[3]
-    loaded_dict["player_fighter_nuldar_female_battle_barrier"] = player_battle_nuldar_female_sheet_barrier[4]
-    loaded_dict["player_fighter_nuldar_female_attack_barrier"] = player_battle_nuldar_female_sheet_barrier[5]
-    loaded_dict["player_scout_nuldar_female_battle_barrier"] = player_battle_nuldar_female_sheet_barrier[6]
-    loaded_dict["player_scout_nuldar_female_attack_barrier"] = player_battle_nuldar_female_sheet_barrier[7]
-    loaded_dict["player_fighter_nuldar_female_strike_barrier"] = player_battle_nuldar_female_sheet_barrier[8]
     # sense
     player_battle_nuldar_female_url_sense = resource_path('resources/art/player_battle_sprites_nuldar_female_sense.png')
     player_battle_nuldar_female_sheet_sense = sprite_sheet((750, 624), player_battle_nuldar_female_url_sense)
@@ -4625,25 +3974,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle_sense"] = player_battle_nuldar_female_sheet_sense[6]
     loaded_dict["player_scout_nuldar_female_attack_sense"] = player_battle_nuldar_female_sheet_sense[7]
     loaded_dict["player_fighter_nuldar_female_strike_sense"] = player_battle_nuldar_female_sheet_sense[8]
-    # barrier sense
-    player_battle_nuldar_female_url_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_nuldar_female_barrier_sense.png')
-    player_battle_nuldar_female_sheet_barrier_sense = \
-        sprite_sheet((750, 624), player_battle_nuldar_female_url_barrier_sense)
-    loaded_dict["player_no_role_nuldar_female_battle_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_barrier_sense[0]
-    loaded_dict["player_no_role_nuldar_female_attack_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_barrier_sense[1]
-    loaded_dict["player_mage_nuldar_female_battle_barrier_sense"] = player_battle_nuldar_female_sheet_barrier_sense[2]
-    loaded_dict["player_mage_nuldar_female_attack_barrier_sense"] = player_battle_nuldar_female_sheet_barrier_sense[3]
-    loaded_dict["player_fighter_nuldar_female_battle_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_barrier_sense[4]
-    loaded_dict["player_fighter_nuldar_female_attack_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_barrier_sense[5]
-    loaded_dict["player_scout_nuldar_female_battle_barrier_sense"] = player_battle_nuldar_female_sheet_barrier_sense[6]
-    loaded_dict["player_scout_nuldar_female_attack_barrier_sense"] = player_battle_nuldar_female_sheet_barrier_sense[7]
-    loaded_dict["player_fighter_nuldar_female_strike_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_barrier_sense[8]
     # basic
     player_battle_nuldar_female_url_basic = resource_path('resources/art/player_battle_sprites_nuldar_female_basic.png')
     player_battle_nuldar_female_sheet_basic = sprite_sheet((750, 624), player_battle_nuldar_female_url_basic)
@@ -4654,21 +3984,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle_basic"] = player_battle_nuldar_female_sheet_basic[4]
     loaded_dict["player_scout_nuldar_female_attack_basic"] = player_battle_nuldar_female_sheet_basic[5]
     loaded_dict["player_fighter_nuldar_female_strike_basic"] = player_battle_nuldar_female_sheet_basic[6]
-    # basic barrier
-    player_battle_nuldar_female_url_basic_barrier = \
-        resource_path('resources/art/player_battle_sprites_nuldar_female_basic_barrier.png')
-    player_battle_nuldar_female_sheet_basic_barrier = \
-        sprite_sheet((750, 624), player_battle_nuldar_female_url_basic_barrier)
-    loaded_dict["player_mage_nuldar_female_battle_basic_barrier"] = player_battle_nuldar_female_sheet_basic_barrier[0]
-    loaded_dict["player_mage_nuldar_female_attack_basic_barrier"] = player_battle_nuldar_female_sheet_basic_barrier[1]
-    loaded_dict["player_fighter_nuldar_female_battle_basic_barrier"] = \
-        player_battle_nuldar_female_sheet_basic_barrier[2]
-    loaded_dict["player_fighter_nuldar_female_attack_basic_barrier"] = \
-        player_battle_nuldar_female_sheet_basic_barrier[3]
-    loaded_dict["player_scout_nuldar_female_battle_basic_barrier"] = player_battle_nuldar_female_sheet_basic_barrier[4]
-    loaded_dict["player_scout_nuldar_female_attack_basic_barrier"] = player_battle_nuldar_female_sheet_basic_barrier[5]
-    loaded_dict["player_fighter_nuldar_female_strike_basic_barrier"] = \
-        player_battle_nuldar_female_sheet_basic_barrier[6]
     # basic sense
     player_battle_nuldar_female_url_basic_sense = \
         resource_path('resources/art/player_battle_sprites_nuldar_female_basic_sense.png')
@@ -4681,25 +3996,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle_basic_sense"] = player_battle_nuldar_female_sheet_basic_sense[4]
     loaded_dict["player_scout_nuldar_female_attack_basic_sense"] = player_battle_nuldar_female_sheet_basic_sense[5]
     loaded_dict["player_fighter_nuldar_female_strike_basic_sense"] = player_battle_nuldar_female_sheet_basic_sense[6]
-    # basic barrier sense
-    player_battle_nuldar_female_url_basic_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_nuldar_female_basic_barrier_sense.png')
-    player_battle_nuldar_female_sheet_basic_barrier_sense = \
-        sprite_sheet((750, 624), player_battle_nuldar_female_url_basic_barrier_sense)
-    loaded_dict["player_mage_nuldar_female_battle_basic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_basic_barrier_sense[0]
-    loaded_dict["player_mage_nuldar_female_attack_basic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_basic_barrier_sense[1]
-    loaded_dict["player_fighter_nuldar_female_battle_basic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_basic_barrier_sense[2]
-    loaded_dict["player_fighter_nuldar_female_attack_basic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_basic_barrier_sense[3]
-    loaded_dict["player_scout_nuldar_female_battle_basic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_basic_barrier_sense[4]
-    loaded_dict["player_scout_nuldar_female_attack_basic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_basic_barrier_sense[5]
-    loaded_dict["player_fighter_nuldar_female_strike_basic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_basic_barrier_sense[6]
     # forged
     player_battle_nuldar_female_url_forged = resource_path('resources/art/'
                                                            'player_battle_sprites_nuldar_female_forged.png')
@@ -4711,23 +4007,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle_forged"] = player_battle_nuldar_female_sheet_forged[4]
     loaded_dict["player_scout_nuldar_female_attack_forged"] = player_battle_nuldar_female_sheet_forged[5]
     loaded_dict["player_fighter_nuldar_female_strike_forged"] = player_battle_nuldar_female_sheet_forged[6]
-    # forged barrier
-    player_battle_nuldar_female_url_forged_barrier = resource_path('resources/art/player_battle_sprites_nuldar_'
-                                                                   'female_forged_barrier.png')
-    player_battle_nuldar_female_sheet_forged_barrier = sprite_sheet((750, 624),
-                                                                    player_battle_nuldar_female_url_forged_barrier)
-    loaded_dict["player_mage_nuldar_female_battle_forged_barrier"] = player_battle_nuldar_female_sheet_forged_barrier[0]
-    loaded_dict["player_mage_nuldar_female_attack_forged_barrier"] = player_battle_nuldar_female_sheet_forged_barrier[1]
-    loaded_dict["player_fighter_nuldar_female_battle_forged_barrier"] = \
-        player_battle_nuldar_female_sheet_forged_barrier[2]
-    loaded_dict["player_fighter_nuldar_female_attack_forged_barrier"] =\
-        player_battle_nuldar_female_sheet_forged_barrier[3]
-    loaded_dict["player_scout_nuldar_female_battle_forged_barrier"] = \
-        player_battle_nuldar_female_sheet_forged_barrier[4]
-    loaded_dict["player_scout_nuldar_female_attack_forged_barrier"] = \
-        player_battle_nuldar_female_sheet_forged_barrier[5]
-    loaded_dict["player_fighter_nuldar_female_strike_forged_barrier"] = \
-        player_battle_nuldar_female_sheet_forged_barrier[6]
     # forged sense
     player_battle_nuldar_female_url_forged_sense = \
         resource_path('resources/art/player_battle_sprites_nuldar_female_forged_sense.png')
@@ -4740,25 +4019,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle_forged_sense"] = player_battle_nuldar_female_sheet_forged_sense[4]
     loaded_dict["player_scout_nuldar_female_attack_forged_sense"] = player_battle_nuldar_female_sheet_forged_sense[5]
     loaded_dict["player_fighter_nuldar_female_strike_forged_sense"] = player_battle_nuldar_female_sheet_forged_sense[6]
-    # forged barrier sense
-    player_battle_nuldar_female_url_forged_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_nuldar_female_forged_barrier_sense.png')
-    player_battle_nuldar_female_sheet_forged_barrier_sense = \
-        sprite_sheet((750, 624), player_battle_nuldar_female_url_forged_barrier_sense)
-    loaded_dict["player_mage_nuldar_female_battle_forged_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_forged_barrier_sense[0]
-    loaded_dict["player_mage_nuldar_female_attack_forged_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_forged_barrier_sense[1]
-    loaded_dict["player_fighter_nuldar_female_battle_forged_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_forged_barrier_sense[2]
-    loaded_dict["player_fighter_nuldar_female_attack_forged_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_forged_barrier_sense[3]
-    loaded_dict["player_scout_nuldar_female_battle_forged_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_forged_barrier_sense[4]
-    loaded_dict["player_scout_nuldar_female_attack_forged_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_forged_barrier_sense[5]
-    loaded_dict["player_fighter_nuldar_female_strike_forged_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_forged_barrier_sense[6]
     # mythic
     player_battle_nuldar_female_url_mythic = resource_path('resources/art/'
                                                            'player_battle_sprites_nuldar_female_mythic.png')
@@ -4770,23 +4030,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle_mythic"] = player_battle_nuldar_female_sheet_mythic[4]
     loaded_dict["player_scout_nuldar_female_attack_mythic"] = player_battle_nuldar_female_sheet_mythic[5]
     loaded_dict["player_fighter_nuldar_female_strike_mythic"] = player_battle_nuldar_female_sheet_mythic[6]
-    # mythic barrier
-    player_battle_nuldar_female_url_mythic_barrier = \
-        resource_path('resources/art/player_battle_sprites_nuldar_female_mythic_barrier.png')
-    player_battle_nuldar_female_sheet_mythic_barrier = \
-        sprite_sheet((750, 624), player_battle_nuldar_female_url_mythic_barrier)
-    loaded_dict["player_mage_nuldar_female_battle_mythic_barrier"] = player_battle_nuldar_female_sheet_mythic_barrier[0]
-    loaded_dict["player_mage_nuldar_female_attack_mythic_barrier"] = player_battle_nuldar_female_sheet_mythic_barrier[1]
-    loaded_dict["player_fighter_nuldar_female_battle_mythic_barrier"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier[2]
-    loaded_dict["player_fighter_nuldar_female_attack_mythic_barrier"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier[3]
-    loaded_dict["player_scout_nuldar_female_battle_mythic_barrier"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier[4]
-    loaded_dict["player_scout_nuldar_female_attack_mythic_barrier"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier[5]
-    loaded_dict["player_fighter_nuldar_female_strike_mythic_barrier"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier[6]
     # mythic sense
     player_battle_nuldar_female_url_mythic_sense = \
         resource_path('resources/art/player_battle_sprites_nuldar_female_mythic_sense.png')
@@ -4799,25 +4042,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle_mythic_sense"] = player_battle_nuldar_female_sheet_mythic_sense[4]
     loaded_dict["player_scout_nuldar_female_attack_mythic_sense"] = player_battle_nuldar_female_sheet_mythic_sense[5]
     loaded_dict["player_fighter_nuldar_female_strike_mythic_sense"] = player_battle_nuldar_female_sheet_mythic_sense[6]
-    # mythic barrier sense
-    player_battle_nuldar_female_url_mythic_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_nuldar_female_mythic_barrier_sense.png')
-    player_battle_nuldar_female_sheet_mythic_barrier_sense = \
-        sprite_sheet((750, 624), player_battle_nuldar_female_url_mythic_barrier_sense)
-    loaded_dict["player_mage_nuldar_female_battle_mythic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier_sense[0]
-    loaded_dict["player_mage_nuldar_female_attack_mythic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier_sense[1]
-    loaded_dict["player_fighter_nuldar_female_battle_mythic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier_sense[2]
-    loaded_dict["player_fighter_nuldar_female_attack_mythic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier_sense[3]
-    loaded_dict["player_scout_nuldar_female_battle_mythic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier_sense[4]
-    loaded_dict["player_scout_nuldar_female_attack_mythic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier_sense[5]
-    loaded_dict["player_fighter_nuldar_female_strike_mythic_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_mythic_barrier_sense[6]
     # legend
     player_battle_nuldar_female_url_legend = resource_path('resources/art/'
                                                            'player_battle_sprites_nuldar_female_legend.png')
@@ -4829,25 +4053,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle_legend"] = player_battle_nuldar_female_sheet_legend[4]
     loaded_dict["player_scout_nuldar_female_attack_legend"] = player_battle_nuldar_female_sheet_legend[5]
     loaded_dict["player_fighter_nuldar_female_strike_legend"] = player_battle_nuldar_female_sheet_legend[6]
-    # legend barrier
-    player_battle_nuldar_female_url_legend_barrier = \
-        resource_path('resources/art/player_battle_sprites_nuldar_female_legend_barrier.png')
-    player_battle_nuldar_female_sheet_legend_barrier = \
-        sprite_sheet((750, 624), player_battle_nuldar_female_url_legend_barrier)
-    loaded_dict["player_mage_nuldar_female_battle_legend_barrier"] = \
-        player_battle_nuldar_female_sheet_legend_barrier[0]
-    loaded_dict["player_mage_nuldar_female_attack_legend_barrier"] = \
-        player_battle_nuldar_female_sheet_legend_barrier[1]
-    loaded_dict["player_fighter_nuldar_female_battle_legend_barrier"] = \
-        player_battle_nuldar_female_sheet_legend_barrier[2]
-    loaded_dict["player_fighter_nuldar_female_attack_legend_barrier"] = \
-        player_battle_nuldar_female_sheet_legend_barrier[3]
-    loaded_dict["player_scout_nuldar_female_battle_legend_barrier"] = \
-        player_battle_nuldar_female_sheet_legend_barrier[4]
-    loaded_dict["player_scout_nuldar_female_attack_legend_barrier"] = \
-        player_battle_nuldar_female_sheet_legend_barrier[5]
-    loaded_dict["player_fighter_nuldar_female_strike_legend_barrier"] = \
-        player_battle_nuldar_female_sheet_legend_barrier[6]
     # legend sense
     player_battle_nuldar_female_url_legend_sense = \
         resource_path('resources/art/player_battle_sprites_nuldar_female_legend_sense.png')
@@ -4860,25 +4065,6 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_battle_legend_sense"] = player_battle_nuldar_female_sheet_legend_sense[4]
     loaded_dict["player_scout_nuldar_female_attack_legend_sense"] = player_battle_nuldar_female_sheet_legend_sense[5]
     loaded_dict["player_fighter_nuldar_female_strike_legend_sense"] = player_battle_nuldar_female_sheet_legend_sense[6]
-    # legend barrier sense
-    player_battle_nuldar_female_url_legend_barrier_sense = \
-        resource_path('resources/art/player_battle_sprites_nuldar_female_legend_barrier_sense.png')
-    player_battle_nuldar_female_sheet_legend_barrier_sense = \
-        sprite_sheet((750, 624), player_battle_nuldar_female_url_legend_barrier_sense)
-    loaded_dict["player_mage_nuldar_female_battle_legend_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_legend_barrier_sense[0]
-    loaded_dict["player_mage_nuldar_female_attack_legend_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_legend_barrier_sense[1]
-    loaded_dict["player_fighter_nuldar_female_battle_legend_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_legend_barrier_sense[2]
-    loaded_dict["player_fighter_nuldar_female_attack_legend_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_legend_barrier_sense[3]
-    loaded_dict["player_scout_nuldar_female_battle_legend_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_legend_barrier_sense[4]
-    loaded_dict["player_scout_nuldar_female_attack_legend_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_legend_barrier_sense[5]
-    loaded_dict["player_fighter_nuldar_female_strike_legend_barrier_sense"] = \
-        player_battle_nuldar_female_sheet_legend_barrier_sense[6]
 
     # player fishing sprites -------------------------------------------------------------------------------------------
     # amuna m ---------------------------------------------------------------------------------------------------------
@@ -5423,6 +4609,10 @@ def load_graphics():
     loaded_dict["nera_trinket"] = items_sheet[39]
     loaded_dict["aren_trinket"] = items_sheet[40]
     loaded_dict["spirit_trinket"] = items_sheet[41]
+    loaded_dict["poison_cure"] = items_sheet[42]
+    loaded_dict["burn_cure"] = items_sheet[43]
+    loaded_dict["big_cure_potion"] = items_sheet[44]
+    loaded_dict["bandage_wrap"] = items_sheet[45]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -5470,6 +4660,10 @@ def load_graphics():
     loaded_dict["info_nera"] = items_info_sheet[41]
     loaded_dict["info_aren"] = items_info_sheet[42]
     loaded_dict["info_spirit"] = items_info_sheet[43]
+    loaded_dict["info_poison_cure"] = items_info_sheet[44]
+    loaded_dict["info_burn_cure"] = items_info_sheet[45]
+    loaded_dict["info_bandage_wrap"] = items_info_sheet[46]
+    loaded_dict["info_big_cure"] = items_info_sheet[47]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -5491,6 +4685,9 @@ def load_graphics():
     loaded_dict["b_nera"] = buy_items_sheet[15]
     loaded_dict["b_aren"] = buy_items_sheet[16]
     loaded_dict["b_spirit"] = buy_items_sheet[17]
+    loaded_dict["b_poison_potion"] = buy_items_sheet[18]
+    loaded_dict["b_burn_potion"] = buy_items_sheet[19]
+    loaded_dict["b_bandage_wrap"] = buy_items_sheet[20]
     # sell items -------------------------------------------------------------------------------------------------------
     sell_items_url = resource_path('resources/art/overlay_sell_items.png')
     sell_items_sheet = sprite_sheet((246, 240), sell_items_url)
@@ -5524,6 +4721,10 @@ def load_graphics():
     loaded_dict["s_nera"] = sell_items_sheet[27]
     loaded_dict["s_aren"] = sell_items_sheet[28]
     loaded_dict["s_spirit"] = sell_items_sheet[29]
+    loaded_dict["s_poison_potion"] = sell_items_sheet[30]
+    loaded_dict["s_burn_potion"] = sell_items_sheet[31]
+    loaded_dict["s_bandage_wrap"] = sell_items_sheet[32]
+    loaded_dict["s_big_cure"] = sell_items_sheet[33]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)

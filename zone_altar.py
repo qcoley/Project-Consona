@@ -98,7 +98,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
             if interacted:
                 if not item_block_12_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 8)
+                        item = random.randint(1, 12)
                         item_block_12_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -150,6 +150,26 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                             info_text_2 = "A scout book!"
                             player.items.append(Item("scout book", "book", 200, 200,
                                                      graphic_dict["scout_book"], 0))
+                        if item == 9:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A poison cure potion!"
+                            player.items.append(Item("cure poison potion", "potion", 200, 200,
+                                                     graphic_dict["poison_cure"], 0))
+                        if item == 10:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A burn cure potion!"
+                            player.items.append(Item("cure burn potion", "potion", 200, 200,
+                                                     graphic_dict["burn_cure"], 0))
+                        if item == 11:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A bandage wrap!"
+                            player.items.append(Item("bandage wrap", "wrap", 200, 200,
+                                                     graphic_dict["bandage_wrap"], 0))
+                        if item == 12:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big cure potion!"
+                            player.items.append(Item("big cure potion", "potion", 200, 200,
+                                                     graphic_dict["big_cure_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

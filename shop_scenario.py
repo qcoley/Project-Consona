@@ -5,7 +5,7 @@ import drawing_functions
 def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, basic_armor, forged_armor, mythical_armor,
                                cookie, candy, tart, small_health, small_energy, seldon_firework, korlok_firework,
                                eldream_firework, seldon_bait, korlok_bait, eldream_bait, nera_trinket, aren_trinket,
-                               spirit_trinket):
+                               spirit_trinket, cure_poison, cure_burn, bandage_wrap):
 
     # if shopkeeper has items in their inventory
     if len(npc_amuna_shopkeeper.items) > 0:
@@ -80,6 +80,18 @@ def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, basic_arm
                 buy_inventory_counter += 1
             if shop_item.name == "spirit trinket":
                 shop_item.update(buy_first_coord, buy_second_coord, spirit_trinket)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "cure poison potion":
+                shop_item.update(buy_first_coord, buy_second_coord, cure_poison)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "cure burn potion":
+                shop_item.update(buy_first_coord, buy_second_coord, cure_burn)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "bandage wrap":
+                shop_item.update(buy_first_coord, buy_second_coord, bandage_wrap)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             buy_first_coord += 58
@@ -356,6 +368,42 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["sold"] = True
                     sell_return["cat_rewarded"] = False
                     drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "cure poison potion":
+                    sell_return["info 1"] = "Sold Poison Potion for 10 rupees."
+                    sell_return["info 2"] = "Poison Potion removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 10
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "cure burn potion":
+                    sell_return["info 1"] = "Sold Burn Potion for 10 rupees."
+                    sell_return["info 2"] = "Burn Potion removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 10
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "big cure potion":
+                    sell_return["info 1"] = "Sold Big Cure Potion for 10 rupees."
+                    sell_return["info 2"] = "Big Cure Potion removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 10
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "bandage wrap":
+                    sell_return["info 1"] = "Sold Bandage Wrap for 10 rupees."
+                    sell_return["info 2"] = "Bandage Wrap removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 10
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
             except AttributeError:
                 pass
     if sell_choice == "no":
@@ -366,7 +414,8 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
 
 def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img, energy_pot_img, basic_armor,
               forged_armor, mythical_armor, cookie, candy, tart, sfx_buy, seldon_firework, korlok_firework,
-              eldream_firework, seldon_bait, korlok_bait, eldream_bait, spirit_trinket, aren_trinket, nera_trinket):
+              eldream_firework, seldon_bait, korlok_bait, eldream_bait, spirit_trinket, aren_trinket, nera_trinket,
+              poison_pot_img, burn_pot_img, bandage_wrap_img):
     buy_return = {"info 1": "", "info 2": "", "bought": False}
 
     if buy_choice == "yes":
@@ -672,6 +721,52 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Spirit of Wisdom cost 500 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+
+        if current_buy_item.name == "cure poison potion":
+            if len(player.items) < 16:
+                if player.rupees > 19:
+                    buy_return["info 1"] = "Bought Cure Poison Potion for 20 rupees."
+                    buy_return["info 2"] = "Cure Poison Potion added to inventory."
+                    player.items.append(Item("cure poison potion", "potion", 200, 200, poison_pot_img, 0))
+                    player.rupees = player.rupees - 20
+                    pygame.mixer.find_channel(True).play(sfx_buy)
+                    buy_return["bought"] = True
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Cure Poison Potion cost 20 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+        if current_buy_item.name == "cure burn potion":
+            if len(player.items) < 16:
+                if player.rupees > 19:
+                    buy_return["info 1"] = "Bought Cure Burn Potion for 20 rupees."
+                    buy_return["info 2"] = "Cure Burn Potion added to inventory."
+                    player.items.append(Item("cure burn potion", "potion", 200, 200, burn_pot_img, 0))
+                    player.rupees = player.rupees - 20
+                    pygame.mixer.find_channel(True).play(sfx_buy)
+                    buy_return["bought"] = True
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Cure Burn Potion cost 20 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+        if current_buy_item.name == "bandage wrap":
+            if len(player.items) < 16:
+                if player.rupees > 19:
+                    buy_return["info 1"] = "You Bought Bandage Wrap for 20 rupees."
+                    buy_return["info 2"] = "Bandage Wrap added to inventory."
+                    player.items.append(Item("bandage wrap", "wrap", 200, 200, bandage_wrap_img, 0))
+                    player.rupees = player.rupees - 20
+                    pygame.mixer.find_channel(True).play(sfx_buy)
+                    buy_return["bought"] = True
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Bandage Wrap cost 20 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""

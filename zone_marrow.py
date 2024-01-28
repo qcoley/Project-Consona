@@ -872,7 +872,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
                                                        False, necrola_battle_sprite, 0, necrola_battle_sprite,
-                                                       necrola_battle_sprite, necrola_battle_sprite, False)
+                                                       necrola_battle_sprite, necrola_battle_sprite, False, False)
     if necrola_2.alive_status:
         if pygame.Rect.colliderect(player.rect, necrola_rect_2):
             if necrola_2.x_coordinate <= player.x_coordinate:
@@ -898,7 +898,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
                                                        False, necrola_battle_sprite, 0, necrola_battle_sprite,
-                                                       necrola_battle_sprite, necrola_battle_sprite, False)
+                                                       necrola_battle_sprite, necrola_battle_sprite, False, False)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -1094,7 +1094,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
                                                        False, necrola_battle_sprite, 0, necrola_battle_sprite,
-                                                       necrola_battle_sprite, necrola_battle_sprite, False)
+                                                       necrola_battle_sprite, necrola_battle_sprite, False, False)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -1554,7 +1554,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                                                        graphic_dict, necrola_battle_sprite,
                                                        osodark_battle_sprite, stelli_battle_sprite,
                                                        False, erebyth_battle_sprite, 0, erebyth_battle_sprite,
-                                                       erebyth_battle_sprite, erebyth_battle_sprite, False)
+                                                       erebyth_battle_sprite, erebyth_battle_sprite, False, False)
 
     # --------------------------------------------------------------------------------------------------
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -1810,7 +1810,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
             if interacted:
                 if not item_block_7_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 8)
+                        item = random.randint(1, 12)
                         item_block_7_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -1862,6 +1862,27 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                             info_text_2 = "A scout book!"
                             player.items.append(Item("scout book", "book", 200, 200,
                                                      graphic_dict["scout_book"], 0))
+
+                        if item == 9:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A poison cure potion!"
+                            player.items.append(Item("cure poison potion", "potion", 200, 200,
+                                                     graphic_dict["poison_cure"], 0))
+                        if item == 10:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A burn cure potion!"
+                            player.items.append(Item("cure burn potion", "potion", 200, 200,
+                                                     graphic_dict["burn_cure"], 0))
+                        if item == 11:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A bandage wrap!"
+                            player.items.append(Item("bandage wrap", "wrap", 200, 200,
+                                                     graphic_dict["bandage_wrap"], 0))
+                        if item == 12:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big cure potion!"
+                            player.items.append(Item("big cure potion", "potion", 200, 200,
+                                                     graphic_dict["big_cure_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -1881,7 +1902,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
             if interacted:
                 if not item_block_8_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 8)
+                        item = random.randint(1, 12)
                         item_block_8_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -1933,6 +1954,26 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                             info_text_2 = "A scout book!"
                             player.items.append(Item("scout book", "book", 200, 200,
                                                      graphic_dict["scout_book"], 0))
+                        if item == 9:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A poison cure potion!"
+                            player.items.append(Item("cure poison potion", "potion", 200, 200,
+                                                     graphic_dict["poison_cure"], 0))
+                        if item == 10:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A burn cure potion!"
+                            player.items.append(Item("cure burn potion", "potion", 200, 200,
+                                                     graphic_dict["burn_cure"], 0))
+                        if item == 11:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A bandage wrap!"
+                            player.items.append(Item("bandage wrap", "wrap", 200, 200,
+                                                     graphic_dict["bandage_wrap"], 0))
+                        if item == 12:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big cure potion!"
+                            player.items.append(Item("big cure potion", "potion", 200, 200,
+                                                     graphic_dict["big_cure_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -2155,7 +2196,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
             if interacted:
                 if not item_block_9_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 8)
+                        item = random.randint(1, 12)
                         item_block_9_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -2207,6 +2248,26 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                             info_text_2 = "A scout book!"
                             player.items.append(Item("scout book", "book", 200, 200,
                                                      graphic_dict["scout_book"], 0))
+                        if item == 9:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A poison cure potion!"
+                            player.items.append(Item("cure poison potion", "potion", 200, 200,
+                                                     graphic_dict["poison_cure"], 0))
+                        if item == 10:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A burn cure potion!"
+                            player.items.append(Item("cure burn potion", "potion", 200, 200,
+                                                     graphic_dict["burn_cure"], 0))
+                        if item == 11:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A bandage wrap!"
+                            player.items.append(Item("bandage wrap", "wrap", 200, 200,
+                                                     graphic_dict["bandage_wrap"], 0))
+                        if item == 12:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big cure potion!"
+                            player.items.append(Item("big cure potion", "potion", 200, 200,
+                                                     graphic_dict["big_cure_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

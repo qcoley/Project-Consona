@@ -239,7 +239,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                                                        graphic_dict, necrola_battle_sprite,
                                                        osodark_battle_sprite, stelli_battle_sprite,
                                                        False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                       stelli_battle_sprite, stelli_battle_sprite, apothis_gift)
+                                                       stelli_battle_sprite, stelli_battle_sprite, apothis_gift, False)
 
     # player defeats mini bosses and activates teleporter
     if pygame.sprite.collide_rect(player, dungeon_teleporter):
@@ -515,7 +515,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                                                        graphic_dict, necrola_battle_sprite,
                                                        osodark_battle_sprite, stelli_battle_sprite,
                                                        False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                       stelli_battle_sprite, stelli_battle_sprite, apothis_gift)
+                                                       stelli_battle_sprite, stelli_battle_sprite, apothis_gift, False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

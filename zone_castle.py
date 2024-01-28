@@ -241,7 +241,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                    in_battle, in_npc_interaction, graphic_dict,
                                                    jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
                                                    False, jumano_battle_sprite, 0, jumano_battle_sprite,
-                                                   jumano_battle_sprite, jumano_battle_sprite, False)
+                                                   jumano_battle_sprite, jumano_battle_sprite, False, False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -347,7 +347,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                                                        in_battle, in_npc_interaction, graphic_dict, atmon_battle_sprite,
                                                        atmon_battle_sprite, atmon_battle_sprite, False,
                                                        atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite,
-                                                       atmon_battle_sprite, False)
+                                                       atmon_battle_sprite, False, False)
 
     if rope_phase == 0 or rope_phase == 11:
         screen.blit(castle_two_bg, (0, 0))
@@ -816,7 +816,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                                                        graphic_dict, jumano_battle_sprite,
                                                        jumano_battle_sprite, jumano_battle_sprite,
                                                        False, jumano_battle_sprite, 0, jumano_battle_sprite,
-                                                       jumano_battle_sprite, jumano_battle_sprite, apothis_gift)
+                                                       jumano_battle_sprite, jumano_battle_sprite, apothis_gift, False)
 
     if not player.quest_complete["re recycling"]:
         part_pick = pygame.sprite.spritecollideany(player, parts)
@@ -1013,7 +1013,7 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
                                                        graphic_dict, dreth_battle_sprite,
                                                        dreth_battle_sprite, dreth_battle_sprite,
                                                        False, dreth_battle_sprite, 0, dreth_battle_sprite,
-                                                       dreth_battle_sprite, dreth_battle_sprite, apothis_gift)
+                                                       dreth_battle_sprite, dreth_battle_sprite, apothis_gift, False)
     if pygame.Rect.colliderect(player.rect, lair_exit):
         interaction_popup.update(515, 25, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
@@ -1305,7 +1305,7 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             if interacted:
                 if not item_block_10_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 8)
+                        item = random.randint(1, 12)
                         item_block_10_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -1357,6 +1357,26 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
                             info_text_2 = "A scout book!"
                             player.items.append(Item("scout book", "book", 200, 200,
                                                      graphic_dict["scout_book"], 0))
+                        if item == 9:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A poison cure potion!"
+                            player.items.append(Item("cure poison potion", "potion", 200, 200,
+                                                     graphic_dict["poison_cure"], 0))
+                        if item == 10:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A burn cure potion!"
+                            player.items.append(Item("cure burn potion", "potion", 200, 200,
+                                                     graphic_dict["burn_cure"], 0))
+                        if item == 11:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A bandage wrap!"
+                            player.items.append(Item("bandage wrap", "wrap", 200, 200,
+                                                     graphic_dict["bandage_wrap"], 0))
+                        if item == 12:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big cure potion!"
+                            player.items.append(Item("big cure potion", "potion", 200, 200,
+                                                     graphic_dict["big_cure_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

@@ -351,6 +351,18 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
             if clicked_element[0].name == "spirit trinket":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "cure poison potion":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "cure burn potion":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "bandage wrap":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "big cure potion":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
         except IndexError:
             pass
     return event_return
@@ -358,7 +370,7 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
 
 # handles mouse clicks for inventory sub-screen for items with actions
 def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics, width, height,
-              sfx_firework, sfx_skill_learn):
+              sfx_firework, sfx_skill_learn, poisoned, burned, bleeding):
 
     return_dict = {"item message": ""}
 
@@ -734,6 +746,51 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
 
+        if item.name == "cure poison potion":
+            if not poisoned:
+                return_dict["item message"] = "You're not poisoned."
+            else:
+                pygame.mixer.find_channel(True).play(sfx_potion)
+                poisoned = False
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "The potion cures your poison."
+                return_dict["poisoned"] = poisoned
+        if item.name == "cure burn potion":
+            if not burned:
+                return_dict["item message"] = "You're not burned."
+            else:
+                pygame.mixer.find_channel(True).play(sfx_potion)
+                burned = False
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "The potion cures your burn."
+                return_dict["burned"] = burned
+        if item.name == "bandage wrap":
+            if not bleeding:
+                return_dict["item message"] = "You're not bleeding."
+            else:
+                pygame.mixer.find_channel(True).play(sfx_equip)
+                bleeding = False
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "The bandage stops your bleeding."
+                return_dict["bleeding"] = bleeding
+        if item.name == "big cure potion":
+            if not poisoned and not burned and not bleeding:
+                return_dict["item message"] = "You're not poisoned, burned or bleeding."
+            else:
+                pygame.mixer.find_channel(True).play(sfx_potion)
+                poisoned = False
+                burned = False
+                bleeding = False
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "The potion cures your conditions."
+                return_dict["poisoned"] = poisoned
+                return_dict["burned"] = burned
+                return_dict["bleeding"] = bleeding
+
     except AttributeError:
         pass
 
@@ -1016,6 +1073,15 @@ def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item, SCREEN_WIDTH, 
             if clicked_element[0].name == "spirit trinket":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
+            if clicked_element[0].name == "cure poison potion":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "cure burn potion":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "bandage wrap":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
 
         except IndexError:
             pass
@@ -1123,6 +1189,18 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "spirit trinket":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "cure poison potion":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "cure burn potion":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "bandage wrap":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "big cure potion":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
 

@@ -7949,7 +7949,7 @@ if __name__ == "__main__":
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
     npc_illisare = NPC("Illisare", "sorae", "idk.", "Disenchanted", "", 515, 100,
-                    True, False, ["Items"], False, graphic_dict["illisare_down"])
+                       True, False, ["Items"], False, graphic_dict["illisare_down"])
     npc_omoku = NPC("Omoku", "nuldar", "Onur-oh.", "kart troubles", "", 460, 655,
                     True, False, ["Items"], False, graphic_dict["omoku_down"])
     npc_leyre = NPC("Leyre", "sorae", "Hola.", "las escondidas", "", 682, 420,
@@ -7983,30 +7983,39 @@ if __name__ == "__main__":
 
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
         Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
-        Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
+        Item("seldon firework", "firework", 200, 200, graphic_dict["seldon_firework"], 0),
+        Item("seldon bait", "bait", 200, 200, graphic_dict["seldon_bait"], 0),
+        Item("nera trinket", "trinket", 200, 200, graphic_dict["nera's_grace"], 0),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
-        Item("nera trinket", "trinket", 200, 200, graphic_dict["nera's_grace"], 0),
-        Item("seldon firework", "firework", 200, 200, graphic_dict["seldon_firework"], 0),
-        Item("seldon bait", "bait", 200, 200, graphic_dict["seldon_bait"], 0)])
+        Item("cure poison potion", "potion", 200, 200, graphic_dict["poison_cure"], 0),
+        Item("cure burn potion", "potion", 200, 200, graphic_dict["burn_cure"], 0),
+        Item("bandage wrap", "wrap", 200, 200, graphic_dict["bandage_wrap"], 0),
+        Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
-        Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
+        Item("korlok firework", "firework", 200, 200, graphic_dict["korlok_firework"], 0),
+        Item("korlok bait", "bait", 200, 200, graphic_dict["korlok_bait"], 0),
+        Item("aren trinket", "trinket", 200, 200, graphic_dict["aren's_strength"], 0),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
-        Item("aren trinket", "trinket", 200, 200, graphic_dict["aren's_strength"], 0),
-        Item("korlok firework", "firework", 200, 200, graphic_dict["korlok_firework"], 0),
-        Item("korlok bait", "bait", 200, 200, graphic_dict["korlok_bait"], 0)])
+        Item("cure poison potion", "potion", 200, 200, graphic_dict["poison_cure"], 0),
+        Item("cure burn potion", "potion", 200, 200, graphic_dict["burn_cure"], 0),
+        Item("bandage wrap", "wrap", 200, 200, graphic_dict["bandage_wrap"], 0),
+        Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1)])
 
     npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
         Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
-        Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
+        Item("eldream firework", "firework", 200, 200, graphic_dict["eldream_firework"], 0),
+        Item("eldream bait", "bait", 200, 200, graphic_dict["eldream_bait"], 0),
+        Item("spirit trinket", "trinket", 200, 200, graphic_dict["wisdom's_spirit"], 0),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
-        Item("spirit trinket", "trinket", 200, 200, graphic_dict["wisdom's_spirit"], 0),
-        Item("eldream firework", "firework", 200, 200, graphic_dict["eldream_firework"], 0),
-        Item("eldream bait", "bait", 200, 200, graphic_dict["eldream_bait"], 0)])
+        Item("cure poison potion", "potion", 200, 200, graphic_dict["poison_cure"], 0),
+        Item("cure burn potion", "potion", 200, 200, graphic_dict["burn_cure"], 0),
+        Item("bandage wrap", "wrap", 200, 200, graphic_dict["bandage_wrap"], 0),
+        Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
@@ -8527,6 +8536,8 @@ if __name__ == "__main__":
     battle_sprite_effect_burn = UiElement("battle effect", 325, 500, graphic_dict["burn_battle_effect"])
     battle_sprite_effect_poison = UiElement("battle effect", 325, 500, graphic_dict["poison_battle_effect"])
     battle_sprite_effect_bleed = UiElement("battle effect", 325, 500, graphic_dict["bleed_battle_effect"])
+    battle_sprite_effect_barrier = UiElement("battle effect", 325, 500, graphic_dict["barrier_battle_effect"])
+    battle_sprite_effect_barrier.surf.set_alpha(200)
 
     nascent_gate_popup = UiElement("nascent gate popup", 418, 200, graphic_dict["nascent_gate_popup"])
     sell_items = UiElement("sell items", 1155, 270, graphic_dict["s_health_pot_img"])
@@ -8560,7 +8571,7 @@ if __name__ == "__main__":
     prime_popup = UiElement("prime popup", 130, 475, graphic_dict["popup_interaction"])
     jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
     entrance_popup = UiElement("entrance popup", 675, 97, graphic_dict["popup_wide"])
-    apothis_popup = UiElement("apothis popup", 575, 375, graphic_dict["apothis_popup"])
+    apothis_popup = UiElement("apothis popup", 575, 375, graphic_dict["popup_wide"])
     cell_popup = UiElement("cell popup", 420, 205, graphic_dict["popup_wide"])
     cell_popup_2 = UiElement("cell popup", 610, 205, graphic_dict["popup_wide"])
     world_map = UiElement("world map", 769, 332, graphic_dict["world_map"])
@@ -10121,6 +10132,11 @@ if __name__ == "__main__":
                         item_block_10_got = load_returned["item_block_10_got"]
                         item_block_11_got = load_returned["item_block_11_got"]
                         item_block_12_got = load_returned["item_block_12_got"]
+                        cloaked_popup_shown = load_returned["cloaked_popup_shown"]
+                        time_of_day = load_returned["time_of_day"]
+                        poisoned = load_returned["poisoned"]
+                        burned = load_returned["burned"]
+                        bleeding = load_returned["bleeding"]
 
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -11204,7 +11220,8 @@ if __name__ == "__main__":
                                                                            sfx_item_potion, sfx_item_equip,
                                                                            sfx_item_whistle, sfx_item_snack,
                                                                            graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                           sfx_firework, sfx_skill_learn)
+                                                                           sfx_firework, sfx_skill_learn, poisoned,
+                                                                           burned, bleeding)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -11222,6 +11239,18 @@ if __name__ == "__main__":
                                     if inventory_event["cat card"]:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                         show_cat_card = True
+                                except KeyError:
+                                    pass
+                                try:
+                                    poisoned = inventory_event["poisoned"]
+                                except KeyError:
+                                    pass
+                                try:
+                                    burned = inventory_event["burned"]
+                                except KeyError:
+                                    pass
+                                try:
+                                    bleeding = inventory_event["bleeding"]
                                 except KeyError:
                                     pass
 
@@ -11381,7 +11410,8 @@ if __name__ == "__main__":
                                                                         item_block_6_got, item_block_7_got,
                                                                         item_block_8_got, item_block_9_got,
                                                                         item_block_10_got, item_block_11_got,
-                                                                        item_block_12_got)
+                                                                        item_block_12_got, cloaked_popup_shown,
+                                                                        time_of_day, poisoned, burned, bleeding)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -11446,7 +11476,8 @@ if __name__ == "__main__":
                                                                     item_block_6_got, item_block_7_got,
                                                                     item_block_8_got, item_block_9_got,
                                                                     item_block_10_got, item_block_11_got,
-                                                                    item_block_12_got)
+                                                                    item_block_12_got, cloaked_popup_shown,
+                                                                    time_of_day, poisoned, burned, bleeding)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -15354,6 +15385,7 @@ if __name__ == "__main__":
                                 interacted = False
                                 encounter_started = False
                                 in_battle = False
+                                combat_cooldown = False
                                 in_over_world = True
                                 loot_updated = False
                                 mirror_image = False
@@ -15368,30 +15400,11 @@ if __name__ == "__main__":
                                 loot_timer_reset = False
                                 loot_level_tic = time.perf_counter()
 
-                        pygame.mixer.Sound.stop(sfx_no_weapon_attack)
-                        pygame.mixer.Sound.stop(sfx_mage_attack)
-                        pygame.mixer.Sound.stop(sfx_fighter_attack)
-                        pygame.mixer.Sound.stop(sfx_scout_attack)
-
-                        pygame.mixer.Sound.stop(sfx_enemy_snake)
-                        pygame.mixer.Sound.stop(sfx_enemy_ghoul)
-                        pygame.mixer.Sound.stop(sfx_enemy_chorizon)
-                        pygame.mixer.Sound.stop(sfx_enemy_muchador)
-                        pygame.mixer.Sound.stop(sfx_enemy_bandile)
-                        pygame.mixer.Sound.stop(sfx_enemy_magmon)
-                        pygame.mixer.Sound.stop(sfx_enemy_chinzilla)
-                        pygame.mixer.Sound.stop(sfx_enemy_necrola)
-                        pygame.mixer.Sound.stop(sfx_stelli_battle)
-                        pygame.mixer.Sound.stop(sfx_enemy_osodark)
-                        pygame.mixer.Sound.stop(sfx_enemy_atmon)
-                        pygame.mixer.Sound.stop(sfx_enemy_jumano)
-                        pygame.mixer.Sound.stop(sfx_enemy_dreth)
-
                         # reset on each new turn
                         turn_taken = False
 
                         for event in pygame.event.get():
-                            if event.type == KEYDOWN:
+                            if event.type == KEYDOWN and not combat_cooldown:
                                 if event.key == K_1:
                                     attack_hotkey = True
                                 if event.key == K_2:
@@ -15428,7 +15441,6 @@ if __name__ == "__main__":
                                 drawing_functions.fish_pop_up_window_text.clear()
 
                             if event.type == pygame.MOUSEBUTTONUP:
-
                                 if npc_garan.gift:
                                     gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                                  pressed_keys, sfx_button_role)
@@ -15467,21 +15479,24 @@ if __name__ == "__main__":
                                                                                mage_attack_button,
                                                                                fighter_attack_button,
                                                                                scout_attack_button, barrier_button,
-                                                                               hard_strike_button, sharp_sense_button,
+                                                                               hard_strike_button,
+                                                                               sharp_sense_button,
                                                                                pygame, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                                mirror_button, stun_button,
-                                                                               vanish_button, fire_button, edge_button,
-                                                                               arrow_button)
+                                                                               vanish_button, fire_button,
+                                                                               edge_button, arrow_button)
                             # click handlers
-                            info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
-                                                                          SCREEN_WIDTH, SCREEN_HEIGHT)
-                            if info_choice == "yes":
+                            info_choice = click_handlers.item_info_button(event, item_info_button, pygame,
+                                                                          info_items, SCREEN_WIDTH, SCREEN_HEIGHT)
+
+                            if info_choice == "yes" and not combat_cooldown:
                                 inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                            sfx_item_potion, sfx_item_equip,
                                                                            sfx_item_whistle, sfx_item_snack,
                                                                            graphic_dict,
                                                                            SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                           sfx_skill_learn)
+                                                                           sfx_skill_learn, poisoned,
+                                                                           burned, bleeding)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -15519,6 +15534,8 @@ if __name__ == "__main__":
                                             except TypeError and KeyError:
                                                 stun_them = False
                                             combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
                                             # add all combat scenario happenings from function to message box
                                             try:
                                                 if combat_events["damage taken string"] == 0:
@@ -15566,6 +15583,8 @@ if __name__ == "__main__":
                                             except TypeError and KeyError:
                                                 stun_them = False
                                             combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
                                             # add all combat scenario happenings from function to message box
                                             try:
                                                 if combat_events["damage taken string"] == 0:
@@ -15612,6 +15631,8 @@ if __name__ == "__main__":
                                             except TypeError and KeyError:
                                                 stun_them = False
                                             combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
                                             # add all combat scenario happenings from function to message box
                                             try:
                                                 if combat_events["damage taken string"] == 0:
@@ -15630,8 +15651,217 @@ if __name__ == "__main__":
                                                                                           power_gloves, chroma_boots,
                                                                                           neras_grace, arens_strength,
                                                                                           spirit_of_wisdom)
+                                    # consume a turn when an item is used in combat
+                                    if current_info_item.name == "cure poison potion":
+                                        if inventory_event["item message"] != "You're not poisoned.":
+                                            try:
+                                                poisoned = inventory_event["poisoned"]
+                                            except KeyError:
+                                                pass
+                                            turn_taken = True
+                                            attack_hotkey = False
+                                            combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                            "attack", player,
+                                                                                            hard_strike_learned,
+                                                                                            level_up_win, level_up_font,
+                                                                                            graphic_dict,
+                                                                                            sharp_sense_active,
+                                                                                            barrier_active, turn_taken,
+                                                                                            stun_them, mirror_image,
+                                                                                            turn_counter, atmon_counter,
+                                                                                            prism_received,
+                                                                                            turn_counter,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter, card_deck,
+                                                                                            arrow_active, fire_active,
+                                                                                            show_edge, cloaked, burned,
+                                                                                            poisoned, bleeding)
+                                            try:
+                                                stun_them = combat_events["stunned"]
+                                            except TypeError and KeyError:
+                                                stun_them = False
+                                            combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
+                                            # add all combat scenario happenings from function to message box
+                                            try:
+                                                if combat_events["damage taken string"] == 0:
+                                                    info_text_2 = ""
+                                                else:
+                                                    info_text_2 = str(combat_events["damage taken string"])
+                                            except TypeError:
+                                                pass
+                                            gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
+                                                                                          xp_bar, star_power_meter,
+                                                                                          offense_meter, defense_meter,
+                                                                                          graphic_dict, basic_armor,
+                                                                                          forged_armor, mythical_armor,
+                                                                                          legendary_armor, power_gloves,
+                                                                                          chroma_boots, neras_grace,
+                                                                                          arens_strength,
+                                                                                          spirit_of_wisdom)
+
+                                    # consume a turn when an item is used in combat
+                                    if current_info_item.name == "cure burn potion":
+                                        if inventory_event["item message"] != "You're not burned.":
+                                            try:
+                                                burned = inventory_event["burned"]
+                                            except KeyError:
+                                                pass
+                                            turn_taken = True
+                                            attack_hotkey = False
+                                            combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                            "attack", player,
+                                                                                            hard_strike_learned,
+                                                                                            level_up_win, level_up_font,
+                                                                                            graphic_dict,
+                                                                                            sharp_sense_active,
+                                                                                            barrier_active, turn_taken,
+                                                                                            stun_them, mirror_image,
+                                                                                            turn_counter, atmon_counter,
+                                                                                            prism_received,
+                                                                                            turn_counter,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter, card_deck,
+                                                                                            arrow_active, fire_active,
+                                                                                            show_edge, cloaked, burned,
+                                                                                            poisoned, bleeding)
+                                            try:
+                                                stun_them = combat_events["stunned"]
+                                            except TypeError and KeyError:
+                                                stun_them = False
+                                            combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
+                                            # add all combat scenario happenings from function to message box
+                                            try:
+                                                if combat_events["damage taken string"] == 0:
+                                                    info_text_2 = ""
+                                                else:
+                                                    info_text_2 = str(combat_events["damage taken string"])
+                                            except TypeError:
+                                                pass
+                                            gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
+                                                                                          xp_bar, star_power_meter,
+                                                                                          offense_meter, defense_meter,
+                                                                                          graphic_dict, basic_armor,
+                                                                                          forged_armor, mythical_armor,
+                                                                                          legendary_armor, power_gloves,
+                                                                                          chroma_boots, neras_grace,
+                                                                                          arens_strength,
+                                                                                          spirit_of_wisdom)
+                                    # consume a turn when an item is used in combat
+                                    if current_info_item.name == "bandage wrap":
+                                        if inventory_event["item message"] != "You're not bleeding.":
+                                            try:
+                                                bleeding = inventory_event["bleeding"]
+                                            except KeyError:
+                                                pass
+                                            turn_taken = True
+                                            attack_hotkey = False
+                                            combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                            "attack", player,
+                                                                                            hard_strike_learned,
+                                                                                            level_up_win, level_up_font,
+                                                                                            graphic_dict,
+                                                                                            sharp_sense_active,
+                                                                                            barrier_active, turn_taken,
+                                                                                            stun_them, mirror_image,
+                                                                                            turn_counter, atmon_counter,
+                                                                                            prism_received,
+                                                                                            turn_counter,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter, card_deck,
+                                                                                            arrow_active, fire_active,
+                                                                                            show_edge, cloaked, burned,
+                                                                                            poisoned, bleeding)
+                                            try:
+                                                stun_them = combat_events["stunned"]
+                                            except TypeError and KeyError:
+                                                stun_them = False
+                                            combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
+                                            # add all combat scenario happenings from function to message box
+                                            try:
+                                                if combat_events["damage taken string"] == 0:
+                                                    info_text_2 = ""
+                                                else:
+                                                    info_text_2 = str(combat_events["damage taken string"])
+                                            except TypeError:
+                                                pass
+                                            gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
+                                                                                          xp_bar, star_power_meter,
+                                                                                          offense_meter, defense_meter,
+                                                                                          graphic_dict, basic_armor,
+                                                                                          forged_armor, mythical_armor,
+                                                                                          legendary_armor, power_gloves,
+                                                                                          chroma_boots, neras_grace,
+                                                                                          arens_strength,
+                                                                                          spirit_of_wisdom)
+                                    # consume a turn when an item is used in combat
+                                    if current_info_item.name == "big cure potion":
+                                        if inventory_event["item message"] != ("You're not poisoned, "
+                                                                               "burned or bleeding."):
+                                            try:
+                                                poisoned = inventory_event["poisoned"]
+                                                burned = inventory_event["burned"]
+                                                bleeding = inventory_event["bleeding"]
+                                            except KeyError:
+                                                pass
+                                            turn_taken = True
+                                            attack_hotkey = False
+                                            combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                            "attack", player,
+                                                                                            hard_strike_learned,
+                                                                                            level_up_win, level_up_font,
+                                                                                            graphic_dict,
+                                                                                            sharp_sense_active,
+                                                                                            barrier_active, turn_taken,
+                                                                                            stun_them, mirror_image,
+                                                                                            turn_counter, atmon_counter,
+                                                                                            prism_received,
+                                                                                            turn_counter,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter, card_deck,
+                                                                                            arrow_active, fire_active,
+                                                                                            show_edge, cloaked, burned,
+                                                                                            poisoned, bleeding)
+                                            try:
+                                                stun_them = combat_events["stunned"]
+                                            except TypeError and KeyError:
+                                                stun_them = False
+                                            combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
+                                            # add all combat scenario happenings from function to message box
+                                            try:
+                                                if combat_events["damage taken string"] == 0:
+                                                    info_text_2 = ""
+                                                else:
+                                                    info_text_2 = str(combat_events["damage taken string"])
+                                            except TypeError:
+                                                pass
+                                            gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
+                                                                                          xp_bar, star_power_meter,
+                                                                                          offense_meter, defense_meter,
+                                                                                          graphic_dict, basic_armor,
+                                                                                          forged_armor, mythical_armor,
+                                                                                          legendary_armor, power_gloves,
+                                                                                          chroma_boots, neras_grace,
+                                                                                          arens_strength,
+                                                                                          spirit_of_wisdom)
                                 except AttributeError:
                                     pass
+
                             if info_choice == "no":
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
@@ -15656,8 +15886,7 @@ if __name__ == "__main__":
                                     info_text_1 = equipment_event["equipment message"]
                                     info_text_2 = ""
 
-                            if combat_button == "attack" or attack_hotkey:
-
+                            if combat_button == "attack" or attack_hotkey and not combat_cooldown:
                                 if player.role == "":
                                     pygame.mixer.find_channel(True).play(sfx_no_weapon_attack)
                                 if player.role == "mage":
@@ -15666,10 +15895,11 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_fighter_attack)
                                 if player.role == "scout":
                                     pygame.mixer.find_channel(True).play(sfx_scout_attack)
-
                                 if current_enemy_battling.kind == "snake":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_snake)
                                 if current_enemy_battling.name == "Ghoul":
+                                    if len(drawing_functions.cloaked_popup_window) > 0:
+                                        drawing_functions.cloaked_popup_window.clear()
                                     if not cloaked_popup_shown:
                                         drawing_functions.cloaked_popup_window.append(cloaked_popup)
                                         cloaked_popup_shown = True
@@ -15686,19 +15916,18 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_bandile)
                                 if current_enemy_battling.kind == "magmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
-                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 6) == 0:
                                         if not burned and not barrier_active:
                                             burned = True
-
+                                            pygame.mixer.find_channel(True).play(sfx_burned)
                                 if current_enemy_battling.kind == "chinzilla":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_chinzilla)
-                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 6) == 0:
                                         if not bleeding and not barrier_active:
                                             bleeding = True
-
                                 if current_enemy_battling.kind == "necrola":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
-                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
+                                    if (turn_counter + 1) % random.randint(1, 4) == 0:
                                         if not cloaked:
                                             cloaked = True
                                             pygame.mixer.find_channel(True).play(sfx_cloaked)
@@ -15706,12 +15935,15 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_stelli_battle)
                                 if current_enemy_battling.kind == "osodark":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_osodark)
-                                    if not bleeding and not barrier_active:
-                                        bleeding = True
-                                        pygame.mixer.find_channel(True).play(sfx_cloaked)
+                                    if (turn_counter + 1) % random.randint(2, 6) == 0:
+                                        if not bleeding and not barrier_active:
+                                            bleeding = True
                                 if current_enemy_battling.kind == "erebyth":
                                     if turn_counter == 2:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_flame)
+                                        if not burned and not barrier_active:
+                                            burned = True
+                                            pygame.mixer.find_channel(True).play(sfx_burned)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
                                 if current_enemy_battling.kind == "dreth":
@@ -15721,10 +15953,9 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth)
                                 if current_enemy_battling.kind == "atmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_atmon)
-                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 6) == 0:
                                         if not poisoned and not barrier_active:
                                             poisoned = True
-
                                 if current_enemy_battling.kind == "jumano":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_jumano)
 
@@ -15732,14 +15963,268 @@ if __name__ == "__main__":
                                     first_battle_cond = False
                                     drawing_functions.game_guide_container.clear()
 
-                                if not combat_cooldown:
+                                turn_counter += 1
+                                attack_hotkey = False
+                                # combat event function that handles and returns damage and health
+                                combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
+                                                                                player, hard_strike_learned,
+                                                                                level_up_win, level_up_font,
+                                                                                graphic_dict, sharp_sense_active,
+                                                                                barrier_active, turn_taken,
+                                                                                stun_them, mirror_image,
+                                                                                turn_counter,
+                                                                                atmon_counter, prism_received,
+                                                                                turn_counter,
+                                                                                apothis_upgrade, trading_deck,
+                                                                                trading_task_complete,
+                                                                                any_card_counter, card_deck,
+                                                                                arrow_active, fire_active,
+                                                                                show_edge, cloaked, burned,
+                                                                                poisoned, bleeding)
+                                combat_scenario.attack_animation_player(player, player_battle_sprite,
+                                                                        barrier_active, sharp_sense_active,
+                                                                        hard_strike, graphic_dict, turn_taken)
+                                combat_scenario.attack_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                                       ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                       muchador_battle_sprite, magmon_battle_sprite,
+                                                                       bandile_battle_sprite,
+                                                                       chinzilla_battle_sprite, graphic_dict,
+                                                                       necrola_battle_sprite,
+                                                                       osodark_battle_sprite, stelli_battle_sprite,
+                                                                       chorizon_phase,
+                                                                       combat_events["damage taken"],
+                                                                       erebyth_battle_sprite, turn_counter,
+                                                                       atmon_battle_sprite, jumano_battle_sprite,
+                                                                       dreth_battle_sprite, turn_counter,
+                                                                       apothis_gift, cloaked)
+                                if player.role == "scout":
+                                    show_arrow = True
+                                try:
+                                    stun_them = combat_events["stunned"]
+                                except TypeError and KeyError:
+                                    stun_them = False
+                                combat_happened = True
+                                combat_tic = time.perf_counter()
+                                combat_cooldown = True
+
+                                # add all combat scenario happenings from function to message box
+                                try:
+                                    if combat_events["damage done string"] == 0:
+                                        info_text_1 = ""
+                                    else:
+                                        info_text_1 = str(combat_events["damage done string"])
+                                    if combat_events["damage taken string"] == 0:
+                                        info_text_2 = ""
+                                    else:
+                                        info_text_2 = str(combat_events["damage taken string"])
+                                except TypeError:
+                                    pass
+
+                                # adds item dropped and experienced gained messages to box if enemy was defeated
+                                try:
+                                    battle_info_to_return_to_main_loop["knowledge"] = ""
+                                    if combat_events["enemy defeated"]:
+                                        if combat_events["item dropped"] != "No":
+                                            try:
+                                                prism_received = combat_events["prism_received"]
+                                            except KeyError:
+                                                pass
+                                            battle_info_to_return_to_main_loop["item dropped"] = \
+                                                str(combat_events["item dropped"])
+                                        else:
+                                            battle_info_to_return_to_main_loop["item dropped"] = ""
+                                        if combat_events["experience gained"] != 0:
+                                            battle_info_to_return_to_main_loop["experience"] = \
+                                                str(combat_events["experience gained"])
+                                        else:
+                                            battle_info_to_return_to_main_loop["experience"] = ""
+                                    # if enemy was defeated and player leveled up, add messages related to box
+                                    if combat_events["enemy defeated"]:
+                                        if combat_events["leveled"]:
+                                            pygame.mixer.find_channel(True).play(sfx_level_up)
+                                            battle_info_to_return_to_main_loop["leveled_up"] = True
+                                            level_visual = True
+                                            level_visual_tic = time.perf_counter()
+
+                                    # if player was successful in defeating enemy, combat ends, movement is allowed
+                                    if combat_events["enemy defeated"]:
+                                        if current_enemy_battling.kind == "dreth":
+                                            dreth_defeated = True
+                                        if current_enemy_battling.kind != "stelli":
+                                            current_enemy_battling.alive_status = False
+                                        if current_enemy_battling.kind == "atmon":
+                                            atmon_counter += 1
+                                        # player will gain knowledge based on their current role
+                                        if player.role == "mage":
+                                            if current_enemy_battling.level > player.level - 3:
+                                                if (player.level <= 10 and player.knowledge["mage"] < 80 or
+                                                        player.level > 10 and player.knowledge["mage"] < 120 or
+                                                        player.level > 20 and player.knowledge["mage"] < 240):
+                                                    player.knowledge["mage"] += 10
+                                                    battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
+                                                else:
+                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
+                                            else:
+                                                battle_info_to_return_to_main_loop["knowledge"] = ""
+                                            # if player has a pet seed, add to it for this role. stop counts at 8
+                                            if seed_given:
+                                                if seed_mage_count < 4 and seed_fighter_count < 4 and \
+                                                        seed_scout_count < 4:
+                                                    seed_mage_count += 1
+
+                                        if player.role == "fighter":
+                                            if current_enemy_battling.level > player.level - 3:
+                                                if (player.level <= 10 and player.knowledge["fighter"] < 80 or
+                                                        player.level > 10 and player.knowledge["fighter"] < 120 or
+                                                        player.level > 20 and player.knowledge["fighter"] < 240):
+                                                    player.knowledge["fighter"] += 10
+                                                    battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
+                                                else:
+                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
+                                            else:
+                                                battle_info_to_return_to_main_loop["knowledge"] = ""
+                                            # if player has a pet seed, add to it for this role. stop counts at 8
+                                            if seed_given:
+                                                if seed_mage_count < 4 and seed_fighter_count < 4 and \
+                                                        seed_scout_count < 4:
+                                                    seed_fighter_count += 1
+
+                                        if player.role == "scout":
+                                            if current_enemy_battling.level > player.level - 3:
+                                                if (player.level <= 10 and player.knowledge["scout"] < 80 or
+                                                        player.level > 10 and player.knowledge["scout"] < 120 or
+                                                        player.level > 20 and player.knowledge["scout"] < 240):
+                                                    player.knowledge["scout"] += 10
+                                                    battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
+                                                else:
+                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
+                                            else:
+                                                battle_info_to_return_to_main_loop["knowledge"] = ""
+                                            # if player has a pet seed, add to it for this role. stop counts at 8
+                                            if seed_given:
+                                                if seed_mage_count < 4 and seed_fighter_count < 4 and \
+                                                        seed_scout_count < 4:
+                                                    seed_scout_count += 1
+
+                                        if current_enemy_battling.kind == "nede ghoul":
+                                            nede_ghoul_defeated = True
+                                            ghoul_nede.kill()
+                                        if current_enemy_battling.kind == "chorizon_1":
+                                            mini_boss_1 = False
+                                            mini_boss_1_defeated = True
+                                            chorizon_1.kill()
+                                            chorizon_phase = False
+                                        if current_enemy_battling.kind == "chorizon_2":
+                                            mini_boss_2 = False
+                                            mini_boss_2_defeated = True
+                                            chorizon_2.kill()
+                                            chorizon_phase = False
+                                        if current_enemy_battling.name == "Muchador":
+                                            muchador_defeated = True
+                                            muchador.kill()
+                                        if current_enemy_battling.name == "Chinzilla":
+                                            chinzilla_defeated = True
+                                            chinzilla.kill()
+
+                                        # if barrier is active on enemy defeat, restore original defence and set off
+                                        if barrier_active:
+                                            barrier_active = False
+                                            # noinspection PyUnboundLocalVariable
+                                        # if sharp sense is active on enemy defeat, restore original offense
+                                        if sharp_sense_active:
+                                            sharp_sense_active = False
+                                            # noinspection PyUnboundLocalVariable
+
+                                        movement_able = True
+                                        combat_happened = False
+                                        interacted = False
+                                        encounter_started = False
+                                        in_battle = False
+                                        combat_cooldown = False
+                                        in_over_world = True
+                                        loot_updated = False
+                                        mirror_image = False
+                                        fire_active = False
+                                        arrow_active = False
+                                        show_arrow = False
+                                        show_advantage_arrow = False
+                                        show_fire = False
+                                        show_edge = False
+                                        cleared = False
+                                        cloaked = False
+                                        turn_counter = 0
+                                        card_popup_checked = False
+                                        loot_timer_reset = False
+                                        loot_level_tic = time.perf_counter()
+                                        if on_card_quest:
+                                            try:
+                                                any_card_counter = combat_events["any_card_counter"]
+                                            except KeyError:
+                                                pass
+                                except TypeError:
+                                    pass
+
+                            # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
+                            elif combat_button == "skill 1" or skill_1_hotkey and not combat_cooldown:
+
+                                skill_1_hotkey = False
+                                # make sure player has enough energy to use the skill
+                                if player.energy > 19:
                                     turn_counter += 1
-                                    attack_hotkey = False
-                                    # combat event function that handles and returns damage and health
-                                    combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
-                                                                                    player, hard_strike_learned,
+                                    # player is a mage and uses the barrier spell. Set barrier active to true
+                                    # save original defence value to be re applied upon enemy or player defeat
+                                    if player.role == "mage":
+                                        if barrier_learned:
+                                            if not barrier_active:
+                                                pygame.mixer.find_channel(True).play(sfx_mage_barrier)
+                                                info_text_1 = "Barrier spell is active."
+                                                barrier_active = True
+                                                if player.equipment["trinket 3"] != "":
+                                                    player.energy -= 10
+                                                elif player.equipment["trinket 3"] == "":
+                                                    player.energy -= 20
+                                                turn_taken = True
+                                                attack_hotkey = False
+                                                combat_scenario.battle_animation_player(player,
+                                                                                        player_battle_sprite,
+                                                                                        barrier_active,
+                                                                                        sharp_sense_active,
+                                                                                        graphic_dict)
+                                                combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                       snake_battle_sprite,
+                                                                                       ghoul_battle_sprite,
+                                                                                       chorizon_battle_sprite,
+                                                                                       muchador_battle_sprite,
+                                                                                       magmon_battle_sprite,
+                                                                                       bandile_battle_sprite,
+                                                                                       chinzilla_battle_sprite,
+                                                                                       in_battle,
+                                                                                       in_npc_interaction,
+                                                                                       graphic_dict,
+                                                                                       necrola_battle_sprite,
+                                                                                       osodark_battle_sprite,
+                                                                                       stelli_battle_sprite,
+                                                                                       chorizon_phase,
+                                                                                       erebyth_battle_sprite,
+                                                                                       turn_counter,
+                                                                                       atmon_battle_sprite,
+                                                                                       jumano_battle_sprite,
+                                                                                       dreth_battle_sprite,
+                                                                                       apothis_gift, cloaked)
+                                                if mirror_image:
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            mirror_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
+                                                # combat event function that handles and returns damage and health
+                                                combat_events = \
+                                                    combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                    "attack", player,
+                                                                                    hard_strike_learned,
                                                                                     level_up_win, level_up_font,
-                                                                                    graphic_dict, sharp_sense_active,
+                                                                                    graphic_dict,
+                                                                                    sharp_sense_active,
                                                                                     barrier_active, turn_taken,
                                                                                     stun_them, mirror_image,
                                                                                     turn_counter,
@@ -15751,165 +16236,470 @@ if __name__ == "__main__":
                                                                                     arrow_active, fire_active,
                                                                                     show_edge, cloaked, burned,
                                                                                     poisoned, bleeding)
-                                    combat_scenario.attack_animation_player(player, player_battle_sprite,
-                                                                            barrier_active, sharp_sense_active,
-                                                                            hard_strike, graphic_dict, turn_taken)
-                                    combat_scenario.attack_animation_enemy(current_enemy_battling, snake_battle_sprite,
-                                                                           ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                           muchador_battle_sprite, magmon_battle_sprite,
-                                                                           bandile_battle_sprite,
-                                                                           chinzilla_battle_sprite, graphic_dict,
-                                                                           necrola_battle_sprite,
-                                                                           osodark_battle_sprite, stelli_battle_sprite,
-                                                                           chorizon_phase,
-                                                                           combat_events["damage taken"],
-                                                                           erebyth_battle_sprite, turn_counter,
-                                                                           atmon_battle_sprite, jumano_battle_sprite,
-                                                                           dreth_battle_sprite, turn_counter,
-                                                                           apothis_gift, cloaked)
-                                    if player.role == "scout":
-                                        show_arrow = True
-                                    try:
-                                        stun_them = combat_events["stunned"]
-                                    except TypeError and KeyError:
-                                        stun_them = False
-                                    combat_happened = True
-
-                                    # add all combat scenario happenings from function to message box
-                                    try:
-                                        if combat_events["damage done string"] == 0:
-                                            info_text_1 = ""
-                                        else:
-                                            info_text_1 = str(combat_events["damage done string"])
-                                        if combat_events["damage taken string"] == 0:
-                                            info_text_2 = ""
-                                        else:
-                                            info_text_2 = str(combat_events["damage taken string"])
-                                    except TypeError:
-                                        pass
-
-                                    # adds item dropped and experienced gained messages to box if enemy was defeated
-                                    try:
-                                        battle_info_to_return_to_main_loop["knowledge"] = ""
-                                        if combat_events["enemy defeated"]:
-                                            if combat_events["item dropped"] != "No":
                                                 try:
-                                                    prism_received = combat_events["prism_received"]
-                                                except KeyError:
+                                                    stun_them = combat_events["stunned"]
+                                                except TypeError and KeyError:
+                                                    stun_them = False
+                                                combat_happened = True
+                                                combat_tic = time.perf_counter()
+                                                combat_cooldown = True
+                                                # add all combat scenario happenings from function to message box
+                                                try:
+                                                    if combat_events["damage taken string"] == 0:
+                                                        info_text_2 = ""
+                                                    else:
+                                                        info_text_2 = str(combat_events["damage taken string"])
+                                                except TypeError:
                                                     pass
-                                                battle_info_to_return_to_main_loop["item dropped"] = \
-                                                    str(combat_events["item dropped"])
+                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                              en_bar, xp_bar,
+                                                                                              star_power_meter,
+                                                                                              offense_meter,
+                                                                                              defense_meter,
+                                                                                              graphic_dict,
+                                                                                              basic_armor,
+                                                                                              forged_armor,
+                                                                                              mythical_armor,
+                                                                                              legendary_armor,
+                                                                                              power_gloves,
+                                                                                              chroma_boots,
+                                                                                              neras_grace,
+                                                                                              arens_strength,
+                                                                                              spirit_of_wisdom)
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    frame = pygame.transform.smoothscale(screen,
+                                                                                         (SCREEN_WIDTH,
+                                                                                          SCREEN_HEIGHT))
+                                                    game_window.blit(frame, frame.get_rect())
+                                                    pygame.display.flip()
+                                                else:
+                                                    pygame.display.flip()
                                             else:
-                                                battle_info_to_return_to_main_loop["item dropped"] = ""
-                                            if combat_events["experience gained"] != 0:
-                                                battle_info_to_return_to_main_loop["experience"] = \
-                                                    str(combat_events["experience gained"])
+                                                info_text_1 = "Barrier spell is already active."
+
+                                    # player is a scout and uses sharp sense. Set sharp sense active to true
+                                    # save original offense value to be re applied upon enemy or player defeat
+                                    if player.role == "scout":
+                                        if sharp_sense_learned:
+                                            if not sharp_sense_active:
+                                                pygame.mixer.find_channel(True).play(sfx_scout_sense)
+                                                info_text_1 = "Sharp sense is active."
+                                                sharp_sense_active = True
+                                                if player.equipment["trinket 3"] != "":
+                                                    player.energy -= 10
+                                                elif player.equipment["trinket 3"] == "":
+                                                    player.energy -= 20
+                                                turn_taken = True
+                                                attack_hotkey = False
+                                                combat_scenario.battle_animation_player(player,
+                                                                                        player_battle_sprite,
+                                                                                        barrier_active,
+                                                                                        sharp_sense_active,
+                                                                                        graphic_dict)
+                                                combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                       snake_battle_sprite,
+                                                                                       ghoul_battle_sprite,
+                                                                                       chorizon_battle_sprite,
+                                                                                       muchador_battle_sprite,
+                                                                                       magmon_battle_sprite,
+                                                                                       bandile_battle_sprite,
+                                                                                       chinzilla_battle_sprite,
+                                                                                       in_battle,
+                                                                                       in_npc_interaction,
+                                                                                       graphic_dict,
+                                                                                       necrola_battle_sprite,
+                                                                                       osodark_battle_sprite,
+                                                                                       stelli_battle_sprite,
+                                                                                       chorizon_phase,
+                                                                                       erebyth_battle_sprite,
+                                                                                       turn_counter,
+                                                                                       atmon_battle_sprite,
+                                                                                       jumano_battle_sprite,
+                                                                                       dreth_battle_sprite,
+                                                                                       apothis_gift, cloaked)
+                                                if mirror_image:
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            mirror_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
+                                                # combat event function that handles and returns damage and health
+                                                combat_events = \
+                                                    combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                    "attack", player,
+                                                                                    hard_strike_learned,
+                                                                                    level_up_win, level_up_font,
+                                                                                    graphic_dict,
+                                                                                    sharp_sense_active,
+                                                                                    barrier_active, turn_taken,
+                                                                                    stun_them, mirror_image,
+                                                                                    turn_counter,
+                                                                                    atmon_counter, prism_received,
+                                                                                    turn_counter,
+                                                                                    apothis_upgrade, trading_deck,
+                                                                                    trading_task_complete,
+                                                                                    any_card_counter, card_deck,
+                                                                                    arrow_active, fire_active,
+                                                                                    show_edge, cloaked, burned,
+                                                                                    poisoned, bleeding)
+                                                try:
+                                                    stun_them = combat_events["stunned"]
+                                                except TypeError and KeyError:
+                                                    stun_them = False
+                                                combat_happened = True
+                                                combat_tic = time.perf_counter()
+                                                combat_cooldown = True
+                                                # add all combat scenario happenings from function to message box
+                                                try:
+                                                    if combat_events["damage taken string"] == 0:
+                                                        info_text_2 = ""
+                                                    else:
+                                                        info_text_2 = str(combat_events["damage taken string"])
+                                                except TypeError:
+                                                    pass
+                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                              en_bar, xp_bar,
+                                                                                              star_power_meter,
+                                                                                              offense_meter,
+                                                                                              defense_meter,
+                                                                                              graphic_dict,
+                                                                                              basic_armor,
+                                                                                              forged_armor,
+                                                                                              mythical_armor,
+                                                                                              legendary_armor,
+                                                                                              power_gloves,
+                                                                                              chroma_boots,
+                                                                                              neras_grace,
+                                                                                              arens_strength,
+                                                                                              spirit_of_wisdom)
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    frame = pygame.transform.smoothscale(screen,
+                                                                                         (SCREEN_WIDTH,
+                                                                                          SCREEN_HEIGHT))
+                                                    game_window.blit(frame, frame.get_rect())
+                                                    pygame.display.flip()
+                                                else:
+                                                    pygame.display.flip()
                                             else:
-                                                battle_info_to_return_to_main_loop["experience"] = ""
-                                        # if enemy was defeated and player leveled up, add messages related to box
-                                        if combat_events["enemy defeated"]:
-                                            if combat_events["leveled"]:
-                                                pygame.mixer.find_channel(True).play(sfx_level_up)
-                                                battle_info_to_return_to_main_loop["leveled_up"] = True
-                                                level_visual = True
-                                                level_visual_tic = time.perf_counter()
+                                                info_text_1 = "Sharp sense is already active."
 
-                                        # if player was successful in defeating enemy, combat ends, movement is allowed
-                                        if combat_events["enemy defeated"]:
-                                            if current_enemy_battling.kind == "dreth":
-                                                dreth_defeated = True
-                                            if current_enemy_battling.kind != "stelli":
-                                                current_enemy_battling.alive_status = False
-                                            if current_enemy_battling.kind == "atmon":
-                                                atmon_counter += 1
-                                            # player will gain knowledge based on their current role
-                                            if player.role == "mage":
-                                                if current_enemy_battling.level > player.level - 3:
-                                                    if (player.level <= 10 and player.knowledge["mage"] < 80 or
-                                                            player.level > 10 and player.knowledge["mage"] < 120 or
-                                                            player.level > 20 and player.knowledge["mage"] < 240):
-                                                        player.knowledge["mage"] += 10
-                                                        battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
+                                    # player is a fighter and uses hard strike
+                                    if player.role == "fighter":
+                                        if hard_strike_learned:
+                                            if player.equipment["trinket 3"] != "":
+                                                player.energy -= 10
+                                            elif player.equipment["trinket 3"] == "":
+                                                player.energy -= 20
+                                            pygame.mixer.find_channel(True).play(sfx_fighter_strike)
+                                            hard_strike = True
+                                            combat_scenario.fighter(graphic_dict, player, player_battle_sprite,
+                                                                    sharp_sense_active, barrier_active)
+                                            combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                            "skill 1", player,
+                                                                                            hard_strike_learned,
+                                                                                            level_up_win,
+                                                                                            level_up_font,
+                                                                                            graphic_dict,
+                                                                                            sharp_sense_active,
+                                                                                            barrier_active,
+                                                                                            turn_taken, stun_them,
+                                                                                            mirror_image,
+                                                                                            turn_counter,
+                                                                                            atmon_counter,
+                                                                                            prism_received,
+                                                                                            turn_counter,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter,
+                                                                                            card_deck, arrow_active,
+                                                                                            fire_active, show_edge,
+                                                                                            cloaked, burned,
+                                                                                            poisoned, bleeding)
+                                            try:
+                                                stun_them = combat_events["stunned"]
+                                            except TypeError and KeyError:
+                                                stun_them = False
+                                            combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
+                                            # add all combat scenario happenings from function to message box
+                                            try:
+                                                if combat_events["damage done string"] == 0:
+                                                    info_text_1 = ""
+                                                else:
+                                                    info_text_1 = str(combat_events["damage done string"])
+                                                if combat_events["damage taken string"] == 0:
+                                                    info_text_2 = ""
+                                                else:
+                                                    info_text_2 = str(combat_events["damage taken string"])
+                                            except TypeError:
+                                                pass
+                                            try:
+                                                battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                if combat_events["enemy defeated"]:
+                                                    if combat_events["item dropped"] != "No":
+                                                        try:
+                                                            prism_received = combat_events["prism_received"]
+                                                        except KeyError:
+                                                            pass
+                                                        battle_info_to_return_to_main_loop["item dropped"] = \
+                                                            str(combat_events["item dropped"])
+                                                    else:
+                                                        battle_info_to_return_to_main_loop["item dropped"] = ""
+                                                    if combat_events["experience gained"] != 0:
+                                                        battle_info_to_return_to_main_loop["experience"] = \
+                                                            str(combat_events["experience gained"])
+                                                    else:
+                                                        battle_info_to_return_to_main_loop["experience"] = ""
+                                                if combat_events["enemy defeated"]:
+                                                    if combat_events["leveled"]:
+                                                        pygame.mixer.find_channel(True).play(sfx_level_up)
+                                                        battle_info_to_return_to_main_loop["leveled_up"] = True
+                                                        level_visual = True
+                                                        level_visual_tic = time.perf_counter()
+                                                if combat_events["enemy defeated"]:
+                                                    if current_enemy_battling.kind == "dreth":
+                                                        dreth_defeated = True
+                                                    if current_enemy_battling.kind != "stelli":
+                                                        current_enemy_battling.alive_status = False
+                                                    if current_enemy_battling.kind == "atmon":
+                                                        atmon_counter += 1
+                                                    # player will gain knowledge based on their current role
+                                                    if current_enemy_battling.level > player.level - 3:
+                                                        if (player.level <= 10 and player.knowledge["fighter"] < 80
+                                                                or player.level > 10 and
+                                                                player.knowledge["fighter"] < 120
+                                                                or player.level > 20 and
+                                                                player.knowledge["fighter"] < 240):
+                                                            player.knowledge["fighter"] += 10
+                                                            battle_info_to_return_to_main_loop["knowledge"] = \
+                                                                "+10 fighter"
+                                                        else:
+                                                            battle_info_to_return_to_main_loop["knowledge"] = ""
                                                     else:
                                                         battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                else:
-                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                # if player has a pet seed, add to it for this role. stop counts at 8
-                                                if seed_given:
-                                                    if seed_mage_count < 4 and seed_fighter_count < 4 and \
-                                                            seed_scout_count < 4:
-                                                        seed_mage_count += 1
+                                                    # if player has a pet seed, add to it for this role
+                                                    if seed_given:
+                                                        if seed_mage_count < 4 and seed_fighter_count < 4 and \
+                                                                seed_scout_count < 4:
+                                                            seed_fighter_count += 1
+                                                    if current_enemy_battling.kind == "nede ghoul":
+                                                        nede_ghoul_defeated = True
+                                                        ghoul_nede.kill()
+                                                    if current_enemy_battling.kind == "chorizon_1":
+                                                        mini_boss_1 = False
+                                                        mini_boss_1_defeated = True
+                                                        chorizon_1.kill()
+                                                        chorizon_phase = False
+                                                    if current_enemy_battling.kind == "chorizon_2":
+                                                        mini_boss_2 = False
+                                                        mini_boss_2_defeated = True
+                                                        chorizon_2.kill()
+                                                        chorizon_phase = False
+                                                    if current_enemy_battling.name == "Muchador":
+                                                        muchador_defeated = True
+                                                        muchador.kill()
+                                                    if current_enemy_battling.name == "Chinzilla":
+                                                        chinzilla_defeated = True
+                                                        chinzilla.kill()
+                                                    if barrier_active:
+                                                        barrier_active = False
+                                                        # noinspection PyUnboundLocalVariable
+                                                    if sharp_sense_active:
+                                                        sharp_sense_active = False
+                                                        # noinspection PyUnboundLocalVariable
+                                                    movement_able = True
+                                                    combat_happened = False
+                                                    interacted = False
+                                                    encounter_started = False
+                                                    in_battle = False
+                                                    in_over_world = True
+                                                    combat_cooldown = False
+                                                    loot_updated = False
+                                                    mirror_image = False
+                                                    fire_active = False
+                                                    arrow_active = False
+                                                    show_arrow = False
+                                                    show_advantage_arrow = False
+                                                    show_fire = False
+                                                    show_edge = False
+                                                    cleared = False
+                                                    cloaked = False
+                                                    turn_counter = 0
+                                                    card_popup_checked = False
+                                                    loot_timer_reset = False
+                                                    loot_level_tic = time.perf_counter()
+                                                    if on_card_quest:
+                                                        try:
+                                                            any_card_counter = combat_events["any_card_counter"]
+                                                        except KeyError:
+                                                            pass
+                                            except TypeError:
+                                                pass
 
-                                            if player.role == "fighter":
-                                                if current_enemy_battling.level > player.level - 3:
-                                                    if (player.level <= 10 and player.knowledge["fighter"] < 80 or
-                                                            player.level > 10 and player.knowledge["fighter"] < 120 or
-                                                            player.level > 20 and player.knowledge["fighter"] < 240):
-                                                        player.knowledge["fighter"] += 10
-                                                        battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
+                            elif combat_button == "skill 2" or skill_2_hotkey and not combat_cooldown:
+                                skill_2_hotkey = False
+                                # make sure player has enough energy to use the skill
+                                if player.energy > 39:
+                                    turn_counter += 1
+                                    if player.role == "mage":
+                                        if mirror_learned:
+                                            if not mirror_image:
+                                                pygame.mixer.find_channel(True).play(sfx_mage_mirror)
+                                                info_text_1 = "Mirror spell is active."
+                                                mirror_image = True
+                                                if player.equipment["trinket 3"] != "":
+                                                    player.energy -= 20
+                                                elif player.equipment["trinket 3"] == "":
+                                                    player.energy -= 40
+                                                combat_scenario.attack_animation_player(player,
+                                                                                        player_battle_sprite,
+                                                                                        barrier_active,
+                                                                                        sharp_sense_active,
+                                                                                        hard_strike, graphic_dict,
+                                                                                        turn_taken)
+                                                combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                       snake_battle_sprite,
+                                                                                       ghoul_battle_sprite,
+                                                                                       chorizon_battle_sprite,
+                                                                                       magmon_battle_sprite,
+                                                                                       muchador_battle_sprite,
+                                                                                       bandile_battle_sprite,
+                                                                                       chinzilla_battle_sprite,
+                                                                                       in_battle,
+                                                                                       in_npc_interaction,
+                                                                                       graphic_dict,
+                                                                                       necrola_battle_sprite,
+                                                                                       osodark_battle_sprite,
+                                                                                       stelli_battle_sprite,
+                                                                                       chorizon_phase,
+                                                                                       erebyth_battle_sprite,
+                                                                                       turn_counter,
+                                                                                       atmon_battle_sprite,
+                                                                                       jumano_battle_sprite,
+                                                                                       dreth_battle_sprite,
+                                                                                       apothis_gift, cloaked)
+                                                turn_taken = True
+                                                attack_hotkey = False
+
+                                                if mirror_image:
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            mirror_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
+                                                # combat event function that handles and returns damage and health
+                                                combat_events = combat_scenario.attack_scenario(
+                                                    current_enemy_battling, "attack", player, hard_strike_learned,
+                                                    level_up_win, level_up_font, graphic_dict, sharp_sense_active,
+                                                    barrier_active, turn_taken, stun_them, mirror_image,
+                                                    turn_counter, atmon_counter, prism_received,
+                                                    turn_counter, apothis_upgrade, trading_deck,
+                                                    trading_task_complete, any_card_counter, card_deck,
+                                                    arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
+                                                    bleeding)
+                                                try:
+                                                    stun_them = combat_events["stunned"]
+                                                except TypeError and KeyError:
+                                                    stun_them = False
+                                                combat_happened = True
+                                                combat_tic = time.perf_counter()
+                                                combat_cooldown = True
+
+                                                # add all combat scenario happenings from function to message box
+                                                try:
+                                                    if combat_events["damage taken string"] == 0:
+                                                        info_text_2 = ""
                                                     else:
-                                                        battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                        info_text_2 = str(combat_events["damage taken string"])
+                                                except TypeError:
+                                                    pass
+                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                              en_bar, xp_bar,
+                                                                                              star_power_meter,
+                                                                                              offense_meter,
+                                                                                              defense_meter,
+                                                                                              graphic_dict,
+                                                                                              basic_armor,
+                                                                                              forged_armor,
+                                                                                              mythical_armor,
+                                                                                              legendary_armor,
+                                                                                              power_gloves,
+                                                                                              chroma_boots,
+                                                                                              neras_grace,
+                                                                                              arens_strength,
+                                                                                              spirit_of_wisdom)
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                                  SCREEN_HEIGHT))
+                                                    game_window.blit(frame, frame.get_rect())
+                                                    pygame.display.flip()
                                                 else:
-                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                # if player has a pet seed, add to it for this role. stop counts at 8
-                                                if seed_given:
-                                                    if seed_mage_count < 4 and seed_fighter_count < 4 and \
-                                                            seed_scout_count < 4:
-                                                        seed_fighter_count += 1
+                                                    pygame.display.flip()
+                                            else:
+                                                info_text_1 = "Mirror spell is already active."
 
-                                            if player.role == "scout":
-                                                if current_enemy_battling.level > player.level - 3:
-                                                    if (player.level <= 10 and player.knowledge["scout"] < 80 or
-                                                            player.level > 10 and player.knowledge["scout"] < 120 or
-                                                            player.level > 20 and player.knowledge["scout"] < 240):
-                                                        player.knowledge["scout"] += 10
-                                                        battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
-                                                    else:
-                                                        battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                else:
-                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                # if player has a pet seed, add to it for this role. stop counts at 8
-                                                if seed_given:
-                                                    if seed_mage_count < 4 and seed_fighter_count < 4 and \
-                                                            seed_scout_count < 4:
-                                                        seed_scout_count += 1
+                                    if player.role == "fighter":
+                                        if stun_learned:
+                                            info_text_1 = f"{current_enemy_battling.name} is stunned."
+                                            pygame.mixer.find_channel(True).play(sfx_fighter_stun)
+                                            stun_visual_tic = time.perf_counter()
+                                            stun_them = True
+                                            stun_visual = True
+                                            if player.equipment["trinket 3"] != "":
+                                                player.energy -= 20
+                                            elif player.equipment["trinket 3"] == "":
+                                                player.energy -= 40
+                                            turn_taken = True
+                                            attack_hotkey = False
+                                            gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                          en_bar, xp_bar,
+                                                                                          star_power_meter,
+                                                                                          offense_meter,
+                                                                                          defense_meter,
+                                                                                          graphic_dict,
+                                                                                          basic_armor,
+                                                                                          forged_armor,
+                                                                                          mythical_armor,
+                                                                                          legendary_armor,
+                                                                                          power_gloves,
+                                                                                          chroma_boots,
+                                                                                          neras_grace,
+                                                                                          arens_strength,
+                                                                                          spirit_of_wisdom)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        else:
+                                            info_text_1 = "Stun not learned."
 
-                                            if current_enemy_battling.kind == "nede ghoul":
-                                                nede_ghoul_defeated = True
-                                                ghoul_nede.kill()
-                                            if current_enemy_battling.kind == "chorizon_1":
-                                                mini_boss_1 = False
-                                                mini_boss_1_defeated = True
-                                                chorizon_1.kill()
-                                                chorizon_phase = False
-                                            if current_enemy_battling.kind == "chorizon_2":
-                                                mini_boss_2 = False
-                                                mini_boss_2_defeated = True
-                                                chorizon_2.kill()
-                                                chorizon_phase = False
-                                            if current_enemy_battling.name == "Muchador":
-                                                muchador_defeated = True
-                                                muchador.kill()
-                                            if current_enemy_battling.name == "Chinzilla":
-                                                chinzilla_defeated = True
-                                                chinzilla.kill()
-
-                                            # if barrier is active on enemy defeat, restore original defence and set off
-                                            if barrier_active:
-                                                barrier_active = False
-                                                # noinspection PyUnboundLocalVariable
-                                            # if sharp sense is active on enemy defeat, restore original offense
-                                            if sharp_sense_active:
-                                                sharp_sense_active = False
-                                                # noinspection PyUnboundLocalVariable
-
+                                    if player.role == "scout":
+                                        if vanish_learned:
+                                            pygame.mixer.find_channel(True).play(sfx_scout_vanish)
+                                            skill_2_hotkey = False
                                             movement_able = True
                                             combat_happened = False
                                             interacted = False
                                             encounter_started = False
                                             in_battle = False
+                                            combat_cooldown = False
                                             in_over_world = True
                                             loot_updated = False
+                                            if barrier_active:
+                                                barrier_active = False
+                                                # noinspection PyUnboundLocalVariable
+                                            if sharp_sense_active:
+                                                sharp_sense_active = False
+                                                # noinspection PyUnboundLocalVariable
+                                            if player.equipment["trinket 3"] != "":
+                                                player.energy -= 20
+                                            elif player.equipment["trinket 3"] == "":
+                                                player.energy -= 40
                                             mirror_image = False
                                             fire_active = False
                                             arrow_active = False
@@ -15917,273 +16707,89 @@ if __name__ == "__main__":
                                             show_advantage_arrow = False
                                             show_fire = False
                                             show_edge = False
+                                            vanished = True
                                             cleared = False
+                                            leveled = False
                                             cloaked = False
                                             turn_counter = 0
-                                            card_popup_checked = False
-                                            loot_timer_reset = False
-                                            loot_level_tic = time.perf_counter()
-                                            if on_card_quest:
-                                                try:
-                                                    any_card_counter = combat_events["any_card_counter"]
-                                                except KeyError:
-                                                    pass
-                                    except TypeError:
-                                        pass
+                                            battle_info_to_return_to_main_loop["item dropped"] = ""
+                                            battle_info_to_return_to_main_loop["experience"] = 0
+                                            battle_info_to_return_to_main_loop["knowledge"] = ""
+                                            vanished_tic = time.perf_counter()
+                                else:
+                                    info_text_1 = "Not enough energy to use this skill."
 
-                            # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
-                            elif combat_button == "skill 1" or skill_1_hotkey:
-                                if not combat_cooldown:
-                                    skill_1_hotkey = False
-                                    # make sure player has enough energy to use the skill
-                                    if player.energy > 19:
-                                        turn_counter += 1
-                                        # player is a mage and uses the barrier spell. Set barrier active to true
-                                        # save original defence value to be re applied upon enemy or player defeat
-                                        if player.role == "mage":
-                                            if barrier_learned:
-                                                if not barrier_active:
-                                                    pygame.mixer.find_channel(True).play(sfx_mage_barrier)
-                                                    info_text_1 = "Barrier spell is active."
-                                                    barrier_active = True
-                                                    if player.equipment["trinket 3"] != "":
-                                                        player.energy -= 10
-                                                    elif player.equipment["trinket 3"] == "":
-                                                        player.energy -= 20
-                                                    turn_taken = True
-                                                    attack_hotkey = False
-                                                    combat_scenario.battle_animation_player(player,
-                                                                                            player_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            graphic_dict)
-                                                    combat_scenario.battle_animation_enemy(current_enemy_battling,
-                                                                                           snake_battle_sprite,
-                                                                                           ghoul_battle_sprite,
-                                                                                           chorizon_battle_sprite,
-                                                                                           muchador_battle_sprite,
-                                                                                           magmon_battle_sprite,
-                                                                                           bandile_battle_sprite,
-                                                                                           chinzilla_battle_sprite,
-                                                                                           in_battle,
-                                                                                           in_npc_interaction,
-                                                                                           graphic_dict,
-                                                                                           necrola_battle_sprite,
-                                                                                           osodark_battle_sprite,
-                                                                                           stelli_battle_sprite,
-                                                                                           chorizon_phase,
-                                                                                           erebyth_battle_sprite,
-                                                                                           turn_counter,
-                                                                                           atmon_battle_sprite,
-                                                                                           jumano_battle_sprite,
-                                                                                           dreth_battle_sprite,
-                                                                                           apothis_gift, cloaked)
-                                                    if mirror_image:
-                                                        combat_scenario.battle_animation_player(player,
-                                                                                                mirror_battle_sprite,
-                                                                                                barrier_active,
-                                                                                                sharp_sense_active,
-                                                                                                graphic_dict)
-                                                    # combat event function that handles and returns damage and health
-                                                    combat_events = \
-                                                        combat_scenario.attack_scenario(current_enemy_battling,
-                                                                                        "attack", player,
-                                                                                        hard_strike_learned,
-                                                                                        level_up_win, level_up_font,
-                                                                                        graphic_dict,
-                                                                                        sharp_sense_active,
-                                                                                        barrier_active, turn_taken,
-                                                                                        stun_them, mirror_image,
-                                                                                        turn_counter,
-                                                                                        atmon_counter, prism_received,
-                                                                                        turn_counter,
-                                                                                        apothis_upgrade, trading_deck,
-                                                                                        trading_task_complete,
-                                                                                        any_card_counter, card_deck,
-                                                                                        arrow_active, fire_active,
-                                                                                        show_edge, cloaked, burned,
-                                                                                        poisoned, bleeding)
-                                                    try:
-                                                        stun_them = combat_events["stunned"]
-                                                    except TypeError and KeyError:
-                                                        stun_them = False
-                                                    combat_happened = True
-                                                    # add all combat scenario happenings from function to message box
-                                                    try:
-                                                        if combat_events["damage taken string"] == 0:
-                                                            info_text_2 = ""
-                                                        else:
-                                                            info_text_2 = str(combat_events["damage taken string"])
-                                                    except TypeError:
-                                                        pass
-                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
-                                                                                                  en_bar, xp_bar,
-                                                                                                  star_power_meter,
-                                                                                                  offense_meter,
-                                                                                                  defense_meter,
-                                                                                                  graphic_dict,
-                                                                                                  basic_armor,
-                                                                                                  forged_armor,
-                                                                                                  mythical_armor,
-                                                                                                  legendary_armor,
-                                                                                                  power_gloves,
-                                                                                                  chroma_boots,
-                                                                                                  neras_grace,
-                                                                                                  arens_strength,
-                                                                                                  spirit_of_wisdom)
-                                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                                        frame = pygame.transform.smoothscale(screen,
-                                                                                             (SCREEN_WIDTH,
-                                                                                              SCREEN_HEIGHT))
-                                                        game_window.blit(frame, frame.get_rect())
-                                                        pygame.display.flip()
-                                                    else:
-                                                        pygame.display.flip()
-                                                else:
-                                                    info_text_1 = "Barrier spell is already active."
-
-                                        # player is a scout and uses sharp sense. Set sharp sense active to true
-                                        # save original offense value to be re applied upon enemy or player defeat
-                                        if player.role == "scout":
-                                            if sharp_sense_learned:
-                                                if not sharp_sense_active:
-                                                    pygame.mixer.find_channel(True).play(sfx_scout_sense)
-                                                    info_text_1 = "Sharp sense is active."
-                                                    sharp_sense_active = True
-                                                    if player.equipment["trinket 3"] != "":
-                                                        player.energy -= 10
-                                                    elif player.equipment["trinket 3"] == "":
-                                                        player.energy -= 20
-                                                    turn_taken = True
-                                                    attack_hotkey = False
-                                                    combat_scenario.battle_animation_player(player,
-                                                                                            player_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            graphic_dict)
-                                                    combat_scenario.battle_animation_enemy(current_enemy_battling,
-                                                                                           snake_battle_sprite,
-                                                                                           ghoul_battle_sprite,
-                                                                                           chorizon_battle_sprite,
-                                                                                           muchador_battle_sprite,
-                                                                                           magmon_battle_sprite,
-                                                                                           bandile_battle_sprite,
-                                                                                           chinzilla_battle_sprite,
-                                                                                           in_battle,
-                                                                                           in_npc_interaction,
-                                                                                           graphic_dict,
-                                                                                           necrola_battle_sprite,
-                                                                                           osodark_battle_sprite,
-                                                                                           stelli_battle_sprite,
-                                                                                           chorizon_phase,
-                                                                                           erebyth_battle_sprite,
-                                                                                           turn_counter,
-                                                                                           atmon_battle_sprite,
-                                                                                           jumano_battle_sprite,
-                                                                                           dreth_battle_sprite,
-                                                                                           apothis_gift, cloaked)
-                                                    if mirror_image:
-                                                        combat_scenario.battle_animation_player(player,
-                                                                                                mirror_battle_sprite,
-                                                                                                barrier_active,
-                                                                                                sharp_sense_active,
-                                                                                                graphic_dict)
-                                                    # combat event function that handles and returns damage and health
-                                                    combat_events = \
-                                                        combat_scenario.attack_scenario(current_enemy_battling,
-                                                                                        "attack", player,
-                                                                                        hard_strike_learned,
-                                                                                        level_up_win, level_up_font,
-                                                                                        graphic_dict,
-                                                                                        sharp_sense_active,
-                                                                                        barrier_active, turn_taken,
-                                                                                        stun_them, mirror_image,
-                                                                                        turn_counter,
-                                                                                        atmon_counter, prism_received,
-                                                                                        turn_counter,
-                                                                                        apothis_upgrade, trading_deck,
-                                                                                        trading_task_complete,
-                                                                                        any_card_counter, card_deck,
-                                                                                        arrow_active, fire_active,
-                                                                                        show_edge, cloaked, burned,
-                                                                                        poisoned, bleeding)
-                                                    try:
-                                                        stun_them = combat_events["stunned"]
-                                                    except TypeError and KeyError:
-                                                        stun_them = False
-                                                    combat_happened = True
-                                                    # add all combat scenario happenings from function to message box
-                                                    try:
-                                                        if combat_events["damage taken string"] == 0:
-                                                            info_text_2 = ""
-                                                        else:
-                                                            info_text_2 = str(combat_events["damage taken string"])
-                                                    except TypeError:
-                                                        pass
-                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
-                                                                                                  en_bar, xp_bar,
-                                                                                                  star_power_meter,
-                                                                                                  offense_meter,
-                                                                                                  defense_meter,
-                                                                                                  graphic_dict,
-                                                                                                  basic_armor,
-                                                                                                  forged_armor,
-                                                                                                  mythical_armor,
-                                                                                                  legendary_armor,
-                                                                                                  power_gloves,
-                                                                                                  chroma_boots,
-                                                                                                  neras_grace,
-                                                                                                  arens_strength,
-                                                                                                  spirit_of_wisdom)
-                                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                                        frame = pygame.transform.smoothscale(screen,
-                                                                                             (SCREEN_WIDTH,
-                                                                                              SCREEN_HEIGHT))
-                                                        game_window.blit(frame, frame.get_rect())
-                                                        pygame.display.flip()
-                                                    else:
-                                                        pygame.display.flip()
-                                                else:
-                                                    info_text_1 = "Sharp sense is already active."
-
-                                        # player is a fighter and uses hard strike
-                                        if player.role == "fighter":
-                                            if hard_strike_learned:
+                            elif combat_button == "skill 3" or skill_3_hotkey and not combat_cooldown:
+                                skill_3_hotkey = False
+                                # make sure player has enough energy to use the skill
+                                if player.energy > 79:
+                                    turn_counter += 1
+                                    if player.role == "mage":
+                                        if fire_learned:
+                                            if not fire_active:
+                                                show_fire = True
+                                                info_text_1 = "Millennium Fire spell is active."
+                                                fire_active = True
                                                 if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 10
+                                                    player.energy -= 40
                                                 elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 20
-                                                pygame.mixer.find_channel(True).play(sfx_fighter_strike)
-                                                hard_strike = True
-                                                combat_scenario.fighter(graphic_dict, player, player_battle_sprite,
-                                                                        sharp_sense_active, barrier_active)
-                                                combat_events = combat_scenario.attack_scenario(current_enemy_battling,
-                                                                                                "skill 1", player,
-                                                                                                hard_strike_learned,
-                                                                                                level_up_win,
-                                                                                                level_up_font,
-                                                                                                graphic_dict,
-                                                                                                sharp_sense_active,
-                                                                                                barrier_active,
-                                                                                                turn_taken, stun_them,
-                                                                                                mirror_image,
-                                                                                                turn_counter,
-                                                                                                atmon_counter,
-                                                                                                prism_received,
-                                                                                                turn_counter,
-                                                                                                apothis_upgrade,
-                                                                                                trading_deck,
-                                                                                                trading_task_complete,
-                                                                                                any_card_counter,
-                                                                                                card_deck, arrow_active,
-                                                                                                fire_active, show_edge,
-                                                                                                cloaked, burned,
-                                                                                                poisoned, bleeding)
+                                                    player.energy -= 80
+
+                                                combat_scenario.attack_animation_player(player,
+                                                                                        player_battle_sprite,
+                                                                                        barrier_active,
+                                                                                        sharp_sense_active,
+                                                                                        hard_strike, graphic_dict,
+                                                                                        turn_taken)
+                                                combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                       snake_battle_sprite,
+                                                                                       ghoul_battle_sprite,
+                                                                                       chorizon_battle_sprite,
+                                                                                       magmon_battle_sprite,
+                                                                                       muchador_battle_sprite,
+                                                                                       bandile_battle_sprite,
+                                                                                       chinzilla_battle_sprite,
+                                                                                       in_battle,
+                                                                                       in_npc_interaction,
+                                                                                       graphic_dict,
+                                                                                       necrola_battle_sprite,
+                                                                                       osodark_battle_sprite,
+                                                                                       stelli_battle_sprite,
+                                                                                       chorizon_phase,
+                                                                                       erebyth_battle_sprite,
+                                                                                       turn_counter,
+                                                                                       atmon_battle_sprite,
+                                                                                       jumano_battle_sprite,
+                                                                                       dreth_battle_sprite,
+                                                                                       apothis_gift, cloaked)
+                                                if mirror_image:
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            mirror_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
+                                                # combat event function that handles and returns damage and health
+                                                combat_events = combat_scenario.attack_scenario(
+                                                    current_enemy_battling, "attack", player, hard_strike_learned,
+                                                    level_up_win, level_up_font, graphic_dict, sharp_sense_active,
+                                                    barrier_active, turn_taken, stun_them, mirror_image,
+                                                    turn_counter, atmon_counter, prism_received,
+                                                    turn_counter, apothis_upgrade, trading_deck,
+                                                    trading_task_complete, any_card_counter, card_deck,
+                                                    arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
+                                                    bleeding)
+
+                                                turn_taken = True
+                                                attack_hotkey = False
+
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
                                                     stun_them = False
                                                 combat_happened = True
+                                                combat_tic = time.perf_counter()
+                                                combat_cooldown = True
+
                                                 # add all combat scenario happenings from function to message box
                                                 try:
                                                     if combat_events["damage done string"] == 0:
@@ -16199,6 +16805,7 @@ if __name__ == "__main__":
                                                 try:
                                                     battle_info_to_return_to_main_loop["knowledge"] = ""
                                                     if combat_events["enemy defeated"]:
+                                                        pygame.mixer.find_channel(True).play(sfx_mage_fire)
                                                         if combat_events["item dropped"] != "No":
                                                             try:
                                                                 prism_received = combat_events["prism_received"]
@@ -16207,7 +16814,8 @@ if __name__ == "__main__":
                                                             battle_info_to_return_to_main_loop["item dropped"] = \
                                                                 str(combat_events["item dropped"])
                                                         else:
-                                                            battle_info_to_return_to_main_loop["item dropped"] = ""
+                                                            battle_info_to_return_to_main_loop[
+                                                                "item dropped"] = ""
                                                         if combat_events["experience gained"] != 0:
                                                             battle_info_to_return_to_main_loop["experience"] = \
                                                                 str(combat_events["experience gained"])
@@ -16228,14 +16836,14 @@ if __name__ == "__main__":
                                                             atmon_counter += 1
                                                         # player will gain knowledge based on their current role
                                                         if current_enemy_battling.level > player.level - 3:
-                                                            if (player.level <= 10 and player.knowledge["fighter"] < 80
-                                                                    or player.level > 10 and
-                                                                    player.knowledge["fighter"] < 120
-                                                                    or player.level > 20 and
-                                                                    player.knowledge["fighter"] < 240):
-                                                                player.knowledge["fighter"] += 10
+                                                            if (player.level <= 10 and player.knowledge["mage"] < 80
+                                                                    or player.level > 10
+                                                                    and player.knowledge["mage"] < 120
+                                                                    or player.level > 20
+                                                                    and player.knowledge["mage"] < 240):
+                                                                player.knowledge["mage"] += 10
                                                                 battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                    "+10 fighter"
+                                                                    "+10 mage"
                                                             else:
                                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         else:
@@ -16244,7 +16852,7 @@ if __name__ == "__main__":
                                                         if seed_given:
                                                             if seed_mage_count < 4 and seed_fighter_count < 4 and \
                                                                     seed_scout_count < 4:
-                                                                seed_fighter_count += 1
+                                                                seed_mage_count += 1
                                                         if current_enemy_battling.kind == "nede ghoul":
                                                             nede_ghoul_defeated = True
                                                             ghoul_nede.kill()
@@ -16275,6 +16883,7 @@ if __name__ == "__main__":
                                                         interacted = False
                                                         encounter_started = False
                                                         in_battle = False
+                                                        combat_cooldown = False
                                                         in_over_world = True
                                                         loot_updated = False
                                                         mirror_image = False
@@ -16298,120 +16907,6 @@ if __name__ == "__main__":
                                                 except TypeError:
                                                     pass
 
-                            elif combat_button == "skill 2" or skill_2_hotkey:
-                                if not combat_cooldown:
-                                    skill_2_hotkey = False
-                                    # make sure player has enough energy to use the skill
-                                    if player.energy > 39:
-                                        turn_counter += 1
-                                        if player.role == "mage":
-                                            if mirror_learned:
-                                                if not mirror_image:
-                                                    pygame.mixer.find_channel(True).play(sfx_mage_mirror)
-                                                    info_text_1 = "Mirror spell is active."
-                                                    mirror_image = True
-                                                    if player.equipment["trinket 3"] != "":
-                                                        player.energy -= 20
-                                                    elif player.equipment["trinket 3"] == "":
-                                                        player.energy -= 40
-                                                    combat_scenario.attack_animation_player(player,
-                                                                                            player_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            hard_strike, graphic_dict,
-                                                                                            turn_taken)
-                                                    combat_scenario.battle_animation_enemy(current_enemy_battling,
-                                                                                           snake_battle_sprite,
-                                                                                           ghoul_battle_sprite,
-                                                                                           chorizon_battle_sprite,
-                                                                                           magmon_battle_sprite,
-                                                                                           muchador_battle_sprite,
-                                                                                           bandile_battle_sprite,
-                                                                                           chinzilla_battle_sprite,
-                                                                                           in_battle,
-                                                                                           in_npc_interaction,
-                                                                                           graphic_dict,
-                                                                                           necrola_battle_sprite,
-                                                                                           osodark_battle_sprite,
-                                                                                           stelli_battle_sprite,
-                                                                                           chorizon_phase,
-                                                                                           erebyth_battle_sprite,
-                                                                                           turn_counter,
-                                                                                           atmon_battle_sprite,
-                                                                                           jumano_battle_sprite,
-                                                                                           dreth_battle_sprite,
-                                                                                           apothis_gift, cloaked)
-                                                    turn_taken = True
-                                                    attack_hotkey = False
-
-                                                    if mirror_image:
-                                                        combat_scenario.battle_animation_player(player,
-                                                                                                mirror_battle_sprite,
-                                                                                                barrier_active,
-                                                                                                sharp_sense_active,
-                                                                                                graphic_dict)
-                                                    # combat event function that handles and returns damage and health
-                                                    combat_events = combat_scenario.attack_scenario(
-                                                        current_enemy_battling, "attack", player, hard_strike_learned,
-                                                        level_up_win, level_up_font, graphic_dict, sharp_sense_active,
-                                                        barrier_active, turn_taken, stun_them, mirror_image,
-                                                        turn_counter, atmon_counter, prism_received,
-                                                        turn_counter, apothis_upgrade, trading_deck,
-                                                        trading_task_complete, any_card_counter, card_deck,
-                                                        arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                        bleeding)
-                                                    try:
-                                                        stun_them = combat_events["stunned"]
-                                                    except TypeError and KeyError:
-                                                        stun_them = False
-                                                    combat_happened = True
-
-                                                    # add all combat scenario happenings from function to message box
-                                                    try:
-                                                        if combat_events["damage taken string"] == 0:
-                                                            info_text_2 = ""
-                                                        else:
-                                                            info_text_2 = str(combat_events["damage taken string"])
-                                                    except TypeError:
-                                                        pass
-                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
-                                                                                                  en_bar, xp_bar,
-                                                                                                  star_power_meter,
-                                                                                                  offense_meter,
-                                                                                                  defense_meter,
-                                                                                                  graphic_dict,
-                                                                                                  basic_armor,
-                                                                                                  forged_armor,
-                                                                                                  mythical_armor,
-                                                                                                  legendary_armor,
-                                                                                                  power_gloves,
-                                                                                                  chroma_boots,
-                                                                                                  neras_grace,
-                                                                                                  arens_strength,
-                                                                                                  spirit_of_wisdom)
-                                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
-                                                                                                      SCREEN_HEIGHT))
-                                                        game_window.blit(frame, frame.get_rect())
-                                                        pygame.display.flip()
-                                                    else:
-                                                        pygame.display.flip()
-                                                else:
-                                                    info_text_1 = "Mirror spell is already active."
-
-                                        if player.role == "fighter":
-                                            if stun_learned:
-                                                info_text_1 = f"{current_enemy_battling.name} is stunned."
-                                                pygame.mixer.find_channel(True).play(sfx_fighter_stun)
-                                                stun_visual_tic = time.perf_counter()
-                                                stun_them = True
-                                                stun_visual = True
-                                                if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 20
-                                                elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 40
-                                                turn_taken = True
-                                                attack_hotkey = False
                                                 gameplay_functions.player_info_and_ui_updates(player, hp_bar,
                                                                                               en_bar, xp_bar,
                                                                                               star_power_meter,
@@ -16435,263 +16930,220 @@ if __name__ == "__main__":
                                                 else:
                                                     pygame.display.flip()
                                             else:
-                                                info_text_1 = "Stun not learned."
+                                                info_text_1 = "Millennium Fire spell is already active."
 
-                                        if player.role == "scout":
-                                            if vanish_learned:
-                                                pygame.mixer.find_channel(True).play(sfx_scout_vanish)
-                                                skill_2_hotkey = False
-                                                movement_able = True
-                                                combat_happened = False
-                                                interacted = False
-                                                encounter_started = False
-                                                in_battle = False
-                                                in_over_world = True
-                                                loot_updated = False
-                                                if barrier_active:
-                                                    barrier_active = False
-                                                    # noinspection PyUnboundLocalVariable
-                                                if sharp_sense_active:
-                                                    sharp_sense_active = False
-                                                    # noinspection PyUnboundLocalVariable
-                                                if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 20
-                                                elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 40
-                                                mirror_image = False
-                                                fire_active = False
-                                                arrow_active = False
-                                                show_arrow = False
-                                                show_advantage_arrow = False
-                                                show_fire = False
-                                                show_edge = False
-                                                vanished = True
-                                                cleared = False
-                                                leveled = False
-                                                cloaked = False
-                                                turn_counter = 0
-                                                battle_info_to_return_to_main_loop["item dropped"] = ""
-                                                battle_info_to_return_to_main_loop["experience"] = 0
-                                                battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                vanished_tic = time.perf_counter()
-                                    else:
-                                        info_text_1 = "Not enough energy to use this skill."
+                                    if player.role == "fighter":
+                                        if edge_learned:
+                                            show_edge = True
+                                            pygame.mixer.find_channel(True).play(sfx_fighter_edge)
+                                            if player.equipment["trinket 3"] != "":
+                                                player.energy -= 40
+                                            elif player.equipment["trinket 3"] == "":
+                                                player.energy -= 80
 
-                            elif combat_button == "skill 3" or skill_3_hotkey:
-                                if not combat_cooldown:
-                                    skill_3_hotkey = False
-                                    # make sure player has enough energy to use the skill
-                                    if player.energy > 79:
-                                        turn_counter += 1
-                                        if player.role == "mage":
-                                            if fire_learned:
-                                                if not fire_active:
-                                                    show_fire = True
-                                                    info_text_1 = "Millennium Fire spell is active."
-                                                    fire_active = True
-                                                    if player.equipment["trinket 3"] != "":
-                                                        player.energy -= 40
-                                                    elif player.equipment["trinket 3"] == "":
-                                                        player.energy -= 80
+                                            combat_scenario.attack_animation_player(player,
+                                                                                    player_battle_sprite,
+                                                                                    barrier_active,
+                                                                                    sharp_sense_active,
+                                                                                    hard_strike, graphic_dict,
+                                                                                    turn_taken)
+                                            combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                   snake_battle_sprite,
+                                                                                   ghoul_battle_sprite,
+                                                                                   chorizon_battle_sprite,
+                                                                                   magmon_battle_sprite,
+                                                                                   muchador_battle_sprite,
+                                                                                   bandile_battle_sprite,
+                                                                                   chinzilla_battle_sprite,
+                                                                                   in_battle,
+                                                                                   in_npc_interaction,
+                                                                                   graphic_dict,
+                                                                                   necrola_battle_sprite,
+                                                                                   osodark_battle_sprite,
+                                                                                   stelli_battle_sprite,
+                                                                                   chorizon_phase,
+                                                                                   erebyth_battle_sprite,
+                                                                                   turn_counter,
+                                                                                   atmon_battle_sprite,
+                                                                                   jumano_battle_sprite,
+                                                                                   dreth_battle_sprite,
+                                                                                   apothis_gift, cloaked)
+                                            if mirror_image:
+                                                combat_scenario.battle_animation_player(player,
+                                                                                        mirror_battle_sprite,
+                                                                                        barrier_active,
+                                                                                        sharp_sense_active,
+                                                                                        graphic_dict)
 
-                                                    combat_scenario.attack_animation_player(player,
-                                                                                            player_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            hard_strike, graphic_dict,
-                                                                                            turn_taken)
-                                                    combat_scenario.battle_animation_enemy(current_enemy_battling,
-                                                                                           snake_battle_sprite,
-                                                                                           ghoul_battle_sprite,
-                                                                                           chorizon_battle_sprite,
-                                                                                           magmon_battle_sprite,
-                                                                                           muchador_battle_sprite,
-                                                                                           bandile_battle_sprite,
-                                                                                           chinzilla_battle_sprite,
-                                                                                           in_battle,
-                                                                                           in_npc_interaction,
-                                                                                           graphic_dict,
-                                                                                           necrola_battle_sprite,
-                                                                                           osodark_battle_sprite,
-                                                                                           stelli_battle_sprite,
-                                                                                           chorizon_phase,
-                                                                                           erebyth_battle_sprite,
-                                                                                           turn_counter,
-                                                                                           atmon_battle_sprite,
-                                                                                           jumano_battle_sprite,
-                                                                                           dreth_battle_sprite,
-                                                                                           apothis_gift, cloaked)
-                                                    if mirror_image:
-                                                        combat_scenario.battle_animation_player(player,
-                                                                                                mirror_battle_sprite,
-                                                                                                barrier_active,
-                                                                                                sharp_sense_active,
-                                                                                                graphic_dict)
-                                                    # combat event function that handles and returns damage and health
-                                                    combat_events = combat_scenario.attack_scenario(
-                                                        current_enemy_battling, "attack", player, hard_strike_learned,
-                                                        level_up_win, level_up_font, graphic_dict, sharp_sense_active,
-                                                        barrier_active, turn_taken, stun_them, mirror_image,
-                                                        turn_counter, atmon_counter, prism_received,
-                                                        turn_counter, apothis_upgrade, trading_deck,
-                                                        trading_task_complete, any_card_counter, card_deck,
-                                                        arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                        bleeding)
+                                            # combat event function that handles and returns damage and health
+                                            combat_events = combat_scenario.attack_scenario(
+                                                current_enemy_battling, "attack", player, hard_strike_learned,
+                                                level_up_win, level_up_font, graphic_dict, sharp_sense_active,
+                                                barrier_active, turn_taken, stun_them, mirror_image,
+                                                turn_counter, atmon_counter, prism_received,
+                                                turn_counter, apothis_upgrade, trading_deck,
+                                                trading_task_complete, any_card_counter, card_deck,
+                                                arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
+                                                bleeding)
 
-                                                    turn_taken = True
-                                                    attack_hotkey = False
+                                            turn_taken = True
+                                            attack_hotkey = False
 
-                                                    try:
-                                                        stun_them = combat_events["stunned"]
-                                                    except TypeError and KeyError:
-                                                        stun_them = False
-                                                    combat_happened = True
+                                            try:
+                                                stun_them = combat_events["stunned"]
+                                            except TypeError and KeyError:
+                                                stun_them = False
+                                            combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
 
-                                                    # add all combat scenario happenings from function to message box
-                                                    try:
-                                                        if combat_events["damage done string"] == 0:
-                                                            info_text_1 = ""
-                                                        else:
-                                                            info_text_1 = str(combat_events["damage done string"])
-                                                        if combat_events["damage taken string"] == 0:
-                                                            info_text_2 = ""
-                                                        else:
-                                                            info_text_2 = str(combat_events["damage taken string"])
-                                                    except TypeError:
-                                                        pass
-                                                    try:
-                                                        battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                        if combat_events["enemy defeated"]:
-                                                            pygame.mixer.find_channel(True).play(sfx_mage_fire)
-                                                            if combat_events["item dropped"] != "No":
-                                                                try:
-                                                                    prism_received = combat_events["prism_received"]
-                                                                except KeyError:
-                                                                    pass
-                                                                battle_info_to_return_to_main_loop["item dropped"] = \
-                                                                    str(combat_events["item dropped"])
-                                                            else:
-                                                                battle_info_to_return_to_main_loop[
-                                                                    "item dropped"] = ""
-                                                            if combat_events["experience gained"] != 0:
-                                                                battle_info_to_return_to_main_loop["experience"] = \
-                                                                    str(combat_events["experience gained"])
-                                                            else:
-                                                                battle_info_to_return_to_main_loop["experience"] = ""
-                                                        if combat_events["enemy defeated"]:
-                                                            if combat_events["leveled"]:
-                                                                pygame.mixer.find_channel(True).play(sfx_level_up)
-                                                                battle_info_to_return_to_main_loop["leveled_up"] = True
-                                                                level_visual = True
-                                                                level_visual_tic = time.perf_counter()
-                                                        if combat_events["enemy defeated"]:
-                                                            if current_enemy_battling.kind == "dreth":
-                                                                dreth_defeated = True
-                                                            if current_enemy_battling.kind != "stelli":
-                                                                current_enemy_battling.alive_status = False
-                                                            if current_enemy_battling.kind == "atmon":
-                                                                atmon_counter += 1
-                                                            # player will gain knowledge based on their current role
-                                                            if current_enemy_battling.level > player.level - 3:
-                                                                if (player.level <= 10 and player.knowledge["mage"] < 80
-                                                                        or player.level > 10
-                                                                        and player.knowledge["mage"] < 120
-                                                                        or player.level > 20
-                                                                        and player.knowledge["mage"] < 240):
-                                                                    player.knowledge["mage"] += 10
-                                                                    battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                        "+10 mage"
-                                                                else:
-                                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                            else:
-                                                                battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                            # if player has a pet seed, add to it for this role
-                                                            if seed_given:
-                                                                if seed_mage_count < 4 and seed_fighter_count < 4 and \
-                                                                        seed_scout_count < 4:
-                                                                    seed_mage_count += 1
-                                                            if current_enemy_battling.kind == "nede ghoul":
-                                                                nede_ghoul_defeated = True
-                                                                ghoul_nede.kill()
-                                                            if current_enemy_battling.kind == "chorizon_1":
-                                                                mini_boss_1 = False
-                                                                mini_boss_1_defeated = True
-                                                                chorizon_1.kill()
-                                                                chorizon_phase = False
-                                                            if current_enemy_battling.kind == "chorizon_2":
-                                                                mini_boss_2 = False
-                                                                mini_boss_2_defeated = True
-                                                                chorizon_2.kill()
-                                                                chorizon_phase = False
-                                                            if current_enemy_battling.name == "Muchador":
-                                                                muchador_defeated = True
-                                                                muchador.kill()
-                                                            if current_enemy_battling.name == "Chinzilla":
-                                                                chinzilla_defeated = True
-                                                                chinzilla.kill()
-                                                            if barrier_active:
-                                                                barrier_active = False
-                                                                # noinspection PyUnboundLocalVariable
-                                                            if sharp_sense_active:
-                                                                sharp_sense_active = False
-                                                                # noinspection PyUnboundLocalVariable
-                                                            movement_able = True
-                                                            combat_happened = False
-                                                            interacted = False
-                                                            encounter_started = False
-                                                            in_battle = False
-                                                            in_over_world = True
-                                                            loot_updated = False
-                                                            mirror_image = False
-                                                            fire_active = False
-                                                            arrow_active = False
-                                                            show_arrow = False
-                                                            show_advantage_arrow = False
-                                                            show_fire = False
-                                                            show_edge = False
-                                                            cleared = False
-                                                            cloaked = False
-                                                            turn_counter = 0
-                                                            card_popup_checked = False
-                                                            loot_timer_reset = False
-                                                            loot_level_tic = time.perf_counter()
-                                                            if on_card_quest:
-                                                                try:
-                                                                    any_card_counter = combat_events["any_card_counter"]
-                                                                except KeyError:
-                                                                    pass
-                                                    except TypeError:
-                                                        pass
-
-                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
-                                                                                                  en_bar, xp_bar,
-                                                                                                  star_power_meter,
-                                                                                                  offense_meter,
-                                                                                                  defense_meter,
-                                                                                                  graphic_dict,
-                                                                                                  basic_armor,
-                                                                                                  forged_armor,
-                                                                                                  mythical_armor,
-                                                                                                  legendary_armor,
-                                                                                                  power_gloves,
-                                                                                                  chroma_boots,
-                                                                                                  neras_grace,
-                                                                                                  arens_strength,
-                                                                                                  spirit_of_wisdom)
-                                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
-                                                                                                      SCREEN_HEIGHT))
-                                                        game_window.blit(frame, frame.get_rect())
-                                                        pygame.display.flip()
-                                                    else:
-                                                        pygame.display.flip()
+                                            # add all combat scenario happenings from function to message box
+                                            try:
+                                                if combat_events["damage done string"] == 0:
+                                                    info_text_1 = ""
                                                 else:
-                                                    info_text_1 = "Millennium Fire spell is already active."
+                                                    info_text_1 = str(combat_events["damage done string"])
+                                                if combat_events["damage taken string"] == 0:
+                                                    info_text_2 = ""
+                                                else:
+                                                    info_text_2 = str(combat_events["damage taken string"])
+                                            except TypeError:
+                                                pass
+                                            try:
+                                                battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                if combat_events["enemy defeated"]:
+                                                    if combat_events["item dropped"] != "No":
+                                                        try:
+                                                            prism_received = combat_events["prism_received"]
+                                                        except KeyError:
+                                                            pass
+                                                        battle_info_to_return_to_main_loop["item dropped"] = \
+                                                            str(combat_events["item dropped"])
+                                                    else:
+                                                        battle_info_to_return_to_main_loop["item dropped"] = ""
+                                                    if combat_events["experience gained"] != 0:
+                                                        battle_info_to_return_to_main_loop["experience"] = \
+                                                            str(combat_events["experience gained"])
+                                                    else:
+                                                        battle_info_to_return_to_main_loop["experience"] = ""
+                                                if combat_events["enemy defeated"]:
+                                                    if combat_events["leveled"]:
+                                                        pygame.mixer.find_channel(True).play(sfx_level_up)
+                                                        battle_info_to_return_to_main_loop["leveled_up"] = True
+                                                        level_visual = True
+                                                        level_visual_tic = time.perf_counter()
+                                                if combat_events["enemy defeated"]:
+                                                    if current_enemy_battling.kind == "dreth":
+                                                        dreth_defeated = True
+                                                    if current_enemy_battling.kind != "stelli":
+                                                        current_enemy_battling.alive_status = False
+                                                    if current_enemy_battling.kind == "atmon":
+                                                        atmon_counter += 1
+                                                    # player will gain knowledge based on their current role
+                                                    if current_enemy_battling.level > player.level - 3:
+                                                        if (player.level <= 10 and player.knowledge["fighter"] < 80
+                                                                or player.level > 10
+                                                                and player.knowledge["fighter"] < 120
+                                                                or player.level > 20
+                                                                and player.knowledge["fighter"] < 240):
+                                                            player.knowledge["fighter"] += 10
+                                                            battle_info_to_return_to_main_loop["knowledge"] = \
+                                                                "+10 fighter"
+                                                        else:
+                                                            battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                    else:
+                                                        battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                    # if player has a pet seed, add to it for this role
+                                                    if seed_given:
+                                                        if seed_mage_count < 4 and seed_fighter_count < 4 and \
+                                                                seed_scout_count < 4:
+                                                            seed_mage_count += 1
+                                                    if current_enemy_battling.kind == "nede ghoul":
+                                                        nede_ghoul_defeated = True
+                                                        ghoul_nede.kill()
+                                                    if current_enemy_battling.kind == "chorizon_1":
+                                                        mini_boss_1 = False
+                                                        mini_boss_1_defeated = True
+                                                        chorizon_1.kill()
+                                                        chorizon_phase = False
+                                                    if current_enemy_battling.kind == "chorizon_2":
+                                                        mini_boss_2 = False
+                                                        mini_boss_2_defeated = True
+                                                        chorizon_2.kill()
+                                                        chorizon_phase = False
+                                                    if current_enemy_battling.name == "Muchador":
+                                                        muchador_defeated = True
+                                                        muchador.kill()
+                                                    if current_enemy_battling.name == "Chinzilla":
+                                                        chinzilla_defeated = True
+                                                        chinzilla.kill()
+                                                    if barrier_active:
+                                                        barrier_active = False
+                                                        # noinspection PyUnboundLocalVariable
+                                                    if sharp_sense_active:
+                                                        sharp_sense_active = False
+                                                        # noinspection PyUnboundLocalVariable
+                                                    movement_able = True
+                                                    combat_happened = False
+                                                    interacted = False
+                                                    encounter_started = False
+                                                    in_battle = False
+                                                    combat_cooldown = False
+                                                    in_over_world = True
+                                                    loot_updated = False
+                                                    mirror_image = False
+                                                    fire_active = False
+                                                    arrow_active = False
+                                                    show_arrow = False
+                                                    show_advantage_arrow = False
+                                                    show_fire = False
+                                                    show_edge = False
+                                                    cleared = False
+                                                    cloaked = False
+                                                    turn_counter = 0
+                                                    card_popup_checked = False
+                                                    loot_timer_reset = False
+                                                    loot_level_tic = time.perf_counter()
+                                                    if on_card_quest:
+                                                        try:
+                                                            any_card_counter = combat_events["any_card_counter"]
+                                                        except KeyError:
+                                                            pass
+                                            except TypeError:
+                                                pass
+                                            try:
+                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                              en_bar, xp_bar,
+                                                                                              star_power_meter,
+                                                                                              offense_meter,
+                                                                                              defense_meter,
+                                                                                              graphic_dict,
+                                                                                              basic_armor,
+                                                                                              forged_armor,
+                                                                                              mythical_armor,
+                                                                                              legendary_armor,
+                                                                                              power_gloves,
+                                                                                              chroma_boots,
+                                                                                              neras_grace,
+                                                                                              arens_strength,
+                                                                                              spirit_of_wisdom)
+                                            except AttributeError:
+                                                pass
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
 
-                                        if player.role == "fighter":
-                                            if edge_learned:
-                                                show_edge = True
-                                                pygame.mixer.find_channel(True).play(sfx_fighter_edge)
+                                    if player.role == "scout":
+                                        if arrow_learned:
+                                            if not arrow_active:
+                                                show_advantage_arrow = True
+                                                pygame.mixer.find_channel(True).play(sfx_scout_arrow)
+                                                info_text_1 = "Arrow of Advantage is active."
+                                                arrow_active = True
                                                 if player.equipment["trinket 3"] != "":
                                                     player.energy -= 40
                                                 elif player.equipment["trinket 3"] == "":
@@ -16750,6 +17202,8 @@ if __name__ == "__main__":
                                                 except TypeError and KeyError:
                                                     stun_them = False
                                                 combat_happened = True
+                                                combat_tic = time.perf_counter()
+                                                combat_cooldown = True
 
                                                 # add all combat scenario happenings from function to message box
                                                 try:
@@ -16774,7 +17228,8 @@ if __name__ == "__main__":
                                                             battle_info_to_return_to_main_loop["item dropped"] = \
                                                                 str(combat_events["item dropped"])
                                                         else:
-                                                            battle_info_to_return_to_main_loop["item dropped"] = ""
+                                                            battle_info_to_return_to_main_loop[
+                                                                "item dropped"] = ""
                                                         if combat_events["experience gained"] != 0:
                                                             battle_info_to_return_to_main_loop["experience"] = \
                                                                 str(combat_events["experience gained"])
@@ -16794,17 +17249,14 @@ if __name__ == "__main__":
                                                         if current_enemy_battling.kind == "atmon":
                                                             atmon_counter += 1
                                                         # player will gain knowledge based on their current role
-                                                        if current_enemy_battling.level > player.level - 3:
-                                                            if (player.level <= 10 and player.knowledge["fighter"] < 80
-                                                                    or player.level > 10
-                                                                    and player.knowledge["fighter"] < 120
-                                                                    or player.level > 20
-                                                                    and player.knowledge["fighter"] < 240):
-                                                                player.knowledge["fighter"] += 10
-                                                                battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                    "+10 fighter"
-                                                            else:
-                                                                battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                        if (player.level <= 10 and player.knowledge["scout"] < 80
+                                                                or player.level > 10
+                                                                and player.knowledge["scout"] < 120
+                                                                or player.level > 20
+                                                                and player.knowledge["scout"] < 240):
+                                                            player.knowledge["scout"] += 10
+                                                            battle_info_to_return_to_main_loop["knowledge"] = \
+                                                                "+10 scout"
                                                         else:
                                                             battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         # if player has a pet seed, add to it for this role
@@ -16842,6 +17294,7 @@ if __name__ == "__main__":
                                                         interacted = False
                                                         encounter_started = False
                                                         in_battle = False
+                                                        combat_cooldown = False
                                                         in_over_world = True
                                                         loot_updated = False
                                                         mirror_image = False
@@ -16864,24 +17317,21 @@ if __name__ == "__main__":
                                                                 pass
                                                 except TypeError:
                                                     pass
-                                                try:
-                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
-                                                                                                  en_bar, xp_bar,
-                                                                                                  star_power_meter,
-                                                                                                  offense_meter,
-                                                                                                  defense_meter,
-                                                                                                  graphic_dict,
-                                                                                                  basic_armor,
-                                                                                                  forged_armor,
-                                                                                                  mythical_armor,
-                                                                                                  legendary_armor,
-                                                                                                  power_gloves,
-                                                                                                  chroma_boots,
-                                                                                                  neras_grace,
-                                                                                                  arens_strength,
-                                                                                                  spirit_of_wisdom)
-                                                except AttributeError:
-                                                    pass
+                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                              en_bar, xp_bar,
+                                                                                              star_power_meter,
+                                                                                              offense_meter,
+                                                                                              defense_meter,
+                                                                                              graphic_dict,
+                                                                                              basic_armor,
+                                                                                              forged_armor,
+                                                                                              mythical_armor,
+                                                                                              legendary_armor,
+                                                                                              power_gloves,
+                                                                                              chroma_boots,
+                                                                                              neras_grace,
+                                                                                              arens_strength,
+                                                                                              spirit_of_wisdom)
                                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                     frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                   SCREEN_HEIGHT))
@@ -16889,227 +17339,20 @@ if __name__ == "__main__":
                                                     pygame.display.flip()
                                                 else:
                                                     pygame.display.flip()
+                                            else:
+                                                info_text_1 = "Arrow of Advantage is already active."
 
-                                        if player.role == "scout":
-                                            if arrow_learned:
-                                                if not arrow_active:
-                                                    show_advantage_arrow = True
-                                                    pygame.mixer.find_channel(True).play(sfx_scout_arrow)
-                                                    info_text_1 = "Arrow of Advantage is active."
-                                                    arrow_active = True
-                                                    if player.equipment["trinket 3"] != "":
-                                                        player.energy -= 40
-                                                    elif player.equipment["trinket 3"] == "":
-                                                        player.energy -= 80
-
-                                                    combat_scenario.attack_animation_player(player,
-                                                                                            player_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            hard_strike, graphic_dict,
-                                                                                            turn_taken)
-                                                    combat_scenario.battle_animation_enemy(current_enemy_battling,
-                                                                                           snake_battle_sprite,
-                                                                                           ghoul_battle_sprite,
-                                                                                           chorizon_battle_sprite,
-                                                                                           magmon_battle_sprite,
-                                                                                           muchador_battle_sprite,
-                                                                                           bandile_battle_sprite,
-                                                                                           chinzilla_battle_sprite,
-                                                                                           in_battle,
-                                                                                           in_npc_interaction,
-                                                                                           graphic_dict,
-                                                                                           necrola_battle_sprite,
-                                                                                           osodark_battle_sprite,
-                                                                                           stelli_battle_sprite,
-                                                                                           chorizon_phase,
-                                                                                           erebyth_battle_sprite,
-                                                                                           turn_counter,
-                                                                                           atmon_battle_sprite,
-                                                                                           jumano_battle_sprite,
-                                                                                           dreth_battle_sprite,
-                                                                                           apothis_gift, cloaked)
-                                                    if mirror_image:
-                                                        combat_scenario.battle_animation_player(player,
-                                                                                                mirror_battle_sprite,
-                                                                                                barrier_active,
-                                                                                                sharp_sense_active,
-                                                                                                graphic_dict)
-
-                                                    # combat event function that handles and returns damage and health
-                                                    combat_events = combat_scenario.attack_scenario(
-                                                        current_enemy_battling, "attack", player, hard_strike_learned,
-                                                        level_up_win, level_up_font, graphic_dict, sharp_sense_active,
-                                                        barrier_active, turn_taken, stun_them, mirror_image,
-                                                        turn_counter, atmon_counter, prism_received,
-                                                        turn_counter, apothis_upgrade, trading_deck,
-                                                        trading_task_complete, any_card_counter, card_deck,
-                                                        arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                        bleeding)
-
-                                                    turn_taken = True
-                                                    attack_hotkey = False
-
-                                                    try:
-                                                        stun_them = combat_events["stunned"]
-                                                    except TypeError and KeyError:
-                                                        stun_them = False
-                                                    combat_happened = True
-
-                                                    # add all combat scenario happenings from function to message box
-                                                    try:
-                                                        if combat_events["damage done string"] == 0:
-                                                            info_text_1 = ""
-                                                        else:
-                                                            info_text_1 = str(combat_events["damage done string"])
-                                                        if combat_events["damage taken string"] == 0:
-                                                            info_text_2 = ""
-                                                        else:
-                                                            info_text_2 = str(combat_events["damage taken string"])
-                                                    except TypeError:
-                                                        pass
-                                                    try:
-                                                        battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                        if combat_events["enemy defeated"]:
-                                                            if combat_events["item dropped"] != "No":
-                                                                try:
-                                                                    prism_received = combat_events["prism_received"]
-                                                                except KeyError:
-                                                                    pass
-                                                                battle_info_to_return_to_main_loop["item dropped"] = \
-                                                                    str(combat_events["item dropped"])
-                                                            else:
-                                                                battle_info_to_return_to_main_loop[
-                                                                    "item dropped"] = ""
-                                                            if combat_events["experience gained"] != 0:
-                                                                battle_info_to_return_to_main_loop["experience"] = \
-                                                                    str(combat_events["experience gained"])
-                                                            else:
-                                                                battle_info_to_return_to_main_loop["experience"] = ""
-                                                        if combat_events["enemy defeated"]:
-                                                            if combat_events["leveled"]:
-                                                                pygame.mixer.find_channel(True).play(sfx_level_up)
-                                                                battle_info_to_return_to_main_loop["leveled_up"] = True
-                                                                level_visual = True
-                                                                level_visual_tic = time.perf_counter()
-                                                        if combat_events["enemy defeated"]:
-                                                            if current_enemy_battling.kind == "dreth":
-                                                                dreth_defeated = True
-                                                            if current_enemy_battling.kind != "stelli":
-                                                                current_enemy_battling.alive_status = False
-                                                            if current_enemy_battling.kind == "atmon":
-                                                                atmon_counter += 1
-                                                            # player will gain knowledge based on their current role
-                                                            if (player.level <= 10 and player.knowledge["scout"] < 80
-                                                                    or player.level > 10
-                                                                    and player.knowledge["scout"] < 120
-                                                                    or player.level > 20
-                                                                    and player.knowledge["scout"] < 240):
-                                                                player.knowledge["scout"] += 10
-                                                                battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                    "+10 scout"
-                                                            else:
-                                                                battle_info_to_return_to_main_loop["knowledge"] = ""
-                                                            # if player has a pet seed, add to it for this role
-                                                            if seed_given:
-                                                                if seed_mage_count < 4 and seed_fighter_count < 4 and \
-                                                                        seed_scout_count < 4:
-                                                                    seed_mage_count += 1
-                                                            if current_enemy_battling.kind == "nede ghoul":
-                                                                nede_ghoul_defeated = True
-                                                                ghoul_nede.kill()
-                                                            if current_enemy_battling.kind == "chorizon_1":
-                                                                mini_boss_1 = False
-                                                                mini_boss_1_defeated = True
-                                                                chorizon_1.kill()
-                                                                chorizon_phase = False
-                                                            if current_enemy_battling.kind == "chorizon_2":
-                                                                mini_boss_2 = False
-                                                                mini_boss_2_defeated = True
-                                                                chorizon_2.kill()
-                                                                chorizon_phase = False
-                                                            if current_enemy_battling.name == "Muchador":
-                                                                muchador_defeated = True
-                                                                muchador.kill()
-                                                            if current_enemy_battling.name == "Chinzilla":
-                                                                chinzilla_defeated = True
-                                                                chinzilla.kill()
-                                                            if barrier_active:
-                                                                barrier_active = False
-                                                                # noinspection PyUnboundLocalVariable
-                                                            if sharp_sense_active:
-                                                                sharp_sense_active = False
-                                                                # noinspection PyUnboundLocalVariable
-                                                            movement_able = True
-                                                            combat_happened = False
-                                                            interacted = False
-                                                            encounter_started = False
-                                                            in_battle = False
-                                                            in_over_world = True
-                                                            loot_updated = False
-                                                            mirror_image = False
-                                                            fire_active = False
-                                                            arrow_active = False
-                                                            show_arrow = False
-                                                            show_advantage_arrow = False
-                                                            show_fire = False
-                                                            show_edge = False
-                                                            cleared = False
-                                                            cloaked = False
-                                                            turn_counter = 0
-                                                            card_popup_checked = False
-                                                            loot_timer_reset = False
-                                                            loot_level_tic = time.perf_counter()
-                                                            if on_card_quest:
-                                                                try:
-                                                                    any_card_counter = combat_events["any_card_counter"]
-                                                                except KeyError:
-                                                                    pass
-                                                    except TypeError:
-                                                        pass
-                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
-                                                                                                  en_bar, xp_bar,
-                                                                                                  star_power_meter,
-                                                                                                  offense_meter,
-                                                                                                  defense_meter,
-                                                                                                  graphic_dict,
-                                                                                                  basic_armor,
-                                                                                                  forged_armor,
-                                                                                                  mythical_armor,
-                                                                                                  legendary_armor,
-                                                                                                  power_gloves,
-                                                                                                  chroma_boots,
-                                                                                                  neras_grace,
-                                                                                                  arens_strength,
-                                                                                                  spirit_of_wisdom)
-                                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
-                                                                                                      SCREEN_HEIGHT))
-                                                        game_window.blit(frame, frame.get_rect())
-                                                        pygame.display.flip()
-                                                    else:
-                                                        pygame.display.flip()
-                                                else:
-                                                    info_text_1 = "Arrow of Advantage is already active."
-
-                                    else:
-                                        info_text_1 = "Not enough energy to use this skill."
+                                else:
+                                    info_text_1 = "Not enough energy to use this skill."
 
                         # outside of battle event loop -----------------------------------------------------------------
                         combat_scenario.enemy_health_bar(current_enemy_battling, graphic_dict)
-                        # don't let player attack again immediately by spam clicking button
-                        if not combat_cooldown:
-                            # if interact key 'f' has been pressed
-                            if interacted:
-                                # don't allow player to move while in combat
-                                movement_able = False
-                                # if player has just started combat, clear message box, change condition to True
-                                if not encounter_started:
-                                    info_text_1 = ""
-                                    info_text_2 = ""
-                                    info_text_3 = ""
-                                    info_text_4 = ""
-                                    encounter_started = True
+                        if not encounter_started:
+                            info_text_1 = ""
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
+                            encounter_started = True
 
                         # battle scene and enemy are drawn to screen ---------------------------------------------------
                         try:
@@ -17149,8 +17392,7 @@ if __name__ == "__main__":
 
                                     if (player.current_zone == "marrow"
                                             or player.current_zone == "marrow ramps east end"
-                                            or player.current_zone == "ectrenos_front"
-                                            or player.current_zone == "terra trail"
+                                            or player.current_zone == "ectrenos front"
                                             or player.current_zone == "stardust"
                                             or player.current_zone == "korlok"
                                             or player.current_zone == "seldon"):
@@ -17215,8 +17457,7 @@ if __name__ == "__main__":
 
                                     if (player.current_zone == "marrow"
                                             or player.current_zone == "marrow ramps east end"
-                                            or player.current_zone == "ectrenos_front"
-                                            or player.current_zone == "terra trail"
+                                            or player.current_zone == "ectrenos front"
                                             or player.current_zone == "stardust"
                                             or player.current_zone == "korlok"
                                             or player.current_zone == "seldon"):
@@ -17373,6 +17614,8 @@ if __name__ == "__main__":
                                     screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                                     screen.blit(mirror_overlay.surf, mirror_overlay.rect)
                                 screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                                if barrier_active:
+                                    screen.blit(battle_sprite_effect_barrier.surf, battle_sprite_effect_barrier.rect)
 
                                 screen.blit(message_box.surf, message_box.rect)
                                 screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -17493,6 +17736,9 @@ if __name__ == "__main__":
                                     game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                                     game_window.blit(mirror_overlay.surf, mirror_overlay.rect)
                                 game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                                if barrier_active:
+                                    game_window.blit(battle_sprite_effect_barrier.surf,
+                                                     battle_sprite_effect_barrier.rect)
                                 game_window.blit(message_box.surf, message_box.rect)
                                 game_window.blit(equipment_screen.surf, equipment_screen.rect)
                                 if len(drawing_functions.item_info_window) == 0:
@@ -17590,8 +17836,6 @@ if __name__ == "__main__":
                                     else:
                                         game_window.blit(button_highlight.surf, button_highlight.rect)
 
-                            combat_cooldown = False
-
                             # draw fighter stun visual to screen if it was used. timer checks for reset to remove.
                             if stun_visual:
                                 stun_visual_toc = time.perf_counter()
@@ -17623,6 +17867,7 @@ if __name__ == "__main__":
                                         interacted = False
                                         encounter_started = False
                                         in_battle = False
+                                        combat_cooldown = False
                                         in_over_world = True
                                         loot_updated = False
                                         mirror_image = False
@@ -17727,29 +17972,24 @@ if __name__ == "__main__":
                                 if player.role == "fighter":
                                     if show_edge:
                                         screen.blit(edge_battle_sprite.surf, edge_battle_sprite.rect)
-                                        show_edge = False
-
                                 if player.role == "scout":
                                     if show_arrow:
                                         screen.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
-                                        show_arrow = False
                                     elif show_advantage_arrow:
                                         screen.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
-                                        show_advantage_arrow = False
 
                                 if mirror_image:
                                     screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                                     screen.blit(mirror_overlay.surf, mirror_overlay.rect)
                                 screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                                if barrier_active:
+                                    screen.blit(battle_sprite_effect_barrier.surf, battle_sprite_effect_barrier.rect)
 
                                 if burned:
-                                    pygame.mixer.find_channel(True).play(sfx_burned)
                                     screen.blit(battle_sprite_effect_burn.surf, battle_sprite_effect_burn.rect)
                                 if poisoned:
-                                    pygame.mixer.find_channel(True).play(sfx_burned)
                                     screen.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
                                 if bleeding:
-                                    pygame.mixer.find_channel(True).play(sfx_burned)
                                     screen.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
 
                                 screen.blit(message_box.surf, message_box.rect)
@@ -17845,29 +18085,25 @@ if __name__ == "__main__":
                                 if player.role == "fighter":
                                     if show_edge:
                                         game_window.blit(edge_battle_sprite.surf, edge_battle_sprite.rect)
-                                        show_edge = False
-
                                 if player.role == "scout":
                                     if show_arrow:
                                         game_window.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
-                                        show_arrow = False
                                     elif show_advantage_arrow:
                                         game_window.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
-                                        show_advantage_arrow = False
 
                                 if mirror_image:
                                     game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                                     game_window.blit(mirror_overlay.surf, mirror_overlay.rect)
                                 game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                                if barrier_active:
+                                    game_window.blit(battle_sprite_effect_barrier.surf,
+                                                     battle_sprite_effect_barrier.rect)
 
                                 if burned:
-                                    pygame.mixer.find_channel(True).play(sfx_burned)
                                     game_window.blit(battle_sprite_effect_burn.surf, battle_sprite_effect_burn.rect)
                                 if poisoned:
-                                    pygame.mixer.find_channel(True).play(sfx_burned)
                                     game_window.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
                                 if bleeding:
-                                    pygame.mixer.find_channel(True).play(sfx_burned)
                                     game_window.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
 
                                 game_window.blit(message_box.surf, message_box.rect)
@@ -18151,13 +18387,17 @@ if __name__ == "__main__":
                             else:
                                 pygame.display.flip()
 
-                            combat_cooldown = True
                             # when combat happens, apply a short cooldown so attack button can't be spammed
-                            pygame.time.wait(575)
-                            # reset combat animation and ability to click without delay on next iteration
-                            combat_happened = False
-                            # reset hard strike condition so regular fighter attack animation resumes
-                            hard_strike = False
+                            combat_toc = time.perf_counter()
+                            if combat_toc - combat_tic > 0.5:
+                                # reset combat animation and ability to click without delay on next iteration
+                                combat_happened = False
+                                combat_cooldown = False
+                                # reset hard strike condition so regular fighter attack animation resumes
+                                hard_strike = False
+                                show_edge = False
+                                show_arrow = False
+                                show_advantage_arrow = False
 
                     except TypeError:
                         pass
@@ -18364,7 +18604,10 @@ if __name__ == "__main__":
                                                                  graphic_dict["eldream_bait"],
                                                                  graphic_dict["nera_trinket"],
                                                                  graphic_dict["aren_trinket"],
-                                                                 graphic_dict["spirit_trinket"])
+                                                                 graphic_dict["spirit_trinket"],
+                                                                 graphic_dict["poison_cure"],
+                                                                 graphic_dict["burn_cure"],
+                                                                 graphic_dict["bandage_wrap"])
                             if buy_return["info 1"] != "":
                                 button_highlighted = False
                                 info_text_1 = buy_return["info 1"]
@@ -18477,7 +18720,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["eldream_bait"],
                                                                                  graphic_dict["nera_trinket"],
                                                                                  graphic_dict["aren_trinket"],
-                                                                                 graphic_dict["spirit_trinket"])
+                                                                                 graphic_dict["spirit_trinket"],
+                                                                                 graphic_dict["poison_cure"],
+                                                                                 graphic_dict["burn_cure"],
+                                                                                 graphic_dict["bandage_wrap"])
                                     if player.current_zone == "korlok":
                                         shop_scenario.shop_keeper_inventory_draw(npc_nuldar_shopkeeper,
                                                                                  shopkeeper_items,
@@ -18497,7 +18743,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["eldream_bait"],
                                                                                  graphic_dict["nera_trinket"],
                                                                                  graphic_dict["aren_trinket"],
-                                                                                 graphic_dict["spirit_trinket"])
+                                                                                 graphic_dict["spirit_trinket"],
+                                                                                 graphic_dict["poison_cure"],
+                                                                                 graphic_dict["burn_cure"],
+                                                                                 graphic_dict["bandage_wrap"])
                                     if player.current_zone == "ectrenos right":
                                         shop_scenario.shop_keeper_inventory_draw(npc_sorae_shopkeeper,
                                                                                  shopkeeper_items,
@@ -18517,7 +18766,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["eldream_bait"],
                                                                                  graphic_dict["nera_trinket"],
                                                                                  graphic_dict["aren_trinket"],
-                                                                                 graphic_dict["spirit_trinket"])
+                                                                                 graphic_dict["spirit_trinket"],
+                                                                                 graphic_dict["poison_cure"],
+                                                                                 graphic_dict["burn_cure"],
+                                                                                 graphic_dict["bandage_wrap"])
 
                         if shop_button == "leave":
                             if len(buy_shop_elements) > 0:
@@ -19082,11 +19334,23 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                poisoned = inventory_event["poisoned"]
+                            except KeyError:
+                                pass
+                            try:
+                                burned = inventory_event["burned"]
+                            except KeyError:
+                                pass
+                            try:
+                                bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -19451,11 +19715,23 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                poisoned = inventory_event["poisoned"]
+                            except KeyError:
+                                pass
+                            try:
+                                burned = inventory_event["burned"]
+                            except KeyError:
+                                pass
+                            try:
+                                bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -20123,11 +20399,23 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                poisoned = inventory_event["poisoned"]
+                            except KeyError:
+                                pass
+                            try:
+                                burned = inventory_event["burned"]
+                            except KeyError:
+                                pass
+                            try:
+                                bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -20178,65 +20466,6 @@ if __name__ == "__main__":
                                         level_visual_tic = time.perf_counter()
                                         loot_timer_reset = False
                                     player.reputation["sorae"] += 10
-
-                                    # autosave on quest complete
-                                    info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                        sharp_sense_learned, saved, npc_garan.gift,
-                                                                        rest_recover_show, knowledge_academia_show,
-                                                                        quest_guide_shown, battle_guide_shown,
-                                                                        rest_shown_before, quest_highlight_popup,
-                                                                        bridge_not_repaired, nede_ghoul_defeated,
-                                                                        bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                        crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                        switch_3, muchador_defeated, has_key,
-                                                                        mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                        gloves_obtained, korlok_attuned,
-                                                                        eldream_attuned,
-                                                                        rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                        chinzilla_defeated, apothecary_access,
-                                                                        beyond_seldon, seed_given, hatch_ready,
-                                                                        menagerie_access, kasper_unlocked,
-                                                                        torok_unlocked,
-                                                                        iriana_unlocked, rock_8_con, rock_3_con,
-                                                                        seed_scout_count, seed_fighter_count,
-                                                                        seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                        mirror_learned, stun_learned, vanish_learned,
-                                                                        boots_obtained, marrow_switch_phase,
-                                                                        erebyth_defeated,
-                                                                        ramps_crate_1_got, ramps_crate_2_got,
-                                                                        ramps_crate_3_got, ramps_crate_4_got,
-                                                                        ramps_crate_5_got, marrow_attuned,
-                                                                        npc_artherian.gift, artherian_2,
-                                                                        npc_artherian.quest_complete, fishing_unlocked,
-                                                                        fishing_journal_unlocked, bait_given,
-                                                                        basic_fish_counter, better_fish_counter,
-                                                                        even_better_fish_counter, best_fish_counter,
-                                                                        fishing_level, basic_fish_reward,
-                                                                        better_fish_reward,
-                                                                        even_better_fish_reward, best_fish_reward,
-                                                                        marrow_small_chest_got,
-                                                                        npc_noren.quest_complete,
-                                                                        npc_boro.quest_complete, npc_maydria,
-                                                                        artherian_task_start, prism_received,
-                                                                        castle_crate_1_got, castle_crate_2_got,
-                                                                        castle_chest_1_got, castle_chest_2_got,
-                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
-                                                                        mirage_updated, mirage_2_updated, mirage_saved,
-                                                                        mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown, trading_deck,
-                                                                        trading_task_complete, any_card_counter,
-                                                                        card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest, item_block_1_got,
-                                                                        item_block_2_got, item_block_3_got,
-                                                                        item_block_4_got, item_block_5_got,
-                                                                        item_block_6_got, item_block_7_got,
-                                                                        item_block_8_got, item_block_9_got,
-                                                                        item_block_10_got, item_block_11_got,
-                                                                        item_block_12_got)
-                                    info_text_2 = info
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -20811,11 +21040,23 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                poisoned = inventory_event["poisoned"]
+                            except KeyError:
+                                pass
+                            try:
+                                burned = inventory_event["burned"]
+                            except KeyError:
+                                pass
+                            try:
+                                bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -21258,11 +21499,24 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack,
                                                                        graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                       sfx_firework, sfx_skill_learn)
+                                                                       sfx_firework, sfx_skill_learn, poisoned, burned,
+                                                                       bleeding)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                poisoned = inventory_event["poisoned"]
+                            except KeyError:
+                                pass
+                            try:
+                                burned = inventory_event["burned"]
+                            except KeyError:
+                                pass
+                            try:
+                                bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -21302,63 +21556,6 @@ if __name__ == "__main__":
                                 info_text_1 = "You've completed the fishing task!"
                                 fishing_journal_unlocked = True
                                 player.reputation["amuna"] += 10
-
-                                # autosave on quest complete
-                                info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                    sharp_sense_learned, saved, npc_garan.gift,
-                                                                    rest_recover_show, knowledge_academia_show,
-                                                                    quest_guide_shown, battle_guide_shown,
-                                                                    rest_shown_before, quest_highlight_popup,
-                                                                    bridge_not_repaired, nede_ghoul_defeated,
-                                                                    bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                    crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                    switch_3, muchador_defeated, has_key,
-                                                                    mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                    gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                    rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                    chinzilla_defeated, apothecary_access,
-                                                                    beyond_seldon, seed_given, hatch_ready,
-                                                                    menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                    iriana_unlocked, rock_8_con, rock_3_con,
-                                                                    seed_scout_count, seed_fighter_count,
-                                                                    seed_mage_count,
-                                                                    dreth_cutscenes_not_viewed, mirror_learned,
-                                                                    stun_learned, vanish_learned, boots_obtained,
-                                                                    marrow_switch_phase, erebyth_defeated,
-                                                                    ramps_crate_1_got, ramps_crate_2_got,
-                                                                    ramps_crate_3_got, ramps_crate_4_got,
-                                                                    ramps_crate_5_got, marrow_attuned,
-                                                                    npc_artherian.gift,
-                                                                    artherian_2, npc_artherian.quest_complete,
-                                                                    fishing_unlocked, fishing_journal_unlocked,
-                                                                    bait_given,
-                                                                    basic_fish_counter, better_fish_counter,
-                                                                    even_better_fish_counter, best_fish_counter,
-                                                                    fishing_level, basic_fish_reward,
-                                                                    better_fish_reward,
-                                                                    even_better_fish_reward, best_fish_reward,
-                                                                    marrow_small_chest_got, npc_noren.quest_complete,
-                                                                    npc_boro.quest_complete, npc_maydria,
-                                                                    artherian_task_start, prism_received,
-                                                                    castle_crate_1_got, castle_crate_2_got,
-                                                                    castle_chest_1_got, castle_chest_2_got,
-                                                                    dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
-                                                                    mirage_updated, mirage_2_updated, mirage_saved,
-                                                                    mirage_2_saved, rope_phase,
-                                                                    atmon_castle.alive_status, thanked,
-                                                                    dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                    sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                    credits_shown, trading_deck, trading_task_complete,
-                                                                    any_card_counter, card_deck, fire_learned,
-                                                                    edge_learned, arrow_learned, on_card_quest,
-                                                                    item_block_1_got,
-                                                                    item_block_2_got, item_block_3_got,
-                                                                    item_block_4_got, item_block_5_got,
-                                                                    item_block_6_got, item_block_7_got,
-                                                                    item_block_8_got, item_block_9_got,
-                                                                    item_block_10_got, item_block_11_got,
-                                                                    item_block_12_got)
-                                info_text_2 = info
 
                             if not quest_clicked:
                                 if basic_fish_counter < 4:
@@ -21847,11 +22044,24 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack,
                                                                        graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                       sfx_firework, sfx_skill_learn)
+                                                                       sfx_firework, sfx_skill_learn, poisoned, burned,
+                                                                       bleeding)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                poisoned = inventory_event["poisoned"]
+                            except KeyError:
+                                pass
+                            try:
+                                burned = inventory_event["burned"]
+                            except KeyError:
+                                pass
+                            try:
+                                bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -21890,63 +22100,6 @@ if __name__ == "__main__":
                                 info_text_1 = "You've completed the collection task!"
                                 trading_task_complete = True
                                 player.reputation["nuldar"] += 10
-
-                                # autosave on quest complete
-                                info = gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                    sharp_sense_learned, saved, npc_garan.gift,
-                                                                    rest_recover_show, knowledge_academia_show,
-                                                                    quest_guide_shown, battle_guide_shown,
-                                                                    rest_shown_before, quest_highlight_popup,
-                                                                    bridge_not_repaired, nede_ghoul_defeated,
-                                                                    bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                    crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                    switch_3, muchador_defeated, has_key,
-                                                                    mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                    gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                    rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                    chinzilla_defeated, apothecary_access,
-                                                                    beyond_seldon, seed_given, hatch_ready,
-                                                                    menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                    iriana_unlocked, rock_8_con, rock_3_con,
-                                                                    seed_scout_count, seed_fighter_count,
-                                                                    seed_mage_count,
-                                                                    dreth_cutscenes_not_viewed, mirror_learned,
-                                                                    stun_learned, vanish_learned, boots_obtained,
-                                                                    marrow_switch_phase, erebyth_defeated,
-                                                                    ramps_crate_1_got, ramps_crate_2_got,
-                                                                    ramps_crate_3_got, ramps_crate_4_got,
-                                                                    ramps_crate_5_got, marrow_attuned,
-                                                                    npc_artherian.gift,
-                                                                    artherian_2, npc_artherian.quest_complete,
-                                                                    fishing_unlocked, fishing_journal_unlocked,
-                                                                    bait_given,
-                                                                    basic_fish_counter, better_fish_counter,
-                                                                    even_better_fish_counter, best_fish_counter,
-                                                                    fishing_level, basic_fish_reward,
-                                                                    better_fish_reward,
-                                                                    even_better_fish_reward, best_fish_reward,
-                                                                    marrow_small_chest_got, npc_noren.quest_complete,
-                                                                    npc_boro.quest_complete, npc_maydria,
-                                                                    artherian_task_start, prism_received,
-                                                                    castle_crate_1_got, castle_crate_2_got,
-                                                                    castle_chest_1_got, castle_chest_2_got,
-                                                                    dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
-                                                                    mirage_updated, mirage_2_updated, mirage_saved,
-                                                                    mirage_2_saved, rope_phase,
-                                                                    atmon_castle.alive_status, thanked,
-                                                                    dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                    sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                    credits_shown, trading_deck, trading_task_complete,
-                                                                    any_card_counter, card_deck, fire_learned,
-                                                                    edge_learned, arrow_learned, on_card_quest,
-                                                                    item_block_1_got,
-                                                                    item_block_2_got, item_block_3_got,
-                                                                    item_block_4_got, item_block_5_got,
-                                                                    item_block_6_got, item_block_7_got,
-                                                                    item_block_8_got, item_block_9_got,
-                                                                    item_block_10_got, item_block_11_got,
-                                                                    item_block_12_got)
-                                info_text_2 = info
 
                             if not quest_clicked:
                                 if any_card_counter < 4:
@@ -22274,11 +22427,23 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     show_cat_card = True
+                            except KeyError:
+                                pass
+                            try:
+                                poisoned = inventory_event["poisoned"]
+                            except KeyError:
+                                pass
+                            try:
+                                burned = inventory_event["burned"]
+                            except KeyError:
+                                pass
+                            try:
+                                bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -22334,69 +22499,6 @@ if __name__ == "__main__":
                                         loot_timer_reset = False
                                     player.reputation["amuna"] += 10
 
-                                    # autosave on quest complete
-                                    info = gameplay_functions.save_game(player, barrier_learned,
-                                                                        hard_strike_learned,
-                                                                        sharp_sense_learned, saved, npc_garan.gift,
-                                                                        rest_recover_show, knowledge_academia_show,
-                                                                        quest_guide_shown, battle_guide_shown,
-                                                                        rest_shown_before, quest_highlight_popup,
-                                                                        bridge_not_repaired, nede_ghoul_defeated,
-                                                                        bridge_cutscenes_not_viewed, crate_1,
-                                                                        crate_2,
-                                                                        crate_3, crate_4, crate_5, switch_1,
-                                                                        switch_2,
-                                                                        switch_3, muchador_defeated, has_key,
-                                                                        mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                        gloves_obtained, korlok_attuned,
-                                                                        eldream_attuned,
-                                                                        rock_4_con, rock_5_con, rock_6_con,
-                                                                        rock_7_con,
-                                                                        chinzilla_defeated, apothecary_access,
-                                                                        beyond_seldon, seed_given, hatch_ready,
-                                                                        menagerie_access, kasper_unlocked,
-                                                                        torok_unlocked,
-                                                                        iriana_unlocked, rock_8_con, rock_3_con,
-                                                                        seed_scout_count, seed_fighter_count,
-                                                                        seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                        mirror_learned, stun_learned,
-                                                                        vanish_learned,
-                                                                        boots_obtained, marrow_switch_phase,
-                                                                        erebyth_defeated, ramps_crate_1_got,
-                                                                        ramps_crate_2_got, ramps_crate_3_got,
-                                                                        ramps_crate_4_got, ramps_crate_5_got,
-                                                                        marrow_attuned, npc_artherian.gift,
-                                                                        artherian_2,
-                                                                        npc_artherian.quest_complete,
-                                                                        fishing_unlocked,
-                                                                        fishing_journal_unlocked, bait_given,
-                                                                        basic_fish_counter, better_fish_counter,
-                                                                        even_better_fish_counter, best_fish_counter,
-                                                                        fishing_level, basic_fish_reward,
-                                                                        better_fish_reward, even_better_fish_reward,
-                                                                        best_fish_reward, marrow_small_chest_got,
-                                                                        npc_noren.quest_complete,
-                                                                        npc_boro.quest_complete, npc_maydria,
-                                                                        artherian_task_start, prism_received,
-                                                                        castle_crate_1_got, castle_crate_2_got,
-                                                                        castle_chest_1_got, castle_chest_2_got,
-                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
-                                                                        mirage_updated, mirage_2_updated,
-                                                                        mirage_saved, mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown, trading_deck,
-                                                                        trading_task_complete, any_card_counter,
-                                                                        card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest, item_block_1_got,
-                                                                        item_block_2_got, item_block_3_got,
-                                                                        item_block_4_got, item_block_5_got,
-                                                                        item_block_6_got, item_block_7_got,
-                                                                        item_block_8_got, item_block_9_got,
-                                                                        item_block_10_got, item_block_11_got,
-                                                                        item_block_12_got)
-                                    info_text_2 = info
                                 if not quest_clicked:
                                     if not player.quest_complete["sneaky snakes"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -22598,68 +22700,6 @@ if __name__ == "__main__":
                                         loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
 
-                                    # autosave on quest complete
-                                    info = gameplay_functions.save_game(player, barrier_learned,
-                                                                        hard_strike_learned,
-                                                                        sharp_sense_learned, saved, npc_garan.gift,
-                                                                        rest_recover_show, knowledge_academia_show,
-                                                                        quest_guide_shown, battle_guide_shown,
-                                                                        rest_shown_before, quest_highlight_popup,
-                                                                        bridge_not_repaired, nede_ghoul_defeated,
-                                                                        bridge_cutscenes_not_viewed, crate_1,
-                                                                        crate_2,
-                                                                        crate_3, crate_4, crate_5, switch_1,
-                                                                        switch_2,
-                                                                        switch_3, muchador_defeated, has_key,
-                                                                        mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                        gloves_obtained, korlok_attuned,
-                                                                        eldream_attuned,
-                                                                        rock_4_con, rock_5_con, rock_6_con,
-                                                                        rock_7_con,
-                                                                        chinzilla_defeated, apothecary_access,
-                                                                        beyond_seldon, seed_given, hatch_ready,
-                                                                        menagerie_access, kasper_unlocked,
-                                                                        torok_unlocked,
-                                                                        iriana_unlocked, rock_8_con, rock_3_con,
-                                                                        seed_scout_count, seed_fighter_count,
-                                                                        seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                        mirror_learned, stun_learned,
-                                                                        vanish_learned,
-                                                                        boots_obtained, marrow_switch_phase,
-                                                                        erebyth_defeated, ramps_crate_1_got,
-                                                                        ramps_crate_2_got, ramps_crate_3_got,
-                                                                        ramps_crate_4_got, ramps_crate_5_got,
-                                                                        marrow_attuned, npc_artherian.gift,
-                                                                        artherian_2,
-                                                                        npc_artherian.quest_complete,
-                                                                        fishing_unlocked,
-                                                                        fishing_journal_unlocked, bait_given,
-                                                                        basic_fish_counter, better_fish_counter,
-                                                                        even_better_fish_counter, best_fish_counter,
-                                                                        fishing_level, basic_fish_reward,
-                                                                        better_fish_reward, even_better_fish_reward,
-                                                                        best_fish_reward, marrow_small_chest_got,
-                                                                        npc_noren.quest_complete,
-                                                                        npc_boro.quest_complete, npc_maydria,
-                                                                        artherian_task_start, prism_received,
-                                                                        castle_crate_1_got, castle_crate_2_got,
-                                                                        castle_chest_1_got, castle_chest_2_got,
-                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
-                                                                        mirage_updated, mirage_2_updated,
-                                                                        mirage_saved, mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown, trading_deck,
-                                                                        trading_task_complete, any_card_counter,
-                                                                        card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest, item_block_1_got,
-                                                                        item_block_2_got, item_block_3_got,
-                                                                        item_block_4_got, item_block_5_got,
-                                                                        item_block_6_got, item_block_7_got,
-                                                                        item_block_8_got, item_block_9_got,
-                                                                        item_block_10_got, item_block_11_got,
-                                                                        item_block_12_got)
                                 if not quest_clicked:
                                     if not player.quest_complete["ghouled again"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -22862,70 +22902,6 @@ if __name__ == "__main__":
                                         level_visual_tic = time.perf_counter()
                                         loot_timer_reset = False
                                     player.reputation["amuna"] += 10
-
-                                    # autosave on quest complete
-                                    info = gameplay_functions.save_game(player, barrier_learned,
-                                                                        hard_strike_learned,
-                                                                        sharp_sense_learned, saved, npc_garan.gift,
-                                                                        rest_recover_show, knowledge_academia_show,
-                                                                        quest_guide_shown, battle_guide_shown,
-                                                                        rest_shown_before, quest_highlight_popup,
-                                                                        bridge_not_repaired, nede_ghoul_defeated,
-                                                                        bridge_cutscenes_not_viewed, crate_1,
-                                                                        crate_2,
-                                                                        crate_3, crate_4, crate_5, switch_1,
-                                                                        switch_2,
-                                                                        switch_3, muchador_defeated, has_key,
-                                                                        mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                        gloves_obtained, korlok_attuned,
-                                                                        eldream_attuned,
-                                                                        rock_4_con, rock_5_con, rock_6_con,
-                                                                        rock_7_con,
-                                                                        chinzilla_defeated, apothecary_access,
-                                                                        beyond_seldon, seed_given, hatch_ready,
-                                                                        menagerie_access, kasper_unlocked,
-                                                                        torok_unlocked,
-                                                                        iriana_unlocked, rock_8_con, rock_3_con,
-                                                                        seed_scout_count, seed_fighter_count,
-                                                                        seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                        mirror_learned, stun_learned,
-                                                                        vanish_learned,
-                                                                        boots_obtained, marrow_switch_phase,
-                                                                        erebyth_defeated, ramps_crate_1_got,
-                                                                        ramps_crate_2_got, ramps_crate_3_got,
-                                                                        ramps_crate_4_got, ramps_crate_5_got,
-                                                                        marrow_attuned, npc_artherian.gift,
-                                                                        artherian_2,
-                                                                        npc_artherian.quest_complete,
-                                                                        fishing_unlocked,
-                                                                        fishing_journal_unlocked, bait_given,
-                                                                        basic_fish_counter, better_fish_counter,
-                                                                        even_better_fish_counter, best_fish_counter,
-                                                                        fishing_level, basic_fish_reward,
-                                                                        better_fish_reward, even_better_fish_reward,
-                                                                        best_fish_reward, marrow_small_chest_got,
-                                                                        npc_noren.quest_complete,
-                                                                        npc_boro.quest_complete, npc_maydria,
-                                                                        artherian_task_start, prism_received,
-                                                                        castle_crate_1_got, castle_crate_2_got,
-                                                                        castle_chest_1_got, castle_chest_2_got,
-                                                                        dreth_taunt_1, dreth_taunt_2, dreth_taunt_3,
-                                                                        mirage_updated, mirage_2_updated,
-                                                                        mirage_saved, mirage_2_saved, rope_phase,
-                                                                        atmon_castle.alive_status, thanked,
-                                                                        dreth_taunt_4, dreth_defeated, apothis_gift,
-                                                                        sub_marrow_opened, cat_rewarded, cats_pet,
-                                                                        credits_shown, trading_deck,
-                                                                        trading_task_complete, any_card_counter,
-                                                                        card_deck, fire_learned, edge_learned,
-                                                                        arrow_learned, on_card_quest, item_block_1_got,
-                                                                        item_block_2_got, item_block_3_got,
-                                                                        item_block_4_got, item_block_5_got,
-                                                                        item_block_6_got, item_block_7_got,
-                                                                        item_block_8_got, item_block_9_got,
-                                                                        item_block_10_got, item_block_11_got,
-                                                                        item_block_12_got)
-                                    info_text_2 = info
 
                                 if not quest_clicked:
                                     if not player.quest_complete["it's dangerous to go alone"]:
@@ -24076,6 +24052,7 @@ if __name__ == "__main__":
                         buy_clicked = False
                         encounter_started = False
                         in_battle = False
+                        combat_cooldown = False
                         in_over_world = True
                         if barrier_active:
                             barrier_active = False
@@ -24140,6 +24117,7 @@ if __name__ == "__main__":
                                     buy_clicked = False
                                     encounter_started = False
                                     in_battle = False
+                                    combat_cooldown = False
                                     in_over_world = True
                                     if mini_boss_1:
                                         mini_boss_1 = False
@@ -24224,6 +24202,18 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             # player chooses to continue, reset character experience and half health and energy
                             if lets_go_button.rect.collidepoint(pos):
+                                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                                        sharp_sense_active, graphic_dict)
+                                combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                                       ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                       muchador_battle_sprite, magmon_battle_sprite,
+                                                                       bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                       in_battle, in_npc_interaction, graphic_dict,
+                                                                       necrola_battle_sprite, osodark_battle_sprite,
+                                                                       stelli_battle_sprite, chorizon_phase,
+                                                                       erebyth_battle_sprite, turn_counter,
+                                                                       atmon_battle_sprite, jumano_battle_sprite,
+                                                                       dreth_battle_sprite, apothis_gift, cloaked)
                                 over_world_song_set = False
                                 game_over_sound_played = False
                                 pygame.mixer.find_channel(True).play(sfx_button_start)
@@ -24237,6 +24227,7 @@ if __name__ == "__main__":
                                 buy_clicked = False
                                 encounter_started = False
                                 in_battle = False
+                                combat_cooldown = False
                                 in_over_world = True
                                 if mini_boss_1:
                                     mini_boss_1 = False
@@ -24345,7 +24336,19 @@ if __name__ == "__main__":
                                     enemy.health = 100
                                     # noinspection PyTypeChecker
                                     combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                                for enemy in ghouls_marrow:
+                                    enemy.health = 100
+                                    # noinspection PyTypeChecker
+                                    combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                                for enemy in jumanos:
+                                    enemy.health = 100
+                                    # noinspection PyTypeChecker
+                                    combat_scenario.enemy_health_bar(enemy, graphic_dict)
 
+                                atmon_castle.health = 100
+                                combat_scenario.enemy_health_bar(atmon_castle, graphic_dict)
+                                jumano_hall.health = 100
+                                combat_scenario.enemy_health_bar(jumano_hall, graphic_dict)
                                 ghoul_nede.health = 100
                                 combat_scenario.enemy_health_bar(ghoul_nede, graphic_dict)
                                 chorizon_1.health = 100

@@ -2109,6 +2109,15 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("aren trinket", "trinket", 200, 200, graphics["aren's_strength"], 0))
                 if item == "spirit trinket":
                     player.items.append(Item("spirit trinket", "trinket", 200, 200, graphics["wisdom's_spirit"], 0))
+                if item == "cure poison potion":
+                    player.items.append(Item("cure poison potion", "potion", 200, 200, graphics["poison_cure"], 0))
+                if item == "cure burn potion":
+                    player.items.append(Item("cure burn potion", "potion", 200, 200, graphics["burn_cure"], 0))
+                if item == "bandage wrap":
+                    player.items.append(Item("bandage wrap", "wrap", 200, 200, graphics["bandage_wrap"], 0))
+                if item == "big cure potion":
+                    player.items.append(Item("big cure potion", "potion", 200, 200, graphics["big_cure_potion"], 0))
+
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
                     player.equipment["boots"] = Item("chroma boots", "boots", 200, 200, graphics["boots_img"], 0)
@@ -2307,6 +2316,11 @@ def load_game(player, Item, graphics, Pet):
             load_return["item_block_10_got"] = player_load_info["item_block_10_got"]
             load_return["item_block_11_got"] = player_load_info["item_block_11_got"]
             load_return["item_block_12_got"] = player_load_info["item_block_12_got"]
+            load_return["cloaked_popup_shown"] = player_load_info["cloaked_popup_shown"]
+            load_return["time_of_day"] = player_load_info["time_of_day"]
+            load_return["poisoned"] = player_load_info["poisoned"]
+            load_return["burned"] = player_load_info["burned"]
+            load_return["bleeding"] = player_load_info["bleeding"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2337,7 +2351,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               cat_rewarded, cats_pet, credits_shown, trading_deck, trading_task_complete, any_card_counter,
               card_deck, fire_learned, edge_learned, arrow_learned, on_card_quest, item_block_1_got, item_block_2_got,
               item_block_3_got, item_block_4_got, item_block_5_got, item_block_6_got, item_block_7_got,
-              item_block_8_got, item_block_9_got, item_block_10_got, item_block_11_got, item_block_12_got):
+              item_block_8_got, item_block_9_got, item_block_10_got, item_block_11_got, item_block_12_got,
+              cloaked_popup_shown, time_of_day, poisoned, burned, bleeding):
 
     inventory_save = []
     equipment_save = []
@@ -2459,7 +2474,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "item_block_5_got": item_block_5_got, "item_block_6_got": item_block_6_got,
                         "item_block_7_got": item_block_7_got, "item_block_8_got": item_block_8_got,
                         "item_block_9_got": item_block_9_got, "item_block_10_got": item_block_10_got,
-                        "item_block_11_got": item_block_11_got, "item_block_12_got": item_block_12_got}
+                        "item_block_11_got": item_block_11_got, "item_block_12_got": item_block_12_got,
+                        "cloaked_popup_shown": cloaked_popup_shown, "time_of_day": time_of_day, "poisoned": poisoned,
+                        "burned": burned, "bleeding": bleeding}
 
     try:
         with open("save", "wb") as ff:
