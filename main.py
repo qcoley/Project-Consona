@@ -7693,9 +7693,12 @@ if __name__ == "__main__":
     seldon_district_shop = graphic_dict["seldon_shop_screen"]
     korlok_district_shop = graphic_dict["korlok_shop_screen"]
     eldream_district_shop = graphic_dict["eldream_shop_screen"]
-    seldon_district_inn = graphic_dict["seldon_inn_screen"]
-    korlok_district_inn = graphic_dict["korlok_inn_screen"]
-    eldream_district_inn = graphic_dict["eldream_inn_screen"]
+    seldon_district_inn_day = graphic_dict["seldon_inn_day"]
+    seldon_district_inn_day = graphic_dict["seldon_inn_day"]
+    seldon_district_inn_day = graphic_dict["seldon_inn_day"]
+    seldon_district_inn_day = graphic_dict["seldon_inn_day"]
+    korlok_district_inn_day = graphic_dict["korlok_inn_day"]
+    eldream_district_inn_day = graphic_dict["eldream_inn_day"]
     seldon_district_academia = graphic_dict["seldon_academia_screen"]
     korlok_district_apothecary = graphic_dict["korlok_apothecary"]
     eldream_district_menagerie = graphic_dict["eldream_menagerie"]
@@ -8987,7 +8990,7 @@ if __name__ == "__main__":
     sfx_enemy_dreth_shatter.set_volume(0.25)
 
     sfx_cloaked = pygame.mixer.Sound(resource_path("resources/sounds/sfx_cloak.mp3"))
-    sfx_cloaked.set_volume(0.35)
+    sfx_cloaked.set_volume(0.25)
 
     sfx_burned = pygame.mixer.Sound(resource_path("resources/sounds/sfx_burn.mp3"))
     sfx_burned.set_volume(0.15)
@@ -15338,8 +15341,20 @@ if __name__ == "__main__":
                     if on_card_quest:
                         card_counted = False
 
-                    # clearing loot and card popups at start of new encounter if not already
+                    # clearing loot and card popups and reset animation at start of new encounter if not already
                     if not cleared:
+                        combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                                sharp_sense_active, graphic_dict)
+                        combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                               ghoul_battle_sprite, chorizon_battle_sprite,
+                                                               muchador_battle_sprite, magmon_battle_sprite,
+                                                               bandile_battle_sprite, chinzilla_battle_sprite,
+                                                               in_battle, in_npc_interaction, graphic_dict,
+                                                               necrola_battle_sprite, osodark_battle_sprite,
+                                                               stelli_battle_sprite, chorizon_phase,
+                                                               erebyth_battle_sprite, turn_counter,
+                                                               atmon_battle_sprite, jumano_battle_sprite,
+                                                               dreth_battle_sprite, apothis_gift, cloaked)
                         if trading_deck:
                             card_deck["snake_popup"] = False
                             card_deck["ghoul_popup"] = False
@@ -23949,6 +23964,7 @@ if __name__ == "__main__":
                             time_of_day = 1
                             day_timer = time.perf_counter()
                         case 1:  # early morning
+                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
                             time_of_day = 2
                             day_timer = time.perf_counter()
                         case 2:  # morning
@@ -23957,6 +23973,7 @@ if __name__ == "__main__":
                             day_timer = time.perf_counter()
                         case 3:  # day
                             if day_timer_toc - day_timer > 50:
+                                message_box.update(173, 650, graphic_dict["message_box_day"])
                                 time_of_day = 4
                                 day_timer = time.perf_counter()
                         case 4:  # early afternoon
@@ -23964,6 +23981,7 @@ if __name__ == "__main__":
                             time_of_day = 5
                             day_timer = time.perf_counter()
                         case 5:  # afternoon
+                            message_box.update(173, 650, graphic_dict["message_box_dusk"])
                             time_of_day = 6
                             day_timer = time.perf_counter()
                         case 6:  # dusk
@@ -23973,6 +23991,7 @@ if __name__ == "__main__":
                             day_timer = time.perf_counter()
                         case 7:  # night
                             if day_timer_toc - day_timer > 50:
+                                message_box.update(173, 650, graphic_dict["message_box_night"])
                                 time_of_day = 0
                                 day_timer = time.perf_counter()
 
@@ -24202,18 +24221,6 @@ if __name__ == "__main__":
                         if event.type == pygame.MOUSEBUTTONUP:
                             # player chooses to continue, reset character experience and half health and energy
                             if lets_go_button.rect.collidepoint(pos):
-                                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                                        sharp_sense_active, graphic_dict)
-                                combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
-                                                                       ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                       muchador_battle_sprite, magmon_battle_sprite,
-                                                                       bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                       in_battle, in_npc_interaction, graphic_dict,
-                                                                       necrola_battle_sprite, osodark_battle_sprite,
-                                                                       stelli_battle_sprite, chorizon_phase,
-                                                                       erebyth_battle_sprite, turn_counter,
-                                                                       atmon_battle_sprite, jumano_battle_sprite,
-                                                                       dreth_battle_sprite, apothis_gift, cloaked)
                                 over_world_song_set = False
                                 game_over_sound_played = False
                                 pygame.mixer.find_channel(True).play(sfx_button_start)
