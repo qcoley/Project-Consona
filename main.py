@@ -7694,11 +7694,17 @@ if __name__ == "__main__":
     korlok_district_shop = graphic_dict["korlok_shop_screen"]
     eldream_district_shop = graphic_dict["eldream_shop_screen"]
     seldon_district_inn_day = graphic_dict["seldon_inn_day"]
-    seldon_district_inn_day = graphic_dict["seldon_inn_day"]
-    seldon_district_inn_day = graphic_dict["seldon_inn_day"]
-    seldon_district_inn_day = graphic_dict["seldon_inn_day"]
+    seldon_district_inn_night = graphic_dict["seldon_inn_night"]
+    seldon_district_inn_morning = graphic_dict["seldon_inn_morning"]
+    seldon_district_inn_afternoon = graphic_dict["seldon_inn_afternoon"]
     korlok_district_inn_day = graphic_dict["korlok_inn_day"]
+    korlok_district_inn_night = graphic_dict["korlok_inn_night"]
+    korlok_district_inn_morning = graphic_dict["korlok_inn_morning"]
+    korlok_district_inn_afternoon = graphic_dict["korlok_inn_afternoon"]
     eldream_district_inn_day = graphic_dict["eldream_inn_day"]
+    eldream_district_inn_night = graphic_dict["eldream_inn_night"]
+    eldream_district_inn_morning = graphic_dict["eldream_inn_morning"]
+    eldream_district_inn_afternoon = graphic_dict["eldream_inn_afternoon"]
     seldon_district_academia = graphic_dict["seldon_academia_screen"]
     korlok_district_apothecary = graphic_dict["korlok_apothecary"]
     eldream_district_menagerie = graphic_dict["eldream_menagerie"]
@@ -8426,6 +8432,10 @@ if __name__ == "__main__":
     pet_energy_window = UiElement("pet energy", 375, 45, graphic_dict["pet_energy"])
     quest_visual = UiElement("quest visual", 500, 500, graphic_dict["pine_logs_big_img"])
     marrow_cat = UiElement("marrow cat", 470, 248, graphic_dict["marrow_cat"])
+
+    overlay_burned = UiElement("overlay burned", 25, 89, graphic_dict["overlay_burned"])
+    overlay_poisoned = UiElement("overlay poisoned", 52, 89, graphic_dict["overlay_poisoned"])
+    overlay_bleeding = UiElement("overlay bleeding", 79, 89, graphic_dict["overlay_bleeding"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
     seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
@@ -10670,13 +10680,16 @@ if __name__ == "__main__":
                             quests_button.surf.set_alpha(255)
                             card_deck_button.surf.set_alpha(255)
                             alpha_set = False
-                        if player.x_coordinate < 420 and player.y_coordinate < 125:
+                        if player.x_coordinate < 420 and player.y_coordinate < 150:
                             if not alpha_set:
                                 hp_bar.surf.set_alpha(50)
                                 en_bar.surf.set_alpha(50)
                                 xp_bar.surf.set_alpha(50)
                                 bar_backdrop.surf.set_alpha(50)
                                 pet_energy_window.surf.set_alpha(50)
+                                overlay_burned.surf.set_alpha(50)
+                                overlay_poisoned.surf.set_alpha(50)
+                                overlay_bleeding.surf.set_alpha(50)
                                 alpha_set = True
                         else:
                             hp_bar.surf.set_alpha(255)
@@ -10684,6 +10697,9 @@ if __name__ == "__main__":
                             xp_bar.surf.set_alpha(255)
                             bar_backdrop.surf.set_alpha(255)
                             pet_energy_window.surf.set_alpha(255)
+                            overlay_burned.surf.set_alpha(255)
+                            overlay_poisoned.surf.set_alpha(255)
+                            overlay_bleeding.surf.set_alpha(255)
                             alpha_set = False
                         if player.x_coordinate > 730 and player.y_coordinate < 125:
                             if not alpha_set:
@@ -15333,6 +15349,22 @@ if __name__ == "__main__":
                         else:
                             game_window.blit(button_highlight.surf, button_highlight.rect)
 
+                    if burned:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_burned.surf, overlay_burned.rect)
+                        else:
+                            game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                    if poisoned:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        else:
+                            game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                    if bleeding:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        else:
+                            game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
                 if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
@@ -15931,14 +15963,14 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_bandile)
                                 if current_enemy_battling.kind == "magmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
-                                    if (turn_counter + 1) % random.randint(2, 6) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not burned and not barrier_active:
                                             burned = True
                                             pygame.mixer.find_channel(True).play(sfx_burned)
                                 if current_enemy_battling.kind == "chinzilla":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_chinzilla)
-                                    if (turn_counter + 1) % random.randint(2, 6) == 0:
-                                        if not bleeding and not barrier_active:
+                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
+                                        if not bleeding:
                                             bleeding = True
                                 if current_enemy_battling.kind == "necrola":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
@@ -15950,8 +15982,8 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_stelli_battle)
                                 if current_enemy_battling.kind == "osodark":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_osodark)
-                                    if (turn_counter + 1) % random.randint(2, 6) == 0:
-                                        if not bleeding and not barrier_active:
+                                    if (turn_counter + 1) % random.randint(4, 6) == 0:
+                                        if not bleeding:
                                             bleeding = True
                                 if current_enemy_battling.kind == "erebyth":
                                     if turn_counter == 2:
@@ -15963,16 +15995,44 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
                                 if current_enemy_battling.kind == "dreth":
                                     if (turn_counter + 1) % 4 == 0:
+                                        choice = random.randint(1, 3)
+                                        if choice == 1:
+                                            if not burned and not barrier_active:
+                                                burned = True
+                                                pygame.mixer.find_channel(True).play(sfx_burned)
+                                        if choice == 2:
+                                            if not poisoned and not barrier_active:
+                                                poisoned = True
+                                        if choice == 3:
+                                            if not bleeding:
+                                                bleeding = True
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth_shatter)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth)
                                 if current_enemy_battling.kind == "atmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_atmon)
-                                    if (turn_counter + 1) % random.randint(2, 6) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not poisoned and not barrier_active:
                                             poisoned = True
                                 if current_enemy_battling.kind == "jumano":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_jumano)
+                                    if (turn_counter + 1) % random.randint(2, 3) == 0:
+                                        choice = random.randint(1, 3)
+                                        if choice == 1:
+                                            if current_enemy_battling.type != "mage":
+                                                current_enemy_battling.type = "mage"
+                                            else:
+                                                current_enemy_battling.type = "scout"
+                                        if choice == 2:
+                                            if current_enemy_battling.type != "fighter":
+                                                current_enemy_battling.type = "fighter"
+                                            else:
+                                                current_enemy_battling.type = "mage"
+                                        if choice == 3:
+                                            if current_enemy_battling.type != "scout":
+                                                current_enemy_battling.type = "scout"
+                                            else:
+                                                current_enemy_battling.type = "fighter"
 
                                 if first_battle_cond:
                                     first_battle_cond = False
@@ -16742,6 +16802,7 @@ if __name__ == "__main__":
                                     if player.role == "mage":
                                         if fire_learned:
                                             if not fire_active:
+                                                pygame.mixer.find_channel(True).play(sfx_mage_fire)
                                                 show_fire = True
                                                 info_text_1 = "Millennium Fire spell is active."
                                                 fire_active = True
@@ -16820,7 +16881,6 @@ if __name__ == "__main__":
                                                 try:
                                                     battle_info_to_return_to_main_loop["knowledge"] = ""
                                                     if combat_events["enemy defeated"]:
-                                                        pygame.mixer.find_channel(True).play(sfx_mage_fire)
                                                         if combat_events["item dropped"] != "No":
                                                             try:
                                                                 prism_received = combat_events["prism_received"]
@@ -17976,7 +18036,6 @@ if __name__ == "__main__":
 
                                 if show_fire:
                                     screen.blit(fire_battle_sprite.surf, fire_battle_sprite.rect)
-                                    pygame.mixer.find_channel(True).play(sfx_mage_fire)
                                     try:
                                         screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                         screen.blit(current_enemy_battling.health_bar.surf,
@@ -18088,7 +18147,6 @@ if __name__ == "__main__":
 
                                 if show_fire:
                                     game_window.blit(fire_battle_sprite.surf, fire_battle_sprite.rect)
-                                    pygame.mixer.find_channel(True).play(sfx_mage_fire)
 
                                     try:
                                         game_window.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
@@ -18419,6 +18477,22 @@ if __name__ == "__main__":
 
                     if show_trade_deck:
                         render_card_deck()
+
+                    if burned:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_burned.surf, overlay_burned.rect)
+                        else:
+                            game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                    if poisoned:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        else:
+                            game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                    if bleeding:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        else:
+                            game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -19252,6 +19326,22 @@ if __name__ == "__main__":
                     if show_trade_deck:
                         render_card_deck()
 
+                    if burned:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_burned.surf, overlay_burned.rect)
+                        else:
+                            game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                    if poisoned:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        else:
+                            game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                    if bleeding:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        else:
+                            game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in inn ----------------------------------------------------------------------------------
@@ -19438,111 +19528,430 @@ if __name__ == "__main__":
 
                         if player.current_zone == "seldon":
                             # if player has just rested, fade inn screen back in with alpha value loop
-                            if rested:
-                                if not faded_inn_screen:
-                                    for alpha in range(0, 50):
-                                        seldon_district_inn.set_alpha(alpha)
+                            if time_of_day == 1 or time_of_day == 2:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            seldon_district_inn_morning.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(seldon_district_inn_morning, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(seldon_district_inn_morning, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        seldon_district_inn_morning.set_alpha(255)
                                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                            screen.blit(seldon_district_inn, (0, 0))
+                                            screen.blit(seldon_district_inn_morning, (0, 0))
                                             screen.blit(equipment_screen.surf, equipment_screen.rect)
                                         else:
-                                            game_window.blit(seldon_district_inn, (0, 0))
+                                            game_window.blit(seldon_district_inn_morning, (0, 0))
                                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                                            game_window.blit(frame, frame.get_rect())
-                                            pygame.display.flip()
-                                        else:
-                                            pygame.display.flip()
-                                    faded_inn_screen = True
-                                else:
-                                    seldon_district_inn.set_alpha(255)
+                                if not rested:
+                                    seldon_district_inn_morning.set_alpha(255)
                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                        screen.blit(seldon_district_inn, (0, 0))
+                                        screen.blit(seldon_district_inn_morning, (0, 0))
                                         screen.blit(equipment_screen.surf, equipment_screen.rect)
                                     else:
-                                        game_window.blit(seldon_district_inn, (0, 0))
+                                        game_window.blit(seldon_district_inn_morning, (0, 0))
                                         game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                            if not rested:
-                                seldon_district_inn.set_alpha(255)
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(seldon_district_inn, (0, 0))
-                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
-                                else:
-                                    game_window.blit(seldon_district_inn, (0, 0))
-                                    game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            if time_of_day == 3 or time_of_day == 4:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            seldon_district_inn_day.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(seldon_district_inn_day, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(seldon_district_inn_day, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        seldon_district_inn_day.set_alpha(255)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(seldon_district_inn_day, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(seldon_district_inn_day, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                if not rested:
+                                    seldon_district_inn_day.set_alpha(255)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(seldon_district_inn_day, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(seldon_district_inn_day, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            if time_of_day == 5 or time_of_day == 6:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            seldon_district_inn_afternoon.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(seldon_district_inn_afternoon, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(seldon_district_inn_afternoon, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        seldon_district_inn_afternoon.set_alpha(255)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(seldon_district_inn_afternoon, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(seldon_district_inn_afternoon, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                if not rested:
+                                    seldon_district_inn_afternoon.set_alpha(255)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(seldon_district_inn_afternoon, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(seldon_district_inn_afternoon, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            if time_of_day == 7 or time_of_day == 0:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            seldon_district_inn_night.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(seldon_district_inn_night, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(seldon_district_inn_night, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        seldon_district_inn_night.set_alpha(255)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(seldon_district_inn_night, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(seldon_district_inn_night, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                if not rested:
+                                    seldon_district_inn_night.set_alpha(255)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(seldon_district_inn_night, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(seldon_district_inn_night, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
 
                         if player.current_zone == "korlok":
-                            # if player has just rested, fade inn screen back in with alpha value loop
-                            if rested:
-                                if not faded_inn_screen:
-                                    for alpha in range(0, 50):
-                                        korlok_district_inn.set_alpha(alpha)
+                            if time_of_day == 1 or time_of_day == 2:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            korlok_district_inn_morning.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(korlok_district_inn_morning, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(korlok_district_inn_morning, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        korlok_district_inn_morning.set_alpha(255)
                                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                            screen.blit(korlok_district_inn, (0, 0))
+                                            screen.blit(korlok_district_inn_morning, (0, 0))
                                             screen.blit(equipment_screen.surf, equipment_screen.rect)
                                         else:
-                                            game_window.blit(korlok_district_inn, (0, 0))
+                                            game_window.blit(korlok_district_inn_morning, (0, 0))
                                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                                            game_window.blit(frame, frame.get_rect())
-                                            pygame.display.flip()
-                                        else:
-                                            pygame.display.flip()
-                                    faded_inn_screen = True
-                                else:
-                                    korlok_district_inn.set_alpha(255)
+                                if not rested:
+                                    korlok_district_inn_morning.set_alpha(255)
                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                        screen.blit(korlok_district_inn, (0, 0))
+                                        screen.blit(korlok_district_inn_morning, (0, 0))
                                         screen.blit(equipment_screen.surf, equipment_screen.rect)
                                     else:
-                                        game_window.blit(korlok_district_inn, (0, 0))
+                                        game_window.blit(korlok_district_inn_morning, (0, 0))
                                         game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                            if not rested:
-                                korlok_district_inn.set_alpha(255)
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(korlok_district_inn, (0, 0))
-                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
-                                else:
-                                    game_window.blit(korlok_district_inn, (0, 0))
-                                    game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            if time_of_day == 3 or time_of_day == 4:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            korlok_district_inn_day.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(korlok_district_inn_day, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(korlok_district_inn_day, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        korlok_district_inn_day.set_alpha(255)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(korlok_district_inn_day, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(korlok_district_inn_day, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                if not rested:
+                                    korlok_district_inn_day.set_alpha(255)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(korlok_district_inn_day, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(korlok_district_inn_day, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            if time_of_day == 5 or time_of_day == 6:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            korlok_district_inn_afternoon.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(korlok_district_inn_afternoon, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(korlok_district_inn_afternoon, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        korlok_district_inn_afternoon.set_alpha(255)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(korlok_district_inn_afternoon, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(korlok_district_inn_afternoon, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                if not rested:
+                                    korlok_district_inn_afternoon.set_alpha(255)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(korlok_district_inn_afternoon, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(korlok_district_inn_afternoon, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            if time_of_day == 7 or time_of_day == 0:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            korlok_district_inn_night.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(korlok_district_inn_night, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(korlok_district_inn_night, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        korlok_district_inn_night.set_alpha(255)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(korlok_district_inn_night, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(korlok_district_inn_night, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                if not rested:
+                                    korlok_district_inn_night.set_alpha(255)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(korlok_district_inn_night, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(korlok_district_inn_night, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
 
                         if player.current_zone == "ectrenos right":
-                            # if player has just rested, fade inn screen back in with alpha value loop
-                            if rested:
-                                if not faded_inn_screen:
-                                    for alpha in range(0, 50):
-                                        eldream_district_inn.set_alpha(alpha)
+                            if time_of_day == 1 or time_of_day == 2:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            eldream_district_inn_morning.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(eldream_district_inn_morning, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(eldream_district_inn_morning, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        eldream_district_inn_morning.set_alpha(255)
                                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                            screen.blit(eldream_district_inn, (0, 0))
+                                            screen.blit(eldream_district_inn_morning, (0, 0))
                                             screen.blit(equipment_screen.surf, equipment_screen.rect)
                                         else:
-                                            game_window.blit(eldream_district_inn, (0, 0))
+                                            game_window.blit(eldream_district_inn_morning, (0, 0))
                                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                                            game_window.blit(frame, frame.get_rect())
-                                            pygame.display.flip()
-                                        else:
-                                            pygame.display.flip()
-                                    faded_inn_screen = True
-                                else:
-                                    eldream_district_inn.set_alpha(255)
+                                if not rested:
+                                    eldream_district_inn_morning.set_alpha(255)
                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                        screen.blit(eldream_district_inn, (0, 0))
+                                        screen.blit(eldream_district_inn_morning, (0, 0))
                                         screen.blit(equipment_screen.surf, equipment_screen.rect)
                                     else:
-                                        game_window.blit(eldream_district_inn, (0, 0))
+                                        game_window.blit(eldream_district_inn_morning, (0, 0))
                                         game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                            if not rested:
-                                eldream_district_inn.set_alpha(255)
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(eldream_district_inn, (0, 0))
-                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
-                                else:
-                                    game_window.blit(eldream_district_inn, (0, 0))
-                                    game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            if time_of_day == 3 or time_of_day == 4:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            eldream_district_inn_day.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(eldream_district_inn_day, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(eldream_district_inn_day, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        eldream_district_inn_day.set_alpha(255)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(eldream_district_inn_day, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(eldream_district_inn_day, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                if not rested:
+                                    eldream_district_inn_day.set_alpha(255)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(eldream_district_inn_day, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(eldream_district_inn_day, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            if time_of_day == 5 or time_of_day == 6:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            eldream_district_inn_afternoon.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(eldream_district_inn_afternoon, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(eldream_district_inn_afternoon, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        eldream_district_inn_afternoon.set_alpha(255)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(eldream_district_inn_afternoon, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(eldream_district_inn_afternoon, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                if not rested:
+                                    eldream_district_inn_afternoon.set_alpha(255)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(eldream_district_inn_afternoon, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(eldream_district_inn_afternoon, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            if time_of_day == 7 or time_of_day == 0:
+                                if rested:
+                                    if not faded_inn_screen:
+                                        for alpha in range(0, 50):
+                                            eldream_district_inn_night.set_alpha(alpha)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                screen.blit(eldream_district_inn_night, (0, 0))
+                                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                            else:
+                                                game_window.blit(eldream_district_inn_night, (0, 0))
+                                                game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                              SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
+                                                pygame.display.flip()
+                                            else:
+                                                pygame.display.flip()
+                                        faded_inn_screen = True
+                                    else:
+                                        eldream_district_inn_night.set_alpha(255)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(eldream_district_inn_night, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(eldream_district_inn_night, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                if not rested:
+                                    eldream_district_inn_night.set_alpha(255)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(eldream_district_inn_night, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(eldream_district_inn_night, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(offense_meter.surf, offense_meter.rect)
@@ -19599,6 +20008,21 @@ if __name__ == "__main__":
                             game_window.blit(cat_card_portrait, (60, 105))
                     if show_trade_deck:
                         render_card_deck()
+                    if burned:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_burned.surf, overlay_burned.rect)
+                        else:
+                            game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                    if poisoned:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        else:
+                            game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                    if bleeding:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        else:
+                            game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
 
                     if rest_clicked:
                         if not rested:
@@ -19615,8 +20039,10 @@ if __name__ == "__main__":
                                     pygame.display.flip()
                             player.health = 100
                             player.energy = 100
-                            time_of_day = 0
+                            time_of_day = 1
                             rested = True
+                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                            pygame.mixer.find_channel(True).play(sfx_chirp)
 
                     if first_inn_cond:
                         directional_arrow.update(855, 620, graphic_dict["arrow_down"])
@@ -20205,8 +20631,25 @@ if __name__ == "__main__":
                                 screen.blit(cat_card_portrait, (60, 105))
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
+
                         if show_trade_deck:
                             render_card_deck()
+
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -20708,8 +21151,25 @@ if __name__ == "__main__":
                                 screen.blit(cat_card_portrait, (60, 105))
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
+
                         if show_trade_deck:
                             render_card_deck()
+
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -21303,8 +21763,25 @@ if __name__ == "__main__":
                                 screen.blit(cat_card_portrait, (60, 105))
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
+
                         if show_trade_deck:
                             render_card_deck()
+
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -21780,8 +22257,25 @@ if __name__ == "__main__":
                                 screen.blit(cat_card_portrait, (60, 105))
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
+
                         if show_trade_deck:
                             render_card_deck()
+
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -22249,8 +22743,25 @@ if __name__ == "__main__":
                                 screen.blit(cat_card_portrait, (60, 105))
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
+
                         if show_trade_deck:
                             render_card_deck()
+
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -23948,8 +24459,25 @@ if __name__ == "__main__":
                                 screen.blit(cat_card_portrait, (60, 105))
                             else:
                                 game_window.blit(cat_card_portrait, (60, 105))
+
                         if show_trade_deck:
                             render_card_deck()
+
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------

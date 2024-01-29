@@ -562,13 +562,19 @@ def load_graphics():
     loaded_dict["overlay_stardust_star"] = overlay_stardust_star
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # condition overlays -----------------------------------------------------------------------------------------------
+    overlay_conditions_url = resource_path('resources/art/overlay_conditions.png')
+    overlay_conditions_sheet = sprite_sheet((25, 25), overlay_conditions_url)
+    loaded_dict["overlay_burned"] = overlay_conditions_sheet[0]
+    loaded_dict["overlay_poisoned"] = overlay_conditions_sheet[1]
+    loaded_dict["overlay_bleeding"] = overlay_conditions_sheet[2]
     # korlok_mountains -------------------------------------------------------------------------------------------------
     korlok_mountains_url = resource_path('resources/art/overlay_korlok_mountains.png')
     korlok_mountains_sheet = sprite_sheet((483, 136), korlok_mountains_url)
     loaded_dict["korlok_mountains"] = korlok_mountains_sheet[0]
     loaded_dict["korlok_mountains_1"] = korlok_mountains_sheet[1]
     loaded_dict["korlok_mountains_2"] = korlok_mountains_sheet[2]
-    # message_box ---------------------------------------------------------------------------------------------------
+    # message_box ------------------------------------------------------------------------------------------------------
     message_box_url = resource_path('resources/art/overlay_message_box.png')
     message_box_sheet = sprite_sheet((320, 110), message_box_url)
     loaded_dict["message_box_day"] = message_box_sheet[0]
