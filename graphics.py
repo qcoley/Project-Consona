@@ -4757,6 +4757,7 @@ def load_graphics():
     loaded_dict["apothecary_health_potion"] = apothecary_potions_sheet[1]
     loaded_dict["apothecary_energy_potion"] = apothecary_potions_sheet[2]
     loaded_dict["apothecary_rejuv_potion"] = apothecary_potions_sheet[3]
+    loaded_dict["apothecary_cure_potion"] = apothecary_potions_sheet[4]
     # player info windows ----------------------------------------------------------------------------------------------
     player_info_url = resource_path('resources/art/overlay_info_sheets.png')
     player_info_sheet = sprite_sheet((500, 562), player_info_url)

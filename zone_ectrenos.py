@@ -579,7 +579,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         in_over_world = True
         over_world_song_set = False
         player.x_coordinate = 80
-        player.y_coordinate = 515
+        player.y_coordinate = 535
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
     if 660 < player.x_coordinate < 975 and 675 < player.y_coordinate:
         player.current_zone = "ectrenos front"
@@ -926,7 +926,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
         in_over_world = True
         over_world_song_set = False
         player.x_coordinate = 958
-        player.y_coordinate = 525
+        player.y_coordinate = 535
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if 50 < player.x_coordinate < 375 and 675 < player.y_coordinate:

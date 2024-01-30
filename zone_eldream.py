@@ -229,7 +229,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             over_world_song_set = False
             player.current_zone = "ectrenos"
             mini_map.update(915, 596, graphic_dict["ectrenos_mini_map"])
-            player.x_coordinate = 500
+            player.x_coordinate = 515
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 

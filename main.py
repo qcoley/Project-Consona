@@ -8325,7 +8325,7 @@ if __name__ == "__main__":
     skip_button = UiElement("skip button", 1212, 680, graphic_dict["skip_button_img"])
     potions_button = UiElement("potions button", 860, 680, graphic_dict["potions_button_img"])
     create_potion_button = UiElement("create potion", 435, 475, graphic_dict["create_potion_img"])
-    potion_mix_overlay = UiElement("potion mix overlay", 150, 478, graphic_dict["apothecary_empty_potion"])
+    potion_mix_overlay = UiElement("potion mix overlay", 150, 475, graphic_dict["apothecary_empty_potion"])
     pets_button = UiElement("potions button", 860, 680, graphic_dict["manage_pets_img"])
     kasper_manage_button = UiElement("kasper manage", 145, 460, graphic_dict["activate_button"])
     torok_manage_button = UiElement("torok manage", 415, 460, graphic_dict["activate_button"])
@@ -9039,7 +9039,7 @@ if __name__ == "__main__":
     sfx_item_pickup = pygame.mixer.Sound(resource_path("resources/sounds/item_crate.mp3"))
     sfx_item_pickup.set_volume(0.15)
     sfx_item_equip = pygame.mixer.Sound(resource_path("resources/sounds/item_equip.mp3"))
-    sfx_item_equip.set_volume(0.08)
+    sfx_item_equip.set_volume(0.10)
     sfx_item_whistle = pygame.mixer.Sound(resource_path("resources/sounds/pet_whistle.mp3"))
     sfx_item_whistle.set_volume(0.40)
     sfx_item_snack = pygame.mixer.Sound(resource_path("resources/sounds/pet_snack.mp3"))
@@ -9048,7 +9048,7 @@ if __name__ == "__main__":
     sfx_item_block.set_volume(0.30)
 
     sfx_activate_switch = pygame.mixer.Sound(resource_path("resources/sounds/activate_switch.mp3"))
-    sfx_activate_switch.set_volume(0.10)
+    sfx_activate_switch.set_volume(0.15)
     sfx_activate_teleporter = pygame.mixer.Sound(resource_path("resources/sounds/activate_teleporter.mp3"))
     sfx_activate_teleporter.set_volume(0.20)
     sfx_door_open = pygame.mixer.Sound(resource_path("resources/sounds/door_open.mp3"))
@@ -10455,7 +10455,7 @@ if __name__ == "__main__":
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "ectrenos":
                             mini_map_overlay.update(915, 596, graphic_dict["ectrenos_mini_map"])
-                            player.x_coordinate = 500
+                            player.x_coordinate = 515
                             player.y_coordinate = 675
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "ectrenos left":
@@ -15375,18 +15375,6 @@ if __name__ == "__main__":
 
                     # clearing loot and card popups and reset animation at start of new encounter if not already
                     if not cleared:
-                        combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                                sharp_sense_active, graphic_dict)
-                        combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
-                                                               ghoul_battle_sprite, chorizon_battle_sprite,
-                                                               muchador_battle_sprite, magmon_battle_sprite,
-                                                               bandile_battle_sprite, chinzilla_battle_sprite,
-                                                               in_battle, in_npc_interaction, graphic_dict,
-                                                               necrola_battle_sprite, osodark_battle_sprite,
-                                                               stelli_battle_sprite, chorizon_phase,
-                                                               erebyth_battle_sprite, turn_counter,
-                                                               atmon_battle_sprite, jumano_battle_sprite,
-                                                               dreth_battle_sprite, apothis_gift, cloaked)
                         if trading_deck:
                             card_deck["snake_popup"] = False
                             card_deck["ghoul_popup"] = False
@@ -15433,6 +15421,7 @@ if __name__ == "__main__":
                                 encounter_started = False
                                 in_battle = False
                                 combat_cooldown = False
+                                combat_happened = False
                                 in_over_world = True
                                 loot_updated = False
                                 mirror_image = False
@@ -15963,13 +15952,13 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_bandile)
                                 if current_enemy_battling.kind == "magmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
-                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
+                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
                                         if not burned and not barrier_active:
                                             burned = True
                                             pygame.mixer.find_channel(True).play(sfx_burned)
                                 if current_enemy_battling.kind == "chinzilla":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_chinzilla)
-                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
+                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
                                         if not bleeding:
                                             bleeding = True
                                 if current_enemy_battling.kind == "necrola":
@@ -15982,7 +15971,7 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_stelli_battle)
                                 if current_enemy_battling.kind == "osodark":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_osodark)
-                                    if (turn_counter + 1) % random.randint(4, 6) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not bleeding:
                                             bleeding = True
                                 if current_enemy_battling.kind == "erebyth":
@@ -16011,12 +16000,12 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth)
                                 if current_enemy_battling.kind == "atmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_atmon)
-                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
+                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
                                         if not poisoned and not barrier_active:
                                             poisoned = True
                                 if current_enemy_battling.kind == "jumano":
-                                    pygame.mixer.find_channel(True).play(sfx_enemy_jumano)
                                     if (turn_counter + 1) % random.randint(2, 3) == 0:
+                                        pygame.mixer.find_channel(True).play(sfx_button_role)
                                         choice = random.randint(1, 3)
                                         if choice == 1:
                                             if current_enemy_battling.type != "mage":
@@ -16033,6 +16022,8 @@ if __name__ == "__main__":
                                                 current_enemy_battling.type = "scout"
                                             else:
                                                 current_enemy_battling.type = "fighter"
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_enemy_jumano)
 
                                 if first_battle_cond:
                                     first_battle_cond = False
@@ -16216,6 +16207,7 @@ if __name__ == "__main__":
                                         encounter_started = False
                                         in_battle = False
                                         combat_cooldown = False
+                                        combat_happened = False
                                         in_over_world = True
                                         loot_updated = False
                                         mirror_image = False
@@ -16591,6 +16583,7 @@ if __name__ == "__main__":
                                                     in_battle = False
                                                     in_over_world = True
                                                     combat_cooldown = False
+                                                    combat_happened = False
                                                     loot_updated = False
                                                     mirror_image = False
                                                     fire_active = False
@@ -16763,6 +16756,7 @@ if __name__ == "__main__":
                                             encounter_started = False
                                             in_battle = False
                                             combat_cooldown = False
+                                            combat_happened = False
                                             in_over_world = True
                                             loot_updated = False
                                             if barrier_active:
@@ -16958,6 +16952,7 @@ if __name__ == "__main__":
                                                         interacted = False
                                                         encounter_started = False
                                                         in_battle = False
+                                                        combat_happened = False
                                                         combat_cooldown = False
                                                         in_over_world = True
                                                         loot_updated = False
@@ -17158,12 +17153,39 @@ if __name__ == "__main__":
                                                     if sharp_sense_active:
                                                         sharp_sense_active = False
                                                         # noinspection PyUnboundLocalVariable
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            player_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
+                                                    combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                           snake_battle_sprite,
+                                                                                           ghoul_battle_sprite,
+                                                                                           chorizon_battle_sprite,
+                                                                                           muchador_battle_sprite,
+                                                                                           magmon_battle_sprite,
+                                                                                           bandile_battle_sprite,
+                                                                                           chinzilla_battle_sprite,
+                                                                                           in_battle,
+                                                                                           in_npc_interaction,
+                                                                                           graphic_dict,
+                                                                                           necrola_battle_sprite,
+                                                                                           osodark_battle_sprite,
+                                                                                           stelli_battle_sprite,
+                                                                                           chorizon_phase,
+                                                                                           erebyth_battle_sprite,
+                                                                                           turn_counter,
+                                                                                           atmon_battle_sprite,
+                                                                                           jumano_battle_sprite,
+                                                                                           dreth_battle_sprite,
+                                                                                           apothis_gift, cloaked)
                                                     movement_able = True
                                                     combat_happened = False
                                                     interacted = False
                                                     encounter_started = False
                                                     in_battle = False
                                                     combat_cooldown = False
+                                                    combat_happened = False
                                                     in_over_world = True
                                                     loot_updated = False
                                                     mirror_image = False
@@ -17370,6 +17392,7 @@ if __name__ == "__main__":
                                                         encounter_started = False
                                                         in_battle = False
                                                         combat_cooldown = False
+                                                        combat_happened = False
                                                         in_over_world = True
                                                         loot_updated = False
                                                         mirror_image = False
@@ -17494,10 +17517,12 @@ if __name__ == "__main__":
                                                         current_enemy_battling.health_bar.rect)
                                     except TypeError:
                                         pass
-                                    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                                    screen.blit(hp_bar.surf, hp_bar.rect)
-                                    screen.blit(en_bar.surf, en_bar.rect)
-                                    screen.blit(xp_bar.surf, xp_bar.rect)
+
+                                    if player.alive_status:
+                                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                        screen.blit(hp_bar.surf, hp_bar.rect)
+                                        screen.blit(en_bar.surf, en_bar.rect)
+                                        screen.blit(xp_bar.surf, xp_bar.rect)
                                 else:
                                     if player.current_zone == "seldon":
                                         game_window.blit(seldon_district_battle, (0, 0))
@@ -17557,10 +17582,11 @@ if __name__ == "__main__":
                                             game_window.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                             game_window.blit(current_enemy_battling.health_bar.surf,
                                                              current_enemy_battling.health_bar.rect)
-                                        game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                                        game_window.blit(hp_bar.surf, hp_bar.rect)
-                                        game_window.blit(en_bar.surf, en_bar.rect)
-                                        game_window.blit(xp_bar.surf, xp_bar.rect)
+                                        if player.alive_status:
+                                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                                            game_window.blit(en_bar.surf, en_bar.rect)
+                                            game_window.blit(xp_bar.surf, xp_bar.rect)
                                     except TypeError:
                                         pass
                                 try:
@@ -17943,6 +17969,7 @@ if __name__ == "__main__":
                                         encounter_started = False
                                         in_battle = False
                                         combat_cooldown = False
+                                        combat_happened = False
                                         in_over_world = True
                                         loot_updated = False
                                         mirror_image = False
@@ -18494,6 +18521,22 @@ if __name__ == "__main__":
                         else:
                             game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
 
+                    # player health is less than or equal to 0, player is dead
+                    if player.health <= 0:
+                        combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                                sharp_sense_active, graphic_dict)
+                        combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                               ghoul_battle_sprite, chorizon_battle_sprite,
+                                                               muchador_battle_sprite, magmon_battle_sprite,
+                                                               bandile_battle_sprite, chinzilla_battle_sprite,
+                                                               in_battle, in_npc_interaction, graphic_dict,
+                                                               necrola_battle_sprite, osodark_battle_sprite,
+                                                               stelli_battle_sprite, chorizon_phase,
+                                                               erebyth_battle_sprite, turn_counter,
+                                                               atmon_battle_sprite, jumano_battle_sprite,
+                                                               dreth_battle_sprite, apothis_gift, cloaked)
+                        player.alive_status = False
+
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in shop ---------------------------------------------------------------------------------
@@ -18920,10 +18963,11 @@ if __name__ == "__main__":
                             drawing_functions.draw_it(game_window, in_battle)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
                             cat_pet_button_overlay.update(505, 290, graphic_dict["cat_pet_button_overlay"])
                             if shop_cat_pet:
                                 cat_pet_animation_overlay.update(524, 296, graphic_dict["seldon_shop_cat_pet_img"])
@@ -18948,10 +18992,11 @@ if __name__ == "__main__":
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
                         else:
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             cat_pet_button_overlay.update(505, 290, graphic_dict["cat_pet_button_overlay"])
                             if shop_cat_pet:
                                 cat_pet_animation_overlay.update(524, 296, graphic_dict["seldon_shop_cat_pet_img"])
@@ -19019,10 +19064,11 @@ if __name__ == "__main__":
                             drawing_functions.draw_it(game_window, in_battle)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
                             cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
                             screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if shop_cat_pet:
@@ -19049,10 +19095,11 @@ if __name__ == "__main__":
                                 screen.blit(button_highlight.surf, button_highlight.rect)
 
                         else:
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
                             game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if shop_cat_pet:
@@ -19120,10 +19167,11 @@ if __name__ == "__main__":
                             drawing_functions.draw_it(game_window, in_battle)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
                             cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
                             screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if shop_cat_pet:
@@ -19149,10 +19197,11 @@ if __name__ == "__main__":
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
                         else:
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
                             game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if shop_cat_pet:
@@ -19218,16 +19267,17 @@ if __name__ == "__main__":
                                                              even_better_fish_counter, best_fish_counter)
                             drawing_functions.draw_it(game_window, in_battle)
 
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
-                        else:
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                        if player.alive_status:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
+                            else:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             if player.quest_complete["sneaky snakes"]:
@@ -19986,20 +20036,22 @@ if __name__ == "__main__":
                                                          basic_fish_counter, better_fish_counter,
                                                          even_better_fish_counter, best_fish_counter)
                         drawing_functions.draw_it(game_window, in_battle)
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                    else:
-                        if button_highlighted:
-                            game_window.blit(button_highlight.surf, button_highlight.rect)
-                        game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        game_window.blit(hp_bar.surf, hp_bar.rect)
-                        game_window.blit(en_bar.surf, en_bar.rect)
-                        game_window.blit(xp_bar.surf, xp_bar.rect)
+
+                    if player.alive_status:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                        else:
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
 
                     if show_cat_card:
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -20491,10 +20543,11 @@ if __name__ == "__main__":
                             screen.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(character_button.surf, character_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
                             if len(drawing_functions.item_info_window) == 0:
                                 screen.blit(star_power_meter.surf, star_power_meter.rect)
                             cat_pet_button_overlay.update(125, 500, graphic_dict["cat_pet_button_overlay"])
@@ -20516,10 +20569,11 @@ if __name__ == "__main__":
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(character_button.surf, character_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             if len(drawing_functions.item_info_window) == 0:
                                 game_window.blit(star_power_meter.surf, star_power_meter.rect)
                             cat_pet_button_overlay.update(125, 500, graphic_dict["cat_pet_button_overlay"])
@@ -20774,7 +20828,7 @@ if __name__ == "__main__":
 
                             if seldon_flower_more_button.collidepoint(pos):
                                 if apothecary_window_open:
-                                    if seldon_flower_counter < 10:
+                                    if seldon_flower_counter < 2:
                                         pygame.mixer.find_channel(True).play(sfx_item_flower)
                                         seldon_flower_counter += 1
                             if seldon_flower_less_button.collidepoint(pos):
@@ -20784,7 +20838,7 @@ if __name__ == "__main__":
                                         seldon_flower_counter -= 1
                             if eldream_flower_more_button.collidepoint(pos):
                                 if apothecary_window_open:
-                                    if eldream_flower_counter < 10:
+                                    if eldream_flower_counter < 2:
                                         pygame.mixer.find_channel(True).play(sfx_item_flower)
                                         eldream_flower_counter += 1
                             if eldream_flower_less_button.collidepoint(pos):
@@ -20794,48 +20848,59 @@ if __name__ == "__main__":
                                         eldream_flower_counter -= 1
 
                             if create_potion_button.rect.collidepoint(pos):
-                                if seldon_flower_counter >= 3 > eldream_flower_counter:
-                                    if player.flowers_amuna >= 3:
+                                if seldon_flower_counter == 2 and eldream_flower_counter == 0:
+                                    if player.flowers_amuna >= 2:
                                         if len(player.items) < 16:
                                             pygame.mixer.find_channel(True).play(sfx_item_potion)
-                                            player.flowers_amuna -= 3
-                                            player.items.append(Item("big health potion",
-                                                                     "potion", 200, 200,
+                                            player.flowers_amuna -= 2
+                                            player.items.append(Item("big health potion", "potion", 200, 200,
                                                                      graphic_dict["health_pot_img"], 0))
                                         else:
                                             info_text_1 = "Your inventory is full."
                                             info_text_2 = ""
                                     else:
-                                        info_text_1 = "You need 3 seldon flowers."
+                                        info_text_1 = "You need 2 seldon flowers."
                                         info_text_2 = ""
-                                elif seldon_flower_counter < 3 <= eldream_flower_counter:
-                                    if player.flowers_sorae >= 3:
+                                elif seldon_flower_counter == 0 and eldream_flower_counter == 2:
+                                    if player.flowers_sorae >= 2:
                                         if len(player.items) < 16:
                                             pygame.mixer.find_channel(True).play(sfx_item_potion)
-                                            player.flowers_sorae -= 3
-                                            player.items.append(Item("big energy potion",
-                                                                     "potion", 200, 200,
+                                            player.flowers_sorae -= 2
+                                            player.items.append(Item("big energy potion", "potion", 200, 200,
                                                                      graphic_dict["energy_pot_img"], 0))
                                         else:
                                             info_text_1 = "Your inventory is full."
                                             info_text_2 = ""
                                     else:
-                                        info_text_1 = "You need 3 eldream flowers."
+                                        info_text_1 = "You need 2 eldream flowers."
                                         info_text_2 = ""
-                                elif seldon_flower_counter >= 3 <= eldream_flower_counter:
-                                    if player.flowers_amuna >= 3 and player.flowers_sorae >= 3:
+                                elif seldon_flower_counter == 2 == eldream_flower_counter:
+                                    if player.flowers_amuna >= 2 and player.flowers_sorae >= 2:
                                         if len(player.items) < 16:
                                             pygame.mixer.find_channel(True).play(sfx_item_potion)
-                                            player.flowers_amuna -= 3
-                                            player.flowers_sorae -= 3
-                                            player.items.append(Item("super potion",
-                                                                     "potion", 200, 200,
+                                            player.flowers_amuna -= 2
+                                            player.flowers_sorae -= 2
+                                            player.items.append(Item("super potion", "potion", 200, 200,
                                                                      graphic_dict["super_pot_img"], 0))
                                         else:
                                             info_text_1 = "Your inventory is full."
                                             info_text_2 = ""
                                     else:
-                                        info_text_1 = "You need 3 seldon + 3 eldream flowers."
+                                        info_text_1 = "You need 2 seldon + 2 eldream flowers."
+                                        info_text_2 = ""
+                                elif seldon_flower_counter == 1 and eldream_flower_counter == 2:
+                                    if player.flowers_amuna >= 1 and player.flowers_sorae >= 2:
+                                        if len(player.items) < 16:
+                                            pygame.mixer.find_channel(True).play(sfx_item_potion)
+                                            player.flowers_amuna -= 1
+                                            player.flowers_sorae -= 2
+                                            player.items.append(Item("big cure potion", "potion", 200, 200,
+                                                                     graphic_dict["big_cure_potion"], 0))
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
+                                    else:
+                                        info_text_1 = "You need 1 seldon + 2 eldream flowers."
                                         info_text_2 = ""
                                 else:
                                     info_text_1 = "Add some flowers to the potion."
@@ -21021,10 +21086,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(quest_button.surf, quest_button.rect)
                             if len(drawing_functions.item_info_window) == 0:
                                 screen.blit(star_power_meter.surf, star_power_meter.rect)
@@ -21048,10 +21114,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             if not player.quest_complete["can't apothecary it"]:
                                 game_window.blit(quest_button.surf, quest_button.rect)
                             if len(drawing_functions.item_info_window) == 0:
@@ -21099,14 +21166,16 @@ if __name__ == "__main__":
                                     eldream_flowers_surf_rect.midleft = (440, 280)
                                     screen.blit(eldream_flowers_surf, eldream_flowers_surf_rect)
 
-                                    if seldon_flower_counter >= 3 > eldream_flower_counter:
-                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_health_potion"])
-                                    elif seldon_flower_counter < 3 <= eldream_flower_counter:
-                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_energy_potion"])
-                                    elif seldon_flower_counter >= 3 <= eldream_flower_counter:
-                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_rejuv_potion"])
+                                    if seldon_flower_counter == 2 and eldream_flower_counter == 0:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_health_potion"])
+                                    elif seldon_flower_counter == 0 and eldream_flower_counter == 2:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_energy_potion"])
+                                    elif seldon_flower_counter == 2 and eldream_flower_counter == 2:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_rejuv_potion"])
+                                    elif seldon_flower_counter == 1 and eldream_flower_counter == 2:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_cure_potion"])
                                     else:
-                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_empty_potion"])
 
                                     screen.blit(potion_mix_overlay.surf, potion_mix_overlay.rect)
                                     close_button.update(560, 110, graphic_dict["close_button"])
@@ -21130,14 +21199,16 @@ if __name__ == "__main__":
                                     eldream_flowers_surf_rect.midleft = (440, 280)
                                     game_window.blit(eldream_flowers_surf, eldream_flowers_surf_rect)
 
-                                    if seldon_flower_counter >= 3 > eldream_flower_counter:
-                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_health_potion"])
-                                    elif seldon_flower_counter < 3 <= eldream_flower_counter:
-                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_energy_potion"])
-                                    elif seldon_flower_counter >= 3 <= eldream_flower_counter:
-                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_rejuv_potion"])
+                                    if seldon_flower_counter == 2 and eldream_flower_counter == 0:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_health_potion"])
+                                    elif seldon_flower_counter == 0 and eldream_flower_counter == 2:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_energy_potion"])
+                                    elif seldon_flower_counter == 2 and eldream_flower_counter == 2:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_rejuv_potion"])
+                                    elif seldon_flower_counter == 1 and eldream_flower_counter == 2:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_cure_potion"])
                                     else:
-                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_empty_potion"])
 
                                     game_window.blit(potion_mix_overlay.surf, potion_mix_overlay.rect)
                                     close_button.update(560, 110, graphic_dict["close_button"])
@@ -21684,10 +21755,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(quest_button.surf, quest_button.rect)
                             if len(drawing_functions.item_info_window) == 0:
                                 screen.blit(star_power_meter.surf, star_power_meter.rect)
@@ -21706,10 +21778,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             game_window.blit(quest_button.surf, quest_button.rect)
                             if len(drawing_functions.item_info_window) == 0:
                                 game_window.blit(star_power_meter.surf, star_power_meter.rect)
@@ -22129,10 +22202,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(quest_button.surf, quest_button.rect)
                             if len(drawing_functions.item_info_window) == 0:
                                 screen.blit(star_power_meter.surf, star_power_meter.rect)
@@ -22146,10 +22220,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             game_window.blit(quest_button.surf, quest_button.rect)
                             if len(drawing_functions.item_info_window) == 0:
                                 game_window.blit(star_power_meter.surf, star_power_meter.rect)
@@ -22689,10 +22764,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
                             if not trading_task_complete:
                                 screen.blit(quest_button.surf, quest_button.rect)
                             if trading_task_complete:
@@ -22709,10 +22785,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             if not trading_task_complete:
                                 game_window.blit(quest_button.surf, quest_button.rect)
                             if trading_task_complete:
@@ -24219,10 +24296,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(quest_button.surf, quest_button.rect)
                             # noinspection PyUnboundLocalVariable
@@ -24334,10 +24412,11 @@ if __name__ == "__main__":
                                                           weapon_select, apothis_upgrade)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
-                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            game_window.blit(hp_bar.surf, hp_bar.rect)
-                            game_window.blit(en_bar.surf, en_bar.rect)
-                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(quest_button.surf, quest_button.rect)
                             # noinspection PyUnboundLocalVariable
@@ -24600,6 +24679,7 @@ if __name__ == "__main__":
                         encounter_started = False
                         in_battle = False
                         combat_cooldown = False
+                        combat_happened = False
                         in_over_world = True
                         if barrier_active:
                             barrier_active = False
@@ -24665,6 +24745,7 @@ if __name__ == "__main__":
                                     encounter_started = False
                                     in_battle = False
                                     combat_cooldown = False
+                                    combat_happened = False
                                     in_over_world = True
                                     if mini_boss_1:
                                         mini_boss_1 = False
@@ -24763,6 +24844,7 @@ if __name__ == "__main__":
                                 encounter_started = False
                                 in_battle = False
                                 combat_cooldown = False
+                                combat_happened = False
                                 in_over_world = True
                                 if mini_boss_1:
                                     mini_boss_1 = False

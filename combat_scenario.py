@@ -2214,9 +2214,6 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         # add damage done to player from enemy to dictionary
                         combat_event_dictionary["damage taken string"] = attacked_player_string
 
-                        # player health is less than or equal to 0, player is dead
-                        if player.health <= 0:
-                            player.alive_status = False
                         return combat_event_dictionary
                     else:
                         if show_edge:
