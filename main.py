@@ -7847,6 +7847,7 @@ if __name__ == "__main__":
     card_drop_popup = Notification("card popup", False, 885, 150, graphic_dict["c_snake_popup"])
     apothis_gift_popup = Notification("apothis popup", False, 510, 365, graphic_dict["apothis_popup"])
     cloaked_popup = Notification("cloaked popup", False, 510, 365, graphic_dict["cloaked_popup"])
+    condition_popup = Notification("condition popup", False, 510, 365, graphic_dict["condition_popup"])
     # weapons
     staff = UiElement("staff", 1080, 283, graphic_dict["staff_0"])
     sword = UiElement("sword", 1155, 283, graphic_dict["sword_0"])
@@ -8436,6 +8437,7 @@ if __name__ == "__main__":
     overlay_burned = UiElement("overlay burned", 25, 89, graphic_dict["overlay_burned"])
     overlay_poisoned = UiElement("overlay poisoned", 52, 89, graphic_dict["overlay_poisoned"])
     overlay_bleeding = UiElement("overlay bleeding", 79, 89, graphic_dict["overlay_bleeding"])
+    overlay_crushed = UiElement("overlay crushed", 106, 89, graphic_dict["overlay_crushed"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
     seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
@@ -8549,6 +8551,7 @@ if __name__ == "__main__":
     battle_sprite_effect_burn = UiElement("battle effect", 325, 500, graphic_dict["burn_battle_effect"])
     battle_sprite_effect_poison = UiElement("battle effect", 325, 500, graphic_dict["poison_battle_effect"])
     battle_sprite_effect_bleed = UiElement("battle effect", 325, 500, graphic_dict["bleed_battle_effect"])
+    battle_sprite_effect_crush = UiElement("battle effect", 325, 500, graphic_dict["crush_battle_effect"])
     battle_sprite_effect_barrier = UiElement("battle effect", 325, 500, graphic_dict["barrier_battle_effect"])
     battle_sprite_effect_barrier.surf.set_alpha(200)
 
@@ -9218,6 +9221,7 @@ if __name__ == "__main__":
     menagerie_cat_pet = False
     rest_shown_before = False
     cloaked_popup_shown = False
+    condition_popup_shown = False
     leveled = False
     button_highlighted = False
     book_appended = False
@@ -9409,6 +9413,7 @@ if __name__ == "__main__":
     burned = False
     poisoned = False
     bleeding = False
+    crushed = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -10150,6 +10155,8 @@ if __name__ == "__main__":
                         poisoned = load_returned["poisoned"]
                         burned = load_returned["burned"]
                         bleeding = load_returned["bleeding"]
+                        condition_popup_shown = load_returned["condition_popup_shown"]
+                        crushed = load_returned["crushed"]
 
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -11240,7 +11247,7 @@ if __name__ == "__main__":
                                                                            sfx_item_whistle, sfx_item_snack,
                                                                            graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                            sfx_firework, sfx_skill_learn, poisoned,
-                                                                           burned, bleeding)
+                                                                           burned, bleeding, crushed)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -11430,7 +11437,8 @@ if __name__ == "__main__":
                                                                         item_block_8_got, item_block_9_got,
                                                                         item_block_10_got, item_block_11_got,
                                                                         item_block_12_got, cloaked_popup_shown,
-                                                                        time_of_day, poisoned, burned, bleeding)
+                                                                        time_of_day, poisoned, burned, bleeding,
+                                                                        condition_popup_shown, crushed)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -11496,7 +11504,8 @@ if __name__ == "__main__":
                                                                     item_block_8_got, item_block_9_got,
                                                                     item_block_10_got, item_block_11_got,
                                                                     item_block_12_got, cloaked_popup_shown,
-                                                                    time_of_day, poisoned, burned, bleeding)
+                                                                    time_of_day, poisoned, burned, bleeding,
+                                                                    condition_popup_shown, crushed)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -15364,6 +15373,11 @@ if __name__ == "__main__":
                             screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                         else:
                             game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                    if crushed:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        else:
+                            game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
@@ -15497,6 +15511,8 @@ if __name__ == "__main__":
                                     drawing_functions.game_guide_container.clear()
                                 if cloaked_popup.rect.collidepoint(pos):
                                     drawing_functions.cloaked_popup_window.clear()
+                                if condition_popup.rect.collidepoint(pos):
+                                    drawing_functions.condition_popup_window.clear()
 
                                 if trading_deck:
                                     if (len(drawing_functions.quest_box) == 0 and
@@ -15532,7 +15548,7 @@ if __name__ == "__main__":
                                                                            graphic_dict,
                                                                            SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                            sfx_skill_learn, poisoned,
-                                                                           burned, bleeding)
+                                                                           burned, bleeding, crushed)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -15564,7 +15580,7 @@ if __name__ == "__main__":
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
                                                                                             show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding)
+                                                                                            poisoned, bleeding, crushed)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15613,7 +15629,7 @@ if __name__ == "__main__":
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
                                                                                             show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding)
+                                                                                            poisoned, bleeding, crushed)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15661,7 +15677,7 @@ if __name__ == "__main__":
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
                                                                                             show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding)
+                                                                                            poisoned, bleeding, crushed)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15713,7 +15729,7 @@ if __name__ == "__main__":
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
                                                                                             show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding)
+                                                                                            poisoned, bleeding, crushed)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15765,7 +15781,7 @@ if __name__ == "__main__":
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
                                                                                             show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding)
+                                                                                            poisoned, bleeding, crushed)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15816,7 +15832,7 @@ if __name__ == "__main__":
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
                                                                                             show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding)
+                                                                                            poisoned, bleeding, crushed)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15870,7 +15886,7 @@ if __name__ == "__main__":
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
                                                                                             show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding)
+                                                                                            poisoned, bleeding, crushed)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15932,13 +15948,18 @@ if __name__ == "__main__":
                                 if player.role == "scout":
                                     pygame.mixer.find_channel(True).play(sfx_scout_attack)
                                 if current_enemy_battling.kind == "snake":
+                                    if len(drawing_functions.condition_popup_window) > 0:
+                                        drawing_functions.condition_popup_window.clear()
                                     pygame.mixer.find_channel(True).play(sfx_enemy_snake)
+                                    if (turn_counter + 1) % random.randint(3, 6) == 0:
+                                        if not poisoned and not barrier_active:
+                                            if not condition_popup_shown:
+                                                drawing_functions.condition_popup_window.append(condition_popup)
+                                                condition_popup_shown = True
+                                            poisoned = True
                                 if current_enemy_battling.name == "Ghoul":
                                     if len(drawing_functions.cloaked_popup_window) > 0:
                                         drawing_functions.cloaked_popup_window.clear()
-                                    if not cloaked_popup_shown:
-                                        drawing_functions.cloaked_popup_window.append(cloaked_popup)
-                                        cloaked_popup_shown = True
                                     pygame.mixer.find_channel(True).play(sfx_enemy_ghoul)
                                     if turn_counter % random.randint(1, 4) == 0:
                                         if not cloaked:
@@ -15950,6 +15971,9 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_muchador)
                                 if current_enemy_battling.kind == "bandile":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_bandile)
+                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
+                                        if not crushed:
+                                            crushed = True
                                 if current_enemy_battling.kind == "magmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
                                     if (turn_counter + 1) % random.randint(1, 3) == 0:
@@ -15976,10 +16000,15 @@ if __name__ == "__main__":
                                             bleeding = True
                                 if current_enemy_battling.kind == "erebyth":
                                     if turn_counter == 2:
+                                        erebyth_attack_choice = random.randint(1,2)
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_flame)
-                                        if not burned and not barrier_active:
-                                            burned = True
-                                            pygame.mixer.find_channel(True).play(sfx_burned)
+                                        if erebyth_attack_choice == 1:
+                                            if not burned and not barrier_active:
+                                                burned = True
+                                                pygame.mixer.find_channel(True).play(sfx_burned)
+                                        if erebyth_attack_choice == 2:
+                                            if not crushed:
+                                                crushed = True
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
                                 if current_enemy_battling.kind == "dreth":
@@ -16046,7 +16075,7 @@ if __name__ == "__main__":
                                                                                 any_card_counter, card_deck,
                                                                                 arrow_active, fire_active,
                                                                                 show_edge, cloaked, burned,
-                                                                                poisoned, bleeding)
+                                                                                poisoned, bleeding, crushed)
                                 combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                         barrier_active, sharp_sense_active,
                                                                         hard_strike, graphic_dict, turn_taken)
@@ -16302,7 +16331,7 @@ if __name__ == "__main__":
                                                                                     any_card_counter, card_deck,
                                                                                     arrow_active, fire_active,
                                                                                     show_edge, cloaked, burned,
-                                                                                    poisoned, bleeding)
+                                                                                    poisoned, bleeding, crushed)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -16408,7 +16437,7 @@ if __name__ == "__main__":
                                                                                     any_card_counter, card_deck,
                                                                                     arrow_active, fire_active,
                                                                                     show_edge, cloaked, burned,
-                                                                                    poisoned, bleeding)
+                                                                                    poisoned, bleeding, crushed)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -16482,7 +16511,7 @@ if __name__ == "__main__":
                                                                                             card_deck, arrow_active,
                                                                                             fire_active, show_edge,
                                                                                             cloaked, burned,
-                                                                                            poisoned, bleeding)
+                                                                                            poisoned, bleeding, crushed)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16666,7 +16695,7 @@ if __name__ == "__main__":
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
                                                     arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                    bleeding)
+                                                    bleeding, crushed)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -16847,7 +16876,7 @@ if __name__ == "__main__":
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
                                                     arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                    bleeding)
+                                                    bleeding, crushed)
 
                                                 turn_taken = True
                                                 attack_hotkey = False
@@ -17054,7 +17083,7 @@ if __name__ == "__main__":
                                                 turn_counter, apothis_upgrade, trading_deck,
                                                 trading_task_complete, any_card_counter, card_deck,
                                                 arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                bleeding)
+                                                bleeding, crushed)
 
                                             turn_taken = True
                                             attack_hotkey = False
@@ -17289,7 +17318,7 @@ if __name__ == "__main__":
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
                                                     arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                    bleeding)
+                                                    bleeding, crushed)
 
                                                 turn_taken = True
                                                 attack_hotkey = False
@@ -17676,6 +17705,9 @@ if __name__ == "__main__":
                                 if current_enemy_battling.kind == "snake":
                                     screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                                 if current_enemy_battling.name == "Ghoul":
+                                    if not cloaked_popup_shown:
+                                        drawing_functions.cloaked_popup_window.append(cloaked_popup)
+                                        cloaked_popup_shown = True
                                     screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
                                 if current_enemy_battling.name == "Chorizon":
                                     screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
@@ -17798,6 +17830,9 @@ if __name__ == "__main__":
                                 if current_enemy_battling.kind == "snake":
                                     game_window.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                                 if current_enemy_battling.name == "Ghoul":
+                                    if not cloaked_popup_shown:
+                                        drawing_functions.cloaked_popup_window.append(cloaked_popup)
+                                        cloaked_popup_shown = True
                                     game_window.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
                                 if current_enemy_battling.name == "Chorizon":
                                     game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
@@ -18092,6 +18127,8 @@ if __name__ == "__main__":
                                     screen.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
                                 if bleeding:
                                     screen.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
+                                if crushed:
+                                    screen.blit(battle_sprite_effect_crush.surf, battle_sprite_effect_crush.rect)
 
                                 screen.blit(message_box.surf, message_box.rect)
                                 screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -18205,6 +18242,8 @@ if __name__ == "__main__":
                                     game_window.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
                                 if bleeding:
                                     game_window.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
+                                if crushed:
+                                    game_window.blit(battle_sprite_effect_crush.surf, battle_sprite_effect_crush.rect)
 
                                 game_window.blit(message_box.surf, message_box.rect)
                                 game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -18520,6 +18559,11 @@ if __name__ == "__main__":
                             screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                         else:
                             game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                    if crushed:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        else:
+                            game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                     # player health is less than or equal to 0, player is dead
                     if player.health <= 0:
@@ -19391,6 +19435,11 @@ if __name__ == "__main__":
                             screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                         else:
                             game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                    if crushed:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        else:
+                            game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -19489,7 +19538,8 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn, poisoned, burned, bleeding)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding,
+                                                                       crushed)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -20075,6 +20125,11 @@ if __name__ == "__main__":
                             screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                         else:
                             game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                    if crushed:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        else:
+                            game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                     if rest_clicked:
                         if not rested:
@@ -20208,7 +20263,8 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn, poisoned, burned, bleeding)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding,
+                                                                       crushed)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -20704,6 +20760,11 @@ if __name__ == "__main__":
                                 screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                             else:
                                 game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -20922,7 +20983,8 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn, poisoned, burned, bleeding)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding,
+                                                                       crushed)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -21241,6 +21303,11 @@ if __name__ == "__main__":
                                 screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                             else:
                                 game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -21586,7 +21653,8 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn, poisoned, burned, bleeding)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding,
+                                                                       crushed)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -21855,6 +21923,11 @@ if __name__ == "__main__":
                                 screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                             else:
                                 game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -22065,7 +22138,7 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack,
                                                                        graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                        sfx_firework, sfx_skill_learn, poisoned, burned,
-                                                                       bleeding)
+                                                                       bleeding, crushed)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -22351,6 +22424,11 @@ if __name__ == "__main__":
                                 screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                             else:
                                 game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -22629,7 +22707,7 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack,
                                                                        graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                        sfx_firework, sfx_skill_learn, poisoned, burned,
-                                                                       bleeding)
+                                                                       bleeding, crushed)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -22839,6 +22917,11 @@ if __name__ == "__main__":
                                 screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                             else:
                                 game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -23030,7 +23113,8 @@ if __name__ == "__main__":
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
-                                                                       sfx_skill_learn, poisoned, burned, bleeding)
+                                                                       sfx_skill_learn, poisoned, burned, bleeding,
+                                                                       crushed)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -24557,6 +24641,11 @@ if __name__ == "__main__":
                                 screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
                             else:
                                 game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------

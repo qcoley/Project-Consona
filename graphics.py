@@ -568,6 +568,7 @@ def load_graphics():
     loaded_dict["overlay_burned"] = overlay_conditions_sheet[0]
     loaded_dict["overlay_poisoned"] = overlay_conditions_sheet[1]
     loaded_dict["overlay_bleeding"] = overlay_conditions_sheet[2]
+    loaded_dict["overlay_crushed"] = overlay_conditions_sheet[3]
     # korlok_mountains -------------------------------------------------------------------------------------------------
     korlok_mountains_url = resource_path('resources/art/overlay_korlok_mountains.png')
     korlok_mountains_sheet = sprite_sheet((483, 136), korlok_mountains_url)
@@ -3443,6 +3444,7 @@ def load_graphics():
     loaded_dict["poison_battle_effect"] = battle_effects_sheet[1]
     loaded_dict["bleed_battle_effect"] = battle_effects_sheet[2]
     loaded_dict["barrier_battle_effect"] = battle_effects_sheet[3]
+    loaded_dict["crush_battle_effect"] = battle_effects_sheet[4]
     # player battle amuna race -----------------------------------------------------------------------------------------
     # male -------------------------------------------------------------------------------------------------------------
     player_battle_amuna_url = resource_path('resources/art/player_battle_sprites_amuna.png')
@@ -5002,6 +5004,7 @@ def load_graphics():
     loaded_dict["outpost_popup"] = popups_sheet[6]
     loaded_dict["apothis_popup"] = popups_sheet[7]
     loaded_dict["cloaked_popup"] = popups_sheet[8]
+    loaded_dict["condition_popup"] = popups_sheet[9]
     # pop up notifications ---------------------------------------------------------------------------------------------
     card_popups_url = resource_path('resources/art/popups_cards.png')
     card_popups_sheet = sprite_sheet((270, 130), card_popups_url)

@@ -2321,6 +2321,8 @@ def load_game(player, Item, graphics, Pet):
             load_return["poisoned"] = player_load_info["poisoned"]
             load_return["burned"] = player_load_info["burned"]
             load_return["bleeding"] = player_load_info["bleeding"]
+            load_return["condition_popup_shown"] = player_load_info["condition_popup_shown"]
+            load_return["crushed"] = player_load_info["crushed"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2352,7 +2354,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               card_deck, fire_learned, edge_learned, arrow_learned, on_card_quest, item_block_1_got, item_block_2_got,
               item_block_3_got, item_block_4_got, item_block_5_got, item_block_6_got, item_block_7_got,
               item_block_8_got, item_block_9_got, item_block_10_got, item_block_11_got, item_block_12_got,
-              cloaked_popup_shown, time_of_day, poisoned, burned, bleeding):
+              cloaked_popup_shown, time_of_day, poisoned, burned, bleeding, condition_popup_shown, crushed):
 
     inventory_save = []
     equipment_save = []
@@ -2476,7 +2478,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "item_block_9_got": item_block_9_got, "item_block_10_got": item_block_10_got,
                         "item_block_11_got": item_block_11_got, "item_block_12_got": item_block_12_got,
                         "cloaked_popup_shown": cloaked_popup_shown, "time_of_day": time_of_day, "poisoned": poisoned,
-                        "burned": burned, "bleeding": bleeding}
+                        "burned": burned, "bleeding": bleeding, "condition_popup_shown": condition_popup_shown,
+                        "crushed": crushed}
 
     try:
         with open("save", "wb") as ff:
@@ -2569,7 +2572,7 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
 
 
 # player attacks enemy, gets damage to enemy done based on player's role and offense
-def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cloaked):
+def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cloaked, crushed):
     level_difference = mob.level - player.level
 
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False,
@@ -2664,6 +2667,9 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cl
             damage = damage - 5
         else:
             damage = random.randint(1, 5)
+
+    if crushed:
+        damage = damage - 5
 
     if mob.name == "Ghoul" or mob.name == "Necrola":
         if cloaked:
@@ -2766,7 +2772,7 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cl
 
 
 # enemy attacks player, gets damage to player done, subtract players defense level
-def attack_player(player, mob, barrier_active, arrow_active):
+def attack_player(player, mob, barrier_active, arrow_active, crushed):
     level_difference = mob.level - player.level
 
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False}
@@ -2893,6 +2899,9 @@ def attack_player(player, mob, barrier_active, arrow_active):
 
     if barrier_active:
         damage -= damage - int(damage * 0.75)
+
+    if crushed:
+        damage += damage - int(damage * 0.75)
 
     if damage >= 0:
         attack_dict["damage"] = damage

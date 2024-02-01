@@ -370,7 +370,7 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
 
 # handles mouse clicks for inventory sub-screen for items with actions
 def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics, width, height,
-              sfx_firework, sfx_skill_learn, poisoned, burned, bleeding):
+              sfx_firework, sfx_skill_learn, poisoned, burned, bleeding, crushed):
 
     return_dict = {"item message": ""}
 
@@ -776,20 +776,41 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 player.items.remove(item)
                 return_dict["item message"] = "The bandage stops your bleeding."
                 return_dict["bleeding"] = bleeding
+        if item.name == "reinforcement":
+            if not crushed:
+                return_dict["item message"] = "You're not crushed."
+            else:
+                pygame.mixer.find_channel(True).play(sfx_equip)
+                crushed = False
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "The reinforcement supports you."
+                return_dict["crushed"] = crushed
         if item.name == "big cure potion":
-            if not poisoned and not burned and not bleeding:
-                return_dict["item message"] = "You're not poisoned, burned or bleeding."
+            if not poisoned and not burned:
+                return_dict["item message"] = "You're not poisoned or burned."
             else:
                 pygame.mixer.find_channel(True).play(sfx_potion)
                 poisoned = False
                 burned = False
-                bleeding = False
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "The potion cures your conditions."
                 return_dict["poisoned"] = poisoned
                 return_dict["burned"] = burned
                 return_dict["bleeding"] = bleeding
+        if item.name == "big mend potion":
+            if not bleeding and not crushed:
+                return_dict["item message"] = "You're not bleeding or crushed."
+            else:
+                pygame.mixer.find_channel(True).play(sfx_potion)
+                bleeding = False
+                crushed = False
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "The potion mends your wounds."
+                return_dict["bleeding"] = bleeding
+                return_dict["crushed"] = crushed
 
     except AttributeError:
         pass
