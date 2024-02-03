@@ -8001,7 +8001,8 @@ if __name__ == "__main__":
         Item("cure poison potion", "potion", 200, 200, graphic_dict["poison_cure"], 0),
         Item("cure burn potion", "potion", 200, 200, graphic_dict["burn_cure"], 0),
         Item("bandage wrap", "wrap", 200, 200, graphic_dict["bandage_wrap"], 0),
-        Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1)])
+        Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
+        Item("brace", "brace", 200, 200, graphic_dict["brace"], 0)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
@@ -8013,7 +8014,8 @@ if __name__ == "__main__":
         Item("cure poison potion", "potion", 200, 200, graphic_dict["poison_cure"], 0),
         Item("cure burn potion", "potion", 200, 200, graphic_dict["burn_cure"], 0),
         Item("bandage wrap", "wrap", 200, 200, graphic_dict["bandage_wrap"], 0),
-        Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1)])
+        Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
+        Item("brace", "brace", 200, 200, graphic_dict["brace"], 0)])
 
     npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
         Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
@@ -8025,7 +8027,8 @@ if __name__ == "__main__":
         Item("cure poison potion", "potion", 200, 200, graphic_dict["poison_cure"], 0),
         Item("cure burn potion", "potion", 200, 200, graphic_dict["burn_cure"], 0),
         Item("bandage wrap", "wrap", 200, 200, graphic_dict["bandage_wrap"], 0),
-        Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1)])
+        Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
+        Item("brace", "brace", 200, 200, graphic_dict["brace"], 0)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
@@ -11279,6 +11282,10 @@ if __name__ == "__main__":
                                     pass
                                 try:
                                     bleeding = inventory_event["bleeding"]
+                                except KeyError:
+                                    pass
+                                try:
+                                    crushed = inventory_event["crushed"]
                                 except KeyError:
                                     pass
 
@@ -15861,13 +15868,114 @@ if __name__ == "__main__":
                                                                                           arens_strength,
                                                                                           spirit_of_wisdom)
                                     # consume a turn when an item is used in combat
+                                    if current_info_item.name == "brace":
+                                        if inventory_event["item message"] != "You're not crushed.":
+                                            try:
+                                                crushed = inventory_event["crushed"]
+                                            except KeyError:
+                                                pass
+                                            turn_taken = True
+                                            attack_hotkey = False
+                                            combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                            "attack", player,
+                                                                                            hard_strike_learned,
+                                                                                            level_up_win, level_up_font,
+                                                                                            graphic_dict,
+                                                                                            sharp_sense_active,
+                                                                                            barrier_active, turn_taken,
+                                                                                            stun_them, mirror_image,
+                                                                                            turn_counter, atmon_counter,
+                                                                                            prism_received,
+                                                                                            turn_counter,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter, card_deck,
+                                                                                            arrow_active, fire_active,
+                                                                                            show_edge, cloaked, burned,
+                                                                                            poisoned, bleeding, crushed)
+                                            try:
+                                                stun_them = combat_events["stunned"]
+                                            except TypeError and KeyError:
+                                                stun_them = False
+                                            combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
+                                            # add all combat scenario happenings from function to message box
+                                            try:
+                                                if combat_events["damage taken string"] == 0:
+                                                    info_text_2 = ""
+                                                else:
+                                                    info_text_2 = str(combat_events["damage taken string"])
+                                            except TypeError:
+                                                pass
+                                            gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
+                                                                                          xp_bar, star_power_meter,
+                                                                                          offense_meter, defense_meter,
+                                                                                          graphic_dict, basic_armor,
+                                                                                          forged_armor, mythical_armor,
+                                                                                          legendary_armor, power_gloves,
+                                                                                          chroma_boots, neras_grace,
+                                                                                          arens_strength,
+                                                                                          spirit_of_wisdom)
+                                    # consume a turn when an item is used in combat
                                     if current_info_item.name == "big cure potion":
-                                        if inventory_event["item message"] != ("You're not poisoned, "
-                                                                               "burned or bleeding."):
+                                        if inventory_event["item message"] != "You're not poisoned or burned.":
                                             try:
                                                 poisoned = inventory_event["poisoned"]
                                                 burned = inventory_event["burned"]
+                                            except KeyError:
+                                                pass
+                                            turn_taken = True
+                                            attack_hotkey = False
+                                            combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                            "attack", player,
+                                                                                            hard_strike_learned,
+                                                                                            level_up_win, level_up_font,
+                                                                                            graphic_dict,
+                                                                                            sharp_sense_active,
+                                                                                            barrier_active, turn_taken,
+                                                                                            stun_them, mirror_image,
+                                                                                            turn_counter, atmon_counter,
+                                                                                            prism_received,
+                                                                                            turn_counter,
+                                                                                            apothis_upgrade,
+                                                                                            trading_deck,
+                                                                                            trading_task_complete,
+                                                                                            any_card_counter, card_deck,
+                                                                                            arrow_active, fire_active,
+                                                                                            show_edge, cloaked, burned,
+                                                                                            poisoned, bleeding, crushed)
+                                            try:
+                                                stun_them = combat_events["stunned"]
+                                            except TypeError and KeyError:
+                                                stun_them = False
+                                            combat_happened = True
+                                            combat_tic = time.perf_counter()
+                                            combat_cooldown = True
+                                            # add all combat scenario happenings from function to message box
+                                            try:
+                                                if combat_events["damage taken string"] == 0:
+                                                    info_text_2 = ""
+                                                else:
+                                                    info_text_2 = str(combat_events["damage taken string"])
+                                            except TypeError:
+                                                pass
+                                            gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
+                                                                                          xp_bar, star_power_meter,
+                                                                                          offense_meter, defense_meter,
+                                                                                          graphic_dict, basic_armor,
+                                                                                          forged_armor, mythical_armor,
+                                                                                          legendary_armor, power_gloves,
+                                                                                          chroma_boots, neras_grace,
+                                                                                          arens_strength,
+                                                                                          spirit_of_wisdom)
+                                    # consume a turn when an item is used in combat
+                                    if current_info_item.name == "big mend potion":
+                                        if inventory_event["item message"] != "You're not bleeding or crushed.":
+                                            try:
                                                 bleeding = inventory_event["bleeding"]
+                                                crushed = inventory_event["crushed"]
                                             except KeyError:
                                                 pass
                                             turn_taken = True
@@ -18791,7 +18899,8 @@ if __name__ == "__main__":
                                                                  graphic_dict["spirit_trinket"],
                                                                  graphic_dict["poison_cure"],
                                                                  graphic_dict["burn_cure"],
-                                                                 graphic_dict["bandage_wrap"])
+                                                                 graphic_dict["bandage_wrap"],
+                                                                 graphic_dict["brace"])
                             if buy_return["info 1"] != "":
                                 button_highlighted = False
                                 info_text_1 = buy_return["info 1"]
@@ -18907,7 +19016,8 @@ if __name__ == "__main__":
                                                                                  graphic_dict["spirit_trinket"],
                                                                                  graphic_dict["poison_cure"],
                                                                                  graphic_dict["burn_cure"],
-                                                                                 graphic_dict["bandage_wrap"])
+                                                                                 graphic_dict["bandage_wrap"],
+                                                                                 graphic_dict["brace"])
                                     if player.current_zone == "korlok":
                                         shop_scenario.shop_keeper_inventory_draw(npc_nuldar_shopkeeper,
                                                                                  shopkeeper_items,
@@ -18930,7 +19040,8 @@ if __name__ == "__main__":
                                                                                  graphic_dict["spirit_trinket"],
                                                                                  graphic_dict["poison_cure"],
                                                                                  graphic_dict["burn_cure"],
-                                                                                 graphic_dict["bandage_wrap"])
+                                                                                 graphic_dict["bandage_wrap"],
+                                                                                 graphic_dict["brace"])
                                     if player.current_zone == "ectrenos right":
                                         shop_scenario.shop_keeper_inventory_draw(npc_sorae_shopkeeper,
                                                                                  shopkeeper_items,
@@ -18953,7 +19064,8 @@ if __name__ == "__main__":
                                                                                  graphic_dict["spirit_trinket"],
                                                                                  graphic_dict["poison_cure"],
                                                                                  graphic_dict["burn_cure"],
-                                                                                 graphic_dict["bandage_wrap"])
+                                                                                 graphic_dict["bandage_wrap"],
+                                                                                 graphic_dict["brace"])
 
                         if shop_button == "leave":
                             if len(buy_shop_elements) > 0:
@@ -19564,6 +19676,10 @@ if __name__ == "__main__":
                                 pass
                             try:
                                 bleeding = inventory_event["bleeding"]
+                            except KeyError:
+                                pass
+                            try:
+                                crushed = inventory_event["crushed"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -20291,6 +20407,10 @@ if __name__ == "__main__":
                                 bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
+                            try:
+                                crushed = inventory_event["crushed"]
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -21011,6 +21131,10 @@ if __name__ == "__main__":
                                 bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
+                            try:
+                                crushed = inventory_event["crushed"]
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -21681,6 +21805,10 @@ if __name__ == "__main__":
                                 bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
+                            try:
+                                crushed = inventory_event["crushed"]
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -22163,6 +22291,10 @@ if __name__ == "__main__":
                                 pass
                             try:
                                 bleeding = inventory_event["bleeding"]
+                            except KeyError:
+                                pass
+                            try:
+                                crushed = inventory_event["crushed"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":
@@ -22734,6 +22866,10 @@ if __name__ == "__main__":
                                 bleeding = inventory_event["bleeding"]
                             except KeyError:
                                 pass
+                            try:
+                                crushed = inventory_event["crushed"]
+                            except KeyError:
+                                pass
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -23141,6 +23277,10 @@ if __name__ == "__main__":
                                 pass
                             try:
                                 bleeding = inventory_event["bleeding"]
+                            except KeyError:
+                                pass
+                            try:
+                                crushed = inventory_event["crushed"]
                             except KeyError:
                                 pass
                             if inventory_event["item message"] != "":

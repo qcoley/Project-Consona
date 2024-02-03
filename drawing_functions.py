@@ -620,6 +620,20 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["use_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "brace":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_brace"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "big mend potion":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_big_mend"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -740,6 +754,12 @@ def buy_info_draw(buy_item, buy_items, yes_button, graphic):
             return buy_item
         if buy_item.name == "bandage wrap":
             buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_bandage_wrap"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "brace":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_brace"])
             buy_info_window.append(buy_items)
             yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
@@ -943,6 +963,18 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "big cure potion":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_big_cure"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "brace":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_brace"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "big mend potion":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_big_mend"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
@@ -1844,6 +1876,14 @@ def item_updates(player, graphic):
                     item_here.update(first_coord, second_coord, graphic["big_cure_potion"])
                     player_items.append(item_here)
                     inventory_counter += 1
+                if item_here.name == "brace":
+                    item_here.update(first_coord, second_coord, graphic["brace"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "big mend potion":
+                    item_here.update(first_coord, second_coord, graphic["big_mend_potion"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
 
                 first_coord += 60
 
@@ -1908,6 +1948,9 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
     shop_inv_6 = pygame.Rect((840, 465), (50, 50))
     shop_inv_7 = pygame.Rect((900, 465), (50, 50))
     shop_inv_8 = pygame.Rect((960, 465), (50, 50))
+    shop_inv_9 = pygame.Rect((780, 525), (50, 50))
+    shop_inv_10 = pygame.Rect((840, 525), (50, 50))
+    shop_inv_11 = pygame.Rect((900, 525), (50, 50))
     # equipment rects
     armor = pygame.Rect((1050, 170), (50, 50))
     gloves = pygame.Rect((1125, 170), (50, 50))
@@ -2186,6 +2229,16 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                     elif shop_inv_8.collidepoint(pos):
                         button_highlight.update(988, 491, graphic_dict["item high"])
                         return True
+                    elif shop_inv_9.collidepoint(pos):
+                        button_highlight.update(808, 551, graphic_dict["item high"])
+                        return True
+                    elif shop_inv_10.collidepoint(pos):
+                        button_highlight.update(868, 551, graphic_dict["item high"])
+                        return True
+                    elif shop_inv_11.collidepoint(pos):
+                        button_highlight.update(928, 551, graphic_dict["item high"])
+                        return True
+
                     elif len(buy_info_window) > 0:
                         if yes_button.rect.collidepoint(pos):
                             button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 6,
@@ -2683,236 +2736,410 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
     if player.race == "amuna":
         if player.gender == "male":
             if player.current_zone == "seldon":
-                amuna_location.update(seldon_map_button.x_coordinate,
-                                      seldon_map_button.y_coordinate,
+                amuna_location.update(seldon_map_button.x_coordinate, seldon_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
             if player.current_zone == "rohir":
-                amuna_location.update(seldon_map_button.x_coordinate,
-                                      seldon_map_button.y_coordinate - 75,
+                amuna_location.update(seldon_map_button.x_coordinate - 50, seldon_map_button.y_coordinate - 75,
                                       graphic_dict["amuna_location"])
             if player.current_zone == "stardust":
-                amuna_location.update(seldon_map_button.x_coordinate - 75,
-                                      seldon_map_button.y_coordinate - 25,
+                amuna_location.update(seldon_map_button.x_coordinate - 75, seldon_map_button.y_coordinate - 25,
                                       graphic_dict["amuna_location"])
-            if player.current_zone == "korlok" or player.current_zone == "mines" or \
-                    player.current_zone == "terra trail" or player.current_zone == "fishing hut" or \
-                    player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or \
-                    player.current_zone == "reservoir c" or player.current_zone == "fishing hut":
-                amuna_location.update(korlok_map_button.x_coordinate,
-                                      korlok_map_button.y_coordinate,
+
+            if player.current_zone == "korlok" or player.current_zone == "mines" or player.current_zone == "forge":
+                amuna_location.update(korlok_map_button.x_coordinate, korlok_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
-            if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
-                    player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
-                amuna_location.update(eldream_map_button.x_coordinate,
-                                      eldream_map_button.y_coordinate,
+            if (player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
+                    or player.current_zone == "reservoir c"):
+                amuna_location.update(korlok_map_button.x_coordinate - 75, korlok_map_button.y_coordinate + 75,
                                       graphic_dict["amuna_location"])
-            if (player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west"
-                    or player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west"
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end"
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
-                    or player.current_zone == "sub marrow" or player.current_zone == "castle one"
-                    or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
-                amuna_location.update(marrow_map_button.x_coordinate,
-                                      marrow_map_button.y_coordinate,
+            if player.current_zone == "terra trail":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate - 50,
                                       graphic_dict["amuna_location"])
+            if player.current_zone == "fishing hut" or player.current_zone == "fishing hut":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate + 75,
+                                      graphic_dict["amuna_location"])
+
+            if (player.current_zone == "eldream" or player.current_zone == "ectrenos"
+                    or player.current_zone == "ectrenos alcove" or player.current_zone == "fishing alcove"):
+                amuna_location.update(eldream_map_button.x_coordinate, eldream_map_button.y_coordinate,
+                                      graphic_dict["amuna_location"])
+            if player.current_zone == "ectrenos left" or player.current_zone == "altar":
+                amuna_location.update(eldream_map_button.x_coordinate - 40, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["amuna_location"])
+            if player.current_zone == "ectrenos right":
+                amuna_location.update(eldream_map_button.x_coordinate + 70, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["amuna_location"])
+            if player.current_zone == "ectrenos front":
+                amuna_location.update(eldream_map_button.x_coordinate + 20, eldream_map_button.y_coordinate + 60,
+                                      graphic_dict["amuna_location"])
+
+            if player.current_zone == "marrow":
+                amuna_location.update(marrow_map_button.x_coordinate + 5, marrow_map_button.y_coordinate - 10,
+                                      graphic_dict["amuna_location"])
+            if player.current_zone == "marrow entrance":
+                amuna_location.update(marrow_map_button.x_coordinate, marrow_map_button.y_coordinate - 75,
+                                      graphic_dict["amuna_location"])
+
+            if (player.current_zone == "marrow ramps west" or player.current_zone == "marrow tower west"
+                    or player.current_zone == "marrow ramps west end"):
+                amuna_location.update(marrow_map_button.x_coordinate - 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["amuna_location"])
+
+            if (player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower east"
+                    or player.current_zone == "marrow ramps east end"):
+                amuna_location.update(marrow_map_button.x_coordinate + 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["amuna_location"])
+
+            if player.current_zone == "sub marrow":
+                amuna_location.update(marrow_map_button.x_coordinate - 25, marrow_map_button.y_coordinate + 75,
+                                      graphic_dict["amuna_location"])
+
+            if (player.current_zone == "castle one" or player.current_zone == "castle two"
+                    or player.current_zone == "castle three" or player.current_zone == "caldera"
+                    or player.current_zone == "castle lair"):
+                amuna_location.update(marrow_map_button.x_coordinate + 10, marrow_map_button.y_coordinate + 50,
+                                      graphic_dict["amuna_location"])
+
             world_map_container.append(amuna_location)
+
         if player.gender == "female":
             if player.current_zone == "seldon":
-                amuna_location.update(seldon_map_button.x_coordinate,
-                                      seldon_map_button.y_coordinate,
+                amuna_location.update(seldon_map_button.x_coordinate, seldon_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
             if player.current_zone == "rohir":
-                amuna_location.update(seldon_map_button.x_coordinate,
-                                      seldon_map_button.y_coordinate - 75,
+                amuna_location.update(seldon_map_button.x_coordinate - 50, seldon_map_button.y_coordinate - 75,
                                       graphic_dict["amuna_female"])
             if player.current_zone == "stardust":
-                amuna_location.update(seldon_map_button.x_coordinate - 75,
-                                      seldon_map_button.y_coordinate - 25,
+                amuna_location.update(seldon_map_button.x_coordinate - 75, seldon_map_button.y_coordinate - 25,
                                       graphic_dict["amuna_female"])
-            if (player.current_zone == "korlok" or player.current_zone == "mines" or
-                    player.current_zone == "terra trail" or player.current_zone == "fishing hut" or
-                    player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or
-                    player.current_zone == "reservoir c" or player.current_zone == "forge" or
-                    player.current_zone == "fishing hut"):
-                amuna_location.update(korlok_map_button.x_coordinate,
-                                      korlok_map_button.y_coordinate,
+
+            if player.current_zone == "korlok" or player.current_zone == "mines" or player.current_zone == "forge":
+                amuna_location.update(korlok_map_button.x_coordinate, korlok_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
-            if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
-                    player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
-                amuna_location.update(eldream_map_button.x_coordinate,
-                                      eldream_map_button.y_coordinate,
+            if (player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
+                    or player.current_zone == "reservoir c"):
+                amuna_location.update(korlok_map_button.x_coordinate - 75, korlok_map_button.y_coordinate + 75,
                                       graphic_dict["amuna_female"])
-            if (player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west"
-                    or player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west"
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end"
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
-                    or player.current_zone == "sub marrow" or player.current_zone == "castle one"
-                    or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
-                amuna_location.update(marrow_map_button.x_coordinate,
-                                      marrow_map_button.y_coordinate,
+            if player.current_zone == "terra trail":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate - 50,
                                       graphic_dict["amuna_female"])
+            if player.current_zone == "fishing hut" or player.current_zone == "fishing hut":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate + 75,
+                                      graphic_dict["amuna_female"])
+
+            if (player.current_zone == "eldream" or player.current_zone == "ectrenos"
+                    or player.current_zone == "ectrenos alcove" or player.current_zone == "fishing alcove"):
+                amuna_location.update(eldream_map_button.x_coordinate, eldream_map_button.y_coordinate,
+                                      graphic_dict["amuna_female"])
+            if player.current_zone == "ectrenos left" or player.current_zone == "altar":
+                amuna_location.update(eldream_map_button.x_coordinate - 40, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["amuna_female"])
+            if player.current_zone == "ectrenos right":
+                amuna_location.update(eldream_map_button.x_coordinate + 70, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["amuna_female"])
+            if player.current_zone == "ectrenos front":
+                amuna_location.update(eldream_map_button.x_coordinate + 20, eldream_map_button.y_coordinate + 60,
+                                      graphic_dict["amuna_female"])
+
+            if player.current_zone == "marrow":
+                amuna_location.update(marrow_map_button.x_coordinate + 5, marrow_map_button.y_coordinate - 10,
+                                      graphic_dict["amuna_female"])
+            if player.current_zone == "marrow entrance":
+                amuna_location.update(marrow_map_button.x_coordinate, marrow_map_button.y_coordinate - 75,
+                                      graphic_dict["amuna_female"])
+
+            if (player.current_zone == "marrow ramps west" or player.current_zone == "marrow tower west"
+                    or player.current_zone == "marrow ramps west end"):
+                amuna_location.update(marrow_map_button.x_coordinate - 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["amuna_female"])
+
+            if (player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower east"
+                    or player.current_zone == "marrow ramps east end"):
+                amuna_location.update(marrow_map_button.x_coordinate + 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["amuna_female"])
+
+            if player.current_zone == "sub marrow":
+                amuna_location.update(marrow_map_button.x_coordinate - 25, marrow_map_button.y_coordinate + 75,
+                                      graphic_dict["amuna_female"])
+
+            if (player.current_zone == "castle one" or player.current_zone == "castle two"
+                    or player.current_zone == "castle three" or player.current_zone == "caldera"
+                    or player.current_zone == "castle lair"):
+                amuna_location.update(marrow_map_button.x_coordinate + 10, marrow_map_button.y_coordinate + 50,
+                                      graphic_dict["amuna_female"])
+
             world_map_container.append(amuna_location)
+
     if player.race == "nuldar":
         if player.gender == "male":
             if player.current_zone == "seldon":
-                nuldar_location.update(seldon_map_button.x_coordinate,
-                                       seldon_map_button.y_coordinate,
-                                       graphic_dict["nuldar_location"])
+                amuna_location.update(seldon_map_button.x_coordinate, seldon_map_button.y_coordinate,
+                                      graphic_dict["nuldar_location"])
             if player.current_zone == "rohir":
-                nuldar_location.update(seldon_map_button.x_coordinate,
-                                       seldon_map_button.y_coordinate - 75,
-                                       graphic_dict["nuldar_location"])
+                amuna_location.update(seldon_map_button.x_coordinate - 50, seldon_map_button.y_coordinate - 75,
+                                      graphic_dict["nuldar_location"])
             if player.current_zone == "stardust":
-                nuldar_location.update(seldon_map_button.x_coordinate - 75,
-                                       seldon_map_button.y_coordinate - 25,
-                                       graphic_dict["nuldar_location"])
-            if (player.current_zone == "korlok" or player.current_zone == "mines"
-                    or player.current_zone == "terra trail" or player.current_zone == "fishing hut"
-                    or player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
-                    or player.current_zone == "reservoir c" or player.current_zone == "forge"
-                    or player.current_zone == "fishing hut"):
-                nuldar_location.update(korlok_map_button.x_coordinate,
-                                       korlok_map_button.y_coordinate,
-                                       graphic_dict["nuldar_location"])
-            if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
-                    player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
-                nuldar_location.update(eldream_map_button.x_coordinate,
-                                       eldream_map_button.y_coordinate,
-                                       graphic_dict["nuldar_location"])
-            if (player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west"
-                    or player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west"
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end"
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
-                    or player.current_zone == "sub marrow" or player.current_zone == "castle one"
-                    or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
-                nuldar_location.update(marrow_map_button.x_coordinate,
-                                       marrow_map_button.y_coordinate,
-                                       graphic_dict["nuldar_location"])
+                amuna_location.update(seldon_map_button.x_coordinate - 75, seldon_map_button.y_coordinate - 25,
+                                      graphic_dict["nuldar_location"])
+
+            if player.current_zone == "korlok" or player.current_zone == "mines" or player.current_zone == "forge":
+                amuna_location.update(korlok_map_button.x_coordinate, korlok_map_button.y_coordinate,
+                                      graphic_dict["nuldar_location"])
+            if (player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
+                    or player.current_zone == "reservoir c"):
+                amuna_location.update(korlok_map_button.x_coordinate - 75, korlok_map_button.y_coordinate + 75,
+                                      graphic_dict["nuldar_location"])
+            if player.current_zone == "terra trail":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate - 50,
+                                      graphic_dict["nuldar_location"])
+            if player.current_zone == "fishing hut" or player.current_zone == "fishing hut":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate + 75,
+                                      graphic_dict["nuldar_location"])
+
+            if (player.current_zone == "eldream" or player.current_zone == "ectrenos"
+                    or player.current_zone == "ectrenos alcove" or player.current_zone == "fishing alcove"):
+                amuna_location.update(eldream_map_button.x_coordinate, eldream_map_button.y_coordinate,
+                                      graphic_dict["nuldar_location"])
+            if player.current_zone == "ectrenos left" or player.current_zone == "altar":
+                amuna_location.update(eldream_map_button.x_coordinate - 40, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["nuldar_location"])
+            if player.current_zone == "ectrenos right":
+                amuna_location.update(eldream_map_button.x_coordinate + 70, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["nuldar_location"])
+            if player.current_zone == "ectrenos front":
+                amuna_location.update(eldream_map_button.x_coordinate + 20, eldream_map_button.y_coordinate + 60,
+                                      graphic_dict["nuldar_location"])
+
+            if player.current_zone == "marrow":
+                amuna_location.update(marrow_map_button.x_coordinate + 5, marrow_map_button.y_coordinate - 10,
+                                      graphic_dict["nuldar_location"])
+            if player.current_zone == "marrow entrance":
+                amuna_location.update(marrow_map_button.x_coordinate, marrow_map_button.y_coordinate - 75,
+                                      graphic_dict["nuldar_location"])
+
+            if (player.current_zone == "marrow ramps west" or player.current_zone == "marrow tower west"
+                    or player.current_zone == "marrow ramps west end"):
+                amuna_location.update(marrow_map_button.x_coordinate - 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["nuldar_location"])
+
+            if (player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower east"
+                    or player.current_zone == "marrow ramps east end"):
+                amuna_location.update(marrow_map_button.x_coordinate + 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["nuldar_location"])
+
+            if player.current_zone == "sub marrow":
+                amuna_location.update(marrow_map_button.x_coordinate - 25, marrow_map_button.y_coordinate + 75,
+                                      graphic_dict["nuldar_location"])
+
+            if (player.current_zone == "castle one" or player.current_zone == "castle two"
+                    or player.current_zone == "castle three" or player.current_zone == "caldera"
+                    or player.current_zone == "castle lair"):
+                amuna_location.update(marrow_map_button.x_coordinate + 10, marrow_map_button.y_coordinate + 50,
+                                      graphic_dict["nuldar_location"])
+
             world_map_container.append(nuldar_location)
+
         if player.gender == "female":
             if player.current_zone == "seldon":
-                nuldar_location.update(seldon_map_button.x_coordinate,
-                                       seldon_map_button.y_coordinate,
-                                       graphic_dict["nuldar_female"])
+                amuna_location.update(seldon_map_button.x_coordinate, seldon_map_button.y_coordinate,
+                                      graphic_dict["nuldar_female"])
             if player.current_zone == "rohir":
-                nuldar_location.update(seldon_map_button.x_coordinate,
-                                       seldon_map_button.y_coordinate - 75,
-                                       graphic_dict["nuldar_female"])
+                amuna_location.update(seldon_map_button.x_coordinate - 50, seldon_map_button.y_coordinate - 75,
+                                      graphic_dict["nuldar_female"])
             if player.current_zone == "stardust":
-                nuldar_location.update(seldon_map_button.x_coordinate - 75,
-                                       seldon_map_button.y_coordinate - 25,
-                                       graphic_dict["nuldar_female"])
-            if (player.current_zone == "korlok" or player.current_zone == "mines" or
-                    player.current_zone == "terra trail" or player.current_zone == "fishing hut" or
-                    player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or
-                    player.current_zone == "reservoir c" or player.current_zone == "forge"
-                    or player.current_zone == "fishing hut"):
-                nuldar_location.update(korlok_map_button.x_coordinate,
-                                       korlok_map_button.y_coordinate,
-                                       graphic_dict["nuldar_female"])
-            if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
-                    player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
-                nuldar_location.update(eldream_map_button.x_coordinate,
-                                       eldream_map_button.y_coordinate,
-                                       graphic_dict["nuldar_female"])
-            if (player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west"
-                    or player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west"
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end"
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
-                    or player.current_zone == "sub marrow" or player.current_zone == "castle one"
-                    or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
-                nuldar_location.update(marrow_map_button.x_coordinate,
-                                       marrow_map_button.y_coordinate,
-                                       graphic_dict["nuldar_female"])
+                amuna_location.update(seldon_map_button.x_coordinate - 75, seldon_map_button.y_coordinate - 25,
+                                      graphic_dict["nuldar_female"])
+
+            if player.current_zone == "korlok" or player.current_zone == "mines" or player.current_zone == "forge":
+                amuna_location.update(korlok_map_button.x_coordinate, korlok_map_button.y_coordinate,
+                                      graphic_dict["nuldar_female"])
+            if (player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
+                    or player.current_zone == "reservoir c"):
+                amuna_location.update(korlok_map_button.x_coordinate - 75, korlok_map_button.y_coordinate + 75,
+                                      graphic_dict["nuldar_female"])
+            if player.current_zone == "terra trail":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate - 50,
+                                      graphic_dict["nuldar_female"])
+            if player.current_zone == "fishing hut" or player.current_zone == "fishing hut":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate + 75,
+                                      graphic_dict["nuldar_female"])
+
+            if (player.current_zone == "eldream" or player.current_zone == "ectrenos"
+                    or player.current_zone == "ectrenos alcove" or player.current_zone == "fishing alcove"):
+                amuna_location.update(eldream_map_button.x_coordinate, eldream_map_button.y_coordinate,
+                                      graphic_dict["nuldar_female"])
+            if player.current_zone == "ectrenos left" or player.current_zone == "altar":
+                amuna_location.update(eldream_map_button.x_coordinate - 40, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["nuldar_female"])
+            if player.current_zone == "ectrenos right":
+                amuna_location.update(eldream_map_button.x_coordinate + 70, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["nuldar_female"])
+            if player.current_zone == "ectrenos front":
+                amuna_location.update(eldream_map_button.x_coordinate + 20, eldream_map_button.y_coordinate + 60,
+                                      graphic_dict["nuldar_female"])
+
+            if player.current_zone == "marrow":
+                amuna_location.update(marrow_map_button.x_coordinate + 5, marrow_map_button.y_coordinate - 10,
+                                      graphic_dict["nuldar_female"])
+            if player.current_zone == "marrow entrance":
+                amuna_location.update(marrow_map_button.x_coordinate, marrow_map_button.y_coordinate - 75,
+                                      graphic_dict["nuldar_female"])
+
+            if (player.current_zone == "marrow ramps west" or player.current_zone == "marrow tower west"
+                    or player.current_zone == "marrow ramps west end"):
+                amuna_location.update(marrow_map_button.x_coordinate - 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["nuldar_female"])
+
+            if (player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower east"
+                    or player.current_zone == "marrow ramps east end"):
+                amuna_location.update(marrow_map_button.x_coordinate + 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["nuldar_female"])
+
+            if player.current_zone == "sub marrow":
+                amuna_location.update(marrow_map_button.x_coordinate - 25, marrow_map_button.y_coordinate + 75,
+                                      graphic_dict["nuldar_female"])
+
+            if (player.current_zone == "castle one" or player.current_zone == "castle two"
+                    or player.current_zone == "castle three" or player.current_zone == "caldera"
+                    or player.current_zone == "castle lair"):
+                amuna_location.update(marrow_map_button.x_coordinate + 10, marrow_map_button.y_coordinate + 50,
+                                      graphic_dict["nuldar_female"])
+
             world_map_container.append(nuldar_location)
+
     if player.race == "sorae":
         if player.gender == "male":
             if player.current_zone == "seldon":
-                sorae_location.update(seldon_map_button.x_coordinate,
-                                      seldon_map_button.y_coordinate,
+                amuna_location.update(seldon_map_button.x_coordinate, seldon_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
             if player.current_zone == "rohir":
-                sorae_location.update(seldon_map_button.x_coordinate,
-                                      seldon_map_button.y_coordinate - 75,
+                amuna_location.update(seldon_map_button.x_coordinate - 50, seldon_map_button.y_coordinate - 75,
                                       graphic_dict["sorae_location"])
             if player.current_zone == "stardust":
-                sorae_location.update(seldon_map_button.x_coordinate - 75,
-                                      seldon_map_button.y_coordinate - 25,
+                amuna_location.update(seldon_map_button.x_coordinate - 75, seldon_map_button.y_coordinate - 25,
                                       graphic_dict["sorae_location"])
-            if (player.current_zone == "korlok" or player.current_zone == "mines" or
-                    player.current_zone == "terra trail" or player.current_zone == "fishing hut"
-                    or player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
-                    or player.current_zone == "reservoir c" or player.current_zone == "forge"
-                    or player.current_zone == "fishing hut"):
-                sorae_location.update(korlok_map_button.x_coordinate,
-                                      korlok_map_button.y_coordinate,
+
+            if player.current_zone == "korlok" or player.current_zone == "mines" or player.current_zone == "forge":
+                amuna_location.update(korlok_map_button.x_coordinate, korlok_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
-            if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
-                    player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
-                sorae_location.update(eldream_map_button.x_coordinate,
-                                      eldream_map_button.y_coordinate,
+            if (player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
+                    or player.current_zone == "reservoir c"):
+                amuna_location.update(korlok_map_button.x_coordinate - 75, korlok_map_button.y_coordinate + 75,
                                       graphic_dict["sorae_location"])
-            if (player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west"
-                    or player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west"
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end"
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
-                    or player.current_zone == "sub marrow" or player.current_zone == "castle one"
-                    or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
-                sorae_location.update(marrow_map_button.x_coordinate,
-                                      marrow_map_button.y_coordinate,
+            if player.current_zone == "terra trail":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate - 50,
                                       graphic_dict["sorae_location"])
+            if player.current_zone == "fishing hut" or player.current_zone == "fishing hut":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate + 75,
+                                      graphic_dict["sorae_location"])
+
+            if (player.current_zone == "eldream" or player.current_zone == "ectrenos"
+                    or player.current_zone == "ectrenos alcove" or player.current_zone == "fishing alcove"):
+                amuna_location.update(eldream_map_button.x_coordinate, eldream_map_button.y_coordinate,
+                                      graphic_dict["sorae_location"])
+            if player.current_zone == "ectrenos left" or player.current_zone == "altar":
+                amuna_location.update(eldream_map_button.x_coordinate - 40, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["sorae_location"])
+            if player.current_zone == "ectrenos right":
+                amuna_location.update(eldream_map_button.x_coordinate + 70, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["sorae_location"])
+            if player.current_zone == "ectrenos front":
+                amuna_location.update(eldream_map_button.x_coordinate + 20, eldream_map_button.y_coordinate + 60,
+                                      graphic_dict["sorae_location"])
+
+            if player.current_zone == "marrow":
+                amuna_location.update(marrow_map_button.x_coordinate + 5, marrow_map_button.y_coordinate - 10,
+                                      graphic_dict["sorae_location"])
+            if player.current_zone == "marrow entrance":
+                amuna_location.update(marrow_map_button.x_coordinate, marrow_map_button.y_coordinate - 75,
+                                      graphic_dict["sorae_location"])
+
+            if (player.current_zone == "marrow ramps west" or player.current_zone == "marrow tower west"
+                    or player.current_zone == "marrow ramps west end"):
+                amuna_location.update(marrow_map_button.x_coordinate - 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["sorae_location"])
+
+            if (player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower east"
+                    or player.current_zone == "marrow ramps east end"):
+                amuna_location.update(marrow_map_button.x_coordinate + 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["sorae_location"])
+
+            if player.current_zone == "sub marrow":
+                amuna_location.update(marrow_map_button.x_coordinate - 25, marrow_map_button.y_coordinate + 75,
+                                      graphic_dict["sorae_location"])
+
+            if (player.current_zone == "castle one" or player.current_zone == "castle two"
+                    or player.current_zone == "castle three" or player.current_zone == "caldera"
+                    or player.current_zone == "castle lair"):
+                amuna_location.update(marrow_map_button.x_coordinate + 10, marrow_map_button.y_coordinate + 50,
+                                      graphic_dict["sorae_location"])
+
             world_map_container.append(sorae_location)
+
         if player.gender == "female":
             if player.current_zone == "seldon":
-                sorae_location.update(seldon_map_button.x_coordinate,
-                                      seldon_map_button.y_coordinate,
+                amuna_location.update(seldon_map_button.x_coordinate, seldon_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])
             if player.current_zone == "rohir":
-                sorae_location.update(seldon_map_button.x_coordinate,
-                                      seldon_map_button.y_coordinate - 75,
+                amuna_location.update(seldon_map_button.x_coordinate - 50, seldon_map_button.y_coordinate - 75,
                                       graphic_dict["sorae_b"])
             if player.current_zone == "stardust":
-                sorae_location.update(seldon_map_button.x_coordinate - 75,
-                                      seldon_map_button.y_coordinate - 25,
+                amuna_location.update(seldon_map_button.x_coordinate - 75, seldon_map_button.y_coordinate - 25,
                                       graphic_dict["sorae_b"])
-            if (player.current_zone == "korlok" or player.current_zone == "mines" or
-                    player.current_zone == "terra trail" or player.current_zone == "fishing hut"
-                    or player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
-                    or player.current_zone == "reservoir c" or player.current_zone == "forge"
-                    or player.current_zone == "fishing hut"):
-                sorae_location.update(korlok_map_button.x_coordinate,
-                                      korlok_map_button.y_coordinate,
+
+            if player.current_zone == "korlok" or player.current_zone == "mines" or player.current_zone == "forge":
+                amuna_location.update(korlok_map_button.x_coordinate, korlok_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])
-            if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
-                    player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
-                sorae_location.update(eldream_map_button.x_coordinate,
-                                      eldream_map_button.y_coordinate,
+            if (player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
+                    or player.current_zone == "reservoir c"):
+                amuna_location.update(korlok_map_button.x_coordinate - 75, korlok_map_button.y_coordinate + 75,
                                       graphic_dict["sorae_b"])
-            if (player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west"
-                    or player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west"
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end"
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow"
-                    or player.current_zone == "sub marrow" or player.current_zone == "castle one"
-                    or player.current_zone == "castle two" or player.current_zone == "castle three"
-                    or player.current_zone == "caldera" or player.current_zone == "castle lair"):
-                sorae_location.update(marrow_map_button.x_coordinate,
-                                      marrow_map_button.y_coordinate,
+            if player.current_zone == "terra trail":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate - 50,
                                       graphic_dict["sorae_b"])
+            if player.current_zone == "fishing hut" or player.current_zone == "fishing hut":
+                amuna_location.update(korlok_map_button.x_coordinate + 85, korlok_map_button.y_coordinate + 75,
+                                      graphic_dict["sorae_b"])
+
+            if (player.current_zone == "eldream" or player.current_zone == "ectrenos"
+                    or player.current_zone == "ectrenos alcove" or player.current_zone == "fishing alcove"):
+                amuna_location.update(eldream_map_button.x_coordinate, eldream_map_button.y_coordinate,
+                                      graphic_dict["sorae_b"])
+            if player.current_zone == "ectrenos left" or player.current_zone == "altar":
+                amuna_location.update(eldream_map_button.x_coordinate - 40, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["sorae_b"])
+            if player.current_zone == "ectrenos right":
+                amuna_location.update(eldream_map_button.x_coordinate + 70, eldream_map_button.y_coordinate + 25,
+                                      graphic_dict["sorae_b"])
+            if player.current_zone == "ectrenos front":
+                amuna_location.update(eldream_map_button.x_coordinate + 20, eldream_map_button.y_coordinate + 60,
+                                      graphic_dict["sorae_b"])
+
+            if player.current_zone == "marrow":
+                amuna_location.update(marrow_map_button.x_coordinate + 5, marrow_map_button.y_coordinate - 10,
+                                      graphic_dict["sorae_b"])
+            if player.current_zone == "marrow entrance":
+                amuna_location.update(marrow_map_button.x_coordinate, marrow_map_button.y_coordinate - 75,
+                                      graphic_dict["sorae_b"])
+
+            if (player.current_zone == "marrow ramps west" or player.current_zone == "marrow tower west"
+                    or player.current_zone == "marrow ramps west end"):
+                amuna_location.update(marrow_map_button.x_coordinate - 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["sorae_b"])
+
+            if (player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower east"
+                    or player.current_zone == "marrow ramps east end"):
+                amuna_location.update(marrow_map_button.x_coordinate + 75, marrow_map_button.y_coordinate - 25,
+                                      graphic_dict["sorae_b"])
+
+            if player.current_zone == "sub marrow":
+                amuna_location.update(marrow_map_button.x_coordinate - 25, marrow_map_button.y_coordinate + 75,
+                                      graphic_dict["sorae_b"])
+
+            if (player.current_zone == "castle one" or player.current_zone == "castle two"
+                    or player.current_zone == "castle three" or player.current_zone == "caldera"
+                    or player.current_zone == "castle lair"):
+                amuna_location.update(marrow_map_button.x_coordinate + 10, marrow_map_button.y_coordinate + 50,
+                                      graphic_dict["sorae_b"])
+
             world_map_container.append(sorae_location)

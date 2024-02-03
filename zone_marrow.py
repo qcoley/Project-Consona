@@ -18,7 +18,6 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
                     ghouls_reset, roroc, recycle_crate, star_roroc, rohir_gate, apothis_upgrade, dawn, early_morning,
                     morning, early_afternoon, afternoon, dusk, night, time_of_day):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -492,7 +491,6 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     marrow_entrance_bg_open, entrance_music, entrance_npc, entrance_1, entrance_2, entrance_3,
                     entrance_popup, sfx_switch, mini_map, basic_fish_counter, better_fish_counter,
                     even_better_fish_counter, best_fish_counter, apothis_gift):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -667,10 +665,12 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
             entrance_text_surf = font.render("Thank you.", True, "black", "light yellow")
 
     if len(drawing_functions.journal_window) == 0:
-        screen.blit(entrance_popup.surf, entrance_popup.rect)
-        entrance_text_rect = entrance_text_surf.get_rect()
-        entrance_text_rect.center = (entrance_popup.x_coordinate, entrance_popup.y_coordinate)
-        screen.blit(entrance_text_surf, entrance_text_rect)
+        if len(drawing_functions.character_sheet_window) == 0:
+            if len(drawing_functions.world_map_container) == 0:
+                screen.blit(entrance_popup.surf, entrance_popup.rect)
+                entrance_text_rect = entrance_text_surf.get_rect()
+                entrance_text_rect.center = (entrance_popup.x_coordinate, entrance_popup.y_coordinate)
+                screen.blit(entrance_text_surf, entrance_text_rect)
 
     if 450 < player.x_coordinate < 550 and player.y_coordinate < 40:
         player.current_zone = "eldream"
@@ -707,7 +707,6 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       current_enemy_battling, sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter,
                       better_fish_counter, even_better_fish_counter, best_fish_counter, sfx_paper, sfx_munch,
                       kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -939,7 +938,6 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling,
                       sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                       even_better_fish_counter, best_fish_counter, apothis_gift):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1134,7 +1132,6 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
                       overlay_marrow_west, chroma_bridge, ghoul, ghoul_2, enemy_tic, mini_map, basic_fish_counter,
                       better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, dawn,
                       early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1274,7 +1271,6 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
                       overlay_marrow_east, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                       best_fish_counter, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk,
                       night, time_of_day):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1407,7 +1403,6 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           enemy_vanish, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                           even_better_fish_counter, best_fish_counter, apothis_gift, dawn, early_morning, morning,
                           early_afternoon, afternoon, dusk, night, time_of_day):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1449,7 +1444,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
 
     if erebyth_defeated and apothis_push:
         npc_toc = time.perf_counter()
-        if npc_toc - npc_tic < 3:
+        if npc_toc - npc_tic < 3 and marrow_switch_phase != "complete":
             screen.blit(enemy_vanish.surf, enemy_vanish.rect)
         screen.blit(dungeon_chest.surf, dungeon_chest.rect)
         movement_able = True
@@ -1599,7 +1594,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
         player.y_coordinate = 650
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
-    if pygame.Rect.colliderect(player.rect, switch_2):
+    if pygame.Rect.colliderect(player.rect, switch_2) and marrow_switch_phase != "complete":
         interaction_popup.update(195, 135, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str("Gate switch"), True, "black", "light yellow")
@@ -1647,7 +1642,6 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                           best_fish_counter, item_block_7, item_block_7_got, item_block_8, item_block_8_got,
                           sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, dawn,
                           early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1745,7 +1739,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
         player.y_coordinate = 650
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
-    if pygame.Rect.colliderect(player.rect, switch_1):
+    if pygame.Rect.colliderect(player.rect, switch_1) and marrow_switch_phase != "complete":
         interaction_popup.update(945, 135, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str("Gate switch"), True, "black", "light yellow")
@@ -2002,7 +1996,6 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                current_enemy_battling, sub_marrow_opened, item_block_9, item_block_9_got, sfx_item_block,
                kasper_unlocked, torok_unlocked, iriana_unlocked, maydria_task_start, prism_received,
                atmons_highlighted, atmons_reset, apothis_gift):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -2317,7 +2310,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                          "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                          "movement_able": movement_able, "has_key": has_key, "chest_got": chest_got, "atmons": atmons,
                          "enemy_tic": enemy_tic, "current_enemy_battling": current_enemy_battling, "sub_marrow_opened":
-                         sub_marrow_opened, "item_block_9_got": item_block_9_got,
+                             sub_marrow_opened, "item_block_9_got": item_block_9_got,
                          "atmons_highlighted": atmons_highlighted, "atmons_reset": atmons_reset}
 
     return sub_marrow_return

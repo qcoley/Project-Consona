@@ -363,6 +363,12 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
             if clicked_element[0].name == "big cure potion":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "brace":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "big mend potion":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
         except IndexError:
             pass
     return event_return
@@ -798,7 +804,6 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 return_dict["item message"] = "The potion cures your conditions."
                 return_dict["poisoned"] = poisoned
                 return_dict["burned"] = burned
-                return_dict["bleeding"] = bleeding
         if item.name == "big mend potion":
             if not bleeding and not crushed:
                 return_dict["item message"] = "You're not bleeding or crushed."
@@ -1103,6 +1108,9 @@ def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item, SCREEN_WIDTH, 
             if clicked_element[0].name == "bandage wrap":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
+            if clicked_element[0].name == "brace":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
 
         except IndexError:
             pass
@@ -1222,6 +1230,12 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "big cure potion":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "brace":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "big mend potion":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
 

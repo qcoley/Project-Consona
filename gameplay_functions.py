@@ -2117,6 +2117,10 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("bandage wrap", "wrap", 200, 200, graphics["bandage_wrap"], 0))
                 if item == "big cure potion":
                     player.items.append(Item("big cure potion", "potion", 200, 200, graphics["big_cure_potion"], 0))
+                if item == "brace":
+                    player.items.append(Item("brace", "brace", 200, 200, graphics["brace"], 0))
+                if item == "big mend potion":
+                    player.items.append(Item("big mend potion", "potion", 200, 200, graphics["big_mend_potion"], 0))
 
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
