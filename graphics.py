@@ -4640,6 +4640,8 @@ def load_graphics():
     loaded_dict["burn_cure"] = items_sheet[43]
     loaded_dict["big_cure_potion"] = items_sheet[44]
     loaded_dict["bandage_wrap"] = items_sheet[45]
+    loaded_dict["brace"] = items_sheet[46]
+    loaded_dict["big_mend_potion"] = items_sheet[47]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -4691,6 +4693,8 @@ def load_graphics():
     loaded_dict["info_burn_cure"] = items_info_sheet[45]
     loaded_dict["info_bandage_wrap"] = items_info_sheet[46]
     loaded_dict["info_big_cure"] = items_info_sheet[47]
+    loaded_dict["info_brace"] = items_info_sheet[48]
+    loaded_dict["info_big_mend"] = items_info_sheet[49]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -4715,6 +4719,7 @@ def load_graphics():
     loaded_dict["b_poison_potion"] = buy_items_sheet[18]
     loaded_dict["b_burn_potion"] = buy_items_sheet[19]
     loaded_dict["b_bandage_wrap"] = buy_items_sheet[20]
+    loaded_dict["b_brace"] = buy_items_sheet[21]
     # sell items -------------------------------------------------------------------------------------------------------
     sell_items_url = resource_path('resources/art/overlay_sell_items.png')
     sell_items_sheet = sprite_sheet((246, 240), sell_items_url)
@@ -4752,6 +4757,8 @@ def load_graphics():
     loaded_dict["s_burn_potion"] = sell_items_sheet[31]
     loaded_dict["s_bandage_wrap"] = sell_items_sheet[32]
     loaded_dict["s_big_cure"] = sell_items_sheet[33]
+    loaded_dict["s_brace"] = sell_items_sheet[34]
+    loaded_dict["s_big_mend"] = sell_items_sheet[35]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)
@@ -4760,6 +4767,7 @@ def load_graphics():
     loaded_dict["apothecary_energy_potion"] = apothecary_potions_sheet[2]
     loaded_dict["apothecary_rejuv_potion"] = apothecary_potions_sheet[3]
     loaded_dict["apothecary_cure_potion"] = apothecary_potions_sheet[4]
+    loaded_dict["apothecary_mend_potion"] = apothecary_potions_sheet[5]
     # player info windows ----------------------------------------------------------------------------------------------
     player_info_url = resource_path('resources/art/overlay_info_sheets.png')
     player_info_sheet = sprite_sheet((500, 562), player_info_url)

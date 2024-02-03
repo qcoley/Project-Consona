@@ -9415,6 +9415,8 @@ if __name__ == "__main__":
     bleeding = False
     crushed = False
 
+    crush_shown = False
+
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
     # apothecary flower counters
@@ -15449,6 +15451,7 @@ if __name__ == "__main__":
                                 card_popup_checked = False
                                 loot_timer_reset = False
                                 loot_level_tic = time.perf_counter()
+                                turn_counter = 0
 
                         # reset on each new turn
                         turn_taken = False
@@ -15951,7 +15954,7 @@ if __name__ == "__main__":
                                     if len(drawing_functions.condition_popup_window) > 0:
                                         drawing_functions.condition_popup_window.clear()
                                     pygame.mixer.find_channel(True).play(sfx_enemy_snake)
-                                    if (turn_counter + 1) % random.randint(3, 6) == 0:
+                                    if (turn_counter + 1) % random.randint(7, 14) == 0:
                                         if not poisoned and not barrier_active:
                                             if not condition_popup_shown:
                                                 drawing_functions.condition_popup_window.append(condition_popup)
@@ -15974,6 +15977,7 @@ if __name__ == "__main__":
                                     if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not crushed:
                                             crushed = True
+                                            crushed_shown = False
                                 if current_enemy_battling.kind == "magmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
                                     if (turn_counter + 1) % random.randint(1, 3) == 0:
@@ -18016,6 +18020,7 @@ if __name__ == "__main__":
                                         show_edge = False
                                         cleared = False
                                         loot_timer_reset = False
+                                        turn_counter = 0
                                         loot_level_tic = time.perf_counter()
                                         random_crate = random.choice(muchador_crates_list)
                                         muchador.update_image(random_crate.x_coordinate, random_crate.y_coordinate,
@@ -18127,7 +18132,7 @@ if __name__ == "__main__":
                                     screen.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
                                 if bleeding:
                                     screen.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
-                                if crushed:
+                                if crushed and not crushed_shown:
                                     screen.blit(battle_sprite_effect_crush.surf, battle_sprite_effect_crush.rect)
 
                                 screen.blit(message_box.surf, message_box.rect)
@@ -18242,7 +18247,7 @@ if __name__ == "__main__":
                                     game_window.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
                                 if bleeding:
                                     game_window.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
-                                if crushed:
+                                if crushed and not crushed_shown:
                                     game_window.blit(battle_sprite_effect_crush.surf, battle_sprite_effect_crush.rect)
 
                                 game_window.blit(message_box.surf, message_box.rect)
@@ -18537,6 +18542,9 @@ if __name__ == "__main__":
                                 show_edge = False
                                 show_arrow = False
                                 show_advantage_arrow = False
+
+                                if crushed:
+                                    crushed_shown = True
 
                     except TypeError:
                         pass
@@ -23040,6 +23048,8 @@ if __name__ == "__main__":
                                     if not npc_garan.gift:
                                         player.items.append(Item("big health potion",
                                                                  "potion", 200, 200, graphic_dict["health_pot_img"], 0))
+                                        player.items.append(Item("cure poison potion",
+                                                                 "potion", 200, 200, graphic_dict["poison_cure"], 0))
                                         npc_garan.gift = True
                                         drawing_functions.type_advantage_window.append(role_select_overlay)
                                 if current_npc_interacting.name == "Maurelle":
@@ -24788,6 +24798,7 @@ if __name__ == "__main__":
                         apothis_gift = True
                         dreth.health = 75
                         combat_scenario.enemy_health_bar(dreth, graphic_dict)
+                        turn_counter = 0
 
                     else:
                         if not game_over_sound_played:
@@ -24871,7 +24882,7 @@ if __name__ == "__main__":
                                     rest_recover_show = True
                                     dreth.health = 100
                                     combat_scenario.enemy_health_bar(dreth, graphic_dict)
-                                    turn_counter = 0
+
                             elif event.type == QUIT:
                                 pygame.mixer.quit()
                                 sys.exit()

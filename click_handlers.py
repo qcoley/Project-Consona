@@ -776,7 +776,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 player.items.remove(item)
                 return_dict["item message"] = "The bandage stops your bleeding."
                 return_dict["bleeding"] = bleeding
-        if item.name == "reinforcement":
+        if item.name == "brace":
             if not crushed:
                 return_dict["item message"] = "You're not crushed."
             else:
@@ -784,7 +784,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 crushed = False
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
-                return_dict["item message"] = "The reinforcement supports you."
+                return_dict["item message"] = "The brace supports you."
                 return_dict["crushed"] = crushed
         if item.name == "big cure potion":
             if not poisoned and not burned:
