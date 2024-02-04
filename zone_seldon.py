@@ -33,7 +33,9 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated, basic_fish_counter,
                     better_fish_counter, even_better_fish_counter, best_fish_counter, barrier_small, apothis_gift,
                     snakes_highlighted, ghouls_highlighted, quest_logs_highlighted, apothis_upgrade, dawn,
-                    early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
+                    early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, apothis_scene_1_night,
+                    apothis_scene_2_night, apothis_scene_3_night, apothis_scene_4_night, apothis_scene_5_night,
+                    apothis_scene_6_night):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -261,7 +263,10 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                                                apothis_scene_2, apothis_scene_3, apothis_scene_4,
                                                                apothis_scene_5, apothis_scene_6, cutscene_tic,
                                                                skip_button, player_cutscene, player_cutscene_2,
-                                                               SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                                                               SCREEN_WIDTH, SCREEN_HEIGHT, game_window, time_of_day,
+                                                               apothis_scene_1_night, apothis_scene_2_night,
+                                                               apothis_scene_3_night, apothis_scene_4_night,
+                                                               apothis_scene_5_night, apothis_scene_6_night)
                             bridge_cutscenes_not_viewed = False
                         player.x_coordinate = 900
                         player.y_coordinate = 400

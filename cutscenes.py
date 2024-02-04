@@ -6,7 +6,10 @@ from pygame import QUIT
 
 def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, scene_4, scene_5, scene_6, cutscene_tic,
                              skip_button, player_overlay, player_overlay_2, SCREEN_WIDTH, SCREEN_HEIGHT,
-                             game_window):
+                             game_window, time_of_day, scene_1_night, scene_2_night, scene_3_night, scene_4_night,
+                             scene_5_night, scene_6_night):
+
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     in_cutscene = True
     first_viewed = False
@@ -42,8 +45,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             # ----------------------------------------------------------------------------------------------------------
             if not first_viewed:
                 for alpha in range(0, 255):
-                    scene_1.set_alpha(alpha)
-                    screen.blit(scene_1, (0, 0))
+                    if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                        scene_1_night.set_alpha(alpha)
+                        screen.blit(scene_1_night, (0, 0))
+                    else:
+                        scene_1.set_alpha(alpha)
+                        screen.blit(scene_1, (0, 0))
                     screen.blit(player_overlay.surf, player_overlay.rect)
                     screen.blit(skip_button.surf, skip_button.rect)
                     frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -55,8 +62,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             if cutscene_duration > 8:
                 if not second_viewed:
                     for alpha in range(0, 255):
-                        scene_2.set_alpha(alpha)
-                        screen.blit(scene_2, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_2_night.set_alpha(alpha)
+                            screen.blit(scene_2_night, (0, 0))
+                        else:
+                            scene_2.set_alpha(alpha)
+                            screen.blit(scene_2, (0, 0))
                         screen.blit(skip_button.surf, skip_button.rect)
                         frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                         game_window.blit(frame, frame.get_rect())
@@ -67,8 +78,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             if cutscene_duration > 16:
                 if not third_viewed:
                     for alpha in range(0, 255):
-                        scene_3.set_alpha(alpha)
-                        screen.blit(scene_3, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_3_night.set_alpha(alpha)
+                            screen.blit(scene_3_night, (0, 0))
+                        else:
+                            scene_3.set_alpha(alpha)
+                            screen.blit(scene_3, (0, 0))
                         screen.blit(skip_button.surf, skip_button.rect)
                         frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                         game_window.blit(frame, frame.get_rect())
@@ -79,8 +94,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             if cutscene_duration > 24:
                 if not fourth_viewed:
                     for alpha in range(0, 255):
-                        scene_4.set_alpha(alpha)
-                        screen.blit(scene_4, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_4_night.set_alpha(alpha)
+                            screen.blit(scene_4_night, (0, 0))
+                        else:
+                            scene_4.set_alpha(alpha)
+                            screen.blit(scene_4, (0, 0))
                         screen.blit(skip_button.surf, skip_button.rect)
                         frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                         game_window.blit(frame, frame.get_rect())
@@ -92,7 +111,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                 if not fifth_viewed:
                     for alpha in range(0, 255):
                         scene_5.set_alpha(alpha)
-                        screen.blit(scene_5, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_5_night.set_alpha(alpha)
+                            screen.blit(scene_5_night, (0, 0))
+                        else:
+                            scene_5.set_alpha(alpha)
+                            screen.blit(scene_5, (0, 0))
                         screen.blit(player_overlay_2.surf, player_overlay_2.rect)
                         screen.blit(skip_button.surf, skip_button.rect)
                         frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -105,7 +129,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                 if not sixth_viewed:
                     for alpha in range(0, 255):
                         scene_6.set_alpha(alpha)
-                        screen.blit(scene_6, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_6_night.set_alpha(alpha)
+                            screen.blit(scene_6_night, (0, 0))
+                        else:
+                            scene_6.set_alpha(alpha)
+                            screen.blit(scene_6, (0, 0))
                         screen.blit(skip_button.surf, skip_button.rect)
                         frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                         game_window.blit(frame, frame.get_rect())
@@ -120,8 +149,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             # ----------------------------------------------------------------------------------------------------------
             if not first_viewed:
                 for alpha in range(0, 255):
-                    scene_1.set_alpha(alpha)
-                    game_window.blit(scene_1, (0, 0))
+                    if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                        scene_1_night.set_alpha(alpha)
+                        game_window.blit(scene_1_night, (0, 0))
+                    else:
+                        scene_1.set_alpha(alpha)
+                        game_window.blit(scene_1, (0, 0))
                     game_window.blit(player_overlay.surf, player_overlay.rect)
                     game_window.blit(skip_button.surf, skip_button.rect)
                     pygame.display.flip()
@@ -131,8 +164,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             if cutscene_duration > 8:
                 if not second_viewed:
                     for alpha in range(0, 255):
-                        scene_2.set_alpha(alpha)
-                        game_window.blit(scene_2, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_2_night.set_alpha(alpha)
+                            game_window.blit(scene_2_night, (0, 0))
+                        else:
+                            scene_2.set_alpha(alpha)
+                            game_window.blit(scene_2, (0, 0))
                         game_window.blit(skip_button.surf, skip_button.rect)
                         pygame.display.flip()
                     second_viewed = True
@@ -141,8 +178,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             if cutscene_duration > 16:
                 if not third_viewed:
                     for alpha in range(0, 255):
-                        scene_3.set_alpha(alpha)
-                        game_window.blit(scene_3, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_3_night.set_alpha(alpha)
+                            game_window.blit(scene_3_night, (0, 0))
+                        else:
+                            scene_3.set_alpha(alpha)
+                            game_window.blit(scene_3, (0, 0))
                         game_window.blit(skip_button.surf, skip_button.rect)
                         pygame.display.flip()
                     third_viewed = True
@@ -152,7 +193,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                 if not fourth_viewed:
                     for alpha in range(0, 255):
                         scene_4.set_alpha(alpha)
-                        game_window.blit(scene_4, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_4_night.set_alpha(alpha)
+                            game_window.blit(scene_4_night, (0, 0))
+                        else:
+                            scene_4.set_alpha(alpha)
+                            game_window.blit(scene_4, (0, 0))
                         game_window.blit(skip_button.surf, skip_button.rect)
                         pygame.display.flip()
                     fourth_viewed = True
@@ -161,8 +207,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             if cutscene_duration > 32:
                 if not fifth_viewed:
                     for alpha in range(0, 255):
-                        scene_5.set_alpha(alpha)
-                        game_window.blit(scene_5, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_5_night.set_alpha(alpha)
+                            game_window.blit(scene_5_night, (0, 0))
+                        else:
+                            scene_5.set_alpha(alpha)
+                            game_window.blit(scene_5, (0, 0))
                         game_window.blit(player_overlay_2.surf, player_overlay_2.rect)
                         game_window.blit(skip_button.surf, skip_button.rect)
                         pygame.display.flip()
@@ -172,8 +222,12 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             if cutscene_duration > 40:
                 if not sixth_viewed:
                     for alpha in range(0, 255):
-                        scene_6.set_alpha(alpha)
-                        game_window.blit(scene_6, (0, 0))
+                        if time_of_day == 0 or time_of_day == 6 or time_of_day == 7:
+                            scene_6_night.set_alpha(alpha)
+                            game_window.blit(scene_6_night, (0, 0))
+                        else:
+                            scene_6.set_alpha(alpha)
+                            game_window.blit(scene_6, (0, 0))
                         game_window.blit(skip_button.surf, skip_button.rect)
                         pygame.display.flip()
                     sixth_viewed = True
@@ -182,9 +236,13 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                 if sixth_viewed:
                     in_cutscene = False
 
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+
 
 def cutscenes_apothis_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scene_4, scene_5, scene_6, scene_7,
                             scene_8, cutscene_tic, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window):
+
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     in_cutscene = True
     first_viewed = False
@@ -400,6 +458,8 @@ def cutscenes_apothis_dreth(pygame, music, screen, scene_1, scene_2, scene_3, sc
                 if eighth_viewed:
                     in_cutscene = False
 
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+
 
 def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scene_4, scene_5, scene_6, scene_7,
                           scene_8, scene_9, scene_10, scene_11, scene_12, scene_13, scene_14, cutscene_tic, skip_button,
@@ -407,6 +467,8 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                           big_hp_6, big_hp_7, big_hp_8, big_hp_9, big_hp_10, big_hp_11, big_hp_12, big_hp_13, big_hp_14,
                           big_hp_15, big_hp_16, big_hp_17, big_hp_18, big_hp_19, big_hp_20, big_hp_21, big_hp_22,
                           big_hp_23, big_hp_24, big_hp_25):
+
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
     in_cutscene = True
     first_viewed = False
@@ -1004,9 +1066,13 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                 if fourteenth_viewed:
                     in_cutscene = False
 
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+
 
 def cutscenes_credits(pygame, music, screen, scene_1, scene_2, scene_3, scene_4, scene_5, cutscene_tic,
                       SCREEN_WIDTH, SCREEN_HEIGHT, game_window):
+
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
     in_cutscene = True
     first_viewed = False
@@ -1137,3 +1203,5 @@ def cutscenes_credits(pygame, music, screen, scene_1, scene_2, scene_3, scene_4,
             if cutscene_duration > 75:
                 if fifth_viewed:
                     in_cutscene = False
+
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)

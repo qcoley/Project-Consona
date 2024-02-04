@@ -7785,6 +7785,13 @@ if __name__ == "__main__":
     apothis_scene_5 = graphic_dict["apothis_5"]
     apothis_scene_6 = graphic_dict["apothis_6"]
 
+    apothis_scene_1_night = graphic_dict["apothis_1_night"]
+    apothis_scene_2_night = graphic_dict["apothis_2_night"]
+    apothis_scene_3_night = graphic_dict["apothis_3_night"]
+    apothis_scene_4_night = graphic_dict["apothis_4_night"]
+    apothis_scene_5_night = graphic_dict["apothis_5_night"]
+    apothis_scene_6_night = graphic_dict["apothis_6_night"]
+
     dreth_scene_0 = graphic_dict["dreth_0"]
     dreth_scene_1 = graphic_dict["dreth_1"]
     dreth_scene_2 = graphic_dict["dreth_2"]
@@ -9419,6 +9426,7 @@ if __name__ == "__main__":
     crushed = False
 
     crush_shown = False
+    poisoned_before = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -11758,6 +11766,10 @@ if __name__ == "__main__":
                                 drawing_functions.apothis_popup_window.clear()
                             if dreth_taunt_popup.rect.collidepoint(pos):
                                 drawing_functions.dreth_taunt_window.clear()
+                            if cloaked_popup.rect.collidepoint(pos):
+                                drawing_functions.cloaked_popup_window.clear()
+                            if condition_popup.rect.collidepoint(pos):
+                                drawing_functions.condition_popup_window.clear()
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -12087,7 +12099,11 @@ if __name__ == "__main__":
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
                                                                       quest_logs_highlighted, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
-                                                                      afternoon, dusk, night, time_of_day)
+                                                                      afternoon, dusk, night, time_of_day,
+                                                                      apothis_scene_1_night, apothis_scene_2_night,
+                                                                      apothis_scene_3_night, apothis_scene_4_night,
+                                                                      apothis_scene_5_night, apothis_scene_6_night)
+
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone_seldon,
@@ -12145,7 +12161,10 @@ if __name__ == "__main__":
                                                                       snakes_highlighted, ghouls_seldon_highlighted,
                                                                       quest_logs_highlighted, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
-                                                                      afternoon, dusk, night, time_of_day)
+                                                                      afternoon, dusk, night, time_of_day,
+                                                                      apothis_scene_1_night, apothis_scene_2_night,
+                                                                      apothis_scene_3_night, apothis_scene_4_night,
+                                                                      apothis_scene_5_night, apothis_scene_6_night)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -15444,7 +15463,6 @@ if __name__ == "__main__":
                                 encounter_started = False
                                 in_battle = False
                                 combat_cooldown = False
-                                combat_happened = False
                                 in_over_world = True
                                 loot_updated = False
                                 mirror_image = False
@@ -15564,8 +15582,8 @@ if __name__ == "__main__":
                                     info_text_2 = ""
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
+                                turn_counter += 1
                                 try:
-                                    turn_counter += 1
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "small energy potion" or \
                                             current_info_item.name == "big energy potion":
@@ -15720,6 +15738,11 @@ if __name__ == "__main__":
                                                 poisoned = inventory_event["poisoned"]
                                             except KeyError:
                                                 pass
+                                            if (current_enemy_battling.kind != "erebyth"
+                                                    and current_enemy_battling.kind != "dreth"):
+                                                turn_counter = 0
+                                            if len(drawing_functions.condition_popup_window) > 0:
+                                                drawing_functions.condition_popup_window.clear()
                                             turn_taken = True
                                             attack_hotkey = False
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
@@ -15772,6 +15795,9 @@ if __name__ == "__main__":
                                                 burned = inventory_event["burned"]
                                             except KeyError:
                                                 pass
+                                            if (current_enemy_battling.kind != "erebyth"
+                                                    and current_enemy_battling.kind != "dreth"):
+                                                turn_counter = 0
                                             turn_taken = True
                                             attack_hotkey = False
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
@@ -15823,6 +15849,9 @@ if __name__ == "__main__":
                                                 bleeding = inventory_event["bleeding"]
                                             except KeyError:
                                                 pass
+                                            if (current_enemy_battling.kind != "erebyth"
+                                                    and current_enemy_battling.kind != "dreth"):
+                                                turn_counter = 0
                                             turn_taken = True
                                             attack_hotkey = False
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
@@ -15874,6 +15903,9 @@ if __name__ == "__main__":
                                                 crushed = inventory_event["crushed"]
                                             except KeyError:
                                                 pass
+                                            if (current_enemy_battling.kind != "erebyth"
+                                                    and current_enemy_battling.kind != "dreth"):
+                                                turn_counter = 0
                                             turn_taken = True
                                             attack_hotkey = False
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
@@ -15926,6 +15958,9 @@ if __name__ == "__main__":
                                                 burned = inventory_event["burned"]
                                             except KeyError:
                                                 pass
+                                            if (current_enemy_battling.kind != "erebyth"
+                                                    and current_enemy_battling.kind != "dreth"):
+                                                turn_counter = 0
                                             turn_taken = True
                                             attack_hotkey = False
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
@@ -15978,6 +16013,9 @@ if __name__ == "__main__":
                                                 crushed = inventory_event["crushed"]
                                             except KeyError:
                                                 pass
+                                            if (current_enemy_battling.kind != "erebyth"
+                                                    and current_enemy_battling.kind != "dreth"):
+                                                turn_counter = 0
                                             turn_taken = True
                                             attack_hotkey = False
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
@@ -16062,17 +16100,24 @@ if __name__ == "__main__":
                                     if len(drawing_functions.condition_popup_window) > 0:
                                         drawing_functions.condition_popup_window.clear()
                                     pygame.mixer.find_channel(True).play(sfx_enemy_snake)
-                                    if (turn_counter + 1) % random.randint(7, 14) == 0:
-                                        if not poisoned and not barrier_active:
-                                            if not condition_popup_shown:
-                                                drawing_functions.condition_popup_window.append(condition_popup)
-                                                condition_popup_shown = True
-                                            poisoned = True
+                                    if not beyond_seldon:
+                                        if not poisoned_before:
+                                            if (turn_counter + 1) % random.randint(5, 10) == 0:
+                                                if not poisoned and not barrier_active:
+                                                    if not condition_popup_shown:
+                                                        drawing_functions.condition_popup_window.append(condition_popup)
+                                                        condition_popup_shown = True
+                                                    poisoned = True
+                                                    poisoned_before = True
+                                    else:
+                                        if (turn_counter + 1) % random.randint(2, 4) == 0:
+                                            if not poisoned and not barrier_active:
+                                                poisoned = True
                                 if current_enemy_battling.name == "Ghoul":
                                     if len(drawing_functions.cloaked_popup_window) > 0:
                                         drawing_functions.cloaked_popup_window.clear()
                                     pygame.mixer.find_channel(True).play(sfx_enemy_ghoul)
-                                    if turn_counter % random.randint(1, 4) == 0:
+                                    if (turn_counter + 1) % random.randint(3, 6) == 0:
                                         if not cloaked:
                                             cloaked = True
                                             pygame.mixer.find_channel(True).play(sfx_cloaked)
@@ -16112,7 +16157,7 @@ if __name__ == "__main__":
                                             bleeding = True
                                 if current_enemy_battling.kind == "erebyth":
                                     if turn_counter == 2:
-                                        erebyth_attack_choice = random.randint(1,2)
+                                        erebyth_attack_choice = random.randint(1, 2)
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_flame)
                                         if erebyth_attack_choice == 1:
                                             if not burned and not barrier_active:
@@ -16348,7 +16393,6 @@ if __name__ == "__main__":
                                         encounter_started = False
                                         in_battle = False
                                         combat_cooldown = False
-                                        combat_happened = False
                                         in_over_world = True
                                         loot_updated = False
                                         mirror_image = False
@@ -16724,7 +16768,6 @@ if __name__ == "__main__":
                                                     in_battle = False
                                                     in_over_world = True
                                                     combat_cooldown = False
-                                                    combat_happened = False
                                                     loot_updated = False
                                                     mirror_image = False
                                                     fire_active = False
@@ -16897,7 +16940,6 @@ if __name__ == "__main__":
                                             encounter_started = False
                                             in_battle = False
                                             combat_cooldown = False
-                                            combat_happened = False
                                             in_over_world = True
                                             loot_updated = False
                                             if barrier_active:
@@ -17093,7 +17135,6 @@ if __name__ == "__main__":
                                                         interacted = False
                                                         encounter_started = False
                                                         in_battle = False
-                                                        combat_happened = False
                                                         combat_cooldown = False
                                                         in_over_world = True
                                                         loot_updated = False
@@ -17326,7 +17367,6 @@ if __name__ == "__main__":
                                                     encounter_started = False
                                                     in_battle = False
                                                     combat_cooldown = False
-                                                    combat_happened = False
                                                     in_over_world = True
                                                     loot_updated = False
                                                     mirror_image = False
@@ -17533,7 +17573,6 @@ if __name__ == "__main__":
                                                         encounter_started = False
                                                         in_battle = False
                                                         combat_cooldown = False
-                                                        combat_happened = False
                                                         in_over_world = True
                                                         loot_updated = False
                                                         mirror_image = False
@@ -18116,7 +18155,6 @@ if __name__ == "__main__":
                                         encounter_started = False
                                         in_battle = False
                                         combat_cooldown = False
-                                        combat_happened = False
                                         in_over_world = True
                                         loot_updated = False
                                         mirror_image = False
@@ -21091,6 +21129,20 @@ if __name__ == "__main__":
                                     else:
                                         info_text_1 = "You need 1 seldon + 2 eldream flowers."
                                         info_text_2 = ""
+                                elif seldon_flower_counter == 2 and eldream_flower_counter == 1:
+                                    if player.flowers_amuna >= 2 and player.flowers_sorae >= 1:
+                                        if len(player.items) < 16:
+                                            pygame.mixer.find_channel(True).play(sfx_item_potion)
+                                            player.flowers_amuna -= 2
+                                            player.flowers_sorae -= 1
+                                            player.items.append(Item("big mend potion", "potion", 200, 200,
+                                                                     graphic_dict["big_mend_potion"], 0))
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
+                                    else:
+                                        info_text_1 = "You need 2 seldon + 1 eldream flowers."
+                                        info_text_2 = ""
                                 else:
                                     info_text_1 = "Add some flowers to the potion."
                                     info_text_2 = ""
@@ -21368,6 +21420,8 @@ if __name__ == "__main__":
                                         potion_mix_overlay.update(150, 475, graphic_dict["apothecary_rejuv_potion"])
                                     elif seldon_flower_counter == 1 and eldream_flower_counter == 2:
                                         potion_mix_overlay.update(150, 475, graphic_dict["apothecary_cure_potion"])
+                                    elif seldon_flower_counter == 2 and eldream_flower_counter == 1:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_mend_potion"])
                                     else:
                                         potion_mix_overlay.update(150, 475, graphic_dict["apothecary_empty_potion"])
 
@@ -21401,6 +21455,8 @@ if __name__ == "__main__":
                                         potion_mix_overlay.update(150, 475, graphic_dict["apothecary_rejuv_potion"])
                                     elif seldon_flower_counter == 1 and eldream_flower_counter == 2:
                                         potion_mix_overlay.update(150, 475, graphic_dict["apothecary_cure_potion"])
+                                    elif seldon_flower_counter == 2 and eldream_flower_counter == 1:
+                                        potion_mix_overlay.update(150, 475, graphic_dict["apothecary_mend_potion"])
                                     else:
                                         potion_mix_overlay.update(150, 475, graphic_dict["apothecary_empty_potion"])
 

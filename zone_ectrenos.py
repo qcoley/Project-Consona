@@ -460,7 +460,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 12)
+                        item = random.randint(1, 14)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -532,6 +532,16 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                             info_text_2 = "A big cure potion!"
                             player.items.append(Item("big cure potion", "potion", 200, 200,
                                                      graphic_dict["big_cure_potion"], 0))
+                        if item == 13:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A reinforcing brace!"
+                            player.items.append(Item("brace", "brace", 200, 200,
+                                                     graphic_dict["brace"], 0))
+                        if item == 14:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big mend potion!"
+                            player.items.append(Item("big mend potion", "potion", 200, 200,
+                                                     graphic_dict["big_mend_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -807,7 +817,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 12)
+                        item = random.randint(1, 14)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -879,6 +889,16 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                             info_text_2 = "A big cure potion!"
                             player.items.append(Item("big cure potion", "potion", 200, 200,
                                                      graphic_dict["big_cure_potion"], 0))
+                        if item == 13:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A reinforcing brace!"
+                            player.items.append(Item("brace", "brace", 200, 200,
+                                                     graphic_dict["brace"], 0))
+                        if item == 14:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big mend potion!"
+                            player.items.append(Item("big mend potion", "potion", 200, 200,
+                                                     graphic_dict["big_mend_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -1740,7 +1760,7 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 12)
+                        item = random.randint(1, 14)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -1812,6 +1832,16 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
                             info_text_2 = "A big cure potion!"
                             player.items.append(Item("big cure potion", "potion", 200, 200,
                                                      graphic_dict["big_cure_potion"], 0))
+                        if item == 13:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A reinforcing brace!"
+                            player.items.append(Item("brace", "brace", 200, 200,
+                                                     graphic_dict["brace"], 0))
+                        if item == 14:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big mend potion!"
+                            player.items.append(Item("big mend potion", "potion", 200, 200,
+                                                     graphic_dict["big_mend_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

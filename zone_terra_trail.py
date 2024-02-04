@@ -277,7 +277,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             if interacted:
                 if not item_block_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 11)
+                        item = random.randint(1, 12)
                         item_block_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -334,6 +334,11 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                             info_text_2 = "A big cure potion!"
                             player.items.append(Item("big cure potion", "potion", 200, 200,
                                                      graphic_dict["big_cure_potion"], 0))
+                        if item == 12:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A reinforcing brace!"
+                            player.items.append(Item("brace", "brace", 200, 200,
+                                                     graphic_dict["brace"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""

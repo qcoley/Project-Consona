@@ -1804,7 +1804,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
             if interacted:
                 if not item_block_7_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 12)
+                        item = random.randint(1, 14)
                         item_block_7_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -1877,6 +1877,16 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                             info_text_2 = "A big cure potion!"
                             player.items.append(Item("big cure potion", "potion", 200, 200,
                                                      graphic_dict["big_cure_potion"], 0))
+                        if item == 13:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A reinforcing brace!"
+                            player.items.append(Item("brace", "brace", 200, 200,
+                                                     graphic_dict["brace"], 0))
+                        if item == 14:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big mend potion!"
+                            player.items.append(Item("big mend potion", "potion", 200, 200,
+                                                     graphic_dict["big_mend_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -1896,7 +1906,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
             if interacted:
                 if not item_block_8_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 12)
+                        item = random.randint(1, 14)
                         item_block_8_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -1968,6 +1978,16 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                             info_text_2 = "A big cure potion!"
                             player.items.append(Item("big cure potion", "potion", 200, 200,
                                                      graphic_dict["big_cure_potion"], 0))
+                        if item == 13:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A reinforcing brace!"
+                            player.items.append(Item("brace", "brace", 200, 200,
+                                                     graphic_dict["brace"], 0))
+                        if item == 14:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big mend potion!"
+                            player.items.append(Item("big mend potion", "potion", 200, 200,
+                                                     graphic_dict["big_mend_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
@@ -2189,7 +2209,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
             if interacted:
                 if not item_block_9_got:
                     if len(player.items) < 16:
-                        item = random.randint(1, 12)
+                        item = random.randint(1, 14)
                         item_block_9_got = True
                         pygame.mixer.find_channel(True).play(sfx_item_block)
                         if item == 1:
@@ -2261,6 +2281,16 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                             info_text_2 = "A big cure potion!"
                             player.items.append(Item("big cure potion", "potion", 200, 200,
                                                      graphic_dict["big_cure_potion"], 0))
+                        if item == 13:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A reinforcing brace!"
+                            player.items.append(Item("brace", "brace", 200, 200,
+                                                     graphic_dict["brace"], 0))
+                        if item == 14:
+                            info_text_1 = "From the random item block you got:"
+                            info_text_2 = "A big mend potion!"
+                            player.items.append(Item("big mend potion", "potion", 200, 200,
+                                                     graphic_dict["big_mend_potion"], 0))
                     else:
                         info_text_1 = "Your inventory is full."
                         info_text_2 = ""
