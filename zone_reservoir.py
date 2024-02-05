@@ -15,7 +15,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 offense_meter, defense_meter, weapon_select, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_item_rupee, sfx_item_key, sfx_item_potion, sfx_switch, sfx_teleporter,
                 stelli_battle_sprite, chorizon_phase, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                even_better_fish_counter, best_fish_counter, sfx_paper, apothis_gift):
+                even_better_fish_counter, best_fish_counter, sfx_paper, apothis_gift, time_of_day):
 
     in_battle = False
 
@@ -239,7 +239,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                                                        graphic_dict, necrola_battle_sprite,
                                                        osodark_battle_sprite, stelli_battle_sprite,
                                                        False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                       stelli_battle_sprite, stelli_battle_sprite, apothis_gift, False)
+                                                       stelli_battle_sprite, stelli_battle_sprite, apothis_gift, False,
+                                                       time_of_day, True)
 
     # player defeats mini bosses and activates teleporter
     if pygame.sprite.collide_rect(player, dungeon_teleporter):
@@ -317,7 +318,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 sfx_rupee, sfx_gate, directional_arrow, stelli_battle_sprite, vanished, vanish_overlay,
                 sfx_item_potion, Item, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                 best_fish_counter, apothis_gift, muchador_crate_1_top, muchador_crate_2_top, muchador_crate_3_top,
-                muchador_crate_4_top, apothis_upgrade):
+                muchador_crate_4_top, apothis_upgrade, time_of_day):
 
     in_battle = False
 
@@ -515,7 +516,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                                                        graphic_dict, necrola_battle_sprite,
                                                        osodark_battle_sprite, stelli_battle_sprite,
                                                        False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                       stelli_battle_sprite, stelli_battle_sprite, apothis_gift, False)
+                                                       stelli_battle_sprite, stelli_battle_sprite, apothis_gift, False,
+                                                       time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -564,7 +566,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 muchador_lights_on, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                 defense_meter, weapon_select, pet_energy_window, sfx_chest, sfx_rocks, basic_fish_counter,
                 better_fish_counter, even_better_fish_counter, best_fish_counter, rohir_gate, apothis_gift,
-                dungeon_teleporter):
+                dungeon_teleporter, time_of_day, magmons):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -702,6 +704,25 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
             rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
             interacted = False
+
+            if time_of_day == 0 or time_of_day == 7:
+                for magmon in magmons:
+                    if (player.quest_status["elementary elementals"]
+                            and not player.quest_complete["elementary elementals"]):
+                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                            graphic_dict["magmon_high_night"])
+                    else:
+                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                            graphic_dict["magmon_night"])
+            else:
+                for magmon in magmons:
+                    if (player.quest_status["elementary elementals"]
+                            and not player.quest_complete["elementary elementals"]):
+                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                            graphic_dict["magmon_high"])
+                    else:
+                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                            graphic_dict["magmon"])
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

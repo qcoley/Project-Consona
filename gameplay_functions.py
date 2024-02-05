@@ -2935,7 +2935,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
                   interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers,
                   eldream_flowers, interactables_eldream, ectrenos_front_enemies, marrow_ghouls,
                   ectrenos_alcove_enemies, atmons, jumanos, artherian_task_start, artherian_gift, maydria_gift,
-                  prism_received):
+                  prism_received, time_of_day):
     if player.current_zone == "seldon":
         snake_counter = 0
         ghoul_counter = 0
@@ -2964,15 +2964,28 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
         if snake_counter < 3:
             if player.quest_status["sneaky snakes"] and not player.quest_complete["sneaky snakes"]:
-                new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                                  Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
-                                  graphic_dict["snake_high"],
-                                  UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]),"fighter")
+                if time_of_day == 0 or time_of_day == 7:
+                    new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y,
+                                      True, Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                                      graphic_dict["snake_high_night"],
+                                      UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+                else:
+                    new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y,
+                                      True, Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                                      graphic_dict["snake_high"],
+                                      UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+
             else:
-                new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                                  Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
-                                  graphic_dict["snake"],
-                                  UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+                if time_of_day == 0 or time_of_day == 7:
+                    new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y,
+                                      True, Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                                      graphic_dict["snake_night"],
+                                      UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+                else:
+                    new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y,
+                                      True, Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                                      graphic_dict["snake"],
+                                      UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
             snakes.add(new_snake)
             seldon_enemies.add(new_snake)
             interactables_seldon.add(new_snake)
@@ -3016,16 +3029,32 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if magmon_counter < 3:
-            if player.quest_status["elementary elementals"] and not player.quest_complete["elementary elementals"]:
-                new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
-                                   True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
-                                   graphic_dict["magmon_high"],
-                                   UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+            if time_of_day == 0 or time_of_day == 7:
+                if player.quest_status["elementary elementals"] and not player.quest_complete["elementary elementals"]:
+                    new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x,
+                                       random_magmon_y,
+                                       True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
+                                       graphic_dict["magmon_high_night"],
+                                       UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                else:
+                    new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x,
+                                       random_magmon_y,
+                                       True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
+                                       graphic_dict["magmon_night"],
+                                       UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
             else:
-                new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
-                                   True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
-                                   graphic_dict["magmon"],
-                                   UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                if player.quest_status["elementary elementals"] and not player.quest_complete["elementary elementals"]:
+                    new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x,
+                                       random_magmon_y,
+                                       True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
+                                       graphic_dict["magmon_high"],
+                                       UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                else:
+                    new_magmon = Enemy("Magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x,
+                                       random_magmon_y,
+                                       True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
+                                       graphic_dict["magmon"],
+                                       UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
             magmons.add(new_magmon)
             korlok_enemies.add(new_magmon)
             interactables_korlok.add(new_magmon)
@@ -3045,18 +3074,32 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if bandile_counter < 3:
-            if player.quest_status["band hammer"] and not player.quest_complete["band hammer"]:
-                new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
-                                    random_bandile_y, True,
-                                    Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
-                                    graphic_dict["bandile_high"],
-                                    UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+            if time_of_day == 0 or time_of_day == 7:
+                if player.quest_status["band hammer"] and not player.quest_complete["band hammer"]:
+                    new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
+                                        random_bandile_y, True,
+                                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                                        graphic_dict["bandile_high_night"],
+                                        UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+                else:
+                    new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
+                                        random_bandile_y, True,
+                                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                                        graphic_dict["bandile_night"],
+                                        UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
             else:
-                new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
-                                    random_bandile_y, True,
-                                    Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
-                                    graphic_dict["bandile"],
-                                    UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+                if player.quest_status["band hammer"] and not player.quest_complete["band hammer"]:
+                    new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
+                                        random_bandile_y, True,
+                                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                                        graphic_dict["bandile_high"],
+                                        UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+                else:
+                    new_bandile = Enemy("Bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
+                                        random_bandile_y, True,
+                                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                                        graphic_dict["bandile"],
+                                        UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
             bandiles.add(new_bandile)
             interactables_mines.add(new_bandile)
 
@@ -3119,11 +3162,18 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if osodark_counter < 3:
-            new_osodark = Enemy("Osodark", "osodark", 100, 100, random_osodark_level, random_osodark_x,
-                                random_osodark_y, True,
-                                Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
-                                graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]),
-                                "fighter")
+            if time_of_day == 0 or time_of_day == 7:
+                new_osodark = Enemy("Osodark", "osodark", 100, 100, random_osodark_level, random_osodark_x,
+                                    random_osodark_y, True,
+                                    Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
+                                    graphic_dict["osodark_night"],
+                                    UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+            else:
+                new_osodark = Enemy("Osodark", "osodark", 100, 100, random_osodark_level, random_osodark_x,
+                                    random_osodark_y, True,
+                                    Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
+                                    graphic_dict["osodark"],
+                                    UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
             ectrenos_alcove_enemies.add(new_osodark)
 
     if player.current_zone == "marrow":
@@ -3170,18 +3220,32 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
         # if there are less than 3 in game, create another with random level and coordinates. add to groups
         if marrow_atmon_counter < 3:
-            if maydria_gift and not prism_received:
-                new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level, random_marrow_atmon_x,
-                                         random_marrow_atmon_y, True,
-                                         Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
-                                         graphic_dict["atmon_high"],
-                                         UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+            if time_of_day == 0 or time_of_day == 7:
+                if maydria_gift and not prism_received:
+                    new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level,
+                                             random_marrow_atmon_x, random_marrow_atmon_y, True,
+                                             Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                                             graphic_dict["atmon_high_night"],
+                                             UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                else:
+                    new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level,
+                                             random_marrow_atmon_x, random_marrow_atmon_y, True,
+                                             Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                                             graphic_dict["atmon_night"],
+                                             UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
             else:
-                new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level, random_marrow_atmon_x,
-                                         random_marrow_atmon_y, True,
-                                         Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
-                                         graphic_dict["atmon"],
-                                         UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                if maydria_gift and not prism_received:
+                    new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level,
+                                             random_marrow_atmon_x, random_marrow_atmon_y, True,
+                                             Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                                             graphic_dict["atmon_high"],
+                                             UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                else:
+                    new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level,
+                                             random_marrow_atmon_x, random_marrow_atmon_y, True,
+                                             Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+                                             graphic_dict["atmon"],
+                                             UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
             atmons.add(new_marrow_atmon)
 
     if player.current_zone == "castle one":

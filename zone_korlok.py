@@ -26,7 +26,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
                     even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset,
                     nahun, star_nahun, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon,
-                    dusk, night, time_of_day, snow_fall_tic, snow_fall_phase, cloaked):
+                    dusk, night, time_of_day, snow_fall_tic, snow_fall_phase, cloaked, nede):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -34,23 +34,39 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, False, False, False, False)
+                                                      ectrenos_front_enemies, False, False, False, False, time_of_day)
     magmons = respawned_dict["magmons"]
 
-    if player.quest_status["elementary elementals"] and not player.quest_complete["elementary elementals"]:
-        if not magmons_highlighted:
-            for enemy_sprite in magmons:
-                if enemy_sprite.name == "Magmon":
-                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                              graphic_dict["magmon_high"])
-            magmons_highlighted = True
-    if player.quest_complete["elementary elementals"]:
-        if not magmons_reset:
-            for enemy_sprite in magmons:
-                if enemy_sprite.name == "Magmon":
-                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                              graphic_dict["magmon"])
-            magmons_reset = True
+    if time_of_day == 0 or time_of_day == 7:
+        if player.quest_status["elementary elementals"] and not player.quest_complete["elementary elementals"]:
+            if not magmons_highlighted:
+                for enemy_sprite in magmons:
+                    if enemy_sprite.name == "Magmon":
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["magmon_high_night"])
+                magmons_highlighted = True
+        if player.quest_complete["elementary elementals"]:
+            if not magmons_reset:
+                for enemy_sprite in magmons:
+                    if enemy_sprite.name == "Magmon":
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["magmon_night"])
+                magmons_reset = True
+    else:
+        if player.quest_status["elementary elementals"] and not player.quest_complete["elementary elementals"]:
+            if not magmons_highlighted:
+                for enemy_sprite in magmons:
+                    if enemy_sprite.name == "Magmon":
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["magmon_high"])
+                magmons_highlighted = True
+        if player.quest_complete["elementary elementals"]:
+            if not magmons_reset:
+                for enemy_sprite in magmons:
+                    if enemy_sprite.name == "Magmon":
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["magmon"])
+                magmons_reset = True
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -82,41 +98,42 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(magmon.surf, magmon.rect)
 
     # ------------------------------------------------------------------------------------------------------------------
-    if not erebyth_defeated:
-        if 399 < worker.y_coordinate < 600:
-            if not worker.gift:
-                worker.y_coordinate += 0.5
-            if worker.gift:
-                worker.y_coordinate -= 0.5
+    if time_of_day != 0 and time_of_day != 7:
+        if not erebyth_defeated:
+            if 399 < worker.y_coordinate < 600:
+                if not worker.gift:
+                    worker.y_coordinate += 0.5
+                if worker.gift:
+                    worker.y_coordinate -= 0.5
 
-                worker_toc = time.perf_counter()
-                if worker_toc - worker_tic > 0.50:
-                    worker_tic = time.perf_counter()
-                    match worker.quest_complete:
-                        case True:
-                            worker.quest_complete = False
-                            worker.update(graphic_dict["worker_2_back_a"])
-                        case False:
-                            worker.quest_complete = True
-                            worker.update(graphic_dict["worker_2_back_b"])
+                    worker_toc = time.perf_counter()
+                    if worker_toc - worker_tic > 0.50:
+                        worker_tic = time.perf_counter()
+                        match worker.quest_complete:
+                            case True:
+                                worker.quest_complete = False
+                                worker.update(graphic_dict["worker_2_back_a"])
+                            case False:
+                                worker.quest_complete = True
+                                worker.update(graphic_dict["worker_2_back_b"])
 
-            worker.rect = worker.surf.get_rect(midbottom=(worker.x_coordinate, worker.y_coordinate))
+                worker.rect = worker.surf.get_rect(midbottom=(worker.x_coordinate, worker.y_coordinate))
 
-        worker_delay_toc = time.perf_counter()
-        if worker_delay_toc - worker_delay_tic > 10:
-            if worker.y_coordinate == 600:
-                worker.gift = True
-                worker.update(graphic_dict["worker_2_back_a"])
-                worker.y_coordinate -= 1
-                worker_delay_tic = time.perf_counter()
+            worker_delay_toc = time.perf_counter()
+            if worker_delay_toc - worker_delay_tic > 10:
+                if worker.y_coordinate == 600:
+                    worker.gift = True
+                    worker.update(graphic_dict["worker_2_back_a"])
+                    worker.y_coordinate -= 1
+                    worker_delay_tic = time.perf_counter()
 
-            if worker.y_coordinate == 399:
-                worker.gift = False
-                worker.update(graphic_dict["worker_2_full"])
-                worker.y_coordinate += 1
-                worker_delay_tic = time.perf_counter()
+                if worker.y_coordinate == 399:
+                    worker.gift = False
+                    worker.update(graphic_dict["worker_2_full"])
+                    worker.y_coordinate += 1
+                    worker_delay_tic = time.perf_counter()
 
-        screen.blit(worker.surf, worker.rect)
+            screen.blit(worker.surf, worker.rect)
     # ------------------------------------------------------------------------------------------------------------------
     try:
         for pet in player.pet:
@@ -221,7 +238,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                   stelli_battle_sprite, stelli_battle_sprite, False, cloaked)
+                                                   stelli_battle_sprite, stelli_battle_sprite, False, cloaked,
+                                                   time_of_day, True)
 
     # if player collides with npc sprite and chooses to interact with it
     npc = pygame.sprite.spritecollideany(player, npcs, pygame.sprite.collide_rect_ratio(0.75))
@@ -262,27 +280,65 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         interaction_info_rect.center = (building.x_coordinate, building.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        # lets player know if they are in range of building they can press f to enter it
-        info_text_1 = "Press 'F' key to enter building."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        if building.name == "Shop":
+            if time_of_day != 0 and time_of_day != 7:
+                info_text_1 = "Press 'F' key to enter shop."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "Shop only open during the day."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+        if building.name == "Apothecary":
+            if time_of_day != 0 and time_of_day != 7:
+                info_text_1 = "Press 'F' key to enter Apothecary."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "Apothecary only open during the day."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+        if building.name == "Inn":
+            info_text_1 = "Press 'F' key to enter inn."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted:
-            pygame.mixer.find_channel(True).play(sfx_door)
-            current_building_entering = building
-            movement_able = False
-            in_over_world = False
-            over_world_song_set = False
-            drawing_functions.loot_popup_container.clear()
-            drawing_functions.loot_text_container.clear()
-
             if building.name == "Shop":
-                in_shop = True
+                if time_of_day != 0 and time_of_day != 7:
+                    in_shop = True
+                    pygame.mixer.find_channel(True).play(sfx_door)
+                    current_building_entering = building
+                    movement_able = False
+                    in_over_world = False
+                    over_world_song_set = False
+                    drawing_functions.loot_popup_container.clear()
+                    drawing_functions.loot_text_container.clear()
             if building.name == "Inn":
                 in_inn = True
+                pygame.mixer.find_channel(True).play(sfx_door)
+                current_building_entering = building
+                movement_able = False
+                in_over_world = False
+                over_world_song_set = False
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
             if building.name == "Apothecary":
-                in_apothecary = True
+                if time_of_day != 0 and time_of_day != 7:
+                    in_apothecary = True
+                    pygame.mixer.find_channel(True).play(sfx_door)
+                    current_building_entering = building
+                    movement_able = False
+                    in_over_world = False
+                    over_world_song_set = False
+                    drawing_functions.loot_popup_container.clear()
+                    drawing_functions.loot_text_container.clear()
+            interacted = False
 
     if pygame.sprite.collide_rect(player, rohir_gate):
         interaction_popup.update(rohir_gate.x_coordinate, rohir_gate.y_coordinate, graphic_dict["popup_interaction"])
@@ -304,6 +360,32 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 player.y_coordinate = 175
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
+
+                if time_of_day == 0 or time_of_day == 7:
+                    for snake in snakes:
+                        if (player.quest_status["sneaky snakes"]
+                                and not player.quest_complete["sneaky snakes"]):
+                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                               graphic_dict["snake_high_night"])
+                        else:
+                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                               graphic_dict["snake_night"])
+                    if player.quest_progress["where's nede?"] == 1:
+                        nede.update(809, 390, graphic_dict["nede_sleep"])
+                else:
+                    for snake in snakes:
+                        if (player.quest_status["sneaky snakes"]
+                                and not player.quest_complete["sneaky snakes"]):
+                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                               graphic_dict["snake_high"])
+                        else:
+                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                               graphic_dict["snake"])
+                    if player.quest_progress["where's nede?"] == 1:
+                        nede.update(809, 390, graphic_dict["nede_left"])
+
+        if interacted:
+            interacted = False
 
     if pygame.sprite.collide_rect(player, reservoir_enter):
         interaction_popup.update(reservoir_enter.x_coordinate + 50, reservoir_enter.y_coordinate - 55,
@@ -344,6 +426,24 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             player.x_coordinate = 705
             player.y_coordinate = 600
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+            if time_of_day == 0 or time_of_day == 7:
+                for bandile in bandiles:
+                    if (player.quest_status["band hammer"]
+                            and not player.quest_complete["band hammer"]):
+                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                             graphic_dict["bandile_high_night"])
+                    else:
+                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                             graphic_dict["bandile_night"])
+            else:
+                for bandile in bandiles:
+                    if (player.quest_status["band hammer"]
+                            and not player.quest_complete["band hammer"]):
+                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                             graphic_dict["bandile_high"])
+                    else:
+                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                             graphic_dict["bandile"])
 
     if pygame.sprite.collide_rect(player, forge_entrance):
         interaction_popup.update(forge_entrance.x_coordinate + 5, forge_entrance.y_coordinate - 50,
@@ -385,6 +485,9 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 info_text_1 = "You have attuned to the stone."
                 info_text_2 = "You may now fast travel here."
                 interacted = False
+
+        if interacted:
+            interacted = False
     else:
         hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate, graphic_dict["hearth_stone"])
 
@@ -511,14 +614,15 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     drawing_functions.draw_it(screen, in_battle)
 
     # enemy movement updates
-    direction_horizontal = random.choice(["left", "right"])
-    direction_vertical = random.choice(["up", "down"])
-    move_mon = random.choice(magmons.sprites())
-    if movement_able and in_over_world:
-        enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 1:
-            enemy_tic = time.perf_counter()
-            move_mon.update_position([50, 500], [50, 250], direction_horizontal, direction_vertical)
+    if time_of_day != 0 and time_of_day != 7:
+        direction_horizontal = random.choice(["left", "right"])
+        direction_vertical = random.choice(["up", "down"])
+        move_mon = random.choice(magmons.sprites())
+        if movement_able and in_over_world:
+            enemy_toc = time.perf_counter()
+            if enemy_toc - enemy_tic > 1:
+                enemy_tic = time.perf_counter()
+                move_mon.update_position([50, 500], [50, 250], direction_horizontal, direction_vertical)
 
     if player.x_coordinate > 950 and player.y_coordinate < 225:
         player.current_zone = "terra trail"

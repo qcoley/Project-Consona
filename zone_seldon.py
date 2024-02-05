@@ -35,7 +35,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     snakes_highlighted, ghouls_highlighted, quest_logs_highlighted, apothis_upgrade, dawn,
                     early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, apothis_scene_1_night,
                     apothis_scene_2_night, apothis_scene_3_night, apothis_scene_4_night, apothis_scene_5_night,
-                    apothis_scene_6_night):
+                    apothis_scene_6_night, stardust_stelli):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -51,7 +51,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                                       flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies, snakes,
-                                                      False, False, False, False)
+                                                      False, False, False, False, time_of_day)
     seldon_enemies = respawned_dict["seldon_enemies"]
     snakes = respawned_dict["snakes"]
     ghouls = respawned_dict["ghouls"]
@@ -79,15 +79,23 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         if not snakes_highlighted:
             for enemy_sprite in seldon_enemies:
                 if enemy_sprite.name == "Snake":
-                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                              graphic_dict["snake_high"])
+                    if time_of_day == 0 or time_of_day == 7:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["snake_high_night"])
+                    else:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["snake_high"])
             snakes_highlighted = True
     if player.quest_complete["sneaky snakes"]:
         if not snake_sprite_reset:
             for enemy_sprite in seldon_enemies:
                 if enemy_sprite.name == "Snake":
-                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                              graphic_dict["snake"])
+                    if time_of_day == 0 or time_of_day == 7:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["snake_night"])
+                    else:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["snake"])
             snake_sprite_reset = True
 
     if player.quest_status["ghouled again"] and not player.quest_complete["ghouled again"]:
@@ -118,8 +126,9 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     if player.quest_progress["where's nede?"] == 1:
         screen.blit(nede.surf, nede.rect)
 
-    if not erebyth_defeated:
-        screen.blit(worker_1.surf, worker_1.rect)
+    if time_of_day != 0 and time_of_day != 7:
+        if not erebyth_defeated:
+            screen.blit(worker_1.surf, worker_1.rect)
 
     try:
         for pet in player.pet:
@@ -211,6 +220,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                             interacted = False
             else:
                 info_text_1 = "That's some nice pine."
+                if interacted:
+                    interacted = False
 
         if quest_item.model == "rohir gate":
             if player.quest_complete["ghouled again"]:
@@ -282,9 +293,30 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                         player.current_zone = "korlok"
                         interacted = False
                         over_world_song_set = False
+
+                        if time_of_day == 0 or time_of_day == 7:
+                            for magmon in magmons:
+                                if (player.quest_status["elementary elementals"]
+                                        and not player.quest_complete["elementary elementals"]):
+                                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                        graphic_dict["magmon_high_night"])
+                                else:
+                                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                        graphic_dict["magmon_night"])
+                        else:
+                            for magmon in magmons:
+                                if (player.quest_status["elementary elementals"]
+                                        and not player.quest_complete["elementary elementals"]):
+                                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                        graphic_dict["magmon_high"])
+                                else:
+                                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                        graphic_dict["magmon"])
             else:
                 info_text_1 = "The gate seems to be locked shut."
                 info_text_2 = "Perhaps the nearby Guard knows why?"
+                if interacted:
+                    interacted = False
 
     except AttributeError:
         pass
@@ -325,27 +357,65 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         interaction_info_rect.center = (building.x_coordinate, building.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        # lets player know if they are in range of building they can press f to enter it
-        info_text_1 = "Press 'F' key to enter building."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        if building.name == "Shop":
+            if time_of_day != 0 and time_of_day != 7:
+                info_text_1 = "Press 'F' key to enter shop."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "Shop only open during the day."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+        if building.name == "Academia":
+            if time_of_day != 0 and time_of_day != 7:
+                info_text_1 = "Press 'F' key to enter Academia."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "Academia only open during the day."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+        if building.name == "Inn":
+            info_text_1 = "Press 'F' key to enter inn."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted:
-            pygame.mixer.find_channel(True).play(sfx_door)
-            current_building_entering = building
-            movement_able = False
-            in_over_world = False
-            over_world_song_set = False
-            drawing_functions.loot_popup_container.clear()
-            drawing_functions.loot_text_container.clear()
-
             if building.name == "Shop":
-                in_shop = True
+                if time_of_day != 0 and time_of_day != 7:
+                    in_shop = True
+                    pygame.mixer.find_channel(True).play(sfx_door)
+                    current_building_entering = building
+                    movement_able = False
+                    in_over_world = False
+                    over_world_song_set = False
+                    drawing_functions.loot_popup_container.clear()
+                    drawing_functions.loot_text_container.clear()
             if building.name == "Inn":
                 in_inn = True
+                pygame.mixer.find_channel(True).play(sfx_door)
+                current_building_entering = building
+                movement_able = False
+                in_over_world = False
+                over_world_song_set = False
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
             if building.name == "Academia":
-                in_academia = True
+                if time_of_day != 0 and time_of_day != 7:
+                    in_academia = True
+                    pygame.mixer.find_channel(True).play(sfx_door)
+                    current_building_entering = building
+                    movement_able = False
+                    in_over_world = False
+                    over_world_song_set = False
+                    drawing_functions.loot_popup_container.clear()
+                    drawing_functions.loot_text_container.clear()
+            interacted = False
 
     # player collides with flower, if collected adds to player flower count
     flower = pygame.sprite.spritecollideany(player, flowers, pygame.sprite.collide_rect_ratio(0.75))
@@ -399,6 +469,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25)
         screen.blit(interaction_info_surf, interaction_info_rect)
+        if interacted:
+            interacted = False
 
     if pygame.Rect.colliderect(player.rect, barrier_small):
         interaction_popup.update(970, 260,
@@ -428,6 +500,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             info_text_2 = ""
             info_text_3 = ""
             info_text_4 = ""
+            if interacted:
+                interacted = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -503,36 +577,62 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         player.x_coordinate = 925
         player.y_coordinate = 275
 
+        if time_of_day == 0 or time_of_day == 7:
+            for stelli in stardust_stelli:
+                if stelli.name == "Stellia":
+                    stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                        graphic_dict["stelli_a_night"])
+                if stelli.name == "Stellib":
+                    stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                        graphic_dict["stelli_b_night"])
+                if stelli.name == "Stellic":
+                    stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                        graphic_dict["stelli_c_night"])
+        else:
+            for stelli in stardust_stelli:
+                if stelli.name == "Stellia":
+                    stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                        graphic_dict["stelli_a"])
+                if stelli.name == "Stellib":
+                    stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                        graphic_dict["stelli_b"])
+                if stelli.name == "Stellic":
+                    stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                        graphic_dict["stelli_c"])
+
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])
     direction_vertical = random.choice(["up", "down"])
-    move_snake = random.choice(snakes.sprites())
+    if time_of_day != 0 and time_of_day != 7:
+        move_snake = random.choice(snakes.sprites())
     move_ghoul = random.choice(ghouls.sprites())
     if movement_able and in_over_world:
         enemy_toc = time.perf_counter()
         if enemy_toc - enemy_tic > 1:
             enemy_tic = time.perf_counter()
-            move_snake.update_position([100, 300], [200, 300], direction_horizontal, direction_vertical)
+            if time_of_day != 0 and time_of_day != 7:
+                move_snake.update_position([100, 300], [200, 300], direction_horizontal, direction_vertical)
             move_ghoul.update_position([700, 900], [200, 300], direction_horizontal, direction_vertical)
 
     # worker animation updates
-    if movement_able and in_over_world and not erebyth_defeated:
-        worker_toc = time.perf_counter()
-        if worker_toc - worker_tic > 0.75:
-            worker_tic = time.perf_counter()
-            match worker_1.gift:
-                case True:
-                    worker_1.gift = False
-                    worker_1.update(graphic_dict["worker_1_a"])
-                case False:
-                    worker_1.gift = True
-                    worker_1.update(graphic_dict["worker_1_b"])
+    if time_of_day != 0 and time_of_day != 7:
+        if movement_able and in_over_world and not erebyth_defeated:
+            worker_toc = time.perf_counter()
+            if worker_toc - worker_tic > 0.75:
+                worker_tic = time.perf_counter()
+                match worker_1.gift:
+                    case True:
+                        worker_1.gift = False
+                        worker_1.update(graphic_dict["worker_1_a"])
+                    case False:
+                        worker_1.gift = True
+                        worker_1.update(graphic_dict["worker_1_b"])
 
-        worker_move_toc = time.perf_counter()
-        if worker_move_toc - worker_move_tic > 20:
-            worker_move_tic = time.perf_counter()
-            worker_position = random.choice(worker_positions)
-            worker_1.update_position(worker_position[0], worker_position[1])
+            worker_move_toc = time.perf_counter()
+            if worker_move_toc - worker_move_tic > 20:
+                worker_move_tic = time.perf_counter()
+                worker_position = random.choice(worker_positions)
+                worker_1.update_position(worker_position[0], worker_position[1])
 
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])

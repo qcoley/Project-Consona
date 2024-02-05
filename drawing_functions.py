@@ -44,7 +44,7 @@ flower_pop_up_window = []
 fish_pop_up_window = []
 dreth_taunt_window = []
 extra_button_container = []
-
+condition_description_window = []
 flower_pop_up_window_text = []
 fish_pop_up_window_text = []
 
@@ -63,6 +63,9 @@ def draw_it(screen, in_battle):
     if len(journal_text) > 0:
         for journals_text in journal_text:
             screen.blit(journals_text[0], journals_text[1])
+    if len(condition_description_window) > 0:
+        for description in condition_description_window:
+            screen.blit(description.surf, description.rect)
     if len(level_up_window) > 0:
         for level_ups_window in level_up_window:
             screen.blit(level_ups_window.surf, level_ups_window.rect)

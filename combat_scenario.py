@@ -817,11 +817,18 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            in_battle, in_npc_interaction, graphics, necrola_battle_sprite, osodark_battle_sprite,
                            stelli_battle_sprite, chorizon_phase, erebyth_battle_sprite, erebyth_counter,
-                           atmon_battle_sprite, jumano_battle_sprite, dreth_battle_sprite, apothis_gift, cloaked):
+                           atmon_battle_sprite, jumano_battle_sprite, dreth_battle_sprite, apothis_gift, cloaked,
+                           time_of_day, first_attack):
 
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
-            snake_battle_sprite.update(715, 250, graphics["snake_battle"])
+            if time_of_day == 0 or time_of_day == 7:
+                if first_attack:
+                    snake_battle_sprite.update(715, 250, graphics["snake_battle_night"])
+                else:
+                    snake_battle_sprite.update(715, 250, graphics["snake_battle"])
+            else:
+                snake_battle_sprite.update(715, 250, graphics["snake_battle"])
         if enemy.name == "Ghoul":
             if cloaked:
                 ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle_cloaked"])
@@ -835,36 +842,121 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "muchador":
             muchador_battle_sprite.update(705, 290, graphics["muchador_battle"])
         if enemy.kind == "magmon":
-            magmon_battle_sprite.update(705, 286, graphics["magmon_battle"])
+            if time_of_day == 0 or time_of_day == 7:
+                if first_attack:
+                    magmon_battle_sprite.update(magmon_battle_sprite.x_coordinate,
+                                                magmon_battle_sprite.y_coordinate,
+                                                graphics["magmon_battle_night"])
+                else:
+                    magmon_battle_sprite.update(magmon_battle_sprite.x_coordinate,
+                                                magmon_battle_sprite.y_coordinate,
+                                                graphics["magmon_battle"])
+            else:
+                magmon_battle_sprite.update(magmon_battle_sprite.x_coordinate,
+                                            magmon_battle_sprite.y_coordinate,
+                                            graphics["magmon_battle"])
         if enemy.kind == "bandile":
-            bandile_battle_sprite.update(695, 300, graphics["bandile_battle"])
+            if time_of_day == 0 or time_of_day == 7:
+                if first_attack:
+                    bandile_battle_sprite.update(bandile_battle_sprite.x_coordinate,
+                                                 bandile_battle_sprite.y_coordinate,
+                                                 graphics["bandile_battle_night"])
+                else:
+                    bandile_battle_sprite.update(bandile_battle_sprite.x_coordinate,
+                                                 bandile_battle_sprite.y_coordinate,
+                                                 graphics["bandile_battle"])
+            else:
+                bandile_battle_sprite.update(bandile_battle_sprite.x_coordinate,
+                                             bandile_battle_sprite.y_coordinate,
+                                             graphics["bandile_battle"])
         if enemy.kind == "chinzilla":
-            chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_battle"])
+            if time_of_day != 0 and time_of_day != 7:
+                if first_attack:
+                    chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_battle_night"])
+                else:
+                    chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_battle"])
+            else:
+                chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_battle"])
+
         if enemy.kind == "necrola":
             if cloaked:
                 necrola_battle_sprite.update(705, 300, graphics["necrola_battle_cloaked"])
             else:
                 necrola_battle_sprite.update(705, 300, graphics["necrola_battle"])
         if enemy.kind == "osodark":
-            osodark_battle_sprite.update(705, 300, graphics["osodark_battle"])
+            if time_of_day == 0 or time_of_day == 7:
+                if first_attack:
+                    osodark_battle_sprite.update(osodark_battle_sprite.x_coordinate,
+                                                 osodark_battle_sprite.y_coordinate,
+                                                 graphics["osodark_battle_night"])
+                else:
+                    osodark_battle_sprite.update(osodark_battle_sprite.x_coordinate,
+                                                 osodark_battle_sprite.y_coordinate,
+                                                 graphics["osodark_battle"])
+            else:
+                osodark_battle_sprite.update(osodark_battle_sprite.x_coordinate,
+                                             osodark_battle_sprite.y_coordinate,
+                                             graphics["osodark_battle"])
         if enemy.name == "Stellia":
-            stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                        stelli_battle_sprite.y_coordinate,
-                                        graphics["stelli_battle_a"])
+            if time_of_day == 0 or time_of_day == 7:
+                if first_attack:
+                    stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                                stelli_battle_sprite.y_coordinate,
+                                                graphics["stelli_battle_a_night"])
+                else:
+                    stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                                stelli_battle_sprite.y_coordinate,
+                                                graphics["stelli_battle_a"])
+            else:
+                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                            stelli_battle_sprite.y_coordinate,
+                                            graphics["stelli_battle_a"])
         if enemy.name == "Stellib":
-            stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                        stelli_battle_sprite.y_coordinate,
-                                        graphics["stelli_battle_b"])
+            if time_of_day == 0 or time_of_day == 7:
+                if first_attack:
+                    stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                                stelli_battle_sprite.y_coordinate,
+                                                graphics["stelli_battle_b_night"])
+                else:
+                    stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                                stelli_battle_sprite.y_coordinate,
+                                                graphics["stelli_battle_b"])
+            else:
+                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                            stelli_battle_sprite.y_coordinate,
+                                            graphics["stelli_battle_b"])
         if enemy.name == "Stellic":
-            stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                        stelli_battle_sprite.y_coordinate,
-                                        graphics["stelli_battle_c"])
+            if time_of_day == 0 or time_of_day == 7:
+                if first_attack:
+                    stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                                stelli_battle_sprite.y_coordinate,
+                                                graphics["stelli_battle_c_night"])
+                else:
+                    stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                                stelli_battle_sprite.y_coordinate,
+                                                graphics["stelli_battle_c"])
+            else:
+                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                            stelli_battle_sprite.y_coordinate,
+                                            graphics["stelli_battle_c"])
         if enemy.kind == "erebyth":
             erebyth_battle_sprite.update(695, 350, graphics["erebyth_battle"])
             if erebyth_counter == 2:
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_phase_attack"])
         if enemy.kind == "atmon":
-            atmon_battle_sprite.update(705, 300, graphics["atmon_battle"])
+            if time_of_day == 0 or time_of_day == 7:
+                if first_attack:
+                    atmon_battle_sprite.update(atmon_battle_sprite.x_coordinate,
+                                               atmon_battle_sprite.y_coordinate,
+                                               graphics["atmon_battle_night"])
+                else:
+                    atmon_battle_sprite.update(atmon_battle_sprite.x_coordinate,
+                                               atmon_battle_sprite.y_coordinate,
+                                               graphics["atmon_battle"])
+            else:
+                atmon_battle_sprite.update(atmon_battle_sprite.x_coordinate,
+                                           atmon_battle_sprite.y_coordinate,
+                                           graphics["atmon_battle"])
         if enemy.kind == "jumano":
             jumano_battle_sprite.update(705, 300, graphics["jumano_battle"])
         if enemy.kind == "dreth":
@@ -2184,13 +2276,13 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                             combat_event_dictionary["effective enemy"] = "effective"
 
                     if burned:
-                        burn_damage = random.randint(5, 15)
+                        burn_damage = random.randint(3, 9)
                         combat_event_dictionary["burn_damage"] = burn_damage
                     if poisoned:
-                        poison_damage = random.randint(5, 10)
+                        poison_damage = random.randint(2, 8)
                         combat_event_dictionary["poison_damage"] = poison_damage
                     if bleeding:
-                        bleed_damage = random.randint(5, 15)
+                        bleed_damage = random.randint(1, 7)
                         combat_event_dictionary["bleed_damage"] = bleed_damage
 
                     if damage_to_player > 0:
@@ -2542,7 +2634,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         # returns total damage output from enemy as attacked_player_health value
                         if not stun_them:
                             defend_dict = gameplay_functions.attack_player(player, enemy_combating,
-                                                                           barrier_active, arrow_active)
+                                                                           barrier_active, arrow_active, crushed)
                             combat_event_dictionary["effective enemy"] = defend_dict["effective"]
                             combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
                             combat_event_dictionary["critical received"] = defend_dict["critical"]

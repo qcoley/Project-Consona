@@ -55,7 +55,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, False, False, False, False)
+                                                      ectrenos_front_enemies, False, False, False, False, time_of_day)
 
     eldream_flowers = respawned_dict["eldream_flowers"]
     interactables_eldream = respawned_dict["interactables_eldream"]
@@ -65,69 +65,72 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
 
     screen.blit(hearth_stone.surf, hearth_stone.rect)
     screen.blit(omoku.surf, omoku.rect)
-    screen.blit(critter.surf, critter.rect)
 
-    critter_toc = time.perf_counter()
-    if critter_toc - critter_tic > 2:
-        if right_move:
-            if player.quest_complete["kart troubles"]:
-                if critter.x_coordinate < 730:
+    if time_of_day != 0 and time_of_day != 7:
+        screen.blit(critter.surf, critter.rect)
+        critter_toc = time.perf_counter()
+        if critter_toc - critter_tic > 2:
+            if right_move:
+                if player.quest_complete["kart troubles"]:
+                    if critter.x_coordinate < 730:
+                        if walk_move and critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_right_walk"])
+                            walk_move = False
+                        else:
+                            if critter.x_coordinate % 9 == 0:
+                                critter.update(critter.x_coordinate, critter.y_coordinate,
+                                               graphic_dict["critter_side_right"])
+                                walk_move = True
+                        critter.x_coordinate += 1
+                    else:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                        right_move = False
+                        left_move = True
+                        critter.x_coordinate -= 1
+                        critter_tic = time.perf_counter()
+                    critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+
+                if not player.quest_complete["kart troubles"]:
+                    if critter.x_coordinate < 555:
+                        if walk_move and critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_right_walk"])
+                            walk_move = False
+                        else:
+                            if critter.x_coordinate % 9 == 0:
+                                critter.update(critter.x_coordinate, critter.y_coordinate,
+                                               graphic_dict["critter_side_right"])
+                                walk_move = True
+                        critter.x_coordinate += 1
+                    else:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                        right_move = False
+                        left_move = True
+                        critter.x_coordinate -= 1
+                        critter_tic = time.perf_counter()
+                    critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+
+        if critter_toc - critter_tic > 2:
+            if left_move:
+                if critter.x_coordinate > 350:
                     if walk_move and critter.x_coordinate % 9 == 0:
                         critter.update(critter.x_coordinate, critter.y_coordinate,
-                                       graphic_dict["critter_side_right_walk"])
+                                       graphic_dict["critter_side_left_walk"])
                         walk_move = False
                     else:
                         if critter.x_coordinate % 9 == 0:
                             critter.update(critter.x_coordinate, critter.y_coordinate,
-                                           graphic_dict["critter_side_right"])
+                                           graphic_dict["critter_side_left"])
                             walk_move = True
-                    critter.x_coordinate += 1
+                    critter.x_coordinate -= 1
                 else:
                     critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                    right_move = False
-                    left_move = True
-                    critter.x_coordinate -= 1
-                    critter_tic = time.perf_counter()
-                critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
-
-            if not player.quest_complete["kart troubles"]:
-                if critter.x_coordinate < 555:
-                    if walk_move and critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate,
-                                       graphic_dict["critter_side_right_walk"])
-                        walk_move = False
-                    else:
-                        if critter.x_coordinate % 9 == 0:
-                            critter.update(critter.x_coordinate, critter.y_coordinate,
-                                           graphic_dict["critter_side_right"])
-                            walk_move = True
+                    right_move = True
+                    left_move = False
                     critter.x_coordinate += 1
-                else:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                    right_move = False
-                    left_move = True
-                    critter.x_coordinate -= 1
                     critter_tic = time.perf_counter()
                 critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
-
-    if critter_toc - critter_tic > 2:
-        if left_move:
-            if critter.x_coordinate > 350:
-                if walk_move and critter.x_coordinate % 9 == 0:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
-                    walk_move = False
-                else:
-                    if critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
-                        walk_move = True
-                critter.x_coordinate -= 1
-            else:
-                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                right_move = True
-                left_move = False
-                critter.x_coordinate += 1
-                critter_tic = time.perf_counter()
-            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
     try:
         for pet in player.pet:

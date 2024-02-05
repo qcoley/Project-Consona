@@ -309,6 +309,8 @@ def load_graphics():
     effect_dusk = pygame.image.load(resource_path('resources/art/effect_dusk.png')).convert_alpha()
     effect_night = pygame.image.load(resource_path('resources/art/effect_night.png')).convert_alpha()
 
+    night_sleep_overlay = pygame.image.load(resource_path('resources/art/night_sleep_overlay.png')).convert_alpha()
+
     color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, pine_tree,
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up_win,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
@@ -323,11 +325,12 @@ def load_graphics():
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
                   m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_box, popup_wide,
                   overlay_enemy_vanish, chroma_forge, overlay_smelting, overlay_enchanting, chest_small, overlay_prism,
-                  apothis_star, overlay_stardust_star]
+                  apothis_star, overlay_stardust_star, night_sleep_overlay]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["night_sleep_overlay"] = night_sleep_overlay
     loaded_dict["effect_dawn"] = effect_dawn
     loaded_dict["effect_early_morning"] = effect_e_morning
     loaded_dict["effect_morning"] = effect_morning
@@ -582,6 +585,13 @@ def load_graphics():
     loaded_dict["overlay_poisoned"] = overlay_conditions_sheet[1]
     loaded_dict["overlay_bleeding"] = overlay_conditions_sheet[2]
     loaded_dict["overlay_crushed"] = overlay_conditions_sheet[3]
+    # condition description overlays -----------------------------------------------------------------------------------
+    overlay_condition_descriptions_url = resource_path('resources/art/overlay_condition_descriptions.png')
+    overlay_condition_descriptions_sheet = sprite_sheet((100, 75), overlay_condition_descriptions_url)
+    loaded_dict["overlay_burned_description"] = overlay_condition_descriptions_sheet[0]
+    loaded_dict["overlay_poisoned_description"] = overlay_condition_descriptions_sheet[1]
+    loaded_dict["overlay_bleeding_description"] = overlay_condition_descriptions_sheet[2]
+    loaded_dict["overlay_crushed_description"] = overlay_condition_descriptions_sheet[3]
     # korlok_mountains -------------------------------------------------------------------------------------------------
     korlok_mountains_url = resource_path('resources/art/overlay_korlok_mountains.png')
     korlok_mountains_sheet = sprite_sheet((483, 136), korlok_mountains_url)
@@ -4262,6 +4272,7 @@ def load_graphics():
     loaded_dict["nede_right"] = nede_sheet[1]
     loaded_dict["nede_high_left"] = nede_sheet[2]
     loaded_dict["nede_high_right"] = nede_sheet[3]
+    loaded_dict["nede_sleep"] = nede_sheet[4]
     # guard npc --------------------------------------------------------------------------------------------------------
     guard_url = resource_path('resources/art/sprites_artherians.png')
     guard_sheet = sprite_sheet((50, 70), guard_url)
@@ -4454,12 +4465,31 @@ def load_graphics():
     loaded_dict["atmon"] = enemies_sheet[7]
     loaded_dict["jumano"] = enemies_sheet[8]
     loaded_dict["jumano_red"] = enemies_sheet[9]
+    # enemies night ----------------------------------------------------------------------------------------------------
+    enemies_night_url = resource_path('resources/art/sprites_enemies_night.png')
+    enemies_night_sheet = sprite_sheet((50, 50), enemies_night_url)
+    loaded_dict["snake_night"] = enemies_night_sheet[0]
+    loaded_dict["ghoul_night"] = enemies_night_sheet[1]
+    loaded_dict["magmon_night"] = enemies_night_sheet[2]
+    loaded_dict["bandile_night"] = enemies_night_sheet[3]
+    loaded_dict["necrola_night"] = enemies_night_sheet[4]
+    loaded_dict["osodark_night"] = enemies_night_sheet[5]
+    loaded_dict["necrola_sleep_night"] = enemies_night_sheet[6]
+    loaded_dict["atmon_night"] = enemies_night_sheet[7]
+    loaded_dict["jumano_night"] = enemies_night_sheet[8]
+    loaded_dict["jumano_red_night"] = enemies_night_sheet[9]
     # stelli -----------------------------------------------------------------------------------------------------------
     stelli_url = resource_path('resources/art/sprites_stelli.png')
     stelli_sheet = sprite_sheet((50, 50), stelli_url)
     loaded_dict["stelli_a"] = stelli_sheet[0]
     loaded_dict["stelli_b"] = stelli_sheet[1]
     loaded_dict["stelli_c"] = stelli_sheet[2]
+    # stelli night -----------------------------------------------------------------------------------------------------
+    stelli_night_url = resource_path('resources/art/sprites_stelli_night.png')
+    stelli_night_sheet = sprite_sheet((50, 50), stelli_night_url)
+    loaded_dict["stelli_a_night"] = stelli_night_sheet[0]
+    loaded_dict["stelli_b_night"] = stelli_night_sheet[1]
+    loaded_dict["stelli_c_night"] = stelli_night_sheet[2]
     # critters
     critter_url = resource_path('resources/art/sprites_critters.png')
     critter_sheet = sprite_sheet((60, 60), critter_url)
@@ -4477,6 +4507,15 @@ def load_graphics():
     loaded_dict["stelli_attack_b"] = stelli_battle_sheet[3]
     loaded_dict["stelli_battle_c"] = stelli_battle_sheet[4]
     loaded_dict["stelli_attack_c"] = stelli_battle_sheet[5]
+    # stelli battle night ----------------------------------------------------------------------------------------------
+    stelli_battle_night_url = resource_path('resources/art/sprites_stelli_battle_night.png')
+    stelli_battle_night_sheet = sprite_sheet((300, 280), stelli_battle_night_url)
+    loaded_dict["stelli_battle_a_night"] = stelli_battle_night_sheet[0]
+    loaded_dict["stelli_attack_a_night"] = stelli_battle_night_sheet[1]
+    loaded_dict["stelli_battle_b_night"] = stelli_battle_night_sheet[2]
+    loaded_dict["stelli_attack_b_night"] = stelli_battle_night_sheet[3]
+    loaded_dict["stelli_battle_c_night"] = stelli_battle_night_sheet[4]
+    loaded_dict["stelli_attack_c_night"] = stelli_battle_night_sheet[5]
     # boss enemies -----------------------------------------------------------------------------------------------------
     boss_enemies_url = resource_path('resources/art/sprites_bosses.png')
     boss_enemies_sheet = sprite_sheet((125, 125), boss_enemies_url)
@@ -4493,6 +4532,15 @@ def load_graphics():
     loaded_dict["bandile_high"] = enemies_high_sheet[3]
     loaded_dict["necrola_high"] = enemies_high_sheet[4]
     loaded_dict["atmon_high"] = enemies_high_sheet[5]
+    # enemies highlighted night ----------------------------------------------------------------------------------------
+    enemies_high_night_url = resource_path('resources/art/sprites_enemies_highlighted_night.png')
+    enemies_high_night_sheet = sprite_sheet((50, 75), enemies_high_night_url)
+    loaded_dict["snake_high_night"] = enemies_high_night_sheet[0]
+    loaded_dict["ghoul_high_night"] = enemies_high_night_sheet[1]
+    loaded_dict["magmon_high_night"] = enemies_high_night_sheet[2]
+    loaded_dict["bandile_high_night"] = enemies_high_night_sheet[3]
+    loaded_dict["necrola_high_night"] = enemies_high_night_sheet[4]
+    loaded_dict["atmon_high_night"] = enemies_high_night_sheet[5]
     # enemies battle ---------------------------------------------------------------------------------------------------
     enemies_battle_url = resource_path('resources/art/sprites_enemies_battle.png')
     enemies_battle_sheet = sprite_sheet((300, 280), enemies_battle_url)
@@ -4512,6 +4560,25 @@ def load_graphics():
     loaded_dict["atmon_attack"] = enemies_battle_sheet[13]
     loaded_dict["jumano_battle"] = enemies_battle_sheet[14]
     loaded_dict["jumano_attack"] = enemies_battle_sheet[15]
+    # enemies battle night ---------------------------------------------------------------------------------------------
+    enemies_battle_night_url = resource_path('resources/art/sprites_enemies_battle_night.png')
+    enemies_battle_night_sheet = sprite_sheet((300, 280), enemies_battle_night_url)
+    loaded_dict["snake_battle_night"] = enemies_battle_night_sheet[0]
+    loaded_dict["snake_attack_night"] = enemies_battle_night_sheet[1]
+    loaded_dict["ghoul_battle_night"] = enemies_battle_night_sheet[2]
+    loaded_dict["ghoul_attack_night"] = enemies_battle_night_sheet[3]
+    loaded_dict["magmon_battle_night"] = enemies_battle_night_sheet[4]
+    loaded_dict["magmon_attack_night"] = enemies_battle_night_sheet[5]
+    loaded_dict["bandile_battle_night"] = enemies_battle_night_sheet[6]
+    loaded_dict["bandile_attack_night"] = enemies_battle_night_sheet[7]
+    loaded_dict["necrola_battle_night"] = enemies_battle_night_sheet[8]
+    loaded_dict["necrola_attack_night"] = enemies_battle_night_sheet[9]
+    loaded_dict["osodark_battle_night"] = enemies_battle_night_sheet[10]
+    loaded_dict["osodark_attack_night"] = enemies_battle_night_sheet[11]
+    loaded_dict["atmon_battle_night"] = enemies_battle_night_sheet[12]
+    loaded_dict["atmon_attack_night"] = enemies_battle_night_sheet[13]
+    loaded_dict["jumano_battle_night"] = enemies_battle_night_sheet[14]
+    loaded_dict["jumano_attack_night"] = enemies_battle_night_sheet[15]
     # enemies battle effects -------------------------------------------------------------------------------------------
     enemies_battle_effects_url = resource_path('resources/art/sprites_enemies_battle_effects.png')
     enemies_battle_effects_sheet = sprite_sheet((300, 280), enemies_battle_effects_url)
@@ -4527,6 +4594,14 @@ def load_graphics():
     loaded_dict["chinzilla_battle"] = boss_enemies_battle_sheet[2]
     loaded_dict["chorizon_phase"] = boss_enemies_battle_sheet[3]
     loaded_dict["erebyth_battle"] = boss_enemies_battle_sheet[4]
+    # boss enemies battle night ----------------------------------------------------------------------------------------
+    boss_enemies_battle_night_url = resource_path('resources/art/sprites_bosses_battle_night.png')
+    boss_enemies_battle_night_sheet = sprite_sheet((500, 500), boss_enemies_battle_night_url)
+    loaded_dict["chorizon_battle_night"] = boss_enemies_battle_night_sheet[0]
+    loaded_dict["muchador_battle_night"] = boss_enemies_battle_night_sheet[1]
+    loaded_dict["chinzilla_battle_night"] = boss_enemies_battle_night_sheet[2]
+    loaded_dict["chorizon_phase_night"] = boss_enemies_battle_night_sheet[3]
+    loaded_dict["erebyth_battle_night"] = boss_enemies_battle_night_sheet[4]
     # boss enemies attack ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_attack.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)

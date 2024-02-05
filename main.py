@@ -8449,6 +8449,13 @@ if __name__ == "__main__":
     overlay_bleeding = UiElement("overlay bleeding", 79, 89, graphic_dict["overlay_bleeding"])
     overlay_crushed = UiElement("overlay crushed", 106, 89, graphic_dict["overlay_crushed"])
 
+    overlay_burned_desc = UiElement("overlay burned desc", 64, 141, graphic_dict["overlay_burned_description"])
+    overlay_poisoned_desc = UiElement("overlay poisoned desc", 91, 141, graphic_dict["overlay_poisoned_description"])
+    overlay_bleeding_desc = UiElement("overlay bleeding desc", 118, 141, graphic_dict["overlay_bleeding_description"])
+    overlay_crushed_desc = UiElement("overlay crushed desc", 145, 141, graphic_dict["overlay_crushed_description"])
+
+    overlay_night_sleep = UiElement("overlay sleep", 200, 500, graphic_dict["night_sleep_overlay"])
+
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
     seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
     eldream_flower_more_button = pygame.Rect((420, 225), (50, 50))
@@ -9116,7 +9123,7 @@ if __name__ == "__main__":
     sfx_cat_meow = pygame.mixer.Sound(resource_path("resources/sounds/cat_meow.mp3"))
     sfx_cat_meow.set_volume(0.50)
     sfx_talking = pygame.mixer.Sound(resource_path("resources/sounds/prime_jezus_talk.mp3"))
-    sfx_talking.set_volume(0.15)
+    sfx_talking.set_volume(0.20)
 
     sfx_firework = pygame.mixer.Sound(resource_path("resources/sounds/sfx_firework.mp3"))
     sfx_firework.set_volume(0.35)
@@ -9427,6 +9434,7 @@ if __name__ == "__main__":
 
     crush_shown = False
     poisoned_before = False
+    first_attack = True
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
@@ -10430,15 +10438,77 @@ if __name__ == "__main__":
                             player.y_coordinate = 655
                             rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            if time_of_day == 0 or time_of_day == 7:
+                                for snake in snakes:
+                                    if (player.quest_status["sneaky snakes"]
+                                            and not player.quest_complete["sneaky snakes"]):
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                           graphic_dict["snake_high_night"])
+                                    else:
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                           graphic_dict["snake_night"])
+                                if player.quest_progress["where's nede?"] == 1:
+                                    nede.update(809, 390, graphic_dict["nede_sleep"])
+                            else:
+                                for snake in snakes:
+                                    if (player.quest_status["sneaky snakes"]
+                                            and not player.quest_complete["sneaky snakes"]):
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                           graphic_dict["snake_high"])
+                                    else:
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                           graphic_dict["snake"])
+                                if player.quest_progress["where's nede?"] == 1:
+                                    nede.update(809, 390, graphic_dict["nede_left"])
                         if player.current_zone == "stardust":
                             player.x_coordinate = 925
                             player.y_coordinate = 275
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            if time_of_day == 0 or time_of_day == 7:
+                                for stelli in stardust_stelli:
+                                    if stelli.name == "Stellia":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_a_night"])
+                                    if stelli.name == "Stellib":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_b_night"])
+                                    if stelli.name == "Stellic":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_c_night"])
+                            else:
+                                for stelli in stardust_stelli:
+                                    if stelli.name == "Stellia":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_a"])
+                                    if stelli.name == "Stellib":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_b"])
+                                    if stelli.name == "Stellic":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_c"])
                         if player.current_zone == "korlok":
                             player.x_coordinate = 882
                             player.y_coordinate = 290
                             rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            if time_of_day == 0 or time_of_day == 7:
+                                for magmon in magmons:
+                                    if (player.quest_status["elementary elementals"]
+                                            and not player.quest_complete["elementary elementals"]):
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon_high_night"])
+                                    else:
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon_night"])
+                            else:
+                                for magmon in magmons:
+                                    if (player.quest_status["elementary elementals"]
+                                            and not player.quest_complete["elementary elementals"]):
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon_high"])
+                                    else:
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon"])
                         if player.current_zone == "fishing hut":
                             player.x_coordinate = 410
                             player.y_coordinate = 265
@@ -10447,6 +10517,24 @@ if __name__ == "__main__":
                             player.x_coordinate = 815
                             player.y_coordinate = 600
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            if time_of_day == 0 or time_of_day == 7:
+                                for bandile in bandiles:
+                                    if (player.quest_status["band hammer"]
+                                            and not player.quest_complete["band hammer"]):
+                                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                                             graphic_dict["bandile_high_night"])
+                                    else:
+                                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                                             graphic_dict["bandile_night"])
+                            else:
+                                for bandile in bandiles:
+                                    if (player.quest_status["band hammer"]
+                                            and not player.quest_complete["band hammer"]):
+                                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                                             graphic_dict["bandile_high"])
+                                    else:
+                                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                                             graphic_dict["bandile"])
                         if player.current_zone == "rohir":
                             player.x_coordinate = 900
                             player.y_coordinate = 400
@@ -10498,6 +10586,14 @@ if __name__ == "__main__":
                             player.x_coordinate = 425
                             player.y_coordinate = 675
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            if time_of_day == 0 or time_of_day == 7:
+                                for osodark in ectrenos_alcove_enemies:
+                                        osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
+                                                             graphic_dict["osodark_night"])
+                            else:
+                                for osodark in ectrenos_alcove_enemies:
+                                    osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
+                                                         graphic_dict["osodark"])
                         if player.current_zone == "fishing alcove":
                             mini_map_overlay.update(915, 596, graphic_dict["ectrenos_mini_map"])
                             player.x_coordinate = 415
@@ -10554,6 +10650,22 @@ if __name__ == "__main__":
                             player.x_coordinate = 425
                             player.y_coordinate = 650
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            if time_of_day == 0 or time_of_day == 7:
+                                for atmon in atmons:
+                                    if npc_maydria.gift and not prism_received:
+                                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                                             graphic_dict["atmon_high_night"])
+                                    else:
+                                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                                             graphic_dict["atmon_night"])
+                            else:
+                                for atmon in atmons:
+                                    if npc_maydria.gift and not prism_received:
+                                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                                             graphic_dict["atmon_high"])
+                                    else:
+                                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                                             graphic_dict["atmon"])
                         if player.current_zone == "castle one":
                             player.x_coordinate = 515
                             player.y_coordinate = 175
@@ -10586,6 +10698,15 @@ if __name__ == "__main__":
                             music_toggle_button.update(775, 44, graphic_dict["music_button_off"])
                         if not music_toggle:
                             music_toggle_button.update(775, 44, graphic_dict["music_button"])
+
+                        if time_of_day == 1 or time_of_day == 2:
+                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                        if time_of_day == 3 or time_of_day == 4:
+                            message_box.update(173, 650, graphic_dict["message_box_day"])
+                        if time_of_day == 5 or time_of_day == 6:
+                            message_box.update(173, 650, graphic_dict["message_box_dusk"])
+                        if time_of_day == 7 or time_of_day == 0:
+                            message_box.update(173, 650, graphic_dict["message_box_night"])
 
                     except TypeError:
                         pass
@@ -10710,6 +10831,11 @@ if __name__ == "__main__":
                                 overlay_burned.surf.set_alpha(50)
                                 overlay_poisoned.surf.set_alpha(50)
                                 overlay_bleeding.surf.set_alpha(50)
+                                overlay_crushed.surf.set_alpha(50)
+                                overlay_burned_desc.surf.set_alpha(50)
+                                overlay_poisoned_desc.surf.set_alpha(50)
+                                overlay_bleeding_desc.surf.set_alpha(50)
+                                overlay_crushed_desc.surf.set_alpha(50)
                                 alpha_set = True
                         else:
                             hp_bar.surf.set_alpha(255)
@@ -10720,6 +10846,11 @@ if __name__ == "__main__":
                             overlay_burned.surf.set_alpha(255)
                             overlay_poisoned.surf.set_alpha(255)
                             overlay_bleeding.surf.set_alpha(255)
+                            overlay_crushed.surf.set_alpha(255)
+                            overlay_burned_desc.surf.set_alpha(255)
+                            overlay_poisoned_desc.surf.set_alpha(255)
+                            overlay_bleeding_desc.surf.set_alpha(255)
+                            overlay_crushed_desc.surf.set_alpha(255)
                             alpha_set = False
                         if player.x_coordinate > 730 and player.y_coordinate < 125:
                             if not alpha_set:
@@ -11078,6 +11209,25 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if overlay_burned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if burned:
+                                drawing_functions.condition_description_window.append(overlay_burned_desc)
+                        elif overlay_poisoned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if poisoned:
+                                drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                        elif overlay_bleeding.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if bleeding:
+                                drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                        elif overlay_crushed.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if crushed:
+                                drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                        else:
+                            drawing_functions.condition_description_window.clear()
 
                         if flower_button.collidepoint(pos):
                             if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -11611,6 +11761,28 @@ if __name__ == "__main__":
                                     player.y_coordinate = 655
                                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                   player.y_coordinate))
+                                    if time_of_day == 0 or time_of_day == 7:
+                                        for snake in snakes:
+                                            if (player.quest_status["sneaky snakes"]
+                                                    and not player.quest_complete["sneaky snakes"]):
+                                                snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                                   graphic_dict["snake_high_night"])
+                                            else:
+                                                snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                                   graphic_dict["snake_night"])
+                                        if player.quest_progress["where's nede?"] == 1:
+                                            nede.update(809, 390, graphic_dict["nede_sleep"])
+                                    else:
+                                        for snake in snakes:
+                                            if (player.quest_status["sneaky snakes"]
+                                                    and not player.quest_complete["sneaky snakes"]):
+                                                snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                                   graphic_dict["snake_high"])
+                                            else:
+                                                snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                                   graphic_dict["snake"])
+                                        if player.quest_progress["where's nede?"] == 1:
+                                            nede.update(809, 390, graphic_dict["nede_left"])
                                     # keep player pet with player as they move
                                     try:
                                         for pet in player.pet:
@@ -11647,6 +11819,24 @@ if __name__ == "__main__":
                                         player.y_coordinate = 325
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                       player.y_coordinate))
+                                        if time_of_day == 0 or time_of_day == 7:
+                                            for magmon in magmons:
+                                                if (player.quest_status["elementary elementals"]
+                                                        and not player.quest_complete["elementary elementals"]):
+                                                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                        graphic_dict["magmon_high_night"])
+                                                else:
+                                                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                        graphic_dict["magmon_night"])
+                                        else:
+                                            for magmon in magmons:
+                                                if (player.quest_status["elementary elementals"]
+                                                        and not player.quest_complete["elementary elementals"]):
+                                                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                        graphic_dict["magmon_high"])
+                                                else:
+                                                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                        graphic_dict["magmon"])
                                         # keep player pet with player as they move
                                         try:
                                             for pet in player.pet:
@@ -11964,6 +12154,29 @@ if __name__ == "__main__":
                         player.x_coordinate = 425
                         player.y_coordinate = 690
 
+                        if time_of_day == 0 or time_of_day == 7:
+                            for snake in snakes:
+                                if (player.quest_status["sneaky snakes"]
+                                        and not player.quest_complete["sneaky snakes"]):
+                                    snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                       graphic_dict["snake_high_night"])
+                                else:
+                                    snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                       graphic_dict["snake_night"])
+                            if player.quest_progress["where's nede?"] == 1:
+                                nede.update(809, 390, graphic_dict["nede_sleep"])
+                        else:
+                            for snake in snakes:
+                                if (player.quest_status["sneaky snakes"]
+                                        and not player.quest_complete["sneaky snakes"]):
+                                    snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                       graphic_dict["snake_high"])
+                                else:
+                                    snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                       graphic_dict["snake"])
+                            if player.quest_progress["where's nede?"] == 1:
+                                nede.update(809, 390, graphic_dict["nede_left"])
+
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         drawing_functions.draw_it(screen, in_battle)
                     else:
@@ -11995,7 +12208,7 @@ if __name__ == "__main__":
                                                                     item_block_2_got, Item, sfx_item_block,
                                                                     apothis_upgrade, dawn, early_morning, morning,
                                                                     early_afternoon, afternoon, dusk, night,
-                                                                    time_of_day, sfx_door_open)
+                                                                    time_of_day, sfx_door_open, magmons)
                     else:
                         hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
                                                                     fishing_music, fishing, walk_tic,
@@ -12016,7 +12229,7 @@ if __name__ == "__main__":
                                                                     item_block_2_got, Item, sfx_item_block,
                                                                     apothis_upgrade, dawn, early_morning, morning,
                                                                     early_afternoon, afternoon, dusk, night,
-                                                                    time_of_day, sfx_door_open)
+                                                                    time_of_day, sfx_door_open, magmons)
 
                     over_world_song_set = hut_returned["over_world_song_set"]
                     basic_fish_counter = hut_returned["basic_fish_counter"]
@@ -12102,7 +12315,8 @@ if __name__ == "__main__":
                                                                       afternoon, dusk, night, time_of_day,
                                                                       apothis_scene_1_night, apothis_scene_2_night,
                                                                       apothis_scene_3_night, apothis_scene_4_night,
-                                                                      apothis_scene_5_night, apothis_scene_6_night)
+                                                                      apothis_scene_5_night, apothis_scene_6_night,
+                                                                      stardust_stelli)
 
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
@@ -12164,7 +12378,8 @@ if __name__ == "__main__":
                                                                       afternoon, dusk, night, time_of_day,
                                                                       apothis_scene_1_night, apothis_scene_2_night,
                                                                       apothis_scene_3_night, apothis_scene_4_night,
-                                                                      apothis_scene_5_night, apothis_scene_6_night)
+                                                                      apothis_scene_5_night, apothis_scene_6_night,
+                                                                      stardust_stelli)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -12259,7 +12474,7 @@ if __name__ == "__main__":
                                                                       quest_star_nahun, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
                                                                       afternoon, dusk, night, time_of_day,
-                                                                      snow_fall_tic, snow_fall_phase, cloaked)
+                                                                      snow_fall_tic, snow_fall_phase, cloaked, nede)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -12310,7 +12525,7 @@ if __name__ == "__main__":
                                                                       quest_star_nahun, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
                                                                       afternoon, dusk, night, time_of_day,
-                                                                      snow_fall_tic, snow_fall_phase, cloaked)
+                                                                      snow_fall_tic, snow_fall_phase, cloaked, nede)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -12532,7 +12747,8 @@ if __name__ == "__main__":
                                                                                recycle_crate, quest_star_roroc,
                                                                                rohir_gate, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
-                                                                               afternoon, dusk, night, time_of_day)
+                                                                               afternoon, dusk, night, time_of_day,
+                                                                               atmons, prism_received)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -12572,7 +12788,8 @@ if __name__ == "__main__":
                                                                                recycle_crate, quest_star_roroc,
                                                                                rohir_gate, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
-                                                                               afternoon, dusk, night, time_of_day)
+                                                                               afternoon, dusk, night, time_of_day,
+                                                                               atmons, prism_received)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -12710,7 +12927,7 @@ if __name__ == "__main__":
                                                                                    best_fish_counter, sfx_sheet_paper,
                                                                                    sfx_item_snack, kasper_unlocked,
                                                                                    torok_unlocked, iriana_unlocked,
-                                                                                   apothis_upgrade)
+                                                                                   apothis_upgrade, time_of_day)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -12747,7 +12964,7 @@ if __name__ == "__main__":
                                                                                    best_fish_counter, sfx_sheet_paper,
                                                                                    sfx_item_snack, kasper_unlocked,
                                                                                    torok_unlocked, iriana_unlocked,
-                                                                                   apothis_upgrade)
+                                                                                   apothis_upgrade, time_of_day)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -12800,7 +13017,8 @@ if __name__ == "__main__":
                                                                                    vanish_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_upgrade)
+                                                                                   best_fish_counter, apothis_upgrade,
+                                                                                   time_of_day)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -12834,7 +13052,8 @@ if __name__ == "__main__":
                                                                                    vanish_overlay, basic_fish_counter,
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
-                                                                                   best_fish_counter, apothis_upgrade)
+                                                                                   best_fish_counter, apothis_upgrade,
+                                                                                   time_of_day)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -13285,7 +13504,8 @@ if __name__ == "__main__":
                                                                      item_block_9, item_block_9_got, sfx_item_block,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
-                                                                     atmons_highlighted, atmons_reset, apothis_upgrade)
+                                                                     atmons_highlighted, atmons_reset, apothis_upgrade,
+                                                                     time_of_day)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -13311,7 +13531,8 @@ if __name__ == "__main__":
                                                                      item_block_9, item_block_9_got, sfx_item_block,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
-                                                                     atmons_highlighted, atmons_reset, apothis_upgrade)
+                                                                     atmons_highlighted, atmons_reset, apothis_upgrade,
+                                                                     time_of_day)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -13369,7 +13590,7 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite, apothis_upgrade)
+                                                                     atmon_battle_sprite, apothis_upgrade, time_of_day)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -13401,7 +13622,7 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite, apothis_upgrade)
+                                                                     atmon_battle_sprite, apothis_upgrade, time_of_day)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -13459,7 +13680,7 @@ if __name__ == "__main__":
                                                                      sfx_enemy_atmon_loud, atmon_castle,
                                                                      atmon_battle_sprite, parts_one,
                                                                      construct_parts_one_highlighted,
-                                                                     sfx_item_pickup, apothis_upgrade)
+                                                                     sfx_item_pickup, apothis_upgrade, time_of_day)
                     else:
                         castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
                                                                      castle_two_bg, over_world_song_set, castle_music,
@@ -13488,7 +13709,7 @@ if __name__ == "__main__":
                                                                      sfx_enemy_atmon_loud, atmon_castle,
                                                                      atmon_battle_sprite, parts_one,
                                                                      construct_parts_one_highlighted,
-                                                                     sfx_item_pickup, apothis_upgrade)
+                                                                     sfx_item_pickup, apothis_upgrade, time_of_day)
 
                     over_world_song_set = castle_two_returned["over_world_song_set"]
                     interacted = castle_two_returned["interacted"]
@@ -13552,7 +13773,7 @@ if __name__ == "__main__":
                                                                          jumano_battle_sprite, sfx_surprise_attack,
                                                                          surprised, apothis_gift, parts_two,
                                                                          construct_parts_two_highlighted,
-                                                                         sfx_item_pickup, apothis_upgrade)
+                                                                         sfx_item_pickup, apothis_upgrade, time_of_day)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -13589,7 +13810,7 @@ if __name__ == "__main__":
                                                                          jumano_battle_sprite, sfx_surprise_attack,
                                                                          surprised, apothis_gift, parts_two,
                                                                          construct_parts_two_highlighted,
-                                                                         sfx_item_pickup, apothis_upgrade)
+                                                                         sfx_item_pickup, apothis_upgrade, time_of_day)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -13641,7 +13862,7 @@ if __name__ == "__main__":
                                                                        castle_lair_one_bg,
                                                                        castle_lair_two_bg, castle_lair_bg, dreth,
                                                                        dreth_battle_sprite, dreth_defeated,
-                                                                       apothis_upgrade)
+                                                                       apothis_upgrade, time_of_day)
                     else:
                         castle_lair_returned = zone_castle.castle_lair(pygame, game_window, graphic_dict, player,
                                                                        castle_lair_zero_bg, over_world_song_set,
@@ -13663,7 +13884,7 @@ if __name__ == "__main__":
                                                                        castle_lair_one_bg,
                                                                        castle_lair_two_bg, castle_lair_bg, dreth,
                                                                        dreth_battle_sprite, dreth_defeated,
-                                                                       apothis_upgrade)
+                                                                       apothis_upgrade, time_of_day)
 
                     over_world_song_set = castle_lair_returned["over_world_song_set"]
                     interacted = castle_lair_returned["interacted"]
@@ -13789,7 +14010,8 @@ if __name__ == "__main__":
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
                                                                              best_fish_counter, vanished, npc_illisare,
-                                                                             quest_star_illisare, apothis_upgrade)
+                                                                             quest_star_illisare, apothis_upgrade,
+                                                                             time_of_day, ectrenos_alcove_enemies)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -13833,7 +14055,8 @@ if __name__ == "__main__":
                                                                              better_fish_counter,
                                                                              even_better_fish_counter,
                                                                              best_fish_counter, vanished, npc_illisare,
-                                                                             quest_star_illisare, apothis_upgrade)
+                                                                             quest_star_illisare, apothis_upgrade,
+                                                                             time_of_day, ectrenos_alcove_enemies)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -14241,7 +14464,8 @@ if __name__ == "__main__":
                                                                                  basic_fish_counter,
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
-                                                                                 best_fish_counter, apothis_upgrade)
+                                                                                 best_fish_counter, apothis_upgrade,
+                                                                                 time_of_day)
                     else:
                         ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
                                                                                  player, ectrenos_alcove_bg,
@@ -14278,7 +14502,8 @@ if __name__ == "__main__":
                                                                                  basic_fish_counter,
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
-                                                                                 best_fish_counter, apothis_upgrade)
+                                                                                 best_fish_counter, apothis_upgrade,
+                                                                                 time_of_day)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -14334,7 +14559,8 @@ if __name__ == "__main__":
                                                                                item_block_6, item_block_6_got,
                                                                                sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked, apothis_upgrade)
+                                                                               iriana_unlocked, apothis_upgrade,
+                                                                               time_of_day, ectrenos_alcove_enemies)
                     else:
                         fishing_alcove_returned = zone_ectrenos.fishing_alcove(pygame, game_window, player,
                                                                                over_world_song_set,
@@ -14362,7 +14588,8 @@ if __name__ == "__main__":
                                                                                item_block_6, item_block_6_got,
                                                                                sfx_item_block, Item,
                                                                                kasper_unlocked, torok_unlocked,
-                                                                               iriana_unlocked, apothis_upgrade)
+                                                                               iriana_unlocked, apothis_upgrade,
+                                                                               time_of_day, ectrenos_alcove_enemies)
 
                     over_world_song_set = fishing_alcove_returned["over_world_song_set"]
                     basic_fish_counter = fishing_alcove_returned["basic_fish_counter"]
@@ -14421,7 +14648,8 @@ if __name__ == "__main__":
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, apothis_gift, bandiles_highlighted,
-                                                                 bandiles_reset, ore_highlighted, apothis_upgrade)
+                                                                 bandiles_reset, ore_highlighted, apothis_upgrade,
+                                                                 time_of_day)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -14455,7 +14683,8 @@ if __name__ == "__main__":
                                                                  vanish_overlay, basic_fish_counter,
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, apothis_gift, bandiles_highlighted,
-                                                                 bandiles_reset, ore_highlighted, apothis_upgrade)
+                                                                 bandiles_reset, ore_highlighted, apothis_upgrade,
+                                                                 time_of_day)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -14504,7 +14733,8 @@ if __name__ == "__main__":
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, item_block_11, item_block_11_got,
                                                                  sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                                 iriana_unlocked, apothis_upgrade)
+                                                                 iriana_unlocked, apothis_upgrade, time_of_day,
+                                                                 magmons)
                     else:
                         forge_returned = zone_forge.korlok_forge(pygame, game_window, graphic_dict, player,
                                                                  korlok_forge_bg, korlok_overworld_music,
@@ -14524,7 +14754,8 @@ if __name__ == "__main__":
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, item_block_11, item_block_11_got,
                                                                  sfx_item_block, kasper_unlocked, torok_unlocked,
-                                                                 iriana_unlocked, apothis_upgrade)
+                                                                 iriana_unlocked, apothis_upgrade, time_of_day,
+                                                                 magmons)
 
                     over_world_song_set = forge_returned["over_world_song_set"]
                     interacted = forge_returned["interacted"]
@@ -14646,7 +14877,7 @@ if __name__ == "__main__":
                                                                       sfx_item_block, Item, sfx_gate_open,
                                                                       apothis_upgrade, rohir_gate, dawn, early_morning,
                                                                       morning, early_afternoon, afternoon, dusk, night,
-                                                                      time_of_day)
+                                                                      time_of_day, magmons, overlay_night_sleep)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -14687,7 +14918,7 @@ if __name__ == "__main__":
                                                                       sfx_item_block, Item, sfx_gate_open,
                                                                       apothis_upgrade, rohir_gate, dawn, early_morning,
                                                                       morning, early_afternoon, afternoon, dusk, night,
-                                                                      time_of_day)
+                                                                      time_of_day, magmons, overlay_night_sleep)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -14758,7 +14989,7 @@ if __name__ == "__main__":
                                                                            apothis_upgrade, dawn, early_morning, 
                                                                            morning, early_afternoon, afternoon, dusk, 
                                                                            night, time_of_day, apothis_gift_popup,
-                                                                           apothis_popup_shown)
+                                                                           apothis_popup_shown, snakes)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -14803,7 +15034,7 @@ if __name__ == "__main__":
                                                                            apothis_upgrade, dawn, early_morning, 
                                                                            morning, early_afternoon, afternoon, dusk, 
                                                                            night, time_of_day, apothis_gift_popup,
-                                                                           apothis_popup_shown)
+                                                                           apothis_popup_shown, snakes)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -14927,7 +15158,7 @@ if __name__ == "__main__":
                                                                           vanished, vanish_overlay, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
                                                                           best_fish_counter, sfx_sheet_paper,
-                                                                          apothis_upgrade)
+                                                                          apothis_upgrade, time_of_day)
                     else:
                         reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
                                                                           graphic_dict,
@@ -14965,7 +15196,7 @@ if __name__ == "__main__":
                                                                           vanished, vanish_overlay,
                                                                           basic_fish_counter, better_fish_counter,
                                                                           even_better_fish_counter, best_fish_counter,
-                                                                          sfx_sheet_paper, apothis_upgrade)
+                                                                          sfx_sheet_paper, apothis_upgrade, time_of_day)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -15026,7 +15257,8 @@ if __name__ == "__main__":
                                                                           even_better_fish_counter, best_fish_counter,
                                                                           apothis_gift, muchador_crate_1_top,
                                                                           muchador_crate_2_top, muchador_crate_3_top,
-                                                                          muchador_crate_4_top, apothis_upgrade)
+                                                                          muchador_crate_4_top, apothis_upgrade,
+                                                                          time_of_day)
                     else:
                         reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -15064,7 +15296,8 @@ if __name__ == "__main__":
                                                                           even_better_fish_counter, best_fish_counter,
                                                                           apothis_gift, muchador_crate_1_top,
                                                                           muchador_crate_2_top, muchador_crate_3_top,
-                                                                          muchador_crate_4_top, apothis_upgrade)
+                                                                          muchador_crate_4_top, apothis_upgrade,
+                                                                          time_of_day)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -15107,7 +15340,8 @@ if __name__ == "__main__":
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
                                                                           best_fish_counter, rohir_gate,
-                                                                          apothis_upgrade, dungeon_teleporter)
+                                                                          apothis_upgrade, dungeon_teleporter, 
+                                                                          time_of_day, magmons)
                     else:
                         reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -15130,7 +15364,8 @@ if __name__ == "__main__":
                                                                           sfx_rock_push, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
                                                                           best_fish_counter, rohir_gate,
-                                                                          apothis_upgrade, dungeon_teleporter)
+                                                                          apothis_upgrade, dungeon_teleporter, 
+                                                                          time_of_day, magmons)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -15386,26 +15621,27 @@ if __name__ == "__main__":
                         else:
                             game_window.blit(button_highlight.surf, button_highlight.rect)
 
-                    if burned:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_burned.surf, overlay_burned.rect)
-                        else:
-                            game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                    if poisoned:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        else:
-                            game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                    if bleeding:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        else:
-                            game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                    if crushed:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                        else:
-                            game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+                    if len(drawing_functions.level_up_window) == 0:
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
@@ -15431,6 +15667,20 @@ if __name__ == "__main__":
                         drawing_functions.loot_text_container.clear()
                         drawing_functions.level_up_draw(level_up_win, player, font, False)
                         drawing_functions.level_up_visual.clear()
+                        hp_bar.surf.set_alpha(255)
+                        en_bar.surf.set_alpha(255)
+                        xp_bar.surf.set_alpha(255)
+                        bar_backdrop.surf.set_alpha(255)
+                        pet_energy_window.surf.set_alpha(255)
+                        overlay_burned.surf.set_alpha(255)
+                        overlay_poisoned.surf.set_alpha(255)
+                        overlay_bleeding.surf.set_alpha(255)
+                        overlay_crushed.surf.set_alpha(255)
+                        overlay_burned_desc.surf.set_alpha(255)
+                        overlay_poisoned_desc.surf.set_alpha(255)
+                        overlay_bleeding_desc.surf.set_alpha(255)
+                        overlay_crushed_desc.surf.set_alpha(255)
+                        alpha_set = False
                         vanished = False
                         leveled = False
                         cleared = True
@@ -15477,6 +15727,7 @@ if __name__ == "__main__":
                                 loot_timer_reset = False
                                 loot_level_tic = time.perf_counter()
                                 turn_counter = 0
+                                first_attack = True
 
                         # reset on each new turn
                         turn_taken = False
@@ -15501,6 +15752,25 @@ if __name__ == "__main__":
                             ratio_y = (SCREEN_HEIGHT / screen.get_height())
                             pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                             button_highlighted = button_highlighter(pos)
+
+                            if overlay_burned.rect.collidepoint(pos):
+                                drawing_functions.condition_description_window.clear()
+                                if burned:
+                                    drawing_functions.condition_description_window.append(overlay_burned_desc)
+                            elif overlay_poisoned.rect.collidepoint(pos):
+                                drawing_functions.condition_description_window.clear()
+                                if poisoned:
+                                    drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                            elif overlay_bleeding.rect.collidepoint(pos):
+                                drawing_functions.condition_description_window.clear()
+                                if bleeding:
+                                    drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                            elif overlay_crushed.rect.collidepoint(pos):
+                                drawing_functions.condition_description_window.clear()
+                                if crushed:
+                                    drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                            else:
+                                drawing_functions.condition_description_window.clear()
 
                             if flower_button.collidepoint(pos):
                                 if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -16088,6 +16358,19 @@ if __name__ == "__main__":
                                     info_text_2 = ""
 
                             if combat_button == "attack" or attack_hotkey and not combat_cooldown:
+                                if first_attack:
+                                    first_attack = False
+                                    if (current_enemy_battling.kind == "snake"
+                                            or current_enemy_battling.kind == "magmon"
+                                            or current_enemy_battling.kind == "bandile"
+                                            or current_enemy_battling.kind == "osodark"
+                                            or current_enemy_battling.kind == "atmon"
+                                            or current_enemy_battling.kind == "stelli"):
+                                        if time_of_day == 0 or time_of_day == 7:
+                                            stun_them = True
+                                    if current_enemy_battling.kind == "chinzilla":
+                                        if time_of_day != 0 and time_of_day != 7:
+                                            stun_them = True
                                 if player.role == "":
                                     pygame.mixer.find_channel(True).play(sfx_no_weapon_attack)
                                 if player.role == "mage":
@@ -16127,10 +16410,10 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_muchador)
                                 if current_enemy_battling.kind == "bandile":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_bandile)
-                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
+                                    if (turn_counter + 1) % random.randint(6, 8) == 0:
                                         if not crushed:
                                             crushed = True
-                                            crushed_shown = False
+                                            crush_shown = False
                                 if current_enemy_battling.kind == "magmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
                                     if (turn_counter + 1) % random.randint(1, 3) == 0:
@@ -16186,11 +16469,11 @@ if __name__ == "__main__":
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth)
                                 if current_enemy_battling.kind == "atmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_atmon)
-                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not poisoned and not barrier_active:
                                             poisoned = True
                                 if current_enemy_battling.kind == "jumano":
-                                    if (turn_counter + 1) % random.randint(2, 3) == 0:
+                                    if (turn_counter + 1) % random.randint(1, 2) == 0:
                                         pygame.mixer.find_channel(True).play(sfx_button_role)
                                         choice = random.randint(1, 3)
                                         if choice == 1:
@@ -16408,6 +16691,7 @@ if __name__ == "__main__":
                                         card_popup_checked = False
                                         loot_timer_reset = False
                                         loot_level_tic = time.perf_counter()
+                                        first_attack = True
                                         if on_card_quest:
                                             try:
                                                 any_card_counter = combat_events["any_card_counter"]
@@ -16418,7 +16702,19 @@ if __name__ == "__main__":
 
                             # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
                             elif combat_button == "skill 1" or skill_1_hotkey and not combat_cooldown:
-
+                                if first_attack:
+                                    first_attack = False
+                                    if (current_enemy_battling.kind == "snake"
+                                            or current_enemy_battling.kind == "magmon"
+                                            or current_enemy_battling.kind == "bandile"
+                                            or current_enemy_battling.kind == "osodark"
+                                            or current_enemy_battling.kind == "atmon"
+                                            or current_enemy_battling.kind == "stelli"):
+                                        if time_of_day == 0 or time_of_day == 7:
+                                            stun_them = True
+                                    if current_enemy_battling.kind == "chinzilla":
+                                        if time_of_day != 0 and time_of_day != 7:
+                                            stun_them = True
                                 skill_1_hotkey = False
                                 # make sure player has enough energy to use the skill
                                 if player.energy > 19:
@@ -16462,7 +16758,8 @@ if __name__ == "__main__":
                                                                                        atmon_battle_sprite,
                                                                                        jumano_battle_sprite,
                                                                                        dreth_battle_sprite,
-                                                                                       apothis_gift, cloaked)
+                                                                                       apothis_gift, cloaked,
+                                                                                       time_of_day, first_attack)
                                                 if mirror_image:
                                                     combat_scenario.battle_animation_player(player,
                                                                                             mirror_battle_sprite,
@@ -16568,7 +16865,8 @@ if __name__ == "__main__":
                                                                                        atmon_battle_sprite,
                                                                                        jumano_battle_sprite,
                                                                                        dreth_battle_sprite,
-                                                                                       apothis_gift, cloaked)
+                                                                                       apothis_gift, cloaked,
+                                                                                       time_of_day, first_attack)
                                                 if mirror_image:
                                                     combat_scenario.battle_animation_player(player,
                                                                                             mirror_battle_sprite,
@@ -16782,6 +17080,7 @@ if __name__ == "__main__":
                                                     card_popup_checked = False
                                                     loot_timer_reset = False
                                                     loot_level_tic = time.perf_counter()
+                                                    first_attack = True
                                                     if on_card_quest:
                                                         try:
                                                             any_card_counter = combat_events["any_card_counter"]
@@ -16791,6 +17090,19 @@ if __name__ == "__main__":
                                                 pass
 
                             elif combat_button == "skill 2" or skill_2_hotkey and not combat_cooldown:
+                                if first_attack:
+                                    first_attack = False
+                                    if (current_enemy_battling.kind == "snake"
+                                            or current_enemy_battling.kind == "magmon"
+                                            or current_enemy_battling.kind == "bandile"
+                                            or current_enemy_battling.kind == "osodark"
+                                            or current_enemy_battling.kind == "atmon"
+                                            or current_enemy_battling.kind == "stelli"):
+                                        if time_of_day == 0 or time_of_day == 7:
+                                            stun_them = True
+                                    if current_enemy_battling.kind == "chinzilla":
+                                        if time_of_day != 0 and time_of_day != 7:
+                                            stun_them = True
                                 skill_2_hotkey = False
                                 # make sure player has enough energy to use the skill
                                 if player.energy > 39:
@@ -16831,7 +17143,8 @@ if __name__ == "__main__":
                                                                                        atmon_battle_sprite,
                                                                                        jumano_battle_sprite,
                                                                                        dreth_battle_sprite,
-                                                                                       apothis_gift, cloaked)
+                                                                                       apothis_gift, cloaked,
+                                                                                       time_of_day, first_attack)
                                                 turn_taken = True
                                                 attack_hotkey = False
 
@@ -16964,6 +17277,7 @@ if __name__ == "__main__":
                                             leveled = False
                                             cloaked = False
                                             turn_counter = 0
+                                            first_attack = True
                                             battle_info_to_return_to_main_loop["item dropped"] = ""
                                             battle_info_to_return_to_main_loop["experience"] = 0
                                             battle_info_to_return_to_main_loop["knowledge"] = ""
@@ -16972,6 +17286,19 @@ if __name__ == "__main__":
                                     info_text_1 = "Not enough energy to use this skill."
 
                             elif combat_button == "skill 3" or skill_3_hotkey and not combat_cooldown:
+                                if first_attack:
+                                    first_attack = False
+                                    if (current_enemy_battling.kind == "snake"
+                                            or current_enemy_battling.kind == "magmon"
+                                            or current_enemy_battling.kind == "bandile"
+                                            or current_enemy_battling.kind == "osodark"
+                                            or current_enemy_battling.kind == "atmon"
+                                            or current_enemy_battling.kind == "stelli"):
+                                        if time_of_day == 0 or time_of_day == 7:
+                                            stun_them = True
+                                    if current_enemy_battling.kind == "chinzilla":
+                                        if time_of_day != 0 and time_of_day != 7:
+                                            stun_them = True
                                 skill_3_hotkey = False
                                 # make sure player has enough energy to use the skill
                                 if player.energy > 79:
@@ -17014,7 +17341,8 @@ if __name__ == "__main__":
                                                                                        atmon_battle_sprite,
                                                                                        jumano_battle_sprite,
                                                                                        dreth_battle_sprite,
-                                                                                       apothis_gift, cloaked)
+                                                                                       apothis_gift, cloaked,
+                                                                                       time_of_day, first_attack)
                                                 if mirror_image:
                                                     combat_scenario.battle_animation_player(player,
                                                                                             mirror_battle_sprite,
@@ -17151,6 +17479,7 @@ if __name__ == "__main__":
                                                         card_popup_checked = False
                                                         loot_timer_reset = False
                                                         loot_level_tic = time.perf_counter()
+                                                        first_attack = True
                                                         if on_card_quest:
                                                             try:
                                                                 any_card_counter = combat_events["any_card_counter"]
@@ -17219,7 +17548,8 @@ if __name__ == "__main__":
                                                                                    atmon_battle_sprite,
                                                                                    jumano_battle_sprite,
                                                                                    dreth_battle_sprite,
-                                                                                   apothis_gift, cloaked)
+                                                                                   apothis_gift, cloaked,
+                                                                                   time_of_day, first_attack)
                                             if mirror_image:
                                                 combat_scenario.battle_animation_player(player,
                                                                                         mirror_battle_sprite,
@@ -17360,7 +17690,8 @@ if __name__ == "__main__":
                                                                                            atmon_battle_sprite,
                                                                                            jumano_battle_sprite,
                                                                                            dreth_battle_sprite,
-                                                                                           apothis_gift, cloaked)
+                                                                                           apothis_gift, cloaked,
+                                                                                           time_of_day, first_attack)
                                                     movement_able = True
                                                     combat_happened = False
                                                     interacted = False
@@ -17382,6 +17713,7 @@ if __name__ == "__main__":
                                                     card_popup_checked = False
                                                     loot_timer_reset = False
                                                     loot_level_tic = time.perf_counter()
+                                                    first_attack = True
                                                     if on_card_quest:
                                                         try:
                                                             any_card_counter = combat_events["any_card_counter"]
@@ -17453,7 +17785,8 @@ if __name__ == "__main__":
                                                                                        atmon_battle_sprite,
                                                                                        jumano_battle_sprite,
                                                                                        dreth_battle_sprite,
-                                                                                       apothis_gift, cloaked)
+                                                                                       apothis_gift, cloaked,
+                                                                                       time_of_day, first_attack)
                                                 if mirror_image:
                                                     combat_scenario.battle_animation_player(player,
                                                                                             mirror_battle_sprite,
@@ -17588,6 +17921,7 @@ if __name__ == "__main__":
                                                         card_popup_checked = False
                                                         loot_timer_reset = False
                                                         loot_level_tic = time.perf_counter()
+                                                        first_attack = True
                                                         if on_card_quest:
                                                             try:
                                                                 any_card_counter = combat_events["any_card_counter"]
@@ -17843,7 +18177,8 @@ if __name__ == "__main__":
                                                                    stelli_battle_sprite, chorizon_phase,
                                                                    erebyth_battle_sprite, turn_counter,
                                                                    atmon_battle_sprite, jumano_battle_sprite,
-                                                                   dreth_battle_sprite, apothis_gift, cloaked)
+                                                                   dreth_battle_sprite, apothis_gift, cloaked,
+                                                                   time_of_day, first_attack)
                             if mirror_image:
                                 combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, graphic_dict)
@@ -18168,6 +18503,7 @@ if __name__ == "__main__":
                                         loot_timer_reset = False
                                         turn_counter = 0
                                         loot_level_tic = time.perf_counter()
+                                        first_attack = True
                                         random_crate = random.choice(muchador_crates_list)
                                         muchador.update_image(random_crate.x_coordinate, random_crate.y_coordinate,
                                                               graphic_dict["muchador"])
@@ -18278,7 +18614,7 @@ if __name__ == "__main__":
                                     screen.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
                                 if bleeding:
                                     screen.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
-                                if crushed and not crushed_shown:
+                                if crushed and not crushw_shown:
                                     screen.blit(battle_sprite_effect_crush.surf, battle_sprite_effect_crush.rect)
 
                                 screen.blit(message_box.surf, message_box.rect)
@@ -18393,7 +18729,7 @@ if __name__ == "__main__":
                                     game_window.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
                                 if bleeding:
                                     game_window.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
-                                if crushed and not crushed_shown:
+                                if crushed and not crush_shown:
                                     game_window.blit(battle_sprite_effect_crush.surf, battle_sprite_effect_crush.rect)
 
                                 game_window.blit(message_box.surf, message_box.rect)
@@ -18690,7 +19026,7 @@ if __name__ == "__main__":
                                 show_advantage_arrow = False
 
                                 if crushed:
-                                    crushed_shown = True
+                                    crush_shown = True
 
                     except TypeError:
                         pass
@@ -18698,26 +19034,27 @@ if __name__ == "__main__":
                     if show_trade_deck:
                         render_card_deck()
 
-                    if burned:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_burned.surf, overlay_burned.rect)
-                        else:
-                            game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                    if poisoned:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        else:
-                            game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                    if bleeding:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        else:
-                            game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                    if crushed:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                        else:
-                            game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+                    if len(drawing_functions.level_up_window) == 0:
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                     # player health is less than or equal to 0, player is dead
                     if player.health <= 0:
@@ -18732,7 +19069,8 @@ if __name__ == "__main__":
                                                                stelli_battle_sprite, chorizon_phase,
                                                                erebyth_battle_sprite, turn_counter,
                                                                atmon_battle_sprite, jumano_battle_sprite,
-                                                               dreth_battle_sprite, apothis_gift, cloaked)
+                                                               dreth_battle_sprite, apothis_gift, cloaked,
+                                                               time_of_day, first_attack)
                         player.alive_status = False
 
                 # ------------------------------------------------------------------------------------------------------
@@ -18819,6 +19157,25 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if overlay_burned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if burned:
+                                drawing_functions.condition_description_window.append(overlay_burned_desc)
+                        elif overlay_poisoned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if poisoned:
+                                drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                        elif overlay_bleeding.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if bleeding:
+                                drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                        elif overlay_crushed.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if crushed:
+                                drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                        else:
+                            drawing_functions.condition_description_window.clear()
 
                         if flower_button.collidepoint(pos):
                             if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -19578,26 +19935,27 @@ if __name__ == "__main__":
                     if show_trade_deck:
                         render_card_deck()
 
-                    if burned:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_burned.surf, overlay_burned.rect)
-                        else:
-                            game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                    if poisoned:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        else:
-                            game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                    if bleeding:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        else:
-                            game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                    if crushed:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                        else:
-                            game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+                    if len(drawing_functions.level_up_window) == 0:
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -19649,6 +20007,25 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if overlay_burned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if burned:
+                                drawing_functions.condition_description_window.append(overlay_burned_desc)
+                        elif overlay_poisoned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if poisoned:
+                                drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                        elif overlay_bleeding.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if bleeding:
+                                drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                        elif overlay_crushed.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if crushed:
+                                drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                        else:
+                            drawing_functions.condition_description_window.clear()
 
                         if flower_button.collidepoint(pos):
                             if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -20272,26 +20649,28 @@ if __name__ == "__main__":
                             game_window.blit(cat_card_portrait, (60, 105))
                     if show_trade_deck:
                         render_card_deck()
-                    if burned:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_burned.surf, overlay_burned.rect)
-                        else:
-                            game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                    if poisoned:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        else:
-                            game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                    if bleeding:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        else:
-                            game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                    if crushed:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                        else:
-                            game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+
+                    if len(drawing_functions.level_up_window) == 0:
+                        if burned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_burned.surf, overlay_burned.rect)
+                            else:
+                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                        if poisoned:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            else:
+                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                        if bleeding:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            else:
+                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                        if crushed:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                            else:
+                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                     if rest_clicked:
                         if not rested:
@@ -20312,6 +20691,28 @@ if __name__ == "__main__":
                             rested = True
                             message_box.update(173, 650, graphic_dict["message_box_dawn"])
                             pygame.mixer.find_channel(True).play(sfx_chirp)
+
+                            if player.current_zone == "seldon":
+                                for snake in snakes:
+                                    if (player.quest_status["sneaky snakes"]
+                                            and not player.quest_complete["sneaky snakes"]):
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                           graphic_dict["snake_high"])
+                                    else:
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                           graphic_dict["snake"])
+                                if player.quest_progress["where's nede?"] == 1:
+                                    nede.update(809, 390, graphic_dict["nede_left"])
+
+                            if player.current_zone == "korlok":
+                                for magmon in magmons:
+                                    if (player.quest_status["elementary elementals"] 
+                                            and not player.quest_complete["elementary elementals"]):
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon_high"])
+                                    else:
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon"])
 
                     if first_inn_cond:
                         directional_arrow.update(855, 620, graphic_dict["arrow_down"])
@@ -20360,6 +20761,25 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if overlay_burned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if burned:
+                                drawing_functions.condition_description_window.append(overlay_burned_desc)
+                        elif overlay_poisoned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if poisoned:
+                                drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                        elif overlay_bleeding.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if bleeding:
+                                drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                        elif overlay_crushed.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if crushed:
+                                drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                        else:
+                            drawing_functions.condition_description_window.clear()
 
                         if flower_button.collidepoint(pos):
                             if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -20505,12 +20925,12 @@ if __name__ == "__main__":
                                 if player.level > 9:
                                     if book_button.name == "mirror learn button":
                                         if not mirror_learned:
-                                            if player.knowledge["mage"] > 79:
+                                            if player.knowledge["mage"] > 59:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_mage["skill 3"] = "mirror image"
                                                 info_text_1 = "'Mirror Image' skill learned!"
-                                                info_text_2 = "Skill added. 80 knowledge used."
-                                                player.knowledge["mage"] -= 80
+                                                info_text_2 = "Skill added. 60 knowledge used."
+                                                player.knowledge["mage"] -= 60
                                                 mirror_learned = True
                                                 button_highlighted = False
                                                 mage_learn_clicked = False
@@ -20518,7 +20938,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "80 mage knowledge required to learn."
+                                                info_text_1 = "60 mage knowledge required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Mirror Image'."
@@ -20526,12 +20946,12 @@ if __name__ == "__main__":
                                 if player.level > 19:
                                     if book_button.name == "fire learn button":
                                         if not fire_learned:
-                                            if player.knowledge["mage"] > 119:
+                                            if player.knowledge["mage"] > 79:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_mage["skill 4"] = "millennium fire"
                                                 info_text_1 = "'Millennium Fire' skill learned!"
-                                                info_text_2 = "Skill added. 120 knowledge used."
-                                                player.knowledge["mage"] -= 120
+                                                info_text_2 = "Skill added. 80 knowledge used."
+                                                player.knowledge["mage"] -= 80
                                                 fire_learned = True
                                                 button_highlighted = False
                                                 mage_learn_clicked = False
@@ -20539,7 +20959,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "120 mage knowledge required to learn."
+                                                info_text_1 = "80 mage knowledge required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Millennium Fire'."
@@ -20578,12 +20998,12 @@ if __name__ == "__main__":
                                 if player.level > 9:
                                     if book_button.name == "stun learn button":
                                         if not stun_learned:
-                                            if player.knowledge["fighter"] > 79:
+                                            if player.knowledge["fighter"] > 59:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_fighter["skill 3"] = "stunning swing"
                                                 info_text_1 = "'Stunning Swing' skill learned!"
-                                                info_text_2 = "Skill added. 80 knowledge used."
-                                                player.knowledge["fighter"] -= 80
+                                                info_text_2 = "Skill added. 60 knowledge used."
+                                                player.knowledge["fighter"] -= 60
                                                 stun_learned = True
                                                 fighter_learn_clicked = False
                                                 book_appended = False
@@ -20591,19 +21011,19 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "80 fighter knowledge required to learn."
+                                                info_text_1 = "60 fighter knowledge required to learn."
                                         else:
                                             info_text_1 = "You've already learned 'Stunning Swing'."
                                             info_text_2 = ""
                                 if player.level > 19:
                                     if book_button.name == "edge learn button":
                                         if not edge_learned:
-                                            if player.knowledge["fighter"] > 119:
+                                            if player.knowledge["fighter"] > 79:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_fighter["skill 4"] = "epsilon's edge"
                                                 info_text_1 = "'Epsilon's Edge' skill learned!"
-                                                info_text_2 = "Skill added. 120 knowledge used."
-                                                player.knowledge["fighter"] -= 120
+                                                info_text_2 = "Skill added. 80 knowledge used."
+                                                player.knowledge["fighter"] -= 80
                                                 edge_learned = True
                                                 fighter_learn_clicked = False
                                                 book_appended = False
@@ -20611,7 +21031,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "120 fighter knowledge required to learn."
+                                                info_text_1 = "80 fighter knowledge required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Epsilon's Edge'."
@@ -20650,12 +21070,12 @@ if __name__ == "__main__":
                                 if player.level > 9:
                                     if book_button.name == "vanish learn button":
                                         if not vanish_learned:
-                                            if player.knowledge["scout"] > 79:
+                                            if player.knowledge["scout"] > 59:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_scout["skill 3"] = "vanishing shroud"
                                                 info_text_1 = "'Vanishing Shroud' skill learned!"
-                                                info_text_2 = "Skill added. 80 knowledge used."
-                                                player.knowledge["scout"] -= 80
+                                                info_text_2 = "Skill added. 60 knowledge used."
+                                                player.knowledge["scout"] -= 60
                                                 vanish_learned = True
                                                 button_highlighted = False
                                                 scout_learn_clicked = False
@@ -20663,7 +21083,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "80 scout knowledge required to learn."
+                                                info_text_1 = "60 scout knowledge required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned this."
@@ -20671,12 +21091,12 @@ if __name__ == "__main__":
                                 if player.level > 19:
                                     if book_button.name == "arrow learn button":
                                         if not arrow_learned:
-                                            if player.knowledge["scout"] > 119:
+                                            if player.knowledge["scout"] > 79:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_scout["skill 4"] = "arrow of advantage"
                                                 info_text_1 = "'Arrow of Advantage' skill learned!"
-                                                info_text_2 = "Skill added. 120 knowledge used."
-                                                player.knowledge["scout"] -= 120
+                                                info_text_2 = "Skill added. 80 knowledge used."
+                                                player.knowledge["scout"] -= 80
                                                 arrow_learned = True
                                                 button_highlighted = False
                                                 scout_learn_clicked = False
@@ -20684,7 +21104,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "120 scout knowledge required to learn."
+                                                info_text_1 = "80 scout knowledge required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned this."
@@ -20911,26 +21331,27 @@ if __name__ == "__main__":
                         if show_trade_deck:
                             render_card_deck()
 
-                        if burned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_burned.surf, overlay_burned.rect)
-                            else:
-                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                        if poisoned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                            else:
-                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        if bleeding:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                            else:
-                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        if crushed:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                            else:
-                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        if len(drawing_functions.level_up_window) == 0:
+                            if burned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                else:
+                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                            if poisoned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            if bleeding:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            if crushed:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                else:
+                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -20977,6 +21398,25 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if overlay_burned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if burned:
+                                drawing_functions.condition_description_window.append(overlay_burned_desc)
+                        elif overlay_poisoned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if poisoned:
+                                drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                        elif overlay_bleeding.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if bleeding:
+                                drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                        elif overlay_crushed.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if crushed:
+                                drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                        else:
+                            drawing_functions.condition_description_window.clear()
 
                         if flower_button.collidepoint(pos):
                             if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -21476,26 +21916,27 @@ if __name__ == "__main__":
                         if show_trade_deck:
                             render_card_deck()
 
-                        if burned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_burned.surf, overlay_burned.rect)
-                            else:
-                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                        if poisoned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                            else:
-                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        if bleeding:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                            else:
-                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        if crushed:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                            else:
-                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        if len(drawing_functions.level_up_window) == 0:
+                            if burned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                else:
+                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                            if poisoned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            if bleeding:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            if crushed:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                else:
+                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -21547,6 +21988,25 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if overlay_burned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if burned:
+                                drawing_functions.condition_description_window.append(overlay_burned_desc)
+                        elif overlay_poisoned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if poisoned:
+                                drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                        elif overlay_bleeding.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if bleeding:
+                                drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                        elif overlay_crushed.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if crushed:
+                                drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                        else:
+                            drawing_functions.condition_description_window.clear()
 
                         if flower_button.collidepoint(pos):
                             if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -22100,26 +22560,27 @@ if __name__ == "__main__":
                         if show_trade_deck:
                             render_card_deck()
 
-                        if burned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_burned.surf, overlay_burned.rect)
-                            else:
-                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                        if poisoned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                            else:
-                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        if bleeding:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                            else:
-                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        if crushed:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                            else:
-                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        if len(drawing_functions.level_up_window) == 0:
+                            if burned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                else:
+                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                            if poisoned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            if bleeding:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            if crushed:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                else:
+                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -22164,6 +22625,25 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if overlay_burned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if burned:
+                                drawing_functions.condition_description_window.append(overlay_burned_desc)
+                        elif overlay_poisoned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if poisoned:
+                                drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                        elif overlay_bleeding.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if bleeding:
+                                drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                        elif overlay_crushed.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if crushed:
+                                drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                        else:
+                            drawing_functions.condition_description_window.clear()
 
                         if flower_button.collidepoint(pos):
                             if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -22605,26 +23085,27 @@ if __name__ == "__main__":
                         if show_trade_deck:
                             render_card_deck()
 
-                        if burned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_burned.surf, overlay_burned.rect)
-                            else:
-                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                        if poisoned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                            else:
-                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        if bleeding:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                            else:
-                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        if crushed:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                            else:
-                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        if len(drawing_functions.level_up_window) == 0:
+                            if burned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                else:
+                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                            if poisoned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            if bleeding:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            if crushed:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                else:
+                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -22671,6 +23152,25 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if overlay_burned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if burned:
+                                drawing_functions.condition_description_window.append(overlay_burned_desc)
+                        elif overlay_poisoned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if poisoned:
+                                drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                        elif overlay_bleeding.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if bleeding:
+                                drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                        elif overlay_crushed.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if crushed:
+                                drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                        else:
+                            drawing_functions.condition_description_window.clear()
 
                         if flower_button.collidepoint(pos):
                             if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -23102,26 +23602,27 @@ if __name__ == "__main__":
                         if show_trade_deck:
                             render_card_deck()
 
-                        if burned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_burned.surf, overlay_burned.rect)
-                            else:
-                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                        if poisoned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                            else:
-                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        if bleeding:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                            else:
-                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        if crushed:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                            else:
-                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        if len(drawing_functions.level_up_window) == 0:
+                            if burned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                else:
+                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                            if poisoned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            if bleeding:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            if crushed:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                else:
+                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -23158,6 +23659,25 @@ if __name__ == "__main__":
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if overlay_burned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if burned:
+                                drawing_functions.condition_description_window.append(overlay_burned_desc)
+                        elif overlay_poisoned.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if poisoned:
+                                drawing_functions.condition_description_window.append(overlay_poisoned_desc)
+                        elif overlay_bleeding.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if bleeding:
+                                drawing_functions.condition_description_window.append(overlay_bleeding_desc)
+                        elif overlay_crushed.rect.collidepoint(pos):
+                            drawing_functions.condition_description_window.clear()
+                            if crushed:
+                                drawing_functions.condition_description_window.append(overlay_crushed_desc)
+                        else:
+                            drawing_functions.condition_description_window.clear()
 
                         if flower_button.collidepoint(pos):
                             if (len(drawing_functions.fish_pop_up_window) == 0 and
@@ -24832,26 +25352,27 @@ if __name__ == "__main__":
                         if show_trade_deck:
                             render_card_deck()
 
-                        if burned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_burned.surf, overlay_burned.rect)
-                            else:
-                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                        if poisoned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                            else:
-                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        if bleeding:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                            else:
-                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        if crushed:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                            else:
-                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+                        if len(drawing_functions.level_up_window) == 0:
+                            if burned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                else:
+                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                            if poisoned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            if bleeding:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            if crushed:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                else:
+                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------
@@ -24865,6 +25386,58 @@ if __name__ == "__main__":
                             pygame.mixer.find_channel(True).play(sfx_chirp)
                             time_of_day = 1
                             day_timer = time.perf_counter()
+                            if player.current_zone == "seldon":
+                                for snake in snakes:
+                                    if (player.quest_status["sneaky snakes"]
+                                            and not player.quest_complete["sneaky snakes"]):
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                           graphic_dict["snake_high"])
+                                    else:
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                           graphic_dict["snake"])
+                                if player.quest_progress["where's nede?"] == 1:
+                                    nede.update(809, 390, graphic_dict["nede_left"])
+                            if player.current_zone == "stardust":
+                                for stelli in stardust_stelli:
+                                    if stelli.name == "Stellia":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_a"])
+                                    if stelli.name == "Stellib":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_b"])
+                                    if stelli.name == "Stellic":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_c"])
+                            if player.current_zone == "korlok":
+                                for magmon in magmons:
+                                    if (player.quest_status["elementary elementals"]
+                                            and not player.quest_complete["elementary elementals"]):
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon_high"])
+                                    else:
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon"])
+                            if player.current_zone == "mines":
+                                for bandile in bandiles:
+                                    if (player.quest_status["band hammer"]
+                                            and not player.quest_complete["band hammer"]):
+                                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                                             graphic_dict["bandile_high"])
+                                    else:
+                                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                                             graphic_dict["bandile"])
+                            if player.current_zone == "ectrenos alcove":
+                                for osodark in ectrenos_alcove_enemies:
+                                    osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
+                                                         graphic_dict["osodark_night"])
+                            if player.current_zone == "sub marrow":
+                                for atmon in atmons:
+                                    if npc_maydria.gift and not prism_received:
+                                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                                           graphic_dict["atmon_high"])
+                                    else:
+                                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                                           graphic_dict["atmon"])
                         case 1:  # early morning
                             message_box.update(173, 650, graphic_dict["message_box_dawn"])
                             time_of_day = 2
@@ -24891,6 +25464,59 @@ if __name__ == "__main__":
                             pygame.mixer.find_channel(True).play(sfx_howl)
                             time_of_day = 7
                             day_timer = time.perf_counter()
+                            if player.current_zone == "seldon":
+                                for snake in snakes:
+                                    if (player.quest_status["sneaky snakes"]
+                                            and not player.quest_complete["sneaky snakes"]):
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                                  graphic_dict["snake_high_night"])
+                                    else:
+                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                           graphic_dict["snake_night"])
+                                if player.quest_progress["where's nede?"] == 1:
+                                    nede.update(809, 390, graphic_dict["nede_sleep"])
+                            if player.current_zone == "stardust":
+                                for stelli in stardust_stelli:
+                                    if stelli.name == "Stellia":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_a_night"])
+                                    if stelli.name == "Stellib":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_b_night"])
+                                    if stelli.name == "Stellic":
+                                        stelli.update_image(stelli.x_coordinate, stelli.y_coordinate,
+                                                            graphic_dict["stelli_c_night"])
+                            if player.current_zone == "korlok":
+                                for magmon in magmons:
+                                    if (player.quest_status["elementary elementals"]
+                                            and not player.quest_complete["elementary elementals"]):
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon_high_night"])
+                                    else:
+                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                            graphic_dict["magmon_night"])
+                            if player.current_zone == "mines":
+                                for bandile in bandiles:
+                                    if (player.quest_status["band hammer"]
+                                            and not player.quest_complete["band hammer"]):
+                                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                                           graphic_dict["bandile_high_night"])
+                                    else:
+                                        bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
+                                                           graphic_dict["bandile_night"])
+                            if player.current_zone == "ectrenos alcove":
+                                for osodark in ectrenos_alcove_enemies:
+                                    osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
+                                                         graphic_dict["osodark_night"])
+                            if player.current_zone == "sub marrow":
+                                for atmon in atmons:
+                                    if npc_maydria.gift and not prism_received:
+                                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                                             graphic_dict["atmon_high_night"])
+                                    else:
+                                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                                             graphic_dict["atmon_night"])
+
                         case 7:  # night
                             if day_timer_toc - day_timer > 50:
                                 message_box.update(173, 650, graphic_dict["message_box_night"])
@@ -24992,6 +25618,7 @@ if __name__ == "__main__":
                         loot_timer_reset = False
                         loot_level_tic = time.perf_counter()
                         apothis_gift = True
+                        first_attack = True
                         dreth.health = 75
                         combat_scenario.enemy_health_bar(dreth, graphic_dict)
                         turn_counter = 0
@@ -25067,6 +25694,7 @@ if __name__ == "__main__":
                                     turn_counter = 0
                                     loot_timer_reset = False
                                     loot_level_tic = time.perf_counter()
+                                    first_attack = True
                                     player.current_zone = "castle one"
                                     player.x_coordinate = 515
                                     player.y_coordinate = 150
@@ -25166,6 +25794,7 @@ if __name__ == "__main__":
                                 turn_counter = 0
                                 loot_timer_reset = False
                                 loot_level_tic = time.perf_counter()
+                                first_attack = True
 
                                 if (player.current_zone == "korlok" or player.current_zone == "mines" or
                                         player.current_zone == "terra trail"):

@@ -11,7 +11,8 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay,
                  chroma_forge, forge_rect, Item, sfx_smelting, overlay_smelting, using_forge, smelted_casing,
                  basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter, item_block_11,
-                 item_block_11_got, sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
+                 item_block_11_got, sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift,
+                 time_of_day, magmons):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -178,6 +179,25 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         in_over_world = True
         player.x_coordinate = 540
         player.y_coordinate = 225
+
+        if time_of_day == 0 or time_of_day == 7:
+            for magmon in magmons:
+                if (player.quest_status["elementary elementals"]
+                        and not player.quest_complete["elementary elementals"]):
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_high_night"])
+                else:
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_night"])
+        else:
+            for magmon in magmons:
+                if (player.quest_status["elementary elementals"]
+                        and not player.quest_complete["elementary elementals"]):
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_high"])
+                else:
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon"])
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

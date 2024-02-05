@@ -22,7 +22,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                      best_fish_counter, sfx_fishing_cast, apothis_gift, card_cave, in_card_cave, apothis_upgrade, dawn,
                      early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, apothis_popup,
-                     apothis_popup_shown):
+                     apothis_popup_shown, snakes):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
@@ -41,20 +41,21 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             level_checked = True
 
     # stelli movement updates
-    if len(stellis) > 0:
-        direction_horizontal = random.choice(["left", "right"])
-        direction_vertical = random.choice(["up", "down"])
-        move_stelli = random.choice(stellis.sprites())
-        if movement_able and in_over_world:
-            enemy_toc = time.perf_counter()
-            if enemy_toc - enemy_tic > 1:
-                enemy_tic = time.perf_counter()
-                if move_stelli.name == "Stellia":
-                    move_stelli.update_position([525, 900], [350, 650], direction_horizontal, direction_vertical)
-                if move_stelli.name == "Stellib":
-                    move_stelli.update_position([550, 900], [100, 380], direction_horizontal, direction_vertical)
-                if move_stelli.name == "Stellic":
-                    move_stelli.update_position([250, 550], [350, 625], direction_horizontal, direction_vertical)
+    if time_of_day != 0 and time_of_day != 7:
+        if len(stellis) > 0:
+            direction_horizontal = random.choice(["left", "right"])
+            direction_vertical = random.choice(["up", "down"])
+            move_stelli = random.choice(stellis.sprites())
+            if movement_able and in_over_world:
+                enemy_toc = time.perf_counter()
+                if enemy_toc - enemy_tic > 1:
+                    enemy_tic = time.perf_counter()
+                    if move_stelli.name == "Stellia":
+                        move_stelli.update_position([525, 900], [350, 650], direction_horizontal, direction_vertical)
+                    if move_stelli.name == "Stellib":
+                        move_stelli.update_position([550, 900], [100, 380], direction_horizontal, direction_vertical)
+                    if move_stelli.name == "Stellic":
+                        move_stelli.update_position([250, 550], [350, 625], direction_horizontal, direction_vertical)
 
     for stelli in stellis:
         screen.blit(stelli.surf, stelli.rect)
@@ -365,7 +366,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                   stelli_battle_sprite, stelli_battle_sprite, False, False)
+                                                   stelli_battle_sprite, stelli_battle_sprite, False, False,
+                                                   time_of_day, True)
 
     if not fishing:
         if pygame.sprite.collide_rect(player, fishing_spot_1):
@@ -387,6 +389,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                 info_text_2 = ""
                 info_text_3 = ""
                 info_text_4 = ""
+                interacted = False
 
             # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
             if interacted and in_over_world and fishing_unlocked:
@@ -420,6 +423,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                 info_text_2 = ""
                 info_text_3 = ""
                 info_text_4 = ""
+                interacted = False
 
             # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
             if interacted and in_over_world and fishing_unlocked:
@@ -442,15 +446,24 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         interaction_info_rect.center = (260, 88)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to enter Cave."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        if time_of_day == 0 or time_of_day == 7:
+            info_text_1 = "Card Cave only open at night."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+        else:
+            info_text_1 = "Press 'F' key to enter Cave."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted and in_over_world:
-            interacted = False
-            in_card_cave = True
-            in_over_world = False
+            if time_of_day == 0 or time_of_day == 7:
+                in_card_cave = True
+                in_over_world = False
+                interacted = False
+            else:
+                interacted = False
 
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
@@ -494,6 +507,29 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         level_checked = False
         player.x_coordinate = 125
         player.y_coordinate = 375
+
+        if time_of_day == 0 or time_of_day == 7:
+            for snake in snakes:
+                if (player.quest_status["sneaky snakes"]
+                        and not player.quest_complete["sneaky snakes"]):
+                    snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                       graphic_dict["snake_high_night"])
+                else:
+                    snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                       graphic_dict["snake_night"])
+            if player.quest_progress["where's nede?"] == 1:
+                nede.update(809, 390, graphic_dict["nede_sleep"])
+        else:
+            for snake in snakes:
+                if (player.quest_status["sneaky snakes"]
+                        and not player.quest_complete["sneaky snakes"]):
+                    snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                       graphic_dict["snake_high"])
+                else:
+                    snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                       graphic_dict["snake"])
+            if player.quest_progress["where's nede?"] == 1:
+                nede.update(809, 390, graphic_dict["nede_left"])
 
     # nede movement updates
     if player.quest_status["where's nede?"]:

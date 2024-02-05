@@ -18,7 +18,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
                   npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite, critter,
                   right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter, better_fish_counter,
-                  even_better_fish_counter, best_fish_counter, vanished, illisare, star_illisare, apothis_gift):
+                  even_better_fish_counter, best_fish_counter, vanished, illisare, star_illisare, apothis_gift,
+                  time_of_day, ectrenos_alcove_enemies):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -32,46 +33,50 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
-    screen.blit(critter.surf, critter.rect)
-
-    critter_toc = time.perf_counter()
-    if critter_toc - critter_tic > 2:
-        if right_move:
-            if critter.x_coordinate < 680:
-                if walk_move and critter.x_coordinate % 9 == 0:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
-                    walk_move = False
+    if time_of_day != 0 and time_of_day != 7:
+        screen.blit(critter.surf, critter.rect)
+        critter_toc = time.perf_counter()
+        if critter_toc - critter_tic > 2:
+            if right_move:
+                if critter.x_coordinate < 680:
+                    if walk_move and critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate,
+                                       graphic_dict["critter_side_right_walk"])
+                        walk_move = False
+                    else:
+                        if critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_right"])
+                            walk_move = True
+                    critter.x_coordinate += 1
                 else:
-                    if critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
-                        walk_move = True
-                critter.x_coordinate += 1
-            else:
-                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                right_move = False
-                left_move = True
-                critter.x_coordinate -= 1
-                critter_tic = time.perf_counter()
-            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                    right_move = False
+                    left_move = True
+                    critter.x_coordinate -= 1
+                    critter_tic = time.perf_counter()
+                critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
-    if critter_toc - critter_tic > 2:
-        if left_move:
-            if critter.x_coordinate > 360:
-                if walk_move and critter.x_coordinate % 9 == 0:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
-                    walk_move = False
+        if critter_toc - critter_tic > 2:
+            if left_move:
+                if critter.x_coordinate > 360:
+                    if walk_move and critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate,
+                                       graphic_dict["critter_side_left_walk"])
+                        walk_move = False
+                    else:
+                        if critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_left"])
+                            walk_move = True
+                    critter.x_coordinate -= 1
                 else:
-                    if critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
-                        walk_move = True
-                critter.x_coordinate -= 1
-            else:
-                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                right_move = True
-                left_move = False
-                critter.x_coordinate += 1
-                critter_tic = time.perf_counter()
-            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                    right_move = True
+                    left_move = False
+                    critter.x_coordinate += 1
+                    critter_tic = time.perf_counter()
+                critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
     if not player.quest_status["las escondidas"] or player.quest_progress["las escondidas"] == 4:
         if not player.quest_complete["las escondidas"]:
@@ -124,6 +129,14 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
             player.x_coordinate = 425
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+            if time_of_day == 0 or time_of_day == 7:
+                for osodark in ectrenos_alcove_enemies:
+                    osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
+                                         graphic_dict["osodark_night"])
+            else:
+                for osodark in ectrenos_alcove_enemies:
+                    osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
+                                         graphic_dict["osodark"])
 
     # if player collides with npc sprite and chooses to interact with it
     if not player.quest_status["las escondidas"] or player.quest_progress["las escondidas"] == 4:
@@ -305,47 +318,51 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         npc_leyre.update_position(626, 355)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
 
-    if critter.x_coordinate < 590:
-        screen.blit(critter.surf, critter.rect)
-
-    critter_toc = time.perf_counter()
-    if critter_toc - critter_tic > 2:
-        if right_move:
-            if critter.x_coordinate < 680:
-                if walk_move and critter.x_coordinate % 9 == 0:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
-                    walk_move = False
+    if time_of_day != 0 and time_of_day != 7:
+        if critter.x_coordinate < 590:
+            screen.blit(critter.surf, critter.rect)
+        critter_toc = time.perf_counter()
+        if critter_toc - critter_tic > 2:
+            if right_move:
+                if critter.x_coordinate < 680:
+                    if walk_move and critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate,
+                                       graphic_dict["critter_side_right_walk"])
+                        walk_move = False
+                    else:
+                        if critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_right"])
+                            walk_move = True
+                    critter.x_coordinate += 1
                 else:
-                    if critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
-                        walk_move = True
-                critter.x_coordinate += 1
-            else:
-                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                right_move = False
-                left_move = True
-                critter.x_coordinate -= 1
-                critter_tic = time.perf_counter()
-            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                    right_move = False
+                    left_move = True
+                    critter.x_coordinate -= 1
+                    critter_tic = time.perf_counter()
+                critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
-    if critter_toc - critter_tic > 2:
-        if left_move:
-            if critter.x_coordinate > 475:
-                if walk_move and critter.x_coordinate % 9 == 0:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
-                    walk_move = False
+        if critter_toc - critter_tic > 2:
+            if left_move:
+                if critter.x_coordinate > 475:
+                    if walk_move and critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate,
+                                       graphic_dict["critter_side_left_walk"])
+                        walk_move = False
+                    else:
+                        if critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_left"])
+                            walk_move = True
+                    critter.x_coordinate -= 1
                 else:
-                    if critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
-                        walk_move = True
-                critter.x_coordinate -= 1
-            else:
-                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                right_move = True
-                left_move = False
-                critter.x_coordinate += 1
-                critter_tic = time.perf_counter()
-            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                    right_move = True
+                    left_move = False
+                    critter.x_coordinate += 1
+                    critter_tic = time.perf_counter()
+                critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
     try:
         for pet in player.pet:
@@ -390,18 +407,27 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         interaction_info_rect.center = (816, 178)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to enter menagerie."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        if time_of_day == 0 or time_of_day == 7:
+            info_text_1 = "Press 'F' key to enter Menagerie."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+        else:
+            info_text_1 = "Menagerie only open at night."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted and in_over_world:
-            pygame.mixer.find_channel(True).play(sfx_door)
-            interacted = False
-            movement_able = False
-            in_over_world = False
-            over_world_song_set = False
-            in_menagerie = True
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.find_channel(True).play(sfx_door)
+                interacted = False
+                movement_able = False
+                in_over_world = False
+                over_world_song_set = False
+                in_menagerie = True
+            else:
+                interacted = False
 
     if pygame.sprite.collide_rect(player, altar):
         interaction_popup.update(altar.x_coordinate + 8, altar.y_coordinate - 115,
@@ -660,47 +686,51 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
         npc_leyre.update_position(722, 350)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
 
-    if critter.x_coordinate > 450:
-        screen.blit(critter.surf, critter.rect)
-
-    critter_toc = time.perf_counter()
-    if critter_toc - critter_tic > 2:
-        if right_move:
-            if critter.x_coordinate < 575:
-                if walk_move and critter.x_coordinate % 9 == 0:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
-                    walk_move = False
+    if time_of_day != 0 and time_of_day != 7:
+        if critter.x_coordinate > 450:
+            screen.blit(critter.surf, critter.rect)
+        critter_toc = time.perf_counter()
+        if critter_toc - critter_tic > 2:
+            if right_move:
+                if critter.x_coordinate < 575:
+                    if walk_move and critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate,
+                                       graphic_dict["critter_side_right_walk"])
+                        walk_move = False
+                    else:
+                        if critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_right"])
+                            walk_move = True
+                    critter.x_coordinate += 1
                 else:
-                    if critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
-                        walk_move = True
-                critter.x_coordinate += 1
-            else:
-                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                right_move = False
-                left_move = True
-                critter.x_coordinate -= 1
-                critter_tic = time.perf_counter()
-            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                    right_move = False
+                    left_move = True
+                    critter.x_coordinate -= 1
+                    critter_tic = time.perf_counter()
+                critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
-    if critter_toc - critter_tic > 2:
-        if left_move:
-            if critter.x_coordinate > 400:
-                if walk_move and critter.x_coordinate % 9 == 0:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
-                    walk_move = False
+        if critter_toc - critter_tic > 2:
+            if left_move:
+                if critter.x_coordinate > 400:
+                    if walk_move and critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate,
+                                       graphic_dict["critter_side_left_walk"])
+                        walk_move = False
+                    else:
+                        if critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_left"])
+                            walk_move = True
+                    critter.x_coordinate -= 1
                 else:
-                    if critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
-                        walk_move = True
-                critter.x_coordinate -= 1
-            else:
-                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                right_move = True
-                left_move = False
-                critter.x_coordinate += 1
-                critter_tic = time.perf_counter()
-            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                    right_move = True
+                    left_move = False
+                    critter.x_coordinate += 1
+                    critter_tic = time.perf_counter()
+                critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
     try:
         for pet in player.pet:
@@ -745,18 +775,27 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
         interaction_info_rect.center = (217, 178)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to enter shop."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        if time_of_day == 0 or time_of_day == 7:
+            info_text_1 = "Press 'F' key to enter shop."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+        else:
+            info_text_1 = "Shop only open at night."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted and in_over_world:
-            pygame.mixer.find_channel(True).play(sfx_door)
-            interacted = False
-            movement_able = False
-            in_over_world = False
-            over_world_song_set = False
-            in_shop = True
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.find_channel(True).play(sfx_door)
+                interacted = False
+                movement_able = False
+                in_over_world = False
+                over_world_song_set = False
+                in_shop = True
+            else:
+                interacted = False
 
     if pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance):
         interaction_popup.update(875, 275, graphic_dict["popup_interaction"])
@@ -1022,7 +1061,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, False, False, False, False)
+                                                      ectrenos_front_enemies, False, False, False, False, time_of_day)
     ectrenos_front_enemies = respawned_dict["ectrenos_front_enemies"]
 
     if player.quest_status["shades of fear"] and not player.quest_complete["shades of fear"]:
@@ -1122,7 +1161,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, ectrenos_front_enemies,
-                                                   stelli_battle_sprite, stelli_battle_sprite, False, False)
+                                                   stelli_battle_sprite, stelli_battle_sprite, False, False,
+                                                   time_of_day, True)
 
     # if player collides with npc sprite and chooses to interact with it
     if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
@@ -1184,7 +1224,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, ectrenos_front_enemies,
-                                                   ectrenos_front_enemies, stelli_battle_sprite, False, cloaked)
+                                                   ectrenos_front_enemies, stelli_battle_sprite, False, cloaked,
+                                                   time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -1294,7 +1335,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder,
                     vanished, vanish_overlay, mini_map, osodark_battle_sprite, player_battle_sprite,
                     barrier_active, sharp_sense_active, Enemy, Item, UiElement, alcove_rect, basic_fish_counter,
-                    better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift):
+                    better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, time_of_day):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1311,7 +1352,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     respawned_dict = gameplay_functions.enemy_respawn(player, enemies, enemies, enemies, enemies, enemies, enemies,
                                                       enemies, enemies, enemies, Enemy, Item, graphic_dict, UiElement,
                                                       eldream_flowers, eldream_flowers, enemies, enemies, enemies,
-                                                      enemies, enemies, enemies, False, False, False, False)
+                                                      enemies, enemies, enemies, False, False, False, False,
+                                                      time_of_day)
     enemies = respawned_dict["ectrenos_alcove_enemies"]
 
     if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:
@@ -1445,7 +1487,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                                                    in_npc_interaction, graphic_dict, osodark_battle_sprite,
                                                    osodark_battle_sprite, osodark_battle_sprite, False,
                                                    osodark_battle_sprite, 0, osodark_battle_sprite,
-                                                   osodark_battle_sprite, osodark_battle_sprite, False, False)
+                                                   osodark_battle_sprite, osodark_battle_sprite, False, False,
+                                                   time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -1494,14 +1537,15 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     npc_leyre.update(graphic_dict["leyre_right"])
 
     # enemy movement updates
-    direction_horizontal = random.choice(["left", "right"])
-    direction_vertical = random.choice(["up", "down"])
-    move_mon = random.choice(enemies.sprites())
-    if movement_able and in_over_world:
-        enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 1:
-            enemy_tic = time.perf_counter()
-            move_mon.update_position([200, 700], [100, 300], direction_horizontal, direction_vertical)
+    if time_of_day != 7 and time_of_day != 0:
+        direction_horizontal = random.choice(["left", "right"])
+        direction_vertical = random.choice(["up", "down"])
+        move_mon = random.choice(enemies.sprites())
+        if movement_able and in_over_world:
+            enemy_toc = time.perf_counter()
+            if enemy_toc - enemy_tic > 1:
+                enemy_tic = time.perf_counter()
+                move_mon.update_position([200, 700], [100, 300], direction_horizontal, direction_vertical)
 
     ectrenos_alcove_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                               "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
@@ -1524,7 +1568,8 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
                    bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4,
                    in_over_world, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
                    pet_energy_window, alcove_rect, mini_map, sfx_fishing_cast, item_block, item_block_got,
-                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
+                   sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift,
+                   time_of_day, ectrenos_alcove_enemies):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1679,6 +1724,14 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
             player.x_coordinate = 415
             player.y_coordinate = 125
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+            if time_of_day == 0 or time_of_day == 7:
+                for osodark in ectrenos_alcove_enemies:
+                    osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
+                                         graphic_dict["osodark_night"])
+            else:
+                for osodark in ectrenos_alcove_enemies:
+                    osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
+                                         graphic_dict["osodark"])
 
     if not fishing:
         if pygame.sprite.collide_rect(player, fishing_spot_1):

@@ -14,7 +14,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                 fishing_hut_rect, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
                 pet_energy_window, sfx_fishing_cast, item_block, item_block_got, Item, sfx_item_block,
                 apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day,
-                sfx_door):
+                sfx_door, magmons):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -204,17 +204,26 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
         interaction_info_rect.center = (847, 148)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to enter hut."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        if time_of_day != 0 and time_of_day != 7:
+            info_text_1 = "Press 'F' key to enter hut."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+        else:
+            info_text_1 = "Hut only open during the day."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted and in_over_world:
-            pygame.mixer.find_channel(True).play(sfx_door)
-            interacted = False
-            movement_able = False
-            in_over_world = False
-            in_hut = True
+            if time_of_day != 0 and time_of_day != 7:
+                pygame.mixer.find_channel(True).play(sfx_door)
+                interacted = False
+                movement_able = False
+                in_over_world = False
+                in_hut = True
+            else:
+                interacted = False
 
     if not fishing:
         if pygame.sprite.collide_rect(player, fishing_spot_1):
@@ -371,6 +380,25 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
         over_world_song_set = False
         player.x_coordinate = 925
         player.y_coordinate = 545
+
+        if time_of_day == 0 or time_of_day == 7:
+            for magmon in magmons:
+                if (player.quest_status["elementary elementals"]
+                        and not player.quest_complete["elementary elementals"]):
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_high_night"])
+                else:
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_night"])
+        else:
+            for magmon in magmons:
+                if (player.quest_status["elementary elementals"]
+                        and not player.quest_complete["elementary elementals"]):
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_high"])
+                else:
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon"])
 
     hut_return = {"over_world_song_set": over_world_song_set, "basic_fish_counter": basic_fish_counter,
                   "better_fish_counter": better_fish_counter, "even_better_fish_counter": even_better_fish_counter,

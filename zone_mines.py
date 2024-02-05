@@ -20,11 +20,12 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
                  sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay, basic_fish_counter,
                  better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, bandiles_highlighted,
-                 bandiles_reset, ore_highlighted, apothis_upgrade):
+                 bandiles_reset, ore_highlighted, apothis_upgrade, time_of_day):
 
-    if not talk_start:
-        pygame.mixer.find_channel(True).play(sfx_talk)
-        talk_start = True
+    if time_of_day != 0 and time_of_day != 7:
+        if not talk_start:
+            pygame.mixer.find_channel(True).play(sfx_talk)
+            talk_start = True
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -32,7 +33,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
                                                       ectrenos_front_enemies, ectrenos_front_enemies,
-                                                      ectrenos_front_enemies, False, False, False, False)
+                                                      ectrenos_front_enemies, False, False, False, False, time_of_day)
     bandiles = respawned_dict["bandiles"]
 
     if player.quest_status["band hammer"] and not player.quest_complete["band hammer"]:
@@ -73,8 +74,9 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     if not player.quest_complete["can't apothecary it"]:
         for ore in ores:
             screen.blit(ore.surf, ore.rect)
-    screen.blit(npc_prime.surf, npc_prime.rect)
-    screen.blit(npc_jez.surf, npc_jez.rect)
+    if time_of_day != 0 and time_of_day != 7:
+        screen.blit(npc_prime.surf, npc_prime.rect)
+        screen.blit(npc_jez.surf, npc_jez.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -131,7 +133,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0, ectrenos_front_enemies,
-                                                   stelli_battle_sprite, stelli_battle_sprite, apothis_gift, False)
+                                                   stelli_battle_sprite, stelli_battle_sprite, apothis_gift, False,
+                                                   time_of_day, True)
 
     if player.x_coordinate > 660 and 685 < player.y_coordinate:
         player.current_zone = "korlok"
@@ -140,6 +143,25 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         pygame.mixer.Sound.stop(sfx_talk)
         player.x_coordinate = 430
         player.y_coordinate = 430
+
+        if time_of_day == 0 or time_of_day == 7:
+            for magmon in magmons:
+                if (player.quest_status["elementary elementals"]
+                        and not player.quest_complete["elementary elementals"]):
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_high_night"])
+                else:
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_night"])
+        else:
+            for magmon in magmons:
+                if (player.quest_status["elementary elementals"]
+                        and not player.quest_complete["elementary elementals"]):
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_high"])
+                else:
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon"])
 
     if not player.quest_complete["can't apothecary it"]:
         ore_pick = pygame.sprite.spritecollideany(player, ores)
@@ -166,6 +188,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                     player.quest_progress["can't apothecary it"] += 1
                     ore_pick.kill()
                     interacted = False
+            if interacted:
+                interacted = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -189,59 +213,61 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     drawing_functions.draw_it(screen, in_battle)
 
     # enemy movement updates
-    direction_horizontal = random.choice(["left", "right"])
-    direction_vertical = random.choice(["up", "down"])
-    move_mon = random.choice(bandiles.sprites())
-    if movement_able and in_over_world:
-        enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 1:
-            enemy_tic = time.perf_counter()
-            move_mon.update_position([50, 500], [50, 250], direction_horizontal, direction_vertical)
+    if time_of_day != 0 and time_of_day != 7:
+        direction_horizontal = random.choice(["left", "right"])
+        direction_vertical = random.choice(["up", "down"])
+        move_mon = random.choice(bandiles.sprites())
+        if movement_able and in_over_world:
+            enemy_toc = time.perf_counter()
+            if enemy_toc - enemy_tic > 1:
+                enemy_tic = time.perf_counter()
+                move_mon.update_position([50, 500], [50, 250], direction_horizontal, direction_vertical)
 
-    face_direction = random.choice(["left_p", "right_p", "left_j", "right_j"])
-    if movement_able and in_over_world:
-        npc_toc = time.perf_counter()
-        if npc_toc - npc_tic > 7:
-            npc_tic = time.perf_counter()
-            if prime_2:
-                prime_3 = True
-            if jez_2:
-                jez_3 = True
-            if prime_1:
-                prime_1 = False
-                prime_2 = True
-            if jez_1:
-                jez_1 = False
-                jez_2 = True
-            if face_direction == "left_p":
-                npc_prime.update(graphic_dict["prime"])
-            if face_direction == "right_p":
-                npc_prime.update(graphic_dict["prime_flip"])
-            if face_direction == "left_j":
-                npc_jez.update(graphic_dict["jez"])
-            if face_direction == "right_j":
-                npc_jez.update(graphic_dict["jez_flip"])
-    if prime_1:
-        prime_text_surf = font.render("What?", True, "black", "light yellow")
-    if prime_2:
-        prime_text_surf = font.render("I ate rock.", True, "black", "light yellow")
-    if prime_3:
-        prime_text_surf = font.render("I watch de-lava.", True, "black", "light yellow")
-    if jez_1:
-        jez_text_surf = font.render("You're not.", True, "black", "light yellow")
-    if jez_2:
-        jez_text_surf = font.render("Only like 3%.", True, "black", "light yellow")
-    if jez_3:
-        jez_text_surf = font.render("Don't matter.", True, "black", "light yellow")
+    if time_of_day != 0 and time_of_day != 7:
+        face_direction = random.choice(["left_p", "right_p", "left_j", "right_j"])
+        if movement_able and in_over_world:
+            npc_toc = time.perf_counter()
+            if npc_toc - npc_tic > 7:
+                npc_tic = time.perf_counter()
+                if prime_2:
+                    prime_3 = True
+                if jez_2:
+                    jez_3 = True
+                if prime_1:
+                    prime_1 = False
+                    prime_2 = True
+                if jez_1:
+                    jez_1 = False
+                    jez_2 = True
+                if face_direction == "left_p":
+                    npc_prime.update(graphic_dict["prime"])
+                if face_direction == "right_p":
+                    npc_prime.update(graphic_dict["prime_flip"])
+                if face_direction == "left_j":
+                    npc_jez.update(graphic_dict["jez"])
+                if face_direction == "right_j":
+                    npc_jez.update(graphic_dict["jez_flip"])
+        if prime_1:
+            prime_text_surf = font.render("What?", True, "black", "light yellow")
+        if prime_2:
+            prime_text_surf = font.render("I ate rock.", True, "black", "light yellow")
+        if prime_3:
+            prime_text_surf = font.render("I watch de-lava.", True, "black", "light yellow")
+        if jez_1:
+            jez_text_surf = font.render("You're not.", True, "black", "light yellow")
+        if jez_2:
+            jez_text_surf = font.render("Only like 3%.", True, "black", "light yellow")
+        if jez_3:
+            jez_text_surf = font.render("Don't matter.", True, "black", "light yellow")
 
-    screen.blit(prime_popup.surf, prime_popup.rect)
-    prime_text_rect = prime_text_surf.get_rect()
-    prime_text_rect.center = (prime_popup.x_coordinate, prime_popup.y_coordinate)
-    screen.blit(prime_text_surf, prime_text_rect)
-    screen.blit(jez_popup.surf, jez_popup.rect)
-    jez_text_rect = jez_text_surf.get_rect()
-    jez_text_rect.center = (jez_popup.x_coordinate, jez_popup.y_coordinate)
-    screen.blit(jez_text_surf, jez_text_rect)
+        screen.blit(prime_popup.surf, prime_popup.rect)
+        prime_text_rect = prime_text_surf.get_rect()
+        prime_text_rect.center = (prime_popup.x_coordinate, prime_popup.y_coordinate)
+        screen.blit(prime_text_surf, prime_text_rect)
+        screen.blit(jez_popup.surf, jez_popup.rect)
+        jez_text_rect = jez_text_surf.get_rect()
+        jez_text_rect.center = (jez_popup.x_coordinate, jez_popup.y_coordinate)
+        screen.blit(jez_text_surf, jez_text_rect)
 
     if len(drawing_functions.loot_popup_container) > 0 and not vanished:
         for popup in drawing_functions.loot_popup_container:

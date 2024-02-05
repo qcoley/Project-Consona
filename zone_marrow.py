@@ -17,7 +17,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                     prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
                     ghouls_reset, roroc, recycle_crate, star_roroc, rohir_gate, apothis_upgrade, dawn, early_morning,
-                    morning, early_afternoon, afternoon, dusk, night, time_of_day):
+                    morning, early_afternoon, afternoon, dusk, night, time_of_day, atmons, prism_received):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -43,7 +43,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
-                                                      marrow_ghouls, artherian_task_start, artherian.gift, False, False)
+                                                      marrow_ghouls, artherian_task_start, artherian.gift, False, False,
+                                                      time_of_day)
     marrow_ghouls = respawned_dict["marrow_ghouls"]
 
     if artherian_task_start and not artherian.gift:
@@ -271,6 +272,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                 info_text_1 = "You have attuned to the stone."
                 info_text_2 = "You may now fast travel here."
                 interacted = False
+
+        if interacted:
+            interacted = False
     else:
         hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate, graphic_dict["hearth_stone"])
 
@@ -294,6 +298,22 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             player.x_coordinate = 425
             player.y_coordinate = 650
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+            if time_of_day == 0 or time_of_day == 7:
+                for atmon in atmons:
+                    if maydria.gift and not prism_received:
+                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                           graphic_dict["atmon_high_night"])
+                    else:
+                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                           graphic_dict["atmon_night"])
+            else:
+                for atmon in atmons:
+                    if maydria.gift and not prism_received:
+                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                           graphic_dict["atmon_high"])
+                    else:
+                        atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
+                                           graphic_dict["atmon"])
 
     if pygame.Rect.colliderect(player.rect, barrier_small):
         interaction_popup.update(65, 260,
@@ -324,6 +344,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             info_text_2 = ""
             info_text_3 = ""
             info_text_4 = ""
+
+            if interacted:
+                interacted = False
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     enemy = pygame.sprite.spritecollideany(player, marrow_ghouls)
@@ -357,7 +380,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                    in_battle, in_npc_interaction, graphic_dict, ghoul_battle_sprite,
                                                    ghoul_battle_sprite, ghoul_battle_sprite, False,
                                                    ghoul_battle_sprite, 0, ghoul_battle_sprite, ghoul_battle_sprite,
-                                                   ghoul_battle_sprite, False, False)
+                                                   ghoul_battle_sprite, False, False, time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -706,7 +729,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       player_battle_sprite, barrier_active, sharp_sense_active, necrola_battle_sprite, in_battle,
                       current_enemy_battling, sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter,
                       better_fish_counter, even_better_fish_counter, best_fish_counter, sfx_paper, sfx_munch,
-                      kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
+                      kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, time_of_day):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -871,7 +894,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
                                                        False, necrola_battle_sprite, 0, necrola_battle_sprite,
-                                                       necrola_battle_sprite, necrola_battle_sprite, False, False)
+                                                       necrola_battle_sprite, necrola_battle_sprite, False, False,
+                                                       time_of_day, True)
     if necrola_2.alive_status:
         if pygame.Rect.colliderect(player.rect, necrola_rect_2):
             if necrola_2.x_coordinate <= player.x_coordinate:
@@ -897,7 +921,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
                                                        False, necrola_battle_sprite, 0, necrola_battle_sprite,
-                                                       necrola_battle_sprite, necrola_battle_sprite, False, False)
+                                                       necrola_battle_sprite, necrola_battle_sprite, False, False,
+                                                       time_of_day, True)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -937,7 +962,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       sfx_item_potion, Item, necrola_3, in_battle, necrola_rect_3, player_battle_sprite,
                       barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling,
                       sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                      even_better_fish_counter, best_fish_counter, apothis_gift):
+                      even_better_fish_counter, best_fish_counter, apothis_gift, time_of_day):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1092,7 +1117,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                                                        graphic_dict, necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
                                                        False, necrola_battle_sprite, 0, necrola_battle_sprite,
-                                                       necrola_battle_sprite, necrola_battle_sprite, False, False)
+                                                       necrola_battle_sprite, necrola_battle_sprite, False, False,
+                                                       time_of_day, True)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -1549,7 +1575,8 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                                                        graphic_dict, necrola_battle_sprite,
                                                        osodark_battle_sprite, stelli_battle_sprite,
                                                        False, erebyth_battle_sprite, 0, erebyth_battle_sprite,
-                                                       erebyth_battle_sprite, erebyth_battle_sprite, False, False)
+                                                       erebyth_battle_sprite, erebyth_battle_sprite, False, False,
+                                                       time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -2015,7 +2042,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                barrier_active, sharp_sense_active, in_npc_interaction, atmon_battle_sprite, enemy_tic,
                current_enemy_battling, sub_marrow_opened, item_block_9, item_block_9_got, sfx_item_block,
                kasper_unlocked, torok_unlocked, iriana_unlocked, maydria_task_start, prism_received,
-               atmons_highlighted, atmons_reset, apothis_gift):
+               atmons_highlighted, atmons_reset, apothis_gift, time_of_day):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -2032,7 +2059,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     respawned_dict = gameplay_functions.enemy_respawn(player, atmons, atmons, atmons, atmons, atmons, atmons,
                                                       atmons, atmons, atmons, Enemy, Item, graphic_dict, UiElement,
                                                       atmons, atmons, atmons, atmons, atmons, atmons, atmons, atmons,
-                                                      False, False, maydria_task_start, prism_received)
+                                                      False, False, maydria_task_start, prism_received, time_of_day)
     if not item_block_9_got:
         screen.blit(item_block_9.surf, item_block_9.rect)
 
@@ -2194,7 +2221,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                                                    in_npc_interaction, graphic_dict, atmon_battle_sprite,
                                                    atmon_battle_sprite, atmon_battle_sprite, False,
                                                    atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite,
-                                                   atmon_battle_sprite, False, False)
+                                                   atmon_battle_sprite, False, False, time_of_day, True)
 
     if pygame.sprite.collide_rect(player, item_block_9):
         if not item_block_9_got:
@@ -2326,14 +2353,15 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     drawing_functions.draw_it(screen, in_battle)
 
     # enemy movement updates
-    direction_horizontal = random.choice(["left", "right"])
-    direction_vertical = random.choice(["up", "down"])
-    move_mon = random.choice(atmons.sprites())
-    if movement_able and in_over_world:
-        enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 1:
-            enemy_tic = time.perf_counter()
-            move_mon.update_position([75, 400], [150, 400], direction_horizontal, direction_vertical)
+    if time_of_day != 0 and time_of_day != 7:
+        direction_horizontal = random.choice(["left", "right"])
+        direction_vertical = random.choice(["up", "down"])
+        move_mon = random.choice(atmons.sprites())
+        if movement_able and in_over_world:
+            enemy_toc = time.perf_counter()
+            if enemy_toc - enemy_tic > 1:
+                enemy_tic = time.perf_counter()
+                move_mon.update_position([75, 400], [150, 400], direction_horizontal, direction_vertical)
 
     sub_marrow_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "in_battle": in_battle,
                          "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,

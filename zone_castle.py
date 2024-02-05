@@ -18,7 +18,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, castle_crate_1_got,
                castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_phase,
                castle_one_roped_bg, castle_one_keyed_bg, key_got, castle_key, boss_door, sfx_item_key, jumanos,
-               jumano_battle_sprite, apothis_gift):
+               jumano_battle_sprite, apothis_gift, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -55,7 +55,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                       marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
                                                       UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
                                                       marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
-                                                      jumanos, False, False, False, False)
+                                                      jumanos, False, False, False, False, time_of_day)
     jumanos = respawned_dict["jumanos"]
 
     for jumano in jumanos:
@@ -241,7 +241,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                    in_battle, in_npc_interaction, graphic_dict,
                                                    jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
                                                    False, jumano_battle_sprite, 0, jumano_battle_sprite,
-                                                   jumano_battle_sprite, jumano_battle_sprite, False, False)
+                                                   jumano_battle_sprite, jumano_battle_sprite, False, False,
+                                                   time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -317,7 +318,8 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                even_better_fish_counter, best_fish_counter, prism_tic, chandelier, rock_1, rock_2, sfx_rocks,
                dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_two_roped_bg, sfx_rope,
                cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_saved, chest_1_got,
-               sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, parts, parts_highlighted, sfx_item, apothis_gift):
+               sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, parts, parts_highlighted, sfx_item, apothis_gift,
+               time_of_day):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -347,7 +349,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                                                        in_battle, in_npc_interaction, graphic_dict, atmon_battle_sprite,
                                                        atmon_battle_sprite, atmon_battle_sprite, False,
                                                        atmon_battle_sprite, 0, atmon_battle_sprite, atmon_battle_sprite,
-                                                       atmon_battle_sprite, False, False)
+                                                       atmon_battle_sprite, False, False, time_of_day, True)
 
     if rope_phase == 0 or rope_phase == 11:
         screen.blit(castle_two_bg, (0, 0))
@@ -618,7 +620,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                  cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_2_saved, chest_1_got,
                  sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall, thanked,
                  up_move, jumano_battle_sprite, sfx_surprise, surprised, apothis_gift, parts, parts_highlighted,
-                 sfx_item, apothis_upgrade):
+                 sfx_item, apothis_upgrade, time_of_day):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -816,7 +818,8 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                                                        graphic_dict, jumano_battle_sprite,
                                                        jumano_battle_sprite, jumano_battle_sprite,
                                                        False, jumano_battle_sprite, 0, jumano_battle_sprite,
-                                                       jumano_battle_sprite, jumano_battle_sprite, apothis_gift, False)
+                                                       jumano_battle_sprite, jumano_battle_sprite, apothis_gift, False,
+                                                       time_of_day, True)
 
     if not player.quest_complete["re recycling"]:
         part_pick = pygame.sprite.spritecollideany(player, parts)
@@ -918,7 +921,7 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
                 current_enemy_battling, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                 even_better_fish_counter, best_fish_counter, dreth_laugh, dreth_taunt, dreth_taunt_popup, lair_exit,
                 lights_switch, castle_lair_one_bg, castle_lair_two_bg, castle_lair_bg, dreth, dreth_battle_sprite,
-                dreth_defeated, apothis_gift):
+                dreth_defeated, apothis_gift, time_of_day):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1013,7 +1016,8 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
                                                        graphic_dict, dreth_battle_sprite,
                                                        dreth_battle_sprite, dreth_battle_sprite,
                                                        False, dreth_battle_sprite, 0, dreth_battle_sprite,
-                                                       dreth_battle_sprite, dreth_battle_sprite, apothis_gift, False)
+                                                       dreth_battle_sprite, dreth_battle_sprite, apothis_gift, False,
+                                                       time_of_day, True)
     if pygame.Rect.colliderect(player.rect, lair_exit):
         interaction_popup.update(515, 25, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)

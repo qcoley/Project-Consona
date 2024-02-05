@@ -21,7 +21,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay, critter, right_move, left_move,
                 critter_tic, walk_move, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                 best_fish_counter, item_block, item_block_got, sfx_item_block, Item, sfx_gate, apothis_gift,
-                rohir_gate, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
+                rohir_gate, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day,
+                magmons, overlay_sleep):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -36,50 +37,59 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     screen.blit(terra_cave.surf, terra_cave.rect)
     screen.blit(npc_dionte.surf, npc_dionte.rect)
 
+    if time_of_day != 0 and time_of_day != 7:
+        screen.blit(overlay_sleep.surf, overlay_sleep.rect)
+
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
 
-    if critter.x_coordinate < 995:
-        screen.blit(critter.surf, critter.rect)
+    if time_of_day != 0 and time_of_day != 7:
+        if critter.x_coordinate < 995:
+            screen.blit(critter.surf, critter.rect)
 
-    critter_toc = time.perf_counter()
-    if critter_toc - critter_tic > 2:
-        if right_move:
-            if critter.x_coordinate < 1100:
-                if walk_move and critter.x_coordinate % 9 == 0:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
-                    walk_move = False
+    if time_of_day != 0 and time_of_day != 7:
+        critter_toc = time.perf_counter()
+        if critter_toc - critter_tic > 2:
+            if right_move:
+                if critter.x_coordinate < 1100:
+                    if walk_move and critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate,
+                                       graphic_dict["critter_side_right_walk"])
+                        walk_move = False
+                    else:
+                        if critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_right"])
+                            walk_move = True
+                    critter.x_coordinate += 1
                 else:
-                    if critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
-                        walk_move = True
-                critter.x_coordinate += 1
-            else:
-                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                right_move = False
-                left_move = True
-                critter.x_coordinate -= 1
-                critter_tic = time.perf_counter()
-            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                    right_move = False
+                    left_move = True
+                    critter.x_coordinate -= 1
+                    critter_tic = time.perf_counter()
+                critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
-    if critter_toc - critter_tic > 2:
-        if left_move:
-            if critter.x_coordinate > 935:
-                if walk_move and critter.x_coordinate % 9 == 0:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
-                    walk_move = False
+        if critter_toc - critter_tic > 2:
+            if left_move:
+                if critter.x_coordinate > 935:
+                    if walk_move and critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate,
+                                       graphic_dict["critter_side_left_walk"])
+                        walk_move = False
+                    else:
+                        if critter.x_coordinate % 9 == 0:
+                            critter.update(critter.x_coordinate, critter.y_coordinate,
+                                           graphic_dict["critter_side_left"])
+                            walk_move = True
+                    critter.x_coordinate -= 1
                 else:
-                    if critter.x_coordinate % 9 == 0:
-                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
-                        walk_move = True
-                critter.x_coordinate -= 1
-            else:
-                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
-                right_move = True
-                left_move = False
-                critter.x_coordinate += 1
-                critter_tic = time.perf_counter()
-            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                    right_move = True
+                    left_move = False
+                    critter.x_coordinate += 1
+                    critter_tic = time.perf_counter()
+                critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
     try:
         for pet in player.pet:
             if pet.active:
@@ -192,7 +202,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                                                            graphic_dict, necrola_battle_sprite,
                                                            osodark_battle_sprite, stelli_battle_sprite,
                                                            False, stelli_battle_sprite, 0, stelli_battle_sprite,
-                                                           stelli_battle_sprite, stelli_battle_sprite, False, False)
+                                                           stelli_battle_sprite, stelli_battle_sprite, False, False,
+                                                           time_of_day, True)
 
             interacted = False
 
@@ -208,7 +219,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock_7.x_coordinate == 515:
-                        rock_7.update(rock_7.x_coordinate - 75, rock_7.y_coordinate, graphic_dict["rock_small"])
+                        rock_7.update(rock_7.x_coordinate - 85, rock_7.y_coordinate, graphic_dict["rock_small"])
                         if not rock_7_con:
                             pygame.mixer.find_channel(True).play(sfx_rupee)
                             player.rupees += 20
@@ -385,6 +396,25 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         player.x_coordinate = 900
         player.y_coordinate = 175
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+        if time_of_day == 0 or time_of_day == 7:
+            for magmon in magmons:
+                if (player.quest_status["elementary elementals"]
+                        and not player.quest_complete["elementary elementals"]):
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_high_night"])
+                else:
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_night"])
+        else:
+            for magmon in magmons:
+                if (player.quest_status["elementary elementals"]
+                        and not player.quest_complete["elementary elementals"]):
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon_high"])
+                else:
+                    magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                        graphic_dict["magmon"])
 
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
