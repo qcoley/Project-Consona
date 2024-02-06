@@ -2173,7 +2173,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter,
                     atmon_counter, prism_received, dreth_counter, apothis_gift, trading_deck,
                     trading_task_complete, any_card_counter, card_deck, arrow_active, fire_active, show_edge,
-                    cloaked, burned, poisoned, bleeding, crushed):
+                    cloaked, burned, poisoned, bleeding, crushed, strike_active):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {"damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -2202,13 +2202,14 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         if not apothis_gift:
                             edge_damage = 1
                         else:
-                            edge_damage = random.randint(25, 35)
+                            edge_damage = random.randint(15, 25)
                     else:
-                        edge_damage = random.randint(30, 40)
+                        edge_damage = random.randint(20, 30)
                     damage_to_enemy += edge_damage
                     combat_event_dictionary["player damage"] += edge_damage
-                    combat_event_dictionary["edge health"] = int(0.75 * damage_to_enemy)
+                    combat_event_dictionary["edge health"] = int(0.25 * damage_to_enemy)
 
+                # millennium fire damage add to total and return in dict
                 if fire_active:
                     if enemy_combating.name == "Dreth":
                         if not apothis_gift:
@@ -2218,6 +2219,17 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     else:
                         combat_event_dictionary["fire damage"] = random.randint(5, 10)
                     damage_to_enemy += combat_event_dictionary["fire damage"]
+
+                # poison arrow damage add to total and return in dict
+                if arrow_active:
+                    if enemy_combating.name == "Dreth":
+                        if not apothis_gift:
+                            combat_event_dictionary["arrow damage"] = 1
+                        else:
+                            combat_event_dictionary["arrow damage"] = random.randint(4, 8)
+                    else:
+                        combat_event_dictionary["arrow damage"] = random.randint(5, 10)
+                    damage_to_enemy += combat_event_dictionary["arrow damage"]
 
                 if mirror_image:
                     if attack_dict["effective"]:
@@ -2256,7 +2268,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 # returns total damage output from enemy as attacked_player_health value
                 if not stun_them:
                     defend_dict = gameplay_functions.attack_player(player, enemy_combating, barrier_active,
-                                                                   arrow_active, crushed)
+                                                                   arrow_active, crushed, strike_active)
                     combat_event_dictionary["effective enemy"] = defend_dict["effective"]
                     combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
                     combat_event_dictionary["critical received"] = defend_dict["critical"]
@@ -2634,7 +2646,8 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         # returns total damage output from enemy as attacked_player_health value
                         if not stun_them:
                             defend_dict = gameplay_functions.attack_player(player, enemy_combating,
-                                                                           barrier_active, arrow_active, crushed)
+                                                                           barrier_active, arrow_active, crushed,
+                                                                           strike_active)
                             combat_event_dictionary["effective enemy"] = defend_dict["effective"]
                             combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
                             combat_event_dictionary["critical received"] = defend_dict["critical"]

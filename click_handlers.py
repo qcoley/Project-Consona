@@ -995,7 +995,6 @@ def inn_event_button(inn_event, rest_button, leave_button, pygame, sfx_sleep, SC
         inn_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
 
         if rest_button.rect.collidepoint(inn_mouse):
-            pygame.mixer.find_channel(True).play(sfx_sleep)
             return "rest"
         if leave_button.rect.collidepoint(inn_mouse):
             return "leave"

@@ -8454,6 +8454,20 @@ if __name__ == "__main__":
     overlay_bleeding_desc = UiElement("overlay bleeding desc", 118, 141, graphic_dict["overlay_bleeding_description"])
     overlay_crushed_desc = UiElement("overlay crushed desc", 145, 141, graphic_dict["overlay_crushed_description"])
 
+    overlay_burned_enemy = UiElement("overlay burned", 560, 115, graphic_dict["overlay_burned"])
+    overlay_poisoned_enemy = UiElement("overlay poisoned", 587, 115, graphic_dict["overlay_poisoned"])
+    overlay_bleeding_enemy = UiElement("overlay bleeding", 614, 115, graphic_dict["overlay_bleeding"])
+    overlay_crushed_enemy = UiElement("overlay crushed", 641, 115, graphic_dict["overlay_crushed"])
+
+    overlay_burned_desc_enemy = UiElement("overlay burned desc", 599, 167,
+                                          graphic_dict["overlay_burned_description"])
+    overlay_poisoned_desc_enemy = UiElement("overlay poisoned desc", 638, 167,
+                                            graphic_dict["overlay_poisoned_description"])
+    overlay_bleeding_desc_enemy = UiElement("overlay bleeding desc", 677, 167,
+                                            graphic_dict["overlay_bleeding_description"])
+    overlay_crushed_desc_enemy = UiElement("overlay crushed desc", 716, 167,
+                                           graphic_dict["overlay_crushed_description"])
+
     overlay_night_sleep = UiElement("overlay sleep", 200, 500, graphic_dict["night_sleep_overlay"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
@@ -9192,6 +9206,7 @@ if __name__ == "__main__":
     barrier_active = False
     sharp_sense_active = False
     fire_active = False
+    strike_active = False
     arrow_active = False
     faded_inn_screen = False
     hard_strike = False
@@ -9383,9 +9398,7 @@ if __name__ == "__main__":
     card_drop_played = False
     cleared = False
     show_arrow = False
-    show_advantage_arrow = False
-    show_fire = False
-    show_edge = False
+    edge_active = False
     on_card_quest = False
     card_counted = False
     card_popup_checked = False
@@ -15719,9 +15732,8 @@ if __name__ == "__main__":
                                 fire_active = False
                                 arrow_active = False
                                 show_arrow = False
-                                show_advantage_arrow = False
-                                show_fire = False
-                                show_edge = False
+                                edge_active = False
+                                strike_active = False
                                 cleared = False
                                 card_popup_checked = False
                                 loot_timer_reset = False
@@ -15877,8 +15889,9 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            edge_active, cloaked,
+                                                                                            burned, poisoned, bleeding,
+                                                                                            crushed, strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15926,8 +15939,9 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            edge_active, cloaked,
+                                                                                            burned, poisoned, bleeding,
+                                                                                            crushed, strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15974,8 +15988,10 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            edge_active, cloaked,
+                                                                                            burned,
+                                                                                            poisoned, bleeding, crushed,
+                                                                                            strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16031,8 +16047,10 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            edge_active, cloaked,
+                                                                                            burned,
+                                                                                            poisoned, bleeding, crushed,
+                                                                                            strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16086,8 +16104,10 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            edge_active, cloaked,
+                                                                                            burned,
+                                                                                            poisoned, bleeding, crushed,
+                                                                                            strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16140,8 +16160,10 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            edge_active, cloaked,
+                                                                                            burned,
+                                                                                            poisoned, bleeding, crushed,
+                                                                                            strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16194,8 +16216,10 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            edge_active, cloaked,
+                                                                                            burned,
+                                                                                            poisoned, bleeding, crushed,
+                                                                                            strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16249,8 +16273,10 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            edge_active, cloaked,
+                                                                                            burned,
+                                                                                            poisoned, bleeding, crushed,
+                                                                                            strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16304,8 +16330,10 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter, card_deck,
                                                                                             arrow_active, fire_active,
-                                                                                            show_edge, cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            edge_active, cloaked,
+                                                                                            burned,
+                                                                                            poisoned, bleeding, crushed,
+                                                                                            strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16514,8 +16542,9 @@ if __name__ == "__main__":
                                                                                 trading_task_complete,
                                                                                 any_card_counter, card_deck,
                                                                                 arrow_active, fire_active,
-                                                                                show_edge, cloaked, burned,
-                                                                                poisoned, bleeding, crushed)
+                                                                                edge_active, cloaked, burned,
+                                                                                poisoned, bleeding, crushed,
+                                                                                strike_active)
                                 combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                         barrier_active, sharp_sense_active,
                                                                         hard_strike, graphic_dict, turn_taken)
@@ -16682,9 +16711,8 @@ if __name__ == "__main__":
                                         fire_active = False
                                         arrow_active = False
                                         show_arrow = False
-                                        show_advantage_arrow = False
-                                        show_fire = False
-                                        show_edge = False
+                                        edge_active = False
+                                        strike_active = False
                                         cleared = False
                                         cloaked = False
                                         turn_counter = 0
@@ -16702,22 +16730,23 @@ if __name__ == "__main__":
 
                             # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
                             elif combat_button == "skill 1" or skill_1_hotkey and not combat_cooldown:
-                                if first_attack:
-                                    first_attack = False
-                                    if (current_enemy_battling.kind == "snake"
-                                            or current_enemy_battling.kind == "magmon"
-                                            or current_enemy_battling.kind == "bandile"
-                                            or current_enemy_battling.kind == "osodark"
-                                            or current_enemy_battling.kind == "atmon"
-                                            or current_enemy_battling.kind == "stelli"):
-                                        if time_of_day == 0 or time_of_day == 7:
-                                            stun_them = True
-                                    if current_enemy_battling.kind == "chinzilla":
-                                        if time_of_day != 0 and time_of_day != 7:
-                                            stun_them = True
                                 skill_1_hotkey = False
                                 # make sure player has enough energy to use the skill
-                                if player.energy > 19:
+                                if (player.equipment["trinket 3"] == "" and player.energy > 9
+                                        or player.equipment["trinket 3"] != "" and player.energy > 4):
+                                    if first_attack:
+                                        first_attack = False
+                                        if (current_enemy_battling.kind == "snake"
+                                                or current_enemy_battling.kind == "magmon"
+                                                or current_enemy_battling.kind == "bandile"
+                                                or current_enemy_battling.kind == "osodark"
+                                                or current_enemy_battling.kind == "atmon"
+                                                or current_enemy_battling.kind == "stelli"):
+                                            if time_of_day == 0 or time_of_day == 7:
+                                                stun_them = True
+                                        if current_enemy_battling.kind == "chinzilla":
+                                            if time_of_day != 0 and time_of_day != 7:
+                                                stun_them = True
                                     turn_counter += 1
                                     # player is a mage and uses the barrier spell. Set barrier active to true
                                     # save original defence value to be re applied upon enemy or player defeat
@@ -16728,9 +16757,9 @@ if __name__ == "__main__":
                                                 info_text_1 = "Barrier spell is active."
                                                 barrier_active = True
                                                 if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 10
+                                                    player.energy -= 5
                                                 elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 20
+                                                    player.energy -= 10
                                                 turn_taken = True
                                                 attack_hotkey = False
                                                 combat_scenario.battle_animation_player(player,
@@ -16783,8 +16812,9 @@ if __name__ == "__main__":
                                                                                     trading_task_complete,
                                                                                     any_card_counter, card_deck,
                                                                                     arrow_active, fire_active,
-                                                                                    show_edge, cloaked, burned,
-                                                                                    poisoned, bleeding, crushed)
+                                                                                    edge_active, cloaked, burned,
+                                                                                    poisoned, bleeding, crushed,
+                                                                                    strike_active)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -16835,9 +16865,9 @@ if __name__ == "__main__":
                                                 info_text_1 = "Sharp sense is active."
                                                 sharp_sense_active = True
                                                 if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 10
+                                                    player.energy -= 5
                                                 elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 20
+                                                    player.energy -= 10
                                                 turn_taken = True
                                                 attack_hotkey = False
                                                 combat_scenario.battle_animation_player(player,
@@ -16890,8 +16920,9 @@ if __name__ == "__main__":
                                                                                     trading_task_complete,
                                                                                     any_card_counter, card_deck,
                                                                                     arrow_active, fire_active,
-                                                                                    show_edge, cloaked, burned,
-                                                                                    poisoned, bleeding, crushed)
+                                                                                    edge_active, cloaked, burned,
+                                                                                    poisoned, bleeding, crushed,
+                                                                                    strike_active)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -16937,11 +16968,12 @@ if __name__ == "__main__":
                                     if player.role == "fighter":
                                         if hard_strike_learned:
                                             if player.equipment["trinket 3"] != "":
-                                                player.energy -= 10
+                                                player.energy -= 5
                                             elif player.equipment["trinket 3"] == "":
-                                                player.energy -= 20
+                                                player.energy -= 10
                                             pygame.mixer.find_channel(True).play(sfx_fighter_strike)
                                             hard_strike = True
+                                            strike_active = True
                                             combat_scenario.fighter(graphic_dict, player, player_battle_sprite,
                                                                     sharp_sense_active, barrier_active)
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
@@ -16963,9 +16995,10 @@ if __name__ == "__main__":
                                                                                             trading_task_complete,
                                                                                             any_card_counter,
                                                                                             card_deck, arrow_active,
-                                                                                            fire_active, show_edge,
+                                                                                            fire_active, edge_active,
                                                                                             cloaked, burned,
-                                                                                            poisoned, bleeding, crushed)
+                                                                                            poisoned, bleeding, crushed,
+                                                                                            strike_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -17071,9 +17104,8 @@ if __name__ == "__main__":
                                                     fire_active = False
                                                     arrow_active = False
                                                     show_arrow = False
-                                                    show_advantage_arrow = False
-                                                    show_fire = False
-                                                    show_edge = False
+                                                    edge_active = False
+                                                    strike_active = False
                                                     cleared = False
                                                     cloaked = False
                                                     turn_counter = 0
@@ -17090,22 +17122,23 @@ if __name__ == "__main__":
                                                 pass
 
                             elif combat_button == "skill 2" or skill_2_hotkey and not combat_cooldown:
-                                if first_attack:
-                                    first_attack = False
-                                    if (current_enemy_battling.kind == "snake"
-                                            or current_enemy_battling.kind == "magmon"
-                                            or current_enemy_battling.kind == "bandile"
-                                            or current_enemy_battling.kind == "osodark"
-                                            or current_enemy_battling.kind == "atmon"
-                                            or current_enemy_battling.kind == "stelli"):
-                                        if time_of_day == 0 or time_of_day == 7:
-                                            stun_them = True
-                                    if current_enemy_battling.kind == "chinzilla":
-                                        if time_of_day != 0 and time_of_day != 7:
-                                            stun_them = True
                                 skill_2_hotkey = False
                                 # make sure player has enough energy to use the skill
-                                if player.energy > 39:
+                                if (player.equipment["trinket 3"] == "" and player.energy > 19
+                                        or player.equipment["trinket 3"] != "" and player.energy > 9):
+                                    if first_attack:
+                                        first_attack = False
+                                        if (current_enemy_battling.kind == "snake"
+                                                or current_enemy_battling.kind == "magmon"
+                                                or current_enemy_battling.kind == "bandile"
+                                                or current_enemy_battling.kind == "osodark"
+                                                or current_enemy_battling.kind == "atmon"
+                                                or current_enemy_battling.kind == "stelli"):
+                                            if time_of_day == 0 or time_of_day == 7:
+                                                stun_them = True
+                                        if current_enemy_battling.kind == "chinzilla":
+                                            if time_of_day != 0 and time_of_day != 7:
+                                                stun_them = True
                                     turn_counter += 1
                                     if player.role == "mage":
                                         if mirror_learned:
@@ -17114,9 +17147,9 @@ if __name__ == "__main__":
                                                 info_text_1 = "Mirror spell is active."
                                                 mirror_image = True
                                                 if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 20
+                                                    player.energy -= 10
                                                 elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 40
+                                                    player.energy -= 20
                                                 combat_scenario.attack_animation_player(player,
                                                                                         player_battle_sprite,
                                                                                         barrier_active,
@@ -17162,8 +17195,8 @@ if __name__ == "__main__":
                                                     turn_counter, atmon_counter, prism_received,
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
-                                                    arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                    bleeding, crushed)
+                                                    arrow_active, fire_active, edge_active, cloaked, burned, poisoned,
+                                                    bleeding, crushed, strike_active)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -17213,9 +17246,9 @@ if __name__ == "__main__":
                                             stun_them = True
                                             stun_visual = True
                                             if player.equipment["trinket 3"] != "":
-                                                player.energy -= 20
+                                                player.energy -= 10
                                             elif player.equipment["trinket 3"] == "":
-                                                player.energy -= 40
+                                                player.energy -= 20
                                             turn_taken = True
                                             attack_hotkey = False
                                             gameplay_functions.player_info_and_ui_updates(player, hp_bar,
@@ -17262,16 +17295,15 @@ if __name__ == "__main__":
                                                 sharp_sense_active = False
                                                 # noinspection PyUnboundLocalVariable
                                             if player.equipment["trinket 3"] != "":
-                                                player.energy -= 20
+                                                player.energy -= 10
                                             elif player.equipment["trinket 3"] == "":
-                                                player.energy -= 40
+                                                player.energy -= 20
                                             mirror_image = False
                                             fire_active = False
                                             arrow_active = False
                                             show_arrow = False
-                                            show_advantage_arrow = False
-                                            show_fire = False
-                                            show_edge = False
+                                            edge_active = False
+                                            strike_active = False
                                             vanished = True
                                             cleared = False
                                             leveled = False
@@ -17286,34 +17318,34 @@ if __name__ == "__main__":
                                     info_text_1 = "Not enough energy to use this skill."
 
                             elif combat_button == "skill 3" or skill_3_hotkey and not combat_cooldown:
-                                if first_attack:
-                                    first_attack = False
-                                    if (current_enemy_battling.kind == "snake"
-                                            or current_enemy_battling.kind == "magmon"
-                                            or current_enemy_battling.kind == "bandile"
-                                            or current_enemy_battling.kind == "osodark"
-                                            or current_enemy_battling.kind == "atmon"
-                                            or current_enemy_battling.kind == "stelli"):
-                                        if time_of_day == 0 or time_of_day == 7:
-                                            stun_them = True
-                                    if current_enemy_battling.kind == "chinzilla":
-                                        if time_of_day != 0 and time_of_day != 7:
-                                            stun_them = True
                                 skill_3_hotkey = False
                                 # make sure player has enough energy to use the skill
-                                if player.energy > 79:
+                                if (player.equipment["trinket 3"] == "" and player.energy > 39
+                                        or player.equipment["trinket 3"] != "" and player.energy > 19):
+                                    if first_attack:
+                                        first_attack = False
+                                        if (current_enemy_battling.kind == "snake"
+                                                or current_enemy_battling.kind == "magmon"
+                                                or current_enemy_battling.kind == "bandile"
+                                                or current_enemy_battling.kind == "osodark"
+                                                or current_enemy_battling.kind == "atmon"
+                                                or current_enemy_battling.kind == "stelli"):
+                                            if time_of_day == 0 or time_of_day == 7:
+                                                stun_them = True
+                                        if current_enemy_battling.kind == "chinzilla":
+                                            if time_of_day != 0 and time_of_day != 7:
+                                                stun_them = True
                                     turn_counter += 1
                                     if player.role == "mage":
                                         if fire_learned:
                                             if not fire_active:
                                                 pygame.mixer.find_channel(True).play(sfx_mage_fire)
-                                                show_fire = True
                                                 info_text_1 = "Millennium Fire spell is active."
                                                 fire_active = True
                                                 if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 40
+                                                    player.energy -= 20
                                                 elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 80
+                                                    player.energy -= 40
 
                                                 combat_scenario.attack_animation_player(player,
                                                                                         player_battle_sprite,
@@ -17357,8 +17389,8 @@ if __name__ == "__main__":
                                                     turn_counter, atmon_counter, prism_received,
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
-                                                    arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                    bleeding, crushed)
+                                                    arrow_active, fire_active, edge_active, cloaked, burned, poisoned,
+                                                    bleeding, crushed, strike_active)
 
                                                 turn_taken = True
                                                 attack_hotkey = False
@@ -17470,9 +17502,8 @@ if __name__ == "__main__":
                                                         fire_active = False
                                                         arrow_active = False
                                                         show_arrow = False
-                                                        show_advantage_arrow = False
-                                                        show_fire = False
-                                                        show_edge = False
+                                                        edge_active = False
+                                                        strike_active = False
                                                         cleared = False
                                                         cloaked = False
                                                         turn_counter = 0
@@ -17515,12 +17546,12 @@ if __name__ == "__main__":
 
                                     if player.role == "fighter":
                                         if edge_learned:
-                                            show_edge = True
+                                            edge_active = True
                                             pygame.mixer.find_channel(True).play(sfx_fighter_edge)
                                             if player.equipment["trinket 3"] != "":
-                                                player.energy -= 40
+                                                player.energy -= 20
                                             elif player.equipment["trinket 3"] == "":
-                                                player.energy -= 80
+                                                player.energy -= 40
 
                                             combat_scenario.attack_animation_player(player,
                                                                                     player_battle_sprite,
@@ -17565,8 +17596,8 @@ if __name__ == "__main__":
                                                 turn_counter, atmon_counter, prism_received,
                                                 turn_counter, apothis_upgrade, trading_deck,
                                                 trading_task_complete, any_card_counter, card_deck,
-                                                arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                bleeding, crushed)
+                                                arrow_active, fire_active, edge_active, cloaked, burned, poisoned,
+                                                bleeding, crushed, strike_active)
 
                                             turn_taken = True
                                             attack_hotkey = False
@@ -17704,9 +17735,8 @@ if __name__ == "__main__":
                                                     fire_active = False
                                                     arrow_active = False
                                                     show_arrow = False
-                                                    show_advantage_arrow = False
-                                                    show_fire = False
-                                                    show_edge = False
+                                                    edge_active = False
+                                                    strike_active = False
                                                     cleared = False
                                                     cloaked = False
                                                     turn_counter = 0
@@ -17750,14 +17780,13 @@ if __name__ == "__main__":
                                     if player.role == "scout":
                                         if arrow_learned:
                                             if not arrow_active:
-                                                show_advantage_arrow = True
                                                 pygame.mixer.find_channel(True).play(sfx_scout_arrow)
                                                 info_text_1 = "Arrow of Advantage is active."
                                                 arrow_active = True
                                                 if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 40
+                                                    player.energy -= 20
                                                 elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 80
+                                                    player.energy -= 40
 
                                                 combat_scenario.attack_animation_player(player,
                                                                                         player_battle_sprite,
@@ -17802,8 +17831,8 @@ if __name__ == "__main__":
                                                     turn_counter, atmon_counter, prism_received,
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
-                                                    arrow_active, fire_active, show_edge, cloaked, burned, poisoned,
-                                                    bleeding, crushed)
+                                                    arrow_active, fire_active, edge_active, cloaked, burned, poisoned,
+                                                    bleeding, crushed, strike_active)
 
                                                 turn_taken = True
                                                 attack_hotkey = False
@@ -17912,9 +17941,8 @@ if __name__ == "__main__":
                                                         fire_active = False
                                                         arrow_active = False
                                                         show_arrow = False
-                                                        show_advantage_arrow = False
-                                                        show_fire = False
-                                                        show_edge = False
+                                                        edge_active = False
+                                                        strike_active = False
                                                         cleared = False
                                                         cloaked = False
                                                         turn_counter = 0
@@ -18025,7 +18053,7 @@ if __name__ == "__main__":
                                             screen.blit(night, (0, 0))
 
                                     try:
-                                        if not show_fire or not combat_happened:
+                                        if not fire_active or not combat_happened:
                                             screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                             screen.blit(current_enemy_battling.health_bar.surf,
                                                         current_enemy_battling.health_bar.rect)
@@ -18092,7 +18120,7 @@ if __name__ == "__main__":
                                             game_window.blit(night, (0, 0))
 
                                     try:
-                                        if not show_fire or not combat_happened:
+                                        if not fire_active or not combat_happened:
                                             game_window.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                             game_window.blit(current_enemy_battling.health_bar.surf,
                                                              current_enemy_battling.health_bar.rect)
@@ -18496,9 +18524,8 @@ if __name__ == "__main__":
                                         fire_active = False
                                         arrow_active = False
                                         show_arrow = False
-                                        show_advantage_arrow = False
-                                        show_fire = False
-                                        show_edge = False
+                                        edge_active = False
+                                        strike_active = False
                                         cleared = False
                                         loot_timer_reset = False
                                         turn_counter = 0
@@ -18583,7 +18610,7 @@ if __name__ == "__main__":
                                         if pet.name == "iriana":
                                             screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
-                                if show_fire:
+                                if fire_active:
                                     screen.blit(fire_battle_sprite.surf, fire_battle_sprite.rect)
                                     try:
                                         screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
@@ -18593,12 +18620,12 @@ if __name__ == "__main__":
                                         pass
 
                                 if player.role == "fighter":
-                                    if show_edge:
+                                    if edge_active:
                                         screen.blit(edge_battle_sprite.surf, edge_battle_sprite.rect)
                                 if player.role == "scout":
                                     if show_arrow:
                                         screen.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
-                                    elif show_advantage_arrow:
+                                    elif arrow_active:
                                         screen.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
 
                                 if mirror_image:
@@ -18614,7 +18641,7 @@ if __name__ == "__main__":
                                     screen.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
                                 if bleeding:
                                     screen.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
-                                if crushed and not crushw_shown:
+                                if crushed and not crush_shown:
                                     screen.blit(battle_sprite_effect_crush.surf, battle_sprite_effect_crush.rect)
 
                                 screen.blit(message_box.surf, message_box.rect)
@@ -18696,9 +18723,8 @@ if __name__ == "__main__":
                                         if pet.name == "iriana":
                                             game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
-                                if show_fire:
+                                if fire_active:
                                     game_window.blit(fire_battle_sprite.surf, fire_battle_sprite.rect)
-
                                     try:
                                         game_window.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                         game_window.blit(current_enemy_battling.health_bar.surf,
@@ -18707,12 +18733,12 @@ if __name__ == "__main__":
                                         pass
 
                                 if player.role == "fighter":
-                                    if show_edge:
+                                    if edge_active:
                                         game_window.blit(edge_battle_sprite.surf, edge_battle_sprite.rect)
                                 if player.role == "scout":
                                     if show_arrow:
                                         game_window.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
-                                    elif show_advantage_arrow:
+                                    elif arrow_active:
                                         game_window.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
 
                                 if mirror_image:
@@ -19021,9 +19047,9 @@ if __name__ == "__main__":
                                 combat_cooldown = False
                                 # reset hard strike condition so regular fighter attack animation resumes
                                 hard_strike = False
-                                show_edge = False
+                                edge_active = False
                                 show_arrow = False
-                                show_advantage_arrow = False
+                                arrow_active = False
 
                                 if crushed:
                                     crush_shown = True
@@ -19034,6 +19060,7 @@ if __name__ == "__main__":
                     if show_trade_deck:
                         render_card_deck()
 
+                    # player status conditions overlay
                     if len(drawing_functions.level_up_window) == 0:
                         if burned:
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -19055,6 +19082,28 @@ if __name__ == "__main__":
                                 screen.blit(overlay_crushed.surf, overlay_crushed.rect)
                             else:
                                 game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+
+                    # enemy status conditions overlay
+                    if fire_active:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_burned_enemy.surf, overlay_burned_enemy.rect)
+                        else:
+                            game_window.blit(overlay_burned_enemy.surf, overlay_burned_enemy.rect)
+                    if arrow_active:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_poisoned_enemy.surf, overlay_poisoned_enemy.rect)
+                        else:
+                            game_window.blit(overlay_poisoned_enemy.surf, overlay_poisoned_enemy.rect)
+                    if edge_active:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_bleeding_enemy.surf, overlay_bleeding_enemy.rect)
+                        else:
+                            game_window.blit(overlay_bleeding_enemy.surf, overlay_bleeding_enemy.rect)
+                    if strike_active:
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(overlay_crushed_enemy.surf, overlay_crushed_enemy.rect)
+                        else:
+                            game_window.blit(overlay_crushed_enemy.surf, overlay_crushed_enemy.rect)
 
                     # player health is less than or equal to 0, player is dead
                     if player.health <= 0:
@@ -20129,6 +20178,7 @@ if __name__ == "__main__":
                             first_inn_cond = False
                             # if player has not yet rested this instance
                             if not rested:
+                                pygame.mixer.find_channel(True).play(sfx_inn_sleep)
                                 rest_clicked = True
                                 info_text_1 = "You feel well rested."
                                 info_text_2 = "Your health is restored."
@@ -20687,32 +20737,61 @@ if __name__ == "__main__":
                                     pygame.display.flip()
                             player.health = 100
                             player.energy = 100
-                            time_of_day = 1
                             rested = True
-                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
-                            pygame.mixer.find_channel(True).play(sfx_chirp)
+                            
+                            # if player rests later in day, goes to next morning
+                            if time_of_day == 5 or time_of_day == 6 or time_of_day == 7 or time_of_day == 0:
+                                time_of_day = 1
+                                message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                pygame.mixer.find_channel(True).play(sfx_chirp)
+                                if player.current_zone == "seldon":
+                                    for snake in snakes:
+                                        if (player.quest_status["sneaky snakes"]
+                                                and not player.quest_complete["sneaky snakes"]):
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake_high"])
+                                        else:
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake"])
+                                    if player.quest_progress["where's nede?"] == 1:
+                                        nede.update(809, 390, graphic_dict["nede_left"])
 
-                            if player.current_zone == "seldon":
-                                for snake in snakes:
-                                    if (player.quest_status["sneaky snakes"]
-                                            and not player.quest_complete["sneaky snakes"]):
-                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
-                                                           graphic_dict["snake_high"])
-                                    else:
-                                        snake.update_image(snake.x_coordinate, snake.y_coordinate,
-                                                           graphic_dict["snake"])
-                                if player.quest_progress["where's nede?"] == 1:
-                                    nede.update(809, 390, graphic_dict["nede_left"])
-
-                            if player.current_zone == "korlok":
-                                for magmon in magmons:
-                                    if (player.quest_status["elementary elementals"] 
-                                            and not player.quest_complete["elementary elementals"]):
-                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
-                                                            graphic_dict["magmon_high"])
-                                    else:
-                                        magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
-                                                            graphic_dict["magmon"])
+                                if player.current_zone == "korlok":
+                                    for magmon in magmons:
+                                        if (player.quest_status["elementary elementals"]
+                                                and not player.quest_complete["elementary elementals"]):
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon_high"])
+                                        else:
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon"])
+                            
+                            # if player rests early in day, goes to night
+                            else:
+                                if time_of_day == 1 or time_of_day == 2 or time_of_day == 3 or time_of_day == 4:
+                                    time_of_day = 7
+                                    message_box.update(173, 650, graphic_dict["message_box_night"])
+                                    pygame.mixer.find_channel(True).play(sfx_howl)
+                                    if player.current_zone == "seldon":
+                                        for snake in snakes:
+                                            if (player.quest_status["sneaky snakes"]
+                                                    and not player.quest_complete["sneaky snakes"]):
+                                                snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                                   graphic_dict["snake_high_night"])
+                                            else:
+                                                snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                                   graphic_dict["snake_night"])
+                                        if player.quest_progress["where's nede?"] == 1:
+                                            nede.update(809, 390, graphic_dict["nede_sleep"])
+                                    if player.current_zone == "korlok":
+                                        for magmon in magmons:
+                                            if (player.quest_status["elementary elementals"]
+                                                    and not player.quest_complete["elementary elementals"]):
+                                                magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                    graphic_dict["magmon_high_night"])
+                                            else:
+                                                magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                    graphic_dict["magmon_night"])
 
                     if first_inn_cond:
                         directional_arrow.update(855, 620, graphic_dict["arrow_down"])
@@ -25611,9 +25690,8 @@ if __name__ == "__main__":
                         fire_active = False
                         arrow_active = False
                         show_arrow = False
-                        show_advantage_arrow = False
-                        show_fire = False
-                        show_edge = False
+                        edge_active = False
+                        strike_active = False
                         cleared = False
                         loot_timer_reset = False
                         loot_level_tic = time.perf_counter()
@@ -25686,9 +25764,8 @@ if __name__ == "__main__":
                                     fire_active = False
                                     arrow_active = False
                                     show_arrow = False
-                                    show_advantage_arrow = False
-                                    show_fire = False
-                                    show_edge = False
+                                    edge_active = False
+                                    strike_active = False
                                     cleared = False
                                     cloaked = False
                                     turn_counter = 0
@@ -25786,9 +25863,8 @@ if __name__ == "__main__":
                                 fire_active = False
                                 arrow_active = False
                                 show_arrow = False
-                                show_advantage_arrow = False
-                                show_fire = False
-                                show_edge = False
+                                edge_active = False
+                                strike_active = False
                                 cleared = False
                                 cloaked = False
                                 turn_counter = 0

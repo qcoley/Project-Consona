@@ -2610,43 +2610,39 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cl
         if player.offense == 4:
             damage = 14
 
-    if arrow_active:
-        damage = int(damage * 1.50)
-        attack_dict["effective"] = True
-    else:
-        # increase or decrease damage based on type advantage/disadvantage
-        if player.role == "mage":
-            # super effective
-            if mob.type == "scout":
-                damage = int(damage * 1.50)
-                attack_dict["effective"] = True
-            # not effective
-            if mob.type == "fighter":
-                damage = int(damage // 1.50)
-                attack_dict["non effective"] = True
-        if player.role == "scout":
-            # super effective
-            if mob.type == "fighter":
-                damage = int(damage * 1.50)
-                attack_dict["effective"] = True
-            # not effective
-            if mob.type == "mage":
-                damage = int(damage // 1.50)
-                attack_dict["non effective"] = True
-        if player.role == "fighter":
-            # super effective
-            if mob.type == "mage":
-                damage = int(damage * 1.50)
-                attack_dict["effective"] = True
-            # not effective
-            if mob.type == "scout":
-                damage = int(damage // 1.50)
-                attack_dict["non effective"] = True
-        # if player doesn't have a role, either do no damage or just 1
-        if player.role == "":
-            damage = 1
+    # increase or decrease damage based on type advantage/disadvantage
+    if player.role == "mage":
+        # super effective
+        if mob.type == "scout":
+            damage = int(damage * 1.50)
+            attack_dict["effective"] = True
+        # not effective
+        if mob.type == "fighter":
+            damage = int(damage // 1.50)
             attack_dict["non effective"] = True
-            attack_dict["critical"] = False
+    if player.role == "scout":
+        # super effective
+        if mob.type == "fighter":
+            damage = int(damage * 1.50)
+            attack_dict["effective"] = True
+        # not effective
+        if mob.type == "mage":
+            damage = int(damage // 1.50)
+            attack_dict["non effective"] = True
+    if player.role == "fighter":
+        # super effective
+        if mob.type == "mage":
+            damage = int(damage * 1.50)
+            attack_dict["effective"] = True
+        # not effective
+        if mob.type == "scout":
+            damage = int(damage // 1.50)
+            attack_dict["non effective"] = True
+    # if player doesn't have a role, either do no damage or just 1
+    if player.role == "":
+        damage = 1
+        attack_dict["non effective"] = True
+        attack_dict["critical"] = False
 
     # level scaling final damage output
     if level_difference == 1:
@@ -2776,7 +2772,7 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cl
 
 
 # enemy attacks player, gets damage to player done, subtract players defense level
-def attack_player(player, mob, barrier_active, arrow_active, crushed):
+def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_active):
     level_difference = mob.level - player.level
 
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False}
@@ -2855,39 +2851,34 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed):
             if player.defense == 4:
                 damage = 2
 
-    if arrow_active:
-        damage = int(damage // 1.50)
-        attack_dict["non effective"] = True
-
-    else:
-        # increase or decrease damage based on type advantage/disadvantage
-        if mob.type == "mage":
-            # super effective
-            if player.role == "scout":
-                damage = int(damage * 1.50)
-                attack_dict["effective"] = True
-            # not effective
-            if player.role == "fighter":
-                damage = int(damage // 1.50)
-                attack_dict["non effective"] = True
-        if mob.type == "scout":
-            # super effective
-            if player.role == "fighter":
-                damage = int(damage * 1.50)
-                attack_dict["effective"] = True
-            # not effective
-            if player.role == "mage":
-                damage = int(damage // 1.50)
-                attack_dict["non effective"] = True
-        if mob.type == "fighter":
-            # super effective
-            if player.role == "mage":
-                damage = int(damage * 1.50)
-                attack_dict["effective"] = True
-            # not effective
-            if player.role == "scout":
-                damage = int(damage // 1.50)
-                attack_dict["non effective"] = True
+    # increase or decrease damage based on type advantage/disadvantage
+    if mob.type == "mage":
+        # super effective
+        if player.role == "scout":
+            damage = int(damage * 1.50)
+            attack_dict["effective"] = True
+        # not effective
+        if player.role == "fighter":
+            damage = int(damage // 1.50)
+            attack_dict["non effective"] = True
+    if mob.type == "scout":
+        # super effective
+        if player.role == "fighter":
+            damage = int(damage * 1.50)
+            attack_dict["effective"] = True
+        # not effective
+        if player.role == "mage":
+            damage = int(damage // 1.50)
+            attack_dict["non effective"] = True
+    if mob.type == "fighter":
+        # super effective
+        if player.role == "mage":
+            damage = int(damage * 1.50)
+            attack_dict["effective"] = True
+        # not effective
+        if player.role == "scout":
+            damage = int(damage // 1.50)
+            attack_dict["non effective"] = True
 
     # level scaling final damage output
     if level_difference == 1:
@@ -2906,6 +2897,9 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed):
 
     if crushed:
         damage += damage - int(damage * 0.75)
+
+    if strike_active:
+        damage -= 5
 
     if damage >= 0:
         attack_dict["damage"] = damage
