@@ -8600,7 +8600,7 @@ if __name__ == "__main__":
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
     fire_damage_overlay = UiElement("fire damage overlay", 575, 160, graphic_dict["fire_damage_img"])
-    edge_health_overlay = UiElement("edge health overlay", 100, 425, graphic_dict["edge_health_img"])
+    edge_health_overlay = UiElement("edge health overlay", 675, 160, graphic_dict["edge_health_img"])
     pet_damage_overlay = UiElement("pet damage overlay", 750, 250, graphic_dict["pet_damage_img"])
     mirror_damage_overlay = UiElement("mirror damage overlay", 800, 200, graphic_dict["dealt_damage_img"])
     received_damage_overlay = UiElement("received damage overlay", 125, 275, graphic_dict["received_damage_img"])
@@ -9399,6 +9399,7 @@ if __name__ == "__main__":
     cleared = False
     show_arrow = False
     edge_active = False
+    show_edge = False
     on_card_quest = False
     card_counted = False
     card_popup_checked = False
@@ -9536,7 +9537,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        # print(time_of_day)
 
         # --------------------------------------------------------------------------------------------------------------
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
@@ -10601,8 +10602,8 @@ if __name__ == "__main__":
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                             if time_of_day == 0 or time_of_day == 7:
                                 for osodark in ectrenos_alcove_enemies:
-                                        osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
-                                                             graphic_dict["osodark_night"])
+                                    osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
+                                                         graphic_dict["osodark_night"])
                             else:
                                 for osodark in ectrenos_alcove_enemies:
                                     osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
@@ -15634,7 +15635,7 @@ if __name__ == "__main__":
                         else:
                             game_window.blit(button_highlight.surf, button_highlight.rect)
 
-                    if len(drawing_functions.level_up_window) == 0:
+                    if len(drawing_functions.level_up_window) == 0 and player.current_zone != "nascent":
                         if burned:
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                 screen.blit(overlay_burned.surf, overlay_burned.rect)
@@ -15733,6 +15734,7 @@ if __name__ == "__main__":
                                 arrow_active = False
                                 show_arrow = False
                                 edge_active = False
+                                show_edge = False
                                 strike_active = False
                                 cleared = False
                                 card_popup_checked = False
@@ -15891,7 +15893,8 @@ if __name__ == "__main__":
                                                                                             arrow_active, fire_active,
                                                                                             edge_active, cloaked,
                                                                                             burned, poisoned, bleeding,
-                                                                                            crushed, strike_active)
+                                                                                            crushed, strike_active,
+                                                                                            edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15941,7 +15944,8 @@ if __name__ == "__main__":
                                                                                             arrow_active, fire_active,
                                                                                             edge_active, cloaked,
                                                                                             burned, poisoned, bleeding,
-                                                                                            crushed, strike_active)
+                                                                                            crushed, strike_active,
+                                                                                            edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -15991,7 +15995,8 @@ if __name__ == "__main__":
                                                                                             edge_active, cloaked,
                                                                                             burned,
                                                                                             poisoned, bleeding, crushed,
-                                                                                            strike_active)
+                                                                                            strike_active,
+                                                                                            edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16050,7 +16055,8 @@ if __name__ == "__main__":
                                                                                             edge_active, cloaked,
                                                                                             burned,
                                                                                             poisoned, bleeding, crushed,
-                                                                                            strike_active)
+                                                                                            strike_active,
+                                                                                            edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16107,7 +16113,8 @@ if __name__ == "__main__":
                                                                                             edge_active, cloaked,
                                                                                             burned,
                                                                                             poisoned, bleeding, crushed,
-                                                                                            strike_active)
+                                                                                            strike_active,
+                                                                                            edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16163,7 +16170,8 @@ if __name__ == "__main__":
                                                                                             edge_active, cloaked,
                                                                                             burned,
                                                                                             poisoned, bleeding, crushed,
-                                                                                            strike_active)
+                                                                                            strike_active,
+                                                                                            edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16219,7 +16227,8 @@ if __name__ == "__main__":
                                                                                             edge_active, cloaked,
                                                                                             burned,
                                                                                             poisoned, bleeding, crushed,
-                                                                                            strike_active)
+                                                                                            strike_active,
+                                                                                            edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16276,7 +16285,8 @@ if __name__ == "__main__":
                                                                                             edge_active, cloaked,
                                                                                             burned,
                                                                                             poisoned, bleeding, crushed,
-                                                                                            strike_active)
+                                                                                            strike_active,
+                                                                                            edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16333,7 +16343,8 @@ if __name__ == "__main__":
                                                                                             edge_active, cloaked,
                                                                                             burned,
                                                                                             poisoned, bleeding, crushed,
-                                                                                            strike_active)
+                                                                                            strike_active,
+                                                                                            edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -16544,7 +16555,7 @@ if __name__ == "__main__":
                                                                                 arrow_active, fire_active,
                                                                                 edge_active, cloaked, burned,
                                                                                 poisoned, bleeding, crushed,
-                                                                                strike_active)
+                                                                                strike_active, edge_active)
                                 combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                         barrier_active, sharp_sense_active,
                                                                         hard_strike, graphic_dict, turn_taken)
@@ -16712,6 +16723,7 @@ if __name__ == "__main__":
                                         arrow_active = False
                                         show_arrow = False
                                         edge_active = False
+                                        show_edge = False
                                         strike_active = False
                                         cleared = False
                                         cloaked = False
@@ -16789,12 +16801,7 @@ if __name__ == "__main__":
                                                                                        dreth_battle_sprite,
                                                                                        apothis_gift, cloaked,
                                                                                        time_of_day, first_attack)
-                                                if mirror_image:
-                                                    combat_scenario.battle_animation_player(player,
-                                                                                            mirror_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            graphic_dict)
+
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = \
                                                     combat_scenario.attack_scenario(current_enemy_battling,
@@ -16814,7 +16821,7 @@ if __name__ == "__main__":
                                                                                     arrow_active, fire_active,
                                                                                     edge_active, cloaked, burned,
                                                                                     poisoned, bleeding, crushed,
-                                                                                    strike_active)
+                                                                                    strike_active, edge_active)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -16897,12 +16904,7 @@ if __name__ == "__main__":
                                                                                        dreth_battle_sprite,
                                                                                        apothis_gift, cloaked,
                                                                                        time_of_day, first_attack)
-                                                if mirror_image:
-                                                    combat_scenario.battle_animation_player(player,
-                                                                                            mirror_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            graphic_dict)
+
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = \
                                                     combat_scenario.attack_scenario(current_enemy_battling,
@@ -16922,7 +16924,7 @@ if __name__ == "__main__":
                                                                                     arrow_active, fire_active,
                                                                                     edge_active, cloaked, burned,
                                                                                     poisoned, bleeding, crushed,
-                                                                                    strike_active)
+                                                                                    strike_active, edge_active)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -16998,7 +17000,7 @@ if __name__ == "__main__":
                                                                                             fire_active, edge_active,
                                                                                             cloaked, burned,
                                                                                             poisoned, bleeding, crushed,
-                                                                                            strike_active)
+                                                                                            strike_active, edge_active)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -17105,6 +17107,7 @@ if __name__ == "__main__":
                                                     arrow_active = False
                                                     show_arrow = False
                                                     edge_active = False
+                                                    show_edge = False
                                                     strike_active = False
                                                     cleared = False
                                                     cloaked = False
@@ -17181,12 +17184,6 @@ if __name__ == "__main__":
                                                 turn_taken = True
                                                 attack_hotkey = False
 
-                                                if mirror_image:
-                                                    combat_scenario.battle_animation_player(player,
-                                                                                            mirror_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            graphic_dict)
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(
                                                     current_enemy_battling, "attack", player, hard_strike_learned,
@@ -17196,7 +17193,7 @@ if __name__ == "__main__":
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
                                                     arrow_active, fire_active, edge_active, cloaked, burned, poisoned,
-                                                    bleeding, crushed, strike_active)
+                                                    bleeding, crushed, strike_active, edge_active)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -17303,6 +17300,7 @@ if __name__ == "__main__":
                                             arrow_active = False
                                             show_arrow = False
                                             edge_active = False
+                                            show_edge = False
                                             strike_active = False
                                             vanished = True
                                             cleared = False
@@ -17375,12 +17373,7 @@ if __name__ == "__main__":
                                                                                        dreth_battle_sprite,
                                                                                        apothis_gift, cloaked,
                                                                                        time_of_day, first_attack)
-                                                if mirror_image:
-                                                    combat_scenario.battle_animation_player(player,
-                                                                                            mirror_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            graphic_dict)
+
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(
                                                     current_enemy_battling, "attack", player, hard_strike_learned,
@@ -17390,7 +17383,7 @@ if __name__ == "__main__":
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
                                                     arrow_active, fire_active, edge_active, cloaked, burned, poisoned,
-                                                    bleeding, crushed, strike_active)
+                                                    bleeding, crushed, strike_active, edge_active)
 
                                                 turn_taken = True
                                                 attack_hotkey = False
@@ -17503,6 +17496,7 @@ if __name__ == "__main__":
                                                         arrow_active = False
                                                         show_arrow = False
                                                         edge_active = False
+                                                        show_edge = False
                                                         strike_active = False
                                                         cleared = False
                                                         cloaked = False
@@ -17547,6 +17541,7 @@ if __name__ == "__main__":
                                     if player.role == "fighter":
                                         if edge_learned:
                                             edge_active = True
+                                            show_edge = True
                                             pygame.mixer.find_channel(True).play(sfx_fighter_edge)
                                             if player.equipment["trinket 3"] != "":
                                                 player.energy -= 20
@@ -17581,12 +17576,6 @@ if __name__ == "__main__":
                                                                                    dreth_battle_sprite,
                                                                                    apothis_gift, cloaked,
                                                                                    time_of_day, first_attack)
-                                            if mirror_image:
-                                                combat_scenario.battle_animation_player(player,
-                                                                                        mirror_battle_sprite,
-                                                                                        barrier_active,
-                                                                                        sharp_sense_active,
-                                                                                        graphic_dict)
 
                                             # combat event function that handles and returns damage and health
                                             combat_events = combat_scenario.attack_scenario(
@@ -17597,7 +17586,7 @@ if __name__ == "__main__":
                                                 turn_counter, apothis_upgrade, trading_deck,
                                                 trading_task_complete, any_card_counter, card_deck,
                                                 arrow_active, fire_active, edge_active, cloaked, burned, poisoned,
-                                                bleeding, crushed, strike_active)
+                                                bleeding, crushed, strike_active, edge_active)
 
                                             turn_taken = True
                                             attack_hotkey = False
@@ -17611,6 +17600,13 @@ if __name__ == "__main__":
                                             combat_cooldown = True
 
                                             # add all combat scenario happenings from function to message box
+                                            try:
+                                                if combat_events["edge health"]:
+                                                    info_text_3 = ("Epsilons edge healed you for "
+                                                                   + str(combat_events["edge health"]) + " HP.")
+                                            except TypeError:
+                                                pass
+
                                             try:
                                                 if combat_events["damage done string"] == 0:
                                                     info_text_1 = ""
@@ -17736,6 +17732,7 @@ if __name__ == "__main__":
                                                     arrow_active = False
                                                     show_arrow = False
                                                     edge_active = False
+                                                    show_edge = False
                                                     strike_active = False
                                                     cleared = False
                                                     cloaked = False
@@ -17816,12 +17813,6 @@ if __name__ == "__main__":
                                                                                        dreth_battle_sprite,
                                                                                        apothis_gift, cloaked,
                                                                                        time_of_day, first_attack)
-                                                if mirror_image:
-                                                    combat_scenario.battle_animation_player(player,
-                                                                                            mirror_battle_sprite,
-                                                                                            barrier_active,
-                                                                                            sharp_sense_active,
-                                                                                            graphic_dict)
 
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(
@@ -17832,7 +17823,7 @@ if __name__ == "__main__":
                                                     turn_counter, apothis_upgrade, trading_deck,
                                                     trading_task_complete, any_card_counter, card_deck,
                                                     arrow_active, fire_active, edge_active, cloaked, burned, poisoned,
-                                                    bleeding, crushed, strike_active)
+                                                    bleeding, crushed, strike_active, edge_active)
 
                                                 turn_taken = True
                                                 attack_hotkey = False
@@ -17942,6 +17933,7 @@ if __name__ == "__main__":
                                                         arrow_active = False
                                                         show_arrow = False
                                                         edge_active = False
+                                                        show_edge = False
                                                         strike_active = False
                                                         cleared = False
                                                         cloaked = False
@@ -18030,6 +18022,52 @@ if __name__ == "__main__":
                                     if player.current_zone == "castle lair":
                                         screen.blit(dreth_battle_screen, (0, 0))
 
+                                    if current_enemy_battling.kind == "snake":
+                                        screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                                    if current_enemy_battling.name == "Ghoul":
+                                        if not cloaked_popup_shown:
+                                            drawing_functions.cloaked_popup_window.append(cloaked_popup)
+                                            cloaked_popup_shown = True
+                                        screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                                    if current_enemy_battling.name == "Chorizon":
+                                        screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "muchador":
+                                        screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "magmon":
+                                        screen.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "bandile":
+                                        screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "chinzilla":
+                                        screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "necrola":
+                                        screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "osodark":
+                                        screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "stelli":
+                                        screen.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "erebyth":
+                                        screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "atmon":
+                                        screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "jumano":
+                                        screen.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "dreth":
+                                        screen.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
+
+                                    for pet in player.pet:
+                                        if pet.active:
+                                            if pet.name == "kasper":
+                                                screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
+                                            if pet.name == "torok":
+                                                screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
+                                            if pet.name == "iriana":
+                                                screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
+
+                                    screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                                    if barrier_active:
+                                        screen.blit(battle_sprite_effect_barrier.surf,
+                                                    battle_sprite_effect_barrier.rect)
+
                                     if (player.current_zone == "marrow"
                                             or player.current_zone == "marrow ramps east end"
                                             or player.current_zone == "ectrenos front"
@@ -18096,6 +18134,52 @@ if __name__ == "__main__":
                                         game_window.blit(sub_marrow_battle_screen, (0, 0))
                                     if player.current_zone == "castle lair":
                                         game_window.blit(dreth_battle_screen, (0, 0))
+
+                                    if current_enemy_battling.kind == "snake":
+                                        game_window.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                                    if current_enemy_battling.name == "Ghoul":
+                                        if not cloaked_popup_shown:
+                                            drawing_functions.cloaked_popup_window.append(cloaked_popup)
+                                            cloaked_popup_shown = True
+                                        game_window.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                                    if current_enemy_battling.name == "Chorizon":
+                                        game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "muchador":
+                                        game_window.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "magmon":
+                                        game_window.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "bandile":
+                                        game_window.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "chinzilla":
+                                        game_window.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "necrola":
+                                        game_window.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "osodark":
+                                        game_window.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "stelli":
+                                        game_window.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "erebyth":
+                                        game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "atmon":
+                                        game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "jumano":
+                                        game_window.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "dreth":
+                                        game_window.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
+
+                                    for pet in player.pet:
+                                        if pet.active:
+                                            if pet.name == "kasper":
+                                                game_window.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
+                                            if pet.name == "torok":
+                                                game_window.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
+                                            if pet.name == "iriana":
+                                                game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
+
+                                    game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                                    if barrier_active:
+                                        game_window.blit(battle_sprite_effect_barrier.surf,
+                                                         battle_sprite_effect_barrier.rect)
 
                                     if (player.current_zone == "marrow"
                                             or player.current_zone == "marrow ramps east end"
@@ -18207,63 +18291,12 @@ if __name__ == "__main__":
                                                                    atmon_battle_sprite, jumano_battle_sprite,
                                                                    dreth_battle_sprite, apothis_gift, cloaked,
                                                                    time_of_day, first_attack)
-                            if mirror_image:
-                                combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
-                                                                        sharp_sense_active, graphic_dict)
 
                             kasper_battle_sprite.update(825, 520, graphic_dict["kasper_battle"])
                             torok_battle_sprite.update(825, 520, graphic_dict["torok_battle"])
                             iriana_battle_sprite.update(825, 520, graphic_dict["iriana_battle"])
 
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                if current_enemy_battling.kind == "snake":
-                                    screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                                if current_enemy_battling.name == "Ghoul":
-                                    if not cloaked_popup_shown:
-                                        drawing_functions.cloaked_popup_window.append(cloaked_popup)
-                                        cloaked_popup_shown = True
-                                    screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                                if current_enemy_battling.name == "Chorizon":
-                                    screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "muchador":
-                                    screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
-                                if current_enemy_battling.kind == "magmon":
-                                    screen.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "bandile":
-                                    screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
-                                if current_enemy_battling.kind == "chinzilla":
-                                    screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
-                                if current_enemy_battling.kind == "necrola":
-                                    screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
-                                if current_enemy_battling.kind == "osodark":
-                                    screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
-                                if current_enemy_battling.kind == "stelli":
-                                    screen.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
-                                if current_enemy_battling.kind == "erebyth":
-                                    screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
-                                if current_enemy_battling.kind == "atmon":
-                                    screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "jumano":
-                                    screen.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
-                                if current_enemy_battling.kind == "dreth":
-                                    screen.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
-
-                                for pet in player.pet:
-                                    if pet.active:
-                                        if pet.name == "kasper":
-                                            screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
-                                        if pet.name == "torok":
-                                            screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
-                                        if pet.name == "iriana":
-                                            screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
-
-                                if mirror_image:
-                                    screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
-                                    screen.blit(mirror_overlay.surf, mirror_overlay.rect)
-                                screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                                if barrier_active:
-                                    screen.blit(battle_sprite_effect_barrier.surf, battle_sprite_effect_barrier.rect)
-
                                 screen.blit(message_box.surf, message_box.rect)
                                 screen.blit(equipment_screen.surf, equipment_screen.rect)
                                 if len(drawing_functions.item_info_window) == 0:
@@ -18341,54 +18374,6 @@ if __name__ == "__main__":
                                     screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
                             else:
-                                if current_enemy_battling.kind == "snake":
-                                    game_window.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                                if current_enemy_battling.name == "Ghoul":
-                                    if not cloaked_popup_shown:
-                                        drawing_functions.cloaked_popup_window.append(cloaked_popup)
-                                        cloaked_popup_shown = True
-                                    game_window.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                                if current_enemy_battling.name == "Chorizon":
-                                    game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "muchador":
-                                    game_window.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
-                                if current_enemy_battling.kind == "magmon":
-                                    game_window.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "bandile":
-                                    game_window.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
-                                if current_enemy_battling.kind == "chinzilla":
-                                    game_window.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
-                                if current_enemy_battling.kind == "necrola":
-                                    game_window.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
-                                if current_enemy_battling.kind == "osodark":
-                                    game_window.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
-                                if current_enemy_battling.kind == "stelli":
-                                    game_window.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
-                                if current_enemy_battling.kind == "erebyth":
-                                    game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
-                                if current_enemy_battling.kind == "atmon":
-                                    game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "jumano":
-                                    game_window.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
-                                if current_enemy_battling.kind == "dreth":
-                                    game_window.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
-
-                                for pet in player.pet:
-                                    if pet.active:
-                                        if pet.name == "kasper":
-                                            game_window.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
-                                        if pet.name == "torok":
-                                            game_window.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
-                                        if pet.name == "iriana":
-                                            game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
-
-                                if mirror_image:
-                                    game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
-                                    game_window.blit(mirror_overlay.surf, mirror_overlay.rect)
-                                game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                                if barrier_active:
-                                    game_window.blit(battle_sprite_effect_barrier.surf,
-                                                     battle_sprite_effect_barrier.rect)
                                 game_window.blit(message_box.surf, message_box.rect)
                                 game_window.blit(equipment_screen.surf, equipment_screen.rect)
                                 if len(drawing_functions.item_info_window) == 0:
@@ -18506,11 +18491,8 @@ if __name__ == "__main__":
                             if current_enemy_battling.name == "Muchador":
                                 if not muchador_relocate:
                                     if current_enemy_battling.health < 60:
-                                        muchador_crates_list = [muchador_crate_1, muchador_crate_2,
-                                                                muchador_crate_3, muchador_crate_4]
                                         info_text_1 = "The muchador attempts to escape!"
                                         info_text_2 = "Maybe it's hiding? "
-
                                         muchador_relocate = True
                                         movement_able = True
                                         combat_happened = False
@@ -18525,12 +18507,15 @@ if __name__ == "__main__":
                                         arrow_active = False
                                         show_arrow = False
                                         edge_active = False
+                                        show_edge = False
                                         strike_active = False
                                         cleared = False
                                         loot_timer_reset = False
                                         turn_counter = 0
                                         loot_level_tic = time.perf_counter()
                                         first_attack = True
+                                        muchador_crates_list = [muchador_crate_1, muchador_crate_2,
+                                                                muchador_crate_3, muchador_crate_4]
                                         random_crate = random.choice(muchador_crates_list)
                                         muchador.update_image(random_crate.x_coordinate, random_crate.y_coordinate,
                                                               graphic_dict["muchador"])
@@ -18555,10 +18540,6 @@ if __name__ == "__main__":
                                                                    atmon_battle_sprite, jumano_battle_sprite,
                                                                    dreth_battle_sprite, turn_counter,
                                                                    apothis_gift, cloaked)
-                            if mirror_image:
-                                combat_scenario.attack_animation_player(player, mirror_battle_sprite, barrier_active,
-                                                                        sharp_sense_active, hard_strike, graphic_dict,
-                                                                        turn_taken)
 
                             if not turn_taken:
                                 if kasper_unlocked or torok_unlocked or iriana_unlocked:
@@ -18572,44 +18553,6 @@ if __name__ == "__main__":
                                                 iriana_battle_sprite.update(500, 350, graphic_dict["iriana_attack"])
 
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                if current_enemy_battling.kind == "snake":
-                                    screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                                if current_enemy_battling.name == "Ghoul":
-                                    screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                                if current_enemy_battling.name == "Chorizon":
-                                    screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "muchador":
-                                    screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
-                                if current_enemy_battling.kind == "magmon":
-                                    screen.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "bandile":
-                                    screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
-                                if current_enemy_battling.kind == "chinzilla":
-                                    screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
-                                if current_enemy_battling.kind == "necrola":
-                                    screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
-                                if current_enemy_battling.kind == "osodark":
-                                    screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
-                                if current_enemy_battling.kind == "stelli":
-                                    screen.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
-                                if current_enemy_battling.kind == "erebyth":
-                                    screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
-                                if current_enemy_battling.kind == "atmon":
-                                    screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "jumano":
-                                    screen.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
-                                if current_enemy_battling.kind == "dreth":
-                                    screen.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
-
-                                for pet in player.pet:
-                                    if pet.active:
-                                        if pet.name == "kasper":
-                                            screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
-                                        if pet.name == "torok":
-                                            screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
-                                        if pet.name == "iriana":
-                                            screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
-
                                 if fire_active:
                                     screen.blit(fire_battle_sprite.surf, fire_battle_sprite.rect)
                                     try:
@@ -18620,20 +18563,13 @@ if __name__ == "__main__":
                                         pass
 
                                 if player.role == "fighter":
-                                    if edge_active:
+                                    if show_edge:
                                         screen.blit(edge_battle_sprite.surf, edge_battle_sprite.rect)
                                 if player.role == "scout":
                                     if show_arrow:
                                         screen.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
                                     elif arrow_active:
                                         screen.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
-
-                                if mirror_image:
-                                    screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
-                                    screen.blit(mirror_overlay.surf, mirror_overlay.rect)
-                                screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                                if barrier_active:
-                                    screen.blit(battle_sprite_effect_barrier.surf, battle_sprite_effect_barrier.rect)
 
                                 if burned:
                                     screen.blit(battle_sprite_effect_burn.surf, battle_sprite_effect_burn.rect)
@@ -18685,44 +18621,6 @@ if __name__ == "__main__":
                                     screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
                             else:
-                                if current_enemy_battling.kind == "snake":
-                                    game_window.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                                if current_enemy_battling.name == "Ghoul":
-                                    game_window.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                                if current_enemy_battling.name == "Chorizon":
-                                    game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "muchador":
-                                    game_window.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
-                                if current_enemy_battling.kind == "magmon":
-                                    game_window.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "bandile":
-                                    game_window.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
-                                if current_enemy_battling.kind == "chinzilla":
-                                    game_window.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
-                                if current_enemy_battling.kind == "necrola":
-                                    game_window.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
-                                if current_enemy_battling.kind == "osodark":
-                                    game_window.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
-                                if current_enemy_battling.kind == "stelli":
-                                    game_window.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
-                                if current_enemy_battling.kind == "erebyth":
-                                    game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
-                                if current_enemy_battling.kind == "atmon":
-                                    game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
-                                if current_enemy_battling.kind == "jumano":
-                                    game_window.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
-                                if current_enemy_battling.kind == "dreth":
-                                    game_window.blit(dreth_battle_sprite.surf, dreth_battle_sprite.rect)
-
-                                for pet in player.pet:
-                                    if pet.active:
-                                        if pet.name == "kasper":
-                                            game_window.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
-                                        if pet.name == "torok":
-                                            game_window.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
-                                        if pet.name == "iriana":
-                                            game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
-
                                 if fire_active:
                                     game_window.blit(fire_battle_sprite.surf, fire_battle_sprite.rect)
                                     try:
@@ -18733,21 +18631,13 @@ if __name__ == "__main__":
                                         pass
 
                                 if player.role == "fighter":
-                                    if edge_active:
+                                    if show_edge:
                                         game_window.blit(edge_battle_sprite.surf, edge_battle_sprite.rect)
                                 if player.role == "scout":
                                     if show_arrow:
                                         game_window.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
                                     elif arrow_active:
                                         game_window.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
-
-                                if mirror_image:
-                                    game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
-                                    game_window.blit(mirror_overlay.surf, mirror_overlay.rect)
-                                game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                                if barrier_active:
-                                    game_window.blit(battle_sprite_effect_barrier.surf,
-                                                     battle_sprite_effect_barrier.rect)
 
                                 if burned:
                                     game_window.blit(battle_sprite_effect_burn.surf, battle_sprite_effect_burn.rect)
@@ -18835,42 +18725,24 @@ if __name__ == "__main__":
                                                                   graphic_dict["non_effective_pet_damage_img"])
                                     if combat_events["effective pet"]:
                                         pet_damage_overlay.update(950, 275, graphic_dict["effective_pet_damage_img"])
-                                    if mirror_image:
-                                        try:
-                                            if combat_events["mirror damage"] == 5:
-                                                mirror_damage_overlay.update(850, 400,
-                                                                             graphic_dict["effective_dealt_damage_img"])
-                                            elif combat_events["mirror damage"] == 1:
-                                                mirror_damage_overlay.update(850, 400,
-                                                                             graphic_dict["non_effective_dealt_"
-                                                                                          "damage_img"])
-                                            elif combat_events["mirror damage"] == 3:
-                                                mirror_damage_overlay.update(850, 400,
-                                                                             graphic_dict["dealt_damage_img"])
-                                        except KeyError:
-                                            pass
 
                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                         screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
-                                        if mirror_image:
-                                            screen.blit(mirror_damage_overlay.surf, mirror_damage_overlay.rect)
                                         if fire_active:
                                             screen.blit(fire_damage_overlay.surf, fire_damage_overlay.rect)
                                         if player.role == "fighter":
                                             try:
-                                                if combat_events["edge health"]:
+                                                if combat_events["edge damage"]:
                                                     screen.blit(edge_health_overlay.surf, edge_health_overlay.rect)
                                             except KeyError:
                                                 pass
                                     else:
                                         game_window.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
-                                        if mirror_image:
-                                            game_window.blit(mirror_damage_overlay.surf, mirror_damage_overlay.rect)
                                         if fire_active:
                                             game_window.blit(fire_damage_overlay.surf, fire_damage_overlay.rect)
                                         if player.role == "fighter":
                                             try:
-                                                if combat_events["edge health"]:
+                                                if combat_events["edge damage"]:
                                                     game_window.blit(edge_health_overlay.surf, edge_health_overlay.rect)
                                             except KeyError:
                                                 pass
@@ -18888,14 +18760,6 @@ if __name__ == "__main__":
                                     damage_done_rect = damage_done_surf.get_rect()
                                     damage_done_rect.center = (850, 225)
 
-                                    if mirror_image:
-                                        try:
-                                            mirror_dmg_surf = level_up_font.render(str(combat_events["mirror damage"]),
-                                                                                   True, "black", "white")
-                                            mirror_dmg_rect = mirror_dmg_surf.get_rect()
-                                            mirror_dmg_rect.center = (855, 402)
-                                        except KeyError:
-                                            pass
                                     if fire_active:
                                         try:
                                             fire_dmg_surf = level_up_font.render(str(combat_events["fire damage"]),
@@ -18906,38 +18770,32 @@ if __name__ == "__main__":
                                             pass
                                     if player.role == "fighter":
                                         try:
-                                            if combat_events["edge health"]:
-                                                edge_h_surf = level_up_font.render(str(combat_events["edge health"]),
+                                            if combat_events["edge damage"]:
+                                                edge_h_surf = level_up_font.render(str(combat_events["edge damage"]),
                                                                                    True, "black", "white")
                                                 edge_h_rect = edge_h_surf.get_rect()
-                                                edge_h_rect.center = (105, 425)
+                                                edge_h_rect.center = (675, 160)
                                         except KeyError:
                                             pass
 
                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                         screen.blit(damage_done_surf, damage_done_rect)
-                                        if mirror_image:
-                                            screen.blit(mirror_dmg_surf, mirror_dmg_rect)
                                         if fire_active:
                                             screen.blit(fire_dmg_surf, fire_dmg_rect)
-                                        if player.role == "fighter":
-                                            try:
-                                                if combat_events["edge health"]:
-                                                    screen.blit(edge_h_surf, edge_h_rect)
-                                            except KeyError:
-                                                pass
+                                        try:
+                                            if combat_events["edge damage"]:
+                                                screen.blit(edge_h_surf, edge_h_rect)
+                                        except KeyError:
+                                            pass
                                     else:
                                         game_window.blit(damage_done_surf, damage_done_rect)
-                                        if mirror_image:
-                                            game_window.blit(mirror_dmg_surf, mirror_dmg_rect)
                                         if fire_active:
                                             game_window.blit(fire_dmg_surf, fire_dmg_rect)
-                                        if player.role == "fighter":
-                                            try:
-                                                if combat_events["edge health"]:
-                                                    game_window.blit(edge_h_surf, edge_h_rect)
-                                            except KeyError:
-                                                pass
+                                        try:
+                                            if combat_events["edge damage"]:
+                                                game_window.blit(edge_h_surf, edge_h_rect)
+                                        except KeyError:
+                                            pass
 
                                     damage_pet_surf = level_up_font.render(str(combat_events["pet damage"]),
                                                                            True, "black", "white")
@@ -19042,18 +18900,15 @@ if __name__ == "__main__":
                             # when combat happens, apply a short cooldown so attack button can't be spammed
                             combat_toc = time.perf_counter()
                             if combat_toc - combat_tic > 0.5:
-                                # reset combat animation and ability to click without delay on next iteration
+                                # reset animations
                                 combat_happened = False
                                 combat_cooldown = False
-                                # reset hard strike condition so regular fighter attack animation resumes
                                 hard_strike = False
-                                edge_active = False
+                                show_edge = False
                                 show_arrow = False
                                 arrow_active = False
-
                                 if crushed:
                                     crush_shown = True
-
                     except TypeError:
                         pass
 
@@ -20738,10 +20593,34 @@ if __name__ == "__main__":
                             player.health = 100
                             player.energy = 100
                             rested = True
-                            
-                            # if player rests later in day, goes to next morning
-                            if time_of_day == 5 or time_of_day == 6 or time_of_day == 7 or time_of_day == 0:
-                                time_of_day = 1
+                            time_of_day += 4
+                            if time_of_day > 7:
+                                time_of_day -= 8
+
+                            # update message box indicator and enemy sprites depending on time of day after resting
+                            if time_of_day == 0:
+                                message_box.update(173, 650, graphic_dict["message_box_night"])
+                                if player.current_zone == "seldon":
+                                    for snake in snakes:
+                                        if (player.quest_status["sneaky snakes"]
+                                                and not player.quest_complete["sneaky snakes"]):
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake_high_night"])
+                                        else:
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake_night"])
+                                    if player.quest_progress["where's nede?"] == 1:
+                                        nede.update(809, 390, graphic_dict["nede_sleep"])
+                                if player.current_zone == "korlok":
+                                    for magmon in magmons:
+                                        if (player.quest_status["elementary elementals"]
+                                                and not player.quest_complete["elementary elementals"]):
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon_high_night"])
+                                        else:
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon_night"])
+                            elif time_of_day == 1:
                                 message_box.update(173, 650, graphic_dict["message_box_dawn"])
                                 pygame.mixer.find_channel(True).play(sfx_chirp)
                                 if player.current_zone == "seldon":
@@ -20755,7 +20634,6 @@ if __name__ == "__main__":
                                                                graphic_dict["snake"])
                                     if player.quest_progress["where's nede?"] == 1:
                                         nede.update(809, 390, graphic_dict["nede_left"])
-
                                 if player.current_zone == "korlok":
                                     for magmon in magmons:
                                         if (player.quest_status["elementary elementals"]
@@ -20765,33 +20643,75 @@ if __name__ == "__main__":
                                         else:
                                             magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
                                                                 graphic_dict["magmon"])
-                            
-                            # if player rests early in day, goes to night
-                            else:
-                                if time_of_day == 1 or time_of_day == 2 or time_of_day == 3 or time_of_day == 4:
-                                    time_of_day = 7
-                                    message_box.update(173, 650, graphic_dict["message_box_night"])
-                                    pygame.mixer.find_channel(True).play(sfx_howl)
-                                    if player.current_zone == "seldon":
-                                        for snake in snakes:
-                                            if (player.quest_status["sneaky snakes"]
-                                                    and not player.quest_complete["sneaky snakes"]):
-                                                snake.update_image(snake.x_coordinate, snake.y_coordinate,
-                                                                   graphic_dict["snake_high_night"])
-                                            else:
-                                                snake.update_image(snake.x_coordinate, snake.y_coordinate,
-                                                                   graphic_dict["snake_night"])
-                                        if player.quest_progress["where's nede?"] == 1:
-                                            nede.update(809, 390, graphic_dict["nede_sleep"])
-                                    if player.current_zone == "korlok":
-                                        for magmon in magmons:
-                                            if (player.quest_status["elementary elementals"]
-                                                    and not player.quest_complete["elementary elementals"]):
-                                                magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
-                                                                    graphic_dict["magmon_high_night"])
-                                            else:
-                                                magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
-                                                                    graphic_dict["magmon_night"])
+                            elif time_of_day == 2:
+                                message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                if player.current_zone == "seldon":
+                                    for snake in snakes:
+                                        if (player.quest_status["sneaky snakes"]
+                                                and not player.quest_complete["sneaky snakes"]):
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake_high"])
+                                        else:
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake"])
+                                    if player.quest_progress["where's nede?"] == 1:
+                                        nede.update(809, 390, graphic_dict["nede_left"])
+                                if player.current_zone == "korlok":
+                                    for magmon in magmons:
+                                        if (player.quest_status["elementary elementals"]
+                                                and not player.quest_complete["elementary elementals"]):
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon_high"])
+                                        else:
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon"])
+                            elif time_of_day == 3 or time_of_day == 4:
+                                message_box.update(173, 650, graphic_dict["message_box_day"])
+                                if player.current_zone == "seldon":
+                                    for snake in snakes:
+                                        if (player.quest_status["sneaky snakes"]
+                                                and not player.quest_complete["sneaky snakes"]):
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake_high"])
+                                        else:
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake"])
+                                    if player.quest_progress["where's nede?"] == 1:
+                                        nede.update(809, 390, graphic_dict["nede_left"])
+                                if player.current_zone == "korlok":
+                                    for magmon in magmons:
+                                        if (player.quest_status["elementary elementals"]
+                                                and not player.quest_complete["elementary elementals"]):
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon_high"])
+                                        else:
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon"])
+                            elif time_of_day == 5 or time_of_day == 6:
+                                message_box.update(173, 650, graphic_dict["message_box_dusk"])
+                            elif time_of_day == 7:
+                                message_box.update(173, 650, graphic_dict["message_box_night"])
+                                pygame.mixer.find_channel(True).play(sfx_howl)
+                                if player.current_zone == "seldon":
+                                    for snake in snakes:
+                                        if (player.quest_status["sneaky snakes"]
+                                                and not player.quest_complete["sneaky snakes"]):
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake_high_night"])
+                                        else:
+                                            snake.update_image(snake.x_coordinate, snake.y_coordinate,
+                                                               graphic_dict["snake_night"])
+                                    if player.quest_progress["where's nede?"] == 1:
+                                        nede.update(809, 390, graphic_dict["nede_sleep"])
+                                if player.current_zone == "korlok":
+                                    for magmon in magmons:
+                                        if (player.quest_status["elementary elementals"]
+                                                and not player.quest_complete["elementary elementals"]):
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon_high_night"])
+                                        else:
+                                            magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
+                                                                graphic_dict["magmon_night"])
 
                     if first_inn_cond:
                         directional_arrow.update(855, 620, graphic_dict["arrow_down"])
@@ -25162,36 +25082,10 @@ if __name__ == "__main__":
                             if player.current_zone == "marrow":
                                 screen.blit(marrow_interaction_bg, (0, 0))
 
-                            if player.current_zone != "ectrenos":
-                                if time_of_day == 0:
-                                    screen.blit(dawn, (0, 0))
-                                if time_of_day == 1:
-                                    screen.blit(early_morning, (0, 0))
-                                if time_of_day == 2:
-                                    screen.blit(morning, (0, 0))
-                                if time_of_day == 4:
-                                    screen.blit(early_afternoon, (0, 0))
-                                if time_of_day == 5:
-                                    screen.blit(afternoon, (0, 0))
-                                if time_of_day == 6:
-                                    screen.blit(dusk, (0, 0))
-                                if time_of_day == 7:
-                                    screen.blit(night, (0, 0))
-
-                            screen.blit(equipment_screen.surf, equipment_screen.rect)
-                            screen.blit(offense_meter.surf, offense_meter.rect)
-                            screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
                                                           weapon_select, apothis_upgrade)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
-                            if player.alive_status:
-                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                                screen.blit(hp_bar.surf, hp_bar.rect)
-                                screen.blit(en_bar.surf, en_bar.rect)
-                                screen.blit(xp_bar.surf, xp_bar.rect)
-                            screen.blit(leave_button.surf, leave_button.rect)
-                            screen.blit(quest_button.surf, quest_button.rect)
                             # noinspection PyUnboundLocalVariable
                             if current_npc_interacting.name == "Garan":
                                 screen.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
@@ -25255,6 +25149,33 @@ if __name__ == "__main__":
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+
+                            if player.current_zone != "ectrenos":
+                                if time_of_day == 0:
+                                    screen.blit(dawn, (0, 0))
+                                if time_of_day == 1:
+                                    screen.blit(early_morning, (0, 0))
+                                if time_of_day == 2:
+                                    screen.blit(morning, (0, 0))
+                                if time_of_day == 4:
+                                    screen.blit(early_afternoon, (0, 0))
+                                if time_of_day == 5:
+                                    screen.blit(afternoon, (0, 0))
+                                if time_of_day == 6:
+                                    screen.blit(dusk, (0, 0))
+                                if time_of_day == 7:
+                                    screen.blit(night, (0, 0))
+
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            if player.alive_status:
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(quest_button.surf, quest_button.rect)
                             screen.blit(npc_name_plate.surf, npc_name_plate.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             if len(drawing_functions.item_info_window) == 0:
@@ -25278,36 +25199,11 @@ if __name__ == "__main__":
                             if player.current_zone == "marrow":
                                 game_window.blit(marrow_interaction_bg, (0, 0))
 
-                            if player.current_zone != "ectrenos":
-                                if time_of_day == 0:
-                                    game_window.blit(dawn, (0, 0))
-                                if time_of_day == 1:
-                                    game_window.blit(early_morning, (0, 0))
-                                if time_of_day == 2:
-                                    game_window.blit(morning, (0, 0))
-                                if time_of_day == 4:
-                                    game_window.blit(early_afternoon, (0, 0))
-                                if time_of_day == 5:
-                                    game_window.blit(afternoon, (0, 0))
-                                if time_of_day == 6:
-                                    game_window.blit(dusk, (0, 0))
-                                if time_of_day == 7:
-                                    game_window.blit(night, (0, 0))
-
-                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                            game_window.blit(offense_meter.surf, offense_meter.rect)
-                            game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
                                                           weapon_select, apothis_upgrade)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
-                            if player.alive_status:
-                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                                game_window.blit(hp_bar.surf, hp_bar.rect)
-                                game_window.blit(en_bar.surf, en_bar.rect)
-                                game_window.blit(xp_bar.surf, xp_bar.rect)
-                            game_window.blit(leave_button.surf, leave_button.rect)
-                            game_window.blit(quest_button.surf, quest_button.rect)
+
                             # noinspection PyUnboundLocalVariable
                             if current_npc_interacting.name == "Garan":
                                 game_window.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
@@ -25371,6 +25267,33 @@ if __name__ == "__main__":
                                 npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
 
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+
+                            if player.current_zone != "ectrenos":
+                                if time_of_day == 0:
+                                    game_window.blit(dawn, (0, 0))
+                                if time_of_day == 1:
+                                    game_window.blit(early_morning, (0, 0))
+                                if time_of_day == 2:
+                                    game_window.blit(morning, (0, 0))
+                                if time_of_day == 4:
+                                    game_window.blit(early_afternoon, (0, 0))
+                                if time_of_day == 5:
+                                    game_window.blit(afternoon, (0, 0))
+                                if time_of_day == 6:
+                                    game_window.blit(dusk, (0, 0))
+                                if time_of_day == 7:
+                                    game_window.blit(night, (0, 0))
+
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            if player.alive_status:
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(quest_button.surf, quest_button.rect)
                             game_window.blit(npc_name_plate.surf, npc_name_plate.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             if len(drawing_functions.item_info_window) == 0:
@@ -25685,12 +25608,11 @@ if __name__ == "__main__":
                             barrier_active = False
                         if sharp_sense_active:
                             sharp_sense_active = False
-                        if mirror_image:
-                            mirror_image = False
                         fire_active = False
                         arrow_active = False
                         show_arrow = False
                         edge_active = False
+                        show_edge = False
                         strike_active = False
                         cleared = False
                         loot_timer_reset = False
@@ -25759,12 +25681,11 @@ if __name__ == "__main__":
                                         barrier_active = False
                                     if sharp_sense_active:
                                         sharp_sense_active = False
-                                    if mirror_image:
-                                        mirror_image = False
                                     fire_active = False
                                     arrow_active = False
                                     show_arrow = False
                                     edge_active = False
+                                    show_edge = False
                                     strike_active = False
                                     cleared = False
                                     cloaked = False
@@ -25858,12 +25779,11 @@ if __name__ == "__main__":
                                     barrier_active = False
                                 if sharp_sense_active:
                                     sharp_sense_active = False
-                                if mirror_image:
-                                    mirror_image = False
                                 fire_active = False
                                 arrow_active = False
                                 show_arrow = False
                                 edge_active = False
+                                show_edge = False
                                 strike_active = False
                                 cleared = False
                                 cloaked = False

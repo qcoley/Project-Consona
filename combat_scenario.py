@@ -2173,7 +2173,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter,
                     atmon_counter, prism_received, dreth_counter, apothis_gift, trading_deck,
                     trading_task_complete, any_card_counter, card_deck, arrow_active, fire_active, show_edge,
-                    cloaked, burned, poisoned, bleeding, crushed, strike_active):
+                    cloaked, burned, poisoned, bleeding, crushed, strike_active, edge_active):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {"damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -2197,19 +2197,16 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 combat_event_dictionary["player damage"] = attack_dict["damage"]
                 damage_to_enemy = attack_dict["damage"] + attack_dict["pet damage"]
 
+                # healing from epsilons edge returned to player
                 if show_edge:
-                    if enemy_combating.name == "Dreth":
-                        if not apothis_gift:
-                            edge_damage = 1
-                        else:
-                            edge_damage = random.randint(15, 25)
-                    else:
-                        edge_damage = random.randint(20, 30)
-                    damage_to_enemy += edge_damage
-                    combat_event_dictionary["player damage"] += edge_damage
-                    combat_event_dictionary["edge health"] = int(0.25 * damage_to_enemy)
+                    edge_health = random.randint(5, 10)
+                    combat_event_dictionary["edge health"] = edge_health
+                    player.health += edge_health
+                    if player.health >= 100:
+                        player.health = 100
 
-                # millennium fire damage add to total and return in dict
+                # damage over time effects to enemy
+                # millennium fire burn damage add to total and return in dict
                 if fire_active:
                     if enemy_combating.name == "Dreth":
                         if not apothis_gift:
@@ -2220,7 +2217,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         combat_event_dictionary["fire damage"] = random.randint(5, 10)
                     damage_to_enemy += combat_event_dictionary["fire damage"]
 
-                # poison arrow damage add to total and return in dict
+                # poison arrow poison damage add to total and return in dict
                 if arrow_active:
                     if enemy_combating.name == "Dreth":
                         if not apothis_gift:
@@ -2231,41 +2228,27 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         combat_event_dictionary["arrow damage"] = random.randint(5, 10)
                     damage_to_enemy += combat_event_dictionary["arrow damage"]
 
-                if mirror_image:
-                    if attack_dict["effective"]:
-                        combat_event_dictionary["mirror damage"] = 5
-                        if enemy_combating.name == "Dreth":
-                            if not apothis_gift:
-                                damage_to_enemy += 1
-                            else:
-                                damage_to_enemy += 4
+                # epsilons edge bleed damage add to total and return in dict
+                if edge_active:
+                    if enemy_combating.name == "Dreth":
+                        if not apothis_gift:
+                            combat_event_dictionary["edge damage"] = 1
                         else:
-                            damage_to_enemy += 5
-                    elif attack_dict["non effective"]:
-                        combat_event_dictionary["mirror damage"] = 1
-                        damage_to_enemy += 1
+                            combat_event_dictionary["edge damage"] = random.randint(4, 8)
                     else:
-                        combat_event_dictionary["mirror damage"] = 3
-                        if enemy_combating.name == "Dreth":
-                            if not apothis_gift:
-                                damage_to_enemy += 1
-                            else:
-                                damage_to_enemy += 3
-                        else:
-                            damage_to_enemy += 3
+                        combat_event_dictionary["edge damage"] = random.randint(5, 10)
+                    damage_to_enemy += combat_event_dictionary["edge damage"]
 
                 enemy_combating.health = enemy_combating.health - damage_to_enemy
                 enemy_health_bar(enemy_combating, graphics)
 
-            # if enemy is not dead yet
+            # if enemy is not dead yet this handles their turn and damage ----------------------------------------------
             if enemy_combating.health > 0:
                 if not turn_taken:
                     attacked_enemy_string = f" You did {damage_to_enemy} damage to {enemy_combating.kind}."
                     combat_event_dictionary["damage done"] = damage_to_enemy
-                    # add damage to enemy to event dictionary to be returned to main loop
                     combat_event_dictionary["damage done string"] = attacked_enemy_string
 
-                # returns total damage output from enemy as attacked_player_health value
                 if not stun_them:
                     defend_dict = gameplay_functions.attack_player(player, enemy_combating, barrier_active,
                                                                    arrow_active, crushed, strike_active)
@@ -2298,7 +2281,6 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         combat_event_dictionary["bleed_damage"] = bleed_damage
 
                     if damage_to_player > 0:
-
                         total_damage = damage_to_player
                         if burned:
                             total_damage += burn_damage
@@ -2309,21 +2291,11 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                         attacked_player_string = f"You take {total_damage} damage."
                         player.health = player.health - total_damage
-
-                        if show_edge:
-                            player.health += int(0.75 * damage_to_enemy)
-                            if player.health >= 100:
-                                player.health = 100
                         combat_event_dictionary["damage taken"] = damage_to_player
-                        # add damage done to player from enemy to dictionary
                         combat_event_dictionary["damage taken string"] = attacked_player_string
 
                         return combat_event_dictionary
                     else:
-                        if show_edge:
-                            player.health += int(0.75 * damage_to_enemy)
-                            if player.health >= 100:
-                                player.health = 100
                         enemy_miss_string = f'{enemy_combating.kind} missed.'
                         # add to dictionary that enemy did no damage to player
                         combat_event_dictionary["damage taken string"] = enemy_miss_string
@@ -2338,11 +2310,6 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
             # enemy has been defeated, will return an amount of xp based on current levels
             else:
-                if show_edge:
-                    player.health += int(0.75 * damage_to_enemy)
-                    if player.health >= 100:
-                        player.health = 100
-
                 # if player is on quest to kill snakes
                 if enemy_combating.kind == "snake":
                     if player.quest_status["sneaky snakes"]:
