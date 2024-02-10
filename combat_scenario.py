@@ -2212,9 +2212,9 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         if not apothis_gift:
                             combat_event_dictionary["fire damage"] = 1
                         else:
-                            combat_event_dictionary["fire damage"] = random.randint(4, 8)
+                            combat_event_dictionary["fire damage"] = random.randint(2, 6)
                     else:
-                        combat_event_dictionary["fire damage"] = random.randint(5, 10)
+                        combat_event_dictionary["fire damage"] = random.randint(4, 8)
                     damage_to_enemy += combat_event_dictionary["fire damage"]
 
                 # poison arrow poison damage add to total and return in dict
@@ -2223,9 +2223,9 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         if not apothis_gift:
                             combat_event_dictionary["arrow damage"] = 1
                         else:
-                            combat_event_dictionary["arrow damage"] = random.randint(4, 8)
+                            combat_event_dictionary["arrow damage"] = random.randint(2, 6)
                     else:
-                        combat_event_dictionary["arrow damage"] = random.randint(5, 10)
+                        combat_event_dictionary["arrow damage"] = random.randint(4, 8)
                     damage_to_enemy += combat_event_dictionary["arrow damage"]
 
                 # epsilons edge bleed damage add to total and return in dict
@@ -2234,9 +2234,9 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         if not apothis_gift:
                             combat_event_dictionary["edge damage"] = 1
                         else:
-                            combat_event_dictionary["edge damage"] = random.randint(4, 8)
+                            combat_event_dictionary["edge damage"] = random.randint(2, 6)
                     else:
-                        combat_event_dictionary["edge damage"] = random.randint(5, 10)
+                        combat_event_dictionary["edge damage"] = random.randint(4, 8)
                     damage_to_enemy += combat_event_dictionary["edge damage"]
 
                 enemy_combating.health = enemy_combating.health - damage_to_enemy

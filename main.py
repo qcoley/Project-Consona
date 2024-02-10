@@ -8600,7 +8600,8 @@ if __name__ == "__main__":
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
     fire_damage_overlay = UiElement("fire damage overlay", 575, 160, graphic_dict["fire_damage_img"])
-    edge_health_overlay = UiElement("edge health overlay", 675, 160, graphic_dict["edge_health_img"])
+    edge_health_overlay = UiElement("edge health overlay", 775, 160, graphic_dict["edge_health_img"])
+    poison_arrow_dmg_overlay = UiElement("poison arrow dmg overlay", 675, 160, graphic_dict["poison_arrow_damage_img"])
     pet_damage_overlay = UiElement("pet damage overlay", 750, 250, graphic_dict["pet_damage_img"])
     mirror_damage_overlay = UiElement("mirror damage overlay", 800, 200, graphic_dict["dealt_damage_img"])
     received_damage_overlay = UiElement("received damage overlay", 125, 275, graphic_dict["received_damage_img"])
@@ -9398,6 +9399,7 @@ if __name__ == "__main__":
     card_drop_played = False
     cleared = False
     show_arrow = False
+    show_poison_arrow = False
     edge_active = False
     show_edge = False
     on_card_quest = False
@@ -15733,6 +15735,7 @@ if __name__ == "__main__":
                                 fire_active = False
                                 arrow_active = False
                                 show_arrow = False
+                                show_poison_arrow = False
                                 edge_active = False
                                 show_edge = False
                                 strike_active = False
@@ -16722,6 +16725,7 @@ if __name__ == "__main__":
                                         fire_active = False
                                         arrow_active = False
                                         show_arrow = False
+                                        show_poison_arrow = False
                                         edge_active = False
                                         show_edge = False
                                         strike_active = False
@@ -17106,6 +17110,7 @@ if __name__ == "__main__":
                                                     fire_active = False
                                                     arrow_active = False
                                                     show_arrow = False
+                                                    show_poison_arrow = False
                                                     edge_active = False
                                                     show_edge = False
                                                     strike_active = False
@@ -17299,6 +17304,7 @@ if __name__ == "__main__":
                                             fire_active = False
                                             arrow_active = False
                                             show_arrow = False
+                                            show_poison_arrow = False
                                             edge_active = False
                                             show_edge = False
                                             strike_active = False
@@ -17495,6 +17501,7 @@ if __name__ == "__main__":
                                                         fire_active = False
                                                         arrow_active = False
                                                         show_arrow = False
+                                                        show_poison_arrow = False
                                                         edge_active = False
                                                         show_edge = False
                                                         strike_active = False
@@ -17731,6 +17738,7 @@ if __name__ == "__main__":
                                                     fire_active = False
                                                     arrow_active = False
                                                     show_arrow = False
+                                                    show_poison_arrow = False
                                                     edge_active = False
                                                     show_edge = False
                                                     strike_active = False
@@ -17778,8 +17786,9 @@ if __name__ == "__main__":
                                         if arrow_learned:
                                             if not arrow_active:
                                                 pygame.mixer.find_channel(True).play(sfx_scout_arrow)
-                                                info_text_1 = "Arrow of Advantage is active."
+                                                info_text_1 = "Poison Arrow is active."
                                                 arrow_active = True
+                                                show_poison_arrow = True
                                                 if player.equipment["trinket 3"] != "":
                                                     player.energy -= 20
                                                 elif player.equipment["trinket 3"] == "":
@@ -17932,6 +17941,7 @@ if __name__ == "__main__":
                                                         fire_active = False
                                                         arrow_active = False
                                                         show_arrow = False
+                                                        show_poison_arrow = False
                                                         edge_active = False
                                                         show_edge = False
                                                         strike_active = False
@@ -17972,7 +17982,7 @@ if __name__ == "__main__":
                                                 else:
                                                     pygame.display.flip()
                                             else:
-                                                info_text_1 = "Arrow of Advantage is already active."
+                                                info_text_1 = "Poison Arrow is already active."
 
                                 else:
                                     info_text_1 = "Not enough energy to use this skill."
@@ -18239,9 +18249,7 @@ if __name__ == "__main__":
                                 text_enemy_level_rect = text_enemy_level_surf.get_rect()
                                 text_enemy_level_rect.center = (918, 688)
 
-                                if arrow_active:
-                                    type_advantage_overlay.update(580, 50, graphic_dict["any_type_overlay"])
-                                elif current_enemy_battling.type == "mage":
+                                if current_enemy_battling.type == "mage":
                                     type_advantage_overlay.update(580, 50, graphic_dict["mage_type_overlay"])
                                 elif current_enemy_battling.type == "fighter":
                                     type_advantage_overlay.update(580, 50, graphic_dict["fighter_type_overlay"])
@@ -18506,6 +18514,7 @@ if __name__ == "__main__":
                                         fire_active = False
                                         arrow_active = False
                                         show_arrow = False
+                                        show_poison_arrow = False
                                         edge_active = False
                                         show_edge = False
                                         strike_active = False
@@ -18568,7 +18577,7 @@ if __name__ == "__main__":
                                 if player.role == "scout":
                                     if show_arrow:
                                         screen.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
-                                    elif arrow_active:
+                                    elif show_poison_arrow:
                                         screen.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
 
                                 if burned:
@@ -18636,7 +18645,7 @@ if __name__ == "__main__":
                                 if player.role == "scout":
                                     if show_arrow:
                                         game_window.blit(arrow_battle_sprite.surf, arrow_battle_sprite.rect)
-                                    elif arrow_active:
+                                    elif show_poison_arrow:
                                         game_window.blit(advantage_battle_sprite.surf, advantage_battle_sprite.rect)
 
                                 if burned:
@@ -18730,22 +18739,20 @@ if __name__ == "__main__":
                                         screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
                                         if fire_active:
                                             screen.blit(fire_damage_overlay.surf, fire_damage_overlay.rect)
-                                        if player.role == "fighter":
-                                            try:
-                                                if combat_events["edge damage"]:
-                                                    screen.blit(edge_health_overlay.surf, edge_health_overlay.rect)
-                                            except KeyError:
-                                                pass
+                                        if edge_active:
+                                            screen.blit(edge_health_overlay.surf, edge_health_overlay.rect)
+                                        if arrow_active:
+                                            screen.blit(poison_arrow_dmg_overlay.surf, poison_arrow_dmg_overlay.rect)
                                     else:
                                         game_window.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
                                         if fire_active:
                                             game_window.blit(fire_damage_overlay.surf, fire_damage_overlay.rect)
-                                        if player.role == "fighter":
-                                            try:
-                                                if combat_events["edge damage"]:
-                                                    game_window.blit(edge_health_overlay.surf, edge_health_overlay.rect)
-                                            except KeyError:
-                                                pass
+                                        if edge_active:
+                                            game_window.blit(edge_health_overlay.surf, edge_health_overlay.rect)
+                                        if arrow_active:
+                                            game_window.blit(poison_arrow_dmg_overlay.surf,
+                                                             poison_arrow_dmg_overlay.rect)
+
                                     if kasper_unlocked or torok_unlocked or iriana_unlocked:
                                         for pet in player.pet:
                                             if pet.active:
@@ -18768,13 +18775,20 @@ if __name__ == "__main__":
                                             fire_dmg_rect.center = (578, 160)
                                         except KeyError:
                                             pass
-                                    if player.role == "fighter":
+                                    if edge_active:
                                         try:
-                                            if combat_events["edge damage"]:
-                                                edge_h_surf = level_up_font.render(str(combat_events["edge damage"]),
-                                                                                   True, "black", "white")
-                                                edge_h_rect = edge_h_surf.get_rect()
-                                                edge_h_rect.center = (675, 160)
+                                            edge_h_surf = level_up_font.render(str(combat_events["edge damage"]),
+                                                                               True, "black", "white")
+                                            edge_h_rect = edge_h_surf.get_rect()
+                                            edge_h_rect.center = (780, 160)
+                                        except KeyError:
+                                            pass
+                                    if arrow_active:
+                                        try:
+                                            arrow_h_surf = level_up_font.render(str(combat_events["arrow damage"]),
+                                                                                True, "black", "white")
+                                            arrow_h_rect = arrow_h_surf.get_rect()
+                                            arrow_h_rect.center = (680, 160)
                                         except KeyError:
                                             pass
 
@@ -18782,20 +18796,18 @@ if __name__ == "__main__":
                                         screen.blit(damage_done_surf, damage_done_rect)
                                         if fire_active:
                                             screen.blit(fire_dmg_surf, fire_dmg_rect)
-                                        try:
-                                            if combat_events["edge damage"]:
-                                                screen.blit(edge_h_surf, edge_h_rect)
-                                        except KeyError:
-                                            pass
+                                        if edge_active:
+                                            screen.blit(edge_h_surf, edge_h_rect)
+                                        if arrow_active:
+                                            screen.blit(arrow_h_surf, arrow_h_rect)
                                     else:
                                         game_window.blit(damage_done_surf, damage_done_rect)
                                         if fire_active:
                                             game_window.blit(fire_dmg_surf, fire_dmg_rect)
-                                        try:
-                                            if combat_events["edge damage"]:
-                                                game_window.blit(edge_h_surf, edge_h_rect)
-                                        except KeyError:
-                                            pass
+                                        if edge_active:
+                                            game_window.blit(edge_h_surf, edge_h_rect)
+                                        if arrow_active:
+                                            game_window.blit(arrow_h_surf, arrow_h_rect)
 
                                     damage_pet_surf = level_up_font.render(str(combat_events["pet damage"]),
                                                                            True, "black", "white")
@@ -18906,7 +18918,7 @@ if __name__ == "__main__":
                                 hard_strike = False
                                 show_edge = False
                                 show_arrow = False
-                                arrow_active = False
+                                show_poison_arrow = False
                                 if crushed:
                                     crush_shown = True
                     except TypeError:
@@ -25471,7 +25483,7 @@ if __name__ == "__main__":
                                     if (player.quest_status["sneaky snakes"]
                                             and not player.quest_complete["sneaky snakes"]):
                                         snake.update_image(snake.x_coordinate, snake.y_coordinate,
-                                                                  graphic_dict["snake_high_night"])
+                                                           graphic_dict["snake_high_night"])
                                     else:
                                         snake.update_image(snake.x_coordinate, snake.y_coordinate,
                                                            graphic_dict["snake_night"])
@@ -25502,10 +25514,10 @@ if __name__ == "__main__":
                                     if (player.quest_status["band hammer"]
                                             and not player.quest_complete["band hammer"]):
                                         bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
-                                                           graphic_dict["bandile_high_night"])
+                                                             graphic_dict["bandile_high_night"])
                                     else:
                                         bandile.update_image(bandile.x_coordinate, bandile.y_coordinate,
-                                                           graphic_dict["bandile_night"])
+                                                             graphic_dict["bandile_night"])
                             if player.current_zone == "ectrenos alcove":
                                 for osodark in ectrenos_alcove_enemies:
                                     osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
@@ -25514,10 +25526,10 @@ if __name__ == "__main__":
                                 for atmon in atmons:
                                     if npc_maydria.gift and not prism_received:
                                         atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
-                                                             graphic_dict["atmon_high_night"])
+                                                           graphic_dict["atmon_high_night"])
                                     else:
                                         atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
-                                                             graphic_dict["atmon_night"])
+                                                           graphic_dict["atmon_night"])
 
                         case 7:  # night
                             if day_timer_toc - day_timer > 50:
@@ -25611,6 +25623,7 @@ if __name__ == "__main__":
                         fire_active = False
                         arrow_active = False
                         show_arrow = False
+                        show_poison_arrow = False
                         edge_active = False
                         show_edge = False
                         strike_active = False
@@ -25684,6 +25697,7 @@ if __name__ == "__main__":
                                     fire_active = False
                                     arrow_active = False
                                     show_arrow = False
+                                    show_poison_arrow = False
                                     edge_active = False
                                     show_edge = False
                                     strike_active = False
@@ -25782,6 +25796,7 @@ if __name__ == "__main__":
                                 fire_active = False
                                 arrow_active = False
                                 show_arrow = False
+                                show_poison_arrow = False
                                 edge_active = False
                                 show_edge = False
                                 strike_active = False
