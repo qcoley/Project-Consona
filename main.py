@@ -8008,8 +8008,8 @@ if __name__ == "__main__":
         Item("cure poison potion", "potion", 200, 200, graphic_dict["poison_cure"], 0),
         Item("cure burn potion", "potion", 200, 200, graphic_dict["burn_cure"], 0),
         Item("bandage wrap", "wrap", 200, 200, graphic_dict["bandage_wrap"], 0),
-        Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
-        Item("brace", "brace", 200, 200, graphic_dict["brace"], 0)])
+        Item("brace", "brace", 200, 200, graphic_dict["brace"], 0),
+        Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
@@ -8021,8 +8021,8 @@ if __name__ == "__main__":
         Item("cure poison potion", "potion", 200, 200, graphic_dict["poison_cure"], 0),
         Item("cure burn potion", "potion", 200, 200, graphic_dict["burn_cure"], 0),
         Item("bandage wrap", "wrap", 200, 200, graphic_dict["bandage_wrap"], 0),
-        Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
-        Item("brace", "brace", 200, 200, graphic_dict["brace"], 0)])
+        Item("brace", "brace", 200, 200, graphic_dict["brace"], 0),
+        Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1)])
 
     npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
         Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
@@ -8034,8 +8034,8 @@ if __name__ == "__main__":
         Item("cure poison potion", "potion", 200, 200, graphic_dict["poison_cure"], 0),
         Item("cure burn potion", "potion", 200, 200, graphic_dict["burn_cure"], 0),
         Item("bandage wrap", "wrap", 200, 200, graphic_dict["bandage_wrap"], 0),
-        Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
-        Item("brace", "brace", 200, 200, graphic_dict["brace"], 0)])
+        Item("brace", "brace", 200, 200, graphic_dict["brace"], 0),
+        Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
@@ -15915,6 +15915,25 @@ if __name__ == "__main__":
                                     drawing_functions.condition_description_window.append(overlay_crushed_desc)
                             else:
                                 drawing_functions.condition_description_window.clear()
+
+                            if overlay_burned_enemy.rect.collidepoint(pos):
+                                drawing_functions.condition_description_window_e.clear()
+                                if fire_active:
+                                    drawing_functions.condition_description_window_e.append(overlay_burned_desc_enemy)
+                            elif overlay_poisoned_enemy.rect.collidepoint(pos):
+                                drawing_functions.condition_description_window_e.clear()
+                                if arrow_active:
+                                    drawing_functions.condition_description_window_e.append(overlay_poisoned_desc_enemy)
+                            elif overlay_bleeding_enemy.rect.collidepoint(pos):
+                                drawing_functions.condition_description_window_e.clear()
+                                if edge_active:
+                                    drawing_functions.condition_description_window_e.append(overlay_bleeding_desc_enemy)
+                            elif overlay_crushed_enemy.rect.collidepoint(pos):
+                                drawing_functions.condition_description_window_e.clear()
+                                if strike_active:
+                                    drawing_functions.condition_description_window_e.append(overlay_crushed_desc_enemy)
+                            else:
+                                drawing_functions.condition_description_window_e.clear()
 
                             if flower_button.collidepoint(pos):
                                 if (len(drawing_functions.fish_pop_up_window) == 0 and

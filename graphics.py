@@ -738,6 +738,15 @@ def load_graphics():
     loaded_dict["amuna_cutscene_female"] = player_cutscene_sheet[3]
     loaded_dict["nuldar_cutscene_female"] = player_cutscene_sheet[4]
     loaded_dict["sorae_cutscene_beta"] = player_cutscene_sheet[5]
+    # player character night cutscene overlays -------------------------------------------------------------------------
+    player_cutscene_night_url = resource_path('resources/art/overlay_player_cutscene_night.png')
+    player_cutscene_night_sheet = sprite_sheet((90, 160), player_cutscene_night_url)
+    loaded_dict["amuna_cutscene_night"] = player_cutscene_night_sheet[0]
+    loaded_dict["nuldar_cutscene_night"] = player_cutscene_night_sheet[1]
+    loaded_dict["sorae_cutscene_night"] = player_cutscene_night_sheet[2]
+    loaded_dict["amuna_cutscene_female_night"] = player_cutscene_night_sheet[3]
+    loaded_dict["nuldar_cutscene_female_night"] = player_cutscene_night_sheet[4]
+    loaded_dict["sorae_cutscene_beta_night"] = player_cutscene_night_sheet[5]
     # player character cutscene overlays 2 -----------------------------------------------------------------------------
     player_cutscene_2_url = resource_path('resources/art/overlay_player_cutscene_2.png')
     player_cutscene_2_sheet = sprite_sheet((500, 668), player_cutscene_2_url)
@@ -747,6 +756,15 @@ def load_graphics():
     loaded_dict["amuna_cutscene_2_female"] = player_cutscene_2_sheet[3]
     loaded_dict["nuldar_cutscene_2_female"] = player_cutscene_2_sheet[4]
     loaded_dict["sorae_cutscene_2_beta"] = player_cutscene_2_sheet[5]
+    # player character cutscene overlays 2 night -----------------------------------------------------------------------
+    player_cutscene_2_night_url = resource_path('resources/art/overlay_player_cutscene_2_night.png')
+    player_cutscene_2_night_sheet = sprite_sheet((500, 668), player_cutscene_2_night_url)
+    loaded_dict["amuna_cutscene_2_night"] = player_cutscene_2_night_sheet[0]
+    loaded_dict["nuldar_cutscene_2_night"] = player_cutscene_2_night_sheet[1]
+    loaded_dict["sorae_cutscene_2_night"] = player_cutscene_2_night_sheet[2]
+    loaded_dict["amuna_cutscene_2_female_night"] = player_cutscene_2_night_sheet[3]
+    loaded_dict["nuldar_cutscene_2_female_night"] = player_cutscene_2_night_sheet[4]
+    loaded_dict["sorae_cutscene_2_beta_night"] = player_cutscene_2_night_sheet[5]
     # race selection lore overlays -------------------------------------------------------------------------------------
     race_lore_url = resource_path('resources/art/overlays_race_select.png')
     race_lore_sheet = sprite_sheet((278, 372), race_lore_url)
