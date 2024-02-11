@@ -35,8 +35,8 @@ You can run the requirements.txt file to install PyGame with the command "pip in
 
 # Usage
 
-Once the project is downloaded, navigate to the folder with your command line and type "python project_eterna.py", 
-or with some OS's you can just right click the "project_eterna.py" file and choose to run with python.
+Once the project is downloaded, navigate to the folder with your command line and type "python main.py", 
+or with some OS's you can just right click the "main.py" file and choose to run with python.
 
 There is also an .exe file within the "dist" folder thats updated periodically as new features are added. 
 This is a self-contained executable file that shouldn't need any dependancies to run provided your OS supports it. 
