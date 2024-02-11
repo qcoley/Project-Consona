@@ -1237,6 +1237,9 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
             if clicked_element[0].name == "big mend potion":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
+            if clicked_element[0].name == "prism":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
 
         except IndexError:
             pass

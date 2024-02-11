@@ -18,7 +18,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                prism_tic, sfx_chroma, castle_exit, chandelier, crate_1, crate_2, castle_crate_1_got,
                castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_phase,
                castle_one_roped_bg, castle_one_keyed_bg, key_got, castle_key, boss_door, sfx_item_key, jumanos,
-               jumano_battle_sprite, apothis_gift, time_of_day):
+               jumano_battle_sprite, apothis_gift, time_of_day, kasper_unlocked, torok_unlocked, iriana_unlocked,
+               kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -71,16 +72,6 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if rope_phase != 2:
         screen.blit(chandelier.surf, chandelier.rect)
@@ -234,7 +225,9 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                    torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                    torok_battle_sprite, iriana_battle_sprite)
             combat_scenario.battle_animation_enemy(current_enemy_battling, jumano_battle_sprite,
                                                    jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
                                                    jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
@@ -265,6 +258,17 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
@@ -319,7 +323,8 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_wind, rope_phase, castle_two_roped_bg, sfx_rope,
                cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_saved, chest_1_got,
                sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, parts, parts_highlighted, sfx_item, apothis_gift,
-               time_of_day):
+               time_of_day, kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+               iriana_battle_sprite):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -342,7 +347,9 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
                 combat_scenario.battle_animation_enemy(current_enemy_battling, atmon_battle_sprite,
                                                        ghoul_battle_sprite, atmon_battle_sprite, atmon_battle_sprite,
                                                        atmon_battle_sprite, atmon_battle_sprite, atmon_battle_sprite,
@@ -398,16 +405,6 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if pygame.sprite.collide_rect(player, rock_1):
         interaction_popup.update(rock_1.x_coordinate, rock_1.y_coordinate - 50, graphic_dict["popup_interaction"])
@@ -575,6 +572,17 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
@@ -620,7 +628,8 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                  cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_2_saved, chest_1_got,
                  sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall, thanked,
                  up_move, jumano_battle_sprite, sfx_surprise, surprised, apothis_gift, parts, parts_highlighted,
-                 sfx_item, apothis_upgrade, time_of_day):
+                 sfx_item, apothis_upgrade, time_of_day, kasper_unlocked, torok_unlocked, iriana_unlocked,
+                 kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -692,16 +701,6 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if pygame.Rect.colliderect(player.rect, rope_wind):
         interaction_popup.update(120, 250, graphic_dict["popup_interaction"])
@@ -810,7 +809,9 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
                 combat_scenario.battle_animation_enemy(current_enemy_battling, jumano_battle_sprite,
                                                        jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
                                                        jumano_battle_sprite, jumano_battle_sprite,
@@ -869,6 +870,17 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
@@ -921,7 +933,8 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
                 current_enemy_battling, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                 even_better_fish_counter, best_fish_counter, dreth_laugh, dreth_taunt, dreth_taunt_popup, lair_exit,
                 lights_switch, castle_lair_one_bg, castle_lair_two_bg, castle_lair_bg, dreth, dreth_battle_sprite,
-                dreth_defeated, apothis_gift, time_of_day):
+                dreth_defeated, apothis_gift, time_of_day, kasper_unlocked, torok_unlocked, iriana_unlocked,
+                kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -970,16 +983,6 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if not dreth_defeated:
         screen.blit(dreth.surf, dreth.rect)
@@ -1008,7 +1011,9 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
                 combat_scenario.battle_animation_enemy(current_enemy_battling, dreth_battle_sprite, dreth_battle_sprite,
                                                        dreth_battle_sprite, dreth_battle_sprite,
                                                        dreth_battle_sprite, dreth_battle_sprite,
@@ -1060,6 +1065,17 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
@@ -1195,16 +1211,6 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if pygame.Rect.colliderect(player.rect, caldera_ladder):
         interaction_popup.update(340, 250, graphic_dict["popup_interaction"])
@@ -1418,6 +1424,17 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,

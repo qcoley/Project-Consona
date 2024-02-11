@@ -48,16 +48,6 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if pygame.Rect.colliderect(player.rect, forge_rect):
         interaction_popup.update(515, 100,
@@ -213,6 +203,17 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,

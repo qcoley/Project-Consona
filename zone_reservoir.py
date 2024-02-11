@@ -15,7 +15,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 offense_meter, defense_meter, weapon_select, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_item_rupee, sfx_item_key, sfx_item_potion, sfx_switch, sfx_teleporter,
                 stelli_battle_sprite, chorizon_phase, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                even_better_fish_counter, best_fish_counter, sfx_paper, apothis_gift, time_of_day):
+                even_better_fish_counter, best_fish_counter, sfx_paper, apothis_gift, time_of_day, kasper_unlocked,
+                torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
 
     in_battle = False
 
@@ -78,16 +79,6 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     # move player back to rohir if they approach dungeon exit
     if 680 > player.x_coordinate > 365 and SCREEN_HEIGHT - 25 < player.y_coordinate:
@@ -230,7 +221,9 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 loot_popup_container.clear()
                 loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
                 combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                        ghoul_battle_sprite,
                                                        chorizon_battle_sprite, muchador_battle_sprite,
@@ -285,6 +278,17 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
@@ -318,7 +322,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 sfx_rupee, sfx_gate, directional_arrow, stelli_battle_sprite, vanished, vanish_overlay,
                 sfx_item_potion, Item, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                 best_fish_counter, apothis_gift, muchador_crate_1_top, muchador_crate_2_top, muchador_crate_3_top,
-                muchador_crate_4_top, apothis_upgrade, time_of_day):
+                muchador_crate_4_top, apothis_upgrade, time_of_day, kasper_unlocked, torok_unlocked, iriana_unlocked,
+                kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
 
     in_battle = False
 
@@ -363,16 +368,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
+
     if muchador_lights_on:
         screen.blit(muchador_crate_1_top.surf, muchador_crate_1_top.rect)
         screen.blit(muchador_crate_2_top.surf, muchador_crate_2_top.rect)
@@ -507,7 +503,9 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
                 combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                        ghoul_battle_sprite,
                                                        chorizon_battle_sprite, muchador_battle_sprite,
@@ -540,6 +538,17 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
@@ -593,16 +602,6 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
         pass
     screen.blit(player.surf, player.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     # move player back to reservoir b if they approach passage
     if 1000 > player.x_coordinate > 950 and 400 < player.y_coordinate:
@@ -745,6 +744,17 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,

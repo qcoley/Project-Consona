@@ -2,7 +2,9 @@ import random
 import gameplay_functions
 
 
-def battle_animation_player(player, player_battle_sprite, barrier_active, sharp_sense_active, graphics):
+def battle_animation_player(player, player_battle_sprite, barrier_active, sharp_sense_active, graphics,
+                            kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                            torok_battle_sprite, iriana_battle_sprite):
 
     if player.race == "amuna":
         if player.gender == "male":
@@ -812,6 +814,15 @@ def battle_animation_player(player, player_battle_sprite, barrier_active, sharp_
                                                 player_battle_sprite.y_coordinate,
                                                 graphics["player_no_role_nuldar_female_battle"])
 
+    if kasper_unlocked or torok_unlocked or iriana_unlocked:
+        for pet in player.pet:
+            if pet.name == "kasper":
+                kasper_battle_sprite.update(825, 520, graphics["kasper_battle"])
+            if pet.name == "torok":
+                torok_battle_sprite.update(825, 520, graphics["torok_battle"])
+            if pet.name == "iriana":
+                iriana_battle_sprite.update(825, 520, graphics["iriana_battle"])
+
 
 def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
@@ -957,6 +968,10 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                 atmon_battle_sprite.update(atmon_battle_sprite.x_coordinate,
                                            atmon_battle_sprite.y_coordinate,
                                            graphics["atmon_battle"])
+        if enemy.kind == "atmon castle":
+            atmon_battle_sprite.update(atmon_battle_sprite.x_coordinate,
+                                       atmon_battle_sprite.y_coordinate,
+                                       graphics["atmon_battle"])
         if enemy.kind == "jumano":
             jumano_battle_sprite.update(705, 300, graphics["jumano_battle"])
         if enemy.kind == "dreth":
@@ -968,7 +983,8 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
 
 # update player character and enemy sprites for combat animation
 def attack_animation_player(player, player_battle_sprite, barrier_active, sharp_sense_active, hard_strike, graphics,
-                            turn_taken):
+                            turn_taken, kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                            torok_battle_sprite, iriana_battle_sprite):
 
     # update player character sprite for combat animation
     if not turn_taken:
@@ -1818,6 +1834,16 @@ def attack_animation_player(player, player_battle_sprite, barrier_active, sharp_
                                                     player_battle_sprite.y_coordinate,
                                                     graphics["player_no_role_nuldar_female_attack"])
 
+        if kasper_unlocked or torok_unlocked or iriana_unlocked:
+            for pet in player.pet:
+                if pet.energy > 0:
+                    if pet.name == "kasper":
+                        kasper_battle_sprite.update(560, 350, graphics["kasper_attack"])
+                    if pet.name == "torok":
+                        torok_battle_sprite.update(590, 400, graphics["torok_attack"])
+                    if pet.name == "iriana":
+                        iriana_battle_sprite.update(500, 350, graphics["iriana_attack"])
+
 
 def fighter(graphics, player, player_battle_sprite, sharp_sense_active, barrier_active):
 
@@ -2144,7 +2170,7 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_big_attack"])
             else:
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_attack"])
-        if enemy.kind == "atmon":
+        if enemy.kind == "atmon" or enemy.kind == "atmon castle":
             atmon_battle_sprite.update(705, 300, graphics["atmon_attack"])
         if enemy.kind == "jumano":
             jumano_battle_sprite.update(705, 300, graphics["jumano_attack"])

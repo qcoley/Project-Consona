@@ -17,7 +17,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     better_fish_counter, even_better_fish_counter, best_fish_counter, castle_bridge, prism_activate,
                     prism_tic, sfx_chroma, barrier_small, apothis_gift, artherian_task_start, ghouls_highlighted,
                     ghouls_reset, roroc, recycle_crate, star_roroc, rohir_gate, apothis_upgrade, dawn, early_morning,
-                    morning, early_afternoon, afternoon, dusk, night, time_of_day, atmons, prism_received):
+                    morning, early_afternoon, afternoon, dusk, night, time_of_day, atmons, prism_received,
+                    kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+                    iriana_battle_sprite):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -74,16 +76,6 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -141,8 +133,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, False,
-                                                    False, graphic_dict)
-
+                                                    False, graphic_dict, kasper_unlocked, torok_unlocked,
+                                                    iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+                                                    iriana_battle_sprite)
     if pygame.sprite.collide_rect(player, noren):
         interaction_popup.update(noren.x_coordinate, noren.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
@@ -222,7 +215,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, False,
-                                                    False, graphic_dict)
+                                                    False, graphic_dict, kasper_unlocked, torok_unlocked,
+                                                    iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+                                                    iriana_battle_sprite)
 
     if pygame.sprite.collide_rect(player, roroc):
         interaction_popup.update(roroc.x_coordinate, roroc.y_coordinate - 50,
@@ -247,7 +242,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, False,
-                                                    False, graphic_dict)
+                                                    False, graphic_dict, kasper_unlocked, torok_unlocked,
+                                                    iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+                                                    iriana_battle_sprite)
 
     if pygame.sprite.collide_rect(player, hearth_stone):
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
@@ -373,7 +370,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked, torok_unlocked,
+                                                    iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+                                                    iriana_battle_sprite)
             combat_scenario.battle_animation_enemy(current_enemy_battling, ghoul_battle_sprite,
                                                    ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
                                                    ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
@@ -408,6 +407,17 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
@@ -540,16 +550,6 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         pass
     screen.blit(player.surf, player.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     screen.blit(overlay_switch.surf, overlay_switch.rect)
 
@@ -636,6 +636,17 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -729,7 +740,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       player_battle_sprite, barrier_active, sharp_sense_active, necrola_battle_sprite, in_battle,
                       current_enemy_battling, sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter,
                       better_fish_counter, even_better_fish_counter, best_fish_counter, sfx_paper, sfx_munch,
-                      kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, time_of_day):
+                      kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, time_of_day, kasper_battle_sprite,
+                      torok_battle_sprite, iriana_battle_sprite):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -764,16 +776,6 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -796,6 +798,17 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -885,7 +898,9 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
                 combat_scenario.battle_animation_enemy(current_enemy_battling, necrola_battle_sprite,
                                                        necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
@@ -912,7 +927,9 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
                 combat_scenario.battle_animation_enemy(current_enemy_battling, necrola_battle_sprite,
                                                        necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
@@ -962,7 +979,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       sfx_item_potion, Item, necrola_3, in_battle, necrola_rect_3, player_battle_sprite,
                       barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling,
                       sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
-                      even_better_fish_counter, best_fish_counter, apothis_gift, time_of_day):
+                      even_better_fish_counter, best_fish_counter, apothis_gift, time_of_day, kasper_unlocked,
+                      torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -995,16 +1013,6 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -1027,6 +1035,17 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -1108,7 +1127,9 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
                 combat_scenario.battle_animation_enemy(current_enemy_battling, necrola_battle_sprite,
                                                        necrola_battle_sprite,
                                                        necrola_battle_sprite, necrola_battle_sprite,
@@ -1177,16 +1198,6 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -1231,6 +1242,17 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -1313,16 +1335,6 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -1367,6 +1379,17 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -1428,7 +1451,8 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           erebyth_battle_sprite, apothis_push, apothis, apothis_popup, apothis_1, apothis_2,
                           enemy_vanish, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                           even_better_fish_counter, best_fish_counter, apothis_gift, dawn, early_morning, morning,
-                          early_afternoon, afternoon, dusk, night, time_of_day):
+                          early_afternoon, afternoon, dusk, night, time_of_day, kasper_unlocked, torok_unlocked,
+                          iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1487,16 +1511,6 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -1567,7 +1581,9 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
                 combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite, ghoul_battle_sprite,
                                                        chorizon_battle_sprite, muchador_battle_sprite,
                                                        magmon_battle_sprite, bandile_battle_sprite,
@@ -1604,6 +1620,17 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -1695,16 +1722,6 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -1749,6 +1766,17 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -2042,7 +2070,8 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                barrier_active, sharp_sense_active, in_npc_interaction, atmon_battle_sprite, enemy_tic,
                current_enemy_battling, sub_marrow_opened, item_block_9, item_block_9_got, sfx_item_block,
                kasper_unlocked, torok_unlocked, iriana_unlocked, maydria_task_start, prism_received,
-               atmons_highlighted, atmons_reset, apothis_gift, time_of_day):
+               atmons_highlighted, atmons_reset, apothis_gift, time_of_day, kasper_battle_sprite, torok_battle_sprite,
+               iriana_battle_sprite):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -2095,16 +2124,6 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if pygame.Rect.colliderect(player.rect, sub_marrow_rect):
         interaction_popup.update(495, 580, graphic_dict["popup_interaction"])
@@ -2214,7 +2233,9 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked, torok_unlocked,
+                                                    iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+                                                    iriana_battle_sprite)
             combat_scenario.battle_animation_enemy(current_enemy_battling, atmon_battle_sprite, atmon_battle_sprite,
                                                    atmon_battle_sprite, atmon_battle_sprite, atmon_battle_sprite,
                                                    atmon_battle_sprite, atmon_battle_sprite, in_battle,
@@ -2345,6 +2366,17 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,

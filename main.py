@@ -8087,16 +8087,16 @@ if __name__ == "__main__":
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_ramps_2 = Enemy("ramps ghoul 2", "ghoul", 100, 100, 3, 925, 200, True, "item",
                           graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_high_1 = Enemy("Ghoul", "ghoul", 100, 100, 18, 220, 175, True,
+    ghoul_high_1 = Enemy("Ghoul", "ghoul", 100, 100, 20, 220, 175, True,
                          Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_high_2 = Enemy("Ghoul", "ghoul", 100, 100, 19, 330, 135, True,
+    ghoul_high_2 = Enemy("Ghoul", "ghoul", 100, 100, 21, 330, 135, True,
                          Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_high_3 = Enemy("Ghoul", "ghoul", 100, 100, 20, 430, 200, True,
+    ghoul_high_3 = Enemy("Ghoul", "ghoul", 100, 100, 22, 430, 200, True,
                          Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    ghoul_high_4 = Enemy("Ghoul", "ghoul", 100, 100, 19, 530, 150, True,
+    ghoul_high_4 = Enemy("Ghoul", "ghoul", 100, 100, 21, 530, 150, True,
                          Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # friendly's -------------------------------------------------------------------------------------------------------
@@ -8206,8 +8206,7 @@ if __name__ == "__main__":
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
 
     # castle enemies ---------------------------------------------------------------------------------------------------
-    atmon_castle = Enemy("Atmon", "atmon", 100, 100, 26, 350, 275, True,
-                         Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
+    atmon_castle = Enemy("Atmon", "atmon castle", 100, 100, 26, 350, 275, True, "item",
                          graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
 
     jumano_1 = Enemy("Jumano", "jumano", 100, 100, 25, 200, 200, True,
@@ -10670,18 +10669,18 @@ if __name__ == "__main__":
                                 for atmon in atmons:
                                     if npc_maydria.gift and not prism_received:
                                         atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
-                                                             graphic_dict["atmon_high_night"])
+                                                           graphic_dict["atmon_high_night"])
                                     else:
                                         atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
-                                                             graphic_dict["atmon_night"])
+                                                           graphic_dict["atmon_night"])
                             else:
                                 for atmon in atmons:
                                     if npc_maydria.gift and not prism_received:
                                         atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
-                                                             graphic_dict["atmon_high"])
+                                                           graphic_dict["atmon_high"])
                                     else:
                                         atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
-                                                             graphic_dict["atmon"])
+                                                           graphic_dict["atmon"])
                         if player.current_zone == "castle one":
                             player.x_coordinate = 515
                             player.y_coordinate = 175
@@ -12142,7 +12141,10 @@ if __name__ == "__main__":
                             drawing_functions.loot_popup_container.clear()
                             drawing_functions.loot_text_container.clear()
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                                    sharp_sense_active, graphic_dict)
+                                                                    sharp_sense_active, graphic_dict,
+                                                                    kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                    kasper_battle_sprite, torok_battle_sprite,
+                                                                    iriana_battle_sprite)
                             # game guide popups
                             if not quest_guide_shown:
                                 drawing_functions.game_guide_container.append(game_guide_overlay)
@@ -12332,7 +12334,9 @@ if __name__ == "__main__":
                                                                       apothis_scene_1_night, apothis_scene_2_night,
                                                                       apothis_scene_3_night, apothis_scene_4_night,
                                                                       apothis_scene_5_night, apothis_scene_6_night,
-                                                                      stardust_stelli)
+                                                                      stardust_stelli, kasper_unlocked, torok_unlocked,
+                                                                      iriana_unlocked, kasper_battle_sprite,
+                                                                      torok_battle_sprite, iriana_battle_sprite)
 
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
@@ -12395,7 +12399,9 @@ if __name__ == "__main__":
                                                                       apothis_scene_1_night, apothis_scene_2_night,
                                                                       apothis_scene_3_night, apothis_scene_4_night,
                                                                       apothis_scene_5_night, apothis_scene_6_night,
-                                                                      stardust_stelli)
+                                                                      stardust_stelli, kasper_unlocked, torok_unlocked,
+                                                                      iriana_unlocked, kasper_battle_sprite,
+                                                                      torok_battle_sprite, iriana_battle_sprite)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -12490,7 +12496,10 @@ if __name__ == "__main__":
                                                                       quest_star_nahun, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
                                                                       afternoon, dusk, night, time_of_day,
-                                                                      snow_fall_tic, snow_fall_phase, cloaked, nede)
+                                                                      snow_fall_tic, snow_fall_phase, cloaked, nede,
+                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                      kasper_battle_sprite, torok_battle_sprite,
+                                                                      iriana_battle_sprite)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -12541,7 +12550,10 @@ if __name__ == "__main__":
                                                                       quest_star_nahun, apothis_upgrade, dawn,
                                                                       early_morning, morning, early_afternoon,
                                                                       afternoon, dusk, night, time_of_day,
-                                                                      snow_fall_tic, snow_fall_phase, cloaked, nede)
+                                                                      snow_fall_tic, snow_fall_phase, cloaked, nede,
+                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                      kasper_battle_sprite, torok_battle_sprite,
+                                                                      iriana_battle_sprite)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -12633,7 +12645,10 @@ if __name__ == "__main__":
                                                                          even_better_fish_counter, best_fish_counter,
                                                                          supplies_highlighted, apothis_upgrade, dawn,
                                                                          early_morning, morning, early_afternoon,
-                                                                         afternoon, dusk, night, time_of_day)
+                                                                         afternoon, dusk, night, time_of_day,
+                                                                         kasper_unlocked, torok_unlocked,
+                                                                         iriana_unlocked, kasper_battle_sprite,
+                                                                         torok_battle_sprite, iriana_battle_sprite)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -12689,7 +12704,10 @@ if __name__ == "__main__":
                                                                          even_better_fish_counter, best_fish_counter,
                                                                          supplies_highlighted, apothis_upgrade, dawn,
                                                                          early_morning, morning, early_afternoon,
-                                                                         afternoon, dusk, night, time_of_day)
+                                                                         afternoon, dusk, night, time_of_day,
+                                                                         kasper_unlocked, torok_unlocked,
+                                                                         iriana_unlocked, kasper_battle_sprite,
+                                                                         torok_battle_sprite, iriana_battle_sprite)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -12764,7 +12782,11 @@ if __name__ == "__main__":
                                                                                rohir_gate, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
                                                                                afternoon, dusk, night, time_of_day,
-                                                                               atmons, prism_received)
+                                                                               atmons, prism_received, kasper_unlocked,
+                                                                               torok_unlocked, iriana_unlocked,
+                                                                               kasper_battle_sprite,
+                                                                               torok_battle_sprite,
+                                                                               iriana_battle_sprite)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -12805,7 +12827,11 @@ if __name__ == "__main__":
                                                                                rohir_gate, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
                                                                                afternoon, dusk, night, time_of_day,
-                                                                               atmons, prism_received)
+                                                                               atmons, prism_received, kasper_unlocked,
+                                                                               torok_unlocked, iriana_unlocked,
+                                                                               kasper_battle_sprite,
+                                                                               torok_battle_sprite,
+                                                                               iriana_battle_sprite)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -12943,7 +12969,10 @@ if __name__ == "__main__":
                                                                                    best_fish_counter, sfx_sheet_paper,
                                                                                    sfx_item_snack, kasper_unlocked,
                                                                                    torok_unlocked, iriana_unlocked,
-                                                                                   apothis_upgrade, time_of_day)
+                                                                                   apothis_upgrade, time_of_day,
+                                                                                   kasper_battle_sprite,
+                                                                                   torok_battle_sprite,
+                                                                                   iriana_battle_sprite)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -12980,7 +13009,10 @@ if __name__ == "__main__":
                                                                                    best_fish_counter, sfx_sheet_paper,
                                                                                    sfx_item_snack, kasper_unlocked,
                                                                                    torok_unlocked, iriana_unlocked,
-                                                                                   apothis_upgrade, time_of_day)
+                                                                                   apothis_upgrade, time_of_day,
+                                                                                   kasper_battle_sprite,
+                                                                                   torok_battle_sprite,
+                                                                                   iriana_battle_sprite)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -13034,7 +13066,11 @@ if __name__ == "__main__":
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
                                                                                    best_fish_counter, apothis_upgrade,
-                                                                                   time_of_day)
+                                                                                   time_of_day, kasper_unlocked,
+                                                                                   torok_unlocked, iriana_unlocked,
+                                                                                   kasper_battle_sprite,
+                                                                                   torok_battle_sprite,
+                                                                                   iriana_battle_sprite)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -13069,7 +13105,11 @@ if __name__ == "__main__":
                                                                                    better_fish_counter,
                                                                                    even_better_fish_counter,
                                                                                    best_fish_counter, apothis_upgrade,
-                                                                                   time_of_day)
+                                                                                   time_of_day, kasper_unlocked,
+                                                                                   torok_unlocked, iriana_unlocked,
+                                                                                   kasper_battle_sprite,
+                                                                                   torok_battle_sprite,
+                                                                                   iriana_battle_sprite)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -13408,7 +13448,13 @@ if __name__ == "__main__":
                                                                                            apothis_upgrade, dawn,
                                                                                            early_morning, morning,
                                                                                            early_afternoon, afternoon,
-                                                                                           dusk, night, time_of_day)
+                                                                                           dusk, night, time_of_day,
+                                                                                           kasper_unlocked,
+                                                                                           torok_unlocked,
+                                                                                           iriana_unlocked,
+                                                                                           kasper_battle_sprite,
+                                                                                           torok_battle_sprite,
+                                                                                           iriana_battle_sprite)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -13469,7 +13515,13 @@ if __name__ == "__main__":
                                                                                            apothis_upgrade, dawn,
                                                                                            early_morning, morning,
                                                                                            early_afternoon, afternoon,
-                                                                                           dusk, night, time_of_day)
+                                                                                           dusk, night, time_of_day,
+                                                                                           kasper_unlocked,
+                                                                                           torok_unlocked,
+                                                                                           iriana_unlocked,
+                                                                                           kasper_battle_sprite,
+                                                                                           torok_battle_sprite,
+                                                                                           iriana_battle_sprite)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -13521,7 +13573,8 @@ if __name__ == "__main__":
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
                                                                      atmons_highlighted, atmons_reset, apothis_upgrade,
-                                                                     time_of_day)
+                                                                     time_of_day, kasper_battle_sprite,
+                                                                     torok_battle_sprite, iriana_battle_sprite)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -13548,7 +13601,8 @@ if __name__ == "__main__":
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      npc_maydria.gift, prism_received,
                                                                      atmons_highlighted, atmons_reset, apothis_upgrade,
-                                                                     time_of_day)
+                                                                     time_of_day, kasper_battle_sprite,
+                                                                     torok_battle_sprite, iriana_battle_sprite)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -13606,7 +13660,10 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite, apothis_upgrade, time_of_day)
+                                                                     atmon_battle_sprite, apothis_upgrade, time_of_day,
+                                                                     kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                     kasper_battle_sprite, torok_battle_sprite,
+                                                                     iriana_battle_sprite)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -13638,7 +13695,10 @@ if __name__ == "__main__":
                                                                      dreth_taunt_popup, rope_phase, castle_one_roped_bg,
                                                                      castle_one_keyed_bg, has_key, castle_key,
                                                                      boss_door, sfx_item_key, jumanos,
-                                                                     atmon_battle_sprite, apothis_upgrade, time_of_day)
+                                                                     atmon_battle_sprite, apothis_upgrade, time_of_day,
+                                                                     kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                     kasper_battle_sprite, torok_battle_sprite,
+                                                                     iriana_battle_sprite)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -13696,7 +13756,10 @@ if __name__ == "__main__":
                                                                      sfx_enemy_atmon_loud, atmon_castle,
                                                                      atmon_battle_sprite, parts_one,
                                                                      construct_parts_one_highlighted,
-                                                                     sfx_item_pickup, apothis_upgrade, time_of_day)
+                                                                     sfx_item_pickup, apothis_upgrade, time_of_day,
+                                                                     kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                     kasper_battle_sprite, torok_battle_sprite,
+                                                                     iriana_battle_sprite)
                     else:
                         castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
                                                                      castle_two_bg, over_world_song_set, castle_music,
@@ -13725,7 +13788,10 @@ if __name__ == "__main__":
                                                                      sfx_enemy_atmon_loud, atmon_castle,
                                                                      atmon_battle_sprite, parts_one,
                                                                      construct_parts_one_highlighted,
-                                                                     sfx_item_pickup, apothis_upgrade, time_of_day)
+                                                                     sfx_item_pickup, apothis_upgrade, time_of_day,
+                                                                     kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                     kasper_battle_sprite, torok_battle_sprite,
+                                                                     iriana_battle_sprite)
 
                     over_world_song_set = castle_two_returned["over_world_song_set"]
                     interacted = castle_two_returned["interacted"]
@@ -13789,7 +13855,10 @@ if __name__ == "__main__":
                                                                          jumano_battle_sprite, sfx_surprise_attack,
                                                                          surprised, apothis_gift, parts_two,
                                                                          construct_parts_two_highlighted,
-                                                                         sfx_item_pickup, apothis_upgrade, time_of_day)
+                                                                         sfx_item_pickup, apothis_upgrade, time_of_day,
+                                                                         kasper_unlocked, torok_unlocked,
+                                                                         iriana_unlocked, kasper_battle_sprite,
+                                                                         torok_battle_sprite, iriana_battle_sprite)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -13826,7 +13895,10 @@ if __name__ == "__main__":
                                                                          jumano_battle_sprite, sfx_surprise_attack,
                                                                          surprised, apothis_gift, parts_two,
                                                                          construct_parts_two_highlighted,
-                                                                         sfx_item_pickup, apothis_upgrade, time_of_day)
+                                                                         sfx_item_pickup, apothis_upgrade, time_of_day,
+                                                                         kasper_unlocked, torok_unlocked,
+                                                                         iriana_unlocked, kasper_battle_sprite,
+                                                                         torok_battle_sprite, iriana_battle_sprite)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -13878,7 +13950,10 @@ if __name__ == "__main__":
                                                                        castle_lair_one_bg,
                                                                        castle_lair_two_bg, castle_lair_bg, dreth,
                                                                        dreth_battle_sprite, dreth_defeated,
-                                                                       apothis_upgrade, time_of_day)
+                                                                       apothis_upgrade, time_of_day, kasper_unlocked,
+                                                                       torok_unlocked, iriana_unlocked,
+                                                                       kasper_battle_sprite, torok_battle_sprite,
+                                                                       iriana_battle_sprite)
                     else:
                         castle_lair_returned = zone_castle.castle_lair(pygame, game_window, graphic_dict, player,
                                                                        castle_lair_zero_bg, over_world_song_set,
@@ -13900,7 +13975,10 @@ if __name__ == "__main__":
                                                                        castle_lair_one_bg,
                                                                        castle_lair_two_bg, castle_lair_bg, dreth,
                                                                        dreth_battle_sprite, dreth_defeated,
-                                                                       apothis_upgrade, time_of_day)
+                                                                       apothis_upgrade, time_of_day, kasper_unlocked,
+                                                                       torok_unlocked, iriana_unlocked,
+                                                                       kasper_battle_sprite, torok_battle_sprite,
+                                                                       iriana_battle_sprite)
 
                     over_world_song_set = castle_lair_returned["over_world_song_set"]
                     interacted = castle_lair_returned["interacted"]
@@ -14027,7 +14105,10 @@ if __name__ == "__main__":
                                                                              even_better_fish_counter,
                                                                              best_fish_counter, vanished, npc_illisare,
                                                                              quest_star_illisare, apothis_upgrade,
-                                                                             time_of_day, ectrenos_alcove_enemies)
+                                                                             time_of_day, ectrenos_alcove_enemies,
+                                                                             kasper_unlocked, torok_unlocked,
+                                                                             iriana_unlocked, kasper_battle_sprite,
+                                                                             torok_battle_sprite, iriana_battle_sprite)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -14072,7 +14153,10 @@ if __name__ == "__main__":
                                                                              even_better_fish_counter,
                                                                              best_fish_counter, vanished, npc_illisare,
                                                                              quest_star_illisare, apothis_upgrade,
-                                                                             time_of_day, ectrenos_alcove_enemies)
+                                                                             time_of_day, ectrenos_alcove_enemies,
+                                                                             kasper_unlocked, torok_unlocked,
+                                                                             iriana_unlocked, kasper_battle_sprite,
+                                                                             torok_battle_sprite, iriana_battle_sprite)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -14363,7 +14447,11 @@ if __name__ == "__main__":
                                                                                necrolas_reset, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
                                                                                afternoon, dusk, night, time_of_day,
-                                                                               cloaked)
+                                                                               cloaked, kasper_unlocked,
+                                                                               torok_unlocked, iriana_unlocked,
+                                                                               kasper_battle_sprite,
+                                                                               torok_battle_sprite,
+                                                                               iriana_battle_sprite)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -14414,7 +14502,11 @@ if __name__ == "__main__":
                                                                                necrolas_reset, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
                                                                                afternoon, dusk, night, time_of_day,
-                                                                               cloaked)
+                                                                               cloaked, kasper_unlocked,
+                                                                               torok_unlocked, iriana_unlocked,
+                                                                               kasper_battle_sprite,
+                                                                               torok_battle_sprite,
+                                                                               iriana_battle_sprite)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -14481,7 +14573,11 @@ if __name__ == "__main__":
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
                                                                                  best_fish_counter, apothis_upgrade,
-                                                                                 time_of_day)
+                                                                                 time_of_day, kasper_unlocked,
+                                                                                 torok_unlocked, iriana_unlocked,
+                                                                                 kasper_battle_sprite,
+                                                                                 torok_battle_sprite,
+                                                                                 iriana_battle_sprite)
                     else:
                         ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
                                                                                  player, ectrenos_alcove_bg,
@@ -14519,7 +14615,11 @@ if __name__ == "__main__":
                                                                                  better_fish_counter,
                                                                                  even_better_fish_counter,
                                                                                  best_fish_counter, apothis_upgrade,
-                                                                                 time_of_day)
+                                                                                 time_of_day, kasper_unlocked,
+                                                                                 torok_unlocked, iriana_unlocked,
+                                                                                 kasper_battle_sprite,
+                                                                                 torok_battle_sprite,
+                                                                                 iriana_battle_sprite)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -14665,7 +14765,9 @@ if __name__ == "__main__":
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, apothis_gift, bandiles_highlighted,
                                                                  bandiles_reset, ore_highlighted, apothis_upgrade,
-                                                                 time_of_day)
+                                                                 time_of_day, kasper_unlocked, torok_unlocked,
+                                                                 iriana_unlocked, kasper_battle_sprite,
+                                                                 torok_battle_sprite, iriana_battle_sprite)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -14700,7 +14802,9 @@ if __name__ == "__main__":
                                                                  better_fish_counter, even_better_fish_counter,
                                                                  best_fish_counter, apothis_gift, bandiles_highlighted,
                                                                  bandiles_reset, ore_highlighted, apothis_upgrade,
-                                                                 time_of_day)
+                                                                 time_of_day, kasper_unlocked, torok_unlocked,
+                                                                 iriana_unlocked, kasper_battle_sprite,
+                                                                 torok_battle_sprite, iriana_battle_sprite)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -14893,7 +14997,10 @@ if __name__ == "__main__":
                                                                       sfx_item_block, Item, sfx_gate_open,
                                                                       apothis_upgrade, rohir_gate, dawn, early_morning,
                                                                       morning, early_afternoon, afternoon, dusk, night,
-                                                                      time_of_day, magmons, overlay_night_sleep)
+                                                                      time_of_day, magmons, overlay_night_sleep,
+                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                      kasper_battle_sprite, torok_battle_sprite,
+                                                                      iriana_battle_sprite)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -14934,7 +15041,10 @@ if __name__ == "__main__":
                                                                       sfx_item_block, Item, sfx_gate_open,
                                                                       apothis_upgrade, rohir_gate, dawn, early_morning,
                                                                       morning, early_afternoon, afternoon, dusk, night,
-                                                                      time_of_day, magmons, overlay_night_sleep)
+                                                                      time_of_day, magmons, overlay_night_sleep,
+                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                      kasper_battle_sprite, torok_battle_sprite,
+                                                                      iriana_battle_sprite)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -15005,7 +15115,10 @@ if __name__ == "__main__":
                                                                            apothis_upgrade, dawn, early_morning, 
                                                                            morning, early_afternoon, afternoon, dusk, 
                                                                            night, time_of_day, apothis_gift_popup,
-                                                                           apothis_popup_shown, snakes)
+                                                                           apothis_popup_shown, snakes, kasper_unlocked,
+                                                                           torok_unlocked, iriana_unlocked,
+                                                                           kasper_battle_sprite, torok_battle_sprite,
+                                                                           iriana_battle_sprite)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -15050,7 +15163,10 @@ if __name__ == "__main__":
                                                                            apothis_upgrade, dawn, early_morning, 
                                                                            morning, early_afternoon, afternoon, dusk, 
                                                                            night, time_of_day, apothis_gift_popup,
-                                                                           apothis_popup_shown, snakes)
+                                                                           apothis_popup_shown, snakes, kasper_unlocked,
+                                                                           torok_unlocked, iriana_unlocked,
+                                                                           kasper_battle_sprite, torok_battle_sprite,
+                                                                           iriana_battle_sprite)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -15174,7 +15290,10 @@ if __name__ == "__main__":
                                                                           vanished, vanish_overlay, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
                                                                           best_fish_counter, sfx_sheet_paper,
-                                                                          apothis_upgrade, time_of_day)
+                                                                          apothis_upgrade, time_of_day, kasper_unlocked,
+                                                                          torok_unlocked, iriana_unlocked,
+                                                                          kasper_battle_sprite, torok_battle_sprite,
+                                                                          iriana_battle_sprite)
                     else:
                         reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
                                                                           graphic_dict,
@@ -15212,7 +15331,10 @@ if __name__ == "__main__":
                                                                           vanished, vanish_overlay,
                                                                           basic_fish_counter, better_fish_counter,
                                                                           even_better_fish_counter, best_fish_counter,
-                                                                          sfx_sheet_paper, apothis_upgrade, time_of_day)
+                                                                          sfx_sheet_paper, apothis_upgrade, time_of_day,
+                                                                          kasper_unlocked, torok_unlocked,
+                                                                          iriana_unlocked, kasper_battle_sprite,
+                                                                          torok_battle_sprite, iriana_battle_sprite)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -15274,7 +15396,9 @@ if __name__ == "__main__":
                                                                           apothis_gift, muchador_crate_1_top,
                                                                           muchador_crate_2_top, muchador_crate_3_top,
                                                                           muchador_crate_4_top, apothis_upgrade,
-                                                                          time_of_day)
+                                                                          time_of_day, kasper_unlocked, torok_unlocked,
+                                                                          iriana_unlocked, kasper_battle_sprite,
+                                                                          torok_battle_sprite, iriana_battle_sprite)
                     else:
                         reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -15313,7 +15437,10 @@ if __name__ == "__main__":
                                                                           apothis_gift, muchador_crate_1_top,
                                                                           muchador_crate_2_top, muchador_crate_3_top,
                                                                           muchador_crate_4_top, apothis_upgrade,
-                                                                          time_of_day)
+                                                                          time_of_day, kasper_unlocked,
+                                                                          torok_unlocked, iriana_unlocked,
+                                                                          kasper_battle_sprite, torok_battle_sprite,
+                                                                          iriana_battle_sprite)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -16458,18 +16585,18 @@ if __name__ == "__main__":
                                             crush_shown = False
                                 if current_enemy_battling.kind == "magmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
-                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not burned and not barrier_active:
                                             burned = True
                                             pygame.mixer.find_channel(True).play(sfx_burned)
                                 if current_enemy_battling.kind == "chinzilla":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_chinzilla)
-                                    if (turn_counter + 1) % random.randint(1, 3) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not bleeding:
                                             bleeding = True
                                 if current_enemy_battling.kind == "necrola":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
-                                    if (turn_counter + 1) % random.randint(1, 4) == 0:
+                                    if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not cloaked:
                                             cloaked = True
                                             pygame.mixer.find_channel(True).play(sfx_cloaked)
@@ -16515,7 +16642,7 @@ if __name__ == "__main__":
                                         if not poisoned and not barrier_active:
                                             poisoned = True
                                 if current_enemy_battling.kind == "jumano":
-                                    if (turn_counter + 1) % random.randint(1, 2) == 0:
+                                    if (turn_counter + 1) % random.randint(3, 5) == 0:
                                         pygame.mixer.find_channel(True).play(sfx_button_role)
                                         choice = random.randint(1, 3)
                                         if choice == 1:
@@ -16561,7 +16688,10 @@ if __name__ == "__main__":
                                                                                 strike_active, edge_active)
                                 combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                         barrier_active, sharp_sense_active,
-                                                                        hard_strike, graphic_dict, turn_taken)
+                                                                        hard_strike, graphic_dict, turn_taken,
+                                                                        kasper_unlocked, torok_unlocked,
+                                                                        iriana_unlocked, kasper_battle_sprite,
+                                                                        torok_battle_sprite, iriana_battle_sprite)
                                 combat_scenario.attack_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                                        ghoul_battle_sprite, chorizon_battle_sprite,
                                                                        muchador_battle_sprite, magmon_battle_sprite,
@@ -16782,7 +16912,12 @@ if __name__ == "__main__":
                                                                                         player_battle_sprite,
                                                                                         barrier_active,
                                                                                         sharp_sense_active,
-                                                                                        graphic_dict)
+                                                                                        graphic_dict,
+                                                                                        kasper_unlocked, torok_unlocked,
+                                                                                        iriana_unlocked,
+                                                                                        kasper_battle_sprite,
+                                                                                        torok_battle_sprite,
+                                                                                        iriana_battle_sprite)
                                                 combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                        snake_battle_sprite,
                                                                                        ghoul_battle_sprite,
@@ -16885,7 +17020,12 @@ if __name__ == "__main__":
                                                                                         player_battle_sprite,
                                                                                         barrier_active,
                                                                                         sharp_sense_active,
-                                                                                        graphic_dict)
+                                                                                        graphic_dict,
+                                                                                        kasper_unlocked, torok_unlocked,
+                                                                                        iriana_unlocked,
+                                                                                        kasper_battle_sprite,
+                                                                                        torok_battle_sprite,
+                                                                                        iriana_battle_sprite)
                                                 combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                        snake_battle_sprite,
                                                                                        ghoul_battle_sprite,
@@ -17163,7 +17303,12 @@ if __name__ == "__main__":
                                                                                         barrier_active,
                                                                                         sharp_sense_active,
                                                                                         hard_strike, graphic_dict,
-                                                                                        turn_taken)
+                                                                                        turn_taken,
+                                                                                        kasper_unlocked, torok_unlocked,
+                                                                                        iriana_unlocked,
+                                                                                        kasper_battle_sprite,
+                                                                                        torok_battle_sprite,
+                                                                                        iriana_battle_sprite)
                                                 combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                        snake_battle_sprite,
                                                                                        ghoul_battle_sprite,
@@ -17356,7 +17501,12 @@ if __name__ == "__main__":
                                                                                         barrier_active,
                                                                                         sharp_sense_active,
                                                                                         hard_strike, graphic_dict,
-                                                                                        turn_taken)
+                                                                                        turn_taken,
+                                                                                        kasper_unlocked, torok_unlocked,
+                                                                                        iriana_unlocked,
+                                                                                        kasper_battle_sprite,
+                                                                                        torok_battle_sprite,
+                                                                                        iriana_battle_sprite)
                                                 combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                        snake_battle_sprite,
                                                                                        ghoul_battle_sprite,
@@ -17560,7 +17710,12 @@ if __name__ == "__main__":
                                                                                     barrier_active,
                                                                                     sharp_sense_active,
                                                                                     hard_strike, graphic_dict,
-                                                                                    turn_taken)
+                                                                                    turn_taken,
+                                                                                    kasper_unlocked, torok_unlocked,
+                                                                                    iriana_unlocked,
+                                                                                    kasper_battle_sprite,
+                                                                                    torok_battle_sprite,
+                                                                                    iriana_battle_sprite)
                                             combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                    snake_battle_sprite,
                                                                                    ghoul_battle_sprite,
@@ -17703,7 +17858,13 @@ if __name__ == "__main__":
                                                                                             player_battle_sprite,
                                                                                             barrier_active,
                                                                                             sharp_sense_active,
-                                                                                            graphic_dict)
+                                                                                            graphic_dict,
+                                                                                            kasper_unlocked,
+                                                                                            torok_unlocked,
+                                                                                            iriana_unlocked,
+                                                                                            kasper_battle_sprite,
+                                                                                            torok_battle_sprite,
+                                                                                            iriana_battle_sprite)
                                                     combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                            snake_battle_sprite,
                                                                                            ghoul_battle_sprite,
@@ -17799,7 +17960,12 @@ if __name__ == "__main__":
                                                                                         barrier_active,
                                                                                         sharp_sense_active,
                                                                                         hard_strike, graphic_dict,
-                                                                                        turn_taken)
+                                                                                        turn_taken,
+                                                                                        kasper_unlocked, torok_unlocked,
+                                                                                        iriana_unlocked,
+                                                                                        kasper_battle_sprite,
+                                                                                        torok_battle_sprite,
+                                                                                        iriana_battle_sprite)
                                                 combat_scenario.battle_animation_enemy(current_enemy_battling,
                                                                                        snake_battle_sprite,
                                                                                        ghoul_battle_sprite,
@@ -18059,6 +18225,8 @@ if __name__ == "__main__":
                                         screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
                                     if current_enemy_battling.kind == "atmon":
                                         screen.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "atmon castle":
+                                        game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
                                     if current_enemy_battling.kind == "jumano":
                                         screen.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
                                     if current_enemy_battling.kind == "dreth":
@@ -18171,6 +18339,8 @@ if __name__ == "__main__":
                                     if current_enemy_battling.kind == "erebyth":
                                         game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
                                     if current_enemy_battling.kind == "atmon":
+                                        game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
+                                    if current_enemy_battling.kind == "atmon castle":
                                         game_window.blit(atmon_battle_sprite.surf, atmon_battle_sprite.rect)
                                     if current_enemy_battling.kind == "jumano":
                                         game_window.blit(jumano_battle_sprite.surf, jumano_battle_sprite.rect)
@@ -18287,7 +18457,10 @@ if __name__ == "__main__":
                         # combat didn't happen this iteration, reset sprites to default surface image
                         if not combat_happened:
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                                    sharp_sense_active, graphic_dict)
+                                                                    sharp_sense_active, graphic_dict,
+                                                                    kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                    kasper_battle_sprite, torok_battle_sprite,
+                                                                    iriana_battle_sprite)
                             combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                                    ghoul_battle_sprite, chorizon_battle_sprite,
                                                                    muchador_battle_sprite, magmon_battle_sprite,
@@ -18299,10 +18472,6 @@ if __name__ == "__main__":
                                                                    atmon_battle_sprite, jumano_battle_sprite,
                                                                    dreth_battle_sprite, apothis_gift, cloaked,
                                                                    time_of_day, first_attack)
-
-                            kasper_battle_sprite.update(825, 520, graphic_dict["kasper_battle"])
-                            torok_battle_sprite.update(825, 520, graphic_dict["torok_battle"])
-                            iriana_battle_sprite.update(825, 520, graphic_dict["iriana_battle"])
 
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                 screen.blit(message_box.surf, message_box.rect)
@@ -18531,13 +18700,16 @@ if __name__ == "__main__":
 
                             if current_enemy_battling.name == "Chorizon":
                                 if current_enemy_battling.health < 50 and not chorizon_phase:
+                                    pygame.mixer.find_channel(True).play(sfx_button_role)
                                     chorizon_phase = True
                                     # type change for second phase
                                     current_enemy_battling.type = "mage"
 
                             combat_scenario.attack_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, hard_strike, graphic_dict,
-                                                                    turn_taken)
+                                                                    turn_taken, kasper_unlocked, torok_unlocked,
+                                                                    iriana_unlocked, kasper_battle_sprite,
+                                                                    torok_battle_sprite, iriana_battle_sprite)
                             combat_scenario.attack_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                                    ghoul_battle_sprite, chorizon_battle_sprite,
                                                                    muchador_battle_sprite, magmon_battle_sprite,
@@ -18549,17 +18721,6 @@ if __name__ == "__main__":
                                                                    atmon_battle_sprite, jumano_battle_sprite,
                                                                    dreth_battle_sprite, turn_counter,
                                                                    apothis_gift, cloaked)
-
-                            if not turn_taken:
-                                if kasper_unlocked or torok_unlocked or iriana_unlocked:
-                                    for pet in player.pet:
-                                        if pet.energy > 0:
-                                            if pet.name == "kasper":
-                                                kasper_battle_sprite.update(560, 350, graphic_dict["kasper_attack"])
-                                            if pet.name == "torok":
-                                                torok_battle_sprite.update(590, 400, graphic_dict["torok_attack"])
-                                            if pet.name == "iriana":
-                                                iriana_battle_sprite.update(500, 350, graphic_dict["iriana_attack"])
 
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                 if fire_active:
@@ -18696,20 +18857,6 @@ if __name__ == "__main__":
                                         game_window.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
-
-                            # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                                 info_text_3, info_text_4, in_over_world,
-                                                                 basic_fish_counter, better_fish_counter,
-                                                                 even_better_fish_counter, best_fish_counter)
-                                drawing_functions.draw_it(screen, in_battle)
-                            else:
-                                drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                                 info_text_3, info_text_4, in_over_world,
-                                                                 basic_fish_counter, better_fish_counter,
-                                                                 even_better_fish_counter, best_fish_counter)
-                                drawing_functions.draw_it(game_window, in_battle)
 
                             if not combat_cooldown:
                                 if button_highlighted:
@@ -18901,6 +19048,21 @@ if __name__ == "__main__":
                             except TypeError:
                                 pass
 
+                            # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                                 info_text_3, info_text_4, in_over_world,
+                                                                 basic_fish_counter, better_fish_counter,
+                                                                 even_better_fish_counter, best_fish_counter)
+                                drawing_functions.draw_it(screen, in_battle)
+                            else:
+                                drawing_functions.text_info_draw(game_window, player, font, info_text_1,
+                                                                 info_text_2,
+                                                                 info_text_3, info_text_4, in_over_world,
+                                                                 basic_fish_counter, better_fish_counter,
+                                                                 even_better_fish_counter, best_fish_counter)
+                                drawing_functions.draw_it(game_window, in_battle)
+
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                 frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                                 game_window.blit(frame, frame.get_rect())
@@ -18975,7 +19137,10 @@ if __name__ == "__main__":
                     # player health is less than or equal to 0, player is dead
                     if player.health <= 0:
                         combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                                sharp_sense_active, graphic_dict)
+                                                                sharp_sense_active, graphic_dict,
+                                                                kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                kasper_battle_sprite, torok_battle_sprite,
+                                                                iriana_battle_sprite)
                         combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                                ghoul_battle_sprite, chorizon_battle_sprite,
                                                                muchador_battle_sprite, magmon_battle_sprite,
@@ -21832,6 +21997,29 @@ if __name__ == "__main__":
                                 quest_visual.update(115, 380, graphic_dict["ore_big_img"])
                                 game_window.blit(quest_visual.surf, quest_visual.rect)
 
+                        # condition overlays
+                        if len(drawing_functions.level_up_window) == 0:
+                            if burned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                else:
+                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                            if poisoned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            if bleeding:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            if crushed:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                else:
+                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
@@ -21926,28 +22114,6 @@ if __name__ == "__main__":
 
                         if show_trade_deck:
                             render_card_deck()
-
-                        if len(drawing_functions.level_up_window) == 0:
-                            if burned:
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
-                                else:
-                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                            if poisoned:
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                                else:
-                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                            if bleeding:
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                                else:
-                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                            if crushed:
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                                else:
-                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -22523,6 +22689,29 @@ if __name__ == "__main__":
                                 cat_pet_animation_overlay.update(953, 131, graphic_dict["menagerie_cat_pet_img"])
                                 game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
+                        # condition damage overlays
+                        if len(drawing_functions.level_up_window) == 0:
+                            if burned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                else:
+                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                            if poisoned:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                            if bleeding:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                            if crushed:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                else:
+                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
@@ -22570,28 +22759,6 @@ if __name__ == "__main__":
 
                         if show_trade_deck:
                             render_card_deck()
-
-                        if len(drawing_functions.level_up_window) == 0:
-                            if burned:
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(overlay_burned.surf, overlay_burned.rect)
-                                else:
-                                    game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                            if poisoned:
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                                else:
-                                    game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                            if bleeding:
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                                else:
-                                    game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                            if crushed:
-                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                    screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                                else:
-                                    game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -25097,7 +25264,10 @@ if __name__ == "__main__":
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
                                                           weapon_select, apothis_upgrade)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                                    sharp_sense_active, graphic_dict)
+                                                                    sharp_sense_active, graphic_dict,
+                                                                    kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                    kasper_battle_sprite, torok_battle_sprite,
+                                                                    iriana_battle_sprite)
                             # noinspection PyUnboundLocalVariable
                             if current_npc_interacting.name == "Garan":
                                 screen.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
@@ -25214,8 +25384,10 @@ if __name__ == "__main__":
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
                                                           weapon_select, apothis_upgrade)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                                    sharp_sense_active, graphic_dict)
-
+                                                                    sharp_sense_active, graphic_dict,
+                                                                    kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                    kasper_battle_sprite, torok_battle_sprite,
+                                                                    iriana_battle_sprite)
                             # noinspection PyUnboundLocalVariable
                             if current_npc_interacting.name == "Garan":
                                 game_window.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
@@ -25443,7 +25615,7 @@ if __name__ == "__main__":
                             if player.current_zone == "ectrenos alcove":
                                 for osodark in ectrenos_alcove_enemies:
                                     osodark.update_image(osodark.x_coordinate, osodark.y_coordinate,
-                                                         graphic_dict["osodark_night"])
+                                                         graphic_dict["osodark"])
                             if player.current_zone == "sub marrow":
                                 for atmon in atmons:
                                     if npc_maydria.gift and not prism_received:

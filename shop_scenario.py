@@ -426,6 +426,15 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     player.rupees = player.rupees + 10
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "prism":
+                    sell_return["info 1"] = "Sold Prism for 10 rupees."
+                    sell_return["info 2"] = "Prism removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 10
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
             except AttributeError:
                 pass
     if sell_choice == "no":
@@ -750,64 +759,64 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
 
         if current_buy_item.name == "cure poison potion":
             if len(player.items) < 16:
-                if player.rupees > 19:
-                    buy_return["info 1"] = "Bought Cure Poison Potion for 20 rupees."
+                if player.rupees > 9:
+                    buy_return["info 1"] = "Bought Cure Poison Potion for 10 rupees."
                     buy_return["info 2"] = "Cure Poison Potion added to inventory."
                     player.items.append(Item("cure poison potion", "potion", 200, 200, poison_pot_img, 0))
-                    player.rupees = player.rupees - 20
+                    player.rupees = player.rupees - 10
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
-                    buy_return["info 2"] = "Cure Poison Potion cost 20 rupees."
+                    buy_return["info 2"] = "Cure Poison Potion cost 10 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""
 
         if current_buy_item.name == "cure burn potion":
             if len(player.items) < 16:
-                if player.rupees > 19:
-                    buy_return["info 1"] = "Bought Cure Burn Potion for 20 rupees."
+                if player.rupees > 9:
+                    buy_return["info 1"] = "Bought Cure Burn Potion for 10 rupees."
                     buy_return["info 2"] = "Cure Burn Potion added to inventory."
                     player.items.append(Item("cure burn potion", "potion", 200, 200, burn_pot_img, 0))
-                    player.rupees = player.rupees - 20
+                    player.rupees = player.rupees - 10
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
-                    buy_return["info 2"] = "Cure Burn Potion cost 20 rupees."
+                    buy_return["info 2"] = "Cure Burn Potion cost 10 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""
 
         if current_buy_item.name == "bandage wrap":
             if len(player.items) < 16:
-                if player.rupees > 19:
-                    buy_return["info 1"] = "You Bought Bandage Wrap for 20 rupees."
+                if player.rupees > 9:
+                    buy_return["info 1"] = "You Bought Bandage Wrap for 10 rupees."
                     buy_return["info 2"] = "Bandage Wrap added to inventory."
                     player.items.append(Item("bandage wrap", "wrap", 200, 200, bandage_wrap_img, 0))
-                    player.rupees = player.rupees - 20
+                    player.rupees = player.rupees - 10
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
-                    buy_return["info 2"] = "Bandage Wrap cost 20 rupees."
+                    buy_return["info 2"] = "Bandage Wrap cost 10 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""
 
         if current_buy_item.name == "brace":
             if len(player.items) < 16:
-                if player.rupees > 19:
-                    buy_return["info 1"] = "You Bought Brace for 20 rupees."
+                if player.rupees > 9:
+                    buy_return["info 1"] = "You Bought Brace for 10 rupees."
                     buy_return["info 2"] = "Brace added to inventory."
                     player.items.append(Item("brace", "brace", 200, 200, brace_img, 0))
-                    player.rupees = player.rupees - 20
+                    player.rupees = player.rupees - 10
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
-                    buy_return["info 2"] = "Brace cost 20 rupees."
+                    buy_return["info 2"] = "Brace cost 10 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""

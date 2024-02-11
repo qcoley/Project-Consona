@@ -26,7 +26,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     bridge_gate, erebyth_defeated, repaired_bg, forge_entrance, basic_fish_counter, better_fish_counter,
                     even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset,
                     nahun, star_nahun, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon,
-                    dusk, night, time_of_day, snow_fall_tic, snow_fall_phase, cloaked, nede):
+                    dusk, night, time_of_day, snow_fall_tic, snow_fall_phase, cloaked, nede, kasper_unlocked,
+                    torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -145,16 +146,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     snow_fall_toc = time.perf_counter()
     if snow_fall_toc - snow_fall_tic > 2:
@@ -229,7 +220,10 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                    torok_unlocked, iriana_unlocked,
+                                                    kasper_battle_sprite, torok_battle_sprite,
+                                                    iriana_battle_sprite)
             combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                    ghoul_battle_sprite,
                                                    chorizon_battle_sprite, muchador_battle_sprite,
@@ -266,7 +260,10 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                    torok_unlocked, iriana_unlocked,
+                                                    kasper_battle_sprite, torok_battle_sprite,
+                                                    iriana_battle_sprite)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, nuldar_buildings, pygame.sprite.collide_rect_ratio(0.75))
@@ -606,6 +603,17 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,

@@ -20,7 +20,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
                  sfx_talk, talk_start, stelli_battle_sprite, vanished, vanish_overlay, basic_fish_counter,
                  better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, bandiles_highlighted,
-                 bandiles_reset, ore_highlighted, apothis_upgrade, time_of_day):
+                 bandiles_reset, ore_highlighted, apothis_upgrade, time_of_day, kasper_unlocked, torok_unlocked,
+                 iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
 
     if time_of_day != 0 and time_of_day != 7:
         if not talk_start:
@@ -88,16 +89,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     enemy = pygame.sprite.spritecollideany(player, bandiles)
@@ -124,7 +115,9 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                    torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                    torok_battle_sprite, iriana_battle_sprite)
             combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                    ghoul_battle_sprite,
                                                    chorizon_battle_sprite, muchador_battle_sprite,
@@ -205,6 +198,17 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,

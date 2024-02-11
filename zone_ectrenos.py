@@ -19,7 +19,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite, critter,
                   right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter, better_fish_counter,
                   even_better_fish_counter, best_fish_counter, vanished, illisare, star_illisare, apothis_gift,
-                  time_of_day, ectrenos_alcove_enemies):
+                  time_of_day, ectrenos_alcove_enemies, kasper_unlocked, torok_unlocked, iriana_unlocked,
+                  kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -97,16 +98,6 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     screen.blit(player.surf, player.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     screen.blit(ectrene.surf, ectrene.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if pygame.Rect.colliderect(player.rect, ladder):
         interaction_popup.update(515, 452, graphic_dict["popup_interaction"])
@@ -163,7 +154,9 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
                 combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                        sharp_sense_active, graphic_dict)
+                                                        sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                        torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                        torok_battle_sprite, iriana_battle_sprite)
 
     if pygame.sprite.collide_rect(player, illisare):
         interaction_popup.update(illisare.x_coordinate, illisare.y_coordinate - 50,
@@ -188,7 +181,9 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                    torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                    torok_battle_sprite, iriana_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -211,6 +206,17 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -371,16 +377,6 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -601,6 +597,17 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
     screen.blit(mini_map.surf, mini_map.rect)
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
@@ -739,16 +746,6 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -971,6 +968,17 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
     screen.blit(mini_map.surf, mini_map.rect)
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
@@ -1044,7 +1052,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, necrolas_highlighted,
                    necrolas_reset, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night,
-                   time_of_day, cloaked):
+                   time_of_day, cloaked, kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                   torok_battle_sprite, iriana_battle_sprite):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1097,16 +1106,6 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -1152,7 +1151,9 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                    torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                    torok_battle_sprite, iriana_battle_sprite)
             combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                    ghoul_battle_sprite,
                                                    chorizon_battle_sprite, muchador_battle_sprite,
@@ -1215,7 +1216,9 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                    torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                    torok_battle_sprite, iriana_battle_sprite)
             combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                    ghoul_battle_sprite,
                                                    chorizon_battle_sprite, muchador_battle_sprite,
@@ -1253,6 +1256,17 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -1335,7 +1349,9 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder,
                     vanished, vanish_overlay, mini_map, osodark_battle_sprite, player_battle_sprite,
                     barrier_active, sharp_sense_active, Enemy, Item, UiElement, alcove_rect, basic_fish_counter,
-                    better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, time_of_day):
+                    better_fish_counter, even_better_fish_counter, best_fish_counter, apothis_gift, time_of_day,
+                    kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+                    iriana_battle_sprite):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1374,16 +1390,6 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     screen.blit(alcove_star.surf, alcove_star.rect)
 
@@ -1480,7 +1486,9 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                    torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                    torok_battle_sprite, iriana_battle_sprite)
             combat_scenario.battle_animation_enemy(current_enemy_battling, osodark_battle_sprite, osodark_battle_sprite,
                                                    osodark_battle_sprite, osodark_battle_sprite, osodark_battle_sprite,
                                                    osodark_battle_sprite, osodark_battle_sprite, in_battle,
@@ -1511,6 +1519,17 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 
@@ -1694,16 +1713,6 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
         pass
     screen.blit(player.surf, player.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if pygame.Rect.colliderect(player.rect, alcove_rect):
         interaction_popup.update(412, 675, graphic_dict["popup_interaction"])
@@ -1922,6 +1931,17 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     screen.blit(mini_map.surf, mini_map.rect)
 

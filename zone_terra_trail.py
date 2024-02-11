@@ -22,7 +22,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 critter_tic, walk_move, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                 best_fish_counter, item_block, item_block_got, sfx_item_block, Item, sfx_gate, apothis_gift,
                 rohir_gate, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day,
-                magmons, overlay_sleep):
+                magmons, overlay_sleep, kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                torok_battle_sprite, iriana_battle_sprite):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -100,16 +101,6 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -154,7 +145,9 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked, torok_unlocked,
+                                                    iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+                                                    iriana_battle_sprite)
 
     if pygame.sprite.collide_rect(player, terra_cave):
         interaction_popup.update(terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20,
@@ -193,7 +186,9 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                     drawing_functions.loot_popup_container.clear()
                     drawing_functions.loot_text_container.clear()
                     combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                            sharp_sense_active, graphic_dict)
+                                                            sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                            torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                            torok_battle_sprite, iriana_battle_sprite)
                     combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                            ghoul_battle_sprite,
                                                            chorizon_battle_sprite, muchador_battle_sprite,
@@ -382,6 +377,17 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,

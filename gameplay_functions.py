@@ -2657,7 +2657,7 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cl
         damage -= 10
 
     if sharp_sense_active:
-        damage += damage - int(damage * 0.75)
+        damage += damage - int(damage * 0.80)
 
     if player.equipment["trinket 2"] != "":
         damage += 5
@@ -2893,13 +2893,13 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_act
         damage += 12
 
     if barrier_active:
-        damage -= damage - int(damage * 0.75)
+        damage -= damage - int(damage * 0.80)
 
     if crushed:
-        damage += damage - int(damage * 0.75)
+        damage += damage - int(damage * 0.60)
 
     if strike_active:
-        damage -= 5
+        damage -= 3
 
     if damage >= 0:
         attack_dict["damage"] = damage
@@ -3176,7 +3176,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if not scaled, coordinates set to default boundaries
         random_marrow_ghoul_x = random.randrange(125, 600)
         random_marrow_ghoul_y = random.randrange(100, 300)
-        random_marrow_ghoul_level = random.randrange(18, 22)
+        random_marrow_ghoul_level = random.randrange(20, 24)
 
         # count current enemies active in game
         for mob in marrow_ghouls:

@@ -22,7 +22,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                      best_fish_counter, sfx_fishing_cast, apothis_gift, card_cave, in_card_cave, apothis_upgrade, dawn,
                      early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, apothis_popup,
-                     apothis_popup_shown, snakes):
+                     apothis_popup_shown, snakes, kasper_unlocked, torok_unlocked, iriana_unlocked,
+                     kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
@@ -171,16 +172,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         screen.blit(stardust_top.surf, stardust_top.rect)
 
     screen.blit(waterfall.surf, waterfall.rect)
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
 
     if time_of_day == 0:
         screen.blit(dawn, (0, 0))
@@ -255,7 +246,9 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                     drawing_functions.loot_popup_container.clear()
                     drawing_functions.loot_text_container.clear()
                     combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                            sharp_sense_active, graphic_dict)
+                                                            sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                            torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                            torok_battle_sprite, iriana_battle_sprite)
                     combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
                                                            ghoul_battle_sprite,
                                                            chorizon_battle_sprite, muchador_battle_sprite,
@@ -265,7 +258,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                            osodark_battle_sprite, stelli_battle_sprite,
                                                            False, stelli_battle_sprite, 0, stelli_battle_sprite,
                                                            stelli_battle_sprite, stelli_battle_sprite, apothis_gift,
-                                                           False)
+                                                           False, time_of_day, True)
             else:
                 if not player.quest_complete["where's nede?"]:
                     interaction_popup.update(ghoul_nede.x_coordinate, ghoul_nede.y_coordinate - 40,
@@ -358,7 +351,9 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             drawing_functions.loot_text_container.clear()
             drawing_functions.outpost_window.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
+                                                    sharp_sense_active, graphic_dict, kasper_unlocked, torok_unlocked,
+                                                    iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
+                                                    iriana_battle_sprite)
             combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite, ghoul_battle_sprite,
                                                    chorizon_battle_sprite, muchador_battle_sprite,
                                                    magmon_battle_sprite, bandile_battle_sprite,
@@ -446,7 +441,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         interaction_info_rect.center = (260, 88)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        if time_of_day == 0 or time_of_day == 7:
+        if time_of_day != 0 and time_of_day != 7:
             info_text_1 = "Card Cave only open at night."
             info_text_2 = ""
             info_text_3 = ""
@@ -489,6 +484,18 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                      info_text_3, info_text_4, in_over_world, basic_fish_counter, better_fish_counter,
