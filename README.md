@@ -1,6 +1,6 @@
-# Project Eterna
+# Project Consona
 
-Project Eterna is an adventure game in the vein of The Legend of Zelda
+Project Consona is an adventure game in the vein of The Legend of Zelda
 with elements inspired by games like Pokémon, Final Fantasy, The Elder Scrolls, 
 Fable, Everquest, Runescape and World of Warcraft among others. 
 
