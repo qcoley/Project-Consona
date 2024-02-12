@@ -36,7 +36,7 @@ def sprite_sheet(size, file, posit=(0, 0)):
 
 def initialize_display():
     pygame.init()
-    pygame.display.set_caption("Project Eterna")
+    pygame.display.set_caption("Project Consona")
     screen = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
     return screen
 
