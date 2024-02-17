@@ -648,6 +648,9 @@ def load_graphics():
     loaded_dict["skill_arrow_advantage"] = skill_tier_three_sheet[1]
     loaded_dict["millennium_fire"] = skill_tier_three_sheet[2]
     loaded_dict["epsilon's_edge"] = skill_tier_three_sheet[3]
+    loaded_dict["transpose_1"] = skill_tier_three_sheet[4]
+    loaded_dict["transpose_2"] = skill_tier_three_sheet[5]
+    loaded_dict["transpose_3"] = skill_tier_three_sheet[6]
     # card trade button ------------------------------------------------------------------------------------------------
     card_trade_button_url = resource_path('resources/art/button_trade.png')
     card_trade_button_sheet = sprite_sheet((111, 30), card_trade_button_url)

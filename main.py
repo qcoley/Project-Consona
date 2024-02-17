@@ -8573,6 +8573,7 @@ if __name__ == "__main__":
     fire_battle_sprite = UiElement("fire overlay", 600, 375, graphic_dict["millennium_fire"])
     edge_battle_sprite = UiElement("edge overlay", 575, 400, graphic_dict["epsilon's_edge"])
     overlay_enemy_vanish = UiElement("enemy vanish", 575, 450, graphic_dict["overlay_enemy_vanish"])
+    transpose_battle_sprite = UiElement("xpose overlay", 575, 400, graphic_dict["transpose_1"])
 
     kasper_battle_sprite = BattleCharacter("kasper battle", 825, 520, graphic_dict["kasper_battle"])
     torok_battle_sprite = BattleCharacter("torok battle", 825, 520, graphic_dict["torok_battle"])
@@ -9465,6 +9466,8 @@ if __name__ == "__main__":
     turn_counter = 0
     # counter to count number of atmons killed for prism task/drop
     atmon_counter = 0
+    # keeps track of growing orb for mage transpose skill
+    transpose_orb = 0
 
     cats_pet = {"seldon_shop": False, "seldon_academia": False, "korlok_shop": False, "korlok_apothecary": False,
                 "eldream_shop": False, "eldream_menagerie": False, "marrow": False}
@@ -16016,6 +16019,14 @@ if __name__ == "__main__":
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
                                 turn_counter += 1
+                                if mirror_image and transpose_orb < 6:
+                                    transpose_orb += 1
+                                elif transpose_orb == 6:
+                                    player.energy += 50
+                                    if player.energy > 100:
+                                        player.energy = 100
+                                    transpose_orb = 0
+                                    mirror_image = False
                                 try:
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "small energy potion" or \
@@ -16687,6 +16698,14 @@ if __name__ == "__main__":
                                     drawing_functions.game_guide_container.clear()
 
                                 turn_counter += 1
+                                if mirror_image and transpose_orb < 6:
+                                    transpose_orb += 1
+                                elif transpose_orb == 6:
+                                    player.energy += 50
+                                    if player.energy > 100:
+                                        player.energy = 100
+                                    transpose_orb = 0
+                                    mirror_image = False
                                 attack_hotkey = False
                                 # combat event function that handles and returns damage and health
                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
@@ -16913,6 +16932,14 @@ if __name__ == "__main__":
                                             if time_of_day != 0 and time_of_day != 7:
                                                 stun_them = True
                                     turn_counter += 1
+                                    if mirror_image and transpose_orb < 6:
+                                        transpose_orb += 1
+                                    elif transpose_orb == 6:
+                                        player.energy += 50
+                                        if player.energy > 100:
+                                            player.energy = 100
+                                        transpose_orb = 0
+                                        mirror_image = False
                                     # player is a mage and uses the barrier spell. Set barrier active to true
                                     # save original defence value to be re applied upon enemy or player defeat
                                     if player.role == "mage":
@@ -17307,11 +17334,19 @@ if __name__ == "__main__":
                                             if time_of_day != 0 and time_of_day != 7:
                                                 stun_them = True
                                     turn_counter += 1
+                                    if mirror_image and transpose_orb < 6:
+                                        transpose_orb += 1
+                                    elif transpose_orb == 6:
+                                        player.energy += 50
+                                        if player.energy > 100:
+                                            player.energy = 100
+                                        transpose_orb = 0
+                                        mirror_image = False
                                     if player.role == "mage":
                                         if mirror_learned:
                                             if not mirror_image:
                                                 pygame.mixer.find_channel(True).play(sfx_mage_mirror)
-                                                info_text_1 = "Mirror spell is active."
+                                                info_text_1 = "Transposition spell is active."
                                                 mirror_image = True
                                                 if player.equipment["trinket 3"] != "":
                                                     player.energy -= 10
@@ -17504,6 +17539,14 @@ if __name__ == "__main__":
                                             if time_of_day != 0 and time_of_day != 7:
                                                 stun_them = True
                                     turn_counter += 1
+                                    if mirror_image and transpose_orb < 6:
+                                        transpose_orb += 1
+                                    elif transpose_orb == 6:
+                                        player.energy += 50
+                                        if player.energy > 100:
+                                            player.energy = 100
+                                        transpose_orb = 0
+                                        mirror_image = False
                                     if player.role == "mage":
                                         if fire_learned:
                                             if not fire_active:
@@ -18185,6 +18228,13 @@ if __name__ == "__main__":
                         try:
                             if in_battle and not in_over_world and not in_shop \
                                     and not in_inn and not in_academia and not in_npc_interaction:
+                                if mirror_image:
+                                    if transpose_orb == 0:
+                                        transpose_battle_sprite.update(575, 400, graphic_dict["transpose_1"])
+                                    if transpose_orb == 2:
+                                        transpose_battle_sprite.update(575, 400, graphic_dict["transpose_2"])
+                                    if transpose_orb == 5:
+                                        transpose_battle_sprite.update(575, 400, graphic_dict["transpose_3"])
                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                     if player.current_zone == "seldon":
                                         screen.blit(seldon_district_battle, (0, 0))
@@ -18261,9 +18311,6 @@ if __name__ == "__main__":
                                                 screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
                                     screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                                    if barrier_active:
-                                        screen.blit(battle_sprite_effect_barrier.surf,
-                                                    battle_sprite_effect_barrier.rect)
 
                                     if (player.current_zone == "marrow"
                                             or player.current_zone == "marrow ramps east end"
@@ -18286,6 +18333,12 @@ if __name__ == "__main__":
                                             screen.blit(dusk, (0, 0))
                                         if time_of_day == 7:
                                             screen.blit(night, (0, 0))
+
+                                    if barrier_active:
+                                        screen.blit(battle_sprite_effect_barrier.surf,
+                                                    battle_sprite_effect_barrier.rect)
+                                    if mirror_image:
+                                        screen.blit(transpose_battle_sprite.surf, transpose_battle_sprite.rect)
 
                                     try:
                                         if not fire_active or not combat_happened:
@@ -18376,9 +18429,6 @@ if __name__ == "__main__":
                                                 game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
                                     game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                                    if barrier_active:
-                                        game_window.blit(battle_sprite_effect_barrier.surf,
-                                                         battle_sprite_effect_barrier.rect)
 
                                     if (player.current_zone == "marrow"
                                             or player.current_zone == "marrow ramps east end"
@@ -18401,6 +18451,12 @@ if __name__ == "__main__":
                                             game_window.blit(dusk, (0, 0))
                                         if time_of_day == 7:
                                             game_window.blit(night, (0, 0))
+
+                                    if barrier_active:
+                                        game_window.blit(battle_sprite_effect_barrier.surf,
+                                                         battle_sprite_effect_barrier.rect)
+                                    if mirror_image:
+                                        game_window.blit(transpose_battle_sprite.surf, transpose_battle_sprite.rect)
 
                                     try:
                                         if not fire_active or not combat_happened:
@@ -18660,6 +18716,54 @@ if __name__ == "__main__":
                                                                  even_better_fish_counter, best_fish_counter)
                                 drawing_functions.draw_it(game_window, in_battle)
 
+                            if show_trade_deck:
+                                render_card_deck()
+
+                            # player status conditions overlay
+                            if len(drawing_functions.level_up_window) == 0:
+                                if burned:
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                    else:
+                                        game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                                if poisoned:
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                    else:
+                                        game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                if bleeding:
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                    else:
+                                        game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                if crushed:
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                    else:
+                                        game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+
+                            # enemy status conditions overlay
+                            if fire_active:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned_enemy.surf, overlay_burned_enemy.rect)
+                                else:
+                                    game_window.blit(overlay_burned_enemy.surf, overlay_burned_enemy.rect)
+                            if arrow_active:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned_enemy.surf, overlay_poisoned_enemy.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned_enemy.surf, overlay_poisoned_enemy.rect)
+                            if edge_active:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding_enemy.surf, overlay_bleeding_enemy.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding_enemy.surf, overlay_bleeding_enemy.rect)
+                            if strike_active:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed_enemy.surf, overlay_crushed_enemy.rect)
+                                else:
+                                    game_window.blit(overlay_crushed_enemy.surf, overlay_crushed_enemy.rect)
+
                             if not combat_cooldown:
                                 if button_highlighted:
                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -18876,6 +18980,54 @@ if __name__ == "__main__":
                                         game_window.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
+
+                            if show_trade_deck:
+                                render_card_deck()
+
+                            # player status conditions overlay
+                            if len(drawing_functions.level_up_window) == 0:
+                                if burned:
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(overlay_burned.surf, overlay_burned.rect)
+                                    else:
+                                        game_window.blit(overlay_burned.surf, overlay_burned.rect)
+                                if poisoned:
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                    else:
+                                        game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
+                                if bleeding:
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                    else:
+                                        game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
+                                if crushed:
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(overlay_crushed.surf, overlay_crushed.rect)
+                                    else:
+                                        game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
+
+                            # enemy status conditions overlay
+                            if fire_active:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_burned_enemy.surf, overlay_burned_enemy.rect)
+                                else:
+                                    game_window.blit(overlay_burned_enemy.surf, overlay_burned_enemy.rect)
+                            if arrow_active:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_poisoned_enemy.surf, overlay_poisoned_enemy.rect)
+                                else:
+                                    game_window.blit(overlay_poisoned_enemy.surf, overlay_poisoned_enemy.rect)
+                            if edge_active:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_bleeding_enemy.surf, overlay_bleeding_enemy.rect)
+                                else:
+                                    game_window.blit(overlay_bleeding_enemy.surf, overlay_bleeding_enemy.rect)
+                            if strike_active:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_crushed_enemy.surf, overlay_crushed_enemy.rect)
+                                else:
+                                    game_window.blit(overlay_crushed_enemy.surf, overlay_crushed_enemy.rect)
 
                             if not combat_cooldown:
                                 if button_highlighted:
@@ -19104,54 +19256,6 @@ if __name__ == "__main__":
                                     crush_shown = True
                     except TypeError:
                         pass
-
-                    if show_trade_deck:
-                        render_card_deck()
-
-                    # player status conditions overlay
-                    if len(drawing_functions.level_up_window) == 0:
-                        if burned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_burned.surf, overlay_burned.rect)
-                            else:
-                                game_window.blit(overlay_burned.surf, overlay_burned.rect)
-                        if poisoned:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                            else:
-                                game_window.blit(overlay_poisoned.surf, overlay_poisoned.rect)
-                        if bleeding:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                            else:
-                                game_window.blit(overlay_bleeding.surf, overlay_bleeding.rect)
-                        if crushed:
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(overlay_crushed.surf, overlay_crushed.rect)
-                            else:
-                                game_window.blit(overlay_crushed.surf, overlay_crushed.rect)
-
-                    # enemy status conditions overlay
-                    if fire_active:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_burned_enemy.surf, overlay_burned_enemy.rect)
-                        else:
-                            game_window.blit(overlay_burned_enemy.surf, overlay_burned_enemy.rect)
-                    if arrow_active:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_poisoned_enemy.surf, overlay_poisoned_enemy.rect)
-                        else:
-                            game_window.blit(overlay_poisoned_enemy.surf, overlay_poisoned_enemy.rect)
-                    if edge_active:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_bleeding_enemy.surf, overlay_bleeding_enemy.rect)
-                        else:
-                            game_window.blit(overlay_bleeding_enemy.surf, overlay_bleeding_enemy.rect)
-                    if strike_active:
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(overlay_crushed_enemy.surf, overlay_crushed_enemy.rect)
-                        else:
-                            game_window.blit(overlay_crushed_enemy.surf, overlay_crushed_enemy.rect)
 
                     # player health is less than or equal to 0, player is dead
                     if player.health <= 0:
