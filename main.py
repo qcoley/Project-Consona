@@ -9040,6 +9040,12 @@ if __name__ == "__main__":
 
     sfx_burned = pygame.mixer.Sound(resource_path("resources/sounds/sfx_burn.mp3"))
     sfx_burned.set_volume(0.15)
+    sfx_bleed = pygame.mixer.Sound(resource_path("resources/sounds/bleed.mp3"))
+    sfx_bleed.set_volume(0.15)
+    sfx_poison = pygame.mixer.Sound(resource_path("resources/sounds/poison.mp3"))
+    sfx_poison.set_volume(0.20)
+    sfx_crushed = pygame.mixer.Sound(resource_path("resources/sounds/crushed.mp3"))
+    sfx_crushed.set_volume(0.20)
 
     sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
     sfx_surprise_attack.set_volume(0.20)
@@ -16653,11 +16659,13 @@ if __name__ == "__main__":
                                                         drawing_functions.condition_popup_window.append(condition_popup)
                                                         condition_popup_shown = True
                                                     poisoned = True
+                                                    pygame.mixer.find_channel(True).play(sfx_poison)
                                                     poisoned_before = True
                                     else:
                                         if (turn_counter + 1) % random.randint(2, 4) == 0:
                                             if not poisoned and not barrier_active:
                                                 poisoned = True
+                                                pygame.mixer.find_channel(True).play(sfx_poison)
                                 if current_enemy_battling.name == "Ghoul":
                                     if len(drawing_functions.cloaked_popup_window) > 0:
                                         drawing_functions.cloaked_popup_window.clear()
@@ -16675,6 +16683,7 @@ if __name__ == "__main__":
                                     if (turn_counter + 1) % random.randint(6, 8) == 0:
                                         if not crushed:
                                             crushed = True
+                                            pygame.mixer.find_channel(True).play(sfx_crushed)
                                             crush_shown = False
                                 if current_enemy_battling.kind == "magmon":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
@@ -16687,6 +16696,7 @@ if __name__ == "__main__":
                                     if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not bleeding:
                                             bleeding = True
+                                            pygame.mixer.find_channel(True).play(sfx_bleed)
                                 if current_enemy_battling.kind == "necrola":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
                                     if (turn_counter + 1) % random.randint(2, 4) == 0:
@@ -16700,6 +16710,7 @@ if __name__ == "__main__":
                                     if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not bleeding:
                                             bleeding = True
+                                            pygame.mixer.find_channel(True).play(sfx_bleed)
                                 if current_enemy_battling.kind == "erebyth":
                                     if turn_counter == 2:
                                         erebyth_attack_choice = random.randint(1, 2)
@@ -16711,11 +16722,12 @@ if __name__ == "__main__":
                                         if erebyth_attack_choice == 2:
                                             if not crushed:
                                                 crushed = True
+                                                pygame.mixer.find_channel(True).play(sfx_crushed)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
                                 if current_enemy_battling.kind == "dreth":
                                     if (turn_counter + 1) % 4 == 0:
-                                        choice = random.randint(1, 3)
+                                        choice = random.randint(1, 4)
                                         if choice == 1:
                                             if not burned and not barrier_active:
                                                 burned = True
@@ -16723,9 +16735,15 @@ if __name__ == "__main__":
                                         if choice == 2:
                                             if not poisoned and not barrier_active:
                                                 poisoned = True
+                                                pygame.mixer.find_channel(True).play(sfx_poison)
                                         if choice == 3:
                                             if not bleeding:
                                                 bleeding = True
+                                                pygame.mixer.find_channel(True).play(sfx_bleed)
+                                        if choice == 4:
+                                            if not crushed:
+                                                crushed = True
+                                                pygame.mixer.find_channel(True).play(sfx_crushed)
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth_shatter)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth)
@@ -16734,6 +16752,7 @@ if __name__ == "__main__":
                                     if (turn_counter + 1) % random.randint(2, 4) == 0:
                                         if not poisoned and not barrier_active:
                                             poisoned = True
+                                            pygame.mixer.find_channel(True).play(sfx_poison)
                                 if current_enemy_battling.kind == "jumano":
                                     if (turn_counter + 1) % random.randint(3, 5) == 0:
                                         pygame.mixer.find_channel(True).play(sfx_button_role)
