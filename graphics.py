@@ -5009,7 +5009,7 @@ def load_graphics():
     loaded_dict["barrier_button_img"] = skill_buttons_sheet[0]
     loaded_dict["strike_button_img"] = skill_buttons_sheet[1]
     loaded_dict["sense_button_img"] = skill_buttons_sheet[2]
-    loaded_dict["mirror_button_img"] = skill_buttons_sheet[3]
+    loaded_dict["transpose_button_img"] = skill_buttons_sheet[3]
     loaded_dict["stun_button_img"] = skill_buttons_sheet[4]
     loaded_dict["vanish_button_img"] = skill_buttons_sheet[5]
     loaded_dict["fire_button_img"] = skill_buttons_sheet[6]
@@ -5018,12 +5018,14 @@ def load_graphics():
     loaded_dict["barrier_less_button_img"] = skill_buttons_sheet[9]
     loaded_dict["strike_less_button_img"] = skill_buttons_sheet[10]
     loaded_dict["sense_less_button_img"] = skill_buttons_sheet[11]
-    loaded_dict["mirror_less_button_img"] = skill_buttons_sheet[12]
+    loaded_dict["transpose_less_button_img"] = skill_buttons_sheet[12]
     loaded_dict["stun_less_button_img"] = skill_buttons_sheet[13]
     loaded_dict["vanish_less_button_img"] = skill_buttons_sheet[14]
     loaded_dict["fire_less_button_img"] = skill_buttons_sheet[15]
     loaded_dict["edge_less_button_img"] = skill_buttons_sheet[16]
     loaded_dict["arrow_less_button_img"] = skill_buttons_sheet[17]
+    loaded_dict["consume_button_img"] = skill_buttons_sheet[18]
+    loaded_dict["consume_less_button_img"] = skill_buttons_sheet[19]
     # skill two overlays -----------------------------------------------------------------------------------------------
     skill_two_url = resource_path('resources/art/overlay_skills_two.png')
     skill_two_sheet = sprite_sheet((300, 300), skill_two_url)

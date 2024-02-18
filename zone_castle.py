@@ -263,6 +263,8 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -576,6 +578,8 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -874,6 +878,8 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1070,6 +1076,8 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1429,6 +1437,8 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)

@@ -2327,6 +2327,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["bleeding"] = player_load_info["bleeding"]
             load_return["condition_popup_shown"] = player_load_info["condition_popup_shown"]
             load_return["crushed"] = player_load_info["crushed"]
+            load_return["music_toggle"] = player_load_info["music_toggle"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2358,7 +2359,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               card_deck, fire_learned, edge_learned, arrow_learned, on_card_quest, item_block_1_got, item_block_2_got,
               item_block_3_got, item_block_4_got, item_block_5_got, item_block_6_got, item_block_7_got,
               item_block_8_got, item_block_9_got, item_block_10_got, item_block_11_got, item_block_12_got,
-              cloaked_popup_shown, time_of_day, poisoned, burned, bleeding, condition_popup_shown, crushed):
+              cloaked_popup_shown, time_of_day, poisoned, burned, bleeding, condition_popup_shown, crushed,
+              music_toggle):
 
     inventory_save = []
     equipment_save = []
@@ -2483,7 +2485,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "item_block_11_got": item_block_11_got, "item_block_12_got": item_block_12_got,
                         "cloaked_popup_shown": cloaked_popup_shown, "time_of_day": time_of_day, "poisoned": poisoned,
                         "burned": burned, "bleeding": bleeding, "condition_popup_shown": condition_popup_shown,
-                        "crushed": crushed}
+                        "crushed": crushed, "music_toggle": music_toggle}
 
     try:
         with open("save", "wb") as ff:

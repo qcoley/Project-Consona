@@ -211,6 +211,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -601,6 +603,8 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -972,6 +976,8 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1261,6 +1267,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1524,6 +1532,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1936,6 +1946,8 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)

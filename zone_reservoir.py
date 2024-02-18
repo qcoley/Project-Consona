@@ -282,6 +282,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -543,6 +545,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -749,6 +753,8 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)

@@ -412,6 +412,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -641,6 +643,8 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -803,6 +807,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1040,6 +1046,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1247,6 +1255,8 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1384,6 +1394,8 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1625,6 +1637,8 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -1771,6 +1785,8 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
@@ -2371,6 +2387,8 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
         for pet in player.pet:
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                    pet_energy_surf.set_alpha(50)
                 pet_energy_rect = pet_energy_surf.get_rect()
                 pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)

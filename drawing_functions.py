@@ -1926,7 +1926,6 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       iriana_button, card_deck_button, trade_deck_unlocked, neras_grace, arens_strength,
                       spirit_of_wisdom, seldon_district_button, korlok_district_button, eldream_district_button,
                       marrow_district_button):
-
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))

@@ -904,7 +904,6 @@ def npc_event_button_fishing(npc_event, quest_button, leave_button, pygame, sfx_
         npc_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
 
         if quest_button.rect.collidepoint(npc_mouse):
-            pygame.mixer.find_channel(True).play(sfx_page)
             return "quest"
         if leave_button.rect.collidepoint(npc_mouse):
             return "leave"

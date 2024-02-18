@@ -7677,6 +7677,7 @@ if __name__ == "__main__":
     font = pygame.font.Font(resource_path("resources/fonts/Lato-Bold.ttf"), 16)
     level_up_font = pygame.font.Font(resource_path("resources/fonts/Lato-Bold.ttf"), 20)
     name_input_font = pygame.font.Font(resource_path("resources/fonts/Lato-Bold.ttf"), 24)
+    small_font = pygame.font.Font(resource_path("resources/fonts/Lato-Bold.ttf"), 12)
 
     # background textures ----------------------------------------------------------------------------------------------
     card_shop_bg = graphic_dict["card_shop_bg"]
@@ -8374,7 +8375,7 @@ if __name__ == "__main__":
     barrier_button = UiElement("barrier button", 820, 641, graphic_dict["barrier_button_img"])
     hard_strike_button = UiElement("hard strike button", 820, 641, graphic_dict["strike_button_img"])
     sharp_sense_button = UiElement("sharp sense button", 820, 641, graphic_dict["sense_button_img"])
-    mirror_button = UiElement("mirror button", 890, 641, graphic_dict["mirror_button_img"])
+    mirror_button = UiElement("mirror button", 890, 641, graphic_dict["transpose_button_img"])
     stun_button = UiElement("stun button", 890, 641, graphic_dict["stun_button_img"])
     vanish_button = UiElement("vanish button", 890, 641, graphic_dict["vanish_button_img"])
     fire_button = UiElement("fire button", 960, 641, graphic_dict["fire_button_img"])
@@ -9044,9 +9045,9 @@ if __name__ == "__main__":
     sfx_surprise_attack.set_volume(0.20)
 
     sfx_quest_complete = pygame.mixer.Sound(resource_path("resources/sounds/quest_complete.mp3"))
-    sfx_quest_complete.set_volume(0.35)
+    sfx_quest_complete.set_volume(0.30)
     sfx_quest_start = pygame.mixer.Sound(resource_path("resources/sounds/quest_start.mp3"))
-    sfx_quest_start.set_volume(0.20)
+    sfx_quest_start.set_volume(0.15)
     sfx_level_up = pygame.mixer.Sound(resource_path("resources/sounds/level_up.mp3"))
     sfx_level_up.set_volume(0.25)
 
@@ -9159,6 +9160,7 @@ if __name__ == "__main__":
     sfx_chirp.set_volume(0.10)
 
     # main loop variables ----------------------------------------------------------------------------------------------
+    level_visual_insert = False
     bait_given = False
     level_checked = False
     game_running = True
@@ -10040,6 +10042,9 @@ if __name__ == "__main__":
                         if load_returned["not found"]:
                             save_data_window.append(save_absent)
                         continue_game_chosen = load_returned["continue"]
+                        music_toggle = load_returned["music_toggle"]
+                        if music_toggle:
+                            pygame.mixer.music.pause()
                         barrier_learned = load_returned["barrier learned"]
                         hard_strike_learned = load_returned["strike learned"]
                         sharp_sense_learned = load_returned["sense learned"]
@@ -11264,7 +11269,7 @@ if __name__ == "__main__":
                             drawing_functions.fish_pop_up_window_text.clear()
 
                         # continuing to use mouse position for clicking buttons
-                        if event.type == pygame.MOUSEBUTTONUP:
+                        if event.type == pygame.MOUSEBUTTONUP and player.current_zone != "nascent":
                             if show_cat_card:
                                 show_cat_card = False
                             if fish_caught:
@@ -11623,7 +11628,7 @@ if __name__ == "__main__":
                                                                         item_block_10_got, item_block_11_got,
                                                                         item_block_12_got, cloaked_popup_shown,
                                                                         time_of_day, poisoned, burned, bleeding,
-                                                                        condition_popup_shown, crushed)
+                                                                        condition_popup_shown, crushed, music_toggle)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -11690,7 +11695,7 @@ if __name__ == "__main__":
                                                                     item_block_10_got, item_block_11_got,
                                                                     item_block_12_got, cloaked_popup_shown,
                                                                     time_of_day, poisoned, burned, bleeding,
-                                                                    condition_popup_shown, crushed)
+                                                                    condition_popup_shown, crushed, music_toggle)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -11753,6 +11758,42 @@ if __name__ == "__main__":
                                 else:
                                     if in_over_world:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                    if (player.current_zone == "seldon" or player.current_zone == "stardust"
+                                            or player.current_zone == "rohir" or player.current_zone == "reservoir a"
+                                            or player.current_zone == "reservoir b"
+                                            or player.current_zone == "reservoir c"):
+                                        quest_district_selected = 0
+                                        district_button_select.update(772, 102, graphic_dict["district_button_select"])
+                                    if (player.current_zone == "korlok" or player.current_zone == "mines"
+                                            or player.current_zone == "terra trail"
+                                            or player.current_zone == "fishing hut" or player.current_zone == "forge"):
+                                        quest_district_selected = 1
+                                        district_button_select.update(842, 102, graphic_dict["district_button_select"])
+                                    if (player.current_zone == "eldream" or player.current_zone == "ectrenos"
+                                            or player.current_zone == "ectrenos front"
+                                            or player.current_zone == "ectrenos left"
+                                            or player.current_zone == "ectrenos right"
+                                            or player.current_zone == "ectrenos alcove"
+                                            or player.current_zone == "fishing alcove"
+                                            or player.current_zone == "altar"):
+                                        quest_district_selected = 2
+                                        district_button_select.update(912, 102, graphic_dict["district_button_select"])
+                                    if (player.current_zone == "marrow entrance"
+                                            or player.current_zone == "marrow ramps west"
+                                            or player.current_zone == "marrow ramps east"
+                                            or player.current_zone == "marrow tower west"
+                                            or player.current_zone == "marrow tower east"
+                                            or player.current_zone == "marrow ramps west end"
+                                            or player.current_zone == "marrow ramps east end"
+                                            or player.current_zone == "marrow"
+                                            or player.current_zone == "sub marrow"
+                                            or player.current_zone == "castle one"
+                                            or player.current_zone == "castle two"
+                                            or player.current_zone == "castle three"
+                                            or player.current_zone == "caldera" or
+                                            player.current_zone == "castle lair"):
+                                        quest_district_selected = 3
+                                        district_button_select.update(982, 102, graphic_dict["district_button_select"])
                                     drawing_functions.journal_info_draw(journal, player, font, True,
                                                                         marrow_switch_phase, npc_artherian, artherian_2,
                                                                         npc_maydria, npc_boro, npc_noren,
@@ -15589,12 +15630,15 @@ if __name__ == "__main__":
                     if level_visual:
                         level_up_visual.update(player.x_coordinate + 2, player.y_coordinate - 32,
                                                graphic_dict["level_up_vis"])
-                        drawing_functions.level_up_visual.insert(0, level_up_visual)
+                        if not level_visual_insert:
+                            drawing_functions.level_up_visual.insert(0, level_up_visual)
+                            level_visual_insert = True
 
                         level_visual_toc = time.perf_counter()
                         if level_visual_toc - level_visual_tic > 2:
                             level_visual = False
                             drawing_functions.level_up_visual.clear()
+                            level_visual_insert = False
 
                     if fireworking:
                         firework_toc = time.perf_counter()
@@ -15861,6 +15905,25 @@ if __name__ == "__main__":
                                 combat_cooldown = False
                                 in_over_world = True
                                 loot_updated = False
+                                if mirror_image:
+                                    if transpose_orb == 0 or transpose_orb == 1:
+                                        info_text_1 = "Gained 20 energy from Transposition."
+                                        player.energy += 20
+                                        if player.energy > 100:
+                                            player.energy = 100
+                                        transpose_orb = 0
+                                    if transpose_orb == 2 or transpose_orb == 3:
+                                        info_text_1 = "Gained 30 energy from Transposition."
+                                        player.energy += 30
+                                        if player.energy > 100:
+                                            player.energy = 100
+                                        transpose_orb = 0
+                                    if transpose_orb >= 4:
+                                        info_text_1 = "Gained 40 energy from Transposition."
+                                        player.energy += 40
+                                        if player.energy > 100:
+                                            player.energy = 100
+                                        transpose_orb = 0
                                 mirror_image = False
                                 fire_active = False
                                 arrow_active = False
@@ -16019,10 +16082,10 @@ if __name__ == "__main__":
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
                                 turn_counter += 1
-                                if mirror_image and transpose_orb < 6:
+                                if mirror_image and transpose_orb < 5:
                                     transpose_orb += 1
-                                elif transpose_orb == 6:
-                                    player.energy += 50
+                                elif transpose_orb == 5:
+                                    player.energy += 40
                                     if player.energy > 100:
                                         player.energy = 100
                                     transpose_orb = 0
@@ -16698,10 +16761,10 @@ if __name__ == "__main__":
                                     drawing_functions.game_guide_container.clear()
 
                                 turn_counter += 1
-                                if mirror_image and transpose_orb < 6:
+                                if mirror_image and transpose_orb < 5:
                                     transpose_orb += 1
-                                elif transpose_orb == 6:
-                                    player.energy += 50
+                                elif transpose_orb == 5:
+                                    player.energy += 40
                                     if player.energy > 100:
                                         player.energy = 100
                                     transpose_orb = 0
@@ -16889,6 +16952,25 @@ if __name__ == "__main__":
                                         combat_cooldown = False
                                         in_over_world = True
                                         loot_updated = False
+                                        if mirror_image:
+                                            if transpose_orb == 0 or transpose_orb == 1:
+                                                info_text_1 = "Gained 20 energy from Transposition."
+                                                player.energy += 20
+                                                if player.energy > 100:
+                                                    player.energy = 100
+                                                transpose_orb = 0
+                                            if transpose_orb == 2 or transpose_orb == 3:
+                                                info_text_1 = "Gained 30 energy from Transposition."
+                                                player.energy += 30
+                                                if player.energy > 100:
+                                                    player.energy = 100
+                                                transpose_orb = 0
+                                            if transpose_orb >= 4:
+                                                info_text_1 = "Gained 40 energy from Transposition."
+                                                player.energy += 40
+                                                if player.energy > 100:
+                                                    player.energy = 100
+                                                transpose_orb = 0
                                         mirror_image = False
                                         fire_active = False
                                         arrow_active = False
@@ -16932,10 +17014,10 @@ if __name__ == "__main__":
                                             if time_of_day != 0 and time_of_day != 7:
                                                 stun_them = True
                                     turn_counter += 1
-                                    if mirror_image and transpose_orb < 6:
+                                    if mirror_image and transpose_orb < 5:
                                         transpose_orb += 1
-                                    elif transpose_orb == 6:
-                                        player.energy += 50
+                                    elif transpose_orb == 5:
+                                        player.energy += 40
                                         if player.energy > 100:
                                             player.energy = 100
                                         transpose_orb = 0
@@ -17292,6 +17374,25 @@ if __name__ == "__main__":
                                                     in_over_world = True
                                                     combat_cooldown = False
                                                     loot_updated = False
+                                                    if mirror_image:
+                                                        if transpose_orb == 0 or transpose_orb == 1:
+                                                            info_text_1 = "Gained 20 energy from Transposition."
+                                                            player.energy += 20
+                                                            if player.energy > 100:
+                                                                player.energy = 100
+                                                            transpose_orb = 0
+                                                        if transpose_orb == 2 or transpose_orb == 3:
+                                                            info_text_1 = "Gained 30 energy from Transposition."
+                                                            player.energy += 30
+                                                            if player.energy > 100:
+                                                                player.energy = 100
+                                                            transpose_orb = 0
+                                                        if transpose_orb >= 4:
+                                                            info_text_1 = "Gained 40 energy from Transposition."
+                                                            player.energy += 40
+                                                            if player.energy > 100:
+                                                                player.energy = 100
+                                                            transpose_orb = 0
                                                     mirror_image = False
                                                     fire_active = False
                                                     arrow_active = False
@@ -17334,10 +17435,10 @@ if __name__ == "__main__":
                                             if time_of_day != 0 and time_of_day != 7:
                                                 stun_them = True
                                     turn_counter += 1
-                                    if mirror_image and transpose_orb < 6:
+                                    if mirror_image and transpose_orb < 5:
                                         transpose_orb += 1
-                                    elif transpose_orb == 6:
-                                        player.energy += 50
+                                    elif transpose_orb == 5:
+                                        player.energy += 40
                                         if player.energy > 100:
                                             player.energy = 100
                                         transpose_orb = 0
@@ -17437,7 +17538,27 @@ if __name__ == "__main__":
                                                 else:
                                                     pygame.display.flip()
                                             else:
-                                                info_text_1 = "Mirror spell is already active."
+                                                if transpose_orb == 0 or transpose_orb == 1:
+                                                    info_text_1 = "Gained 20 energy from Transposition."
+                                                    player.energy += 20
+                                                    if player.energy > 100:
+                                                        player.energy = 100
+                                                    transpose_orb = 0
+                                                    mirror_image = False
+                                                if transpose_orb == 2 or transpose_orb == 3:
+                                                    info_text_1 = "Gained 30 energy from Transposition."
+                                                    player.energy += 30
+                                                    if player.energy > 100:
+                                                        player.energy = 100
+                                                    transpose_orb = 0
+                                                    mirror_image = False
+                                                if transpose_orb >= 4:
+                                                    info_text_1 = "Gained 40 energy from Transposition."
+                                                    player.energy += 40
+                                                    if player.energy > 100:
+                                                        player.energy = 100
+                                                    transpose_orb = 0
+                                                    mirror_image = False
 
                                     if player.role == "fighter":
                                         if stun_learned:
@@ -17499,6 +17620,25 @@ if __name__ == "__main__":
                                                 player.energy -= 10
                                             elif player.equipment["trinket 3"] == "":
                                                 player.energy -= 20
+                                            if mirror_image:
+                                                if transpose_orb == 0 or transpose_orb == 1:
+                                                    info_text_1 = "Gained 20 energy from Transposition."
+                                                    player.energy += 20
+                                                    if player.energy > 100:
+                                                        player.energy = 100
+                                                    transpose_orb = 0
+                                                if transpose_orb == 2 or transpose_orb == 3:
+                                                    info_text_1 = "Gained 30 energy from Transposition."
+                                                    player.energy += 30
+                                                    if player.energy > 100:
+                                                        player.energy = 100
+                                                    transpose_orb = 0
+                                                if transpose_orb >= 4:
+                                                    info_text_1 = "Gained 40 energy from Transposition."
+                                                    player.energy += 40
+                                                    if player.energy > 100:
+                                                        player.energy = 100
+                                                    transpose_orb = 0
                                             mirror_image = False
                                             fire_active = False
                                             arrow_active = False
@@ -17539,10 +17679,10 @@ if __name__ == "__main__":
                                             if time_of_day != 0 and time_of_day != 7:
                                                 stun_them = True
                                     turn_counter += 1
-                                    if mirror_image and transpose_orb < 6:
+                                    if mirror_image and transpose_orb < 5:
                                         transpose_orb += 1
-                                    elif transpose_orb == 6:
-                                        player.energy += 50
+                                    elif transpose_orb == 5:
+                                        player.energy += 40
                                         if player.energy > 100:
                                             player.energy = 100
                                         transpose_orb = 0
@@ -17709,6 +17849,25 @@ if __name__ == "__main__":
                                                         combat_cooldown = False
                                                         in_over_world = True
                                                         loot_updated = False
+                                                        if mirror_image:
+                                                            if transpose_orb == 0 or transpose_orb == 1:
+                                                                info_text_1 = "Gained 20 energy from Transposition."
+                                                                player.energy += 20
+                                                                if player.energy > 100:
+                                                                    player.energy = 100
+                                                                transpose_orb = 0
+                                                            if transpose_orb == 2 or transpose_orb == 3:
+                                                                info_text_1 = "Gained 30 energy from Transposition."
+                                                                player.energy += 30
+                                                                if player.energy > 100:
+                                                                    player.energy = 100
+                                                                transpose_orb = 0
+                                                            if transpose_orb >= 4:
+                                                                info_text_1 = "Gained 40 energy from Transposition."
+                                                                player.energy += 40
+                                                                if player.energy > 100:
+                                                                    player.energy = 100
+                                                                transpose_orb = 0
                                                         mirror_image = False
                                                         fire_active = False
                                                         arrow_active = False
@@ -17957,6 +18116,25 @@ if __name__ == "__main__":
                                                     combat_cooldown = False
                                                     in_over_world = True
                                                     loot_updated = False
+                                                    if mirror_image:
+                                                        if transpose_orb == 0 or transpose_orb == 1:
+                                                            info_text_1 = "Gained 20 energy from Transposition."
+                                                            player.energy += 20
+                                                            if player.energy > 100:
+                                                                player.energy = 100
+                                                            transpose_orb = 0
+                                                        if transpose_orb == 2 or transpose_orb == 3:
+                                                            info_text_1 = "Gained 30 energy from Transposition."
+                                                            player.energy += 30
+                                                            if player.energy > 100:
+                                                                player.energy = 100
+                                                            transpose_orb = 0
+                                                        if transpose_orb >= 4:
+                                                            info_text_1 = "Gained 40 energy from Transposition."
+                                                            player.energy += 40
+                                                            if player.energy > 100:
+                                                                player.energy = 100
+                                                            transpose_orb = 0
                                                     mirror_image = False
                                                     fire_active = False
                                                     arrow_active = False
@@ -18165,6 +18343,25 @@ if __name__ == "__main__":
                                                         combat_cooldown = False
                                                         in_over_world = True
                                                         loot_updated = False
+                                                        if mirror_image:
+                                                            if transpose_orb == 0 or transpose_orb == 1:
+                                                                info_text_1 = "Gained 20 energy from Transposition."
+                                                                player.energy += 20
+                                                                if player.energy > 100:
+                                                                    player.energy = 100
+                                                                transpose_orb = 0
+                                                            if transpose_orb == 2 or transpose_orb == 3:
+                                                                info_text_1 = "Gained 30 energy from Transposition."
+                                                                player.energy += 30
+                                                                if player.energy > 100:
+                                                                    player.energy = 100
+                                                                transpose_orb = 0
+                                                            if transpose_orb >= 4:
+                                                                info_text_1 = "Gained 40 energy from Transposition."
+                                                                player.energy += 40
+                                                                if player.energy > 100:
+                                                                    player.energy = 100
+                                                                transpose_orb = 0
                                                         mirror_image = False
                                                         fire_active = False
                                                         arrow_active = False
@@ -18233,7 +18430,7 @@ if __name__ == "__main__":
                                         transpose_battle_sprite.update(575, 400, graphic_dict["transpose_1"])
                                     if transpose_orb == 2:
                                         transpose_battle_sprite.update(575, 400, graphic_dict["transpose_2"])
-                                    if transpose_orb == 5:
+                                    if transpose_orb == 4:
                                         transpose_battle_sprite.update(575, 400, graphic_dict["transpose_3"])
                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                     if player.current_zone == "seldon":
@@ -18570,11 +18767,19 @@ if __name__ == "__main__":
                                         elif player.equipment["trinket 3"] == "":
                                             barrier_button.update(820, 641, graphic_dict["barrier_button_img"])
                                         screen.blit(barrier_button.surf, barrier_button.rect)
-                                    if player.skills_mage["skill 3"] == "mirror image":
-                                        if player.equipment["trinket 3"] != "":
-                                            mirror_button.update(890, 641, graphic_dict["mirror_less_button_img"])
-                                        elif player.equipment["trinket 3"] == "":
-                                            mirror_button.update(890, 641, graphic_dict["mirror_button_img"])
+                                    if player.skills_mage["skill 3"] == "transposition":
+                                        if mirror_image:
+                                            if player.equipment["trinket 3"] != "":
+                                                mirror_button.update(890, 641,
+                                                                     graphic_dict["consume_less_button_img"])
+                                            elif player.equipment["trinket 3"] == "":
+                                                mirror_button.update(890, 641, graphic_dict["consume_button_img"])
+                                        else:
+                                            if player.equipment["trinket 3"] != "":
+                                                mirror_button.update(890, 641,
+                                                                     graphic_dict["transpose_less_button_img"])
+                                            elif player.equipment["trinket 3"] == "":
+                                                mirror_button.update(890, 641, graphic_dict["transpose_button_img"])
                                         screen.blit(mirror_button.surf, mirror_button.rect)
                                     if player.skills_mage["skill 4"] == "millennium fire":
                                         if player.equipment["trinket 3"] != "":
@@ -18616,7 +18821,7 @@ if __name__ == "__main__":
                                         elif player.equipment["trinket 3"] == "":
                                             vanish_button.update(890, 641, graphic_dict["vanish_button_img"])
                                         screen.blit(vanish_button.surf, vanish_button.rect)
-                                    if player.skills_scout["skill 4"] == "arrow of advantage":
+                                    if player.skills_scout["skill 4"] == "poison arrow":
                                         if player.equipment["trinket 3"] != "":
                                             arrow_button.update(960, 641, graphic_dict["arrow_button_img"])
                                         elif player.equipment["trinket 3"] == "":
@@ -18647,11 +18852,19 @@ if __name__ == "__main__":
                                         elif player.equipment["trinket 3"] == "":
                                             barrier_button.update(820, 641, graphic_dict["barrier_button_img"])
                                         game_window.blit(barrier_button.surf, barrier_button.rect)
-                                    if player.skills_mage["skill 3"] == "mirror image":
-                                        if player.equipment["trinket 3"] != "":
-                                            mirror_button.update(890, 641, graphic_dict["mirror_less_button_img"])
-                                        elif player.equipment["trinket 3"] == "":
-                                            mirror_button.update(890, 641, graphic_dict["mirror_button_img"])
+                                    if player.skills_mage["skill 3"] == "transposition":
+                                        if mirror_image:
+                                            if player.equipment["trinket 3"] != "":
+                                                mirror_button.update(890, 641,
+                                                                     graphic_dict["consume_less_button_img"])
+                                            elif player.equipment["trinket 3"] == "":
+                                                mirror_button.update(890, 641, graphic_dict["consume_button_img"])
+                                        else:
+                                            if player.equipment["trinket 3"] != "":
+                                                mirror_button.update(890, 641,
+                                                                     graphic_dict["transpose_less_button_img"])
+                                            elif player.equipment["trinket 3"] == "":
+                                                mirror_button.update(890, 641, graphic_dict["transpose_button_img"])
                                         game_window.blit(mirror_button.surf, mirror_button.rect)
                                     if player.skills_mage["skill 4"] == "millennium fire":
                                         if player.equipment["trinket 3"] != "":
@@ -18693,7 +18906,7 @@ if __name__ == "__main__":
                                         elif player.equipment["trinket 3"] == "":
                                             vanish_button.update(890, 641, graphic_dict["vanish_button_img"])
                                         game_window.blit(vanish_button.surf, vanish_button.rect)
-                                    if player.skills_scout["skill 4"] == "arrow of advantage":
+                                    if player.skills_scout["skill 4"] == "poison arrow":
                                         if player.equipment["trinket 3"] != "":
                                             arrow_button.update(960, 641, graphic_dict["arrow_button_img"])
                                         elif player.equipment["trinket 3"] == "":
@@ -18802,6 +19015,25 @@ if __name__ == "__main__":
                                         combat_cooldown = False
                                         in_over_world = True
                                         loot_updated = False
+                                        if mirror_image:
+                                            if transpose_orb == 0 or transpose_orb == 1:
+                                                info_text_1 = "Gained 20 energy from Transposition."
+                                                player.energy += 20
+                                                if player.energy > 100:
+                                                    player.energy = 100
+                                                transpose_orb = 0
+                                            if transpose_orb == 2 or transpose_orb == 3:
+                                                info_text_1 = "Gained 30 energy from Transposition."
+                                                player.energy += 30
+                                                if player.energy > 100:
+                                                    player.energy = 100
+                                                transpose_orb = 0
+                                            if transpose_orb >= 4:
+                                                info_text_1 = "Gained 40 energy from Transposition."
+                                                player.energy += 40
+                                                if player.energy > 100:
+                                                    player.energy = 100
+                                                transpose_orb = 0
                                         mirror_image = False
                                         fire_active = False
                                         arrow_active = False
@@ -18890,7 +19122,7 @@ if __name__ == "__main__":
                                     screen.blit(mage_attack_button.surf, mage_attack_button.rect)
                                     if player.skills_mage["skill 2"] == "barrier":
                                         screen.blit(barrier_button.surf, barrier_button.rect)
-                                    if player.skills_mage["skill 3"] == "mirror image":
+                                    if player.skills_mage["skill 3"] == "transposition":
                                         screen.blit(mirror_button.surf, mirror_button.rect)
                                     if player.skills_mage["skill 4"] == "millennium fire":
                                         screen.blit(fire_button.surf, fire_button.rect)
@@ -18908,7 +19140,7 @@ if __name__ == "__main__":
                                         screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
                                     if player.skills_scout["skill 3"] == "vanishing shroud":
                                         screen.blit(vanish_button.surf, vanish_button.rect)
-                                    if player.skills_scout["skill 4"] == "arrow of advantage":
+                                    if player.skills_scout["skill 4"] == "poison arrow":
                                         screen.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
@@ -18958,7 +19190,7 @@ if __name__ == "__main__":
                                     game_window.blit(mage_attack_button.surf, mage_attack_button.rect)
                                     if player.skills_mage["skill 2"] == "barrier":
                                         game_window.blit(barrier_button.surf, barrier_button.rect)
-                                    if player.skills_mage["skill 3"] == "mirror image":
+                                    if player.skills_mage["skill 3"] == "transposition":
                                         game_window.blit(mirror_button.surf, mirror_button.rect)
                                     if player.skills_mage["skill 4"] == "millennium fire":
                                         game_window.blit(fire_button.surf, fire_button.rect)
@@ -18976,7 +19208,7 @@ if __name__ == "__main__":
                                         game_window.blit(sharp_sense_button.surf, sharp_sense_button.rect)
                                     if player.skills_scout["skill 3"] == "vanishing shroud":
                                         game_window.blit(vanish_button.surf, vanish_button.rect)
-                                    if player.skills_scout["skill 4"] == "arrow of advantage":
+                                    if player.skills_scout["skill 4"] == "poison arrow":
                                         game_window.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
@@ -21226,8 +21458,8 @@ if __name__ == "__main__":
                                         if not mirror_learned:
                                             if player.knowledge["mage"] > 59:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
-                                                player.skills_mage["skill 3"] = "mirror image"
-                                                info_text_1 = "'Mirror Image' skill learned!"
+                                                player.skills_mage["skill 3"] = "transposition"
+                                                info_text_1 = "'Transposition' skill learned!"
                                                 info_text_2 = "Skill added. 60 knowledge used."
                                                 player.knowledge["mage"] -= 60
                                                 mirror_learned = True
@@ -21240,9 +21472,9 @@ if __name__ == "__main__":
                                                 info_text_1 = "60 mage knowledge required to learn."
                                                 info_text_2 = ""
                                         else:
-                                            info_text_1 = "You've already learned 'Mirror Image'."
+                                            info_text_1 = "You've already learned 'Transposition'."
                                             info_text_2 = ""
-                                if player.level > 19:
+                                if player.level > 14:
                                     if book_button.name == "fire learn button":
                                         if not fire_learned:
                                             if player.knowledge["mage"] > 79:
@@ -21314,7 +21546,7 @@ if __name__ == "__main__":
                                         else:
                                             info_text_1 = "You've already learned 'Stunning Swing'."
                                             info_text_2 = ""
-                                if player.level > 19:
+                                if player.level > 14:
                                     if book_button.name == "edge learn button":
                                         if not edge_learned:
                                             if player.knowledge["fighter"] > 79:
@@ -21387,13 +21619,13 @@ if __name__ == "__main__":
                                         else:
                                             info_text_1 = "You've already learned this."
                                             info_text_2 = ""
-                                if player.level > 19:
+                                if player.level > 14:
                                     if book_button.name == "arrow learn button":
                                         if not arrow_learned:
                                             if player.knowledge["scout"] > 79:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
-                                                player.skills_scout["skill 4"] = "arrow of advantage"
-                                                info_text_1 = "'Arrow of Advantage' skill learned!"
+                                                player.skills_scout["skill 4"] = "poison arrow"
+                                                info_text_1 = "'Poison Arrow' skill learned!"
                                                 info_text_2 = "Skill added. 80 knowledge used."
                                                 player.knowledge["scout"] -= 80
                                                 arrow_learned = True
@@ -21542,7 +21774,7 @@ if __name__ == "__main__":
                             if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
                                 if player.level > 9:
                                     mage_book.update(670, 380, graphic_dict["mage_book_img_10"])
-                                if player.level > 19:
+                                if player.level > 14:
                                     mage_book.update(670, 380, graphic_dict["mage_book_img_20"])
                                 books.append(mage_book)
                                 skill_learn_items.append(barrier_learn_button)
@@ -21554,7 +21786,7 @@ if __name__ == "__main__":
                             if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
                                 if player.level > 9:
                                     fighter_book.update(670, 380, graphic_dict["fighter_book_img_10"])
-                                if player.level > 19:
+                                if player.level > 14:
                                     fighter_book.update(670, 380, graphic_dict["fighter_book_img_20"])
                                 books.append(fighter_book)
                                 skill_learn_items.append(hard_strike_learn_button)
@@ -21566,7 +21798,7 @@ if __name__ == "__main__":
                             if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
                                 if player.level > 9:
                                     scout_book.update(670, 380, graphic_dict["scout_book_img_10"])
-                                if player.level > 19:
+                                if player.level > 14:
                                     scout_book.update(670, 380, graphic_dict["scout_book_img_20"])
                                 books.append(scout_book)
                                 skill_learn_items.append(sharp_sense_learn_button)
@@ -25911,10 +26143,8 @@ if __name__ == "__main__":
                         combat_cooldown = False
                         combat_happened = False
                         in_over_world = True
-                        if barrier_active:
-                            barrier_active = False
-                        if sharp_sense_active:
-                            sharp_sense_active = False
+                        barrier_active = False
+                        sharp_sense_active = False
                         fire_active = False
                         arrow_active = False
                         show_arrow = False
@@ -25922,6 +26152,26 @@ if __name__ == "__main__":
                         edge_active = False
                         show_edge = False
                         strike_active = False
+                        if mirror_image:
+                            if transpose_orb == 0 or transpose_orb == 1:
+                                info_text_1 = "Gained 20 energy from Transposition."
+                                player.energy += 20
+                                if player.energy > 100:
+                                    player.energy = 100
+                                transpose_orb = 0
+                            if transpose_orb == 2 or transpose_orb == 3:
+                                info_text_1 = "Gained 30 energy from Transposition."
+                                player.energy += 30
+                                if player.energy > 100:
+                                    player.energy = 100
+                                transpose_orb = 0
+                            if transpose_orb >= 4:
+                                info_text_1 = "Gained 40 energy from Transposition."
+                                player.energy += 40
+                                if player.energy > 100:
+                                    player.energy = 100
+                                transpose_orb = 0
+                        mirror_image = False
                         cleared = False
                         loot_timer_reset = False
                         loot_level_tic = time.perf_counter()
@@ -25985,10 +26235,8 @@ if __name__ == "__main__":
                                     if not switch_3:
                                         switch_1 = False
                                         switch_2 = False
-                                    if barrier_active:
-                                        barrier_active = False
-                                    if sharp_sense_active:
-                                        sharp_sense_active = False
+                                    barrier_active = False
+                                    sharp_sense_active = False
                                     fire_active = False
                                     arrow_active = False
                                     show_arrow = False
@@ -25996,6 +26244,26 @@ if __name__ == "__main__":
                                     edge_active = False
                                     show_edge = False
                                     strike_active = False
+                                    if mirror_image:
+                                        if transpose_orb == 0 or transpose_orb == 1:
+                                            info_text_1 = "Gained 20 energy from Transposition."
+                                            player.energy += 20
+                                            if player.energy > 100:
+                                                player.energy = 100
+                                            transpose_orb = 0
+                                        if transpose_orb == 2 or transpose_orb == 3:
+                                            info_text_1 = "Gained 30 energy from Transposition."
+                                            player.energy += 30
+                                            if player.energy > 100:
+                                                player.energy = 100
+                                            transpose_orb = 0
+                                        if transpose_orb >= 4:
+                                            info_text_1 = "Gained 40 energy from Transposition."
+                                            player.energy += 40
+                                            if player.energy > 100:
+                                                player.energy = 100
+                                            transpose_orb = 0
+                                    mirror_image = False
                                     cleared = False
                                     cloaked = False
                                     turn_counter = 0
@@ -26095,6 +26363,26 @@ if __name__ == "__main__":
                                 edge_active = False
                                 show_edge = False
                                 strike_active = False
+                                if mirror_image:
+                                    if transpose_orb == 0 or transpose_orb == 1:
+                                        info_text_1 = "Gained 20 energy from Transposition."
+                                        player.energy += 20
+                                        if player.energy > 100:
+                                            player.energy = 100
+                                        transpose_orb = 0
+                                    if transpose_orb == 2 or transpose_orb == 3:
+                                        info_text_1 = "Gained 30 energy from Transposition."
+                                        player.energy += 30
+                                        if player.energy > 100:
+                                            player.energy = 100
+                                        transpose_orb = 0
+                                    if transpose_orb >= 4:
+                                        info_text_1 = "Gained 40 energy from Transposition."
+                                        player.energy += 40
+                                        if player.energy > 100:
+                                            player.energy = 100
+                                        transpose_orb = 0
+                                mirror_image = False
                                 cleared = False
                                 cloaked = False
                                 turn_counter = 0
