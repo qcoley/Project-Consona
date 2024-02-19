@@ -8838,7 +8838,6 @@ if __name__ == "__main__":
     korlok_enemies = pygame.sprite.Group()
     ectrenos_front_enemies = pygame.sprite.Group()
     ectrenos_alcove_enemies = pygame.sprite.Group()
-    mine_enemies = pygame.sprite.Group()
     boss_enemies = pygame.sprite.Group()
     stardust_stelli = pygame.sprite.Group()
     trees = pygame.sprite.Group()
@@ -8893,7 +8892,6 @@ if __name__ == "__main__":
     npcs_marrow.add(npc_maydria, npc_noren, npc_boro, npc_artherian, npc_roroc)
     seldon_enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     korlok_enemies.add(magmon_1, magmon_2, magmon_3, magmon_4)
-    mine_enemies.add(bandile_1, bandile_2, bandile_3, bandile_4)
     ectrenos_front_enemies.add(necrola_1, necrola_2, necrola_3, necrola_4)
     ectrenos_alcove_enemies.add(osodark_1, osodark_2, osodark_3, osodark_4)
     boss_enemies.add(chorizon_1, chorizon_2)
@@ -23574,7 +23572,7 @@ if __name__ == "__main__":
                                     best_fish_surf_rect = best_fish_surf.get_rect()
                                     best_fish_surf_rect.midleft = (40, 440)
                                     screen.blit(best_fish_surf, best_fish_surf_rect)
-                                    fish_level_surf = level_up_font.render(str(fishing_level),
+                                    fish_level_surf = level_up_font.render(str(int(fishing_level)),
                                                                            True, "black", "light yellow")
                                     fish_level_surf_rect = fish_level_surf.get_rect()
                                     fish_level_surf_rect.midleft = (162, 510)
@@ -23611,7 +23609,7 @@ if __name__ == "__main__":
                                     best_fish_surf_rect = best_fish_surf.get_rect()
                                     best_fish_surf_rect.midleft = (40, 440)
                                     game_window.blit(best_fish_surf, best_fish_surf_rect)
-                                    fish_level_surf = level_up_font.render(str(fishing_level),
+                                    fish_level_surf = level_up_font.render(str(int(fishing_level)),
                                                                            True, "black", "light yellow")
                                     fish_level_surf_rect = fish_level_surf.get_rect()
                                     fish_level_surf_rect.midleft = (162, 510)
