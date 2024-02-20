@@ -8289,8 +8289,8 @@ if __name__ == "__main__":
 
     character_button = UiElement("character button", 860, 680, graphic_dict["character_button_img"])
     quests_button = UiElement("quests button", 970, 680, graphic_dict["journal_button_img"])
-    new_game_button = UiElement("new game button", 651, 415, graphic_dict["new_game_img"])
-    continue_button = UiElement("continue button", 651, 507, graphic_dict["continue_img"])
+    new_game_button = UiElement("new game button", 639, 414, graphic_dict["new_game_img"])
+    continue_button = UiElement("continue button", 639, 506, graphic_dict["continue_img"])
 
     amuna_button = UiElement("amuna button", 70, 245, graphic_dict["amuna_button_img"])
     nuldar_button = UiElement("nuldar button", 70, 340, graphic_dict["nuldar_button_img"])
@@ -15877,6 +15877,22 @@ if __name__ == "__main__":
                         alpha_set = False
                         vanished = False
                         leveled = False
+                        combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                                sharp_sense_active, graphic_dict,
+                                                                kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                                kasper_battle_sprite, torok_battle_sprite,
+                                                                iriana_battle_sprite)
+                        combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                               ghoul_battle_sprite, chorizon_battle_sprite,
+                                                               muchador_battle_sprite, magmon_battle_sprite,
+                                                               bandile_battle_sprite, chinzilla_battle_sprite,
+                                                               in_battle, in_npc_interaction, graphic_dict,
+                                                               necrola_battle_sprite, osodark_battle_sprite,
+                                                               stelli_battle_sprite, chorizon_phase,
+                                                               erebyth_battle_sprite, turn_counter,
+                                                               atmon_battle_sprite, jumano_battle_sprite,
+                                                               dreth_battle_sprite, apothis_gift, cloaked,
+                                                               time_of_day, first_attack)
                         cleared = True
 
                     try:
