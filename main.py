@@ -1998,9 +1998,6 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 30
             if self.x_coordinate > 1010:
                 self.x_coordinate = 1010
-            if 185 < self.x_coordinate < 405 and self.y_coordinate > 555:
-                if self.y_coordinate < 580:
-                    self.y_coordinate = 580
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
                 if self.y_coordinate > 540:
                     self.y_coordinate = 540
@@ -2042,9 +2039,6 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
                 if self.y_coordinate > 540:
                     self.y_coordinate = 540
-            if 610 < self.x_coordinate < 840 and self.y_coordinate > 555:
-                if self.y_coordinate < 580:
-                    self.y_coordinate = 580
             if 610 < self.x_coordinate < 840 and self.y_coordinate < 555:
                 if self.y_coordinate > 540:
                     self.y_coordinate = 540
@@ -4401,9 +4395,6 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 30
             if self.x_coordinate > 1010:
                 self.x_coordinate = 1010
-            if 185 < self.x_coordinate < 405 and self.y_coordinate > 555:
-                if self.y_coordinate < 580:
-                    self.y_coordinate = 580
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
                 if self.y_coordinate > 540:
                     self.y_coordinate = 540
@@ -4445,9 +4436,6 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
                 if self.y_coordinate > 540:
                     self.y_coordinate = 540
-            if 610 < self.x_coordinate < 840 and self.y_coordinate > 555:
-                if self.y_coordinate < 580:
-                    self.y_coordinate = 580
             if 610 < self.x_coordinate < 840 and self.y_coordinate < 555:
                 if self.y_coordinate > 540:
                     self.y_coordinate = 540
@@ -6806,9 +6794,6 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 30
             if self.x_coordinate > 1010:
                 self.x_coordinate = 1010
-            if 185 < self.x_coordinate < 405 and self.y_coordinate > 555:
-                if self.y_coordinate < 580:
-                    self.y_coordinate = 580
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
                 if self.y_coordinate > 540:
                     self.y_coordinate = 540
@@ -6850,9 +6835,6 @@ class PlayerSorae(pygame.sprite.Sprite):
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
                 if self.y_coordinate > 540:
                     self.y_coordinate = 540
-            if 610 < self.x_coordinate < 840 and self.y_coordinate > 555:
-                if self.y_coordinate < 580:
-                    self.y_coordinate = 580
             if 610 < self.x_coordinate < 840 and self.y_coordinate < 555:
                 if self.y_coordinate > 540:
                     self.y_coordinate = 540
@@ -9547,7 +9529,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(time_of_day)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # --------------------------------------------------------------------------------------------------------------
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
@@ -25688,7 +25670,7 @@ if __name__ == "__main__":
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Omoku":
                                 if player.quest_complete["kart troubles"]:
-                                    quest_visual.update(861, 295, graphic_dict["kart_full"])
+                                    quest_visual.update(862, 295, graphic_dict["kart_full"])
                                     screen.blit(quest_visual.surf, quest_visual.rect)
                                 screen.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
                                 npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
@@ -25808,7 +25790,7 @@ if __name__ == "__main__":
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Omoku":
                                 if player.quest_complete["kart troubles"]:
-                                    quest_visual.update(861, 295, graphic_dict["kart_full"])
+                                    quest_visual.update(865, 295, graphic_dict["kart_full"])
                                     game_window.blit(quest_visual.surf, quest_visual.rect)
                                 game_window.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
                                 npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])

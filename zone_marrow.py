@@ -298,6 +298,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             if time_of_day == 0 or time_of_day == 7:
                 for atmon in atmons:
                     if maydria.gift and not prism_received:
+                        print("yes")
                         atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
                                            graphic_dict["atmon_high_night"])
                     else:
@@ -1289,8 +1290,8 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
             interacted = False
             mini_map.update(915, 596, graphic_dict["marrow_mini_map_tower_left"])
             player.current_zone = "marrow tower west"
-            player.x_coordinate = 100
-            player.y_coordinate = 550
+            player.x_coordinate = 275
+            player.y_coordinate = 600
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # enemy movement updates
@@ -1429,8 +1430,8 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
             over_world_song_set = False
             mini_map.update(915, 596, graphic_dict["marrow_mini_map_tower_right"])
             player.current_zone = "marrow tower east"
-            player.x_coordinate = 930
-            player.y_coordinate = 550
+            player.x_coordinate = 760
+            player.y_coordinate = 600
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if player.y_coordinate >= 675:
