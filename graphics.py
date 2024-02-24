@@ -578,6 +578,12 @@ def load_graphics():
     loaded_dict["overlay_stardust_star"] = overlay_stardust_star
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # npc interaction quest stars --------------------------------------------------------------------------------------
+    npc_interaction_stars_url = resource_path('resources/art/overlay_npc_interaction_stars.png')
+    npc_interaction_stars_sheet = sprite_sheet((200, 200), npc_interaction_stars_url)
+    loaded_dict["interaction_start_star"] = npc_interaction_stars_sheet[0]
+    loaded_dict["interaction_progress_star"] = npc_interaction_stars_sheet[1]
+    loaded_dict["interaction_complete_star"] = npc_interaction_stars_sheet[2]
     # condition overlays -----------------------------------------------------------------------------------------------
     overlay_conditions_url = resource_path('resources/art/overlay_conditions.png')
     overlay_conditions_sheet = sprite_sheet((25, 25), overlay_conditions_url)

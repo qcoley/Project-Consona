@@ -7321,6 +7321,8 @@ class Enemy(pygame.sprite.Sprite):
         self.y_coordinate = y_coord
         self.surf = image
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+        if self.kind == "atmon":
+            self.surf.set_alpha(50)
 
     # updates enemy map position
     def update_position(self, ranges_x, ranges_y, direction_x, direction_y):
@@ -8178,19 +8180,24 @@ if __name__ == "__main__":
     atmon_1 = Enemy("Atmon", "atmon", 100, 100, 22, 250, 150, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    atmon_2 = Enemy("Atmon", "atmon", 100, 100, 25, 95, 220, True,
+    atmon_1.surf.set_alpha(50)
+    atmon_2 = Enemy("Atmon", "atmon", 100, 100, 24, 800, 150, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    atmon_3 = Enemy("Atmon", "atmon", 100, 100, 21, 190, 350, True,
+    atmon_2.surf.set_alpha(50)
+    atmon_3 = Enemy("Atmon", "atmon", 100, 100, 22, 190, 350, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    atmon_4 = Enemy("Atmon", "atmon", 100, 100, 24, 350, 275, True,
+    atmon_3.surf.set_alpha(50)
+    atmon_4 = Enemy("Atmon", "atmon", 100, 100, 24, 500, 250, True,
                     Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                     graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    atmon_4.surf.set_alpha(50)
 
     # castle enemies ---------------------------------------------------------------------------------------------------
     atmon_castle = Enemy("Atmon", "atmon castle", 100, 100, 26, 350, 275, True, "item",
                          graphic_dict["atmon"], UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    atmon_castle.surf.set_alpha(50)
 
     jumano_1 = Enemy("Jumano", "jumano", 100, 100, 25, 200, 200, True,
                      Item("marrow bait", "bait", 200, 200, graphic_dict["marrow_bait"], 0),
@@ -8500,6 +8507,8 @@ if __name__ == "__main__":
     illisare_complete_window = UiElement("illisare complete window", 550, 350, graphic_dict["illisare_complete"])
     roroc_quest_window = UiElement("illisare quest window", 262, 443, graphic_dict["roroc_quest"])
     roroc_complete_window = UiElement("illisare complete window", 550, 350, graphic_dict["roroc_complete"])
+    
+    npc_interaction_star = UiElement("npc interaction star", 680, 80, graphic_dict["interaction_start_star"])
 
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box_day"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
@@ -10675,6 +10684,7 @@ if __name__ == "__main__":
                                     else:
                                         atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
                                                            graphic_dict["atmon"])
+
                         if player.current_zone == "castle one":
                             player.x_coordinate = 515
                             player.y_coordinate = 175
@@ -13693,7 +13703,7 @@ if __name__ == "__main__":
                                                                      atmon_battle_sprite, apothis_upgrade, time_of_day,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      kasper_battle_sprite, torok_battle_sprite,
-                                                                     iriana_battle_sprite)
+                                                                     iriana_battle_sprite, sfx_surprise_attack)
                     else:
                         castle_one_returned = zone_castle.castle_one(pygame, game_window, graphic_dict, player,
                                                                      castle_one_bg, over_world_song_set,
@@ -13728,7 +13738,7 @@ if __name__ == "__main__":
                                                                      atmon_battle_sprite, apothis_upgrade, time_of_day,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      kasper_battle_sprite, torok_battle_sprite,
-                                                                     iriana_battle_sprite)
+                                                                     iriana_battle_sprite, sfx_surprise_attack)
 
                     over_world_song_set = castle_one_returned["over_world_song_set"]
                     interacted = castle_one_returned["interacted"]
@@ -25718,6 +25728,7 @@ if __name__ == "__main__":
                                 if time_of_day == 7:
                                     screen.blit(night, (0, 0))
 
+                            screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
@@ -25838,6 +25849,7 @@ if __name__ == "__main__":
                                 if time_of_day == 7:
                                     game_window.blit(night, (0, 0))
 
+                            game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)

@@ -3207,7 +3207,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if not scaled, coordinates set to default boundaries
         random_marrow_atmon_x = random.randrange(75, 400)
         random_marrow_atmon_y = random.randrange(150, 400)
-        random_marrow_atmon_level = random.randrange(20, 25)
+        random_marrow_atmon_level = random.choice([22, 24])
 
         # count current enemies active in game
         for mob in atmons:
@@ -3223,12 +3223,16 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
                                              Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                                              graphic_dict["atmon_high_night"],
                                              UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                    if random_marrow_atmon_level == 24:
+                        new_marrow_atmon.surf.set_alpha(50)
                 else:
                     new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level,
                                              random_marrow_atmon_x, random_marrow_atmon_y, True,
                                              Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                                              graphic_dict["atmon_night"],
                                              UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                    if random_marrow_atmon_level == 24:
+                        new_marrow_atmon.surf.set_alpha(50)
             else:
                 if maydria_gift and not prism_received:
                     new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level,
@@ -3236,12 +3240,16 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
                                              Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                                              graphic_dict["atmon_high"],
                                              UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                    if random_marrow_atmon_level == 24:
+                        new_marrow_atmon.surf.set_alpha(50)
                 else:
                     new_marrow_atmon = Enemy("Atmon", "atmon", 100, 100, random_marrow_atmon_level,
                                              random_marrow_atmon_x, random_marrow_atmon_y, True,
                                              Item("prism", "prism", 200, 200, graphic_dict["prism"], 0),
                                              graphic_dict["atmon"],
                                              UiElement("atmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                    if random_marrow_atmon_level == 24:
+                        new_marrow_atmon.surf.set_alpha(50)
             atmons.add(new_marrow_atmon)
 
     if player.current_zone == "castle one":

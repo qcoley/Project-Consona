@@ -19,7 +19,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                castle_crate_2_got, sfx_item_potion, dreth_laugh, dreth_taunt, dreth_taunt_popup, rope_phase,
                castle_one_roped_bg, castle_one_keyed_bg, key_got, castle_key, boss_door, sfx_item_key, jumanos,
                jumano_battle_sprite, apothis_gift, time_of_day, kasper_unlocked, torok_unlocked, iriana_unlocked,
-               kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
+               kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite, sfx_surprise):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -201,7 +201,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
-    enemy = pygame.sprite.spritecollideany(player, jumanos)
+    enemy = pygame.sprite.spritecollideany(player, jumanos, pygame.sprite.collide_rect_ratio(2.5))
     if enemy:
         interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
@@ -210,12 +210,7 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (enemy.x_coordinate, enemy.y_coordinate - 40)
         screen.blit(interaction_info_surf, interaction_info_rect)
-
-        # lets player know if they are in range of enemy they can press f to attack it
-        info_text_1 = "Press 'F' key to attack enemy."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        enemy.surf = graphic_dict["jumano_red"]
 
         if interacted and in_over_world:
             current_enemy_battling = enemy
@@ -236,6 +231,29 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                    False, jumano_battle_sprite, 0, jumano_battle_sprite,
                                                    jumano_battle_sprite, jumano_battle_sprite, False, False,
                                                    time_of_day, True)
+
+    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
+    enemy = pygame.sprite.spritecollideany(player, jumanos, pygame.sprite.collide_rect_ratio(1.5))
+    if enemy and in_over_world:
+        pygame.mixer.find_channel(True).play(sfx_surprise)
+        current_enemy_battling = enemy
+        in_over_world = False
+        in_battle = True
+
+        drawing_functions.loot_popup_container.clear()
+        drawing_functions.loot_text_container.clear()
+        combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                sharp_sense_active, graphic_dict, kasper_unlocked,
+                                                torok_unlocked, iriana_unlocked, kasper_battle_sprite,
+                                                torok_battle_sprite, iriana_battle_sprite)
+        combat_scenario.battle_animation_enemy(current_enemy_battling, jumano_battle_sprite,
+                                               jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
+                                               jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
+                                               in_battle, in_npc_interaction, graphic_dict,
+                                               jumano_battle_sprite, jumano_battle_sprite, jumano_battle_sprite,
+                                               False, jumano_battle_sprite, 0, jumano_battle_sprite,
+                                               jumano_battle_sprite, jumano_battle_sprite, False, False,
+                                               time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

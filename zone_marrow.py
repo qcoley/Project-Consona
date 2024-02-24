@@ -298,7 +298,6 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             if time_of_day == 0 or time_of_day == 7:
                 for atmon in atmons:
                     if maydria.gift and not prism_received:
-                        print("yes")
                         atmon.update_image(atmon.x_coordinate, atmon.y_coordinate,
                                            graphic_dict["atmon_high_night"])
                     else:
@@ -2115,15 +2114,23 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
         if not atmons_highlighted:
             for enemy_sprite in atmons:
                 if enemy_sprite.name == "Atmon":
-                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                              graphic_dict["atmon_high"])
+                    if time_of_day == 0 or time_of_day == 7:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["atmon_high_night"])
+                    else:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["atmon_high"])
             atmons_highlighted = True
     if prism_received:
         if not atmons_reset:
             for enemy_sprite in atmons:
                 if enemy_sprite.name == "Atmon":
-                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                              graphic_dict["atmon"])
+                    if time_of_day == 0 or time_of_day == 7:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["atmon_night"])
+                    else:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["atmon"])
             atmons_reset = True
 
     for enemy in atmons:
@@ -2412,7 +2419,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
             enemy_toc = time.perf_counter()
             if enemy_toc - enemy_tic > 1:
                 enemy_tic = time.perf_counter()
-                move_mon.update_position([75, 400], [150, 400], direction_horizontal, direction_vertical)
+                move_mon.update_position([75, 800], [150, 600], direction_horizontal, direction_vertical)
 
     sub_marrow_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "in_battle": in_battle,
                          "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
