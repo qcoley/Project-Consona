@@ -53,15 +53,23 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         if not ghouls_highlighted:
             for enemy_sprite in marrow_ghouls:
                 if enemy_sprite.name == "Ghoul":
-                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                              graphic_dict["ghoul_high"])
+                    if time_of_day == 0 or time_of_day == 7:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["ghoul_high_night"])
+                    else:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["ghoul_high"])
             ghouls_highlighted = True
     if artherian.gift:
         if not ghouls_reset:
             for enemy_sprite in marrow_ghouls:
                 if enemy_sprite.name == "Ghoul":
-                    enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
-                                              graphic_dict["ghoul"])
+                    if time_of_day == 0 or time_of_day == 7:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["ghoul_night"])
+                    else:
+                        enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                  graphic_dict["ghoul"])
             ghouls_reset = True
 
     for ghoul in marrow_ghouls:

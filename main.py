@@ -8022,22 +8022,22 @@ if __name__ == "__main__":
         Item("brace", "brace", 200, 200, graphic_dict["brace"], 0),
         Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1)])
 
-    npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
-    npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
-    npc_celeste_interaction = UiElement("celeste interaction", 676, 335, graphic_dict["celeste_interaction"])
-    npc_torune_interaction = UiElement("torune interaction", 670, 335, graphic_dict["torune_interaction"])
+    npc_garan_interaction = UiElement("garan interaction", 682, 335, graphic_dict["garan_interaction"])
+    npc_maurelle_interaction = UiElement("maurelle interaction", 675, 325, graphic_dict["maurelle_interaction"])
+    npc_celeste_interaction = UiElement("celeste interaction", 678, 335, graphic_dict["celeste_interaction"])
+    npc_torune_interaction = UiElement("torune interaction", 674, 335, graphic_dict["torune_interaction"])
     npc_voruke_interaction = UiElement("voruke interaction", 678, 325, graphic_dict["voruke_interaction"])
-    npc_zerah_interaction = UiElement("zerah interaction", 678, 330, graphic_dict["zerah_interaction"])
+    npc_zerah_interaction = UiElement("zerah interaction", 680, 330, graphic_dict["zerah_interaction"])
     npc_dionte_interaction = UiElement("dionte interaction", 678, 350, graphic_dict["dionte_interaction"])
     npc_omoku_interaction = UiElement("omoku interaction", 610, 352, graphic_dict["omoku_interaction"])
-    npc_leyre_interaction = UiElement("leyre interaction", 678, 350, graphic_dict["leyre_interaction"])
-    npc_everett_interaction = UiElement("everett interaction", 678, 325, graphic_dict["everett_interaction"])
-    npc_artherian_interaction = UiElement("artherian interaction", 678, 325, graphic_dict["artherian_interaction"])
-    npc_maydria_interaction = UiElement("maydria interaction", 678, 325, graphic_dict["maydria_interaction"])
+    npc_leyre_interaction = UiElement("leyre interaction", 680, 350, graphic_dict["leyre_interaction"])
+    npc_everett_interaction = UiElement("everett interaction", 682, 330, graphic_dict["everett_interaction"])
+    npc_artherian_interaction = UiElement("artherian interaction", 675, 335, graphic_dict["artherian_interaction"])
+    npc_maydria_interaction = UiElement("maydria interaction", 675, 325, graphic_dict["maydria_interaction"])
     npc_kuba_interaction = UiElement("kuba interaction", 676, 335, graphic_dict["kuba_interaction"])
-    npc_nahun_interaction = UiElement("nahun interaction", 676, 325, graphic_dict["nahun_interaction"])
-    npc_illisare_interaction = UiElement("illisare interaction", 676, 350, graphic_dict["illisare_interaction"])
-    npc_roroc_interaction = UiElement("roroc interaction", 676, 350, graphic_dict["roroc_interaction"])
+    npc_nahun_interaction = UiElement("nahun interaction", 678, 330, graphic_dict["nahun_interaction"])
+    npc_illisare_interaction = UiElement("illisare interaction", 678, 350, graphic_dict["illisare_interaction"])
+    npc_roroc_interaction = UiElement("roroc interaction", 678, 350, graphic_dict["roroc_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -8133,13 +8133,13 @@ if __name__ == "__main__":
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     # eldream enemies --------------------------------------------------------------------------------------------------
-    osodark_1 = Enemy("Osodark", "osodark", 100, 100, 16, 700, 225, True,
+    osodark_1 = Enemy("Osodark", "osodark", 100, 100, 16, 625, 225, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     osodark_2 = Enemy("Osodark", "osodark", 100, 100, 17, 250, 250, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_3 = Enemy("Osodark", "osodark", 100, 100, 17, 250, 250, True,
+    osodark_3 = Enemy("Osodark", "osodark", 100, 100, 17, 750, 250, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     osodark_4 = Enemy("Osodark", "osodark", 100, 100, 18, 375, 280, True,
@@ -9445,6 +9445,7 @@ if __name__ == "__main__":
     bleeding = False
     crushed = False
 
+    bleed_shown = False
     crush_shown = False
     poisoned_before = False
     first_attack = True
@@ -16703,6 +16704,7 @@ if __name__ == "__main__":
                                         if not bleeding:
                                             bleeding = True
                                             pygame.mixer.find_channel(True).play(sfx_bleed)
+                                            bleed_shown = False
                                 if current_enemy_battling.kind == "necrola":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
                                     if (turn_counter + 1) % random.randint(2, 4) == 0:
@@ -16717,6 +16719,7 @@ if __name__ == "__main__":
                                         if not bleeding:
                                             bleeding = True
                                             pygame.mixer.find_channel(True).play(sfx_bleed)
+                                            bleed_shown = False
                                 if current_enemy_battling.kind == "erebyth":
                                     if turn_counter == 2:
                                         erebyth_attack_choice = random.randint(1, 2)
@@ -16746,6 +16749,7 @@ if __name__ == "__main__":
                                             if not bleeding:
                                                 bleeding = True
                                                 pygame.mixer.find_channel(True).play(sfx_bleed)
+                                                bleed_shown = False
                                         if choice == 4:
                                             if not crushed:
                                                 crushed = True
@@ -19125,7 +19129,7 @@ if __name__ == "__main__":
                                     screen.blit(battle_sprite_effect_burn.surf, battle_sprite_effect_burn.rect)
                                 if poisoned:
                                     screen.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
-                                if bleeding:
+                                if bleeding and not bleed_shown:
                                     screen.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
                                 if crushed and not crush_shown:
                                     screen.blit(battle_sprite_effect_crush.surf, battle_sprite_effect_crush.rect)
@@ -19193,7 +19197,7 @@ if __name__ == "__main__":
                                     game_window.blit(battle_sprite_effect_burn.surf, battle_sprite_effect_burn.rect)
                                 if poisoned:
                                     game_window.blit(battle_sprite_effect_poison.surf, battle_sprite_effect_poison.rect)
-                                if bleeding:
+                                if bleeding and not bleed_shown:
                                     game_window.blit(battle_sprite_effect_bleed.surf, battle_sprite_effect_bleed.rect)
                                 if crushed and not crush_shown:
                                     game_window.blit(battle_sprite_effect_crush.surf, battle_sprite_effect_crush.rect)
@@ -19511,6 +19515,8 @@ if __name__ == "__main__":
                                 show_poison_arrow = False
                                 if crushed:
                                     crush_shown = True
+                                if bleeding:
+                                    bleed_shown = True
                     except TypeError:
                         pass
 
@@ -25651,7 +25657,7 @@ if __name__ == "__main__":
                             # noinspection PyUnboundLocalVariable
                             if current_npc_interacting.name == "Garan":
                                 screen.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Maurelle":
                                 if player.quest_complete["village repairs"]:
                                     quest_visual.update(880, 250, graphic_dict["pine_logs_big_pile_img"])
@@ -25660,24 +25666,24 @@ if __name__ == "__main__":
                                     quest_visual.update(880, 250, graphic_dict["pine_logs_big_img"])
                                     screen.blit(quest_visual.surf, quest_visual.rect)
                                 screen.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Celeste":
                                 if player.quest_progress["where's nede?"] == 1:
                                     screen.blit(nede_big.surf, nede_big.rect)
                                 screen.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Torune":
                                 screen.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Voruke":
                                 screen.blit(npc_voruke_interaction.surf, npc_voruke_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Zerah":
                                 screen.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Dionte":
                                 screen.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Omoku":
                                 if player.quest_complete["kart troubles"]:
                                     quest_visual.update(862, 295, graphic_dict["kart_full"])
@@ -25686,29 +25692,29 @@ if __name__ == "__main__":
                                 npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Leyre":
                                 screen.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Everett":
                                 screen.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Artherian":
                                 screen.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
-                                npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(680, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Maydria":
                                 screen.blit(npc_maydria_interaction.surf, npc_maydria_interaction.rect)
-                                npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(685, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Kuba":
                                 screen.blit(npc_kuba_interaction.surf, npc_kuba_interaction.rect)
-                                npc_name_plate.update(678, 150, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Nahun":
                                 screen.blit(npc_nahun_interaction.surf, npc_nahun_interaction.rect)
-                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Illisare":
                                 screen.blit(npc_illisare_interaction.surf, npc_illisare_interaction.rect)
-                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Roroc":
                                 screen.blit(recycle_crate_overlay.surf, recycle_crate_overlay.rect)
                                 screen.blit(npc_roroc_interaction.surf, npc_roroc_interaction.rect)
-                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 175, graphic_dict["npc_name_plate"])
 
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
 
@@ -25728,7 +25734,166 @@ if __name__ == "__main__":
                                 if time_of_day == 7:
                                     screen.blit(night, (0, 0))
 
-                            screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Kuba":
+                                if not player.quest_complete["welcome to consona"]:
+                                    if player.quest_status["welcome to consona"]:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Garan":
+                                if not player.quest_complete["sneaky snakes"]:
+                                    if (player.quest_status["sneaky snakes"] and
+                                            player.quest_progress["sneaky snakes"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["sneaky snakes"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Maurelle":
+                                if not player.quest_complete["village repairs"]:
+                                    if (player.quest_status["village repairs"] and
+                                            player.quest_progress["village repairs"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["village repairs"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Celeste":
+                                if not player.quest_complete["where's nede?"]:
+                                    if (player.quest_status["where's nede?"] and
+                                            player.quest_progress["where's nede?"] != 1):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["where's nede?"] == 1:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Torune":
+                                if not player.quest_complete["ghouled again"]:
+                                    if (player.quest_status["ghouled again"] and
+                                            player.quest_progress["ghouled again"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["ghouled again"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Voruke":
+                                if not player.quest_complete["band hammer"]:
+                                    if player.quest_status["band hammer"] and player.quest_progress["band hammer"] != 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["band hammer"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Zerah":
+                                if not player.quest_complete["elementary elementals"]:
+                                    if (player.quest_status["elementary elementals"] and
+                                            player.quest_progress["elementary elementals"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["elementary elementals"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Dionte":
+                                if not player.quest_complete["it's dangerous to go alone"]:
+                                    if (player.quest_status["it's dangerous to go alone"] and
+                                            player.quest_progress["it's dangerous to go alone"] != 1):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["it's dangerous to go alone"] == 1:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Omoku":
+                                if not player.quest_complete["kart troubles"]:
+                                    if (player.quest_status["kart troubles"] and
+                                            player.quest_progress["kart troubles"] != 4):
+                                        npc_interaction_star.update(608, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["kart troubles"] == 4:
+                                        npc_interaction_star.update(608, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(608, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Leyre":
+                                if not player.quest_complete["las escondidas"]:
+                                    if (player.quest_status["las escondidas"] and
+                                            player.quest_progress["las escondidas"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["las escondidas"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Everett":
+                                if not player.quest_complete["shades of fear"]:
+                                    if (player.quest_status["shades of fear"] and
+                                            player.quest_progress["shades of fear"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["shades of fear"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Artherian":
+                                if not npc_artherian.quest_complete:
+                                    if artherian_task_start and not artherian_2:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif artherian_2:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Maydria":
+                                if not npc_maydria.quest_complete:
+                                    if (player.quest_status["madness in marrow"]
+                                            and not player.quest_complete["madness in marrow"]):
+                                        npc_interaction_star.update(688, 90, graphic_dict["interaction_complete_star"])
+                                    if (npc_maydria.gift and not npc_boro.quest_complete
+                                            and not npc_noren.quest_complete):
+                                        npc_interaction_star.update(688, 90, graphic_dict["interaction_progress_star"])
+                                    elif npc_boro.quest_complete and npc_noren.quest_complete:
+                                        npc_interaction_star.update(688, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        if player.quest_complete["madness in marrow"]:
+                                            npc_interaction_star.update(688, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Nahun":
+                                if not player.quest_complete["disenchanted"]:
+                                    if player.quest_progress["welcome to consona"] == 1:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    if player.quest_status["disenchanted"]:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    else:
+                                        if player.quest_complete["welcome to consona"]:
+                                            npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Illisare":
+                                if not player.quest_complete["madness in marrow"]:
+                                    if player.quest_progress["disenchanted"] == 1:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    if player.quest_status["madness in marrow"]:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    else:
+                                        if player.quest_complete["disenchanted"]:
+                                            npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Roroc":
+                                if not player.quest_complete["re recycling"]:
+                                    if (player.quest_status["re recycling"] and
+                                            player.quest_progress["re recycling"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["re recycling"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    screen.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
@@ -25772,7 +25937,7 @@ if __name__ == "__main__":
                             # noinspection PyUnboundLocalVariable
                             if current_npc_interacting.name == "Garan":
                                 game_window.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Maurelle":
                                 if player.quest_complete["village repairs"]:
                                     quest_visual.update(880, 250, graphic_dict["pine_logs_big_pile_img"])
@@ -25781,24 +25946,24 @@ if __name__ == "__main__":
                                     quest_visual.update(880, 250, graphic_dict["pine_logs_big_img"])
                                     game_window.blit(quest_visual.surf, quest_visual.rect)
                                 game_window.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Celeste":
                                 if player.quest_progress["where's nede?"] == 1:
                                     game_window.blit(nede_big.surf, nede_big.rect)
                                 game_window.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Torune":
                                 game_window.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Voruke":
                                 game_window.blit(npc_voruke_interaction.surf, npc_voruke_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Zerah":
                                 game_window.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Dionte":
                                 game_window.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Omoku":
                                 if player.quest_complete["kart troubles"]:
                                     quest_visual.update(865, 295, graphic_dict["kart_full"])
@@ -25807,29 +25972,29 @@ if __name__ == "__main__":
                                 npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Leyre":
                                 game_window.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Everett":
                                 game_window.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(675, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Artherian":
                                 game_window.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
-                                npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(680, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Maydria":
                                 game_window.blit(npc_maydria_interaction.surf, npc_maydria_interaction.rect)
-                                npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(685, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Kuba":
                                 game_window.blit(npc_kuba_interaction.surf, npc_kuba_interaction.rect)
-                                npc_name_plate.update(678, 150, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Nahun":
                                 game_window.blit(npc_nahun_interaction.surf, npc_nahun_interaction.rect)
-                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Illisare":
                                 game_window.blit(npc_illisare_interaction.surf, npc_illisare_interaction.rect)
-                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 175, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "Roroc":
                                 game_window.blit(recycle_crate_overlay.surf, recycle_crate_overlay.rect)
                                 game_window.blit(npc_roroc_interaction.surf, npc_roroc_interaction.rect)
-                                npc_name_plate.update(678, 165, graphic_dict["npc_name_plate"])
+                                npc_name_plate.update(678, 175, graphic_dict["npc_name_plate"])
 
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
 
@@ -25849,7 +26014,166 @@ if __name__ == "__main__":
                                 if time_of_day == 7:
                                     game_window.blit(night, (0, 0))
 
-                            game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Kuba":
+                                if not player.quest_complete["welcome to consona"]:
+                                    if player.quest_status["welcome to consona"]:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Garan":
+                                if not player.quest_complete["sneaky snakes"]:
+                                    if (player.quest_status["sneaky snakes"] and
+                                            player.quest_progress["sneaky snakes"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["sneaky snakes"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Maurelle":
+                                if not player.quest_complete["village repairs"]:
+                                    if (player.quest_status["village repairs"] and
+                                            player.quest_progress["village repairs"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["village repairs"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Celeste":
+                                if not player.quest_complete["where's nede?"]:
+                                    if (player.quest_status["where's nede?"] and
+                                            player.quest_progress["where's nede?"] != 1):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["where's nede?"] == 1:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Torune":
+                                if not player.quest_complete["ghouled again"]:
+                                    if (player.quest_status["ghouled again"] and
+                                            player.quest_progress["ghouled again"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["ghouled again"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Voruke":
+                                if not player.quest_complete["band hammer"]:
+                                    if player.quest_status["band hammer"] and player.quest_progress["band hammer"] != 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["band hammer"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Zerah":
+                                if not player.quest_complete["elementary elementals"]:
+                                    if (player.quest_status["elementary elementals"] and
+                                            player.quest_progress["elementary elementals"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["elementary elementals"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Dionte":
+                                if not player.quest_complete["it's dangerous to go alone"]:
+                                    if (player.quest_status["it's dangerous to go alone"] and
+                                            player.quest_progress["it's dangerous to go alone"] != 1):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["it's dangerous to go alone"] == 1:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Omoku":
+                                if not player.quest_complete["kart troubles"]:
+                                    if (player.quest_status["kart troubles"] and
+                                            player.quest_progress["kart troubles"] != 4):
+                                        npc_interaction_star.update(608, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["kart troubles"] == 4:
+                                        npc_interaction_star.update(608, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(608, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Leyre":
+                                if not player.quest_complete["las escondidas"]:
+                                    if (player.quest_status["las escondidas"] and
+                                            player.quest_progress["las escondidas"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["las escondidas"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Everett":
+                                if not player.quest_complete["shades of fear"]:
+                                    if (player.quest_status["shades of fear"] and
+                                            player.quest_progress["shades of fear"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["shades of fear"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Artherian":
+                                if not npc_artherian.quest_complete:
+                                    if artherian_task_start and not artherian_2:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif artherian_2:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Maydria":
+                                if not npc_maydria.quest_complete:
+                                    if (player.quest_status["madness in marrow"]
+                                            and not player.quest_complete["madness in marrow"]):
+                                        npc_interaction_star.update(688, 90, graphic_dict["interaction_complete_star"])
+                                    if (npc_maydria.gift and not npc_boro.quest_complete
+                                            and not npc_noren.quest_complete):
+                                        npc_interaction_star.update(688, 90, graphic_dict["interaction_progress_star"])
+                                    elif npc_boro.quest_complete and npc_noren.quest_complete:
+                                        npc_interaction_star.update(688, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        if player.quest_complete["madness in marrow"]:
+                                            npc_interaction_star.update(688, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Nahun":
+                                if not player.quest_complete["disenchanted"]:
+                                    if player.quest_progress["welcome to consona"] == 1:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    if player.quest_status["disenchanted"]:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    else:
+                                        if player.quest_complete["welcome to consona"]:
+                                            npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Illisare":
+                                if not player.quest_complete["madness in marrow"]:
+                                    if player.quest_progress["disenchanted"] == 1:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    if player.quest_status["madness in marrow"]:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    else:
+                                        if player.quest_complete["disenchanted"]:
+                                            npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+                            if current_npc_interacting.name == "Roroc":
+                                if not player.quest_complete["re recycling"]:
+                                    if (player.quest_status["re recycling"] and
+                                            player.quest_progress["re recycling"] != 4):
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_progress_star"])
+                                    elif player.quest_progress["re recycling"] == 4:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_complete_star"])
+                                    else:
+                                        npc_interaction_star.update(680, 90, graphic_dict["interaction_start_star"])
+                                    game_window.blit(npc_interaction_star.surf, npc_interaction_star.rect)
+
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
@@ -25886,13 +26210,13 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "Omoku":
                                 text_npc_name_rect.center = (605, 193)
                             if current_npc_interacting.name != "Omoku":
-                                text_npc_name_rect.center = (675, 165)
+                                text_npc_name_rect.center = (675, 175)
                                 if current_npc_interacting.name == "Artherian":
-                                    text_npc_name_rect.center = (680, 165)
+                                    text_npc_name_rect.center = (680, 175)
                                 if current_npc_interacting.name == "Maydria":
-                                    text_npc_name_rect.center = (685, 165)
+                                    text_npc_name_rect.center = (685, 175)
                                 if current_npc_interacting.name == "Kuba":
-                                    text_npc_name_rect.center = (677, 150)
+                                    text_npc_name_rect.center = (677, 175)
 
                         if (len(drawing_functions.type_advantage_window) == 0 and
                                 len(drawing_functions.game_guide_container) == 0):
