@@ -23,12 +23,15 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      best_fish_counter, sfx_fishing_cast, apothis_gift, card_cave, in_card_cave, apothis_upgrade, dawn,
                      early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, apothis_popup,
                      apothis_popup_shown, snakes, kasper_unlocked, torok_unlocked, iriana_unlocked,
-                     kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
+                     kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite, night_music):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(stardust_outpost_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(stardust_outpost_music)
             pygame.mixer.music.play(loops=-1)
             stardust_song_set = True
 
@@ -203,6 +206,9 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             if not nede_ghoul_defeated:
                 info_text_1 = "Nede is concerned about the ghoul."
                 info_text_2 = "You must defeat it!"
+                info_text_3 = ""
+                info_text_4 = ""
+
                 interacted = False
             else:
                 info_text_1 = "Press 'F' key to pet Nede."
@@ -219,7 +225,11 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                         interacted = False
         else:
             info_text_1 = "What a nice dog!"
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
             interacted = False
+
     # player collides with enemy ghoul for nede's quest
     if pygame.sprite.collide_rect(player, ghoul_nede):
         if not nede_ghoul_defeated:
@@ -273,6 +283,9 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                     screen.blit(interaction_info_surf, interaction_info_rect)
 
                     info_text_1 = "What's a ghoul doing here?"
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
                     interacted = False
 
     # player collides with stardust inn entrance
@@ -441,22 +454,33 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         interaction_info_rect.center = (260, 88)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        if time_of_day != 0 and time_of_day != 7:
-            info_text_1 = "Card Cave only open at night."
-            info_text_2 = ""
-            info_text_3 = ""
-            info_text_4 = ""
-        else:
-            info_text_1 = "Press 'F' key to enter Cave."
-            info_text_2 = ""
+        if not player.quest_complete["where's nede?"]:
+            info_text_1 = "There is an enemy nearby."
+            info_text_2 = "The Card Cave is closed."
             info_text_3 = ""
             info_text_4 = ""
 
+        else:
+            if time_of_day != 0 and time_of_day != 7:
+                info_text_1 = "Card Cave only open at night."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "Press 'F' key to enter Cave."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+
         if interacted and in_over_world:
             if time_of_day == 0 or time_of_day == 7:
-                in_card_cave = True
-                in_over_world = False
-                interacted = False
+                if player.quest_complete["where's nede?"]:
+                    in_card_cave = True
+                    in_over_world = False
+                    interacted = False
+                    stardust_song_set = False
+                else:
+                    interacted = False
             else:
                 interacted = False
 
@@ -511,7 +535,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     # move player to seldon district when they approach nascent grove exit
     if player.x_coordinate > 925 and 175 < player.y_coordinate < 300:
         player.current_zone = "seldon"
-        stardust_song_set = False
+        if time_of_day != 0 and time_of_day != 7:
+            stardust_song_set = False
         in_over_world = True
         level_checked = False
         player.x_coordinate = 125

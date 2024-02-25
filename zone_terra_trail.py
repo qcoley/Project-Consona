@@ -23,12 +23,15 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 best_fish_counter, item_block, item_block_got, sfx_item_block, Item, sfx_gate, apothis_gift,
                 rohir_gate, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day,
                 magmons, overlay_sleep, kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite,
-                torok_battle_sprite, iriana_battle_sprite):
+                torok_battle_sprite, iriana_battle_sprite, night_music):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(korlok_overworld_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(korlok_overworld_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 

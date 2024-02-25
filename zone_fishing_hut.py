@@ -14,12 +14,15 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                 fishing_hut_rect, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
                 pet_energy_window, sfx_fishing_cast, item_block, item_block_got, Item, sfx_item_block,
                 apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day,
-                sfx_door, magmons):
+                sfx_door, magmons, night_music):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(fishing_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(fishing_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
@@ -381,7 +384,8 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     if player.x_coordinate < 50 and player.y_coordinate < 375:
         player.current_zone = "korlok"
         in_over_world = True
-        over_world_song_set = False
+        if time_of_day != 0 and time_of_day != 7:
+            over_world_song_set = False
         player.x_coordinate = 925
         player.y_coordinate = 545
 

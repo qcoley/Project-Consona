@@ -308,12 +308,15 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   left_move, critter_tic, walk_move, altar, mini_map, basic_fish_counter, better_fish_counter,
                   even_better_fish_counter, best_fish_counter, item_block, item_block_got, sfx_item_block, Item,
                   kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, dawn, early_morning, morning,
-                  early_afternoon, afternoon, dusk, night, time_of_day, sfx_door):
+                  early_afternoon, afternoon, dusk, night, time_of_day, sfx_door, night_music):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(eldream_overworld_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(eldream_overworld_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
@@ -679,12 +682,16 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    right_move, left_move, critter_tic, walk_move, mini_map, basic_fish_counter,
                    better_fish_counter, even_better_fish_counter, best_fish_counter, item_block, item_block_got,
                    sfx_item_block, Item, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, dawn,
-                   early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, sfx_door):
+                   early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, sfx_door,
+                   night_music):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(eldream_overworld_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(eldream_overworld_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
@@ -1059,12 +1066,15 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    better_fish_counter, even_better_fish_counter, best_fish_counter, necrolas_highlighted,
                    necrolas_reset, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night,
                    time_of_day, cloaked, kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite,
-                   torok_battle_sprite, iriana_battle_sprite):
+                   torok_battle_sprite, iriana_battle_sprite, night_music):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(eldream_overworld_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(eldream_overworld_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 

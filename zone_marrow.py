@@ -19,11 +19,15 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     ghouls_reset, roroc, recycle_crate, star_roroc, rohir_gate, apothis_upgrade, dawn, early_morning,
                     morning, early_afternoon, afternoon, dusk, night, time_of_day, atmons, prism_received,
                     kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
-                    iriana_battle_sprite):
+                    iriana_battle_sprite, night_music):
+
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(marrow_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(marrow_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 

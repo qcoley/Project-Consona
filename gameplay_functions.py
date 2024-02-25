@@ -2328,6 +2328,8 @@ def load_game(player, Item, graphics, Pet):
             load_return["condition_popup_shown"] = player_load_info["condition_popup_shown"]
             load_return["crushed"] = player_load_info["crushed"]
             load_return["music_toggle"] = player_load_info["music_toggle"]
+            load_return["apothis_upgrade"] = player_load_info["apothis_upgrade"]
+            load_return["apothis_popup_shown"] = player_load_info["apothis_popup_shown"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2360,7 +2362,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               item_block_3_got, item_block_4_got, item_block_5_got, item_block_6_got, item_block_7_got,
               item_block_8_got, item_block_9_got, item_block_10_got, item_block_11_got, item_block_12_got,
               cloaked_popup_shown, time_of_day, poisoned, burned, bleeding, condition_popup_shown, crushed,
-              music_toggle):
+              music_toggle, apothis_upgrade, apothis_popup_shown):
 
     inventory_save = []
     equipment_save = []
@@ -2485,7 +2487,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "item_block_11_got": item_block_11_got, "item_block_12_got": item_block_12_got,
                         "cloaked_popup_shown": cloaked_popup_shown, "time_of_day": time_of_day, "poisoned": poisoned,
                         "burned": burned, "bleeding": bleeding, "condition_popup_shown": condition_popup_shown,
-                        "crushed": crushed, "music_toggle": music_toggle}
+                        "crushed": crushed, "music_toggle": music_toggle, "apothis_upgrade": apothis_upgrade,
+                        "apothis_popup_shown": apothis_popup_shown}
 
     try:
         with open("save", "wb") as ff:

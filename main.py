@@ -8952,6 +8952,7 @@ if __name__ == "__main__":
     caldera_music = resource_path("resources/sounds/eterna_caldera.mp3")
     lair_music = resource_path("resources/sounds/eterna_dreth.mp3")
     credit_music = resource_path("resources/sounds/eterna_credit.mp3")
+    night_music = resource_path("resources/sounds/night.mp3")
 
     pygame.mixer.music.set_volume(0.35)
     pygame.mixer.music.load(start_screen_music)
@@ -9312,7 +9313,6 @@ if __name__ == "__main__":
     rock_7_con = False
     rock_8_con = False
     over_world_song_set = False
-    stardust_song_set = False
     building_song_set = False
     new_game_music = False
     attack_hotkey = False
@@ -10197,6 +10197,8 @@ if __name__ == "__main__":
                         bleeding = load_returned["bleeding"]
                         condition_popup_shown = load_returned["condition_popup_shown"]
                         crushed = load_returned["crushed"]
+                        apothis_upgrade = load_returned["apothis_upgrade"]
+                        apothis_popup_shown = load_returned["apothis_popup_shown"]
 
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -11625,7 +11627,8 @@ if __name__ == "__main__":
                                                                         item_block_10_got, item_block_11_got,
                                                                         item_block_12_got, cloaked_popup_shown,
                                                                         time_of_day, poisoned, burned, bleeding,
-                                                                        condition_popup_shown, crushed, music_toggle)
+                                                                        condition_popup_shown, crushed, music_toggle,
+                                                                        apothis_upgrade, apothis_popup_shown)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -11692,7 +11695,8 @@ if __name__ == "__main__":
                                                                     item_block_10_got, item_block_11_got,
                                                                     item_block_12_got, cloaked_popup_shown,
                                                                     time_of_day, poisoned, burned, bleeding,
-                                                                    condition_popup_shown, crushed, music_toggle)
+                                                                    condition_popup_shown, crushed, music_toggle,
+                                                                    apothis_upgrade, apothis_popup_shown)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -11850,7 +11854,6 @@ if __name__ == "__main__":
                                     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
                                     info_text_1 = "You recalled to the seldon stone."
                                     over_world_song_set = False
-                                    stardust_song_set = False
                                     drawing_functions.world_map_container.clear()
                                     if show_cat_card:
                                         show_cat_card = False
@@ -11903,7 +11906,6 @@ if __name__ == "__main__":
                                         rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
                                         info_text_1 = "You recalled to the korlok stone."
                                         over_world_song_set = False
-                                        stardust_song_set = False
                                         drawing_functions.world_map_container.clear()
                                         if show_cat_card:
                                             show_cat_card = False
@@ -11941,7 +11943,6 @@ if __name__ == "__main__":
                                             pass
                                         info_text_1 = "You recalled to the eldream stone."
                                         over_world_song_set = False
-                                        stardust_song_set = False
                                         drawing_functions.world_map_container.clear()
                                         if show_cat_card:
                                             show_cat_card = False
@@ -11979,7 +11980,6 @@ if __name__ == "__main__":
                                             pass
                                         info_text_1 = "You recalled to the marrow stone."
                                         over_world_song_set = False
-                                        stardust_song_set = False
                                         drawing_functions.world_map_container.clear()
                                         if show_cat_card:
                                             show_cat_card = False
@@ -12032,6 +12032,10 @@ if __name__ == "__main__":
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(nascent_grove_bg, (0, 0))
+                        screen.blit(nascent_gate.surf, nascent_gate.rect)
+                        screen.blit(rock_8.surf, rock_8.rect)
+                        screen.blit(npc_nascent.surf, npc_nascent.rect)
+                        screen.blit(player.surf, player.rect)
                         if time_of_day == 0:
                             screen.blit(dawn, (0, 0))
                         if time_of_day == 1:
@@ -12047,13 +12051,14 @@ if __name__ == "__main__":
                         if time_of_day == 7:
                             screen.blit(night, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(nascent_gate.surf, nascent_gate.rect)
-                        screen.blit(rock_8.surf, rock_8.rect)
-                        screen.blit(npc_nascent.surf, npc_nascent.rect)
                         if not player.quest_complete["welcome to consona"]:
                             screen.blit(quest_star_nascent.surf, quest_star_nascent.rect)
                     else:
                         game_window.blit(nascent_grove_bg, (0, 0))
+                        game_window.blit(nascent_gate.surf, nascent_gate.rect)
+                        game_window.blit(rock_8.surf, rock_8.rect)
+                        game_window.blit(npc_nascent.surf, npc_nascent.rect)
+                        game_window.blit(player.surf, player.rect)
                         if time_of_day == 0:
                             game_window.blit(dawn, (0, 0))
                         if time_of_day == 1:
@@ -12069,9 +12074,6 @@ if __name__ == "__main__":
                         if time_of_day == 7:
                             game_window.blit(night, (0, 0))
                         game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                        game_window.blit(nascent_gate.surf, nascent_gate.rect)
-                        game_window.blit(rock_8.surf, rock_8.rect)
-                        game_window.blit(npc_nascent.surf, npc_nascent.rect)
                         if not player.quest_complete["welcome to consona"]:
                             game_window.blit(quest_star_nascent.surf, quest_star_nascent.rect)
                     try:
@@ -12088,12 +12090,9 @@ if __name__ == "__main__":
                                                   "light green")
                     text_rupee_rect = text_rupee_surf.get_rect()
                     text_rupee_rect.center = (1125, 693)
-
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(player.surf, player.rect)
                         screen.blit(text_rupee_surf, text_rupee_rect)
                     else:
-                        game_window.blit(player.surf, player.rect)
                         game_window.blit(text_rupee_surf, text_rupee_rect)
 
                     if pygame.sprite.collide_rect(player, nascent_gate):
@@ -12207,7 +12206,8 @@ if __name__ == "__main__":
 
                     # move player to seldon district when they approach nascent grove exit
                     if player.x_coordinate > 700 and player.y_coordinate < 80:
-                        over_world_song_set = False
+                        if time_of_day != 0 and time_of_day != 7:
+                            over_world_song_set = False
                         player.current_zone = "seldon"
                         in_over_world = True
                         player.x_coordinate = 425
@@ -12267,7 +12267,7 @@ if __name__ == "__main__":
                                                                     item_block_2_got, Item, sfx_item_block,
                                                                     apothis_upgrade, dawn, early_morning, morning,
                                                                     early_afternoon, afternoon, dusk, night,
-                                                                    time_of_day, sfx_door_open, magmons)
+                                                                    time_of_day, sfx_door_open, magmons, night_music)
                     else:
                         hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
                                                                     fishing_music, fishing, walk_tic,
@@ -12288,7 +12288,7 @@ if __name__ == "__main__":
                                                                     item_block_2_got, Item, sfx_item_block,
                                                                     apothis_upgrade, dawn, early_morning, morning,
                                                                     early_afternoon, afternoon, dusk, night,
-                                                                    time_of_day, sfx_door_open, magmons)
+                                                                    time_of_day, sfx_door_open, magmons, night_music)
 
                     over_world_song_set = hut_returned["over_world_song_set"]
                     basic_fish_counter = hut_returned["basic_fish_counter"]
@@ -12377,7 +12377,8 @@ if __name__ == "__main__":
                                                                       apothis_scene_5_night, apothis_scene_6_night,
                                                                       stardust_stelli, kasper_unlocked, torok_unlocked,
                                                                       iriana_unlocked, kasper_battle_sprite,
-                                                                      torok_battle_sprite, iriana_battle_sprite)
+                                                                      torok_battle_sprite, iriana_battle_sprite,
+                                                                      night_music)
 
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
@@ -12442,7 +12443,8 @@ if __name__ == "__main__":
                                                                       apothis_scene_5_night, apothis_scene_6_night,
                                                                       stardust_stelli, kasper_unlocked, torok_unlocked,
                                                                       iriana_unlocked, kasper_battle_sprite,
-                                                                      torok_battle_sprite, iriana_battle_sprite)
+                                                                      torok_battle_sprite, iriana_battle_sprite,
+                                                                      night_music)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -12540,7 +12542,7 @@ if __name__ == "__main__":
                                                                       snow_fall_tic, snow_fall_phase, cloaked, nede,
                                                                       kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                       kasper_battle_sprite, torok_battle_sprite,
-                                                                      iriana_battle_sprite)
+                                                                      iriana_battle_sprite, night_music)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -12594,7 +12596,7 @@ if __name__ == "__main__":
                                                                       snow_fall_tic, snow_fall_phase, cloaked, nede,
                                                                       kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                       kasper_battle_sprite, torok_battle_sprite,
-                                                                      iriana_battle_sprite)
+                                                                      iriana_battle_sprite, night_music)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -12689,7 +12691,8 @@ if __name__ == "__main__":
                                                                          afternoon, dusk, night, time_of_day,
                                                                          kasper_unlocked, torok_unlocked,
                                                                          iriana_unlocked, kasper_battle_sprite,
-                                                                         torok_battle_sprite, iriana_battle_sprite)
+                                                                         torok_battle_sprite, iriana_battle_sprite,
+                                                                         night_music)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -12748,7 +12751,8 @@ if __name__ == "__main__":
                                                                          afternoon, dusk, night, time_of_day,
                                                                          kasper_unlocked, torok_unlocked,
                                                                          iriana_unlocked, kasper_battle_sprite,
-                                                                         torok_battle_sprite, iriana_battle_sprite)
+                                                                         torok_battle_sprite, iriana_battle_sprite,
+                                                                         night_music)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -12827,7 +12831,7 @@ if __name__ == "__main__":
                                                                                torok_unlocked, iriana_unlocked,
                                                                                kasper_battle_sprite,
                                                                                torok_battle_sprite,
-                                                                               iriana_battle_sprite)
+                                                                               iriana_battle_sprite, night_music)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -12872,7 +12876,7 @@ if __name__ == "__main__":
                                                                                torok_unlocked, iriana_unlocked,
                                                                                kasper_battle_sprite,
                                                                                torok_battle_sprite,
-                                                                               iriana_battle_sprite)
+                                                                               iriana_battle_sprite, night_music)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -14265,7 +14269,7 @@ if __name__ == "__main__":
                                                                              iriana_unlocked, apothis_upgrade, dawn,
                                                                              early_morning, morning, early_afternoon,
                                                                              afternoon, dusk, night, time_of_day,
-                                                                             sfx_door_open)
+                                                                             sfx_door_open, night_music)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -14302,7 +14306,7 @@ if __name__ == "__main__":
                                                                              iriana_unlocked, apothis_upgrade, dawn,
                                                                              early_morning, morning, early_afternoon,
                                                                              afternoon, dusk, night, time_of_day,
-                                                                             sfx_door_open)
+                                                                             sfx_door_open, night_music)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -14370,7 +14374,7 @@ if __name__ == "__main__":
                                                                                iriana_unlocked, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
                                                                                afternoon, dusk, night, time_of_day,
-                                                                               sfx_door_open)
+                                                                               sfx_door_open, night_music)
                     else:
                         ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_right_bg,
@@ -14405,7 +14409,7 @@ if __name__ == "__main__":
                                                                                iriana_unlocked, apothis_upgrade, dawn,
                                                                                early_morning, morning, early_afternoon,
                                                                                afternoon, dusk, night, time_of_day,
-                                                                               sfx_door_open)
+                                                                               sfx_door_open, night_music)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -14492,7 +14496,7 @@ if __name__ == "__main__":
                                                                                torok_unlocked, iriana_unlocked,
                                                                                kasper_battle_sprite,
                                                                                torok_battle_sprite,
-                                                                               iriana_battle_sprite)
+                                                                               iriana_battle_sprite, night_music)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -14547,7 +14551,7 @@ if __name__ == "__main__":
                                                                                torok_unlocked, iriana_unlocked,
                                                                                kasper_battle_sprite,
                                                                                torok_battle_sprite,
-                                                                               iriana_battle_sprite)
+                                                                               iriana_battle_sprite, night_music)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -15041,7 +15045,7 @@ if __name__ == "__main__":
                                                                       time_of_day, magmons, overlay_night_sleep,
                                                                       kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                       kasper_battle_sprite, torok_battle_sprite,
-                                                                      iriana_battle_sprite)
+                                                                      iriana_battle_sprite, night_music)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -15085,7 +15089,7 @@ if __name__ == "__main__":
                                                                       time_of_day, magmons, overlay_night_sleep,
                                                                       kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                       kasper_battle_sprite, torok_battle_sprite,
-                                                                      iriana_battle_sprite)
+                                                                      iriana_battle_sprite, night_music)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -15114,7 +15118,7 @@ if __name__ == "__main__":
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        stardust_returned = zone_stardust.stardust_outpost(pygame, player, screen, stardust_song_set,
+                        stardust_returned = zone_stardust.stardust_outpost(pygame, player, screen, over_world_song_set,
                                                                            stardust_outpost_music, stardust_cove_bg,
                                                                            nede_sprite_reset, nede, graphic_dict,
                                                                            ghoul_nede, nede_ghoul_defeated,
@@ -15159,10 +15163,10 @@ if __name__ == "__main__":
                                                                            apothis_popup_shown, snakes, kasper_unlocked,
                                                                            torok_unlocked, iriana_unlocked,
                                                                            kasper_battle_sprite, torok_battle_sprite,
-                                                                           iriana_battle_sprite)
+                                                                           iriana_battle_sprite, night_music)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
-                                                                           stardust_song_set, stardust_outpost_music,
+                                                                           over_world_song_set, stardust_outpost_music,
                                                                            stardust_cove_bg, nede_sprite_reset, nede,
                                                                            graphic_dict, ghoul_nede,
                                                                            nede_ghoul_defeated, interaction_popup, font,
@@ -15207,9 +15211,9 @@ if __name__ == "__main__":
                                                                            apothis_popup_shown, snakes, kasper_unlocked,
                                                                            torok_unlocked, iriana_unlocked,
                                                                            kasper_battle_sprite, torok_battle_sprite,
-                                                                           iriana_battle_sprite)
+                                                                           iriana_battle_sprite, night_music)
 
-                    stardust_song_set = stardust_returned["stardust_song_set"]
+                    over_world_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
                     current_enemy_battling = stardust_returned["current_enemy_battling"]
                     in_battle = stardust_returned["in_battle"]
@@ -21184,6 +21188,7 @@ if __name__ == "__main__":
                                             magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
                                                                 graphic_dict["magmon_night"])
                             elif time_of_day == 1:
+                                over_world_song_set = False
                                 message_box.update(173, 650, graphic_dict["message_box_dawn"])
                                 pygame.mixer.find_channel(True).play(sfx_chirp)
                                 if player.current_zone == "seldon":
@@ -21253,6 +21258,7 @@ if __name__ == "__main__":
                             elif time_of_day == 5 or time_of_day == 6:
                                 message_box.update(173, 650, graphic_dict["message_box_dusk"])
                             elif time_of_day == 7:
+                                over_world_song_set = False
                                 message_box.update(173, 650, graphic_dict["message_box_night"])
                                 pygame.mixer.find_channel(True).play(sfx_howl)
                                 if player.current_zone == "seldon":
@@ -23698,7 +23704,6 @@ if __name__ == "__main__":
                                 encounter_started = False
                                 in_card_cave = False
                                 over_world_song_set = False
-                                stardust_song_set = False
                                 in_over_world = True
                                 npc_text_reset = False
                                 quest_clicked = False
@@ -24075,7 +24080,6 @@ if __name__ == "__main__":
                             encounter_started = False
                             in_card_cave = False
                             over_world_song_set = False
-                            stardust_song_set = False
                             in_over_world = True
                             npc_text_reset = False
                             quest_clicked = False
@@ -26274,6 +26278,7 @@ if __name__ == "__main__":
                 if day_timer_toc - day_timer > 25:
                     match time_of_day:
                         case 0:  # dawn
+                            over_world_song_set = False
                             message_box.update(173, 650, graphic_dict["message_box_dawn"])
                             pygame.mixer.find_channel(True).play(sfx_chirp)
                             time_of_day = 1
@@ -26352,6 +26357,7 @@ if __name__ == "__main__":
                             time_of_day = 6
                             day_timer = time.perf_counter()
                         case 6:  # dusk
+                            over_world_song_set = False
                             message_box.update(173, 650, graphic_dict["message_box_night"])
                             pygame.mixer.find_channel(True).play(sfx_howl)
                             time_of_day = 7

@@ -27,12 +27,15 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      entrance_3, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                      best_fish_counter, supplies_highlighted, apothis_gift, dawn, early_morning, morning,
                      early_afternoon, afternoon, dusk, night, time_of_day, kasper_unlocked, torok_unlocked,
-                     iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
+                     iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite, night_music):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(eldream_overworld_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(eldream_overworld_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
@@ -337,7 +340,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     if player.x_coordinate < 100 and player.y_coordinate < 175:
         player.current_zone = "terra trail"
         in_over_world = True
-        over_world_song_set = False
+        if time_of_day != 0 and time_of_day != 7:
+            over_world_song_set = False
         player.x_coordinate = 555
         player.y_coordinate = 145
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))

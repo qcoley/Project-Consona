@@ -36,12 +36,15 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, apothis_scene_1_night,
                     apothis_scene_2_night, apothis_scene_3_night, apothis_scene_4_night, apothis_scene_5_night,
                     apothis_scene_6_night, stardust_stelli, kasper_unlocked, torok_unlocked, iriana_unlocked,
-                    kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
+                    kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite, night_music):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(seldon_overworld_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(seldon_overworld_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
@@ -116,7 +119,14 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
 
     screen.blit(log_pile.surf, log_pile.rect)
     for entity in most_sprites:
-        screen.blit(entity.surf, entity.rect)
+        if entity.name == "Celeste":
+            if time_of_day != 0 and time_of_day != 7:
+                screen.blit(entity.surf, entity.rect)
+            else:
+                if not player.quest_complete["where's nede?"]:
+                    screen.blit(entity.surf, entity.rect)
+        else:
+            screen.blit(entity.surf, entity.rect)
     for flower in flowers:
         screen.blit(flower.surf, flower.rect)
     if not player.quest_complete["village repairs"]:
@@ -482,29 +492,90 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     # if player collides with npc sprite and chooses to interact with it
     npc = pygame.sprite.spritecollideany(player, npcs, pygame.sprite.collide_rect_ratio(0.75))
     if npc:
-        interaction_popup.update(npc.x_coordinate, npc.y_coordinate - 50, graphic_dict["popup_interaction_purple"])
-        screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str(npc.name), True, "black", (203, 195, 227))
-        interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (npc.x_coordinate, npc.y_coordinate - 50)
-        screen.blit(interaction_info_surf, interaction_info_rect)
+        if npc.name == "Celeste":
+            if time_of_day != 0 and time_of_day != 7:
+                interaction_popup.update(npc.x_coordinate, npc.y_coordinate - 50,
+                                         graphic_dict["popup_interaction_purple"])
+                screen.blit(interaction_popup.surf, interaction_popup.rect)
+                interaction_info_surf = font.render(str(npc.name), True, "black", (203, 195, 227))
+                interaction_info_rect = interaction_info_surf.get_rect()
+                interaction_info_rect.center = (npc.x_coordinate, npc.y_coordinate - 50)
+                screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to talk to NPC."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+                info_text_1 = "Press 'F' key to talk to NPC."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
 
-        if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
-                and not in_academia and not in_npc_interaction:
-            current_npc_interacting = npc
-            in_over_world = False
-            in_npc_interaction = True
-            movement_able = False
-            drawing_functions.loot_popup_container.clear()
-            drawing_functions.loot_text_container.clear()
-            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active, sharp_sense_active,
-                                                    graphic_dict, kasper_unlocked, torok_unlocked, iriana_unlocked,
-                                                    kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite)
+                if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                        and not in_academia and not in_npc_interaction:
+                    current_npc_interacting = npc
+                    in_over_world = False
+                    in_npc_interaction = True
+                    movement_able = False
+                    drawing_functions.loot_popup_container.clear()
+                    drawing_functions.loot_text_container.clear()
+                    combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                            sharp_sense_active,
+                                                            graphic_dict, kasper_unlocked, torok_unlocked,
+                                                            iriana_unlocked,
+                                                            kasper_battle_sprite, torok_battle_sprite,
+                                                            iriana_battle_sprite)
+            else:
+                if not player.quest_complete["where's nede?"]:
+                    interaction_popup.update(npc.x_coordinate, npc.y_coordinate - 50,
+                                             graphic_dict["popup_interaction_purple"])
+                    screen.blit(interaction_popup.surf, interaction_popup.rect)
+                    interaction_info_surf = font.render(str(npc.name), True, "black", (203, 195, 227))
+                    interaction_info_rect = interaction_info_surf.get_rect()
+                    interaction_info_rect.center = (npc.x_coordinate, npc.y_coordinate - 50)
+                    screen.blit(interaction_info_surf, interaction_info_rect)
+
+                    info_text_1 = "Press 'F' key to talk to NPC."
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
+
+                    if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                            and not in_academia and not in_npc_interaction:
+                        current_npc_interacting = npc
+                        in_over_world = False
+                        in_npc_interaction = True
+                        movement_able = False
+                        drawing_functions.loot_popup_container.clear()
+                        drawing_functions.loot_text_container.clear()
+                        combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                                sharp_sense_active,
+                                                                graphic_dict, kasper_unlocked, torok_unlocked,
+                                                                iriana_unlocked,
+                                                                kasper_battle_sprite, torok_battle_sprite,
+                                                                iriana_battle_sprite)
+        else:
+            interaction_popup.update(npc.x_coordinate, npc.y_coordinate - 50, graphic_dict["popup_interaction_purple"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str(npc.name), True, "black", (203, 195, 227))
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (npc.x_coordinate, npc.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            info_text_1 = "Press 'F' key to talk to NPC."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                    and not in_academia and not in_npc_interaction:
+                current_npc_interacting = npc
+                in_over_world = False
+                in_npc_interaction = True
+                movement_able = False
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active,
+                                                        graphic_dict, kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                        kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite)
+
 
     if pygame.sprite.collide_rect(player, hearth_stone):
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
@@ -624,13 +695,15 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     if 375 < player.x_coordinate < 475 and player.y_coordinate > 700:
         player.current_zone = "nascent"
         in_over_world = True
-        over_world_song_set = False
+        if time_of_day != 0 and time_of_day != 7:
+            over_world_song_set = False
         player.x_coordinate = 750
         player.y_coordinate = 125
     # move player to stardust outpost when they approach
     if player.x_coordinate < 30 and 325 < player.y_coordinate < 400:
         player.current_zone = "stardust"
-        over_world_song_set = False
+        if time_of_day != 0 and time_of_day != 7:
+            over_world_song_set = False
         in_over_world = True
         player.x_coordinate = 925
         player.y_coordinate = 275

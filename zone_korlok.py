@@ -27,7 +27,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     even_better_fish_counter, best_fish_counter, sfx_paper, magmons_highlighted, magmons_reset,
                     nahun, star_nahun, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon,
                     dusk, night, time_of_day, snow_fall_tic, snow_fall_phase, cloaked, nede, kasper_unlocked,
-                    torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
+                    torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite,
+                    night_music):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -72,7 +73,10 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(korlok_overworld_music)
+            if time_of_day == 0 or time_of_day == 7:
+                pygame.mixer.music.load(night_music)
+            else:
+                pygame.mixer.music.load(korlok_overworld_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
@@ -644,7 +648,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     if player.x_coordinate > 975 and player.y_coordinate > 475:
         player.current_zone = "fishing hut"
         in_over_world = True
-        over_world_song_set = False
+        if time_of_day != 0 and time_of_day != 7:
+            over_world_song_set = False
         player.x_coordinate = 100
         player.y_coordinate = 285
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
