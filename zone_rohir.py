@@ -27,8 +27,6 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     screen.blit(water_4.surf, water_4.rect)
     screen.blit(water_5.surf, water_5.rect)
 
-    if not item_block_got:
-        screen.blit(item_block.surf, item_block.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -59,6 +57,9 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
 
     drawing_functions.draw_level_up(screen, in_over_world)
 

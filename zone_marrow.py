@@ -969,12 +969,12 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
         player.y_coordinate = 385
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
-    if 315 < player.x_coordinate < 350 and player.y_coordinate >= 575:
+    if 340 < player.x_coordinate < 350 and player.y_coordinate >= 575:
         overlay_marrow_west.update(570, 55, graphic_dict["overlay_marrow_ramps_west"])
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_left"])
         player.current_zone = "marrow ramps west"
         in_over_world = True
-        player.x_coordinate = 515
+        player.x_coordinate = 570
         player.y_coordinate = 200
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
@@ -1177,7 +1177,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         player.current_zone = "marrow ramps east"
         in_over_world = True
         over_world_song_set = False
-        player.x_coordinate = 515
+        player.x_coordinate = 570
         player.y_coordinate = 200
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
@@ -1321,7 +1321,7 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_left_end"])
         player.current_zone = "marrow ramps west end"
         in_over_world = True
-        player.x_coordinate = 515
+        player.x_coordinate = 570
         player.y_coordinate = 150
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
@@ -1449,7 +1449,7 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_right_end"])
         player.current_zone = "marrow ramps east end"
         in_over_world = True
-        player.x_coordinate = 515
+        player.x_coordinate = 570
         player.y_coordinate = 150
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
@@ -1670,7 +1670,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_right"])
         player.current_zone = "marrow ramps east"
         in_over_world = True
-        player.x_coordinate = 515
+        player.x_coordinate = 570
         player.y_coordinate = 650
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
@@ -1721,7 +1721,8 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                           sfx_item_key, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                           best_fish_counter, item_block_7, item_block_7_got, item_block_8, item_block_8_got,
                           sfx_item_block, kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, dawn,
-                          early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day):
+                          early_morning, morning, early_afternoon, afternoon, dusk, night, time_of_day, rock_11,
+                          rock_12, rock_13, rock_14, rocks, sfx_rocks):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -1732,11 +1733,10 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     screen.blit(marrow_ramps_w_end_bg, (0, 0))
     screen.blit(switch_1.surf, switch_1.rect)
     screen.blit(flower.surf, flower.rect)
-
-    if not item_block_7_got:
-        screen.blit(item_block_7.surf, item_block_7.rect)
-    if not item_block_8_got:
-        screen.blit(item_block_8.surf, item_block_8.rect)
+    screen.blit(rock_11.surf, rock_11.rect)
+    screen.blit(rock_12.surf, rock_12.rect)
+    screen.blit(rock_13.surf, rock_13.rect)
+    screen.blit(rock_14.surf, rock_14.rect)
 
     if not crate_got:
         screen.blit(crate.surf, crate.rect)
@@ -1763,6 +1763,11 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    if not item_block_7_got:
+        screen.blit(item_block_7.surf, item_block_7.rect)
+    if not item_block_8_got:
+        screen.blit(item_block_8.surf, item_block_8.rect)
 
     drawing_functions.draw_level_up(screen, in_over_world)
 
@@ -1818,9 +1823,33 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_left"])
         player.current_zone = "marrow ramps west"
         in_over_world = True
-        player.x_coordinate = 515
+        player.x_coordinate = 570
         player.y_coordinate = 650
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    rock = pygame.sprite.spritecollideany(player, rocks, pygame.sprite.collide_rect_ratio(0.90))
+    if rock:
+        interaction_popup.update(rock.x_coordinate, rock.y_coordinate - 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Rock"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (rock.x_coordinate, rock.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world:
+            try:
+                if player.equipment["gloves"].name == "power gloves":
+                    if rock.y_coordinate == 290:
+                        pygame.mixer.find_channel(True).play(sfx_rocks)
+                        rock.update(rock.x_coordinate, rock.y_coordinate + 200, graphic_dict["rock"])
+                else:
+                    info_text_1 = "The rock won't budge."
+                    info_text_2 = ""
+            except AttributeError:
+                info_text_1 = "The rock won't budge."
+                info_text_2 = ""
+                pass
+            interacted = False
 
     if pygame.Rect.colliderect(player.rect, switch_1) and marrow_switch_phase != "complete":
         interaction_popup.update(945, 135, graphic_dict["popup_interaction"])

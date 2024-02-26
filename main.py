@@ -2095,9 +2095,10 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if self.y_coordinate > 175:
                 if self.x_coordinate > 930:
                     self.x_coordinate = 930
-            if self.y_coordinate < 175:
-                if self.x_coordinate > 770:
-                    self.x_coordinate = 770
+            if self.y_coordinate < 430:
+                if self.x_coordinate < 775:
+                    if self.x_coordinate > 770:
+                        self.x_coordinate = 770
             if self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
@@ -2147,6 +2148,21 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.y_coordinate -= self.velocity
                     if self.y_coordinate > chroma_bridge.y_coordinate:
                         self.y_coordinate += self.velocity
+        if current_zone == "marrow ramps west end":
+            collided = pygame.sprite.spritecollideany(self, ramparts_rocks, pygame.sprite.collide_rect_ratio(0.90))
+            if collided:
+                if pressed_key == "down":
+                    if self.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= self.velocity
+                if pressed_key == "up":
+                    if self.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += self.velocity
+                if pressed_key == "right":
+                    if self.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= self.velocity
+                if pressed_key == "left":
+                    if self.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += self.velocity
         if current_zone == "marrow ramps east end":
             if erebyth_defeated:
                 if pygame.Rect.colliderect(self.rect, dungeon_chest_ramps_rect):
@@ -4492,9 +4508,10 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if self.y_coordinate > 175:
                 if self.x_coordinate > 930:
                     self.x_coordinate = 930
-            if self.y_coordinate < 175:
-                if self.x_coordinate > 770:
-                    self.x_coordinate = 770
+            if self.y_coordinate < 430:
+                if self.x_coordinate < 775:
+                    if self.x_coordinate > 770:
+                        self.x_coordinate = 770
             if self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
@@ -4545,6 +4562,21 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.y_coordinate -= self.velocity
                     if self.y_coordinate > chroma_bridge.y_coordinate:
                         self.y_coordinate += self.velocity
+        if current_zone == "marrow ramps west end":
+            collided = pygame.sprite.spritecollideany(self, ramparts_rocks, pygame.sprite.collide_rect_ratio(0.90))
+            if collided:
+                if pressed_key == "down":
+                    if self.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= self.velocity
+                if pressed_key == "up":
+                    if self.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += self.velocity
+                if pressed_key == "right":
+                    if self.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= self.velocity
+                if pressed_key == "left":
+                    if self.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += self.velocity
         if current_zone == "marrow ramps east end":
             if erebyth_defeated:
                 if pygame.Rect.colliderect(self.rect, dungeon_chest_ramps_rect):
@@ -6891,9 +6923,10 @@ class PlayerSorae(pygame.sprite.Sprite):
             if self.y_coordinate > 175:
                 if self.x_coordinate > 930:
                     self.x_coordinate = 930
-            if self.y_coordinate < 175:
-                if self.x_coordinate > 770:
-                    self.x_coordinate = 770
+            if self.y_coordinate < 430:
+                if self.x_coordinate < 775:
+                    if self.x_coordinate > 770:
+                        self.x_coordinate = 770
             if self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
@@ -6943,6 +6976,21 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.y_coordinate -= self.velocity
                     if self.y_coordinate > chroma_bridge.y_coordinate:
                         self.y_coordinate += self.velocity
+        if current_zone == "marrow ramps west end":
+            collided = pygame.sprite.spritecollideany(self, ramparts_rocks, pygame.sprite.collide_rect_ratio(0.90))
+            if collided:
+                if pressed_key == "down":
+                    if self.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= self.velocity
+                if pressed_key == "up":
+                    if self.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += self.velocity
+                if pressed_key == "right":
+                    if self.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= self.velocity
+                if pressed_key == "left":
+                    if self.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += self.velocity
         if current_zone == "marrow ramps east end":
             if erebyth_defeated:
                 if pygame.Rect.colliderect(self.rect, dungeon_chest_ramps_rect):
@@ -8263,6 +8311,8 @@ if __name__ == "__main__":
     dungeon_wall_3 = Building("wall", "dungeon wall 3", 682, 450, graphic_dict["dungeon_wall_1"])
     dungeon_wall_4 = Building("wall", "dungeon wall 4", 720, 368, graphic_dict["dungeon_wall_2"])
 
+    korlok_interaction_snowfall = UiElement("korlok snowfall", 238, 156, graphic_dict["korlok_snowfall_1"])
+
     location_overlay = UiElement("location overlay", 915, 28, graphic_dict["location_overlay"])
     character_select_overlay = UiElement("character select overlay", 640, 365, graphic_dict["char_select_overlay"])
     amuna_select_overlay = UiElement("amuna select overlay", 1140, 305, graphic_dict["amuna_overlay_img"])
@@ -8651,7 +8701,7 @@ if __name__ == "__main__":
     ramps_crate_2 = Item("ramps crate 2", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_3 = Item("ramps crate 3", "crate", 390, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_4 = Item("ramps crate 4", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
-    ramps_crate_5 = Item("ramps crate 5", "crate", 850, 500, graphic_dict["dungeon_crate"], 0)
+    ramps_crate_5 = Item("ramps crate 5", "crate", 870, 230, graphic_dict["dungeon_crate"], 0)
     castle_crate_1 = Item("castle crate 1", "crate", 80, 150, graphic_dict["dungeon_crate"], 0)
     castle_crate_2 = Item("castle crate 2", "crate", 955, 150, graphic_dict["dungeon_crate"], 0)
     dungeon_switch_ramps_1 = Item("switch ramps 1", "switch", 945, 135, graphic_dict["dungeon_switch_inactive"], 0)
@@ -8668,8 +8718,8 @@ if __name__ == "__main__":
     item_block_4 = Item("item block 4", "block", 875, 480, graphic_dict["item_block"], 0)
     item_block_5 = Item("item block 5", "block", 155, 480, graphic_dict["item_block"], 0)
     item_block_6 = Item("item block 6", "block", 150, 500, graphic_dict["item_block"], 0)
-    item_block_7 = Item("item block 7", "block", 500, 600, graphic_dict["item_block"], 0)
-    item_block_8 = Item("item block 8", "block", 650, 600, graphic_dict["item_block"], 0)
+    item_block_7 = Item("item block 7", "block", 500, 625, graphic_dict["item_block"], 0)
+    item_block_8 = Item("item block 8", "block", 650, 625, graphic_dict["item_block"], 0)
     item_block_9 = Item("item block 9", "block", 925, 175, graphic_dict["item_block"], 0)
     item_block_10 = Item("item block 10", "block", 575, 450, graphic_dict["item_block"], 0)
     item_block_11 = Item("item block 11", "block", 780, 400, graphic_dict["item_block"], 0)
@@ -8807,6 +8857,11 @@ if __name__ == "__main__":
     # marrow castle rocks
     rock_9 = Item("rock 9", "rock", 70, 275, graphic_dict["rock"], 0)
     rock_10 = Item("rock 10", "rock", 170, 275, graphic_dict["rock"], 0)
+    # marrow ramparts rocks
+    rock_11 = Item("rock 11", "rock", 420, 290, graphic_dict["rock"], 0)
+    rock_12 = Item("rock 12", "rock", 520, 290, graphic_dict["rock"], 0)
+    rock_13 = Item("rock 13", "rock", 620, 290, graphic_dict["rock"], 0)
+    rock_14 = Item("rock 14", "rock", 720, 290, graphic_dict["rock"], 0)
     # flowers for apothecary
     flower_seldon_1 = Item("flower seldon 1", "flower", 190, 185, graphic_dict["flower_seldon"], 0)
     flower_seldon_2 = Item("flower seldon 2", "flower", 390, 185, graphic_dict["flower_seldon"], 0)
@@ -8839,6 +8894,7 @@ if __name__ == "__main__":
     korlok_rocks = pygame.sprite.Group()
     other_rocks = pygame.sprite.Group()
     castle_rocks = pygame.sprite.Group()
+    ramparts_rocks = pygame.sprite.Group()
     seldon_flowers = pygame.sprite.Group()
     eldream_flowers = pygame.sprite.Group()
     eldream_river = pygame.sprite.Group()
@@ -8894,6 +8950,7 @@ if __name__ == "__main__":
     korlok_rocks.add(rock_4, rock_5, rock_6)
     other_rocks.add(rock_3, rock_7, rock_8)
     castle_rocks.add(rock_9, rock_10)
+    ramparts_rocks.add(rock_11, rock_12, rock_13, rock_14)
     seldon_flowers.add(flower_seldon_1, flower_seldon_2, flower_seldon_3, flower_seldon_4, flower_seldon_5)
     eldream_flowers.add(flower_eldream_1, flower_eldream_2, flower_eldream_3, flower_eldream_4, flower_eldream_5)
     eldream_river.add(eldream_riv_1, eldream_riv_2, eldream_riv_3, eldream_riv_4, eldream_riv_5, eldream_riv_6,
@@ -10642,25 +10699,25 @@ if __name__ == "__main__":
                         if player.current_zone == "marrow ramps west":
                             overlay_marrow_ramps_west.update(570, 55, graphic_dict["overlay_marrow_ramps_west"])
                             mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_ramps_left"])
-                            player.x_coordinate = 515
+                            player.x_coordinate = 570
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps east":
                             overlay_marrow_ramps_east.update(570, 55, graphic_dict["overlay_marrow_ramps_east"])
                             mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_ramps_right"])
-                            player.x_coordinate = 515
+                            player.x_coordinate = 570
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps west end":
                             overlay_marrow_ramps_west.update(570, 55, graphic_dict["overlay_marrow_ramps_west"])
                             mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_ramps_left_end"])
-                            player.x_coordinate = 575
-                            player.y_coordinate = 250
+                            player.x_coordinate = 570
+                            player.y_coordinate = 200
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps east end":
                             overlay_marrow_ramps_east.update(570, 55, graphic_dict["overlay_marrow_ramps_east"])
                             mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_ramps_right_end"])
-                            player.x_coordinate = 575
+                            player.x_coordinate = 570
                             player.y_coordinate = 250
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "forge" or player.current_zone == "altar":
@@ -11219,7 +11276,7 @@ if __name__ == "__main__":
                                                                                   npc_roroc, construct_part_1,
                                                                                   construct_part_2,
                                                                                   construct_part_3,
-                                                                                  construct_part_4)
+                                                                                  construct_part_4, ramparts_rocks)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -13369,7 +13426,11 @@ if __name__ == "__main__":
                                                                                            apothis_upgrade, dawn,
                                                                                            early_morning, morning,
                                                                                            early_afternoon, afternoon,
-                                                                                           dusk, night, time_of_day)
+                                                                                           dusk, night, time_of_day,
+                                                                                           rock_11, rock_12,
+                                                                                           rock_13, rock_14,
+                                                                                           ramparts_rocks,
+                                                                                           sfx_rock_push)
                     else:
                         marrow_ramps_west_end_returned = zone_marrow.marrow_ramps_west_end(pygame, game_window,
                                                                                            graphic_dict, player,
@@ -13414,7 +13475,11 @@ if __name__ == "__main__":
                                                                                            apothis_upgrade, dawn,
                                                                                            early_morning, morning,
                                                                                            early_afternoon, afternoon,
-                                                                                           dusk, night, time_of_day)
+                                                                                           dusk, night, time_of_day,
+                                                                                           rock_11, rock_12,
+                                                                                           rock_13, rock_14,
+                                                                                           ramparts_rocks,
+                                                                                           sfx_rock_push)
 
                     over_world_song_set = marrow_ramps_west_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_end_returned["interacted"]
@@ -15841,6 +15906,23 @@ if __name__ == "__main__":
 
                     if on_card_quest:
                         card_counted = False
+
+                    if player.current_zone == "korlok":
+                        snow_fall_toc = time.perf_counter()
+                        if snow_fall_toc - snow_fall_tic > 2:
+                            match snow_fall_phase:
+                                case 0:
+                                    korlok_interaction_snowfall.update(238, 156, graphic_dict["korlok_snowfall_1"])
+                                    snow_fall_phase = 1
+                                    snow_fall_tic = time.perf_counter()
+                                case 1:
+                                    korlok_interaction_snowfall.update(238, 156, graphic_dict["korlok_snowfall_2"])
+                                    snow_fall_phase = 2
+                                    snow_fall_tic = time.perf_counter()
+                                case 2:
+                                    korlok_interaction_snowfall.update(238, 156, graphic_dict["korlok_snowfall_3"])
+                                    snow_fall_phase = 0
+                                    snow_fall_tic = time.perf_counter()
 
                     # clearing loot and card popups and reset animation at start of new encounter if not already
                     if not cleared:
@@ -18470,6 +18552,8 @@ if __name__ == "__main__":
                                         screen.blit(seldon_district_battle, (0, 0))
                                     if player.current_zone == "korlok":
                                         screen.blit(korlok_district_battle, (0, 0))
+                                        screen.blit(korlok_interaction_snowfall.surf,
+                                                    korlok_interaction_snowfall.rect)
                                     if player.current_zone == "mines":
                                         screen.blit(mines_battle, (0, 0))
                                     if player.current_zone == "stardust":
@@ -18588,6 +18672,8 @@ if __name__ == "__main__":
                                         game_window.blit(seldon_district_battle, (0, 0))
                                     if player.current_zone == "korlok":
                                         game_window.blit(korlok_district_battle, (0, 0))
+                                        game_window.blit(korlok_interaction_snowfall.surf,
+                                                         korlok_interaction_snowfall.rect)
                                     if player.current_zone == "mines":
                                         game_window.blit(mines_battle, (0, 0))
                                     if player.current_zone == "stardust":
@@ -24198,6 +24284,23 @@ if __name__ == "__main__":
                 if in_npc_interaction and not in_over_world and not in_shop and not in_inn and not in_academia \
                         and not in_battle:
 
+                    if player.current_zone == "korlok":
+                        snow_fall_toc = time.perf_counter()
+                        if snow_fall_toc - snow_fall_tic > 2:
+                            match snow_fall_phase:
+                                case 0:
+                                    korlok_interaction_snowfall.update(238, 156, graphic_dict["korlok_snowfall_1"])
+                                    snow_fall_phase = 1
+                                    snow_fall_tic = time.perf_counter()
+                                case 1:
+                                    korlok_interaction_snowfall.update(238, 156, graphic_dict["korlok_snowfall_2"])
+                                    snow_fall_phase = 2
+                                    snow_fall_tic = time.perf_counter()
+                                case 2:
+                                    korlok_interaction_snowfall.update(238, 156, graphic_dict["korlok_snowfall_3"])
+                                    snow_fall_phase = 0
+                                    snow_fall_tic = time.perf_counter()
+
                     if not npc_text_reset:
                         info_text_1 = "Press the 'Talk' button to interact"
                         info_text_2 = "with the NPC. "
@@ -25640,6 +25743,8 @@ if __name__ == "__main__":
                                 screen.blit(seldon_district_battle, (0, 0))
                             if player.current_zone == "korlok":
                                 screen.blit(korlok_district_battle, (0, 0))
+                                screen.blit(korlok_interaction_snowfall.surf,
+                                            korlok_interaction_snowfall.rect)
                             if player.current_zone == "terra trail":
                                 screen.blit(terra_trail_screen, (0, 0))
                             if player.current_zone == "eldream":
@@ -25920,6 +26025,8 @@ if __name__ == "__main__":
                                 game_window.blit(seldon_district_battle, (0, 0))
                             if player.current_zone == "korlok":
                                 game_window.blit(korlok_district_battle, (0, 0))
+                                game_window.blit(korlok_interaction_snowfall.surf,
+                                                 korlok_interaction_snowfall.rect)
                             if player.current_zone == "terra trail":
                                 game_window.blit(terra_trail_screen, (0, 0))
                             if player.current_zone == "eldream":

@@ -322,9 +322,6 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
 
     screen.blit(ectrenos_left_bg, (0, 0))
 
-    if not item_block_got:
-        screen.blit(item_block.surf, item_block.rect)
-
     if player.quest_progress["las escondidas"] == 0 and player.quest_status["las escondidas"]:
         npc_leyre.update_position(626, 355)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
@@ -397,6 +394,9 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
 
     drawing_functions.draw_level_up(screen, in_over_world)
 
@@ -697,9 +697,6 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
 
     screen.blit(ectrenos_right_bg, (0, 0))
 
-    if not item_block_got:
-        screen.blit(item_block.surf, item_block.rect)
-
     if player.quest_progress["las escondidas"] == 1 and player.quest_status["las escondidas"]:
         npc_leyre.update_position(722, 350)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
@@ -772,6 +769,9 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
 
     drawing_functions.draw_level_up(screen, in_over_world)
 

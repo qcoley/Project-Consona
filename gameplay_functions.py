@@ -27,7 +27,7 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       marrow_barrier_small, seldon_barrier_small, card_cave, item_block_1, item_block_2,
                       item_block_3, item_block_4, item_block_5, item_block_6, item_block_7, item_block_8,
                       item_block_9, item_block_10, item_block_11, item_block_12, illisare, roroc, part_1, part_2,
-                      part_3, part_4):
+                      part_3, part_4, ramparts_rocks):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -267,6 +267,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, item_block_8):
                 interacted = True
+            elif pygame.sprite.spritecollideany(player, ramparts_rocks):
+                interacted = True
             else:
                 interacted = False
         if player.current_zone == "forge":
@@ -489,7 +491,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             if (not pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1)
                     and not pygame.Rect.colliderect(player.rect, ramps_crate_5)
                     and not pygame.Rect.colliderect(player.rect, item_block_7)
-                    and not pygame.Rect.colliderect(player.rect, item_block_8)):
+                    and not pygame.Rect.colliderect(player.rect, item_block_8)
+                    and not pygame.sprite.spritecollideany(player, ramparts_rocks)):
                 interacted = False
         if player.current_zone == "forge":
             if (not pygame.Rect.colliderect(player.rect, forge_rect) and

@@ -2,6 +2,8 @@ import os
 import sys
 import pygame
 
+from pygame.locals import *
+
 
 # this file to load all images(graphics) into a dictionary and return to main file -------------------------------------
 
@@ -35,9 +37,11 @@ def sprite_sheet(size, file, posit=(0, 0)):
 
 
 def initialize_display():
+    pygame.mixer.pre_init(44100, 16, 2, 4096)
     pygame.init()
     pygame.display.set_caption("Project Consona")
-    screen = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
+    flags = pygame.RESIZABLE | DOUBLEBUF
+    screen = pygame.display.set_mode((1280, 720), flags, 16)
     return screen
 
 
@@ -578,6 +582,12 @@ def load_graphics():
     loaded_dict["overlay_stardust_star"] = overlay_stardust_star
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # korlok interaction snowfall --------------------------------------------------------------------------------------
+    korlok_interaction_snowfall_url = resource_path('resources/art/korlok_interaction_snowfall.png')
+    korlok_interaction_snowfall_sheet = sprite_sheet((292, 172), korlok_interaction_snowfall_url)
+    loaded_dict["korlok_snowfall_1"] = korlok_interaction_snowfall_sheet[0]
+    loaded_dict["korlok_snowfall_2"] = korlok_interaction_snowfall_sheet[1]
+    loaded_dict["korlok_snowfall_3"] = korlok_interaction_snowfall_sheet[2]
     # npc interaction quest stars --------------------------------------------------------------------------------------
     npc_interaction_stars_url = resource_path('resources/art/overlay_npc_interaction_stars.png')
     npc_interaction_stars_sheet = sprite_sheet((200, 200), npc_interaction_stars_url)

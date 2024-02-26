@@ -41,11 +41,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     screen.blit(terra_cave.surf, terra_cave.rect)
     screen.blit(npc_dionte.surf, npc_dionte.rect)
 
-    if time_of_day != 0 and time_of_day != 7:
+    if time_of_day != 0 and time_of_day != 7 and not player.quest_complete["it's dangerous to go alone"]:
         screen.blit(overlay_sleep.surf, overlay_sleep.rect)
-
-    if not item_block_got:
-        screen.blit(item_block.surf, item_block.rect)
 
     if time_of_day != 0 and time_of_day != 7:
         if critter.x_coordinate < 995:
@@ -119,6 +116,9 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
 
     drawing_functions.draw_level_up(screen, in_over_world)
 

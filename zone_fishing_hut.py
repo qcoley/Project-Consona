@@ -134,8 +134,6 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
     screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
 
-    if not item_block_got:
-        screen.blit(item_block.surf, item_block.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -158,6 +156,9 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
+
+    if not item_block_got:
+        screen.blit(item_block.surf, item_block.rect)
 
     drawing_functions.draw_level_up(screen, in_over_world)
 
