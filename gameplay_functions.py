@@ -1024,7 +1024,8 @@ def pet_call(pygame, player, kasper_called, torok_called, iriana_called, sfx_whi
                         pet.active = False
                     case False:
                         pet.active = True
-                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
+                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height,
+                                   player.current_zone)
             # set other pets to de-active, so they don't overlap
             else:
                 match pet.active:
@@ -1039,7 +1040,8 @@ def pet_call(pygame, player, kasper_called, torok_called, iriana_called, sfx_whi
                         pet.active = False
                     case False:
                         pet.active = True
-                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
+                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height,
+                                   player.current_zone)
             else:
                 match pet.active:
                     case True:
@@ -1053,7 +1055,8 @@ def pet_call(pygame, player, kasper_called, torok_called, iriana_called, sfx_whi
                         pet.active = False
                     case False:
                         pet.active = True
-                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
+                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height,
+                                   player.current_zone)
             else:
                 match pet.active:
                     case True:

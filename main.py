@@ -43,19 +43,796 @@ class Pet(pygame.sprite.Sprite):
         self.energy = energy
         self.active = active
 
-    def update(self, x_coordinate, y_coordinate, screen_width, screen_height):
-        if self.x_coordinate > screen_width - 275:
+    def update(self, x_coordinate, y_coordinate, screen_width, screen_height, current_zone):
+        if x_coordinate > screen_width - 275:
             x_coordinate = screen_width - 275
-        if self.x_coordinate < 0:
+        if x_coordinate < 0:
             x_coordinate = 0
-        if self.y_coordinate > screen_height:
+        if y_coordinate > screen_height:
             y_coordinate = screen_height
-        if self.y_coordinate < 0:
+        if y_coordinate < 0:
             y_coordinate = 0
+
+        if current_zone == "caldera":
+            if x_coordinate < 262:
+                x_coordinate = 262
+            if y_coordinate < 208:
+                y_coordinate = 208
+            if x_coordinate > 652:
+                x_coordinate = 652
+            if y_coordinate > 528:
+                y_coordinate = 528
+        if current_zone == "castle one":
+            if y_coordinate < 115:
+                y_coordinate = 115
+            if y_coordinate < 552:
+                if x_coordinate < 32:
+                    x_coordinate = 32
+                if x_coordinate > 1000:
+                    x_coordinate = 1000
+                if x_coordinate > 220:
+                    if y_coordinate > 385:
+                        if x_coordinate < 245:
+                            x_coordinate = 245
+                if x_coordinate < 220:
+                    if y_coordinate > 385:
+                        if x_coordinate > 205:
+                            x_coordinate = 205
+                if x_coordinate < 808:
+                    if y_coordinate > 385:
+                        if x_coordinate > 790:
+                            x_coordinate = 790
+                if x_coordinate > 808:
+                    if y_coordinate > 385:
+                        if x_coordinate < 826:
+                            x_coordinate = 826
+                if 795 > x_coordinate > 220:
+                    if 390 > x_coordinate or x_coordinate > 634:
+                        if y_coordinate > 470:
+                            y_coordinate = 470
+                    else:
+                        if y_coordinate > 490:
+                            y_coordinate = 490
+            if y_coordinate > 550:
+                if 215 < x_coordinate < 810:
+                    if y_coordinate < 565:
+                        y_coordinate = 565
+            if y_coordinate > 705:
+                y_coordinate = 705
+        if current_zone == "castle two":
+            if y_coordinate > 705:
+                y_coordinate = 705
+            if x_coordinate < 30:
+                x_coordinate = 30
+            if y_coordinate < 35:
+                y_coordinate = 35
+            if x_coordinate > 1005:
+                x_coordinate = 1005
+            if y_coordinate > 552 and x_coordinate > 220:
+                if y_coordinate < 570:
+                    y_coordinate = 570
+            if y_coordinate < 552 and x_coordinate > 220:
+                if y_coordinate > 540:
+                    y_coordinate = 540
+            if 552 > y_coordinate > 390 and x_coordinate > 222:
+                if y_coordinate < 402:
+                    y_coordinate = 402
+                if x_coordinate > 775:
+                    x_coordinate = 775
+            if 172 < y_coordinate < 395 and x_coordinate < 777:
+                if x_coordinate > 215:
+                    x_coordinate = 215
+            if 222 < x_coordinate < 810 and y_coordinate < 185:
+                if y_coordinate > 168:
+                    y_coordinate = 168
+            if x_coordinate > 798 and 401 > y_coordinate > 170:
+                if x_coordinate < 815:
+                    x_coordinate = 815
+                if y_coordinate > 385:
+                    y_coordinate = 385
+        if current_zone == "castle three":
+            if y_coordinate > 705:
+                y_coordinate = 705
+            if x_coordinate < 30:
+                x_coordinate = 30
+            if y_coordinate < 35:
+                y_coordinate = 35
+            if x_coordinate > 1005:
+                x_coordinate = 1005
+            if y_coordinate > 550 and x_coordinate < 800:
+                if y_coordinate < 570:
+                    y_coordinate = 570
+            if y_coordinate < 552 and x_coordinate < 800:
+                if y_coordinate > 537:
+                    y_coordinate = 537
+            if 552 > y_coordinate > 183 and x_coordinate > 238:
+                if x_coordinate < 260:
+                    x_coordinate = 260
+            if 552 > y_coordinate > 178:
+                if 238 < x_coordinate < 444:
+                    if y_coordinate < 200:
+                        y_coordinate = 200
+                    if y_coordinate < 395:
+                        if x_coordinate > 410:
+                            x_coordinate = 410
+                if 410 < x_coordinate < 808:
+                    if y_coordinate < 402:
+                        y_coordinate = 402
+                if x_coordinate > 800:
+                    if y_coordinate < 408:
+                        if x_coordinate < 812:
+                            x_coordinate = 812
+                if x_coordinate < 238:
+                    if x_coordinate > 218:
+                        x_coordinate = 218
+                    if y_coordinate > 386:
+                        y_coordinate = 386
+            if y_coordinate < 178 and 226 < x_coordinate < 816:
+                if y_coordinate > 170:
+                    y_coordinate = 170
+        if current_zone == "castle lair":
+            if y_coordinate < 115:
+                y_coordinate = 115
+            if x_coordinate < 125:
+                x_coordinate = 125
+            if x_coordinate > 910:
+                x_coordinate = 910
+            if y_coordinate > 612:
+                y_coordinate = 612
+        if current_zone == "fishing alcove":
+            if x_coordinate < 25:
+                x_coordinate = 25
+            if y_coordinate > 525:
+                if x_coordinate > 1010:
+                    x_coordinate = 1010
+            if y_coordinate < 525:
+                if x_coordinate > 775:
+                    x_coordinate = 775
+            if x_coordinate > 775:
+                if y_coordinate < 535:
+                    y_coordinate = 535
+            if y_coordinate <= 405:
+                y_coordinate = 405
+            elif y_coordinate >= 644:
+                y_coordinate = 644
+        if current_zone == "rohir":
+            if x_coordinate < 50:
+                x_coordinate = 50
+            elif x_coordinate > 930:
+                x_coordinate = 930
+            if y_coordinate <= 145:
+                y_coordinate = 145
+            elif y_coordinate >= 575:
+                y_coordinate = 575
+            if 160 < x_coordinate < 270:
+                if y_coordinate < 210:
+                    y_coordinate = 210
+                if y_coordinate > 475:
+                    y_coordinate = 475
+            if y_coordinate < 210 or y_coordinate > 475:
+                if x_coordinate < 170:
+                    if x_coordinate > 155:
+                        x_coordinate = 155
+                else:
+                    if x_coordinate < 275:
+                        x_coordinate = 275
+        if current_zone == "nascent":
+            if x_coordinate < 340:
+                x_coordinate = 340
+            elif x_coordinate > 955:
+                x_coordinate = 955
+            if y_coordinate <= 60:
+                y_coordinate = 60
+            elif y_coordinate >= 670:
+                y_coordinate = 670
+            elif 315 >= y_coordinate >= 300:
+                y_coordinate = 315
+            elif 300 >= y_coordinate >= 230:
+                y_coordinate = 230
+        if current_zone == "reservoir a":
+            if x_coordinate < 50:
+                x_coordinate = 50
+            elif x_coordinate > 980:
+                x_coordinate = 980
+            elif x_coordinate < 365:
+                if y_coordinate > 350:
+                    if x_coordinate > 360:
+                        x_coordinate = 365
+            elif x_coordinate > 680:
+                if y_coordinate > 350:
+                    if x_coordinate < 685:
+                        x_coordinate = 680
+            elif 435 < y_coordinate < 550 and x_coordinate > 600:
+                x_coordinate = 600
+            elif 435 < y_coordinate < 550 and x_coordinate < 430:
+                x_coordinate = 430
+            elif 350 < y_coordinate < 425 and x_coordinate > 670:
+                x_coordinate = 670
+            if 350 < y_coordinate < 525 and 750 < x_coordinate < 770:
+                x_coordinate = 770
+            if 350 < y_coordinate < 525 and 260 < x_coordinate < 305:
+                x_coordinate = 260
+            if y_coordinate <= 125:
+                y_coordinate = 125
+            elif x_coordinate < 360 or x_coordinate > 725:
+                if y_coordinate >= 520:
+                    y_coordinate = 520
+            elif x_coordinate > 300 or x_coordinate < 725:
+                if y_coordinate >= 720:
+                    y_coordinate = 720
+        if current_zone == "reservoir b":
+            if x_coordinate < 60:
+                x_coordinate = 60
+            elif x_coordinate < 745:
+                if x_coordinate > 705:
+                    x_coordinate = 745
+            if x_coordinate < 705:
+                if x_coordinate > 655:
+                    x_coordinate = 655
+            elif x_coordinate > 965:
+                x_coordinate = 965
+            if y_coordinate <= 75:
+                y_coordinate = 75
+            elif x_coordinate > 705:
+                if y_coordinate >= 665:
+                    y_coordinate = 665
+            else:
+                if y_coordinate >= 670:
+                    y_coordinate = 670
+        if current_zone == "reservoir c":
+            if x_coordinate < 90:
+                x_coordinate = 90
+            if x_coordinate > 965:
+                x_coordinate = 965
+            if y_coordinate >= 638:
+                y_coordinate = 638
+            if x_coordinate > 510:
+                if y_coordinate < 400:
+                    if y_coordinate <= 100:
+                        y_coordinate = 100
+                    if y_coordinate > 320:
+                        y_coordinate = 320
+                if y_coordinate > 400:
+                    if y_coordinate <= 425:
+                        y_coordinate = 425
+            else:
+                if y_coordinate <= 100:
+                    y_coordinate = 100
+                if 425 > y_coordinate > 320:
+                    if x_coordinate > 505:
+                        x_coordinate = 505
+        if current_zone == "seldon":
+            if x_coordinate < 25:
+                x_coordinate = 25
+            elif x_coordinate > 925:
+                x_coordinate = 925
+            if y_coordinate <= 115:
+                y_coordinate = 115
+            elif y_coordinate >= 705:
+                y_coordinate = 705
+        if current_zone == "stardust":
+            if x_coordinate < 225:
+                x_coordinate = 225
+            if y_coordinate < 450:
+                if x_coordinate > 955:
+                    x_coordinate = 955
+            if y_coordinate > 450:
+                if x_coordinate > 845:
+                    x_coordinate = 845
+            if x_coordinate > 846:
+                if y_coordinate > 446:
+                    y_coordinate = 446
+            if y_coordinate <= 80:
+                y_coordinate = 80
+            elif y_coordinate >= 612:
+                y_coordinate = 612
+            elif 360 >= y_coordinate >= 300 and 641 >= x_coordinate >= 409:
+                y_coordinate = 360
+            elif 300 >= y_coordinate >= 230 and 641 >= x_coordinate >= 409:
+                y_coordinate = 230
+            elif 660 >= x_coordinate >= 500 and 358 >= y_coordinate >= 232:
+                x_coordinate = 660
+            elif 500 >= x_coordinate >= 395 and 358 >= y_coordinate >= 232:
+                x_coordinate = 395
+            if y_coordinate < 235 and x_coordinate > 470:
+                if x_coordinate < 542:
+                    x_coordinate = 542
+            if y_coordinate < 235 and x_coordinate < 470:
+                if x_coordinate > 440:
+                    x_coordinate = 440
+                if x_coordinate < 325:
+                    if y_coordinate < 158:
+                        y_coordinate = 158
+                if y_coordinate < 158:
+                    if x_coordinate < 328:
+                        x_coordinate = 328
+            if x_coordinate < 445 and 250 < y_coordinate < 330:
+                if x_coordinate < 265:
+                    x_coordinate = 265
+                if x_coordinate > 345:
+                    x_coordinate = 345
+            if x_coordinate < 250 and 300 < y_coordinate < 335:
+                y_coordinate = 335
+            if 400 > x_coordinate > 360 and 300 < y_coordinate < 335:
+                y_coordinate = 335
+            if x_coordinate < 250 and 300 > y_coordinate > 240:
+                y_coordinate = 240
+            if 360 < x_coordinate < 440 and 300 > y_coordinate > 240:
+                y_coordinate = 240
+        if current_zone == "korlok":
+            if x_coordinate < 25:
+                x_coordinate = 25
+            elif x_coordinate > 1005:
+                x_coordinate = 1005
+            elif x_coordinate < 490 and 325 < y_coordinate < 400:
+                y_coordinate = 400
+            elif x_coordinate < 490 and 400 > y_coordinate > 300:
+                y_coordinate = 300
+            elif x_coordinate < 492 and 325 < y_coordinate < 400:
+                x_coordinate = 492
+            if y_coordinate <= 50:
+                y_coordinate = 50
+            elif y_coordinate >= 627:
+                y_coordinate = 627
+        if current_zone == "mines":
+            if x_coordinate < 72:
+                x_coordinate = 72
+            if x_coordinate > 965:
+                x_coordinate = 965
+            if 430 < y_coordinate < 500 and x_coordinate > 545:
+                x_coordinate = 545
+            if x_coordinate > 545:
+                if y_coordinate < 460:
+                    if y_coordinate > 425:
+                        y_coordinate = 425
+                if y_coordinate > 460:
+                    if y_coordinate < 505:
+                        y_coordinate = 505
+            if y_coordinate <= 115:
+                y_coordinate = 115
+            if x_coordinate < 660:
+                if y_coordinate >= 645:
+                    y_coordinate = 645
+            if x_coordinate > 660:
+                if y_coordinate >= 720:
+                    y_coordinate = 720
+        if current_zone == "terra trail":
+            if x_coordinate < 50:
+                x_coordinate = 50
+            elif x_coordinate > 730:
+                x_coordinate = 730
+            elif 470 < x_coordinate < 475 and 170 < y_coordinate < 400:
+                x_coordinate = 475
+            if y_coordinate <= 70:
+                y_coordinate = 70
+            elif y_coordinate >= 590:
+                y_coordinate = 590
+            elif 180 > y_coordinate > 170 and x_coordinate < 475:
+                y_coordinate = 170
+            elif 405 > y_coordinate > 400 and x_coordinate < 475:
+                y_coordinate = 405
+        if current_zone == "fishing hut":
+            if 95 < y_coordinate < 228:
+                if x_coordinate < 850:
+                    if x_coordinate > 780:
+                        x_coordinate = 780
+                if x_coordinate > 850:
+                    if x_coordinate < 918:
+                        x_coordinate = 918
+            if 780 < x_coordinate < 918:
+                if y_coordinate > 180:
+                    if y_coordinate < 234:
+                        y_coordinate = 234
+                if y_coordinate < 180:
+                    if y_coordinate > 90:
+                        y_coordinate = 90
+            if y_coordinate < 80:
+                y_coordinate = 80
+            if x_coordinate < 335 and y_coordinate < 325 or \
+                    x_coordinate > 490 and y_coordinate < 325:
+                if y_coordinate > 295:
+                    y_coordinate = 295
+            if y_coordinate > 315:
+                if x_coordinate < 340:
+                    x_coordinate = 340
+                if y_coordinate < 360:
+                    if x_coordinate > 480:
+                        x_coordinate = 480
+                if y_coordinate > 360:
+                    if x_coordinate > 690:
+                        x_coordinate = 690
+                if x_coordinate > 480:
+                    if y_coordinate < 364:
+                        y_coordinate = 364
+            if x_coordinate < 25:
+                x_coordinate = 25
+            if x_coordinate > 1005:
+                x_coordinate = 1005
+            if y_coordinate > 495:
+                y_coordinate = 495
+        if current_zone == "eldream":
+            if x_coordinate < 20:
+                x_coordinate = 20
+            elif x_coordinate > 1005:
+                x_coordinate = 1005
+            elif 885 < x_coordinate < 890 and 525 > y_coordinate > 155:
+                x_coordinate = 890
+            elif 960 < x_coordinate > 885 and 425 > y_coordinate > 155:
+                x_coordinate = 960
+            elif 180 > x_coordinate < 170 and 300 > y_coordinate > 145:
+                x_coordinate = 170
+            if y_coordinate <= 70:
+                y_coordinate = 70
+            elif y_coordinate >= 705:
+                y_coordinate = 705
+            elif 525 < y_coordinate < 530 and 220 < x_coordinate < 890:
+                y_coordinate = 530
+            elif 140 < y_coordinate < 155 and x_coordinate < 170:
+                y_coordinate = 140
+        if current_zone == "ectrenos":
+            if 405 < x_coordinate < 625 and 525 > y_coordinate > 500:
+                y_coordinate = 525
+            if 405 < x_coordinate < 625 and 400 > y_coordinate > 360:
+                y_coordinate = 360
+            if 360 < y_coordinate < 525 and 390 < x_coordinate < 450:
+                x_coordinate = 390
+            if 360 < y_coordinate < 525 < x_coordinate < 640:
+                x_coordinate = 640
+            if 205 > x_coordinate > 175 and 170 < y_coordinate < 510:
+                x_coordinate = 205
+            if 205 > x_coordinate > 175 and 570 < y_coordinate < 725:
+                x_coordinate = 205
+            if 200 < x_coordinate < 435 and 170 < y_coordinate < 190:
+                y_coordinate = 190
+            if 5 < x_coordinate < 175 and 465 < y_coordinate > 565:
+                y_coordinate = 565
+            if 825 < x_coordinate < 845 and 170 < y_coordinate < 510:
+                x_coordinate = 825
+            if 825 < x_coordinate < 845 and 570 < y_coordinate < 725:
+                x_coordinate = 825
+            if 600 < x_coordinate < 840 and 170 < y_coordinate < 190:
+                y_coordinate = 190
+            if 825 < x_coordinate < 1010 and 465 < y_coordinate > 565:
+                y_coordinate = 565
+            if x_coordinate < 25:
+                x_coordinate = 25
+            elif x_coordinate > 1005:
+                x_coordinate = 1005
+            if y_coordinate <= 70:
+                y_coordinate = 70
+            elif y_coordinate >= 705:
+                y_coordinate = 705
+        if current_zone == "ectrenos left":
+            if x_coordinate < 25:
+                x_coordinate = 25
+            elif x_coordinate > 975 and 400 > y_coordinate or \
+                    x_coordinate > 975 and y_coordinate > 620:
+                x_coordinate = 975
+            if y_coordinate < 395 and 650 > x_coordinate > 500 or \
+                    y_coordinate > 615 and 650 > x_coordinate > 500:
+                x_coordinate = 650
+            if x_coordinate < 630 and 405 > y_coordinate:
+                y_coordinate = 405
+            if x_coordinate < 630 and 600 < y_coordinate:
+                y_coordinate = 600
+            elif x_coordinate < 330 and 575 < y_coordinate:
+                y_coordinate = 575
+            if y_coordinate <= 300:
+                y_coordinate = 300
+            elif y_coordinate >= 720:
+                y_coordinate = 720
+        if current_zone == "ectrenos right":
+            if x_coordinate > 1005:
+                x_coordinate = 1005
+            elif x_coordinate < 50 and 400 > y_coordinate or \
+                    x_coordinate < 50 and y_coordinate > 620:
+                x_coordinate = 50
+            if y_coordinate < 405 and 650 > x_coordinate > 375 or \
+                    y_coordinate > 595 and 650 > x_coordinate > 375:
+                x_coordinate = 375
+            if 750 > x_coordinate > 400 and 410 > y_coordinate:
+                y_coordinate = 410
+            if x_coordinate > 400 and 585 < y_coordinate:
+                y_coordinate = 585
+            elif x_coordinate > 750 and y_coordinate < 400:
+                y_coordinate = 400
+            if y_coordinate <= 300:
+                y_coordinate = 300
+            elif y_coordinate >= 720:
+                y_coordinate = 720
+        if current_zone == "ectrenos front":
+            if y_coordinate > 400:
+                if x_coordinate > 955:
+                    x_coordinate = 955
+                if x_coordinate < 75:
+                    x_coordinate = 75
+            else:
+                if x_coordinate > 1005:
+                    x_coordinate = 1005
+                if x_coordinate < 15:
+                    x_coordinate = 15
+            if y_coordinate <= 330:
+                y_coordinate = 330
+            elif y_coordinate >= 545:
+                y_coordinate = 545
+            if x_coordinate < 60 or x_coordinate > 960:
+                if y_coordinate > 390:
+                    y_coordinate = 390
+        if current_zone == "ectrenos alcove":
+            if x_coordinate > 1005:
+                x_coordinate = 1005
+            if x_coordinate < 40:
+                x_coordinate = 40
+            if y_coordinate <= 110:
+                y_coordinate = 110
+            elif y_coordinate >= 705:
+                y_coordinate = 705
+            if y_coordinate > 525 and x_coordinate < 620 or \
+                    y_coordinate > 525 and x_coordinate > 920:
+                if y_coordinate < 615:
+                    y_coordinate = 615
+                if x_coordinate < 350:
+                    x_coordinate = 350
+            if 385 < y_coordinate < 615:
+                if x_coordinate < 640:
+                    x_coordinate = 640
+                if x_coordinate > 900:
+                    x_coordinate = 900
+            if y_coordinate < 525 and x_coordinate < 620 or \
+                    y_coordinate < 525 and x_coordinate > 920:
+                if y_coordinate > 380:
+                    y_coordinate = 380
+            if x_coordinate > 490 and y_coordinate < 160:
+                y_coordinate = 160
+            if x_coordinate > 790 and y_coordinate < 205:
+                y_coordinate = 205
+            if x_coordinate < 280 and y_coordinate < 160:
+                y_coordinate = 160
+            if x_coordinate < 280 and y_coordinate > 290:
+                y_coordinate = 290
+        if current_zone == "marrow":
+            if x_coordinate < 115:
+                x_coordinate = 115
+            if x_coordinate < 390:
+                if y_coordinate > 705:
+                    y_coordinate = 705
+            if x_coordinate > 390:
+                if 765 > x_coordinate > 645:
+                    if npc_noren.quest_complete and npc_boro.quest_complete:
+                        try:
+                            if equipment["boots"].name == "chroma boots":
+                                if y_coordinate > 420:
+                                    if y_coordinate > 590:
+                                        y_coordinate = 590
+                                    if x_coordinate < 665:
+                                        x_coordinate = 665
+                                    if x_coordinate > 755:
+                                        x_coordinate = 755
+                        except AttributeError:
+                            if y_coordinate > 420:
+                                y_coordinate = 420
+                    elif y_coordinate > 420:
+                        y_coordinate = 420
+                elif y_coordinate > 420:
+                    y_coordinate = 420
+            if y_coordinate > 420:
+                if x_coordinate < 525:
+                    if x_coordinate > 385:
+                        x_coordinate = 385
+            if x_coordinate > 1010:
+                x_coordinate = 1010
+            if 730 < x_coordinate or x_coordinate < 630:
+                if y_coordinate < 100:
+                    y_coordinate = 100
+            if 220 < y_coordinate < 295:
+                if x_coordinate > 765:
+                    if y_coordinate > 245:
+                        y_coordinate = 245
+            if 255 < y_coordinate < 320:
+                if x_coordinate > 760:
+                    x_coordinate = 760
+            if 300 < y_coordinate < 390:
+                if x_coordinate > 765:
+                    if y_coordinate < 325:
+                        y_coordinate = 325
+        if current_zone == "sub marrow":
+            if x_coordinate > 990:
+                x_coordinate = 990
+            if y_coordinate < 115:
+                y_coordinate = 115
+            if y_coordinate > 700:
+                y_coordinate = 700
+            if y_coordinate > 575:
+                if x_coordinate < 380:
+                    x_coordinate = 380
+            if y_coordinate < 575:
+                if x_coordinate < 35:
+                    x_coordinate = 35
+            if x_coordinate < 380:
+                if y_coordinate > 570:
+                    y_coordinate = 570
+            if x_coordinate > 625 and y_coordinate < 415:
+                if y_coordinate > 385:
+                    y_coordinate = 385
+            if x_coordinate > 625 and y_coordinate > 415:
+                if y_coordinate < 450:
+                    y_coordinate = 450
+            if y_coordinate > 385 and x_coordinate < 655:
+                if x_coordinate > 618:
+                    x_coordinate = 618
+            if y_coordinate > 385 and x_coordinate > 655:
+                if x_coordinate < 700:
+                    x_coordinate = 700
+        if current_zone == "marrow entrance":
+            if x_coordinate < 25:
+                x_coordinate = 25
+            if x_coordinate > 1005:
+                x_coordinate = 1005
+            if y_coordinate <= 30:
+                y_coordinate = 30
+            if marrow_switch_phase != "complete":
+                if y_coordinate >= 550:
+                    y_coordinate = 550
+            if marrow_switch_phase == "complete":
+                if 620 < x_coordinate or x_coordinate < 420:
+                    if y_coordinate >= 550:
+                        y_coordinate = 550
+                else:
+                    if y_coordinate >= 720:
+                        y_coordinate = 720
+                if y_coordinate > 560:
+                    if 610 < x_coordinate:
+                        x_coordinate = 610
+                    if x_coordinate < 430:
+                        x_coordinate = 430
+            if y_coordinate <= 340:
+                if x_coordinate < 260:
+                    x_coordinate = 260
+                if x_coordinate > 765:
+                    x_coordinate = 765
+            if x_coordinate <= 240 or x_coordinate >= 790:
+                if y_coordinate <= 345:
+                    y_coordinate = 345
+        if current_zone == "marrow tower west":
+            if y_coordinate > 710:
+                y_coordinate = 710
+            if x_coordinate < 25:
+                x_coordinate = 25
+            if y_coordinate < 30:
+                y_coordinate = 30
+            if x_coordinate > 1010:
+                x_coordinate = 1010
+            if 185 < x_coordinate < 405 and y_coordinate < 555:
+                if y_coordinate > 540:
+                    y_coordinate = 540
+            if 610 < x_coordinate < 840 and y_coordinate > 555:
+                if y_coordinate < 580:
+                    y_coordinate = 580
+            if 610 < x_coordinate < 840 and y_coordinate < 555:
+                if y_coordinate > 540:
+                    y_coordinate = 540
+            if 165 < y_coordinate < 580:
+                if 210 > x_coordinate > 180:
+                    x_coordinate = 180
+                if 185 < x_coordinate < 230:
+                    x_coordinate = 230
+                if 830 < x_coordinate < 850:
+                    x_coordinate = 850
+                if 800 < x_coordinate < 840:
+                    x_coordinate = 800
+            if 200 < x_coordinate < 840:
+                if 165 > y_coordinate > 160:
+                    y_coordinate = 160
+                if 165 < y_coordinate < 200:
+                    y_coordinate = 200
+            if y_coordinate > 550:
+                if 375 < x_coordinate < 430:
+                    x_coordinate = 430
+        if current_zone == "marrow tower east":
+            if y_coordinate > 710:
+                y_coordinate = 710
+            if x_coordinate < 25:
+                x_coordinate = 25
+            if y_coordinate < 30:
+                y_coordinate = 30
+            if x_coordinate > 1010:
+                x_coordinate = 1010
+            if 185 < x_coordinate < 405 and y_coordinate > 555:
+                if y_coordinate < 580:
+                    y_coordinate = 580
+            if 185 < x_coordinate < 405 and y_coordinate < 555:
+                if y_coordinate > 540:
+                    y_coordinate = 540
+            if 610 < x_coordinate < 840 and y_coordinate < 555:
+                if y_coordinate > 540:
+                    y_coordinate = 540
+            if 165 < y_coordinate < 580:
+                if 210 > x_coordinate > 180:
+                    x_coordinate = 180
+                if 185 < x_coordinate < 230:
+                    x_coordinate = 230
+                if 830 < x_coordinate < 850:
+                    x_coordinate = 850
+                if 800 < x_coordinate < 840:
+                    x_coordinate = 800
+            if 200 < x_coordinate < 840:
+                if 165 > y_coordinate > 160:
+                    y_coordinate = 160
+                if 165 < y_coordinate < 200:
+                    y_coordinate = 200
+            if y_coordinate > 540:
+                if 650 > x_coordinate > 600:
+                    x_coordinate = 600
+        if current_zone == "marrow ramps west" or current_zone == "marrow ramps east":
+            if y_coordinate > 710:
+                y_coordinate = 710
+            if x_coordinate < 385:
+                x_coordinate = 385
+            if y_coordinate < 165:
+                y_coordinate = 165
+            if x_coordinate > 765:
+                x_coordinate = 765
+        if current_zone == "marrow ramps east end":
+            if y_coordinate > 700:
+                y_coordinate = 700
+            if y_coordinate > 175:
+                if x_coordinate < 210:
+                    x_coordinate = 210
+                if x_coordinate > 935:
+                    x_coordinate = 935
+            if y_coordinate < 175:
+                if x_coordinate < 385:
+                    x_coordinate = 385
+                if x_coordinate > 765:
+                    x_coordinate = 765
+            if x_coordinate < 375 or x_coordinate > 775:
+                if y_coordinate < 180:
+                    y_coordinate = 180
+            if not erebyth_defeated:
+                if y_coordinate < 100:
+                    y_coordinate = 100
+        if current_zone == "marrow ramps west end":
+            if x_coordinate < 385:
+                x_coordinate = 385
+            if y_coordinate > 700:
+                y_coordinate = 700
+            if y_coordinate > 175:
+                if x_coordinate > 930:
+                    x_coordinate = 930
+            if y_coordinate < 430:
+                if x_coordinate < 775:
+                    if x_coordinate > 770:
+                        x_coordinate = 770
+            if x_coordinate > 775:
+                if y_coordinate < 180:
+                    y_coordinate = 180
+        if current_zone == "forge" or current_zone == "altar":
+            if y_coordinate < 150:
+                y_coordinate = 150
+            if y_coordinate < 505:
+                if x_coordinate < 182:
+                    x_coordinate = 182
+                if x_coordinate > 842:
+                    x_coordinate = 842
+            if y_coordinate > 505:
+                if x_coordinate < 390:
+                    x_coordinate = 390
+                if x_coordinate > 635:
+                    x_coordinate = 635
+            if x_coordinate > 640 or x_coordinate < 385:
+                if y_coordinate > 475:
+                    y_coordinate = 475
+            if y_coordinate < 205:
+                if 515 > x_coordinate > 390:
+                    x_coordinate = 390
+                if 515 < x_coordinate < 635:
+                    x_coordinate = 635
+            if 390 < x_coordinate < 635:
+                if y_coordinate < 215:
+                    y_coordinate = 215
 
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
-
         self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
 
     def update_image(self, image):
@@ -10841,21 +11618,13 @@ if __name__ == "__main__":
                         if vanished_toc - vanished_tic > 2:
                             vanished = False
 
-                    # keep player pet with player as they move
+                    # update player pet position
                     try:
+                        pet_update_x = player.x_coordinate + 35
+                        pet_update_y = player.y_coordinate - 25
                         for pet in player.pet:
                             if pet.active:
-                                pet_update_x = player.x_coordinate + 35
-                                pet_update_y = player.y_coordinate - 25
-                                if pet_update_x > SCREEN_WIDTH - 275:
-                                    pet_update_x = SCREEN_WIDTH - 275
-                                if pet_update_x < 0:
-                                    pet_update_x = 0
-                                if pet_update_y > SCREEN_HEIGHT:
-                                    pet_update_y = SCREEN_HEIGHT
-                                if pet_update_y < 0:
-                                    pet_update_y = 0
-                                pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT, player.current_zone)
                     except AttributeError:
                         pass
 
@@ -11904,7 +12673,8 @@ if __name__ == "__main__":
                                     try:
                                         for pet in player.pet:
                                             if pet.active:
-                                                pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                           player.current_zone)
                                     except AttributeError:
                                         pass
 
@@ -11957,7 +12727,8 @@ if __name__ == "__main__":
                                         try:
                                             for pet in player.pet:
                                                 if pet.active:
-                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                               player.current_zone)
                                         except AttributeError:
                                             pass
                                         rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
@@ -11995,7 +12766,8 @@ if __name__ == "__main__":
                                         try:
                                             for pet in player.pet:
                                                 if pet.active:
-                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                               player.current_zone)
                                         except AttributeError:
                                             pass
                                         info_text_1 = "You recalled to the eldream stone."
@@ -12032,7 +12804,8 @@ if __name__ == "__main__":
                                         try:
                                             for pet in player.pet:
                                                 if pet.active:
-                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                               player.current_zone)
                                         except AttributeError:
                                             pass
                                         info_text_1 = "You recalled to the marrow stone."
