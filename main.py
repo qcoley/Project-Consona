@@ -8736,9 +8736,9 @@ if __name__ == "__main__":
                          "", 0, 0, 0, 0, 0, [], 3)  # zone, defence, offense, image
 
     # pets: name, type, stage, energy
-    pet_kasper = Pet("kasper", "scout", 1, 100, graphic_dict["kasper"], False)
-    pet_torok = Pet("torok", "fighter", 1, 100, graphic_dict["torok"], False)
-    pet_iriana = Pet("iriana", "mage", 1, 100, graphic_dict["iriana"], False)
+    pet_kasper = Pet("kasper", "scout", 1, 100, graphic_dict["kasper_down_1"], False)
+    pet_torok = Pet("torok", "fighter", 1, 100, graphic_dict["torok_down_1"], False)
+    pet_iriana = Pet("iriana", "mage", 1, 100, graphic_dict["iriana_down_1"], False)
     # pet seed
     pet_seed = Item("pet seed", "seed", 1078, 197, graphic_dict["seed_img"], 1)
     pet_whistle_kasper = Item("pet whistle kasper", "whistle", 1078, 197, graphic_dict["whistle_kasper_img"], 1)
@@ -11780,12 +11780,21 @@ if __name__ == "__main__":
 
                             player.update("right", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
-                                if pet.name == "kasper":
-                                    pet.update_image(graphic_dict["kasper_right"])
-                                if pet.name == "torok":
-                                    pet.update_image(graphic_dict["torok_right"])
-                                if pet.name == "iriana":
-                                    pet.update_image(graphic_dict["iriana_right"])
+                                if pet.name == "kasper" and pet.active:
+                                    if walking_return["total time"] < 0.3:
+                                        pet.update_image(graphic_dict["kasper_right_1"])
+                                    if walking_return["total time"] > 0.3:
+                                        pet.update_image(graphic_dict["kasper_right_2"])
+                                if pet.name == "torok" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["torok_right_1"])
+                                    if walking_return["total time"] > 0.2:
+                                        pet.update_image(graphic_dict["torok_right_2"])
+                                if pet.name == "iriana" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["iriana_right_1"])
+                                    if walking_return["total time"] > 0.2:
+                                        pet.update_image(graphic_dict["iriana_right_2"])
                         if pressed_keys[K_a] or pressed_keys[K_LEFT]:
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
@@ -11824,12 +11833,21 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_steps_path)
                             player.update("left", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
-                                if pet.name == "kasper":
-                                    pet.update_image(graphic_dict["kasper_left"])
-                                if pet.name == "torok":
-                                    pet.update_image(graphic_dict["torok_left"])
-                                if pet.name == "iriana":
-                                    pet.update_image(graphic_dict["iriana_left"])
+                                if pet.name == "kasper" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["kasper_left_1"])
+                                    if walking_return["total time"] > 0.6:
+                                        pet.update_image(graphic_dict["kasper_left_2"])
+                                if pet.name == "torok" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["torok_left_1"])
+                                    if walking_return["total time"] > 0.2:
+                                        pet.update_image(graphic_dict["torok_left_2"])
+                                if pet.name == "iriana" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["iriana_left_1"])
+                                    if walking_return["total time"] > 0.2:
+                                        pet.update_image(graphic_dict["iriana_left_2"])
                         if pressed_keys[K_w] or pressed_keys[K_UP]:
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
@@ -11868,12 +11886,21 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_steps_path)
                             player.update("up", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
-                                if pet.name == "kasper":
-                                    pet.update_image(graphic_dict["kasper_back"])
-                                if pet.name == "torok":
-                                    pet.update_image(graphic_dict["torok_back"])
-                                if pet.name == "iriana":
-                                    pet.update_image(graphic_dict["iriana_back"])
+                                if pet.name == "kasper" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["kasper_up_1"])
+                                    if walking_return["total time"] > 0.6:
+                                        pet.update_image(graphic_dict["kasper_up_2"])
+                                if pet.name == "torok" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["torok_up_1"])
+                                    if walking_return["total time"] > 0.2:
+                                        pet.update_image(graphic_dict["torok_up_2"])
+                                if pet.name == "iriana" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["iriana_up_1"])
+                                    if walking_return["total time"] > 0.2:
+                                        pet.update_image(graphic_dict["iriana_up_2"])
                         if pressed_keys[K_s] or pressed_keys[K_DOWN]:
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
@@ -11912,12 +11939,21 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_steps_path)
                             player.update("down", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
-                                if pet.name == "kasper":
-                                    pet.update_image(graphic_dict["kasper"])
-                                if pet.name == "torok":
-                                    pet.update_image(graphic_dict["torok"])
-                                if pet.name == "iriana":
-                                    pet.update_image(graphic_dict["iriana"])
+                                if pet.name == "kasper" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["kasper_down_1"])
+                                    if walking_return["total time"] > 0.6:
+                                        pet.update_image(graphic_dict["kasper_down_2"])
+                                if pet.name == "torok" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["torok_down_1"])
+                                    if walking_return["total time"] > 0.2:
+                                        pet.update_image(graphic_dict["torok_down_2"])
+                                if pet.name == "iriana" and pet.active:
+                                    if walking_return["total time"] < 0.2:
+                                        pet.update_image(graphic_dict["iriana_down_1"])
+                                    if walking_return["total time"] > 0.2:
+                                        pet.update_image(graphic_dict["iriana_down_2"])
 
                     # main event loop
                     for event in pygame.event.get():
