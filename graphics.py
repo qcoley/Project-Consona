@@ -4485,6 +4485,18 @@ def load_graphics():
     loaded_dict["kasper_left_2"] = pets_sheet[21]
     loaded_dict["torok_left_2"] = pets_sheet[22]
     loaded_dict["iriana_left_2"] = pets_sheet[23]
+    loaded_dict["kasper_down"] = pets_sheet[24]
+    loaded_dict["torok_down"] = pets_sheet[25]
+    loaded_dict["iriana_down"] = pets_sheet[26]
+    loaded_dict["kasper_up"] = pets_sheet[27]
+    loaded_dict["torok_up"] = pets_sheet[28]
+    loaded_dict["iriana_up"] = pets_sheet[29]
+    loaded_dict["kasper_right"] = pets_sheet[30]
+    loaded_dict["torok_right"] = pets_sheet[31]
+    loaded_dict["iriana_right"] = pets_sheet[32]
+    loaded_dict["kasper_left"] = pets_sheet[33]
+    loaded_dict["torok_left"] = pets_sheet[34]
+    loaded_dict["iriana_left"] = pets_sheet[35]
     # pets hatching ----------------------------------------------------------------------------------------------------
     pets_hatching_url = resource_path('resources/art/overlay_seed_hatching.png')
     pets_hatching_sheet = sprite_sheet((400, 400), pets_hatching_url)
