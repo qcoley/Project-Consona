@@ -5036,6 +5036,11 @@ def load_graphics():
     loaded_dict["offense_defense_2"] = offense_defense_sheet[2]
     loaded_dict["offense_defense_3"] = offense_defense_sheet[3]
     loaded_dict["offense_defense_4"] = offense_defense_sheet[4]
+    loaded_dict["offense_defense_0_crushed"] = offense_defense_sheet[5]
+    loaded_dict["offense_defense_1_crushed"] = offense_defense_sheet[6]
+    loaded_dict["offense_defense_2_crushed"] = offense_defense_sheet[7]
+    loaded_dict["offense_defense_3_crushed"] = offense_defense_sheet[8]
+    loaded_dict["offense_defense_4_crushed"] = offense_defense_sheet[9]
     # attack buttons ---------------------------------------------------------------------------------------------------
     attack_buttons_url = resource_path('resources/art/overlay_attacks.png')
     attack_buttons_sheet = sprite_sheet((60, 60), attack_buttons_url)

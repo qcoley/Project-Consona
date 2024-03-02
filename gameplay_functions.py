@@ -2160,6 +2160,9 @@ def load_game(player, Item, graphics, Pet):
             player.skills_mage = player_load_info["mage skills"]
             player.skills_fighter = player_load_info["fighter skills"]
             player.skills_scout = player_load_info["scout skills"]
+            player.mage_level = player_load_info["mage_level"]
+            player.fighter_level = player_load_info["fighter_level"]
+            player.scout_level = player_load_info["scout_level"]
             load_return["barrier learned"] = player_load_info["learned"]["barrier"]
             load_return["strike learned"] = player_load_info["learned"]["strike"]
             load_return["sense learned"] = player_load_info["learned"]["sense"]
@@ -2494,7 +2497,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "cloaked_popup_shown": cloaked_popup_shown, "time_of_day": time_of_day, "poisoned": poisoned,
                         "burned": burned, "bleeding": bleeding, "condition_popup_shown": condition_popup_shown,
                         "crushed": crushed, "music_toggle": music_toggle, "apothis_upgrade": apothis_upgrade,
-                        "apothis_popup_shown": apothis_popup_shown}
+                        "apothis_popup_shown": apothis_popup_shown, "mage_level": player.mage_level,
+                        "fighter_level": player.fighter_level, "scout_level": player.scout_level}
 
     try:
         with open("save", "wb") as ff:
@@ -2543,30 +2547,58 @@ def creature_update(player, seed_scout_count, seed_fighter_count, seed_mage_coun
 # function that updates players info, status, role, inventory, equipment, etc
 def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter, offense_meter, defense_meter,
                                graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
-                               chroma_boots, neras_grace, arens_strength, spirit_of_wisdom):
+                               chroma_boots, neras_grace, arens_strength, spirit_of_wisdom, crushed):
     # update players status bars
     hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player, graphics))
     en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_bar_update(player, graphics))
     xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_bar_update(player, graphics))
 
-    if player.offense == 1:
-        offense_meter.update(offense_meter.x_coordinate, offense_meter.y_coordinate, graphics["offense_defense_1"])
-    if player.offense == 2:
-        offense_meter.update(offense_meter.x_coordinate, offense_meter.y_coordinate, graphics["offense_defense_2"])
-    if player.offense == 3:
-        offense_meter.update(offense_meter.x_coordinate, offense_meter.y_coordinate, graphics["offense_defense_3"])
-    if player.offense == 4:
-        offense_meter.update(offense_meter.x_coordinate, offense_meter.y_coordinate, graphics["offense_defense_4"])
-    if player.defense == 0:
-        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_0"])
-    if player.defense == 1:
-        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_1"])
-    if player.defense == 2:
-        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_2"])
-    if player.defense == 3:
-        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_3"])
-    if player.defense == 4:
-        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_4"])
+    if crushed:
+        if player.offense < 0:
+            offense_meter.update(1200, 81, graphics["offense_defense_0"])
+        if player.offense == 0:
+            offense_meter.update(1200, 81, graphics["offense_defense_0_crushed"])
+        if player.offense == 1:
+            offense_meter.update(1200, 81, graphics["offense_defense_1_crushed"])
+        if player.offense == 2:
+            offense_meter.update(1200, 81, graphics["offense_defense_2_crushed"])
+        if player.offense == 3:
+            offense_meter.update(1200, 81, graphics["offense_defense_3_crushed"])
+        if player.offense == 4:
+            offense_meter.update(1200, 81, graphics["offense_defense_4_crushed"])
+        if player.defense < 0:
+            defense_meter.update(1200, 117, graphics["offense_defense_0"])
+        if player.defense == 0:
+            defense_meter.update(1200, 117, graphics["offense_defense_0_crushed"])
+        if player.defense == 1:
+            defense_meter.update(1200, 117, graphics["offense_defense_1_crushed"])
+        if player.defense == 2:
+            defense_meter.update(1200, 117, graphics["offense_defense_2_crushed"])
+        if player.defense == 3:
+            defense_meter.update(1200, 117, graphics["offense_defense_3_crushed"])
+        if player.defense == 4:
+            defense_meter.update(1200, 117, graphics["offense_defense_4_crushed"])
+    else:
+        if player.offense == 0:
+            offense_meter.update(1200, 81, graphics["offense_defense_0"])
+        if player.offense == 1:
+            offense_meter.update(1200, 81, graphics["offense_defense_1"])
+        if player.offense == 2:
+            offense_meter.update(1200, 81, graphics["offense_defense_2"])
+        if player.offense == 3:
+            offense_meter.update(1200, 81, graphics["offense_defense_3"])
+        if player.offense == 4:
+            offense_meter.update(1200, 81, graphics["offense_defense_4"])
+        if player.defense == 0:
+            defense_meter.update(1200, 117, graphics["offense_defense_0"])
+        if player.defense == 1:
+            defense_meter.update(1200, 117, graphics["offense_defense_1"])
+        if player.defense == 2:
+            defense_meter.update(1200, 117, graphics["offense_defense_2"])
+        if player.defense == 3:
+            defense_meter.update(1200, 117, graphics["offense_defense_3"])
+        if player.defense == 4:
+            defense_meter.update(1200, 117, graphics["offense_defense_4"])
 
     if player.star_power == 0:
         star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, graphics["star_00"])
@@ -2679,9 +2711,6 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cl
         else:
             damage = random.randint(1, 5)
 
-    if crushed:
-        damage = damage - 5
-
     if mob.name == "Ghoul" or mob.name == "Necrola":
         if cloaked:
             if not sharp_sense_active:
@@ -2793,7 +2822,7 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_act
         attack_dict["critical"] = True
         # base critical damage
         if player.level < 8:
-            if player.defense == 0:
+            if player.defense <= 0:
                 damage = 8
             if player.defense == 1:
                 damage = 6
@@ -2804,7 +2833,7 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_act
             if player.defense == 4:
                 damage = 1
         if 16 > player.level >= 8:
-            if player.defense == 0:
+            if player.defense <= 0:
                 damage = 10
             if player.defense == 1:
                 damage = 8
@@ -2815,7 +2844,7 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_act
             if player.defense == 4:
                 damage = 2
         if player.level >= 16:
-            if player.defense == 0:
+            if player.defense <= 0:
                 damage = 12
             if player.defense == 1:
                 damage = 10
@@ -2829,7 +2858,7 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_act
         attack_dict["critical"] = False
         # base damage
         if player.level < 8:
-            if player.defense == 0:
+            if player.defense <= 0:
                 damage = 6
             if player.defense == 1:
                 damage = 4
@@ -2840,7 +2869,7 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_act
             if player.defense == 4:
                 damage = 0
         if 16 > player.level >= 8:
-            if player.defense == 0:
+            if player.defense <= 0:
                 damage = 8
             if player.defense == 1:
                 damage = 6
@@ -2851,7 +2880,7 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_act
             if player.defense == 4:
                 damage = 1
         if player.level >= 16:
-            if player.defense == 0:
+            if player.defense <= 0:
                 damage = 10
             if player.defense == 1:
                 damage = 8
@@ -2905,9 +2934,6 @@ def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_act
 
     if barrier_active:
         damage -= damage - int(damage * 0.80)
-
-    if crushed:
-        damage += damage - int(damage * 0.60)
 
     if strike_active:
         damage -= 3

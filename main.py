@@ -843,7 +843,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
     def __init__(self, name, race, gender, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae, pets, velocity):
+                 flowers_sorae, pets, velocity, mage_level, fighter_level, scout_level):
         super(PlayerAmuna, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -878,6 +878,9 @@ class PlayerAmuna(pygame.sprite.Sprite):
         self.flowers_sorae = flowers_sorae
         self.pet = pets
         self.velocity = velocity
+        self.mage_level = mage_level
+        self.fighter_level = fighter_level
+        self.scout_level = scout_level
 
     # move the player sprite based on input keys
     def update(self, pressed_key, current_zone, walk_timed):
@@ -3258,7 +3261,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
     def __init__(self, name, race, gender, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae, pets, velocity):
+                 flowers_sorae, pets, velocity, mage_level, fighter_level, scout_level):
         super(PlayerNuldar, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -3293,6 +3296,9 @@ class PlayerNuldar(pygame.sprite.Sprite):
         self.flowers_sorae = flowers_sorae
         self.pet = pets
         self.velocity = velocity
+        self.mage_level = mage_level
+        self.fighter_level = fighter_level
+        self.scout_level = scout_level
 
     def update(self, pressed_key, current_zone, walk_timed):
         if self.gender == "male":
@@ -5673,7 +5679,7 @@ class PlayerSorae(pygame.sprite.Sprite):
     def __init__(self, name, race, gender, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae, pets, velocity):
+                 flowers_sorae, pets, velocity, mage_level, fighter_level, scout_level):
         super(PlayerSorae, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -5708,6 +5714,9 @@ class PlayerSorae(pygame.sprite.Sprite):
         self.flowers_sorae = flowers_sorae
         self.pet = pets
         self.velocity = velocity
+        self.mage_level = mage_level
+        self.fighter_level = fighter_level
+        self.scout_level = scout_level
 
     def update(self, pressed_key, current_zone, walk_timed):
         if self.gender == "male":
@@ -8733,7 +8742,7 @@ if __name__ == "__main__":
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                          1, 0, 100, 100,  # lvl, exp, health, energy
                          True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
-                         "", 0, 0, 0, 0, 0, [], 3)  # zone, defence, offense, image
+                         "", 0, 0, 0, 0, 0, [], 3, 1, 1, 1)  # zone, defence, offense, image, mage, fighter, scout lvl
 
     # pets: name, type, stage, energy
     pet_kasper = Pet("kasper", "scout", 1, 100, graphic_dict["kasper_down_1"], False)
@@ -9867,7 +9876,7 @@ if __name__ == "__main__":
     sfx_bleed = pygame.mixer.Sound(resource_path("resources/sounds/bleed.mp3"))
     sfx_bleed.set_volume(0.15)
     sfx_poison = pygame.mixer.Sound(resource_path("resources/sounds/poison.mp3"))
-    sfx_poison.set_volume(0.20)
+    sfx_poison.set_volume(0.30)
     sfx_crushed = pygame.mixer.Sound(resource_path("resources/sounds/crushed.mp3"))
     sfx_crushed.set_volume(0.20)
 
@@ -9956,7 +9965,7 @@ if __name__ == "__main__":
     sfx_skill_learn = pygame.mixer.Sound(resource_path("resources/sounds/skill_learn.mp3"))
     sfx_skill_learn.set_volume(0.50)
     sfx_inn_sleep = pygame.mixer.Sound(resource_path("resources/sounds/inn_sleep.mp3"))
-    sfx_inn_sleep.set_volume(0.20)
+    sfx_inn_sleep.set_volume(0.15)
     sfx_power_up = pygame.mixer.Sound(resource_path("resources/sounds/power_up.mp3"))
     sfx_power_up.set_volume(0.12)
     sfx_hatch = pygame.mixer.Sound(resource_path("resources/sounds/hatch.mp3"))
@@ -10620,7 +10629,7 @@ if __name__ == "__main__":
                                                  player.alive_status, player.rupees, player.reputation,
                                                  player.current_zone, player.defense, player.offense, player.star_power,
                                                  player.flowers_amuna, player.flowers_sorae, player.pet,
-                                                 player.velocity)
+                                                 player.velocity, player.mage_level, player.fighter_level, 2)
                             player.race = "amuna"
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_amuna_male_down_1"]
@@ -10639,7 +10648,7 @@ if __name__ == "__main__":
                                                   player.alive_status, player.rupees, player.reputation,
                                                   player.current_zone, player.defense, player.offense,
                                                   player.star_power, player.flowers_amuna, player.flowers_sorae,
-                                                  player.pet, player.velocity)
+                                                  player.pet, player.velocity, player.mage_level, 2, player.scout_level)
                             player.race = "nuldar"
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
@@ -10658,7 +10667,7 @@ if __name__ == "__main__":
                                                  player.alive_status, player.rupees, player.reputation,
                                                  player.current_zone, player.defense, player.offense, player.star_power,
                                                  player.flowers_amuna, player.flowers_sorae, player.pet,
-                                                 player.velocity)
+                                                 player.velocity, 2, player.fighter_level, player.scout_level)
                             player.race = "sorae"
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
@@ -11061,7 +11070,8 @@ if __name__ == "__main__":
                                                  player.alive_status, player.rupees, player.reputation,
                                                  player.current_zone, player.defense, player.offense, player.star_power,
                                                  player.flowers_amuna, player.flowers_sorae, player.pet,
-                                                 player.velocity)
+                                                 player.velocity, player.mage_level, player.fighter_level,
+                                                 player.scout_level)
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_amuna_male_down_1"]
                             if player.gender == "female":
@@ -11076,7 +11086,8 @@ if __name__ == "__main__":
                                                   player.alive_status, player.rupees, player.reputation,
                                                   player.current_zone, player.defense, player.offense,
                                                   player.star_power, player.flowers_amuna, player.flowers_sorae,
-                                                  player.pet, player.velocity)
+                                                  player.pet, player.velocity, player.mage_level, player.fighter_level,
+                                                  player.scout_level)
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
                             if player.gender == "female":
@@ -11091,7 +11102,8 @@ if __name__ == "__main__":
                                                  player.alive_status, player.rupees, player.reputation,
                                                  player.current_zone, player.defense, player.offense, player.star_power,
                                                  player.flowers_amuna, player.flowers_sorae, player.pet,
-                                                 player.velocity)
+                                                 player.velocity, player.mage_level, player.fighter_level,
+                                                 player.scout_level)
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
                             if player.gender == "female":
@@ -11587,7 +11599,7 @@ if __name__ == "__main__":
                                                               offense_meter, defense_meter, graphic_dict,
                                                               basic_armor, forged_armor, mythical_armor,
                                                               legendary_armor, power_gloves, chroma_boots,
-                                                              neras_grace, arens_strength, spirit_of_wisdom)
+                                                              neras_grace, arens_strength, spirit_of_wisdom, crushed)
                 # after level, loot and cards, clear popups after about 3 seconds
                 if not loot_timer_reset:
                     loot_level_toc = time.perf_counter()
@@ -11669,6 +11681,7 @@ if __name__ == "__main__":
                             quests_button.surf.set_alpha(255)
                             card_deck_button.surf.set_alpha(255)
                             alpha_set = False
+
                         if player.x_coordinate < 420 and player.y_coordinate < 150:
                             if not alpha_set:
                                 hp_bar.surf.set_alpha(50)
@@ -11700,6 +11713,7 @@ if __name__ == "__main__":
                             overlay_bleeding_desc.surf.set_alpha(255)
                             overlay_crushed_desc.surf.set_alpha(255)
                             alpha_set = False
+
                         if player.x_coordinate > 730 and player.y_coordinate < 125:
                             if not alpha_set:
                                 save_button.surf.set_alpha(50)
@@ -17071,7 +17085,7 @@ if __name__ == "__main__":
                                                                                           legendary_armor,
                                                                                           power_gloves, chroma_boots,
                                                                                           neras_grace, arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
                                     if current_info_item.name == "small health potion" or \
                                             current_info_item.name == "big health potion":
                                         if inventory_event["item message"] != "You're already at full health.":
@@ -17121,7 +17135,7 @@ if __name__ == "__main__":
                                                                                           legendary_armor, power_gloves,
                                                                                           chroma_boots, neras_grace,
                                                                                           arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
                                     if current_info_item.name == "super potion":
                                         if inventory_event["item message"] != "You're already at " \
                                                                               "full health or energy.":
@@ -17173,7 +17187,7 @@ if __name__ == "__main__":
                                                                                           legendary_armor,
                                                                                           power_gloves, chroma_boots,
                                                                                           neras_grace, arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "cure poison potion":
                                         if inventory_event["item message"] != "You're not poisoned.":
@@ -17232,7 +17246,7 @@ if __name__ == "__main__":
                                                                                           legendary_armor, power_gloves,
                                                                                           chroma_boots, neras_grace,
                                                                                           arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
 
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "cure burn potion":
@@ -17290,7 +17304,7 @@ if __name__ == "__main__":
                                                                                           legendary_armor, power_gloves,
                                                                                           chroma_boots, neras_grace,
                                                                                           arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "bandage wrap":
                                         if inventory_event["item message"] != "You're not bleeding.":
@@ -17347,7 +17361,7 @@ if __name__ == "__main__":
                                                                                           legendary_armor, power_gloves,
                                                                                           chroma_boots, neras_grace,
                                                                                           arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "brace":
                                         if inventory_event["item message"] != "You're not crushed.":
@@ -17404,7 +17418,7 @@ if __name__ == "__main__":
                                                                                           legendary_armor, power_gloves,
                                                                                           chroma_boots, neras_grace,
                                                                                           arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "big cure potion":
                                         if inventory_event["item message"] != "You're not poisoned or burned.":
@@ -17462,7 +17476,7 @@ if __name__ == "__main__":
                                                                                           legendary_armor, power_gloves,
                                                                                           chroma_boots, neras_grace,
                                                                                           arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "big mend potion":
                                         if inventory_event["item message"] != "You're not bleeding or crushed.":
@@ -17520,7 +17534,7 @@ if __name__ == "__main__":
                                                                                           legendary_armor, power_gloves,
                                                                                           chroma_boots, neras_grace,
                                                                                           arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
                                 except AttributeError:
                                     pass
 
@@ -17606,6 +17620,8 @@ if __name__ == "__main__":
                                     if (turn_counter + 1) % random.randint(6, 8) == 0:
                                         if not crushed:
                                             crushed = True
+                                            player.offense -= 1
+                                            player.defense -= 1
                                             pygame.mixer.find_channel(True).play(sfx_crushed)
                                             crush_shown = False
                                 if current_enemy_battling.kind == "magmon":
@@ -17647,6 +17663,8 @@ if __name__ == "__main__":
                                         if erebyth_attack_choice == 2:
                                             if not crushed:
                                                 crushed = True
+                                                player.offense -= 1
+                                                player.defense -= 1
                                                 pygame.mixer.find_channel(True).play(sfx_crushed)
                                     else:
                                         pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
@@ -17669,6 +17687,8 @@ if __name__ == "__main__":
                                         if choice == 4:
                                             if not crushed:
                                                 crushed = True
+                                                player.offense -= 1
+                                                player.defense -= 1
                                                 pygame.mixer.find_channel(True).play(sfx_crushed)
                                         pygame.mixer.find_channel(True).play(sfx_enemy_dreth_shatter)
                                     else:
@@ -17811,13 +17831,12 @@ if __name__ == "__main__":
                                         # player will gain knowledge based on their current role
                                         if player.role == "mage":
                                             if current_enemy_battling.level > player.level - 3:
-                                                if (player.level <= 10 and player.knowledge["mage"] < 80 or
-                                                        player.level > 10 and player.knowledge["mage"] < 120 or
-                                                        player.level > 20 and player.knowledge["mage"] < 240):
-                                                    player.knowledge["mage"] += 10
-                                                    battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
-                                                else:
-                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                player.knowledge["mage"] += 25
+                                                if player.knowledge["mage"] >= 100:
+                                                    player.mage_level += 1
+                                                    player.knowledge["mage"] = player.knowledge["mage"] - 100
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+25 mage"
+
                                             else:
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
                                             # if player has a pet seed, add to it for this role. stop counts at 8
@@ -17828,13 +17847,11 @@ if __name__ == "__main__":
 
                                         if player.role == "fighter":
                                             if current_enemy_battling.level > player.level - 3:
-                                                if (player.level <= 10 and player.knowledge["fighter"] < 80 or
-                                                        player.level > 10 and player.knowledge["fighter"] < 120 or
-                                                        player.level > 20 and player.knowledge["fighter"] < 240):
-                                                    player.knowledge["fighter"] += 10
-                                                    battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
-                                                else:
-                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                player.knowledge["fighter"] += 25
+                                                if player.knowledge["fighter"] >= 100:
+                                                    player.fighter_level += 1
+                                                    player.knowledge["fighter"] = player.knowledge["fighter"] - 100
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+25 fighter"
                                             else:
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
                                             # if player has a pet seed, add to it for this role. stop counts at 8
@@ -17845,13 +17862,11 @@ if __name__ == "__main__":
 
                                         if player.role == "scout":
                                             if current_enemy_battling.level > player.level - 3:
-                                                if (player.level <= 10 and player.knowledge["scout"] < 80 or
-                                                        player.level > 10 and player.knowledge["scout"] < 120 or
-                                                        player.level > 20 and player.knowledge["scout"] < 240):
-                                                    player.knowledge["scout"] += 10
-                                                    battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
-                                                else:
-                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                player.knowledge["scout"] += 25
+                                                if player.knowledge["scout"] >= 100:
+                                                    player.scout_level += 1
+                                                    player.knowledge["scout"] = player.knowledge["scout"] - 100
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+25 scout"
                                             else:
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
                                             # if player has a pet seed, add to it for this role. stop counts at 8
@@ -18063,7 +18078,7 @@ if __name__ == "__main__":
                                                                                               chroma_boots,
                                                                                               neras_grace,
                                                                                               arens_strength,
-                                                                                              spirit_of_wisdom)
+                                                                                              spirit_of_wisdom, crushed)
                                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                     frame = pygame.transform.smoothscale(screen,
                                                                                          (SCREEN_WIDTH,
@@ -18171,7 +18186,7 @@ if __name__ == "__main__":
                                                                                               chroma_boots,
                                                                                               neras_grace,
                                                                                               arens_strength,
-                                                                                              spirit_of_wisdom)
+                                                                                              spirit_of_wisdom, crushed)
                                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                     frame = pygame.transform.smoothscale(screen,
                                                                                          (SCREEN_WIDTH,
@@ -18269,16 +18284,13 @@ if __name__ == "__main__":
                                                         atmon_counter += 1
                                                     # player will gain knowledge based on their current role
                                                     if current_enemy_battling.level > player.level - 3:
-                                                        if (player.level <= 10 and player.knowledge["fighter"] < 80
-                                                                or player.level > 10 and
-                                                                player.knowledge["fighter"] < 120
-                                                                or player.level > 20 and
-                                                                player.knowledge["fighter"] < 240):
-                                                            player.knowledge["fighter"] += 10
-                                                            battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                "+10 fighter"
-                                                        else:
-                                                            battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                        player.knowledge["fighter"] += 25
+                                                        if player.knowledge["fighter"] >= 100:
+                                                            player.fighter_level += 1
+                                                            player.knowledge["fighter"] = (
+                                                                    player.knowledge["fighter"] - 100)
+                                                        battle_info_to_return_to_main_loop["knowledge"] = \
+                                                            "+25 fighter"
                                                     else:
                                                         battle_info_to_return_to_main_loop["knowledge"] = ""
                                                     # if player has a pet seed, add to it for this role
@@ -18474,7 +18486,7 @@ if __name__ == "__main__":
                                                                                               chroma_boots,
                                                                                               neras_grace,
                                                                                               arens_strength,
-                                                                                              spirit_of_wisdom)
+                                                                                              spirit_of_wisdom, crushed)
                                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                     frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                   SCREEN_HEIGHT))
@@ -18532,7 +18544,7 @@ if __name__ == "__main__":
                                                                                           chroma_boots,
                                                                                           neras_grace,
                                                                                           arens_strength,
-                                                                                          spirit_of_wisdom)
+                                                                                          spirit_of_wisdom, crushed)
                                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                 frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                               SCREEN_HEIGHT))
@@ -18744,16 +18756,12 @@ if __name__ == "__main__":
                                                             atmon_counter += 1
                                                         # player will gain knowledge based on their current role
                                                         if current_enemy_battling.level > player.level - 3:
-                                                            if (player.level <= 10 and player.knowledge["mage"] < 80
-                                                                    or player.level > 10
-                                                                    and player.knowledge["mage"] < 120
-                                                                    or player.level > 20
-                                                                    and player.knowledge["mage"] < 240):
-                                                                player.knowledge["mage"] += 10
-                                                                battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                    "+10 mage"
-                                                            else:
-                                                                battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                            player.knowledge["mage"] += 25
+                                                            if player.knowledge["mage"] >= 100:
+                                                                player.mage_level += 1
+                                                                player.knowledge["mage"] = (
+                                                                        player.knowledge["mage"] - 100)
+                                                            battle_info_to_return_to_main_loop["knowledge"] = "+25 mage"
                                                         else:
                                                             battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         # if player has a pet seed, add to it for this role
@@ -18850,7 +18858,7 @@ if __name__ == "__main__":
                                                                                               chroma_boots,
                                                                                               neras_grace,
                                                                                               arens_strength,
-                                                                                              spirit_of_wisdom)
+                                                                                              spirit_of_wisdom, crushed)
                                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                     frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                   SCREEN_HEIGHT))
@@ -18978,16 +18986,13 @@ if __name__ == "__main__":
                                                         atmon_counter += 1
                                                     # player will gain knowledge based on their current role
                                                     if current_enemy_battling.level > player.level - 3:
-                                                        if (player.level <= 10 and player.knowledge["fighter"] < 80
-                                                                or player.level > 10
-                                                                and player.knowledge["fighter"] < 120
-                                                                or player.level > 20
-                                                                and player.knowledge["fighter"] < 240):
-                                                            player.knowledge["fighter"] += 10
-                                                            battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                "+10 fighter"
-                                                        else:
-                                                            battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                        player.knowledge["fighter"] += 25
+                                                        if player.knowledge["fighter"] >= 100:
+                                                            player.fighter_level += 1
+                                                            player.knowledge["fighter"] \
+                                                                = player.knowledge["fighter"] - 100
+                                                        battle_info_to_return_to_main_loop["knowledge"] \
+                                                            = "+25 fighter"
                                                     else:
                                                         battle_info_to_return_to_main_loop["knowledge"] = ""
                                                     # if player has a pet seed, add to it for this role
@@ -19117,7 +19122,7 @@ if __name__ == "__main__":
                                                                                               chroma_boots,
                                                                                               neras_grace,
                                                                                               arens_strength,
-                                                                                              spirit_of_wisdom)
+                                                                                              spirit_of_wisdom, crushed)
                                             except AttributeError:
                                                 pass
                                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -19240,14 +19245,14 @@ if __name__ == "__main__":
                                                         if current_enemy_battling.kind == "atmon":
                                                             atmon_counter += 1
                                                         # player will gain knowledge based on their current role
-                                                        if (player.level <= 10 and player.knowledge["scout"] < 80
-                                                                or player.level > 10
-                                                                and player.knowledge["scout"] < 120
-                                                                or player.level > 20
-                                                                and player.knowledge["scout"] < 240):
-                                                            player.knowledge["scout"] += 10
+                                                        if current_enemy_battling.level > player.level - 3:
+                                                            player.knowledge["scout"] += 25
+                                                            if player.knowledge["scout"] >= 100:
+                                                                player.scout_level += 1
+                                                                player.knowledge["scout"] = (
+                                                                        player.knowledge["scout"] - 100)
                                                             battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                "+10 scout"
+                                                                "+25 scout"
                                                         else:
                                                             battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         # if player has a pet seed, add to it for this role
@@ -19343,7 +19348,7 @@ if __name__ == "__main__":
                                                                                               chroma_boots,
                                                                                               neras_grace,
                                                                                               arens_strength,
-                                                                                              spirit_of_wisdom)
+                                                                                              spirit_of_wisdom, crushed)
                                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                     frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
                                                                                                   SCREEN_HEIGHT))
@@ -22388,12 +22393,11 @@ if __name__ == "__main__":
                             try:
                                 if book_button.name == "barrier learn button":
                                     if not barrier_learned:
-                                        if player.knowledge["mage"] > 39:
+                                        if player.mage_level >= 1:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                             player.skills_mage["skill 2"] = "barrier"
                                             info_text_1 = "'Barrier' skill learned!"
-                                            info_text_2 = "Skill added. 40 knowledge used."
-                                            player.knowledge["mage"] -= 40
+                                            info_text_2 = ""
                                             barrier_learned = True
                                             button_highlighted = False
                                             mage_learn_clicked = False
@@ -22401,20 +22405,19 @@ if __name__ == "__main__":
                                             books.clear()
                                             skill_learn_items.clear()
                                         else:
-                                            info_text_1 = "40 mage knowledge required to learn."
+                                            info_text_1 = "Mage level 1 required to learn."
                                             info_text_2 = ""
                                     else:
                                         info_text_1 = "You've already learned 'Barrier'."
                                         info_text_2 = ""
-                                if player.level > 9:
+                                if player.mage_level >= 2:
                                     if book_button.name == "mirror learn button":
                                         if not mirror_learned:
-                                            if player.knowledge["mage"] > 59:
+                                            if player.mage_level >= 2:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_mage["skill 3"] = "transposition"
                                                 info_text_1 = "'Transposition' skill learned!"
-                                                info_text_2 = "Skill added. 60 knowledge used."
-                                                player.knowledge["mage"] -= 60
+                                                info_text_2 = ""
                                                 mirror_learned = True
                                                 button_highlighted = False
                                                 mage_learn_clicked = False
@@ -22422,20 +22425,20 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "60 mage knowledge required to learn."
+                                                info_text_1 = "Mage level 2 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Transposition'."
                                             info_text_2 = ""
-                                if player.level > 14:
+
+                                if player.mage_level >= 3:
                                     if book_button.name == "fire learn button":
                                         if not fire_learned:
-                                            if player.knowledge["mage"] > 79:
+                                            if player.mage_level >= 3:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_mage["skill 4"] = "millennium fire"
                                                 info_text_1 = "'Millennium Fire' skill learned!"
-                                                info_text_2 = "Skill added. 80 knowledge used."
-                                                player.knowledge["mage"] -= 80
+                                                info_text_2 = ""
                                                 fire_learned = True
                                                 button_highlighted = False
                                                 mage_learn_clicked = False
@@ -22443,11 +22446,12 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "80 mage knowledge required to learn."
+                                                info_text_1 = "Mage level 3 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Millennium Fire'."
                                             info_text_2 = ""
+
                                 if book_button.name == "close button":
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     mage_learn_clicked = False
@@ -22461,12 +22465,11 @@ if __name__ == "__main__":
                             try:
                                 if book_button.name == "hard strike learn button":
                                     if not hard_strike_learned:
-                                        if player.knowledge["fighter"] > 39:
+                                        if player.fighter_level >= 1:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                             player.skills_fighter["skill 2"] = "hard strike"
                                             info_text_1 = "'Hard Strike' skill learned!"
-                                            info_text_2 = "Skill added. 40 knowledge used."
-                                            player.knowledge["fighter"] -= 40
+                                            info_text_2 = ""
                                             hard_strike_learned = True
                                             fighter_learn_clicked = False
                                             book_appended = False
@@ -22474,20 +22477,19 @@ if __name__ == "__main__":
                                             books.clear()
                                             skill_learn_items.clear()
                                         else:
-                                            info_text_1 = "40 fighter knowledge required to learn."
+                                            info_text_1 = "Fighter level 1 required to learn."
                                             info_text_2 = ""
                                     else:
                                         info_text_1 = "You've already learned 'Hard Strike'."
                                         info_text_2 = ""
-                                if player.level > 9:
+                                if player.fighter_level >= 2:
                                     if book_button.name == "stun learn button":
                                         if not stun_learned:
-                                            if player.knowledge["fighter"] > 59:
+                                            if player.fighter_level >= 2:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_fighter["skill 3"] = "stunning swing"
                                                 info_text_1 = "'Stunning Swing' skill learned!"
-                                                info_text_2 = "Skill added. 60 knowledge used."
-                                                player.knowledge["fighter"] -= 60
+                                                info_text_2 = ""
                                                 stun_learned = True
                                                 fighter_learn_clicked = False
                                                 book_appended = False
@@ -22495,19 +22497,19 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "60 fighter knowledge required to learn."
+                                                info_text_1 = "Fighter level 2 required to learn."
                                         else:
                                             info_text_1 = "You've already learned 'Stunning Swing'."
                                             info_text_2 = ""
-                                if player.level > 14:
+
+                                if player.fighter_level >= 3:
                                     if book_button.name == "edge learn button":
                                         if not edge_learned:
-                                            if player.knowledge["fighter"] > 79:
+                                            if player.fighter_level >= 3:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_fighter["skill 4"] = "epsilon's edge"
                                                 info_text_1 = "'Epsilon's Edge' skill learned!"
-                                                info_text_2 = "Skill added. 80 knowledge used."
-                                                player.knowledge["fighter"] -= 80
+                                                info_text_2 = ""
                                                 edge_learned = True
                                                 fighter_learn_clicked = False
                                                 book_appended = False
@@ -22515,11 +22517,12 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "80 fighter knowledge required to learn."
+                                                info_text_1 = "Fighter level 3 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Epsilon's Edge'."
                                             info_text_2 = ""
+
                                 if book_button.name == "close button":
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     fighter_learn_clicked = False
@@ -22533,12 +22536,11 @@ if __name__ == "__main__":
                             try:
                                 if book_button.name == "sharp sense learn button":
                                     if not sharp_sense_learned:
-                                        if player.knowledge["scout"] > 39:
+                                        if player.scout_level >= 1:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                             player.skills_scout["skill 2"] = "sharp sense"
                                             info_text_1 = "'Sharp Sense' skill learned!"
-                                            info_text_2 = "Skill added. 40 knowledge used."
-                                            player.knowledge["scout"] -= 40
+                                            info_text_2 = ""
                                             sharp_sense_learned = True
                                             button_highlighted = False
                                             scout_learn_clicked = False
@@ -22546,20 +22548,19 @@ if __name__ == "__main__":
                                             books.clear()
                                             skill_learn_items.clear()
                                         else:
-                                            info_text_1 = "40 scout knowledge required to learn."
+                                            info_text_1 = "scout level 1 required to learn."
                                             info_text_2 = ""
                                     else:
                                         info_text_1 = "You've already learned 'Sharp Sense'."
                                         info_text_2 = ""
-                                if player.level > 9:
+                                if player.scout_level >= 2:
                                     if book_button.name == "vanish learn button":
                                         if not vanish_learned:
-                                            if player.knowledge["scout"] > 59:
+                                            if player.scout_level >= 2:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_scout["skill 3"] = "vanishing shroud"
                                                 info_text_1 = "'Vanishing Shroud' skill learned!"
-                                                info_text_2 = "Skill added. 60 knowledge used."
-                                                player.knowledge["scout"] -= 60
+                                                info_text_2 = ""
                                                 vanish_learned = True
                                                 button_highlighted = False
                                                 scout_learn_clicked = False
@@ -22567,20 +22568,19 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "60 scout knowledge required to learn."
+                                                info_text_1 = "scout level 2 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned this."
                                             info_text_2 = ""
-                                if player.level > 14:
+                                if player.scout_level >= 3:
                                     if book_button.name == "arrow learn button":
                                         if not arrow_learned:
-                                            if player.knowledge["scout"] > 79:
+                                            if player.scout_level >= 3:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_scout["skill 4"] = "poison arrow"
                                                 info_text_1 = "'Poison Arrow' skill learned!"
-                                                info_text_2 = "Skill added. 80 knowledge used."
-                                                player.knowledge["scout"] -= 80
+                                                info_text_2 = ""
                                                 arrow_learned = True
                                                 button_highlighted = False
                                                 scout_learn_clicked = False
@@ -22588,7 +22588,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "80 scout knowledge required to learn."
+                                                info_text_1 = "scout level 3 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned this."
@@ -22725,9 +22725,9 @@ if __name__ == "__main__":
 
                         if not book_appended:
                             if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
-                                if player.level > 9:
+                                if player.mage_level >= 2:
                                     mage_book.update(670, 380, graphic_dict["mage_book_img_10"])
-                                if player.level > 14:
+                                if player.mage_level >= 3:
                                     mage_book.update(670, 380, graphic_dict["mage_book_img_20"])
                                 books.append(mage_book)
                                 skill_learn_items.append(barrier_learn_button)
@@ -22737,9 +22737,9 @@ if __name__ == "__main__":
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
-                                if player.level > 9:
+                                if player.fighter_level >= 2:
                                     fighter_book.update(670, 380, graphic_dict["fighter_book_img_10"])
-                                if player.level > 14:
+                                if player.fighter_level >= 3:
                                     fighter_book.update(670, 380, graphic_dict["fighter_book_img_20"])
                                 books.append(fighter_book)
                                 skill_learn_items.append(hard_strike_learn_button)
@@ -22749,9 +22749,9 @@ if __name__ == "__main__":
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
-                                if player.level > 9:
+                                if player.scout_level >= 2:
                                     scout_book.update(670, 380, graphic_dict["scout_book_img_10"])
-                                if player.level > 14:
+                                if player.scout_level >= 3:
                                     scout_book.update(670, 380, graphic_dict["scout_book_img_20"])
                                 books.append(scout_book)
                                 skill_learn_items.append(sharp_sense_learn_button)

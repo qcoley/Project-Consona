@@ -137,7 +137,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
                 player.equipment["armor"] = ""
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 return_dict["equipment message"] = "Basic Armor un-equipped."
-                player.defense = 0
+                player.defense -= 1
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "forged armor":
@@ -146,7 +146,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
                 player.equipment["armor"] = ""
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 return_dict["equipment message"] = "Forged Armor un-equipped."
-                player.defense = 0
+                player.defense -= 2
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "mythical armor":
@@ -155,7 +155,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
                 player.equipment["armor"] = ""
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 return_dict["equipment message"] = "Mythical Armor un-equipped."
-                player.defense = 0
+                player.defense -= 3
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "legendary armor":
@@ -164,7 +164,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
                 player.equipment["armor"] = ""
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 return_dict["equipment message"] = "Legendary Armor un-equipped."
-                player.defense = 0
+                player.defense -= 4
             else:
                 return_dict["equipment message"] = "Your inventory is full."
 
@@ -515,7 +515,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 player.items.remove(item)
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 return_dict["item message"] = "Armor equipped. "
-                player.defense = item.level
+                player.defense += item.level
 
                 if player.equipment["armor"].name == "basic armor":
                     if player.race == "amuna":
@@ -788,6 +788,8 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
             else:
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 crushed = False
+                player.offense += 1
+                player.defense += 1
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "The brace supports you."
@@ -811,6 +813,8 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 pygame.mixer.find_channel(True).play(sfx_potion)
                 bleeding = False
                 crushed = False
+                player.offense += 1
+                player.defense += 1
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "The potion mends your wounds."
