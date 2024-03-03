@@ -600,7 +600,7 @@ class Pet(pygame.sprite.Sprite):
                 if 765 > x_coordinate > 645:
                     if npc_noren.quest_complete and npc_boro.quest_complete:
                         try:
-                            if equipment["boots"].name == "chroma boots":
+                            if player.equipment["boots"].name == "chroma boots":
                                 if y_coordinate > 420:
                                     if y_coordinate > 590:
                                         y_coordinate = 590
@@ -9438,6 +9438,7 @@ if __name__ == "__main__":
     bleed_damage_overlay = UiElement("bleed damage overlay", 300, 375, graphic_dict["bleed_damage_img"])
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
+    role_level_up_popup = UiElement("role level popup", 885, 136, graphic_dict["mage_level_up"])
     button_highlight = UiElement("button_highlight", 200, 200, graphic_dict["main high"])
     critical_dealt_overlay = UiElement("critical dealt overlay", 905, 185, graphic_dict["critical_dealt"])
     critical_received_overlay = UiElement("critical received overlay", 65, 235, graphic_dict["critical_received"])
@@ -11620,6 +11621,7 @@ if __name__ == "__main__":
                             card_deck["jumano_popup"] = False
                             card_drop_played = False
                             card_popup_checked = True
+                        drawing_functions.role_level_up_popup.clear()
                         loot_timer_reset = True
 
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
@@ -11987,8 +11989,7 @@ if __name__ == "__main__":
                                     if walking_return["total time"] > 0.6:
                                         pet.update_image(graphic_dict["torok_down"])
                                 if pet.name == "iriana" and pet.active:
-                                        pet.update_image(graphic_dict["iriana_down"])
-
+                                    pet.update_image(graphic_dict["iriana_down"])
 
                     # main event loop
                     for event in pygame.event.get():
@@ -12171,6 +12172,8 @@ if __name__ == "__main__":
                             if fish_caught:
                                 if fishing_popup.rect.collidepoint(pos):
                                     fish_caught = False
+                            if role_level_up_popup.rect.collidepoint(pos):
+                                drawing_functions.role_level_up_popup.clear()
 
                             if trading_deck:
                                 card_deck["snake_popup"] = False
@@ -17834,6 +17837,8 @@ if __name__ == "__main__":
                                                 player.knowledge["mage"] += 25
                                                 if player.knowledge["mage"] >= 100:
                                                     player.mage_level += 1
+                                                    role_level_up_popup.update(885, 136, graphic_dict["mage_level_up"])
+                                                    drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["mage"] = player.knowledge["mage"] - 100
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+25 mage"
 
@@ -17850,6 +17855,9 @@ if __name__ == "__main__":
                                                 player.knowledge["fighter"] += 25
                                                 if player.knowledge["fighter"] >= 100:
                                                     player.fighter_level += 1
+                                                    role_level_up_popup.update(885, 136,
+                                                                               graphic_dict["fighter_level_up"])
+                                                    drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["fighter"] = player.knowledge["fighter"] - 100
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+25 fighter"
                                             else:
@@ -17865,6 +17873,8 @@ if __name__ == "__main__":
                                                 player.knowledge["scout"] += 25
                                                 if player.knowledge["scout"] >= 100:
                                                     player.scout_level += 1
+                                                    role_level_up_popup.update(885, 136, graphic_dict["scout_level_up"])
+                                                    drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["scout"] = player.knowledge["scout"] - 100
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+25 scout"
                                             else:
@@ -22393,7 +22403,7 @@ if __name__ == "__main__":
                             try:
                                 if book_button.name == "barrier learn button":
                                     if not barrier_learned:
-                                        if player.mage_level >= 1:
+                                        if player.mage_level >= 2:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                             player.skills_mage["skill 2"] = "barrier"
                                             info_text_1 = "'Barrier' skill learned!"
@@ -22410,10 +22420,10 @@ if __name__ == "__main__":
                                     else:
                                         info_text_1 = "You've already learned 'Barrier'."
                                         info_text_2 = ""
-                                if player.mage_level >= 2:
+                                if player.mage_level >= 3:
                                     if book_button.name == "mirror learn button":
                                         if not mirror_learned:
-                                            if player.mage_level >= 2:
+                                            if player.mage_level >= 3:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_mage["skill 3"] = "transposition"
                                                 info_text_1 = "'Transposition' skill learned!"
@@ -22431,10 +22441,10 @@ if __name__ == "__main__":
                                             info_text_1 = "You've already learned 'Transposition'."
                                             info_text_2 = ""
 
-                                if player.mage_level >= 3:
+                                if player.mage_level >= 5:
                                     if book_button.name == "fire learn button":
                                         if not fire_learned:
-                                            if player.mage_level >= 3:
+                                            if player.mage_level >= 5:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_mage["skill 4"] = "millennium fire"
                                                 info_text_1 = "'Millennium Fire' skill learned!"
@@ -22465,7 +22475,7 @@ if __name__ == "__main__":
                             try:
                                 if book_button.name == "hard strike learn button":
                                     if not hard_strike_learned:
-                                        if player.fighter_level >= 1:
+                                        if player.fighter_level >= 2:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                             player.skills_fighter["skill 2"] = "hard strike"
                                             info_text_1 = "'Hard Strike' skill learned!"
@@ -22482,10 +22492,10 @@ if __name__ == "__main__":
                                     else:
                                         info_text_1 = "You've already learned 'Hard Strike'."
                                         info_text_2 = ""
-                                if player.fighter_level >= 2:
+                                if player.fighter_level >= 3:
                                     if book_button.name == "stun learn button":
                                         if not stun_learned:
-                                            if player.fighter_level >= 2:
+                                            if player.fighter_level >= 3:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_fighter["skill 3"] = "stunning swing"
                                                 info_text_1 = "'Stunning Swing' skill learned!"
@@ -22502,10 +22512,10 @@ if __name__ == "__main__":
                                             info_text_1 = "You've already learned 'Stunning Swing'."
                                             info_text_2 = ""
 
-                                if player.fighter_level >= 3:
+                                if player.fighter_level >= 5:
                                     if book_button.name == "edge learn button":
                                         if not edge_learned:
-                                            if player.fighter_level >= 3:
+                                            if player.fighter_level >= 5:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_fighter["skill 4"] = "epsilon's edge"
                                                 info_text_1 = "'Epsilon's Edge' skill learned!"
@@ -22536,7 +22546,7 @@ if __name__ == "__main__":
                             try:
                                 if book_button.name == "sharp sense learn button":
                                     if not sharp_sense_learned:
-                                        if player.scout_level >= 1:
+                                        if player.scout_level >= 2:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                             player.skills_scout["skill 2"] = "sharp sense"
                                             info_text_1 = "'Sharp Sense' skill learned!"
@@ -22553,10 +22563,10 @@ if __name__ == "__main__":
                                     else:
                                         info_text_1 = "You've already learned 'Sharp Sense'."
                                         info_text_2 = ""
-                                if player.scout_level >= 2:
+                                if player.scout_level >= 3:
                                     if book_button.name == "vanish learn button":
                                         if not vanish_learned:
-                                            if player.scout_level >= 2:
+                                            if player.scout_level >= 3:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_scout["skill 3"] = "vanishing shroud"
                                                 info_text_1 = "'Vanishing Shroud' skill learned!"
@@ -22573,10 +22583,10 @@ if __name__ == "__main__":
                                         else:
                                             info_text_1 = "You've already learned this."
                                             info_text_2 = ""
-                                if player.scout_level >= 3:
+                                if player.scout_level >= 5:
                                     if book_button.name == "arrow learn button":
                                         if not arrow_learned:
-                                            if player.scout_level >= 3:
+                                            if player.scout_level >= 5:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                                 player.skills_scout["skill 4"] = "poison arrow"
                                                 info_text_1 = "'Poison Arrow' skill learned!"
@@ -22725,9 +22735,9 @@ if __name__ == "__main__":
 
                         if not book_appended:
                             if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
-                                if player.mage_level >= 2:
-                                    mage_book.update(670, 380, graphic_dict["mage_book_img_10"])
                                 if player.mage_level >= 3:
+                                    mage_book.update(670, 380, graphic_dict["mage_book_img_10"])
+                                if player.mage_level >= 5:
                                     mage_book.update(670, 380, graphic_dict["mage_book_img_20"])
                                 books.append(mage_book)
                                 skill_learn_items.append(barrier_learn_button)
@@ -22737,9 +22747,9 @@ if __name__ == "__main__":
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
-                                if player.fighter_level >= 2:
-                                    fighter_book.update(670, 380, graphic_dict["fighter_book_img_10"])
                                 if player.fighter_level >= 3:
+                                    fighter_book.update(670, 380, graphic_dict["fighter_book_img_10"])
+                                if player.fighter_level >= 5:
                                     fighter_book.update(670, 380, graphic_dict["fighter_book_img_20"])
                                 books.append(fighter_book)
                                 skill_learn_items.append(hard_strike_learn_button)
@@ -22749,9 +22759,9 @@ if __name__ == "__main__":
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
-                                if player.scout_level >= 2:
-                                    scout_book.update(670, 380, graphic_dict["scout_book_img_10"])
                                 if player.scout_level >= 3:
+                                    scout_book.update(670, 380, graphic_dict["scout_book_img_10"])
+                                if player.scout_level >= 5:
                                     scout_book.update(670, 380, graphic_dict["scout_book_img_20"])
                                 books.append(scout_book)
                                 skill_learn_items.append(sharp_sense_learn_button)

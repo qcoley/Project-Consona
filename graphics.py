@@ -583,6 +583,12 @@ def load_graphics():
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # korlok interaction snowfall --------------------------------------------------------------------------------------
+    popup_level_roles_url = resource_path('resources/art/popup_level_roles.png')
+    popup_level_roles_sheet = sprite_sheet((270, 110), popup_level_roles_url)
+    loaded_dict["mage_level_up"] = popup_level_roles_sheet[0]
+    loaded_dict["fighter_level_up"] = popup_level_roles_sheet[1]
+    loaded_dict["scout_level_up"] = popup_level_roles_sheet[2]
+    # korlok interaction snowfall --------------------------------------------------------------------------------------
     korlok_interaction_snowfall_url = resource_path('resources/art/korlok_interaction_snowfall.png')
     korlok_interaction_snowfall_sheet = sprite_sheet((292, 172), korlok_interaction_snowfall_url)
     loaded_dict["korlok_snowfall_1"] = korlok_interaction_snowfall_sheet[0]
