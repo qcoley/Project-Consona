@@ -562,16 +562,11 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     if rock_6.x_coordinate == 750:
                         rock_6.update(rock_6.x_coordinate + 110, rock_6.y_coordinate, graphic_dict["rock_small"])
                         if not rock_6_con:
-                            if len(player.items) < 16:
-                                pygame.mixer.find_channel(True).play(sfx_paper)
-                                rock_6_con = True
-                                info_text_1 = "You found a book under the rock!"
-                                info_text_2 = ""
-                                player.items.append(Item("mage book", "book", 200, 200,
-                                                         graphic_dict["mage_book"], 0))
-                            else:
-                                info_text_1 = "Your inventory is full."
-                                info_text_2 = ""
+                            pygame.mixer.find_channel(True).play(sfx_rupee)
+                            player.rupees += 25
+                            rock_6_con = True
+                            info_text_1 = "You found 25 Rupees under the rock!"
+                            info_text_2 = ""
                 else:
                     info_text_1 = "The rock won't budge."
                     info_text_2 = ""

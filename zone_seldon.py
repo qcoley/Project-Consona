@@ -666,10 +666,18 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
 
     # pop up notifications for situations like low health or first weapon acquire
     if not knowledge_academia_show and not beyond_seldon:
-        if player.knowledge["mage"] == 40 or player.knowledge["fighter"] == 40 or \
-                player.knowledge["scout"] == 40:
-            drawing_functions.knowledge_academia_window.append(knowledge_academia)
-            knowledge_academia_show = True
+        if player.race == "amuna":
+            if player.mage_level == 2 or player.fighter_level == 2:
+                drawing_functions.knowledge_academia_window.append(knowledge_academia)
+                knowledge_academia_show = True
+        if player.race == "nuldar":
+            if player.mage_level == 2 or player.scout_level == 2:
+                drawing_functions.knowledge_academia_window.append(knowledge_academia)
+                knowledge_academia_show = True
+        if player.race == "sorae":
+            if player.fighter_level == 2 or player.scout_level == 2:
+                drawing_functions.knowledge_academia_window.append(knowledge_academia)
+                knowledge_academia_show = True
     if rest_recover_show:
         if not rest_shown_before and not beyond_seldon:
             drawing_functions.rest_recover_window.append(rest_recover)

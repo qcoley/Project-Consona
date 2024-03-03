@@ -49,6 +49,7 @@ condition_description_window_e = []
 flower_pop_up_window_text = []
 fish_pop_up_window_text = []
 role_level_up_popup = []
+role_level_window_text = []
 
 
 # draws elements on screen that have been appended to list by below functions
@@ -197,6 +198,9 @@ def draw_it(screen, in_battle):
     if len(role_level_up_popup) > 0:
         for popup in role_level_up_popup:
             screen.blit(popup.surf, popup.rect)
+    if len(role_level_window_text) > 0:
+        for role_text in role_level_window_text:
+            screen.blit(role_text[0], role_text[1])
 
 
 def draw_level_up(screen, in_over_world):

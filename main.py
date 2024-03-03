@@ -31,7 +31,7 @@ import zone_castle
 
 # class objects --------------------------------------------------------------------------------------------------------
 class Pet(pygame.sprite.Sprite):
-    def __init__(self, name, type, stage, energy, image, active):
+    def __init__(self, name, type, stage, energy, image, active, experience):
         super(Pet, self).__init__()
         self.x_coordinate = player.x_coordinate + 5
         self.y_coordinate = player.y_coordinate + 5
@@ -42,6 +42,7 @@ class Pet(pygame.sprite.Sprite):
         self.stage = stage
         self.energy = energy
         self.active = active
+        self.experience = experience
 
     def update(self, x_coordinate, y_coordinate, screen_width, screen_height, current_zone):
         if x_coordinate > screen_width - 275:
@@ -8745,9 +8746,9 @@ if __name__ == "__main__":
                          "", 0, 0, 0, 0, 0, [], 3, 1, 1, 1)  # zone, defence, offense, image, mage, fighter, scout lvl
 
     # pets: name, type, stage, energy
-    pet_kasper = Pet("kasper", "scout", 1, 100, graphic_dict["kasper_down_1"], False)
-    pet_torok = Pet("torok", "fighter", 1, 100, graphic_dict["torok_down_1"], False)
-    pet_iriana = Pet("iriana", "mage", 1, 100, graphic_dict["iriana_down_1"], False)
+    pet_kasper = Pet("kasper", "scout", 1, 100, graphic_dict["kasper_down_1"], False, 0)
+    pet_torok = Pet("torok", "fighter", 1, 100, graphic_dict["torok_down_1"], False, 0)
+    pet_iriana = Pet("iriana", "mage", 1, 100, graphic_dict["iriana_down_1"], False, 0)
     # pet seed
     pet_seed = Item("pet seed", "seed", 1078, 197, graphic_dict["seed_img"], 1)
     pet_whistle_kasper = Item("pet whistle kasper", "whistle", 1078, 197, graphic_dict["whistle_kasper_img"], 1)
@@ -11622,6 +11623,7 @@ if __name__ == "__main__":
                             card_drop_played = False
                             card_popup_checked = True
                         drawing_functions.role_level_up_popup.clear()
+                        drawing_functions.role_level_window_text.clear()
                         loot_timer_reset = True
 
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
@@ -12174,6 +12176,7 @@ if __name__ == "__main__":
                                     fish_caught = False
                             if role_level_up_popup.rect.collidepoint(pos):
                                 drawing_functions.role_level_up_popup.clear()
+                                drawing_functions.role_level_window_text.clear()
 
                             if trading_deck:
                                 card_deck["snake_popup"] = False
@@ -17833,15 +17836,48 @@ if __name__ == "__main__":
                                             atmon_counter += 1
                                         # player will gain knowledge based on their current role
                                         if player.role == "mage":
-                                            if current_enemy_battling.level > player.level - 3:
+                                            if current_enemy_battling.level >= player.level - 2:
                                                 player.knowledge["mage"] += 25
                                                 if player.knowledge["mage"] >= 100:
                                                     player.mage_level += 1
+                                                    role_lvl_surf = font.render(str(player.mage_level), True,
+                                                                                "black", "light yellow")
+                                                    role_lvl_rect = role_lvl_surf.get_rect()
+                                                    role_lvl_rect.center = (925, 148)
+                                                    drawing_functions.role_level_window_text.append((role_lvl_surf,
+                                                                                                     role_lvl_rect))
                                                     role_level_up_popup.update(885, 136, graphic_dict["mage_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["mage"] = player.knowledge["mage"] - 100
-                                                battle_info_to_return_to_main_loop["knowledge"] = "+25 mage"
-
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+25 Mage"
+                                            elif current_enemy_battling.level > player.level - 3:
+                                                player.knowledge["mage"] += 15
+                                                if player.knowledge["mage"] >= 100:
+                                                    player.mage_level += 1
+                                                    role_lvl_surf = font.render(str(player.mage_level), True,
+                                                                                "black", "light yellow")
+                                                    role_lvl_rect = role_lvl_surf.get_rect()
+                                                    role_lvl_rect.center = (925, 148)
+                                                    drawing_functions.role_level_window_text.append((role_lvl_surf,
+                                                                                                     role_lvl_rect))
+                                                    role_level_up_popup.update(885, 136, graphic_dict["mage_level_up"])
+                                                    drawing_functions.role_level_up_popup.append(role_level_up_popup)
+                                                    player.knowledge["mage"] = player.knowledge["mage"] - 100
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+15 Mage"
+                                            elif current_enemy_battling.level > player.level - 4:
+                                                player.knowledge["mage"] += 5
+                                                if player.knowledge["mage"] >= 100:
+                                                    player.mage_level += 1
+                                                    role_lvl_surf = font.render(str(player.mage_level), True,
+                                                                                "black", "light yellow")
+                                                    role_lvl_rect = role_lvl_surf.get_rect()
+                                                    role_lvl_rect.center = (925, 148)
+                                                    drawing_functions.role_level_window_text.append((role_lvl_surf,
+                                                                                                     role_lvl_rect))
+                                                    role_level_up_popup.update(885, 136, graphic_dict["mage_level_up"])
+                                                    drawing_functions.role_level_up_popup.append(role_level_up_popup)
+                                                    player.knowledge["mage"] = player.knowledge["mage"] - 100
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+5 Mage"
                                             else:
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
                                             # if player has a pet seed, add to it for this role. stop counts at 8
@@ -17851,15 +17887,51 @@ if __name__ == "__main__":
                                                     seed_mage_count += 1
 
                                         if player.role == "fighter":
-                                            if current_enemy_battling.level > player.level - 3:
+                                            if current_enemy_battling.level >= player.level - 2:
                                                 player.knowledge["fighter"] += 25
                                                 if player.knowledge["fighter"] >= 100:
                                                     player.fighter_level += 1
+                                                    role_lvl_surf = font.render(str(player.fighter_level), True,
+                                                                                "black", "light yellow")
+                                                    role_lvl_rect = role_lvl_surf.get_rect()
+                                                    role_lvl_rect.center = (925, 148)
+                                                    drawing_functions.role_level_window_text.append((role_lvl_surf,
+                                                                                                     role_lvl_rect))
                                                     role_level_up_popup.update(885, 136,
                                                                                graphic_dict["fighter_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["fighter"] = player.knowledge["fighter"] - 100
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+25 fighter"
+                                            elif current_enemy_battling.level > player.level - 3:
+                                                player.knowledge["fighter"] += 15
+                                                if player.knowledge["fighter"] >= 100:
+                                                    player.fighter_level += 1
+                                                    role_lvl_surf = font.render(str(player.fighter_level), True,
+                                                                                "black", "light yellow")
+                                                    role_lvl_rect = role_lvl_surf.get_rect()
+                                                    role_lvl_rect.center = (925, 148)
+                                                    drawing_functions.role_level_window_text.append((role_lvl_surf,
+                                                                                                     role_lvl_rect))
+                                                    role_level_up_popup.update(885, 136,
+                                                                               graphic_dict["fighter_level_up"])
+                                                    drawing_functions.role_level_up_popup.append(role_level_up_popup)
+                                                    player.knowledge["fighter"] = player.knowledge["fighter"] - 100
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+15 fighter"
+                                            elif current_enemy_battling.level > player.level - 4:
+                                                player.knowledge["fighter"] += 5
+                                                if player.knowledge["fighter"] >= 100:
+                                                    player.fighter_level += 1
+                                                    role_lvl_surf = font.render(str(player.fighter_level), True,
+                                                                                "black", "light yellow")
+                                                    role_lvl_rect = role_lvl_surf.get_rect()
+                                                    role_lvl_rect.center = (925, 148)
+                                                    drawing_functions.role_level_window_text.append((role_lvl_surf,
+                                                                                                     role_lvl_rect))
+                                                    role_level_up_popup.update(885, 136,
+                                                                               graphic_dict["fighter_level_up"])
+                                                    drawing_functions.role_level_up_popup.append(role_level_up_popup)
+                                                    player.knowledge["fighter"] = player.knowledge["fighter"] - 100
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+5 fighter"
                                             else:
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
                                             # if player has a pet seed, add to it for this role. stop counts at 8
@@ -17869,14 +17941,48 @@ if __name__ == "__main__":
                                                     seed_fighter_count += 1
 
                                         if player.role == "scout":
-                                            if current_enemy_battling.level > player.level - 3:
+                                            if current_enemy_battling.level >= player.level - 2:
                                                 player.knowledge["scout"] += 25
                                                 if player.knowledge["scout"] >= 100:
                                                     player.scout_level += 1
+                                                    role_lvl_surf = font.render(str(player.scout_level), True,
+                                                                                 "black", "light yellow")
+                                                    role_lvl_rect = role_lvl_surf.get_rect()
+                                                    role_lvl_rect.center = (925, 148)
+                                                    drawing_functions.role_level_window_text.append((role_lvl_surf,
+                                                                                                     role_lvl_rect))
                                                     role_level_up_popup.update(885, 136, graphic_dict["scout_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["scout"] = player.knowledge["scout"] - 100
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+25 scout"
+                                            elif current_enemy_battling.level > player.level - 3:
+                                                player.knowledge["scout"] += 15
+                                                if player.knowledge["scout"] >= 100:
+                                                    player.scout_level += 1
+                                                    role_lvl_surf = font.render(str(player.scout_level), True,
+                                                                                "black", "light yellow")
+                                                    role_lvl_rect = role_lvl_surf.get_rect()
+                                                    role_lvl_rect.center = (925, 148)
+                                                    drawing_functions.role_level_window_text.append((role_lvl_surf,
+                                                                                                     role_lvl_rect))
+                                                    role_level_up_popup.update(885, 136, graphic_dict["scout_level_up"])
+                                                    drawing_functions.role_level_up_popup.append(role_level_up_popup)
+                                                    player.knowledge["scout"] = player.knowledge["scout"] - 100
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+15 scout"
+                                            elif current_enemy_battling.level > player.level - 4:
+                                                player.knowledge["scout"] += 5
+                                                if player.knowledge["scout"] >= 100:
+                                                    player.scout_level += 1
+                                                    role_lvl_surf = font.render(str(player.scout_level), True,
+                                                                                "black", "light yellow")
+                                                    role_lvl_rect = role_lvl_surf.get_rect()
+                                                    role_lvl_rect.center = (925, 148)
+                                                    drawing_functions.role_level_window_text.append((role_lvl_surf,
+                                                                                                     role_lvl_rect))
+                                                    role_level_up_popup.update(885, 136, graphic_dict["scout_level_up"])
+                                                    drawing_functions.role_level_up_popup.append(role_level_up_popup)
+                                                    player.knowledge["scout"] = player.knowledge["scout"] - 100
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+5 scout"
                                             else:
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
                                             # if player has a pet seed, add to it for this role. stop counts at 8
@@ -18293,14 +18399,60 @@ if __name__ == "__main__":
                                                     if current_enemy_battling.kind == "atmon":
                                                         atmon_counter += 1
                                                     # player will gain knowledge based on their current role
-                                                    if current_enemy_battling.level > player.level - 3:
+                                                    if current_enemy_battling.level >= player.level - 2:
                                                         player.knowledge["fighter"] += 25
                                                         if player.knowledge["fighter"] >= 100:
                                                             player.fighter_level += 1
-                                                            player.knowledge["fighter"] = (
-                                                                    player.knowledge["fighter"] - 100)
-                                                        battle_info_to_return_to_main_loop["knowledge"] = \
-                                                            "+25 fighter"
+                                                            role_lvl_surf = font.render(str(player.fighter_level), True,
+                                                                                        "black", "light yellow")
+                                                            role_lvl_rect = role_lvl_surf.get_rect()
+                                                            role_lvl_rect.center = (925, 148)
+                                                            drawing_functions.role_level_window_text.append(
+                                                                (role_lvl_surf,
+                                                                 role_lvl_rect))
+                                                            role_level_up_popup.update(885, 136,
+                                                                                       graphic_dict["fighter_level_up"])
+                                                            drawing_functions.role_level_up_popup.append(
+                                                                role_level_up_popup)
+                                                            player.knowledge["fighter"] = player.knowledge[
+                                                                                              "fighter"] - 100
+                                                        battle_info_to_return_to_main_loop["knowledge"] = "+25 fighter"
+                                                    elif current_enemy_battling.level > player.level - 3:
+                                                        player.knowledge["fighter"] += 15
+                                                        if player.knowledge["fighter"] >= 100:
+                                                            player.fighter_level += 1
+                                                            role_lvl_surf = font.render(str(player.fighter_level), True,
+                                                                                        "black", "light yellow")
+                                                            role_lvl_rect = role_lvl_surf.get_rect()
+                                                            role_lvl_rect.center = (925, 148)
+                                                            drawing_functions.role_level_window_text.append(
+                                                                (role_lvl_surf,
+                                                                 role_lvl_rect))
+                                                            role_level_up_popup.update(885, 136,
+                                                                                       graphic_dict["fighter_level_up"])
+                                                            drawing_functions.role_level_up_popup.append(
+                                                                role_level_up_popup)
+                                                            player.knowledge["fighter"] = player.knowledge[
+                                                                                              "fighter"] - 100
+                                                        battle_info_to_return_to_main_loop["knowledge"] = "+15 fighter"
+                                                    elif current_enemy_battling.level > player.level - 4:
+                                                        player.knowledge["fighter"] += 5
+                                                        if player.knowledge["fighter"] >= 100:
+                                                            player.fighter_level += 1
+                                                            role_lvl_surf = font.render(str(player.fighter_level), True,
+                                                                                        "black", "light yellow")
+                                                            role_lvl_rect = role_lvl_surf.get_rect()
+                                                            role_lvl_rect.center = (925, 148)
+                                                            drawing_functions.role_level_window_text.append(
+                                                                (role_lvl_surf,
+                                                                 role_lvl_rect))
+                                                            role_level_up_popup.update(885, 136,
+                                                                                       graphic_dict["fighter_level_up"])
+                                                            drawing_functions.role_level_up_popup.append(
+                                                                role_level_up_popup)
+                                                            player.knowledge["fighter"] = player.knowledge[
+                                                                                              "fighter"] - 100
+                                                        battle_info_to_return_to_main_loop["knowledge"] = "+5 fighter"
                                                     else:
                                                         battle_info_to_return_to_main_loop["knowledge"] = ""
                                                     # if player has a pet seed, add to it for this role
@@ -18765,13 +18917,63 @@ if __name__ == "__main__":
                                                         if current_enemy_battling.kind == "atmon":
                                                             atmon_counter += 1
                                                         # player will gain knowledge based on their current role
-                                                        if current_enemy_battling.level > player.level - 3:
+                                                        if current_enemy_battling.level >= player.level - 2:
                                                             player.knowledge["mage"] += 25
                                                             if player.knowledge["mage"] >= 100:
                                                                 player.mage_level += 1
-                                                                player.knowledge["mage"] = (
-                                                                        player.knowledge["mage"] - 100)
-                                                            battle_info_to_return_to_main_loop["knowledge"] = "+25 mage"
+                                                                role_lvl_surf = font.render(str(player.mage_level),
+                                                                                            True,
+                                                                                            "black", "light yellow")
+                                                                role_lvl_rect = role_lvl_surf.get_rect()
+                                                                role_lvl_rect.center = (925, 148)
+                                                                drawing_functions.role_level_window_text.append(
+                                                                    (role_lvl_surf,
+                                                                     role_lvl_rect))
+                                                                role_level_up_popup.update(885, 136, graphic_dict[
+                                                                    "mage_level_up"])
+                                                                drawing_functions.role_level_up_popup.append(
+                                                                    role_level_up_popup)
+                                                                player.knowledge["mage"] = player.knowledge[
+                                                                                               "mage"] - 100
+                                                            battle_info_to_return_to_main_loop["knowledge"] = "+25 Mage"
+                                                        elif current_enemy_battling.level > player.level - 3:
+                                                            player.knowledge["mage"] += 15
+                                                            if player.knowledge["mage"] >= 100:
+                                                                player.mage_level += 1
+                                                                role_lvl_surf = font.render(str(player.mage_level),
+                                                                                            True,
+                                                                                            "black", "light yellow")
+                                                                role_lvl_rect = role_lvl_surf.get_rect()
+                                                                role_lvl_rect.center = (925, 148)
+                                                                drawing_functions.role_level_window_text.append(
+                                                                    (role_lvl_surf,
+                                                                     role_lvl_rect))
+                                                                role_level_up_popup.update(885, 136, graphic_dict[
+                                                                    "mage_level_up"])
+                                                                drawing_functions.role_level_up_popup.append(
+                                                                    role_level_up_popup)
+                                                                player.knowledge["mage"] = player.knowledge[
+                                                                                               "mage"] - 100
+                                                            battle_info_to_return_to_main_loop["knowledge"] = "+15 Mage"
+                                                        elif current_enemy_battling.level > player.level - 4:
+                                                            player.knowledge["mage"] += 5
+                                                            if player.knowledge["mage"] >= 100:
+                                                                player.mage_level += 1
+                                                                role_lvl_surf = font.render(str(player.mage_level),
+                                                                                            True,
+                                                                                            "black", "light yellow")
+                                                                role_lvl_rect = role_lvl_surf.get_rect()
+                                                                role_lvl_rect.center = (925, 148)
+                                                                drawing_functions.role_level_window_text.append(
+                                                                    (role_lvl_surf,
+                                                                     role_lvl_rect))
+                                                                role_level_up_popup.update(885, 136, graphic_dict[
+                                                                    "mage_level_up"])
+                                                                drawing_functions.role_level_up_popup.append(
+                                                                    role_level_up_popup)
+                                                                player.knowledge["mage"] = player.knowledge[
+                                                                                               "mage"] - 100
+                                                            battle_info_to_return_to_main_loop["knowledge"] = "+5 Mage"
                                                         else:
                                                             battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         # if player has a pet seed, add to it for this role
@@ -18995,14 +19197,60 @@ if __name__ == "__main__":
                                                     if current_enemy_battling.kind == "atmon":
                                                         atmon_counter += 1
                                                     # player will gain knowledge based on their current role
-                                                    if current_enemy_battling.level > player.level - 3:
+                                                    if current_enemy_battling.level >= player.level - 2:
                                                         player.knowledge["fighter"] += 25
                                                         if player.knowledge["fighter"] >= 100:
                                                             player.fighter_level += 1
-                                                            player.knowledge["fighter"] \
-                                                                = player.knowledge["fighter"] - 100
-                                                        battle_info_to_return_to_main_loop["knowledge"] \
-                                                            = "+25 fighter"
+                                                            role_lvl_surf = font.render(str(player.fighter_level), True,
+                                                                                        "black", "light yellow")
+                                                            role_lvl_rect = role_lvl_surf.get_rect()
+                                                            role_lvl_rect.center = (925, 148)
+                                                            drawing_functions.role_level_window_text.append(
+                                                                (role_lvl_surf,
+                                                                 role_lvl_rect))
+                                                            role_level_up_popup.update(885, 136,
+                                                                                       graphic_dict["fighter_level_up"])
+                                                            drawing_functions.role_level_up_popup.append(
+                                                                role_level_up_popup)
+                                                            player.knowledge["fighter"] = player.knowledge[
+                                                                                              "fighter"] - 100
+                                                        battle_info_to_return_to_main_loop["knowledge"] = "+25 fighter"
+                                                    elif current_enemy_battling.level > player.level - 3:
+                                                        player.knowledge["fighter"] += 15
+                                                        if player.knowledge["fighter"] >= 100:
+                                                            player.fighter_level += 1
+                                                            role_lvl_surf = font.render(str(player.fighter_level), True,
+                                                                                        "black", "light yellow")
+                                                            role_lvl_rect = role_lvl_surf.get_rect()
+                                                            role_lvl_rect.center = (925, 148)
+                                                            drawing_functions.role_level_window_text.append(
+                                                                (role_lvl_surf,
+                                                                 role_lvl_rect))
+                                                            role_level_up_popup.update(885, 136,
+                                                                                       graphic_dict["fighter_level_up"])
+                                                            drawing_functions.role_level_up_popup.append(
+                                                                role_level_up_popup)
+                                                            player.knowledge["fighter"] = player.knowledge[
+                                                                                              "fighter"] - 100
+                                                        battle_info_to_return_to_main_loop["knowledge"] = "+15 fighter"
+                                                    elif current_enemy_battling.level > player.level - 4:
+                                                        player.knowledge["fighter"] += 5
+                                                        if player.knowledge["fighter"] >= 100:
+                                                            player.fighter_level += 1
+                                                            role_lvl_surf = font.render(str(player.fighter_level), True,
+                                                                                        "black", "light yellow")
+                                                            role_lvl_rect = role_lvl_surf.get_rect()
+                                                            role_lvl_rect.center = (925, 148)
+                                                            drawing_functions.role_level_window_text.append(
+                                                                (role_lvl_surf,
+                                                                 role_lvl_rect))
+                                                            role_level_up_popup.update(885, 136,
+                                                                                       graphic_dict["fighter_level_up"])
+                                                            drawing_functions.role_level_up_popup.append(
+                                                                role_level_up_popup)
+                                                            player.knowledge["fighter"] = player.knowledge[
+                                                                                              "fighter"] - 100
+                                                        battle_info_to_return_to_main_loop["knowledge"] = "+5 fighter"
                                                     else:
                                                         battle_info_to_return_to_main_loop["knowledge"] = ""
                                                     # if player has a pet seed, add to it for this role
@@ -19255,14 +19503,65 @@ if __name__ == "__main__":
                                                         if current_enemy_battling.kind == "atmon":
                                                             atmon_counter += 1
                                                         # player will gain knowledge based on their current role
-                                                        if current_enemy_battling.level > player.level - 3:
+                                                        if current_enemy_battling.level >= player.level - 2:
                                                             player.knowledge["scout"] += 25
                                                             if player.knowledge["scout"] >= 100:
                                                                 player.scout_level += 1
-                                                                player.knowledge["scout"] = (
-                                                                        player.knowledge["scout"] - 100)
-                                                            battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                "+25 scout"
+                                                                role_lvl_surf = font.render(str(player.scout_level),
+                                                                                            True,
+                                                                                            "black", "light yellow")
+                                                                role_lvl_rect = role_lvl_surf.get_rect()
+                                                                role_lvl_rect.center = (925, 148)
+                                                                drawing_functions.role_level_window_text.append(
+                                                                    (role_lvl_surf,
+                                                                     role_lvl_rect))
+                                                                role_level_up_popup.update(885, 136, graphic_dict[
+                                                                    "scout_level_up"])
+                                                                drawing_functions.role_level_up_popup.append(
+                                                                    role_level_up_popup)
+                                                                player.knowledge["scout"] = player.knowledge[
+                                                                                                "scout"] - 100
+                                                            battle_info_to_return_to_main_loop[
+                                                                "knowledge"] = "+25 scout"
+                                                        elif current_enemy_battling.level > player.level - 3:
+                                                            player.knowledge["scout"] += 15
+                                                            if player.knowledge["scout"] >= 100:
+                                                                player.scout_level += 1
+                                                                role_lvl_surf = font.render(str(player.scout_level),
+                                                                                            True,
+                                                                                            "black", "light yellow")
+                                                                role_lvl_rect = role_lvl_surf.get_rect()
+                                                                role_lvl_rect.center = (925, 148)
+                                                                drawing_functions.role_level_window_text.append(
+                                                                    (role_lvl_surf,
+                                                                     role_lvl_rect))
+                                                                role_level_up_popup.update(885, 136, graphic_dict[
+                                                                    "scout_level_up"])
+                                                                drawing_functions.role_level_up_popup.append(
+                                                                    role_level_up_popup)
+                                                                player.knowledge["scout"] = player.knowledge[
+                                                                                                "scout"] - 100
+                                                            battle_info_to_return_to_main_loop[
+                                                                "knowledge"] = "+15 scout"
+                                                        elif current_enemy_battling.level > player.level - 4:
+                                                            player.knowledge["scout"] += 5
+                                                            if player.knowledge["scout"] >= 100:
+                                                                player.scout_level += 1
+                                                                role_lvl_surf = font.render(str(player.scout_level),
+                                                                                            True,
+                                                                                            "black", "light yellow")
+                                                                role_lvl_rect = role_lvl_surf.get_rect()
+                                                                role_lvl_rect.center = (925, 148)
+                                                                drawing_functions.role_level_window_text.append(
+                                                                    (role_lvl_surf,
+                                                                     role_lvl_rect))
+                                                                role_level_up_popup.update(885, 136, graphic_dict[
+                                                                    "scout_level_up"])
+                                                                drawing_functions.role_level_up_popup.append(
+                                                                    role_level_up_popup)
+                                                                player.knowledge["scout"] = player.knowledge[
+                                                                                                "scout"] - 100
+                                                            battle_info_to_return_to_main_loop["knowledge"] = "+5 scout"
                                                         else:
                                                             battle_info_to_return_to_main_loop["knowledge"] = ""
                                                         # if player has a pet seed, add to it for this role
@@ -22558,7 +22857,7 @@ if __name__ == "__main__":
                                             books.clear()
                                             skill_learn_items.clear()
                                         else:
-                                            info_text_1 = "scout level 1 required to learn."
+                                            info_text_1 = "Scout level 1 required to learn."
                                             info_text_2 = ""
                                     else:
                                         info_text_1 = "You've already learned 'Sharp Sense'."
@@ -22578,7 +22877,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "scout level 2 required to learn."
+                                                info_text_1 = "Scout level 2 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned this."
@@ -22598,7 +22897,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "scout level 3 required to learn."
+                                                info_text_1 = "Scout level 3 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned this."
@@ -25690,6 +25989,7 @@ if __name__ == "__main__":
                                         level_visual_tic = time.perf_counter()
                                         loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
+                                    player.rupees += 20
 
                                 if not quest_clicked:
                                     if not player.quest_complete["band hammer"]:
@@ -25758,6 +26058,8 @@ if __name__ == "__main__":
                                         level_visual_tic = time.perf_counter()
                                         loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
+                                    player.items.append(Item("mage book", "book", 200, 200,
+                                                             graphic_dict["mage_book"], 0))
                                 if not quest_clicked:
                                     if not player.quest_complete["elementary elementals"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -25893,6 +26195,7 @@ if __name__ == "__main__":
                                         level_visual_tic = time.perf_counter()
                                         loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
+                                    player.rupees += 30
                                 if not quest_clicked:
                                     if not player.quest_complete["kart troubles"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -25959,6 +26262,8 @@ if __name__ == "__main__":
                                         level_visual_tic = time.perf_counter()
                                         loot_timer_reset = False
                                     player.reputation["sorae"] += 10
+                                    player.items.append(Item("eldream firework", "firework", 200, 200,
+                                                             graphic_dict["eldream_firework"], 0))
                                 if not quest_clicked:
                                     if not player.quest_complete["las escondidas"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -26025,6 +26330,8 @@ if __name__ == "__main__":
                                         level_visual_tic = time.perf_counter()
                                         loot_timer_reset = False
                                     player.reputation["amuna"] += 10
+                                    player.items.append(Item("scout book", "book", 200, 200,
+                                                             graphic_dict["scout_book"], 0))
                                 if not quest_clicked:
                                     if not player.quest_complete["shades of fear"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -26488,6 +26795,7 @@ if __name__ == "__main__":
                                     info_text_4 = ""
                                     player.star_power += 1
                                     player.experience += 50
+                                    player.rupees += 40
                                     recycle_crate.update(recycle_crate.x_coordinate, recycle_crate.y_coordinate,
                                                          graphic_dict["recycle_crate_full"])
                                     recycle_crate_overlay.update(recycle_crate_overlay.x_coordinate,
