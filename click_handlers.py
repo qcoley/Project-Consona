@@ -376,7 +376,8 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
 
 # handles mouse clicks for inventory sub-screen for items with actions
 def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics, width, height,
-              sfx_firework, sfx_skill_learn, poisoned, burned, bleeding, crushed):
+              sfx_firework, sfx_skill_learn, poisoned, burned, bleeding, crushed, font, sfx_role_level,
+              role_level_up_popup):
 
     return_dict = {"item message": ""}
 
@@ -474,19 +475,49 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 return_dict["item message"] = "You're already full health or energy."
         if item.name == "mage book":
             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-            player.knowledge["mage"] = player.knowledge["mage"] + 100
+            player.knowledge["mage"] = player.knowledge["mage"] + 50
+            if player.knowledge["mage"] >= 100:
+                player.mage_level += 1
+                role_lvl_surf = font.render(str(player.mage_level), True, "black", "light yellow")
+                role_lvl_rect = role_lvl_surf.get_rect()
+                role_lvl_rect.center = (925, 148)
+                drawing_functions.role_level_window_text.append((role_lvl_surf, role_lvl_rect))
+                role_level_up_popup.update(885, 136, graphics["mage_level_up"])
+                drawing_functions.role_level_up_popup.append(role_level_up_popup)
+                player.knowledge["mage"] = player.knowledge["mage"] - 100
+                pygame.mixer.find_channel(True).play(sfx_role_level)
             drawing_functions.player_items.remove(item)
             player.items.remove(item)
             return_dict["item message"] = "You gain 100 mage knowledge."
         if item.name == "fighter book":
             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-            player.knowledge["fighter"] = player.knowledge["fighter"] + 100
+            player.knowledge["fighter"] = player.knowledge["fighter"] + 50
+            if player.knowledge["fighter"] >= 100:
+                player.fighter_level += 1
+                role_lvl_surf = font.render(str(player.fighter_level), True, "black", "light yellow")
+                role_lvl_rect = role_lvl_surf.get_rect()
+                role_lvl_rect.center = (925, 148)
+                drawing_functions.role_level_window_text.append((role_lvl_surf, role_lvl_rect))
+                role_level_up_popup.update(885, 136, graphics["fighter_level_up"])
+                drawing_functions.role_level_up_popup.append(role_level_up_popup)
+                player.knowledge["fighter"] = player.knowledge["fighter"] - 100
+                pygame.mixer.find_channel(True).play(sfx_role_level)
             drawing_functions.player_items.remove(item)
             player.items.remove(item)
             return_dict["item message"] = "You gain 100 fighter knowledge."
         if item.name == "scout book":
             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-            player.knowledge["scout"] = player.knowledge["scout"] + 100
+            player.knowledge["scout"] = player.knowledge["scout"] + 50
+            if player.knowledge["scout"] >= 100:
+                player.scout_level += 1
+                role_lvl_surf = font.render(str(player.scout_level), True, "black", "light yellow")
+                role_lvl_rect = role_lvl_surf.get_rect()
+                role_lvl_rect.center = (925, 148)
+                drawing_functions.role_level_window_text.append((role_lvl_surf, role_lvl_rect))
+                role_level_up_popup.update(885, 136, graphics["scout_level_up"])
+                drawing_functions.role_level_up_popup.append(role_level_up_popup)
+                player.knowledge["scout"] = player.knowledge["scout"] - 100
+                pygame.mixer.find_channel(True).play(sfx_role_level)
             drawing_functions.player_items.remove(item)
             player.items.remove(item)
             return_dict["item message"] = "You gain 100 scout knowledge."

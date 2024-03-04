@@ -1980,13 +1980,13 @@ def load_game(player, Item, graphics, Pet):
             player.flowers_sorae = player_load_info["flowers sorae"]
             if player_load_info["pets"]["kasper_got"]:
                 player.pet.append(Pet("kasper", "scout", 1, player_load_info["pets"]["kasper_energy"],
-                                      graphics["kasper_down_1"], False))
+                                      graphics["kasper_down_1"], False, 0))
             if player_load_info["pets"]["torok_got"]:
                 player.pet.append(Pet("torok", "fighter", 1, player_load_info["pets"]["torok_energy"],
-                                      graphics["torok_down_1"], False))
+                                      graphics["torok_down_1"], False, 0))
             if player_load_info["pets"]["iriana_got"]:
                 player.pet.append(Pet("iriana", "mage", 1, player_load_info["pets"]["iriana_energy"],
-                                      graphics["iriana_down_1"], False))
+                                      graphics["iriana_down_1"], False, 0))
             if player.race == "amuna":
                 if player.gender == "male":
                     if player.role == "mage":

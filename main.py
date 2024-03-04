@@ -8671,7 +8671,7 @@ if __name__ == "__main__":
     save_absent = Notification("save absent", False, 652, 568, graphic_dict["save_not_found"])
     first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
     dreth_taunt_popup = Notification("dreth taunt", False, 510, 365, graphic_dict["dreth_taunt_1"])
-    card_drop_popup = Notification("card popup", False, 885, 150, graphic_dict["c_snake_popup"])
+    card_drop_popup = Notification("card popup", False, 885, 580, graphic_dict["c_snake_popup"])
     apothis_gift_popup = Notification("apothis popup", False, 510, 365, graphic_dict["apothis_popup"])
     cloaked_popup = Notification("cloaked popup", False, 510, 365, graphic_dict["cloaked_popup"])
     condition_popup = Notification("condition popup", False, 510, 365, graphic_dict["condition_popup"])
@@ -9891,6 +9891,8 @@ if __name__ == "__main__":
     sfx_quest_start.set_volume(0.15)
     sfx_level_up = pygame.mixer.Sound(resource_path("resources/sounds/level_up.mp3"))
     sfx_level_up.set_volume(0.25)
+    sfx_role_level = pygame.mixer.Sound(resource_path("resources/sounds/role_level.mp3"))
+    sfx_role_level.set_volume(0.30)
 
     sfx_sheet_paper = pygame.mixer.Sound(resource_path("resources/sounds/sheet_paper.mp3"))
     sfx_sheet_paper.set_volume(0.50)
@@ -12335,7 +12337,8 @@ if __name__ == "__main__":
                                                                            sfx_item_whistle, sfx_item_snack,
                                                                            graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                            sfx_firework, sfx_skill_learn, poisoned,
-                                                                           burned, bleeding, crushed)
+                                                                           burned, bleeding, crushed, font,
+                                                                           sfx_role_level, role_level_up_popup)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -16967,6 +16970,9 @@ if __name__ == "__main__":
                                 drawing_functions.fish_pop_up_window_text.clear()
 
                             if event.type == pygame.MOUSEBUTTONUP:
+                                if role_level_up_popup.rect.collidepoint(pos):
+                                    drawing_functions.role_level_up_popup.clear()
+                                    drawing_functions.role_level_window_text.clear()
                                 if npc_garan.gift:
                                     gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                                  pressed_keys, sfx_button_role)
@@ -17024,7 +17030,8 @@ if __name__ == "__main__":
                                                                            graphic_dict,
                                                                            SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                            sfx_skill_learn, poisoned,
-                                                                           burned, bleeding, crushed)
+                                                                           burned, bleeding, crushed, font,
+                                                                           sfx_role_level, role_level_up_popup)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -17849,6 +17856,7 @@ if __name__ == "__main__":
                                                     role_level_up_popup.update(885, 136, graphic_dict["mage_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["mage"] = player.knowledge["mage"] - 100
+                                                    pygame.mixer.find_channel(True).play(sfx_role_level)
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+25 Mage"
                                             elif current_enemy_battling.level > player.level - 3:
                                                 player.knowledge["mage"] += 15
@@ -17863,6 +17871,7 @@ if __name__ == "__main__":
                                                     role_level_up_popup.update(885, 136, graphic_dict["mage_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["mage"] = player.knowledge["mage"] - 100
+                                                    pygame.mixer.find_channel(True).play(sfx_role_level)
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+15 Mage"
                                             elif current_enemy_battling.level > player.level - 4:
                                                 player.knowledge["mage"] += 5
@@ -17877,6 +17886,7 @@ if __name__ == "__main__":
                                                     role_level_up_popup.update(885, 136, graphic_dict["mage_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["mage"] = player.knowledge["mage"] - 100
+                                                    pygame.mixer.find_channel(True).play(sfx_role_level)
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+5 Mage"
                                             else:
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
@@ -17901,6 +17911,7 @@ if __name__ == "__main__":
                                                                                graphic_dict["fighter_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["fighter"] = player.knowledge["fighter"] - 100
+                                                    pygame.mixer.find_channel(True).play(sfx_role_level)
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+25 fighter"
                                             elif current_enemy_battling.level > player.level - 3:
                                                 player.knowledge["fighter"] += 15
@@ -17916,6 +17927,7 @@ if __name__ == "__main__":
                                                                                graphic_dict["fighter_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["fighter"] = player.knowledge["fighter"] - 100
+                                                    pygame.mixer.find_channel(True).play(sfx_role_level)
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+15 fighter"
                                             elif current_enemy_battling.level > player.level - 4:
                                                 player.knowledge["fighter"] += 5
@@ -17931,6 +17943,7 @@ if __name__ == "__main__":
                                                                                graphic_dict["fighter_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["fighter"] = player.knowledge["fighter"] - 100
+                                                    pygame.mixer.find_channel(True).play(sfx_role_level)
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+5 fighter"
                                             else:
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
@@ -17946,7 +17959,7 @@ if __name__ == "__main__":
                                                 if player.knowledge["scout"] >= 100:
                                                     player.scout_level += 1
                                                     role_lvl_surf = font.render(str(player.scout_level), True,
-                                                                                 "black", "light yellow")
+                                                                                "black", "light yellow")
                                                     role_lvl_rect = role_lvl_surf.get_rect()
                                                     role_lvl_rect.center = (925, 148)
                                                     drawing_functions.role_level_window_text.append((role_lvl_surf,
@@ -17954,6 +17967,7 @@ if __name__ == "__main__":
                                                     role_level_up_popup.update(885, 136, graphic_dict["scout_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["scout"] = player.knowledge["scout"] - 100
+                                                    pygame.mixer.find_channel(True).play(sfx_role_level)
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+25 scout"
                                             elif current_enemy_battling.level > player.level - 3:
                                                 player.knowledge["scout"] += 15
@@ -17968,6 +17982,7 @@ if __name__ == "__main__":
                                                     role_level_up_popup.update(885, 136, graphic_dict["scout_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["scout"] = player.knowledge["scout"] - 100
+                                                    pygame.mixer.find_channel(True).play(sfx_role_level)
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+15 scout"
                                             elif current_enemy_battling.level > player.level - 4:
                                                 player.knowledge["scout"] += 5
@@ -17982,6 +17997,7 @@ if __name__ == "__main__":
                                                     role_level_up_popup.update(885, 136, graphic_dict["scout_level_up"])
                                                     drawing_functions.role_level_up_popup.append(role_level_up_popup)
                                                     player.knowledge["scout"] = player.knowledge["scout"] - 100
+                                                    pygame.mixer.find_channel(True).play(sfx_role_level)
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+5 scout"
                                             else:
                                                 battle_info_to_return_to_main_loop["knowledge"] = ""
@@ -18416,6 +18432,7 @@ if __name__ == "__main__":
                                                                 role_level_up_popup)
                                                             player.knowledge["fighter"] = player.knowledge[
                                                                                               "fighter"] - 100
+                                                            pygame.mixer.find_channel(True).play(sfx_role_level)
                                                         battle_info_to_return_to_main_loop["knowledge"] = "+25 fighter"
                                                     elif current_enemy_battling.level > player.level - 3:
                                                         player.knowledge["fighter"] += 15
@@ -18434,6 +18451,7 @@ if __name__ == "__main__":
                                                                 role_level_up_popup)
                                                             player.knowledge["fighter"] = player.knowledge[
                                                                                               "fighter"] - 100
+                                                            pygame.mixer.find_channel(True).play(sfx_role_level)
                                                         battle_info_to_return_to_main_loop["knowledge"] = "+15 fighter"
                                                     elif current_enemy_battling.level > player.level - 4:
                                                         player.knowledge["fighter"] += 5
@@ -18452,6 +18470,7 @@ if __name__ == "__main__":
                                                                 role_level_up_popup)
                                                             player.knowledge["fighter"] = player.knowledge[
                                                                                               "fighter"] - 100
+                                                            pygame.mixer.find_channel(True).play(sfx_role_level)
                                                         battle_info_to_return_to_main_loop["knowledge"] = "+5 fighter"
                                                     else:
                                                         battle_info_to_return_to_main_loop["knowledge"] = ""
@@ -18935,6 +18954,7 @@ if __name__ == "__main__":
                                                                     role_level_up_popup)
                                                                 player.knowledge["mage"] = player.knowledge[
                                                                                                "mage"] - 100
+                                                                pygame.mixer.find_channel(True).play(sfx_role_level)
                                                             battle_info_to_return_to_main_loop["knowledge"] = "+25 Mage"
                                                         elif current_enemy_battling.level > player.level - 3:
                                                             player.knowledge["mage"] += 15
@@ -18954,6 +18974,7 @@ if __name__ == "__main__":
                                                                     role_level_up_popup)
                                                                 player.knowledge["mage"] = player.knowledge[
                                                                                                "mage"] - 100
+                                                                pygame.mixer.find_channel(True).play(sfx_role_level)
                                                             battle_info_to_return_to_main_loop["knowledge"] = "+15 Mage"
                                                         elif current_enemy_battling.level > player.level - 4:
                                                             player.knowledge["mage"] += 5
@@ -18973,6 +18994,7 @@ if __name__ == "__main__":
                                                                     role_level_up_popup)
                                                                 player.knowledge["mage"] = player.knowledge[
                                                                                                "mage"] - 100
+                                                                pygame.mixer.find_channel(True).play(sfx_role_level)
                                                             battle_info_to_return_to_main_loop["knowledge"] = "+5 Mage"
                                                         else:
                                                             battle_info_to_return_to_main_loop["knowledge"] = ""
@@ -19214,6 +19236,7 @@ if __name__ == "__main__":
                                                                 role_level_up_popup)
                                                             player.knowledge["fighter"] = player.knowledge[
                                                                                               "fighter"] - 100
+                                                            pygame.mixer.find_channel(True).play(sfx_role_level)
                                                         battle_info_to_return_to_main_loop["knowledge"] = "+25 fighter"
                                                     elif current_enemy_battling.level > player.level - 3:
                                                         player.knowledge["fighter"] += 15
@@ -19232,6 +19255,7 @@ if __name__ == "__main__":
                                                                 role_level_up_popup)
                                                             player.knowledge["fighter"] = player.knowledge[
                                                                                               "fighter"] - 100
+                                                            pygame.mixer.find_channel(True).play(sfx_role_level)
                                                         battle_info_to_return_to_main_loop["knowledge"] = "+15 fighter"
                                                     elif current_enemy_battling.level > player.level - 4:
                                                         player.knowledge["fighter"] += 5
@@ -19250,6 +19274,7 @@ if __name__ == "__main__":
                                                                 role_level_up_popup)
                                                             player.knowledge["fighter"] = player.knowledge[
                                                                                               "fighter"] - 100
+                                                            pygame.mixer.find_channel(True).play(sfx_role_level)
                                                         battle_info_to_return_to_main_loop["knowledge"] = "+5 fighter"
                                                     else:
                                                         battle_info_to_return_to_main_loop["knowledge"] = ""
@@ -19521,6 +19546,7 @@ if __name__ == "__main__":
                                                                     role_level_up_popup)
                                                                 player.knowledge["scout"] = player.knowledge[
                                                                                                 "scout"] - 100
+                                                                pygame.mixer.find_channel(True).play(sfx_role_level)
                                                             battle_info_to_return_to_main_loop[
                                                                 "knowledge"] = "+25 scout"
                                                         elif current_enemy_battling.level > player.level - 3:
@@ -19541,6 +19567,7 @@ if __name__ == "__main__":
                                                                     role_level_up_popup)
                                                                 player.knowledge["scout"] = player.knowledge[
                                                                                                 "scout"] - 100
+                                                                pygame.mixer.find_channel(True).play(sfx_role_level)
                                                             battle_info_to_return_to_main_loop[
                                                                 "knowledge"] = "+15 scout"
                                                         elif current_enemy_battling.level > player.level - 4:
@@ -19561,6 +19588,7 @@ if __name__ == "__main__":
                                                                     role_level_up_popup)
                                                                 player.knowledge["scout"] = player.knowledge[
                                                                                                 "scout"] - 100
+                                                                pygame.mixer.find_channel(True).play(sfx_role_level)
                                                             battle_info_to_return_to_main_loop["knowledge"] = "+5 scout"
                                                         else:
                                                             battle_info_to_return_to_main_loop["knowledge"] = ""
@@ -21775,7 +21803,8 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn, poisoned, burned, bleeding,
-                                                                       crushed)
+                                                                       crushed, font, sfx_role_level,
+                                                                       role_level_up_popup)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -22644,7 +22673,8 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn, poisoned, burned, bleeding,
-                                                                       crushed)
+                                                                       crushed, font, sfx_role_level,
+                                                                       role_level_up_popup)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -23397,7 +23427,8 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn, poisoned, burned, bleeding,
-                                                                       crushed)
+                                                                       crushed, font, sfx_role_level,
+                                                                       role_level_up_popup)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -24096,7 +24127,8 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn, poisoned, burned, bleeding,
-                                                                       crushed)
+                                                                       crushed, font, sfx_role_level,
+                                                                       role_level_up_popup)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -24605,7 +24637,8 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack,
                                                                        graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                        sfx_firework, sfx_skill_learn, poisoned, burned,
-                                                                       bleeding, crushed)
+                                                                       bleeding, crushed, font, sfx_role_level,
+                                                                       role_level_up_popup)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -25197,7 +25230,8 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack,
                                                                        graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                        sfx_firework, sfx_skill_learn, poisoned, burned,
-                                                                       bleeding, crushed)
+                                                                       bleeding, crushed, font, sfx_role_level,
+                                                                       role_level_up_popup)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
@@ -25646,7 +25680,8 @@ if __name__ == "__main__":
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
                                                                        SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework,
                                                                        sfx_skill_learn, poisoned, burned, bleeding,
-                                                                       crushed)
+                                                                       crushed, font, sfx_role_level,
+                                                                       role_level_up_popup)
                             try:
                                 if inventory_event["cat card"]:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
