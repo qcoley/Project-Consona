@@ -104,8 +104,6 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     if time_of_day == 7:
         screen.blit(night, (0, 0))
 
-    drawing_functions.draw_level_up(screen, in_over_world)
-
     if noren.quest_complete or boro.quest_complete:
         prism_toc = time.perf_counter()
         if prism_toc - prism_tic < 1.5:
@@ -393,52 +391,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                                    ghoul_battle_sprite, 0, ghoul_battle_sprite, ghoul_battle_sprite,
                                                    ghoul_battle_sprite, False, False, time_of_day, True)
 
-    # --------------------------------------------------------------------------------------------------
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
-
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
-
+    # ------------------------------------------------------------------------------------------------------------------
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
     face_this_npc = random.choice(npcs.sprites())
@@ -549,10 +502,6 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         screen.blit(marrow_entrance_bg_open, (0, 0))
     else:
         screen.blit(marrow_entrance_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(entrance_npc.surf, entrance_npc.rect)
 
@@ -563,7 +512,6 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     screen.blit(overlay_switch.surf, overlay_switch.rect)
 
@@ -630,47 +578,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                 info_text_4 = ""
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, False)
 
     if switch_phase != "complete":
         face_direction = random.choice(["left", "right", "front", "back"])
@@ -766,10 +674,6 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
             over_world_song_set = True
 
     screen.blit(marrow_tower_w_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not ramps_crate_1_got:
         screen.blit(crate_1.surf, crate_1.rect)
@@ -791,50 +695,9 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
 
     if pygame.sprite.collide_rect(player, crate_1):
         if not ramps_crate_1_got:
@@ -1007,10 +870,6 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
             over_world_song_set = True
 
     screen.blit(marrow_tower_e_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if not ramps_crate_3_got:
         screen.blit(crate_3.surf, crate_3.rect)
@@ -1030,50 +889,9 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
 
     if pygame.sprite.collide_rect(player, crate_3):
         if not ramps_crate_3_got:
@@ -1234,55 +1052,8 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     if time_of_day == 7:
         screen.blit(night, (0, 0))
 
-    drawing_functions.draw_level_up(screen, in_over_world)
-
     # --------------------------------------------------------------------------------------------------
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, False)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_west):
         interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
@@ -1373,55 +1144,8 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
     if time_of_day == 7:
         screen.blit(night, (0, 0))
 
-    drawing_functions.draw_level_up(screen, in_over_world)
-
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, False)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_east):
         interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
@@ -1551,8 +1275,6 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     if time_of_day == 7:
         screen.blit(night, (0, 0))
 
-    drawing_functions.draw_level_up(screen, in_over_world)
-
     if erebyth_defeated:
         if pygame.sprite.collide_rect(player, dungeon_chest):
             interaction_popup.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50,
@@ -1619,52 +1341,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                                                        time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
 
     if player.y_coordinate <= 75:
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_right"])
@@ -1769,55 +1446,8 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     if not item_block_8_got:
         screen.blit(item_block_8.surf, item_block_8.rect)
 
-    drawing_functions.draw_level_up(screen, in_over_world)
-
     # --------------------------------------------------------------------------------------------------
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, False)
 
     if player.y_coordinate <= 75:
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_left"])
@@ -2137,11 +1767,6 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
             over_world_song_set = True
 
     screen.blit(marrow_ramps_w_end_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
     respawned_dict = gameplay_functions.enemy_respawn(player, atmons, atmons, atmons, atmons, atmons, atmons,
                                                       atmons, atmons, atmons, Enemy, Item, graphic_dict, UiElement,
                                                       atmons, atmons, atmons, atmons, atmons, atmons, atmons, atmons,
@@ -2188,7 +1813,6 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if pygame.Rect.colliderect(player.rect, sub_marrow_rect):
         interaction_popup.update(495, 580, graphic_dict["popup_interaction"])
@@ -2411,46 +2035,6 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
-
     # enemy movement updates
     if time_of_day != 0 and time_of_day != 7:
         direction_horizontal = random.choice(["left", "right"])

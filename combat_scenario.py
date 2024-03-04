@@ -2433,6 +2433,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     # add to dictionary experience given from defeating enemy
                     combat_event_dictionary["experience gained"] = enemy_experience
 
+                for pet in player.pet:
+                    if pet.active:
+                        pet.experience += 5
+
                 try:
                     if enemy_combating.kind != "atmon":
                         drop_chance = random.randrange(1, 10)

@@ -160,50 +160,7 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
 
-    drawing_functions.draw_level_up(screen, in_over_world)
-
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, False)
-    if len(drawing_functions.loot_popup_container) > 0:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
+    # ------------------------------------------------------------------------------------------------------------------
     if pygame.Rect.colliderect(player.rect, fishing_hut_rect):
         interaction_popup.update(847, 148, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)

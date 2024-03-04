@@ -29,10 +29,6 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
             over_world_song_set = True
 
     screen.blit(ectrenos_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     if time_of_day != 0 and time_of_day != 7:
         screen.blit(critter.surf, critter.rect)
@@ -96,7 +92,6 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
     screen.blit(ectrene.surf, ectrene.rect)
 
     if pygame.Rect.colliderect(player.rect, ladder):
@@ -186,47 +181,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                                                     torok_battle_sprite, iriana_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
 
     if 380 < player.x_coordinate < 650 and player.y_coordinate > 700:
         player.current_zone = "eldream"
@@ -397,8 +352,6 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
 
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
-
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
         interaction_popup.update(816, 178, graphic_dict["popup_interaction"])
@@ -576,52 +529,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
 
     if 990 < player.x_coordinate and 395 < player.y_coordinate < 625:
         player.current_zone = "ectrenos"
@@ -772,8 +680,6 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
 
     if not item_block_got:
         screen.blit(item_block.surf, item_block.rect)
-
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance):
         interaction_popup.update(217, 178, graphic_dict["popup_interaction"])
@@ -953,52 +859,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
 
     if 50 > player.x_coordinate and 400 < player.y_coordinate < 620:
         player.current_zone = "ectrenos"
@@ -1138,8 +999,6 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     if time_of_day == 7:
         screen.blit(night, (0, 0))
 
-    drawing_functions.draw_level_up(screen, in_over_world)
-
     if not player.quest_complete["shades of fear"]:
         screen.blit(quest_star_everett.surf, quest_star_everett.rect)
 
@@ -1247,52 +1106,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                    time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
 
     if 85 > player.x_coordinate and player.y_coordinate < 375:
         player.current_zone = "ectrenos left"
@@ -1378,11 +1192,6 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
             over_world_song_set = True
 
     screen.blit(ectrenos_alcove_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
     respawned_dict = gameplay_functions.enemy_respawn(player, enemies, enemies, enemies, enemies, enemies, enemies,
                                                       enemies, enemies, enemies, Enemy, Item, graphic_dict, UiElement,
                                                       eldream_flowers, eldream_flowers, enemies, enemies, enemies,
@@ -1407,8 +1216,6 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
-
     screen.blit(alcove_star.surf, alcove_star.rect)
 
     if pygame.Rect.colliderect(player.rect, ladder):
@@ -1517,47 +1324,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                                                    time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
 
     # npc movement updates
     if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
@@ -1715,10 +1482,6 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
     screen.blit(fishing_alcove_bg, (0, 0))
     screen.blit(water_fish_1.surf, water_fish_1.rect)
     screen.blit(water_fish_3.surf, water_fish_3.rect)
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
     screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
 
@@ -1732,7 +1495,6 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if pygame.Rect.colliderect(player.rect, alcove_rect):
         interaction_popup.update(412, 675, graphic_dict["popup_interaction"])
@@ -1931,47 +1693,7 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
     screen.blit(mini_map.surf, mini_map.rect)
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, False)
 
     fishing_alcove_return = {"over_world_song_set": over_world_song_set, "basic_fish_counter": basic_fish_counter,
                              "better_fish_counter": better_fish_counter,

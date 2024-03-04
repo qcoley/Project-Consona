@@ -87,10 +87,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     screen.blit(rock_4.surf, rock_4.rect)
     screen.blit(rock_5.surf, rock_5.rect)
     screen.blit(rock_6.surf, rock_6.rect)
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(rohir_gate.surf, rohir_gate.rect)
     for building in nuldar_buildings:
         screen.blit(building.surf, building.rect)
@@ -189,8 +185,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(dusk, (0, 0))
     if time_of_day == 7:
         screen.blit(night, (0, 0))
-
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if not player.quest_complete["band hammer"]:
         screen.blit(star_voruke.surf, star_voruke.rect)
@@ -577,51 +571,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
-
     # enemy movement updates
     if time_of_day != 0 and time_of_day != 7:
         direction_horizontal = random.choice(["left", "right"])

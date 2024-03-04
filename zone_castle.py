@@ -35,11 +35,6 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
     if key_got:
         screen.blit(castle_one_keyed_bg, (0, 0))
 
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
     if not castle_crate_1_got:
         screen.blit(crate_1.surf, crate_1.rect)
     if not castle_crate_2_got:
@@ -71,7 +66,6 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if rope_phase != 2:
         screen.blit(chandelier.surf, chandelier.rect)
@@ -256,46 +250,6 @@ def castle_one(pygame, screen, graphic_dict, player, castle_one_bg, over_world_s
                                                time_of_day, True)
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
-
     direction_horizontal = random.choice(["left", "right"])
     direction_vertical = random.choice(["up", "down"])
     move_mon = random.choice(jumanos.sprites())
@@ -382,10 +336,6 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
         screen.blit(castle_two_bg, (0, 0))
     if rope_phase == 10 or rope_phase == 2:
         screen.blit(castle_two_roped_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
 
     screen.blit(rock_1.surf, rock_1.rect)
     screen.blit(rock_2.surf, rock_2.rect)
@@ -424,7 +374,6 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if pygame.sprite.collide_rect(player, rock_1):
         interaction_popup.update(rock_1.x_coordinate, rock_1.y_coordinate - 50, graphic_dict["popup_interaction"])
@@ -571,46 +520,6 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                     interacted = False
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
-
     if not mirage_saved:
         entrance_text_surf = font.render("Please.. help me.", True, "black", "light yellow")
         screen.blit(cell_popup.surf, cell_popup.rect)
@@ -669,10 +578,6 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
         screen.blit(castle_three_bg, (0, 0))
     if rope_phase == 11 or rope_phase == 2:
         screen.blit(castle_three_roped_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_upgrade)
 
     if jumano_hall.alive_status:
         if not surprised:
@@ -722,7 +627,6 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if pygame.Rect.colliderect(player.rect, rope_wind):
         interaction_popup.update(120, 250, graphic_dict["popup_interaction"])
@@ -871,46 +775,6 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                     interacted = False
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
-
     if not mirage_2_saved:
         entrance_text_surf = font.render("Please.. help me.", True, "black", "light yellow")
         screen.blit(cell_popup.surf, cell_popup.rect)
@@ -990,12 +854,6 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
             movement_able = True
         else:
             screen.blit(castle_lair_zero_bg, (0, 0))
-
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
-
     try:
         for pet in player.pet:
             if pet.active:
@@ -1006,7 +864,6 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if not dreth_defeated:
         screen.blit(dreth.surf, dreth.rect)
@@ -1069,46 +926,6 @@ def castle_lair(pygame, screen, graphic_dict, player, castle_lair_zero_bg, over_
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, in_battle)
-
     castle_lair_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                           "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                           "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
@@ -1217,10 +1034,6 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
         movement_able = fish_return["movement_able"]
 
     screen.blit(caldera_bg, (0, 0))
-    screen.blit(equipment_screen.surf, equipment_screen.rect)
-    screen.blit(offense_meter.surf, offense_meter.rect)
-    screen.blit(defense_meter.surf, defense_meter.rect)
-    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select, apothis_gift)
     screen.blit(fishing_spot.surf, fishing_spot.rect)
     if not item_block_10_got:
         screen.blit(item_block_10.surf, item_block_10.rect)
@@ -1236,7 +1049,6 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
     if vanished:
         vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
-    drawing_functions.draw_level_up(screen, in_over_world)
 
     if pygame.Rect.colliderect(player.rect, caldera_ladder):
         interaction_popup.update(340, 250, graphic_dict["popup_interaction"])
@@ -1430,46 +1242,6 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
             interacted = False
 
     # --------------------------------------------------------------------------------------------------
-    for save_window in save_check_window:
-        screen.blit(save_window.surf, save_window.rect)
-    for ui_elements in user_interface:
-        if len(drawing_functions.item_info_window) != 0:
-            if ui_elements.name != "star power":
-                screen.blit(ui_elements.surf, ui_elements.rect)
-        else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
-    if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0 and not vanished:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
-    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
-
-    try:
-        for pet in player.pet:
-            if pet.active:
-                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
-                if player.x_coordinate < 420 and player.y_coordinate < 150:
-                    pet_energy_surf.set_alpha(50)
-                pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 57)
-                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                screen.blit(pet_energy_surf, pet_energy_rect)
-    except AttributeError:
-        pass
-
-    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                                     best_fish_counter)
-    drawing_functions.draw_it(screen, False)
-
     caldera_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                       "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                       "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
