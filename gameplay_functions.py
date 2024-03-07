@@ -1980,13 +1980,13 @@ def load_game(player, Item, graphics, Pet):
             player.flowers_sorae = player_load_info["flowers sorae"]
             if player_load_info["pets"]["kasper_got"]:
                 player.pet.append(Pet("kasper", "scout", 1, player_load_info["pets"]["kasper_energy"],
-                                      graphics["kasper_down_1"], False, 0))
+                                      graphics["kasper_down_1"], False, player_load_info["pets"]["kasper_experience"]))
             if player_load_info["pets"]["torok_got"]:
                 player.pet.append(Pet("torok", "fighter", 1, player_load_info["pets"]["torok_energy"],
-                                      graphics["torok_down_1"], False, 0))
+                                      graphics["torok_down_1"], False, player_load_info["pets"]["torok_experience"]))
             if player_load_info["pets"]["iriana_got"]:
                 player.pet.append(Pet("iriana", "mage", 1, player_load_info["pets"]["iriana_energy"],
-                                      graphics["iriana_down_1"], False, 0))
+                                      graphics["iriana_down_1"], False, player_load_info["pets"]["iriana_experience"]))
             if player.race == "amuna":
                 if player.gender == "male":
                     if player.role == "mage":
@@ -2339,6 +2339,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["music_toggle"] = player_load_info["music_toggle"]
             load_return["apothis_upgrade"] = player_load_info["apothis_upgrade"]
             load_return["apothis_popup_shown"] = player_load_info["apothis_popup_shown"]
+            load_return["pet_popup_shown"] = player_load_info["pet_popup_shown"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2371,7 +2372,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               item_block_3_got, item_block_4_got, item_block_5_got, item_block_6_got, item_block_7_got,
               item_block_8_got, item_block_9_got, item_block_10_got, item_block_11_got, item_block_12_got,
               cloaked_popup_shown, time_of_day, poisoned, burned, bleeding, condition_popup_shown, crushed,
-              music_toggle, apothis_upgrade, apothis_popup_shown):
+              music_toggle, apothis_upgrade, apothis_popup_shown, pet_popup_shown):
 
     inventory_save = []
     equipment_save = []
@@ -2400,12 +2401,15 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
             if pet.name == "kasper":
                 pets["kasper_got"] = True
                 pets["kasper_energy"] = pet.energy
+                pets["kasper_experience"] = pet.experience
             if pet.name == "torok":
                 pets["torok_got"] = True
                 pets["torok_energy"] = pet.energy
+                pets["torok_experience"] = pet.experience
             if pet.name == "iriana":
                 pets["iriana_got"] = True
                 pets["iriana_energy"] = pet.energy
+                pets["iriana_experience"] = pet.experience
     except AttributeError:
         pass
 
@@ -2498,7 +2502,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "burned": burned, "bleeding": bleeding, "condition_popup_shown": condition_popup_shown,
                         "crushed": crushed, "music_toggle": music_toggle, "apothis_upgrade": apothis_upgrade,
                         "apothis_popup_shown": apothis_popup_shown, "mage_level": player.mage_level,
-                        "fighter_level": player.fighter_level, "scout_level": player.scout_level}
+                        "fighter_level": player.fighter_level, "scout_level": player.scout_level,
+                        "pet_popup_shown": pet_popup_shown}
 
     try:
         with open("save", "wb") as ff:

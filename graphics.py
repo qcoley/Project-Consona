@@ -5176,6 +5176,7 @@ def load_graphics():
     loaded_dict["apothis_popup"] = popups_sheet[7]
     loaded_dict["cloaked_popup"] = popups_sheet[8]
     loaded_dict["condition_popup"] = popups_sheet[9]
+    loaded_dict["pet_popup"] = popups_sheet[10]
     # pop up notifications ---------------------------------------------------------------------------------------------
     card_popups_url = resource_path('resources/art/popups_cards.png')
     card_popups_sheet = sprite_sheet((270, 130), card_popups_url)

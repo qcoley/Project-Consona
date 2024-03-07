@@ -1,4 +1,6 @@
 import random
+
+import drawing_functions
 import gameplay_functions
 
 
@@ -2436,7 +2438,8 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 for pet in player.pet:
                     if pet.active:
                         pet.experience += 5
-
+                        if pet.experience > 100:
+                            pet.experience = 100
                 try:
                     if enemy_combating.kind != "atmon":
                         drop_chance = random.randrange(1, 10)

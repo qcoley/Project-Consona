@@ -8675,6 +8675,7 @@ if __name__ == "__main__":
     apothis_gift_popup = Notification("apothis popup", False, 510, 365, graphic_dict["apothis_popup"])
     cloaked_popup = Notification("cloaked popup", False, 510, 365, graphic_dict["cloaked_popup"])
     condition_popup = Notification("condition popup", False, 510, 365, graphic_dict["condition_popup"])
+    pet_popup = Notification("pet popup", False, 510, 365, graphic_dict["pet_popup"])
     # weapons
     staff = UiElement("staff", 1080, 283, graphic_dict["staff_0"])
     sword = UiElement("sword", 1155, 283, graphic_dict["sword_0"])
@@ -10100,6 +10101,7 @@ if __name__ == "__main__":
     rest_shown_before = False
     cloaked_popup_shown = False
     condition_popup_shown = False
+    pet_popup_shown = False
     leveled = False
     button_highlighted = False
     book_appended = False
@@ -11046,6 +11048,7 @@ if __name__ == "__main__":
                         crushed = load_returned["crushed"]
                         apothis_upgrade = load_returned["apothis_upgrade"]
                         apothis_popup_shown = load_returned["apothis_popup_shown"]
+                        pet_popup_shown = load_returned["pet_popup_shown"]
 
                         if rope_phase == 10:
                             overlay_chandelier.update(516, 285, graphic_dict["chandelier_right"])
@@ -11655,13 +11658,16 @@ if __name__ == "__main__":
                         if vanished_toc - vanished_tic > 2:
                             vanished = False
 
-                    # update player pet position
+                    # update player pet position. check experience for popup
                     try:
                         pet_update_x = player.x_coordinate + 35
                         pet_update_y = player.y_coordinate - 25
                         for pet in player.pet:
                             if pet.active:
                                 pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT, player.current_zone)
+                                if pet.experience == 100 and not pet_popup_shown:
+                                    drawing_functions.pet_popup_window.append(pet_popup)
+                                    pet_popup_shown = True
                     except AttributeError:
                         pass
 
@@ -12553,7 +12559,8 @@ if __name__ == "__main__":
                                                                         item_block_12_got, cloaked_popup_shown,
                                                                         time_of_day, poisoned, burned, bleeding,
                                                                         condition_popup_shown, crushed, music_toggle,
-                                                                        apothis_upgrade, apothis_popup_shown)
+                                                                        apothis_upgrade, apothis_popup_shown,
+                                                                        pet_popup_shown)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -12621,7 +12628,8 @@ if __name__ == "__main__":
                                                                     item_block_12_got, cloaked_popup_shown,
                                                                     time_of_day, poisoned, burned, bleeding,
                                                                     condition_popup_shown, crushed, music_toggle,
-                                                                    apothis_upgrade, apothis_popup_shown)
+                                                                    apothis_upgrade, apothis_popup_shown,
+                                                                    pet_popup_shown)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -12945,6 +12953,8 @@ if __name__ == "__main__":
                                 drawing_functions.cloaked_popup_window.clear()
                             if condition_popup.rect.collidepoint(pos):
                                 drawing_functions.condition_popup_window.clear()
+                            if pet_popup.rect.collidepoint(pos):
+                                drawing_functions.pet_popup_window.clear()
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -16507,6 +16517,14 @@ if __name__ == "__main__":
                         and not in_npc_interaction:
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+
                         for save_window in save_check_window:
                             screen.blit(save_window.surf, save_window.rect)
                         for ui_elements in user_interface:
@@ -16529,23 +16547,22 @@ if __name__ == "__main__":
                         try:
                             for pet in player.pet:
                                 if pet.active:
+                                    screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                                     pet_energy_surf = font.render(str(pet.energy), True, "dark green", "light yellow")
                                     if player.x_coordinate < 420 and player.y_coordinate < 150:
                                         pet_energy_surf.set_alpha(50)
                                     pet_energy_rect = pet_energy_surf.get_rect()
-                                    pet_energy_rect.midleft = (392, 57)
-                                    screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                                    pet_energy_rect.midleft = (342, 57)
                                     screen.blit(pet_energy_surf, pet_energy_rect)
+                                    pet_xp_surf = font.render(str(pet.experience), True, "purple", "light yellow")
+                                    if player.x_coordinate < 420 and player.y_coordinate < 150:
+                                        pet_xp_surf.set_alpha(50)
+                                    pet_xp_rect = pet_xp_surf.get_rect()
+                                    pet_xp_rect.midleft = (390, 57)
+                                    screen.blit(pet_xp_surf, pet_xp_rect)
                         except AttributeError:
                             pass
 
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
                         drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select,
                                                       apothis_upgrade)
                         drawing_functions.draw_level_up(screen, in_over_world)
@@ -16558,6 +16575,14 @@ if __name__ == "__main__":
                         drawing_functions.draw_it(screen, in_battle)
 
                     else:
+                        game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        game_window.blit(hp_bar.surf, hp_bar.rect)
+                        game_window.blit(en_bar.surf, en_bar.rect)
+                        game_window.blit(xp_bar.surf, xp_bar.rect)
+                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                        game_window.blit(offense_meter.surf, offense_meter.rect)
+                        game_window.blit(defense_meter.surf, defense_meter.rect)
+
                         for save_window in save_check_window:
                             game_window.blit(save_window.surf, save_window.rect)
                         for ui_elements in user_interface:
@@ -16581,30 +16606,21 @@ if __name__ == "__main__":
                             for pet in player.pet:
                                 if pet.active:
                                     game_window.blit(pet_energy_window.surf, pet_energy_window.rect)
-
                                     pet_energy_surf = font.render(str(pet.energy), True, "dark green", "light yellow")
                                     if player.x_coordinate < 420 and player.y_coordinate < 150:
                                         pet_energy_surf.set_alpha(50)
                                     pet_energy_rect = pet_energy_surf.get_rect()
                                     pet_energy_rect.midleft = (342, 57)
                                     game_window.blit(pet_energy_surf, pet_energy_rect)
-
                                     pet_xp_surf = font.render(str(pet.experience), True, "purple", "light yellow")
                                     if player.x_coordinate < 420 and player.y_coordinate < 150:
                                         pet_xp_surf.set_alpha(50)
                                     pet_xp_rect = pet_xp_surf.get_rect()
-                                    pet_xp_rect.midleft = (392, 57)
+                                    pet_xp_rect.midleft = (390, 57)
                                     game_window.blit(pet_xp_surf, pet_xp_rect)
                         except AttributeError:
                             pass
 
-                        game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        game_window.blit(hp_bar.surf, hp_bar.rect)
-                        game_window.blit(en_bar.surf, en_bar.rect)
-                        game_window.blit(xp_bar.surf, xp_bar.rect)
-                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                        game_window.blit(offense_meter.surf, offense_meter.rect)
-                        game_window.blit(defense_meter.surf, defense_meter.rect)
                         drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select,
                                                       apothis_upgrade)
                         drawing_functions.draw_level_up(game_window, in_over_world)
@@ -18911,8 +18927,8 @@ if __name__ == "__main__":
                             elif combat_button == "skill 3" or skill_3_hotkey and not combat_cooldown:
                                 skill_3_hotkey = False
                                 # make sure player has enough energy to use the skill
-                                if (player.equipment["trinket 3"] == "" and player.energy > 39
-                                        or player.equipment["trinket 3"] != "" and player.energy > 19):
+                                if (player.equipment["trinket 3"] == "" and player.energy > 29
+                                        or player.equipment["trinket 3"] != "" and player.energy > 14):
                                     if first_attack:
                                         first_attack = False
                                         if (current_enemy_battling.kind == "snake"
@@ -18942,9 +18958,9 @@ if __name__ == "__main__":
                                                 info_text_1 = "Millennium Fire spell is active."
                                                 fire_active = True
                                                 if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 20
+                                                    player.energy -= 15
                                                 elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 40
+                                                    player.energy -= 30
 
                                                 combat_scenario.attack_animation_player(player,
                                                                                         player_battle_sprite,
@@ -19219,9 +19235,9 @@ if __name__ == "__main__":
                                             show_edge = True
                                             pygame.mixer.find_channel(True).play(sfx_fighter_edge)
                                             if player.equipment["trinket 3"] != "":
-                                                player.energy -= 20
+                                                player.energy -= 15
                                             elif player.equipment["trinket 3"] == "":
-                                                player.energy -= 40
+                                                player.energy -= 30
 
                                             combat_scenario.attack_animation_player(player,
                                                                                     player_battle_sprite,
@@ -19534,9 +19550,9 @@ if __name__ == "__main__":
                                                 arrow_active = True
                                                 show_poison_arrow = True
                                                 if player.equipment["trinket 3"] != "":
-                                                    player.energy -= 20
+                                                    player.energy -= 15
                                                 elif player.equipment["trinket 3"] == "":
-                                                    player.energy -= 40
+                                                    player.energy -= 30
 
                                                 combat_scenario.attack_animation_player(player,
                                                                                         player_battle_sprite,
@@ -19810,6 +19826,12 @@ if __name__ == "__main__":
                                     info_text_1 = "Not enough energy to use this skill."
 
                         # outside of battle event loop -----------------------------------------------------------------
+                        if player.health < 0:
+                            player.health = 0
+                        if player.energy < 0:
+                            player.energy = 0
+                        if current_enemy_battling.health < 0:
+                            current_enemy_battling.health = 0
                         combat_scenario.enemy_health_bar(current_enemy_battling, graphic_dict)
                         if not encounter_started:
                             info_text_1 = ""
@@ -20066,21 +20088,61 @@ if __name__ == "__main__":
                                             game_window.blit(hp_bar.surf, hp_bar.rect)
                                             game_window.blit(en_bar.surf, en_bar.rect)
                                             game_window.blit(xp_bar.surf, xp_bar.rect)
+
+                                            hp_info_surf = font.render(str(player.health), True, "red", "light yellow")
+                                            hp_info_rect = hp_info_surf.get_rect()
+                                            hp_info_rect.midleft = (190, 85)
+                                            game_window.blit(hp_info_surf, hp_info_rect)
+
+                                            en_info_surf = font.render(str(player.energy), True, "dark green",
+                                                                       "light yellow")
+                                            en_info_rect = en_info_surf.get_rect()
+                                            en_info_rect.midleft = (240, 85)
+                                            game_window.blit(en_info_surf, en_info_rect)
+
+                                            xp_info_surf = font.render(str(player.experience), True, "purple",
+                                                                       "light yellow")
+                                            xp_info_rect = xp_info_surf.get_rect()
+                                            xp_info_rect.midleft = (290, 85)
+                                            game_window.blit(xp_info_surf, xp_info_rect)
+
                                     except TypeError:
                                         pass
                                 try:
                                     for pet in player.pet:
                                         if pet.active:
-                                            pet_energy_surf = font.render(str(pet.energy), True, "dark green",
-                                                                          "light yellow")
-                                            pet_energy_rect = pet_energy_surf.get_rect()
-                                            pet_energy_rect.midleft = (325, 57)
                                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                                                pet_energy_surf = font.render(str(pet.energy), True, "dark green",
+                                                                              "light yellow")
+                                                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                                                    pet_energy_surf.set_alpha(50)
+                                                pet_energy_rect = pet_energy_surf.get_rect()
+                                                pet_energy_rect.midleft = (342, 57)
                                                 screen.blit(pet_energy_surf, pet_energy_rect)
+                                                pet_xp_surf = font.render(str(pet.experience), True, "purple",
+                                                                          "light yellow")
+                                                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                                                    pet_xp_surf.set_alpha(50)
+                                                pet_xp_rect = pet_xp_surf.get_rect()
+                                                pet_xp_rect.midleft = (390, 57)
+                                                screen.blit(pet_xp_surf, pet_xp_rect)
                                             else:
                                                 game_window.blit(pet_energy_window.surf, pet_energy_window.rect)
+                                                pet_energy_surf = font.render(str(pet.energy), True, "dark green",
+                                                                              "light yellow")
+                                                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                                                    pet_energy_surf.set_alpha(50)
+                                                pet_energy_rect = pet_energy_surf.get_rect()
+                                                pet_energy_rect.midleft = (342, 57)
                                                 game_window.blit(pet_energy_surf, pet_energy_rect)
+                                                pet_xp_surf = font.render(str(pet.experience), True, "purple",
+                                                                          "light yellow")
+                                                if player.x_coordinate < 420 and player.y_coordinate < 150:
+                                                    pet_xp_surf.set_alpha(50)
+                                                pet_xp_rect = pet_xp_surf.get_rect()
+                                                pet_xp_rect.midleft = (390, 57)
+                                                game_window.blit(pet_xp_surf, pet_xp_rect)
                                 except AttributeError:
                                     pass
                                 text_enemy_name_surf = font.render(str(current_enemy_battling.name), True, "black",
@@ -20224,9 +20286,9 @@ if __name__ == "__main__":
                                         screen.blit(vanish_button.surf, vanish_button.rect)
                                     if player.skills_scout["skill 4"] == "poison arrow":
                                         if player.equipment["trinket 3"] != "":
-                                            arrow_button.update(960, 641, graphic_dict["arrow_button_img"])
-                                        elif player.equipment["trinket 3"] == "":
                                             arrow_button.update(960, 641, graphic_dict["arrow_less_button_img"])
+                                        elif player.equipment["trinket 3"] == "":
+                                            arrow_button.update(960, 641, graphic_dict["arrow_button_img"])
                                         screen.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
@@ -20309,9 +20371,9 @@ if __name__ == "__main__":
                                         game_window.blit(vanish_button.surf, vanish_button.rect)
                                     if player.skills_scout["skill 4"] == "poison arrow":
                                         if player.equipment["trinket 3"] != "":
-                                            arrow_button.update(960, 641, graphic_dict["arrow_button_img"])
-                                        elif player.equipment["trinket 3"] == "":
                                             arrow_button.update(960, 641, graphic_dict["arrow_less_button_img"])
+                                        elif player.equipment["trinket 3"] == "":
+                                            arrow_button.update(960, 641, graphic_dict["arrow_button_img"])
                                         game_window.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)

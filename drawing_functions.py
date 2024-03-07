@@ -31,6 +31,7 @@ outpost_window = []
 apothis_popup_window = []
 cloaked_popup_window = []
 condition_popup_window = []
+pet_popup_window = []
 first_item_window = []
 game_guide_container = []
 world_map_container = []
@@ -148,6 +149,9 @@ def draw_it(screen, in_battle):
     if len(condition_popup_window) > 0:
         for condition_item in condition_popup_window:
             screen.blit(condition_item.surf, condition_item.rect)
+    if len(pet_popup_window) > 0:
+        for pet_item in pet_popup_window:
+            screen.blit(pet_item.surf, pet_item.rect)
     if len(game_guide_container) > 0:
         for guide_overlay in game_guide_container:
             screen.blit(guide_overlay.surf, guide_overlay.rect)
@@ -2147,7 +2151,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
         elif spirit_of_wisdom.rect.collidepoint(pos):
             button_highlight.update(1254, 25, graphic_dict["extra_inventory_high"])
             return True
-        elif card_deck_button.rect.collidepoint(pos) and trade_deck_unlocked:
+        elif card_deck_button.rect.collidepoint(pos) and trade_deck_unlocked and not in_battle:
             button_highlight.update(775, 680, graphic_dict["card_deck_high"])
             return True
         elif armor.collidepoint(pos):
