@@ -9213,6 +9213,7 @@ if __name__ == "__main__":
     eldream_quest_district_button = UiElement("eldream button", 912, 102, graphic_dict["eldream_district_button"])
     marrow_quest_district_button = UiElement("marrow button", 982, 102, graphic_dict["marrow_district_button"])
     district_button_select = UiElement("district select", 772, 102, graphic_dict["district_button_select"])
+    pet_advance_popup = UiElement("pet advance popup", 510, 365, graphic_dict["kasper_advance_2"])
 
     sneaky_snake_stardust_star = UiElement("", 160, 191, graphic_dict["overlay_stardust_star"])
     village_repairs_stardust_star = UiElement("", 211, 191, graphic_dict["overlay_stardust_star"])
@@ -9461,6 +9462,7 @@ if __name__ == "__main__":
     amuna_location = UiElement("amuna character location", 663, 238, graphic_dict["amuna_location"])
     nuldar_location = UiElement("nuldar character location", 663, 238, graphic_dict["nuldar_location"])
     sorae_location = UiElement("sorae character location", 663, 238, graphic_dict["sorae_location"])
+
     dungeon_teleporter = UiElement("dungeon teleporter", 519, 316, graphic_dict["dungeon_teleporter"])
     dungeon_drop_wall = UiElement("dungeon drop wall", 310, 224, graphic_dict["dungeon_drop_wall"])
     dungeon_gate = UiElement("dungeon gate", 705, 180, graphic_dict["dungeon_gate"])
@@ -20088,24 +20090,6 @@ if __name__ == "__main__":
                                             game_window.blit(hp_bar.surf, hp_bar.rect)
                                             game_window.blit(en_bar.surf, en_bar.rect)
                                             game_window.blit(xp_bar.surf, xp_bar.rect)
-
-                                            hp_info_surf = font.render(str(player.health), True, "red", "light yellow")
-                                            hp_info_rect = hp_info_surf.get_rect()
-                                            hp_info_rect.midleft = (190, 85)
-                                            game_window.blit(hp_info_surf, hp_info_rect)
-
-                                            en_info_surf = font.render(str(player.energy), True, "dark green",
-                                                                       "light yellow")
-                                            en_info_rect = en_info_surf.get_rect()
-                                            en_info_rect.midleft = (240, 85)
-                                            game_window.blit(en_info_surf, en_info_rect)
-
-                                            xp_info_surf = font.render(str(player.experience), True, "purple",
-                                                                       "light yellow")
-                                            xp_info_rect = xp_info_surf.get_rect()
-                                            xp_info_rect.midleft = (290, 85)
-                                            game_window.blit(xp_info_surf, xp_info_rect)
-
                                     except TypeError:
                                         pass
                                 try:
@@ -24104,12 +24088,9 @@ if __name__ == "__main__":
                                         iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
 
                                     drawing_functions.pets_window_container.append(menagerie_window)
-                                    if not kasper_unlocked:
-                                        drawing_functions.pets_window_container.append(kasper_manage_button)
-                                    if not torok_unlocked:
-                                        drawing_functions.pets_window_container.append(torok_manage_button)
-                                    if not iriana_unlocked:
-                                        drawing_functions.pets_window_container.append(iriana_manage_button)
+                                    drawing_functions.pets_window_container.append(kasper_manage_button)
+                                    drawing_functions.pets_window_container.append(torok_manage_button)
+                                    drawing_functions.pets_window_container.append(iriana_manage_button)
                                 else:
                                     drawing_functions.pets_window_container.clear()
                                     menagerie_window_open = False
@@ -24123,8 +24104,8 @@ if __name__ == "__main__":
                                     button_highlighted = False
 
                                 if kasper_manage_button.rect.collidepoint(pos):
-                                    pygame.mixer.find_channel(True).play(sfx_button_click)
                                     if not kasper_unlocked:
+                                        pygame.mixer.find_channel(True).play(sfx_button_click)
                                         if not seed_given:
                                             hatch_ready = False
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
@@ -24135,6 +24116,12 @@ if __name__ == "__main__":
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
+                                    else:
+                                        for pet in player.pet:
+                                            if pet.name == "kasper":
+                                                if pet.experience == 100:
+                                                    pet.stage += 1
+                                                    pet.experience = 0
 
                                     drawing_functions.pets_window_container.clear()
                                     # noinspection PyRedeclaration
@@ -24154,6 +24141,12 @@ if __name__ == "__main__":
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
+                                    else:
+                                        for pet in player.pet:
+                                            if pet.name == "torok":
+                                                if pet.experience == 100:
+                                                    pet.stage += 1
+                                                    pet.experience = 0
 
                                     drawing_functions.pets_window_container.clear()
                                     # noinspection PyRedeclaration
@@ -24173,6 +24166,13 @@ if __name__ == "__main__":
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
+
+                                    else:
+                                        for pet in player.pet:
+                                            if pet.name == "iriana":
+                                                if pet.experience == 100:
+                                                    pet.stage += 1
+                                                    pet.experience = 0
 
                                     drawing_functions.pets_window_container.clear()
                                     # noinspection PyRedeclaration
@@ -24559,6 +24559,42 @@ if __name__ == "__main__":
                             if menagerie_window_open:
                                 close_button.update(500, 135, graphic_dict["close_button"])
                                 screen.blit(close_button.surf, close_button.rect)
+
+                                for pet in player.pet:
+                                    if pet.name == "kasper":
+                                        pet_stage_surf = font.render("Stage: " + str(pet.stage), True, "black",
+                                                                     "light yellow")
+                                        pet_stage_rect = pet_stage_surf.get_rect()
+                                        pet_stage_rect.midleft = (25, 165)
+                                        screen.blit(pet_stage_surf, pet_stage_rect)
+                                        pet_xp_surf = font.render("XP: " + str(pet.experience), True, "purple",
+                                                                  "light yellow")
+                                        pet_xp_rect = pet_xp_surf.get_rect()
+                                        pet_xp_rect.midleft = (220, 165)
+                                        screen.blit(pet_xp_surf, pet_xp_rect)
+                                    if pet.name == "torok":
+                                        pet_stage_surf = font.render("Stage: " + str(pet.stage), True, "black",
+                                                                     "light yellow")
+                                        pet_stage_rect = pet_stage_surf.get_rect()
+                                        pet_stage_rect.midleft = (295, 165)
+                                        screen.blit(pet_stage_surf, pet_stage_rect)
+                                        pet_xp_surf = font.render("XP: " + str(pet.experience), True, "purple",
+                                                                  "light yellow")
+                                        pet_xp_rect = pet_xp_surf.get_rect()
+                                        pet_xp_rect.midleft = (495, 165)
+                                        screen.blit(pet_xp_surf, pet_xp_rect)
+                                    if pet.name == "iriana":
+                                        pet_stage_surf = font.render("Stage: " + str(pet.stage), True, "black",
+                                                                     "light yellow")
+                                        pet_stage_rect = pet_stage_surf.get_rect()
+                                        pet_stage_rect.midleft = (565, 165)
+                                        screen.blit(pet_stage_surf, pet_stage_rect)
+                                        pet_xp_surf = font.render("XP: " + str(pet.experience), True, "purple",
+                                                                  "light yellow")
+                                        pet_xp_rect = pet_xp_surf.get_rect()
+                                        pet_xp_rect.midleft = (750, 165)
+                                        screen.blit(pet_xp_surf, pet_xp_rect)
+
                         else:
                             game_window.blit(pets_button.surf, pets_button.rect)
                             if hatch_ready:
@@ -24571,6 +24607,41 @@ if __name__ == "__main__":
                             if menagerie_window_open:
                                 close_button.update(792, 108, graphic_dict["close_button"])
                                 game_window.blit(close_button.surf, close_button.rect)
+
+                                for pet in player.pet:
+                                    if pet.name == "kasper":
+                                        pet_stage_surf = font.render("Stage: " + str(pet.stage), True, "black",
+                                                                     "light yellow")
+                                        pet_stage_rect = pet_stage_surf.get_rect()
+                                        pet_stage_rect.midleft = (25, 165)
+                                        game_window.blit(pet_stage_surf, pet_stage_rect)
+                                        pet_xp_surf = font.render("XP: " + str(pet.experience), True, "purple",
+                                                                     "light yellow")
+                                        pet_xp_rect = pet_xp_surf.get_rect()
+                                        pet_xp_rect.midleft = (220, 165)
+                                        game_window.blit(pet_xp_surf, pet_xp_rect)
+                                    if pet.name == "torok":
+                                        pet_stage_surf = font.render("Stage: " + str(pet.stage), True, "black",
+                                                                     "light yellow")
+                                        pet_stage_rect = pet_stage_surf.get_rect()
+                                        pet_stage_rect.midleft = (295, 165)
+                                        game_window.blit(pet_stage_surf, pet_stage_rect)
+                                        pet_xp_surf = font.render("XP: " + str(pet.experience), True, "purple",
+                                                                     "light yellow")
+                                        pet_xp_rect = pet_xp_surf.get_rect()
+                                        pet_xp_rect.midleft = (495, 165)
+                                        game_window.blit(pet_xp_surf, pet_xp_rect)
+                                    if pet.name == "iriana":
+                                        pet_stage_surf = font.render("Stage: " + str(pet.stage), True, "black",
+                                                                     "light yellow")
+                                        pet_stage_rect = pet_stage_surf.get_rect()
+                                        pet_stage_rect.midleft = (565, 165)
+                                        game_window.blit(pet_stage_surf, pet_stage_rect)
+                                        pet_xp_surf = font.render("XP: " + str(pet.experience), True, "purple",
+                                                                  "light yellow")
+                                        pet_xp_rect = pet_xp_surf.get_rect()
+                                        pet_xp_rect.midleft = (750, 165)
+                                        game_window.blit(pet_xp_surf, pet_xp_rect)
 
                         if show_cat_card:
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:

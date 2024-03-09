@@ -1979,13 +1979,16 @@ def load_game(player, Item, graphics, Pet):
             player.flowers_amuna = player_load_info["flowers amuna"]
             player.flowers_sorae = player_load_info["flowers sorae"]
             if player_load_info["pets"]["kasper_got"]:
-                player.pet.append(Pet("kasper", "scout", 1, player_load_info["pets"]["kasper_energy"],
+                player.pet.append(Pet("kasper", "scout", player_load_info["pets"]["kasper_stage"],
+                                      player_load_info["pets"]["kasper_energy"],
                                       graphics["kasper_down_1"], False, player_load_info["pets"]["kasper_experience"]))
             if player_load_info["pets"]["torok_got"]:
-                player.pet.append(Pet("torok", "fighter", 1, player_load_info["pets"]["torok_energy"],
+                player.pet.append(Pet("torok", "fighter", player_load_info["pets"]["torok_stage"],
+                                      player_load_info["pets"]["torok_energy"],
                                       graphics["torok_down_1"], False, player_load_info["pets"]["torok_experience"]))
             if player_load_info["pets"]["iriana_got"]:
-                player.pet.append(Pet("iriana", "mage", 1, player_load_info["pets"]["iriana_energy"],
+                player.pet.append(Pet("iriana", "mage", player_load_info["pets"]["iriana_stage"],
+                                      player_load_info["pets"]["iriana_energy"],
                                       graphics["iriana_down_1"], False, player_load_info["pets"]["iriana_experience"]))
             if player.race == "amuna":
                 if player.gender == "male":
@@ -2402,14 +2405,17 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                 pets["kasper_got"] = True
                 pets["kasper_energy"] = pet.energy
                 pets["kasper_experience"] = pet.experience
+                pets["kasper_stage"] = pet.stage
             if pet.name == "torok":
                 pets["torok_got"] = True
                 pets["torok_energy"] = pet.energy
                 pets["torok_experience"] = pet.experience
+                pets["torok_stage"] = pet.stage
             if pet.name == "iriana":
                 pets["iriana_got"] = True
                 pets["iriana_energy"] = pet.energy
                 pets["iriana_experience"] = pet.experience
+                pets["iriana_stage"] = pet.stage
     except AttributeError:
         pass
 

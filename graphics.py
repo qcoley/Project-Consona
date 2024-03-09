@@ -5177,7 +5177,16 @@ def load_graphics():
     loaded_dict["cloaked_popup"] = popups_sheet[8]
     loaded_dict["condition_popup"] = popups_sheet[9]
     loaded_dict["pet_popup"] = popups_sheet[10]
-    # pop up notifications ---------------------------------------------------------------------------------------------
+    # pet advance pop up notifications ---------------------------------------------------------------------------------
+    pet_advance_popups_url = resource_path('resources/art/popups_pet_advance.png')
+    pet_advance_popups_sheet = sprite_sheet((400, 300), pet_advance_popups_url)
+    loaded_dict["kasper_advance_2"] = pet_advance_popups_sheet[0]
+    loaded_dict["kasper_advance_3"] = pet_advance_popups_sheet[1]
+    loaded_dict["torok_advance_2"] = pet_advance_popups_sheet[2]
+    loaded_dict["torok_advance_3"] = pet_advance_popups_sheet[3]
+    loaded_dict["iriana_advance_2"] = pet_advance_popups_sheet[4]
+    loaded_dict["iriana_advance_3"] = pet_advance_popups_sheet[5]
+    # card pop up notifications ----------------------------------------------------------------------------------------
     card_popups_url = resource_path('resources/art/popups_cards.png')
     card_popups_sheet = sprite_sheet((270, 130), card_popups_url)
     loaded_dict["c_snake_popup"] = card_popups_sheet[0]

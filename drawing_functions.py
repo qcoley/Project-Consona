@@ -2483,21 +2483,18 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                             graphic_dict["main high"])
                     return True
             if menagerie_window_open:
-                if not kasper_unlocked:
-                    if kasper_manage_button.rect.collidepoint(pos):
-                        button_highlight.update(kasper_manage_button.x_coordinate, kasper_manage_button.y_coordinate,
-                                                graphic_dict["role_high"])
-                        return True
-                if not torok_unlocked:
-                    if torok_manage_button.rect.collidepoint(pos):
-                        button_highlight.update(torok_manage_button.x_coordinate, torok_manage_button.y_coordinate,
-                                                graphic_dict["role_high"])
-                        return True
-                if not iriana_unlocked:
-                    if iriana_manage_button.rect.collidepoint(pos):
-                        button_highlight.update(iriana_manage_button.x_coordinate, iriana_manage_button.y_coordinate,
-                                                graphic_dict["role_high"])
-                        return True
+                if kasper_manage_button.rect.collidepoint(pos):
+                    button_highlight.update(kasper_manage_button.x_coordinate, kasper_manage_button.y_coordinate,
+                                            graphic_dict["role_high"])
+                    return True
+                if torok_manage_button.rect.collidepoint(pos):
+                    button_highlight.update(torok_manage_button.x_coordinate, torok_manage_button.y_coordinate,
+                                            graphic_dict["role_high"])
+                    return True
+                if iriana_manage_button.rect.collidepoint(pos):
+                    button_highlight.update(iriana_manage_button.x_coordinate, iriana_manage_button.y_coordinate,
+                                            graphic_dict["role_high"])
+                    return True
             # quest window accept or decline button highlights when moused over
             if quest_clicked:
                 if len(quest_box) > 0:
