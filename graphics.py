@@ -63,6 +63,7 @@ def load_graphics():
     dreth_battle_screen = pygame.image.load(resource_path('resources/art/bg_dreth_battle.png')).convert_alpha()
     fishing_journal = pygame.image.load(resource_path('resources/art/fishing_journal.png')).convert_alpha()
     pet_energy_overlay = pygame.image.load(resource_path('resources/art/overlay_pet_energy.png')).convert_alpha()
+    pet_window_overlay = pygame.image.load(resource_path('resources/art/overlay_pet_window.png')).convert_alpha()
     overlay_ectrene = pygame.image.load(resource_path('resources/art/overlay_ectrene.png')).convert_alpha()
     overlay_advantages = pygame.image.load(resource_path('resources/art/overlay_type_advantages.png')).convert_alpha()
     overlay_star_waterfall = pygame.image.load(resource_path('resources/art/stardust_waterfall.png')).convert_alpha()
@@ -334,6 +335,7 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["pet_window_overlay"] = pet_window_overlay
     loaded_dict["night_sleep_overlay"] = night_sleep_overlay
     loaded_dict["effect_dawn"] = effect_dawn
     loaded_dict["effect_early_morning"] = effect_e_morning
@@ -4511,15 +4513,18 @@ def load_graphics():
     loaded_dict["torok_hatching"] = pets_hatching_sheet[2]
     loaded_dict["iriana_hatching"] = pets_hatching_sheet[3]
     # pets manage window -----------------------------------------------------------------------------------------------
-    pets_manage_url = resource_path('resources/art/overlay_pet_windows.png')
-    pets_manage_sheet = sprite_sheet((800, 420), pets_manage_url)
-    loaded_dict["kasper_manage"] = pets_manage_sheet[0]
-    loaded_dict["torok_manage"] = pets_manage_sheet[1]
-    loaded_dict["iriana_manage"] = pets_manage_sheet[2]
-    loaded_dict["kasper_torok_manage"] = pets_manage_sheet[3]
-    loaded_dict["kasper_iriana_manage"] = pets_manage_sheet[4]
-    loaded_dict["torok_iriana_manage"] = pets_manage_sheet[5]
-    loaded_dict["all_manage"] = pets_manage_sheet[6]
+    pet_stages_url = resource_path('resources/art/overlay_pet_stages.png')
+    pet_stages_sheet = sprite_sheet((272, 278), pet_stages_url)
+    loaded_dict["pet_question"] = pet_stages_sheet[0]
+    loaded_dict["pet_kasper_1"] = pet_stages_sheet[1]
+    loaded_dict["pet_kasper_2"] = pet_stages_sheet[2]
+    loaded_dict["pet_kasper_3"] = pet_stages_sheet[3]
+    loaded_dict["pet_torok_1"] = pet_stages_sheet[4]
+    loaded_dict["pet_torok_2"] = pet_stages_sheet[5]
+    loaded_dict["pet_torok_3"] = pet_stages_sheet[6]
+    loaded_dict["pet_iriana_1"] = pet_stages_sheet[7]
+    loaded_dict["pet_iriana_2"] = pet_stages_sheet[8]
+    loaded_dict["pet_iriana_3"] = pet_stages_sheet[9]
     # enemies ----------------------------------------------------------------------------------------------------------
     enemies_url = resource_path('resources/art/sprites_enemies.png')
     enemies_sheet = sprite_sheet((50, 50), enemies_url)

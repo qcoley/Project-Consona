@@ -9264,13 +9264,16 @@ if __name__ == "__main__":
     buy_inventory = Inventory("buy inventory", [], 900, 500, graphic_dict["buy_inventory"])
     knowledge_window = UiElement("knowledge window", 727, 680, graphic_dict["knowledge_window"])
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
-    menagerie_window = UiElement("menagerie window", 500, 319, graphic_dict["kasper_manage"])
+    menagerie_window = UiElement("menagerie window", 419, 296, graphic_dict["pet_window_overlay"])
     fish_window = UiElement("fish window", 297, 319, graphic_dict["fishing_journal"])
     trade_window = UiElement("trade window", 670, 368, graphic_dict["trading_window"])
     pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
     pet_energy_window = UiElement("pet energy", 375, 45, graphic_dict["pet_energy"])
     quest_visual = UiElement("quest visual", 500, 500, graphic_dict["pine_logs_big_img"])
     marrow_cat = UiElement("marrow cat", 470, 248, graphic_dict["marrow_cat"])
+    kasper_stage_overlay = UiElement("kasper stage overlay", 149, 282, graphic_dict["pet_question"])
+    torok_stage_overlay = UiElement("torok stage overlay", 419, 282, graphic_dict["pet_question"])
+    iriana_stage_overlay = UiElement("iriana stage overlay", 689, 282, graphic_dict["pet_question"])
 
     overlay_burned = UiElement("overlay burned", 25, 89, graphic_dict["overlay_burned"])
     overlay_poisoned = UiElement("overlay poisoned", 52, 89, graphic_dict["overlay_poisoned"])
@@ -10006,6 +10009,7 @@ if __name__ == "__main__":
     sfx_chirp.set_volume(0.10)
 
     # main loop variables ----------------------------------------------------------------------------------------------
+    show_pet_advancement = False
     level_visual_insert = False
     bait_given = False
     level_checked = False
@@ -24011,6 +24015,9 @@ if __name__ == "__main__":
                             button_highlighted = True
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            if show_pet_advancement:
+                                if pet_advance_popup.rect.collidepoint(pos):
+                                    show_pet_advancement = False
                             if show_cat_card:
                                 show_cat_card = False
                             if trading_deck:
@@ -24048,49 +24055,42 @@ if __name__ == "__main__":
                             if quest_accepted.rect.collidepoint(pos):
                                 drawing_functions.quest_accept_box.clear()
                             if pets_button.rect.collidepoint(pos) and menagerie_access:
+                                npc_text_reset = True
                                 if not menagerie_window_open:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     menagerie_window_open = True
-                                    if kasper_unlocked:
-                                        menagerie_window.update(413, 296, graphic_dict["kasper_manage"])
-                                        kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
-                                        torok_manage_button.update(415, 460, graphic_dict["start_seed_button"])
-                                        iriana_manage_button.update(685, 460, graphic_dict["start_seed_button"])
-                                    if torok_unlocked:
-                                        menagerie_window.update(413, 296, graphic_dict["torok_manage"])
-                                        kasper_manage_button.update(145, 460, graphic_dict["start_seed_button"])
-                                        torok_manage_button.update(415, 460, graphic_dict["activate_button"])
-                                        iriana_manage_button.update(685, 460, graphic_dict["start_seed_button"])
-                                    if iriana_unlocked:
-                                        menagerie_window.update(413, 296, graphic_dict["iriana_manage"])
-                                        kasper_manage_button.update(145, 460, graphic_dict["start_seed_button"])
-                                        torok_manage_button.update(415, 460, graphic_dict["start_seed_button"])
-                                        iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
-                                    if kasper_unlocked and torok_unlocked:
-                                        menagerie_window.update(413, 296, graphic_dict["kasper_torok_manage"])
-                                        kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
-                                        torok_manage_button.update(415, 460, graphic_dict["activate_button"])
-                                        iriana_manage_button.update(685, 460, graphic_dict["start_seed_button"])
-                                    if torok_unlocked and iriana_unlocked:
-                                        menagerie_window.update(413, 296, graphic_dict["torok_iriana_manage"])
-                                        kasper_manage_button.update(145, 460, graphic_dict["start_seed_button"])
-                                        torok_manage_button.update(415, 460, graphic_dict["activate_button"])
-                                        iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
-                                    if kasper_unlocked and iriana_unlocked:
-                                        menagerie_window.update(413, 296, graphic_dict["kasper_iriana_manage"])
-                                        kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
-                                        torok_manage_button.update(415, 460, graphic_dict["start_seed_button"])
-                                        iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
-                                    if kasper_unlocked and torok_unlocked and iriana_unlocked:
-                                        menagerie_window.update(413, 296, graphic_dict["all_manage"])
-                                        kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
-                                        torok_manage_button.update(415, 460, graphic_dict["activate_button"])
-                                        iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
+
+                                    for pet in player.pet:
+                                        if pet.name == "kasper":
+                                            kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
+                                            if pet.stage == 1:
+                                                kasper_stage_overlay.update(149, 282, graphic_dict["pet_kasper_1"])
+                                            if pet.stage == 2:
+                                                kasper_stage_overlay.update(149, 282, graphic_dict["pet_kasper_2"])
+                                            if pet.stage == 3:
+                                                kasper_stage_overlay.update(149, 282, graphic_dict["pet_kasper_3"])
+                                        if pet.name == "torok":
+                                            torok_manage_button.update(415, 460, graphic_dict["activate_button"])
+                                            if pet.stage == 1:
+                                                torok_stage_overlay.update(419, 282, graphic_dict["pet_torok_1"])
+                                            if pet.stage == 2:
+                                                torok_stage_overlay.update(419, 282, graphic_dict["pet_torok_2"])
+                                            if pet.stage == 3:
+                                                torok_stage_overlay.update(419, 282, graphic_dict["pet_torok_3"])
+                                        if pet.name == "iriana":
+                                            iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
+                                            if pet.stage == 1:
+                                                iriana_stage_overlay.update(689, 282, graphic_dict["pet_iriana_1"])
+                                            if pet.stage == 2:
+                                                iriana_stage_overlay.update(689, 282, graphic_dict["pet_iriana_2"])
+                                            if pet.stage == 3:
+                                                iriana_stage_overlay.update(689, 282, graphic_dict["pet_iriana_3"])
 
                                     drawing_functions.pets_window_container.append(menagerie_window)
                                     drawing_functions.pets_window_container.append(kasper_manage_button)
                                     drawing_functions.pets_window_container.append(torok_manage_button)
                                     drawing_functions.pets_window_container.append(iriana_manage_button)
+
                                 else:
                                     drawing_functions.pets_window_container.clear()
                                     menagerie_window_open = False
@@ -24104,8 +24104,8 @@ if __name__ == "__main__":
                                     button_highlighted = False
 
                                 if kasper_manage_button.rect.collidepoint(pos):
+                                    pygame.mixer.find_channel(True).play(sfx_button_click)
                                     if not kasper_unlocked:
-                                        pygame.mixer.find_channel(True).play(sfx_button_click)
                                         if not seed_given:
                                             hatch_ready = False
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
@@ -24116,18 +24116,41 @@ if __name__ == "__main__":
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
+                                            drawing_functions.pets_window_container.clear()
+                                            # noinspection PyRedeclaration
+                                            button_highlighted = False
+                                            # noinspection PyRedeclaration
+                                            menagerie_window_open = False
                                     else:
                                         for pet in player.pet:
                                             if pet.name == "kasper":
                                                 if pet.experience == 100:
-                                                    pet.stage += 1
-                                                    pet.experience = 0
-
-                                    drawing_functions.pets_window_container.clear()
-                                    # noinspection PyRedeclaration
-                                    button_highlighted = False
-                                    # noinspection PyRedeclaration
-                                    menagerie_window_open = False
+                                                    if pet.stage < 3:
+                                                        pet.stage += 1
+                                                        pet.experience = 0
+                                                        show_pet_advancement = True
+                                                        if pet.stage == 2:
+                                                            pet_advance_popup.update(510, 365,
+                                                                                     graphic_dict["kasper_advance_2"])
+                                                        if pet.stage == 3:
+                                                            pet_advance_popup.update(510, 365,
+                                                                                     graphic_dict["kasper_advance_3"])
+                                                        pygame.mixer.find_channel(True).play(sfx_pet_reward)
+                                                        drawing_functions.pets_window_container.clear()
+                                                        # noinspection PyRedeclaration
+                                                        button_highlighted = False
+                                                        # noinspection PyRedeclaration
+                                                        menagerie_window_open = False
+                                                    else:
+                                                        info_text_1 = "Kasper is fully Advanced."
+                                                        info_text_2 = ""
+                                                        info_text_3 = ""
+                                                        info_text_4 = ""
+                                                else:
+                                                    info_text_1 = "Kasper needs 100 XP to Advance."
+                                                    info_text_2 = ""
+                                                    info_text_3 = ""
+                                                    info_text_4 = ""
                                 if torok_manage_button.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     if not torok_unlocked:
@@ -24145,14 +24168,33 @@ if __name__ == "__main__":
                                         for pet in player.pet:
                                             if pet.name == "torok":
                                                 if pet.experience == 100:
-                                                    pet.stage += 1
-                                                    pet.experience = 0
+                                                    if pet.stage < 3:
+                                                        pet.stage += 1
+                                                        pet.experience = 0
+                                                        show_pet_advancement = True
+                                                        if pet.stage == 2:
+                                                            pet_advance_popup.update(510, 365,
+                                                                                     graphic_dict["torok_advance_2"])
+                                                        if pet.stage == 3:
+                                                            pet_advance_popup.update(510, 365,
+                                                                                     graphic_dict["torok_advance_3"])
+                                                        pygame.mixer.find_channel(True).play(sfx_pet_reward)
+                                                        drawing_functions.pets_window_container.clear()
+                                                        # noinspection PyRedeclaration
+                                                        button_highlighted = False
+                                                        # noinspection PyRedeclaration
+                                                        menagerie_window_open = False
+                                                    else:
+                                                        info_text_1 = "Torok is fully Advanced."
+                                                        info_text_2 = ""
+                                                        info_text_3 = ""
+                                                        info_text_4 = ""
+                                                else:
+                                                    info_text_1 = "Torok needs 100 XP to Advance."
+                                                    info_text_2 = ""
+                                                    info_text_3 = ""
+                                                    info_text_4 = ""
 
-                                    drawing_functions.pets_window_container.clear()
-                                    # noinspection PyRedeclaration
-                                    button_highlighted = False
-                                    # noinspection PyRedeclaration
-                                    menagerie_window_open = False
                                 if iriana_manage_button.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     if not iriana_unlocked:
@@ -24166,19 +24208,35 @@ if __name__ == "__main__":
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
-
                                     else:
                                         for pet in player.pet:
                                             if pet.name == "iriana":
                                                 if pet.experience == 100:
-                                                    pet.stage += 1
-                                                    pet.experience = 0
-
-                                    drawing_functions.pets_window_container.clear()
-                                    # noinspection PyRedeclaration
-                                    button_highlighted = False
-                                    # noinspection PyRedeclaration
-                                    menagerie_window_open = False
+                                                    if pet.stage < 3:
+                                                        pet.stage += 1
+                                                        pet.experience = 0
+                                                        show_pet_advancement = True
+                                                        if pet.stage == 2:
+                                                            pet_advance_popup.update(510, 365,
+                                                                                     graphic_dict["iriana_advance_2"])
+                                                        if pet.stage == 3:
+                                                            pet_advance_popup.update(510, 365,
+                                                                                     graphic_dict["iriana_advance_3"])
+                                                        pygame.mixer.find_channel(True).play(sfx_pet_reward)
+                                                        drawing_functions.pets_window_container.clear()
+                                                        # noinspection PyRedeclaration
+                                                        button_highlighted = False
+                                                        # noinspection PyRedeclaration
+                                                        menagerie_window_open = False
+                                                    else:
+                                                        info_text_1 = "Iriana is fully Advanced."
+                                                        info_text_2 = ""
+                                                        info_text_3 = ""
+                                                        info_text_4 = ""
+                                                else:
+                                                    info_text_1 = "Iriana needs 100 XP to Advance."
+                                                    info_text_2 = ""
+                                                    info_text_3 = ""
 
                             # if seed is ready to hatch, give player whistle and unlock that pet. reset counts.
                             if hatch_ready:
@@ -24557,8 +24615,11 @@ if __name__ == "__main__":
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
                             if menagerie_window_open:
-                                close_button.update(500, 135, graphic_dict["close_button"])
+                                close_button.update(804, 108, graphic_dict["close_button"])
                                 screen.blit(close_button.surf, close_button.rect)
+                                screen.blit(kasper_stage_overlay.surf, kasper_stage_overlay.rect)
+                                screen.blit(torok_stage_overlay.surf, torok_stage_overlay.rect)
+                                screen.blit(iriana_stage_overlay.surf, iriana_stage_overlay.rect)
 
                                 for pet in player.pet:
                                     if pet.name == "kasper":
@@ -24594,6 +24655,9 @@ if __name__ == "__main__":
                                         pet_xp_rect = pet_xp_surf.get_rect()
                                         pet_xp_rect.midleft = (750, 165)
                                         screen.blit(pet_xp_surf, pet_xp_rect)
+
+                            if show_pet_advancement:
+                                screen.blit(pet_advance_popup.surf, pet_advance_popup.rect)
 
                         else:
                             game_window.blit(pets_button.surf, pets_button.rect)
@@ -24605,8 +24669,11 @@ if __name__ == "__main__":
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
 
                             if menagerie_window_open:
-                                close_button.update(792, 108, graphic_dict["close_button"])
+                                close_button.update(804, 108, graphic_dict["close_button"])
                                 game_window.blit(close_button.surf, close_button.rect)
+                                game_window.blit(kasper_stage_overlay.surf, kasper_stage_overlay.rect)
+                                game_window.blit(torok_stage_overlay.surf, torok_stage_overlay.rect)
+                                game_window.blit(iriana_stage_overlay.surf, iriana_stage_overlay.rect)
 
                                 for pet in player.pet:
                                     if pet.name == "kasper":
@@ -24616,7 +24683,7 @@ if __name__ == "__main__":
                                         pet_stage_rect.midleft = (25, 165)
                                         game_window.blit(pet_stage_surf, pet_stage_rect)
                                         pet_xp_surf = font.render("XP: " + str(pet.experience), True, "purple",
-                                                                     "light yellow")
+                                                                  "light yellow")
                                         pet_xp_rect = pet_xp_surf.get_rect()
                                         pet_xp_rect.midleft = (220, 165)
                                         game_window.blit(pet_xp_surf, pet_xp_rect)
@@ -24627,7 +24694,7 @@ if __name__ == "__main__":
                                         pet_stage_rect.midleft = (295, 165)
                                         game_window.blit(pet_stage_surf, pet_stage_rect)
                                         pet_xp_surf = font.render("XP: " + str(pet.experience), True, "purple",
-                                                                     "light yellow")
+                                                                  "light yellow")
                                         pet_xp_rect = pet_xp_surf.get_rect()
                                         pet_xp_rect.midleft = (495, 165)
                                         game_window.blit(pet_xp_surf, pet_xp_rect)
@@ -24642,6 +24709,9 @@ if __name__ == "__main__":
                                         pet_xp_rect = pet_xp_surf.get_rect()
                                         pet_xp_rect.midleft = (750, 165)
                                         game_window.blit(pet_xp_surf, pet_xp_rect)
+
+                            if show_pet_advancement:
+                                game_window.blit(pet_advance_popup.surf, pet_advance_popup.rect)
 
                         if show_cat_card:
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:

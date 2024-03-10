@@ -2437,7 +2437,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                 for pet in player.pet:
                     if pet.active:
-                        pet.experience += 5
+                        pet.experience += 10
                         if pet.experience > 100:
                             pet.experience = 100
                 try:
