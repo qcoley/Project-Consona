@@ -11832,25 +11832,68 @@ if __name__ == "__main__":
                             player.update("right", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
                                 if pet.name == "kasper" and pet.active:
-                                    if walking_return["total time"] < 0.2:
-                                        pet.update_image(graphic_dict["kasper_right_1"])
-                                    if walking_return["total time"] > 0.2:
-                                        pet.update_image(graphic_dict["kasper_right"])
-                                    if walking_return["total time"] > 0.4:
-                                        pet.update_image(graphic_dict["kasper_right_2"])
-                                    if walking_return["total time"] > 0.6:
-                                        pet.update_image(graphic_dict["kasper_right"])
+                                    if pet.stage == 1:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["kasper_right_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["kasper_right"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["kasper_right_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["kasper_right"])
+                                    if pet.stage == 2:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_2_kasper_right_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_2_kasper_right"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_2_kasper_right_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_2_kasper_right"])
+                                    if pet.stage == 3:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_3_kasper_right_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_3_kasper_right"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_3_kasper_right_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_3_kasper_right"])
                                 if pet.name == "torok" and pet.active:
-                                    if walking_return["total time"] < 0.2:
-                                        pet.update_image(graphic_dict["torok_right_1"])
-                                    if walking_return["total time"] > 0.2:
-                                        pet.update_image(graphic_dict["torok_right"])
-                                    if walking_return["total time"] > 0.4:
-                                        pet.update_image(graphic_dict["torok_right_2"])
-                                    if walking_return["total time"] > 0.6:
-                                        pet.update_image(graphic_dict["torok_right"])
+                                    if pet.stage == 1:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["torok_right_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["torok_right"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["torok_right_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["torok_right"])
+                                    if pet.stage == 2:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_2_torok_right_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_2_torok_right"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_2_torok_right_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_2_torok_right"])
+                                    if pet.stage == 3:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_3_torok_right_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_3_torok_right"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_3_torok_right_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_3_torok_right"])
                                 if pet.name == "iriana" and pet.active:
-                                    pet.update_image(graphic_dict["iriana_right"])
+                                    if pet.stage == 1:
+                                        pet.update_image(graphic_dict["iriana_right"])
+                                    if pet.stage == 2:
+                                        pet.update_image(graphic_dict["stage_2_iriana_right"])
+                                    if pet.stage == 3:
+                                        pet.update_image(graphic_dict["stage_3_iriana_right"])
                         if pressed_keys[K_a] or pressed_keys[K_LEFT]:
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
@@ -11890,25 +11933,68 @@ if __name__ == "__main__":
                             player.update("left", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
                                 if pet.name == "kasper" and pet.active:
-                                    if walking_return["total time"] < 0.2:
-                                        pet.update_image(graphic_dict["kasper_left_1"])
-                                    if walking_return["total time"] > 0.2:
-                                        pet.update_image(graphic_dict["kasper_left"])
-                                    if walking_return["total time"] > 0.4:
-                                        pet.update_image(graphic_dict["kasper_left_2"])
-                                    if walking_return["total time"] > 0.6:
-                                        pet.update_image(graphic_dict["kasper_left"])
+                                    if pet.stage == 1:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["kasper_left_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["kasper_left"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["kasper_left_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["kasper_left"])
+                                    if pet.stage == 2:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_2_kasper_left_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_2_kasper_left"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_2_kasper_left_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_2_kasper_left"])
+                                    if pet.stage == 3:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_3_kasper_left_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_3_kasper_left"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_3_kasper_left_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_3_kasper_left"])
                                 if pet.name == "torok" and pet.active:
-                                    if walking_return["total time"] < 0.2:
-                                        pet.update_image(graphic_dict["torok_left_1"])
-                                    if walking_return["total time"] > 0.2:
-                                        pet.update_image(graphic_dict["torok_left"])
-                                    if walking_return["total time"] > 0.4:
-                                        pet.update_image(graphic_dict["torok_left_2"])
-                                    if walking_return["total time"] > 0.6:
-                                        pet.update_image(graphic_dict["torok_left"])
+                                    if pet.stage == 1:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["torok_left_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["torok_left"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["torok_left_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["torok_left"])
+                                    if pet.stage == 2:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_2_torok_left_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_2_torok_left"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_2_torok_left_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_2_torok_left"])
+                                    if pet.stage == 3:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_3_torok_left_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_3_torok_left"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_3_torok_left_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_3_torok_left"])
                                 if pet.name == "iriana" and pet.active:
-                                    pet.update_image(graphic_dict["iriana_left"])
+                                    if pet.stage == 1:
+                                        pet.update_image(graphic_dict["iriana_left"])
+                                    if pet.stage == 2:
+                                        pet.update_image(graphic_dict["stage_2_iriana_left"])
+                                    if pet.stage == 3:
+                                        pet.update_image(graphic_dict["stage_3_iriana_left"])
                         if pressed_keys[K_w] or pressed_keys[K_UP]:
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
@@ -11948,25 +12034,68 @@ if __name__ == "__main__":
                             player.update("up", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
                                 if pet.name == "kasper" and pet.active:
-                                    if walking_return["total time"] < 0.2:
-                                        pet.update_image(graphic_dict["kasper_up_1"])
-                                    if walking_return["total time"] > 0.2:
-                                        pet.update_image(graphic_dict["kasper_up"])
-                                    if walking_return["total time"] > 0.4:
-                                        pet.update_image(graphic_dict["kasper_up_2"])
-                                    if walking_return["total time"] > 0.6:
-                                        pet.update_image(graphic_dict["kasper_up"])
+                                    if pet.stage == 1:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["kasper_up_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["kasper_up"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["kasper_up_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["kasper_up"])
+                                    if pet.stage == 2:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_2_kasper_up_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_2_kasper_up"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_2_kasper_up_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_2_kasper_up"])
+                                    if pet.stage == 3:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_3_kasper_up_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_3_kasper_up"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_3_kasper_up_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_3_kasper_up"])
                                 if pet.name == "torok" and pet.active:
-                                    if walking_return["total time"] < 0.2:
-                                        pet.update_image(graphic_dict["torok_up_1"])
-                                    if walking_return["total time"] > 0.2:
-                                        pet.update_image(graphic_dict["torok_up"])
-                                    if walking_return["total time"] > 0.4:
-                                        pet.update_image(graphic_dict["torok_up_2"])
-                                    if walking_return["total time"] > 0.6:
-                                        pet.update_image(graphic_dict["torok_up"])
+                                    if pet.stage == 1:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["torok_up_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["torok_up"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["torok_up_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["torok_up"])
+                                    if pet.stage == 2:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_2_torok_up_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_2_torok_up"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_2_torok_up_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_2_torok_up"])
+                                    if pet.stage == 3:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_3_torok_up_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_3_torok_up"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_3_torok_up_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_3_torok_up"])
                                 if pet.name == "iriana" and pet.active:
-                                    pet.update_image(graphic_dict["iriana_up"])
+                                    if pet.stage == 1:
+                                        pet.update_image(graphic_dict["iriana_up"])
+                                    if pet.stage == 2:
+                                        pet.update_image(graphic_dict["stage_2_iriana_up"])
+                                    if pet.stage == 3:
+                                        pet.update_image(graphic_dict["stage_3_iriana_up"])
                         if pressed_keys[K_s] or pressed_keys[K_DOWN]:
                             walk_sound_toc = time.perf_counter()
                             if walk_sound_toc - walk_sound_tic > 0.40:
@@ -12006,25 +12135,68 @@ if __name__ == "__main__":
                             player.update("down", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
                                 if pet.name == "kasper" and pet.active:
-                                    if walking_return["total time"] < 0.2:
-                                        pet.update_image(graphic_dict["kasper_down_1"])
-                                    if walking_return["total time"] > 0.2:
-                                        pet.update_image(graphic_dict["kasper_down"])
-                                    if walking_return["total time"] > 0.4:
-                                        pet.update_image(graphic_dict["kasper_down_2"])
-                                    if walking_return["total time"] > 0.6:
-                                        pet.update_image(graphic_dict["kasper_down"])
+                                    if pet.stage == 1:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["kasper_down_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["kasper_down"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["kasper_down_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["kasper_down"])
+                                    if pet.stage == 2:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_2_kasper_down_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_2_kasper_down"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_2_kasper_down_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_2_kasper_down"])
+                                    if pet.stage == 3:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_3_kasper_down_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_3_kasper_down"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_3_kasper_down_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_3_kasper_down"])
                                 if pet.name == "torok" and pet.active:
-                                    if walking_return["total time"] < 0.2:
-                                        pet.update_image(graphic_dict["torok_down_1"])
-                                    if walking_return["total time"] > 0.2:
-                                        pet.update_image(graphic_dict["torok_down"])
-                                    if walking_return["total time"] > 0.4:
-                                        pet.update_image(graphic_dict["torok_down_2"])
-                                    if walking_return["total time"] > 0.6:
-                                        pet.update_image(graphic_dict["torok_down"])
+                                    if pet.stage == 1:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["torok_down_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["torok_down"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["torok_down_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["torok_down"])
+                                    if pet.stage == 2:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_2_torok_down_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_2_torok_down"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_2_torok_down_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_2_torok_down"])
+                                    if pet.stage == 3:
+                                        if walking_return["total time"] < 0.2:
+                                            pet.update_image(graphic_dict["stage_3_torok_down_1"])
+                                        if walking_return["total time"] > 0.2:
+                                            pet.update_image(graphic_dict["stage_3_torok_down"])
+                                        if walking_return["total time"] > 0.4:
+                                            pet.update_image(graphic_dict["stage_3_torok_down_2"])
+                                        if walking_return["total time"] > 0.6:
+                                            pet.update_image(graphic_dict["stage_3_torok_down"])
                                 if pet.name == "iriana" and pet.active:
-                                    pet.update_image(graphic_dict["iriana_down"])
+                                    if pet.stage == 1:
+                                        pet.update_image(graphic_dict["iriana_down"])
+                                    if pet.stage == 2:
+                                        pet.update_image(graphic_dict["stage_2_iriana_down"])
+                                    if pet.stage == 3:
+                                        pet.update_image(graphic_dict["stage_3_iriana_down"])
 
                     # main event loop
                     for event in pygame.event.get():
@@ -12339,14 +12511,38 @@ if __name__ == "__main__":
                                 if kasper_whistle_button.rect.collidepoint(pos):
                                     gameplay_functions.pet_call(pygame, player, True, False, False,
                                                                 sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                    for pet in player.pet:
+                                        if pet.name == "kasper":
+                                            if pet.stage == 1:
+                                                pet.update_image(graphic_dict["kasper_down"])
+                                            if pet.stage == 2:
+                                                pet.update_image(graphic_dict["stage_2_kasper_down"])
+                                            if pet.stage == 3:
+                                                pet.update_image(graphic_dict["stage_3_kasper_down"])
                             if torok_unlocked:
                                 if torok_whistle_button.rect.collidepoint(pos):
                                     gameplay_functions.pet_call(pygame, player, False, True, False,
                                                                 sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                    for pet in player.pet:
+                                        if pet.name == "torok":
+                                            if pet.stage == 1:
+                                                pet.update_image(graphic_dict["torok_down"])
+                                            if pet.stage == 2:
+                                                pet.update_image(graphic_dict["stage_2_torok_down"])
+                                            if pet.stage == 3:
+                                                pet.update_image(graphic_dict["stage_3_torok_down"])
                             if iriana_unlocked:
                                 if iriana_whistle_button.rect.collidepoint(pos):
                                     gameplay_functions.pet_call(pygame, player, False, False, True,
                                                                 sfx_item_whistle, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                    for pet in player.pet:
+                                        if pet.name == "iriana":
+                                            if pet.stage == 1:
+                                                pet.update_image(graphic_dict["iriana_down"])
+                                            if pet.stage == 2:
+                                                pet.update_image(graphic_dict["stage_2_iriana_down"])
+                                            if pet.stage == 3:
+                                                pet.update_image(graphic_dict["stage_3_iriana_down"])
                             if trading_deck:
                                 if (len(drawing_functions.quest_box) == 0 and
                                         len(drawing_functions.quest_box_trading) == 0 and
