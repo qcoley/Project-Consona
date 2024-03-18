@@ -17324,18 +17324,6 @@ if __name__ == "__main__":
                                 if condition_popup.rect.collidepoint(pos):
                                     drawing_functions.condition_popup_window.clear()
 
-                                if trading_deck:
-                                    if (len(drawing_functions.quest_box) == 0 and
-                                            len(drawing_functions.quest_box_trading) == 0 and
-                                            len(drawing_functions.quest_box_fishing) == 0):
-                                        if card_deck_button.rect.collidepoint(pos):
-                                            match show_trade_deck:
-                                                case True:
-                                                    show_trade_deck = False
-                                                case False:
-                                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                                    show_trade_deck = True
-
                             # get which button player pressed during combat scenario
                             combat_button = click_handlers.combat_event_button(event, no_role_attack_button,
                                                                                mage_attack_button,
@@ -20576,9 +20564,6 @@ if __name__ == "__main__":
                                                                  even_better_fish_counter, best_fish_counter)
                                 drawing_functions.draw_it(game_window, in_battle)
 
-                            if show_trade_deck:
-                                render_card_deck()
-
                             # player status conditions overlay
                             if len(drawing_functions.level_up_window) == 0:
                                 if burned:
@@ -20859,9 +20844,6 @@ if __name__ == "__main__":
                                         game_window.blit(arrow_button.surf, arrow_button.rect)
                                 if player.role == "":
                                     game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
-
-                            if show_trade_deck:
-                                render_card_deck()
 
                             # player status conditions overlay
                             if len(drawing_functions.level_up_window) == 0:

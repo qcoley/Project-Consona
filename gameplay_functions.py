@@ -2740,84 +2740,147 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cl
                 pet.energy -= 1
                 if pet.energy < 0:
                     pet.energy = 0
-
-                if arrow_active:
-                    if mob.name == "Dreth":
-                        if not apothis_gift:
-                            attack_dict["pet damage"] = 1
-                        else:
-                            attack_dict["pet damage"] = 3
-                    else:
-                        if cloaked:
-                            attack_dict["pet damage"] = 0
-                            attack_dict["pet effective"] = False
-                        else:
-                            attack_dict["pet damage"] = 4
-                            attack_dict["pet effective"] = True
-
                 else:
                     if pet.name == "iriana":
                         if mob.name == "Dreth":
                             if not apothis_gift:
                                 attack_dict["pet damage"] = 0
                             else:
-                                attack_dict["pet damage"] = 1
+                                if pet.stage == 1:
+                                    attack_dict["pet damage"] = 1
+                                if pet.stage == 2:
+                                    attack_dict["pet damage"] = 2
+                                if pet.stage == 3:
+                                    attack_dict["pet damage"] = 3
                         else:
                             if cloaked:
                                 attack_dict["pet damage"] = 0
                                 attack_dict["pet effective"] = False
                             else:
-                                attack_dict["pet damage"] = 2
+                                if pet.stage == 1:
+                                    attack_dict["pet damage"] = 2
+                                if pet.stage == 2:
+                                    attack_dict["pet damage"] = 3
+                                if pet.stage == 3:
+                                    attack_dict["pet damage"] = 4
                                 # super effective
                                 if mob.type == "scout":
-                                    attack_dict["pet damage"] = 4
-                                    attack_dict["pet effective"] = True
+                                    if pet.stage == 1:
+                                        attack_dict["pet damage"] = 4
+                                        attack_dict["pet effective"] = True
+                                    if pet.stage == 2:
+                                        attack_dict["pet damage"] = 5
+                                        attack_dict["pet effective"] = True
+                                    if pet.stage == 3:
+                                        attack_dict["pet damage"] = 6
+                                        attack_dict["pet effective"] = True
                                 # not effective
                                 if mob.type == "fighter":
-                                    attack_dict["pet damage"] = 1
-                                    attack_dict["pet non effective"] = True
-
+                                    if pet.stage == 1:
+                                        attack_dict["pet damage"] = 1
+                                        attack_dict["pet non effective"] = True
+                                    if pet.stage == 2:
+                                        attack_dict["pet damage"] = 2
+                                        attack_dict["pet non effective"] = True
+                                    if pet.stage == 3:
+                                        attack_dict["pet damage"] = 3
+                                        attack_dict["pet non effective"] = True
                     if pet.name == "kasper":
                         if mob.name == "Dreth":
-                            attack_dict["pet damage"] = 0
-                            attack_dict["pet non effective"] = True
+                            if not apothis_gift:
+                                attack_dict["pet damage"] = 0
+                                attack_dict["pet non effective"] = True
+                            else:
+                                if pet.stage == 1:
+                                    attack_dict["pet damage"] = 0
+                                    attack_dict["pet non effective"] = True
+                                if pet.stage == 2:
+                                    attack_dict["pet damage"] = 0
+                                    attack_dict["pet non effective"] = True
+                                if pet.stage == 3:
+                                    attack_dict["pet damage"] = 1
+                                    attack_dict["pet non effective"] = True
                         else:
                             if cloaked:
                                 attack_dict["pet damage"] = 0
                                 attack_dict["pet effective"] = False
                             else:
-                                attack_dict["pet damage"] = 2
+                                if pet.stage == 1:
+                                    attack_dict["pet damage"] = 2
+                                if pet.stage == 2:
+                                    attack_dict["pet damage"] = 3
+                                if pet.stage == 3:
+                                    attack_dict["pet damage"] = 4
                                 # super effective
                                 if mob.type == "fighter":
-                                    attack_dict["pet damage"] = 4
-                                    attack_dict["pet effective"] = True
+                                    if pet.stage == 1:
+                                        attack_dict["pet damage"] = 4
+                                        attack_dict["pet effective"] = True
+                                    if pet.stage == 2:
+                                        attack_dict["pet damage"] = 5
+                                        attack_dict["pet effective"] = True
+                                    if pet.stage == 3:
+                                        attack_dict["pet damage"] = 6
+                                        attack_dict["pet effective"] = True
                                 # not effective
                                 if mob.type == "mage":
-                                    attack_dict["pet damage"] = 1
-                                    attack_dict["pet non effective"] = True
-
+                                    if pet.stage == 1:
+                                        attack_dict["pet damage"] = 1
+                                        attack_dict["pet non effective"] = True
+                                    if pet.stage == 2:
+                                        attack_dict["pet damage"] = 2
+                                        attack_dict["pet non effective"] = True
+                                    if pet.stage == 3:
+                                        attack_dict["pet damage"] = 3
+                                        attack_dict["pet non effective"] = True
                     if pet.name == "torok":
                         if mob.name == "Dreth":
                             if not apothis_gift:
                                 attack_dict["pet damage"] = 1
                                 attack_dict["pet effective"] = True
                             else:
-                                attack_dict["pet damage"] = 3
-                                attack_dict["pet effective"] = True
+                                if pet.stage == 1:
+                                    attack_dict["pet damage"] = 3
+                                    attack_dict["pet effective"] = True
+                                if pet.stage == 2:
+                                    attack_dict["pet damage"] = 4
+                                    attack_dict["pet effective"] = True
+                                if pet.stage == 5:
+                                    attack_dict["pet damage"] = 5
+                                    attack_dict["pet effective"] = True
                         else:
                             if cloaked:
                                 attack_dict["pet damage"] = 0
                                 attack_dict["pet effective"] = False
                             else:
-                                attack_dict["pet damage"] = 2
+                                if pet.stage == 1:
+                                    attack_dict["pet damage"] = 2
+                                if pet.stage == 2:
+                                    attack_dict["pet damage"] = 3
+                                if pet.stage == 3:
+                                    attack_dict["pet damage"] = 4
                                 # super effective
                                 if mob.type == "mage":
-                                    attack_dict["pet damage"] = 4
-                                    attack_dict["pet effective"] = True
+                                    if pet.stage == 1:
+                                        attack_dict["pet damage"] = 4
+                                        attack_dict["pet effective"] = True
+                                    if pet.stage == 2:
+                                        attack_dict["pet damage"] = 5
+                                        attack_dict["pet effective"] = True
+                                    if pet.stage == 3:
+                                        attack_dict["pet damage"] = 6
+                                        attack_dict["pet effective"] = True
                                 # not effective
                                 if mob.type == "scout":
-                                    attack_dict["pet damage"] = 1
-                                    attack_dict["pet non effective"] = True
+                                    if pet.stage == 1:
+                                        attack_dict["pet damage"] = 1
+                                        attack_dict["pet non effective"] = True
+                                    if pet.stage == 2:
+                                        attack_dict["pet damage"] = 2
+                                        attack_dict["pet non effective"] = True
+                                    if pet.stage == 3:
+                                        attack_dict["pet damage"] = 3
+                                        attack_dict["pet non effective"] = True
 
     return attack_dict
 
