@@ -819,11 +819,26 @@ def battle_animation_player(player, player_battle_sprite, barrier_active, sharp_
     if kasper_unlocked or torok_unlocked or iriana_unlocked:
         for pet in player.pet:
             if pet.name == "kasper":
-                kasper_battle_sprite.update(825, 520, graphics["kasper_battle"])
+                if pet.stage == 1:
+                    kasper_battle_sprite.update(825, 520, graphics["kasper_battle"])
+                if pet.stage == 2:
+                    kasper_battle_sprite.update(825, 520, graphics["kasper_battle_tier_2"])
+                if pet.stage == 3:
+                    kasper_battle_sprite.update(825, 520, graphics["kasper_battle_tier_3"])
             if pet.name == "torok":
-                torok_battle_sprite.update(825, 520, graphics["torok_battle"])
+                if pet.stage == 1:
+                    torok_battle_sprite.update(825, 520, graphics["torok_battle"])
+                if pet.stage == 2:
+                    torok_battle_sprite.update(825, 520, graphics["torok_battle_tier_2"])
+                if pet.stage == 3:
+                    torok_battle_sprite.update(825, 520, graphics["torok_battle_tier_3"])
             if pet.name == "iriana":
-                iriana_battle_sprite.update(825, 520, graphics["iriana_battle"])
+                if pet.stage == 1:
+                    iriana_battle_sprite.update(825, 520, graphics["iriana_battle"])
+                if pet.stage == 2:
+                    iriana_battle_sprite.update(825, 520, graphics["iriana_battle_tier_2"])
+                if pet.stage == 3:
+                    iriana_battle_sprite.update(825, 520, graphics["iriana_battle_tier_3"])
 
 
 def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
@@ -1840,11 +1855,26 @@ def attack_animation_player(player, player_battle_sprite, barrier_active, sharp_
             for pet in player.pet:
                 if pet.energy > 0:
                     if pet.name == "kasper":
-                        kasper_battle_sprite.update(560, 350, graphics["kasper_attack"])
+                        if pet.stage == 1:
+                            kasper_battle_sprite.update(560, 350, graphics["kasper_attack"])
+                        if pet.stage == 2:
+                            kasper_battle_sprite.update(560, 350, graphics["kasper_attack_tier_2"])
+                        if pet.stage == 3:
+                            kasper_battle_sprite.update(560, 350, graphics["kasper_attack_tier_3"])
                     if pet.name == "torok":
-                        torok_battle_sprite.update(590, 400, graphics["torok_attack"])
+                        if pet.stage == 1:
+                            torok_battle_sprite.update(590, 400, graphics["torok_attack"])
+                        if pet.stage == 2:
+                            torok_battle_sprite.update(590, 400, graphics["torok_attack_tier_2"])
+                        if pet.stage == 3:
+                            torok_battle_sprite.update(590, 400, graphics["torok_attack_tier_3"])
                     if pet.name == "iriana":
-                        iriana_battle_sprite.update(500, 350, graphics["iriana_attack"])
+                        if pet.stage == 1:
+                            iriana_battle_sprite.update(500, 350, graphics["iriana_attack"])
+                        if pet.stage == 2:
+                            iriana_battle_sprite.update(500, 350, graphics["iriana_attack_tier_2"])
+                        if pet.stage == 3:
+                            iriana_battle_sprite.update(500, 350, graphics["iriana_attack_tier_3"])
 
 
 def fighter(graphics, player, player_battle_sprite, sharp_sense_active, barrier_active):

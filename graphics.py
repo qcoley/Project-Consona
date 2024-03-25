@@ -3505,6 +3505,24 @@ def load_graphics():
     loaded_dict["torok_attack"] = player_battle_pets_sheet[3]
     loaded_dict["iriana_battle"] = player_battle_pets_sheet[4]
     loaded_dict["iriana_attack"] = player_battle_pets_sheet[5]
+    # player battle pets tier 2 ----------------------------------------------------------------------------------------
+    player_battle_pets_tier_2_url = resource_path('resources/art/pet_battle_sprites_tier_2.png')
+    player_battle_pets_tier_2_sheet = sprite_sheet((500, 400), player_battle_pets_tier_2_url)
+    loaded_dict["kasper_battle_tier_2"] = player_battle_pets_tier_2_sheet[0]
+    loaded_dict["kasper_attack_tier_2"] = player_battle_pets_tier_2_sheet[1]
+    loaded_dict["torok_battle_tier_2"] = player_battle_pets_tier_2_sheet[2]
+    loaded_dict["torok_attack_tier_2"] = player_battle_pets_tier_2_sheet[3]
+    loaded_dict["iriana_battle_tier_2"] = player_battle_pets_tier_2_sheet[4]
+    loaded_dict["iriana_attack_tier_2"] = player_battle_pets_tier_2_sheet[5]
+    # player battle pets tier 3 ----------------------------------------------------------------------------------------
+    player_battle_pets_tier_3_url = resource_path('resources/art/pet_battle_sprites_tier_3.png')
+    player_battle_pets_tier_3_sheet = sprite_sheet((500, 400), player_battle_pets_tier_3_url)
+    loaded_dict["kasper_battle_tier_3"] = player_battle_pets_tier_3_sheet[0]
+    loaded_dict["kasper_attack_tier_3"] = player_battle_pets_tier_3_sheet[1]
+    loaded_dict["torok_battle_tier_3"] = player_battle_pets_tier_3_sheet[2]
+    loaded_dict["torok_attack_tier_3"] = player_battle_pets_tier_3_sheet[3]
+    loaded_dict["iriana_battle_tier_3"] = player_battle_pets_tier_3_sheet[4]
+    loaded_dict["iriana_attack_tier_3"] = player_battle_pets_tier_3_sheet[5]
     # battle effects ---------------------------------------------------------------------------------------------------
     battle_effects_url = resource_path('resources/art/sprites_battle_effects.png')
     battle_effects_sheet = sprite_sheet((750, 624), battle_effects_url)
