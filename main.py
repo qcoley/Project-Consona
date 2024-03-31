@@ -8668,7 +8668,7 @@ if __name__ == "__main__":
     rest_recover = Notification("rest recover", False, 510, 365, graphic_dict["health_popup"])
     outpost_notify = Notification("outpost notify", False, 510, 365, graphic_dict["outpost_popup"])
     save_check = Notification("save check", False, 510, 365, graphic_dict["save_popup"])
-    save_absent = Notification("save absent", False, 652, 568, graphic_dict["save_not_found"])
+    save_absent = Notification("save absent", False, 640, 568, graphic_dict["save_not_found"])
     first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
     dreth_taunt_popup = Notification("dreth taunt", False, 510, 365, graphic_dict["dreth_taunt_1"])
     card_drop_popup = Notification("card popup", False, 885, 580, graphic_dict["c_snake_popup"])
@@ -9898,7 +9898,7 @@ if __name__ == "__main__":
     sfx_level_up = pygame.mixer.Sound(resource_path("resources/sounds/level_up.mp3"))
     sfx_level_up.set_volume(0.25)
     sfx_role_level = pygame.mixer.Sound(resource_path("resources/sounds/role_level.mp3"))
-    sfx_role_level.set_volume(0.30)
+    sfx_role_level.set_volume(0.25)
 
     sfx_sheet_paper = pygame.mixer.Sound(resource_path("resources/sounds/sheet_paper.mp3"))
     sfx_sheet_paper.set_volume(0.50)
@@ -9930,7 +9930,7 @@ if __name__ == "__main__":
     sfx_item_snack = pygame.mixer.Sound(resource_path("resources/sounds/pet_snack.mp3"))
     sfx_item_snack.set_volume(0.30)
     sfx_item_block = pygame.mixer.Sound(resource_path("resources/sounds/sfx_item_block.mp3"))
-    sfx_item_block.set_volume(0.30)
+    sfx_item_block.set_volume(0.35)
 
     sfx_activate_switch = pygame.mixer.Sound(resource_path("resources/sounds/activate_switch.mp3"))
     sfx_activate_switch.set_volume(0.15)
@@ -12944,6 +12944,7 @@ if __name__ == "__main__":
                             # for clicking map buttons, when the map is open
                             if len(drawing_functions.world_map_container) > 0:
                                 if seldon_map_button.rect.collidepoint(pos):
+                                    time_of_day += 1
                                     pygame.mixer.find_channel(True).play(sfx_map_teleport)
                                     player.current_zone = "seldon"
                                     drawing_functions.hearthstone_animation(pygame, screen, player,
@@ -12998,6 +12999,7 @@ if __name__ == "__main__":
                                     map_button_clicked = False
                                 if korlok_map_button.rect.collidepoint(pos):
                                     if korlok_attuned:
+                                        time_of_day += 1
                                         pygame.mixer.find_channel(True).play(sfx_map_teleport)
                                         player.current_zone = "korlok"
                                         drawing_functions.hearthstone_animation(pygame, screen, player,
@@ -13055,6 +13057,7 @@ if __name__ == "__main__":
                                         info_text_2 = ""
                                 if eldream_map_button.rect.collidepoint(pos):
                                     if eldream_attuned:
+                                        time_of_day += 1
                                         pygame.mixer.find_channel(True).play(sfx_map_teleport)
                                         player.current_zone = "eldream"
                                         drawing_functions.hearthstone_animation(pygame, screen, player,
@@ -13093,6 +13096,7 @@ if __name__ == "__main__":
                                         info_text_2 = ""
                                 if marrow_map_button.rect.collidepoint(pos):
                                     if marrow_attuned:
+                                        time_of_day += 1
                                         pygame.mixer.find_channel(True).play(sfx_map_teleport)
                                         player.current_zone = "marrow"
                                         drawing_functions.hearthstone_animation(pygame, screen, player,
@@ -16718,7 +16722,7 @@ if __name__ == "__main__":
                 if in_over_world and not in_battle and not in_shop and not in_inn and not in_academia \
                         and not in_npc_interaction:
 
-                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720 and player.current_zone != "nascent":
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
@@ -16777,62 +16781,64 @@ if __name__ == "__main__":
                         drawing_functions.draw_it(screen, in_battle)
 
                     else:
-                        game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        game_window.blit(hp_bar.surf, hp_bar.rect)
-                        game_window.blit(en_bar.surf, en_bar.rect)
-                        game_window.blit(xp_bar.surf, xp_bar.rect)
-                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                        game_window.blit(offense_meter.surf, offense_meter.rect)
-                        game_window.blit(defense_meter.surf, defense_meter.rect)
+                        if player.current_zone != "nascent":
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
 
-                        for save_window in save_check_window:
-                            game_window.blit(save_window.surf, save_window.rect)
-                        for ui_elements in user_interface:
-                            if len(drawing_functions.item_info_window) != 0:
-                                if ui_elements.name != "star power":
-                                    game_window.blit(ui_elements.surf, ui_elements.rect)
-                            else:
-                                if len(drawing_functions.game_guide_container) != 0:
-                                    if ui_elements.name != "location overlay" and ui_elements.name != "map button" \
-                                            and ui_elements.name != "save button":
+                            for save_window in save_check_window:
+                                game_window.blit(save_window.surf, save_window.rect)
+                            for ui_elements in user_interface:
+                                if len(drawing_functions.item_info_window) != 0:
+                                    if ui_elements.name != "star power":
                                         game_window.blit(ui_elements.surf, ui_elements.rect)
                                 else:
-                                    game_window.blit(ui_elements.surf, ui_elements.rect)
-                        if len(drawing_functions.loot_popup_container) > 0 and not vanished:
-                            for popup in drawing_functions.loot_popup_container:
-                                game_window.blit(popup.surf, popup.rect)
-                        if len(drawing_functions.loot_text_container) > 0 and not vanished:
-                            for loot_text in drawing_functions.loot_text_container:
-                                game_window.blit(loot_text[0], loot_text[1])
-                        try:
-                            for pet in player.pet:
-                                if pet.active:
-                                    game_window.blit(pet_energy_window.surf, pet_energy_window.rect)
-                                    pet_energy_surf = font.render(str(pet.energy), True, "dark green", "light yellow")
-                                    if player.x_coordinate < 420 and player.y_coordinate < 150:
-                                        pet_energy_surf.set_alpha(50)
-                                    pet_energy_rect = pet_energy_surf.get_rect()
-                                    pet_energy_rect.midleft = (342, 57)
-                                    game_window.blit(pet_energy_surf, pet_energy_rect)
-                                    pet_xp_surf = font.render(str(pet.experience), True, "purple", "light yellow")
-                                    if player.x_coordinate < 420 and player.y_coordinate < 150:
-                                        pet_xp_surf.set_alpha(50)
-                                    pet_xp_rect = pet_xp_surf.get_rect()
-                                    pet_xp_rect.midleft = (390, 57)
-                                    game_window.blit(pet_xp_surf, pet_xp_rect)
-                        except AttributeError:
-                            pass
+                                    if len(drawing_functions.game_guide_container) != 0:
+                                        if ui_elements.name != "location overlay" and ui_elements.name != "map button" \
+                                                and ui_elements.name != "save button":
+                                            game_window.blit(ui_elements.surf, ui_elements.rect)
+                                    else:
+                                        game_window.blit(ui_elements.surf, ui_elements.rect)
+                            if len(drawing_functions.loot_popup_container) > 0 and not vanished:
+                                for popup in drawing_functions.loot_popup_container:
+                                    game_window.blit(popup.surf, popup.rect)
+                            if len(drawing_functions.loot_text_container) > 0 and not vanished:
+                                for loot_text in drawing_functions.loot_text_container:
+                                    game_window.blit(loot_text[0], loot_text[1])
+                            try:
+                                for pet in player.pet:
+                                    if pet.active:
+                                        game_window.blit(pet_energy_window.surf, pet_energy_window.rect)
+                                        pet_energy_surf = font.render(str(pet.energy), True, "dark green",
+                                                                      "light yellow")
+                                        if player.x_coordinate < 420 and player.y_coordinate < 150:
+                                            pet_energy_surf.set_alpha(50)
+                                        pet_energy_rect = pet_energy_surf.get_rect()
+                                        pet_energy_rect.midleft = (342, 57)
+                                        game_window.blit(pet_energy_surf, pet_energy_rect)
+                                        pet_xp_surf = font.render(str(pet.experience), True, "purple", "light yellow")
+                                        if player.x_coordinate < 420 and player.y_coordinate < 150:
+                                            pet_xp_surf.set_alpha(50)
+                                        pet_xp_rect = pet_xp_surf.get_rect()
+                                        pet_xp_rect.midleft = (390, 57)
+                                        game_window.blit(pet_xp_surf, pet_xp_rect)
+                            except AttributeError:
+                                pass
 
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select,
-                                                      apothis_upgrade)
-                        drawing_functions.draw_level_up(game_window, in_over_world)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select, apothis_upgrade)
+                            drawing_functions.draw_level_up(game_window, in_over_world)
 
-                        # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world, basic_fish_counter,
-                                                         better_fish_counter, even_better_fish_counter,
-                                                         best_fish_counter)
-                        drawing_functions.draw_it(game_window, in_battle)
+                            # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world, basic_fish_counter,
+                                                             better_fish_counter, even_better_fish_counter,
+                                                             best_fish_counter)
+                            drawing_functions.draw_it(game_window, in_battle)
 
                     if dreth_defeated and not credits_shown:
                         cutscene_tic = time.perf_counter()
@@ -23070,7 +23076,7 @@ if __name__ == "__main__":
                             try:
                                 if book_button.name == "barrier learn button":
                                     if not barrier_learned:
-                                        if player.mage_level >= 2:
+                                        if player.mage_level >= 1:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                             player.skills_mage["skill 2"] = "barrier"
                                             info_text_1 = "'Barrier' skill learned!"
@@ -23102,7 +23108,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "Mage level 2 required to learn."
+                                                info_text_1 = "Mage level 3 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Transposition'."
@@ -23123,7 +23129,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "Mage level 3 required to learn."
+                                                info_text_1 = "Mage level 5 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Millennium Fire'."
@@ -23142,7 +23148,7 @@ if __name__ == "__main__":
                             try:
                                 if book_button.name == "hard strike learn button":
                                     if not hard_strike_learned:
-                                        if player.fighter_level >= 2:
+                                        if player.fighter_level >= 1:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                             player.skills_fighter["skill 2"] = "hard strike"
                                             info_text_1 = "'Hard Strike' skill learned!"
@@ -23174,7 +23180,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "Fighter level 2 required to learn."
+                                                info_text_1 = "Fighter level 3 required to learn."
                                         else:
                                             info_text_1 = "You've already learned 'Stunning Swing'."
                                             info_text_2 = ""
@@ -23194,7 +23200,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "Fighter level 3 required to learn."
+                                                info_text_1 = "Fighter level 5 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned 'Epsilon's Edge'."
@@ -23213,7 +23219,7 @@ if __name__ == "__main__":
                             try:
                                 if book_button.name == "sharp sense learn button":
                                     if not sharp_sense_learned:
-                                        if player.scout_level >= 2:
+                                        if player.scout_level >= 1:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
                                             player.skills_scout["skill 2"] = "sharp sense"
                                             info_text_1 = "'Sharp Sense' skill learned!"
@@ -23245,7 +23251,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "Scout level 2 required to learn."
+                                                info_text_1 = "Scout level 3 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned this."
@@ -23265,7 +23271,7 @@ if __name__ == "__main__":
                                                 books.clear()
                                                 skill_learn_items.clear()
                                             else:
-                                                info_text_1 = "Scout level 3 required to learn."
+                                                info_text_1 = "Scout level 5 required to learn."
                                                 info_text_2 = ""
                                         else:
                                             info_text_1 = "You've already learned this."
@@ -25183,6 +25189,7 @@ if __name__ == "__main__":
                                 info_text_2 = ""
 
                         if npc_button_fish == "quest" and not fishing_journal_unlocked:
+                            pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                             npc_text_reset = True
                             if basic_fish_counter >= 4:
                                 pygame.mixer.find_channel(True).play(sfx_quest_complete)
@@ -28059,7 +28066,11 @@ if __name__ == "__main__":
                 if day_timer_toc - day_timer > 25:
                     match time_of_day:
                         case 0:  # dawn
-                            over_world_song_set = False
+                            if (player.current_zone != "reservoir a" and player.current_zone != "reservoir b"
+                                    and player.current_zone != "reservoir c" and player.current_zone != "castle one"
+                                    and player.current_zone != "castle two" and player.current_zone != "castle three"
+                                    and player.current_zone != "caldera" and player.current_zone != "castle lair"):
+                                over_world_song_set = False
                             message_box.update(173, 650, graphic_dict["message_box_dawn"])
                             pygame.mixer.find_channel(True).play(sfx_chirp)
                             time_of_day = 1
@@ -28138,7 +28149,11 @@ if __name__ == "__main__":
                             time_of_day = 6
                             day_timer = time.perf_counter()
                         case 6:  # dusk
-                            over_world_song_set = False
+                            if (player.current_zone != "reservoir a" and player.current_zone != "reservoir b"
+                                    and player.current_zone != "reservoir c" and player.current_zone != "castle one"
+                                    and player.current_zone != "castle two" and player.current_zone != "castle three"
+                                    and player.current_zone != "caldera" and player.current_zone != "castle lair"):
+                                over_world_song_set = False
                             message_box.update(173, 650, graphic_dict["message_box_night"])
                             pygame.mixer.find_channel(True).play(sfx_howl)
                             time_of_day = 7
@@ -28530,43 +28545,74 @@ if __name__ == "__main__":
 
                                 if (player.current_zone == "korlok" or player.current_zone == "mines" or
                                         player.current_zone == "terra trail"):
-                                    player.current_zone = "korlok"
-                                    player.x_coordinate = 882
-                                    player.y_coordinate = 290
-                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                                  player.y_coordinate))
+                                    if korlok_attuned:
+                                        player.current_zone = "korlok"
+                                        player.x_coordinate = 895
+                                        player.y_coordinate = 325
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                    else:
+                                        player.current_zone = "seldon"
+                                        player.x_coordinate = 860
+                                        player.y_coordinate = 655
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                        dungeon_teleporter.update(519, 316, graphic_dict["dungeon_teleporter"])
+
                                 elif (player.current_zone == "ectrenos front" or
-                                      player.current_zone == "ectrenos alcove"):
-                                    player.current_zone = "eldream"
-                                    player.x_coordinate = 890
-                                    player.y_coordinate = 635
-                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                                  player.y_coordinate))
-                                elif (player.current_zone == "marrow tower east" or
+                                      player.current_zone == "ectrenos alcove" or
+                                      player.current_zone == "marrow tower east" or
                                       player.current_zone == "marrow tower west" or
                                       player.current_zone == "marrow ramps east end"):
-                                    overlay_marrow_ramps_west.update(110, 250,
-                                                                     graphic_dict["overlay_marrow_ramps_west"])
-                                    overlay_marrow_ramps_east.update(925, 250,
-                                                                     graphic_dict["overlay_marrow_ramps_east"])
-                                    player.current_zone = "marrow entrance"
-                                    player.x_coordinate = 515
-                                    player.y_coordinate = 125
-                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                                  player.y_coordinate))
-                                elif player.current_zone == "marrow" or player.current_zone == "sub marrow":
-                                    player.current_zone = "marrow"
-                                    player.x_coordinate = 685
-                                    player.y_coordinate = 170
-                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                                  player.y_coordinate))
-                                elif (player.current_zone == "castle one" or player.current_zone == "castle two"
+                                    if eldream_attuned:
+                                        player.current_zone = "eldream"
+                                        player.x_coordinate = 890
+                                        player.y_coordinate = 635
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                    elif korlok_attuned:
+                                        player.current_zone = "korlok"
+                                        player.x_coordinate = 895
+                                        player.y_coordinate = 325
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                 player.y_coordinate))
+                                    else:
+                                        player.current_zone = "seldon"
+                                        player.x_coordinate = 860
+                                        player.y_coordinate = 655
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                        dungeon_teleporter.update(519, 316, graphic_dict["dungeon_teleporter"])
+
+                                elif (player.current_zone == "marrow" or player.current_zone == "sub marrow"
+                                      or player.current_zone == "castle one" or player.current_zone == "castle two"
                                       or player.current_zone == "castle three" or player.current_zone == "castle lair"):
-                                    player.current_zone = "castle one"
-                                    player.x_coordinate = 515
-                                    player.y_coordinate = 150
-                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                                  player.y_coordinate))
+                                    if marrow_attuned:
+                                        player.current_zone = "marrow"
+                                        player.x_coordinate = 890
+                                        player.y_coordinate = 390
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                    elif eldream_attuned:
+                                        player.current_zone = "eldream"
+                                        player.x_coordinate = 890
+                                        player.y_coordinate = 635
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                    elif korlok_attuned:
+                                        player.current_zone = "korlok"
+                                        player.x_coordinate = 895
+                                        player.y_coordinate = 325
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                    else:
+                                        player.current_zone = "seldon"
+                                        player.x_coordinate = 860
+                                        player.y_coordinate = 655
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                        dungeon_teleporter.update(519, 316, graphic_dict["dungeon_teleporter"])
+
                                 else:
                                     player.current_zone = "seldon"
                                     player.x_coordinate = 860

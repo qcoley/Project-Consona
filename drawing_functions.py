@@ -1047,6 +1047,8 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
         screen.blit(text_level_surf, text_level_rect)
     # current player location for UI overlay ---------------------------------------------------------------------------
     if in_over_world:
+        if player.current_zone == "nascent":
+            text_location = font.render(str("Nascent"), True, "black", "light yellow")
         if player.current_zone == "seldon":
             text_location = font.render(str("Seldon"), True, "black", "light yellow")
         if player.current_zone == "stardust":
