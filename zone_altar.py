@@ -45,8 +45,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
         screen.blit(vanish_overlay.surf, vanish_overlay.rect)
 
     if pygame.Rect.colliderect(player.rect, forge_rect):
-        interaction_popup.update(515, 100,
-                                 graphic_dict["popup_interaction"])
+        interaction_popup.update(515, 100, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str("Altar"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
@@ -58,16 +57,17 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
             npc_tic = time.perf_counter()
             interacted = False
             if not enchanted_casing:
-                pygame.mixer.find_channel(True).play(sfx_enchanting)
-                for item in player.items:
-                    if item.name == "smelted casing":
-                        player.items.remove(item)
-                        player.items.append(Item("enchanted casing", "casing", 200, 200,
-                                                 graphic_dict["enchanted_casing"], 0))
-                        artherian_2 = True
-                        using_forge = True
-                        task_star_artherian.update(210, 400, graphic_dict["artherian_complete_star"])
-                if not artherian_2:
+                if artherian_2:
+                    pygame.mixer.find_channel(True).play(sfx_enchanting)
+                    for item in player.items:
+                        if item.name == "smelted casing":
+                            player.items.remove(item)
+                            player.items.append(Item("enchanted casing", "casing", 200, 200,
+                                                     graphic_dict["enchanted_casing"], 0))
+                            artherian_2 = True
+                            using_forge = True
+                            task_star_artherian.update(210, 400, graphic_dict["artherian_complete_star"])
+                else:
                     info_text_2 = "First go to the Forge in Korlok."
 
     if pygame.sprite.collide_rect(player, item_block_12):

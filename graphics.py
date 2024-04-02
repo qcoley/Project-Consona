@@ -5280,7 +5280,7 @@ def load_graphics():
     loaded_dict["pet_popup"] = popups_sheet[10]
     # pet advance pop up notifications ---------------------------------------------------------------------------------
     pet_advance_popups_url = resource_path('resources/art/popups_pet_advance.png')
-    pet_advance_popups_sheet = sprite_sheet((400, 300), pet_advance_popups_url)
+    pet_advance_popups_sheet = sprite_sheet((400, 315), pet_advance_popups_url)
     loaded_dict["kasper_advance_2"] = pet_advance_popups_sheet[0]
     loaded_dict["kasper_advance_3"] = pet_advance_popups_sheet[1]
     loaded_dict["torok_advance_2"] = pet_advance_popups_sheet[2]

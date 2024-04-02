@@ -12216,6 +12216,9 @@ if __name__ == "__main__":
                                     drawing_functions.first_quest_window.clear()
                                 if len(drawing_functions.world_map_container) > 0:
                                     drawing_functions.world_map_container.clear()
+                                if len(drawing_functions.role_level_up_popup) > 0:
+                                    drawing_functions.role_level_up_popup.clear()
+                                    drawing_functions.role_level_window_text.clear()
 
                                 if show_cat_card:
                                     show_cat_card = False
@@ -16883,7 +16886,7 @@ if __name__ == "__main__":
                     if level_visual:
                         level_up_visual.update(player.x_coordinate + 2, player.y_coordinate - 32,
                                                graphic_dict["level_up_vis"])
-                        if not level_visual_insert:
+                        if not level_visual_insert and len(drawing_functions.loot_popup_container) == 0:
                             drawing_functions.level_up_visual.insert(0, level_up_visual)
                             level_visual_insert = True
 
@@ -17127,6 +17130,8 @@ if __name__ == "__main__":
                         drawing_functions.loot_text_container.clear()
                         drawing_functions.level_up_draw(level_up_win, player, font, False)
                         drawing_functions.level_up_visual.clear()
+                        drawing_functions.role_level_up_popup.clear()
+                        drawing_functions.role_level_window_text.clear()
                         hp_bar.surf.set_alpha(255)
                         en_bar.surf.set_alpha(255)
                         xp_bar.surf.set_alpha(255)
