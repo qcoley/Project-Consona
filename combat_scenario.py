@@ -2682,11 +2682,11 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                             combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
                             combat_event_dictionary["critical received"] = defend_dict["critical"]
                             damage_to_player = defend_dict["damage"]
-                            if enemy_combating.name == "erebyth":
+                            if enemy_combating.name == "Erebyth":
                                 if erebyth_counter == 3:
                                     damage_to_player = 25
                                     combat_event_dictionary["effective enemy"] = "effective"
-                            if enemy_combating.name == "dreth":
+                            if enemy_combating.name == "Dreth":
                                 if enemy_combating.health < 35:
                                     if not apothis_gift:
                                         damage_to_player = 100

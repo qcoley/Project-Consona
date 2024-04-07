@@ -12948,6 +12948,8 @@ if __name__ == "__main__":
                             if len(drawing_functions.world_map_container) > 0:
                                 if seldon_map_button.rect.collidepoint(pos):
                                     time_of_day += 1
+                                    if time_of_day > 7:
+                                        time_of_day -= 8
                                     pygame.mixer.find_channel(True).play(sfx_map_teleport)
                                     player.current_zone = "seldon"
                                     drawing_functions.hearthstone_animation(pygame, screen, player,
@@ -12960,6 +12962,31 @@ if __name__ == "__main__":
                                     player.y_coordinate = 655
                                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                   player.y_coordinate))
+                                    # keep player pet with player as they move
+                                    try:
+                                        for pet in player.pet:
+                                            if pet.active:
+                                                pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                           player.current_zone)
+                                    except AttributeError:
+                                        pass
+                                    # update message box indicator
+                                    if time_of_day == 0:
+                                        message_box.update(173, 650, graphic_dict["message_box_night"])
+                                    if time_of_day == 1:
+                                        over_world_song_set = False
+                                        message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                        pygame.mixer.find_channel(True).play(sfx_chirp)
+                                    if time_of_day == 2:
+                                        message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                    if time_of_day == 3 or time_of_day == 4:
+                                        message_box.update(173, 650, graphic_dict["message_box_day"])
+                                    if time_of_day == 5 or time_of_day == 6:
+                                        message_box.update(173, 650, graphic_dict["message_box_dusk"])
+                                    if time_of_day == 7:
+                                        over_world_song_set = False
+                                        message_box.update(173, 650, graphic_dict["message_box_night"])
+                                        pygame.mixer.find_channel(True).play(sfx_howl)
                                     if time_of_day == 0 or time_of_day == 7:
                                         for snake in snakes:
                                             if (player.quest_status["sneaky snakes"]
@@ -12982,15 +13009,6 @@ if __name__ == "__main__":
                                                                    graphic_dict["snake"])
                                         if player.quest_progress["where's nede?"] == 1:
                                             nede.update(809, 390, graphic_dict["nede_left"])
-                                    # keep player pet with player as they move
-                                    try:
-                                        for pet in player.pet:
-                                            if pet.active:
-                                                pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                           player.current_zone)
-                                    except AttributeError:
-                                        pass
-
                                     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
                                     info_text_1 = "You recalled to the seldon stone."
                                     over_world_song_set = False
@@ -13003,6 +13021,8 @@ if __name__ == "__main__":
                                 if korlok_map_button.rect.collidepoint(pos):
                                     if korlok_attuned:
                                         time_of_day += 1
+                                        if time_of_day > 7:
+                                            time_of_day -= 8
                                         pygame.mixer.find_channel(True).play(sfx_map_teleport)
                                         player.current_zone = "korlok"
                                         drawing_functions.hearthstone_animation(pygame, screen, player,
@@ -13019,6 +13039,31 @@ if __name__ == "__main__":
                                         player.y_coordinate = 325
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                       player.y_coordinate))
+                                        # keep player pet with player as they move
+                                        try:
+                                            for pet in player.pet:
+                                                if pet.active:
+                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                               player.current_zone)
+                                        except AttributeError:
+                                            pass
+                                        # update message box indicator
+                                        if time_of_day == 0:
+                                            message_box.update(173, 650, graphic_dict["message_box_night"])
+                                        if time_of_day == 1:
+                                            over_world_song_set = False
+                                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                            pygame.mixer.find_channel(True).play(sfx_chirp)
+                                        if time_of_day == 2:
+                                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                        if time_of_day == 3 or time_of_day == 4:
+                                            message_box.update(173, 650, graphic_dict["message_box_day"])
+                                        if time_of_day == 5 or time_of_day == 6:
+                                            message_box.update(173, 650, graphic_dict["message_box_dusk"])
+                                        if time_of_day == 7:
+                                            over_world_song_set = False
+                                            message_box.update(173, 650, graphic_dict["message_box_night"])
+                                            pygame.mixer.find_channel(True).play(sfx_howl)
                                         if time_of_day == 0 or time_of_day == 7:
                                             for magmon in magmons:
                                                 if (player.quest_status["elementary elementals"]
@@ -13037,14 +13082,6 @@ if __name__ == "__main__":
                                                 else:
                                                     magmon.update_image(magmon.x_coordinate, magmon.y_coordinate,
                                                                         graphic_dict["magmon"])
-                                        # keep player pet with player as they move
-                                        try:
-                                            for pet in player.pet:
-                                                if pet.active:
-                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                               player.current_zone)
-                                        except AttributeError:
-                                            pass
                                         rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
                                         info_text_1 = "You recalled to the korlok stone."
                                         over_world_song_set = False
@@ -13061,6 +13098,8 @@ if __name__ == "__main__":
                                 if eldream_map_button.rect.collidepoint(pos):
                                     if eldream_attuned:
                                         time_of_day += 1
+                                        if time_of_day > 7:
+                                            time_of_day -= 8
                                         pygame.mixer.find_channel(True).play(sfx_map_teleport)
                                         player.current_zone = "eldream"
                                         drawing_functions.hearthstone_animation(pygame, screen, player,
@@ -13085,6 +13124,23 @@ if __name__ == "__main__":
                                                                player.current_zone)
                                         except AttributeError:
                                             pass
+                                        # update message box indicator
+                                        if time_of_day == 0:
+                                            message_box.update(173, 650, graphic_dict["message_box_night"])
+                                        if time_of_day == 1:
+                                            over_world_song_set = False
+                                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                            pygame.mixer.find_channel(True).play(sfx_chirp)
+                                        if time_of_day == 2:
+                                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                        if time_of_day == 3 or time_of_day == 4:
+                                            message_box.update(173, 650, graphic_dict["message_box_day"])
+                                        if time_of_day == 5 or time_of_day == 6:
+                                            message_box.update(173, 650, graphic_dict["message_box_dusk"])
+                                        if time_of_day == 7:
+                                            over_world_song_set = False
+                                            message_box.update(173, 650, graphic_dict["message_box_night"])
+                                            pygame.mixer.find_channel(True).play(sfx_howl)
                                         info_text_1 = "You recalled to the eldream stone."
                                         over_world_song_set = False
                                         drawing_functions.world_map_container.clear()
@@ -13100,6 +13156,8 @@ if __name__ == "__main__":
                                 if marrow_map_button.rect.collidepoint(pos):
                                     if marrow_attuned:
                                         time_of_day += 1
+                                        if time_of_day > 7:
+                                            time_of_day -= 8
                                         pygame.mixer.find_channel(True).play(sfx_map_teleport)
                                         player.current_zone = "marrow"
                                         drawing_functions.hearthstone_animation(pygame, screen, player,
@@ -13124,6 +13182,23 @@ if __name__ == "__main__":
                                                                player.current_zone)
                                         except AttributeError:
                                             pass
+                                        # update message box indicator
+                                        if time_of_day == 0:
+                                            message_box.update(173, 650, graphic_dict["message_box_night"])
+                                        if time_of_day == 1:
+                                            over_world_song_set = False
+                                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                            pygame.mixer.find_channel(True).play(sfx_chirp)
+                                        if time_of_day == 2:
+                                            message_box.update(173, 650, graphic_dict["message_box_dawn"])
+                                        if time_of_day == 3 or time_of_day == 4:
+                                            message_box.update(173, 650, graphic_dict["message_box_day"])
+                                        if time_of_day == 5 or time_of_day == 6:
+                                            message_box.update(173, 650, graphic_dict["message_box_dusk"])
+                                        if time_of_day == 7:
+                                            over_world_song_set = False
+                                            message_box.update(173, 650, graphic_dict["message_box_night"])
+                                            pygame.mixer.find_channel(True).play(sfx_howl)
                                         info_text_1 = "You recalled to the marrow stone."
                                         over_world_song_set = False
                                         drawing_functions.world_map_container.clear()
@@ -17182,6 +17257,11 @@ if __name__ == "__main__":
                                     level_visual = True
                                     level_visual_tic = time.perf_counter()
                                     loot_level_tic = time.perf_counter()
+                                for pet in player.pet:
+                                    if pet.active and pet.energy > 0:
+                                        pet.experience += 25
+                                        if pet.experience > 100:
+                                            pet.experience = 100
 
                                 if barrier_active:
                                     barrier_active = False
