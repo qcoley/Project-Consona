@@ -10896,6 +10896,7 @@ if __name__ == "__main__":
                         music_toggle = load_returned["music_toggle"]
                         if music_toggle:
                             pygame.mixer.music.pause()
+                        smelted_casing = load_returned["smelted_casing"]
                         barrier_learned = load_returned["barrier learned"]
                         hard_strike_learned = load_returned["strike learned"]
                         sharp_sense_learned = load_returned["sense learned"]
@@ -12765,7 +12766,7 @@ if __name__ == "__main__":
                                                                         time_of_day, poisoned, burned, bleeding,
                                                                         condition_popup_shown, crushed, music_toggle,
                                                                         apothis_upgrade, apothis_popup_shown,
-                                                                        pet_popup_shown)
+                                                                        pet_popup_shown, smelted_casing)
                                     saved = True
                                     saving = False
                                     info_text_1 = info
@@ -12834,7 +12835,7 @@ if __name__ == "__main__":
                                                                     time_of_day, poisoned, burned, bleeding,
                                                                     condition_popup_shown, crushed, music_toggle,
                                                                     apothis_upgrade, apothis_popup_shown,
-                                                                    pet_popup_shown)
+                                                                    pet_popup_shown, smelted_casing)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -16191,7 +16192,7 @@ if __name__ == "__main__":
                                                                   better_fish_counter, even_better_fish_counter,
                                                                   best_fish_counter, item_block_12, item_block_12_got, 
                                                                   sfx_item_block, kasper_unlocked, torok_unlocked, 
-                                                                  iriana_unlocked, apothis_upgrade)
+                                                                  iriana_unlocked, apothis_upgrade, smelted_casing)
                     else:
                         altar_returned = zone_altar.eldream_altar(pygame, game_window, graphic_dict, player,
                                                                   eldream_altar_bg, eldream_building_music,
@@ -16212,7 +16213,7 @@ if __name__ == "__main__":
                                                                   better_fish_counter, even_better_fish_counter,
                                                                   best_fish_counter, item_block_12, item_block_12_got, 
                                                                   sfx_item_block, kasper_unlocked, torok_unlocked, 
-                                                                  iriana_unlocked, apothis_upgrade)
+                                                                  iriana_unlocked, apothis_upgrade, smelted_casing)
 
                     over_world_song_set = altar_returned["over_world_song_set"]
                     interacted = altar_returned["interacted"]
@@ -28154,7 +28155,14 @@ if __name__ == "__main__":
                             if (player.current_zone != "reservoir a" and player.current_zone != "reservoir b"
                                     and player.current_zone != "reservoir c" and player.current_zone != "castle one"
                                     and player.current_zone != "castle two" and player.current_zone != "castle three"
-                                    and player.current_zone != "caldera" and player.current_zone != "castle lair"):
+                                    and player.current_zone != "caldera" and player.current_zone != "castle lair"
+                                    and player.current_zone != "marrow entrance"
+                                    and player.current_zone != "marrow ramps west"
+                                    and player.current_zone != "marrow tower west"
+                                    and player.current_zone != "marrow ramps west end"
+                                    and player.current_zone != "marrow ramps east"
+                                    and player.current_zone != "marrow tower east"
+                                    and player.current_zone != "marrow ramps east end"):
                                 over_world_song_set = False
                             message_box.update(173, 650, graphic_dict["message_box_dawn"])
                             pygame.mixer.find_channel(True).play(sfx_chirp)
@@ -28237,7 +28245,14 @@ if __name__ == "__main__":
                             if (player.current_zone != "reservoir a" and player.current_zone != "reservoir b"
                                     and player.current_zone != "reservoir c" and player.current_zone != "castle one"
                                     and player.current_zone != "castle two" and player.current_zone != "castle three"
-                                    and player.current_zone != "caldera" and player.current_zone != "castle lair"):
+                                    and player.current_zone != "caldera" and player.current_zone != "castle lair"
+                                    and player.current_zone != "marrow entrance"
+                                    and player.current_zone != "marrow ramps west"
+                                    and player.current_zone != "marrow tower west"
+                                    and player.current_zone != "marrow ramps west end"
+                                    and player.current_zone != "marrow ramps east"
+                                    and player.current_zone != "marrow tower east"
+                                    and player.current_zone != "marrow ramps east end"):
                                 over_world_song_set = False
                             message_box.update(173, 650, graphic_dict["message_box_night"])
                             pygame.mixer.find_channel(True).play(sfx_howl)

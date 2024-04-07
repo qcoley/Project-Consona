@@ -12,7 +12,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                   chroma_forge, forge_rect, Item, sfx_enchanting, overlay_smelting, using_forge, enchanted_casing,
                   artherian_2, task_star_artherian, basic_fish_counter, better_fish_counter,
                   even_better_fish_counter, best_fish_counter, item_block_12, item_block_12_got, sfx_item_block,
-                  kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift):
+                  kasper_unlocked, torok_unlocked, iriana_unlocked, apothis_gift, smelted_casing):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -57,7 +57,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
             npc_tic = time.perf_counter()
             interacted = False
             if not enchanted_casing:
-                if artherian_2:
+                if smelted_casing:
                     pygame.mixer.find_channel(True).play(sfx_enchanting)
                     for item in player.items:
                         if item.name == "smelted casing":

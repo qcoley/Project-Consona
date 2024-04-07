@@ -2343,6 +2343,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["apothis_upgrade"] = player_load_info["apothis_upgrade"]
             load_return["apothis_popup_shown"] = player_load_info["apothis_popup_shown"]
             load_return["pet_popup_shown"] = player_load_info["pet_popup_shown"]
+            load_return["smelted_casing"] = player_load_info["smelted_casing"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -2375,7 +2376,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               item_block_3_got, item_block_4_got, item_block_5_got, item_block_6_got, item_block_7_got,
               item_block_8_got, item_block_9_got, item_block_10_got, item_block_11_got, item_block_12_got,
               cloaked_popup_shown, time_of_day, poisoned, burned, bleeding, condition_popup_shown, crushed,
-              music_toggle, apothis_upgrade, apothis_popup_shown, pet_popup_shown):
+              music_toggle, apothis_upgrade, apothis_popup_shown, pet_popup_shown, smelted_casing):
 
     inventory_save = []
     equipment_save = []
@@ -2509,7 +2510,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "crushed": crushed, "music_toggle": music_toggle, "apothis_upgrade": apothis_upgrade,
                         "apothis_popup_shown": apothis_popup_shown, "mage_level": player.mage_level,
                         "fighter_level": player.fighter_level, "scout_level": player.scout_level,
-                        "pet_popup_shown": pet_popup_shown}
+                        "pet_popup_shown": pet_popup_shown, "smelted_casing": smelted_casing}
 
     try:
         with open("save", "wb") as ff:
