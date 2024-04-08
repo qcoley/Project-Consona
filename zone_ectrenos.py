@@ -361,27 +361,18 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         interaction_info_rect.center = (816, 178)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        if time_of_day == 0 or time_of_day == 7:
-            info_text_1 = "Press 'F' key to enter Menagerie."
-            info_text_2 = ""
-            info_text_3 = ""
-            info_text_4 = ""
-        else:
-            info_text_1 = "Menagerie only open at night."
-            info_text_2 = ""
-            info_text_3 = ""
-            info_text_4 = ""
+        info_text_1 = "Press 'F' key to enter Menagerie."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
 
         if interacted and in_over_world:
-            if time_of_day == 0 or time_of_day == 7:
-                pygame.mixer.find_channel(True).play(sfx_door)
-                interacted = False
-                movement_able = False
-                in_over_world = False
-                over_world_song_set = False
-                in_menagerie = True
-            else:
-                interacted = False
+            pygame.mixer.find_channel(True).play(sfx_door)
+            interacted = False
+            movement_able = False
+            in_over_world = False
+            over_world_song_set = False
+            in_menagerie = True
 
     if pygame.sprite.collide_rect(player, altar):
         interaction_popup.update(altar.x_coordinate + 8, altar.y_coordinate - 115,

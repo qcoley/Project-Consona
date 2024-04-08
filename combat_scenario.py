@@ -1,6 +1,5 @@
 import random
 
-import drawing_functions
 import gameplay_functions
 
 

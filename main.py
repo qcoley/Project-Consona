@@ -8858,22 +8858,22 @@ if __name__ == "__main__":
         Item("brace", "brace", 200, 200, graphic_dict["brace"], 0),
         Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1)])
 
-    npc_garan_interaction = UiElement("garan interaction", 682, 335, graphic_dict["garan_interaction"])
-    npc_maurelle_interaction = UiElement("maurelle interaction", 675, 325, graphic_dict["maurelle_interaction"])
+    npc_garan_interaction = UiElement("garan interaction", 680, 340, graphic_dict["garan_interaction"])
+    npc_maurelle_interaction = UiElement("maurelle interaction", 674, 330, graphic_dict["maurelle_interaction"])
     npc_celeste_interaction = UiElement("celeste interaction", 678, 335, graphic_dict["celeste_interaction"])
-    npc_torune_interaction = UiElement("torune interaction", 674, 335, graphic_dict["torune_interaction"])
+    npc_torune_interaction = UiElement("torune interaction", 672, 338, graphic_dict["torune_interaction"])
     npc_voruke_interaction = UiElement("voruke interaction", 678, 325, graphic_dict["voruke_interaction"])
-    npc_zerah_interaction = UiElement("zerah interaction", 680, 330, graphic_dict["zerah_interaction"])
-    npc_dionte_interaction = UiElement("dionte interaction", 678, 350, graphic_dict["dionte_interaction"])
-    npc_omoku_interaction = UiElement("omoku interaction", 610, 352, graphic_dict["omoku_interaction"])
-    npc_leyre_interaction = UiElement("leyre interaction", 680, 350, graphic_dict["leyre_interaction"])
-    npc_everett_interaction = UiElement("everett interaction", 682, 330, graphic_dict["everett_interaction"])
+    npc_zerah_interaction = UiElement("zerah interaction", 680, 325, graphic_dict["zerah_interaction"])
+    npc_dionte_interaction = UiElement("dionte interaction", 678, 340, graphic_dict["dionte_interaction"])
+    npc_omoku_interaction = UiElement("omoku interaction", 608, 345, graphic_dict["omoku_interaction"])
+    npc_leyre_interaction = UiElement("leyre interaction", 680, 340, graphic_dict["leyre_interaction"])
+    npc_everett_interaction = UiElement("everett interaction", 680, 335, graphic_dict["everett_interaction"])
     npc_artherian_interaction = UiElement("artherian interaction", 675, 335, graphic_dict["artherian_interaction"])
-    npc_maydria_interaction = UiElement("maydria interaction", 675, 325, graphic_dict["maydria_interaction"])
-    npc_kuba_interaction = UiElement("kuba interaction", 676, 335, graphic_dict["kuba_interaction"])
-    npc_nahun_interaction = UiElement("nahun interaction", 678, 330, graphic_dict["nahun_interaction"])
-    npc_illisare_interaction = UiElement("illisare interaction", 678, 350, graphic_dict["illisare_interaction"])
-    npc_roroc_interaction = UiElement("roroc interaction", 678, 350, graphic_dict["roroc_interaction"])
+    npc_maydria_interaction = UiElement("maydria interaction", 675, 320, graphic_dict["maydria_interaction"])
+    npc_kuba_interaction = UiElement("kuba interaction", 676, 345, graphic_dict["kuba_interaction"])
+    npc_nahun_interaction = UiElement("nahun interaction", 678, 335, graphic_dict["nahun_interaction"])
+    npc_illisare_interaction = UiElement("illisare interaction", 676, 340, graphic_dict["illisare_interaction"])
+    npc_roroc_interaction = UiElement("roroc interaction", 678, 340, graphic_dict["roroc_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -14339,7 +14339,8 @@ if __name__ == "__main__":
                                                                                    torok_unlocked, iriana_unlocked,
                                                                                    kasper_battle_sprite,
                                                                                    torok_battle_sprite,
-                                                                                   iriana_battle_sprite)
+                                                                                   iriana_battle_sprite,
+                                                                                   erebyth_defeated)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -14378,7 +14379,8 @@ if __name__ == "__main__":
                                                                                    torok_unlocked, iriana_unlocked,
                                                                                    kasper_battle_sprite,
                                                                                    torok_battle_sprite,
-                                                                                   iriana_battle_sprite)
+                                                                                   iriana_battle_sprite,
+                                                                                   erebyth_defeated)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -14505,7 +14507,9 @@ if __name__ == "__main__":
                                                                                    best_fish_counter, apothis_upgrade,
                                                                                    dawn, early_morning, morning,
                                                                                    early_afternoon, afternoon, dusk,
-                                                                                   night, time_of_day)
+                                                                                   night, time_of_day,
+                                                                                   marrow_entrance_music,
+                                                                                   erebyth_defeated)
                     else:
                         marrow_ramps_east_returned = zone_marrow.marrow_ramps_east(pygame, game_window,
                                                                                    graphic_dict,
@@ -14533,7 +14537,9 @@ if __name__ == "__main__":
                                                                                    best_fish_counter, apothis_upgrade,
                                                                                    dawn, early_morning, morning,
                                                                                    early_afternoon, afternoon, dusk,
-                                                                                   night, time_of_day)
+                                                                                   night, time_of_day,
+                                                                                   marrow_entrance_music,
+                                                                                   erebyth_defeated)
 
                     over_world_song_set = marrow_ramps_east_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_returned["interacted"]
@@ -14731,7 +14737,8 @@ if __name__ == "__main__":
                                                                                            iriana_unlocked,
                                                                                            kasper_battle_sprite,
                                                                                            torok_battle_sprite,
-                                                                                           iriana_battle_sprite)
+                                                                                           iriana_battle_sprite,
+                                                                                           marrow_entrance_music)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -14798,7 +14805,8 @@ if __name__ == "__main__":
                                                                                            iriana_unlocked,
                                                                                            kasper_battle_sprite,
                                                                                            torok_battle_sprite,
-                                                                                           iriana_battle_sprite)
+                                                                                           iriana_battle_sprite,
+                                                                                           marrow_entrance_music)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -17250,6 +17258,7 @@ if __name__ == "__main__":
                                 current_enemy_battling.health = 25
                                 npc_tic = time.perf_counter()
                                 erebyth_defeated = True
+                                over_world_song_set = False
                                 player.experience += 100
                                 if player.experience >= 100:
                                     gameplay_functions.level_up(player, level_up_win, level_up_font)
@@ -28162,7 +28171,7 @@ if __name__ == "__main__":
                                     and player.current_zone != "marrow ramps west end"
                                     and player.current_zone != "marrow ramps east"
                                     and player.current_zone != "marrow tower east"
-                                    and player.current_zone != "marrow ramps east end"):
+                                    and player.current_zone != "marrow ramps east end" and not in_card_cave):
                                 over_world_song_set = False
                             message_box.update(173, 650, graphic_dict["message_box_dawn"])
                             pygame.mixer.find_channel(True).play(sfx_chirp)

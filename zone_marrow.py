@@ -861,7 +861,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling,
                       sfx_surprise, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                       even_better_fish_counter, best_fish_counter, apothis_gift, time_of_day, kasper_unlocked,
-                      torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
+                      torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite,
+                      erebyth_defeated):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -994,7 +995,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_right"])
         player.current_zone = "marrow ramps east"
         in_over_world = True
-        over_world_song_set = False
+        if not erebyth_defeated:
+            over_world_song_set = False
         player.x_coordinate = 570
         player.y_coordinate = 200
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -1104,18 +1106,21 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     return marrow_tower_west_return
 
 
-def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, over_world_song_set, marrow_music,
+def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, over_world_song_set, boss_music,
                       interaction_popup, font, save_check_window, user_interface, bar_backdrop,
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_east, mini_map, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                       best_fish_counter, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk,
-                      night, time_of_day):
+                      night, time_of_day, marrow_music, erebyth_defeated):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(marrow_music)
+            if not erebyth_defeated:
+                pygame.mixer.music.load(boss_music)
+            else:
+                pygame.mixer.music.load(marrow_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
@@ -1162,7 +1167,8 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
 
         if interacted and in_over_world:
             interacted = False
-            over_world_song_set = False
+            if not erebyth_defeated:
+                over_world_song_set = False
             mini_map.update(915, 596, graphic_dict["marrow_mini_map_tower_right"])
             player.current_zone = "marrow tower east"
             player.x_coordinate = 760
@@ -1200,11 +1206,15 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           enemy_vanish, mini_map, vanished, vanish_overlay, basic_fish_counter, better_fish_counter,
                           even_better_fish_counter, best_fish_counter, apothis_gift, dawn, early_morning, morning,
                           early_afternoon, afternoon, dusk, night, time_of_day, kasper_unlocked, torok_unlocked,
-                          iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
+                          iriana_unlocked, kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite,
+                          marrow_music):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
-            pygame.mixer.music.load(boss_music)
+            if not erebyth_defeated:
+                pygame.mixer.music.load(boss_music)
+            else:
+                pygame.mixer.music.load(marrow_music)
             pygame.mixer.music.play(loops=-1)
             over_world_song_set = True
 
@@ -1822,13 +1832,15 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
         interaction_info_rect.center = (495, 580)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to climb down ladder."
+        info_text_1 = "Press 'F' key to climb up ladder."
         info_text_2 = ""
         info_text_3 = ""
         info_text_4 = ""
 
         if interacted and in_over_world:
             pygame.mixer.find_channel(True).play(sfx_ladder)
+            if time_of_day == 0 or time_of_day == 7:
+                over_world_song_set = False
             interacted = False
             player.current_zone = "marrow"
             player.x_coordinate = 340
