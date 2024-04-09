@@ -8862,7 +8862,7 @@ if __name__ == "__main__":
     npc_maurelle_interaction = UiElement("maurelle interaction", 674, 330, graphic_dict["maurelle_interaction"])
     npc_celeste_interaction = UiElement("celeste interaction", 678, 335, graphic_dict["celeste_interaction"])
     npc_torune_interaction = UiElement("torune interaction", 672, 338, graphic_dict["torune_interaction"])
-    npc_voruke_interaction = UiElement("voruke interaction", 678, 325, graphic_dict["voruke_interaction"])
+    npc_voruke_interaction = UiElement("voruke interaction", 677, 325, graphic_dict["voruke_interaction"])
     npc_zerah_interaction = UiElement("zerah interaction", 680, 325, graphic_dict["zerah_interaction"])
     npc_dionte_interaction = UiElement("dionte interaction", 678, 340, graphic_dict["dionte_interaction"])
     npc_omoku_interaction = UiElement("omoku interaction", 608, 345, graphic_dict["omoku_interaction"])
