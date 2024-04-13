@@ -200,22 +200,51 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         if quest_item.name == "Pine logs":
             if not player.quest_complete["village repairs"]:
                 if player.quest_status["village repairs"]:
-                    info_text_1 = "Press 'F' key to gather the pine log."
+                    if player.quest_progress["village repairs"] < 4:
+                        if len(player.items) < 16:
+                            info_text_1 = "Press 'F' key to gather the pine log."
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
+                        else:
+                            info_text_1 = "Inventory is full. "
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
+
+                    else:
+                        info_text_1 = "You've already gathered these."
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
 
                     if interacted and in_over_world:
                         if player.quest_progress["village repairs"] < 4:
-                            player.quest_progress["village repairs"] += 1
-                            info_text_1 = "You gathered 1 pine log."
-                            pygame.mixer.find_channel(True).play(sfx_item_pickup)
-                            quest_item.kill()
-                            interacted = False
+                            if len(player.items) < 16:
+                                player.quest_progress["village repairs"] += 1
+                                player.items.append(Item("pine log", "log", 200, 200, graphic_dict["log"], 0))
+                                pygame.mixer.find_channel(True).play(sfx_item_pickup)
+                                quest_item.kill()
+                                interacted = False
+                            else:
+                                info_text_1 = "Inventory is full."
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+                                interacted = False
                         else:
                             info_text_1 = "You've already gathered these."
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
                             interacted = False
-            else:
-                info_text_1 = "That's some nice pine."
-                if interacted:
-                    interacted = False
+                else:
+                    info_text_1 = "That's some nice pine."
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
+                    if interacted:
+                        interacted = False
 
         if quest_item.model == "rohir gate":
             if player.quest_complete["ghouled again"]:
@@ -416,16 +445,11 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                 info_text_3 = ""
                 info_text_4 = ""
         if building.name == "Academia":
-            if time_of_day != 0 and time_of_day != 7:
-                info_text_1 = "Press 'F' key to enter Academia."
-                info_text_2 = ""
-                info_text_3 = ""
-                info_text_4 = ""
-            else:
-                info_text_1 = "Academia only open during the day."
-                info_text_2 = ""
-                info_text_3 = ""
-                info_text_4 = ""
+            info_text_1 = "Press 'F' key to enter Academia."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
         if building.name == "Inn":
             info_text_1 = "Press 'F' key to enter inn."
             info_text_2 = ""
@@ -453,15 +477,14 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
             if building.name == "Academia":
-                if time_of_day != 0 and time_of_day != 7:
-                    in_academia = True
-                    pygame.mixer.find_channel(True).play(sfx_door)
-                    current_building_entering = building
-                    movement_able = False
-                    in_over_world = False
-                    over_world_song_set = False
-                    drawing_functions.loot_popup_container.clear()
-                    drawing_functions.loot_text_container.clear()
+                in_academia = True
+                pygame.mixer.find_channel(True).play(sfx_door)
+                current_building_entering = building
+                movement_able = False
+                in_over_world = False
+                over_world_song_set = False
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
             interacted = False
 
     # player collides with flower, if collected adds to player flower count

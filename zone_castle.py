@@ -298,7 +298,7 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                cell_1, cell_2, sfx_gate, mirage, mirage_updated, cell_popup, small_chest, mirage_saved, chest_1_got,
                sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, parts, parts_highlighted, sfx_item, apothis_gift,
                time_of_day, kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite, torok_battle_sprite,
-               iriana_battle_sprite):
+               iriana_battle_sprite, Item):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -509,15 +509,35 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                 info_text_3 = ""
                 info_text_4 = ""
             if player.quest_status["re recycling"] and not player.quest_complete["re recycling"]:
-                info_text_1 = "Press 'F' key to pick up the part."
-                info_text_2 = ""
-                info_text_3 = ""
-                info_text_4 = ""
+                if len(player.items) < 16:
+                    info_text_1 = "Press 'F' key to pick up the part."
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
+                else:
+                    info_text_1 = "Inventory is full. "
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
                 if interacted and in_over_world and player.quest_progress["re recycling"] < 4:
-                    pygame.mixer.find_channel(True).play(sfx_item)
-                    player.quest_progress["re recycling"] += 1
-                    part_pick.kill()
-                    interacted = False
+                    if len(player.items) < 16:
+                        pygame.mixer.find_channel(True).play(sfx_item)
+                        player.quest_progress["re recycling"] += 1
+                        player.items.append(Item("construct part", "part", 200, 200, graphic_dict["part"], 0))
+                        part_pick.kill()
+                        interacted = False
+                    else:
+                        info_text_1 = "Inventory is full."
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
+                        interacted = False
+                else:
+                    if player.quest_progress["re recycling"] >= 4:
+                        info_text_1 = "You've already gathered these."
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
 
     # --------------------------------------------------------------------------------------------------
     if not mirage_saved:
@@ -560,7 +580,7 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                  sfx_rupee, sfx_atmon, atmon, atmon_battle_sprite, castle_ladder, sfx_ladder, jumano_hall, thanked,
                  up_move, jumano_battle_sprite, sfx_surprise, surprised, apothis_gift, parts, parts_highlighted,
                  sfx_item, apothis_upgrade, time_of_day, kasper_unlocked, torok_unlocked, iriana_unlocked,
-                 kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite):
+                 kasper_battle_sprite, torok_battle_sprite, iriana_battle_sprite, Item):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -764,15 +784,35 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                 info_text_3 = ""
                 info_text_4 = ""
             if player.quest_status["re recycling"] and not player.quest_complete["re recycling"]:
-                info_text_1 = "Press 'F' key to pick up the part."
-                info_text_2 = ""
-                info_text_3 = ""
-                info_text_4 = ""
+                if len(player.items) < 16:
+                    info_text_1 = "Press 'F' key to pick up the part."
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
+                else:
+                    info_text_1 = "Inventory is full. "
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
                 if interacted and in_over_world and player.quest_progress["re recycling"] < 4:
-                    pygame.mixer.find_channel(True).play(sfx_item)
-                    player.quest_progress["re recycling"] += 1
-                    part_pick.kill()
-                    interacted = False
+                    if len(player.items) < 16:
+                        pygame.mixer.find_channel(True).play(sfx_item)
+                        player.quest_progress["re recycling"] += 1
+                        player.items.append(Item("construct part", "part", 200, 200, graphic_dict["part"], 0))
+                        part_pick.kill()
+                        interacted = False
+                    else:
+                        info_text_1 = "Inventory is full."
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
+                        interacted = False
+                else:
+                    if player.quest_progress["re recycling"] >= 4:
+                        info_text_1 = "You've already gathered these."
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
 
     # --------------------------------------------------------------------------------------------------
     if not mirage_2_saved:

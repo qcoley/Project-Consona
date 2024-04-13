@@ -2130,6 +2130,14 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("brace", "brace", 200, 200, graphics["brace"], 0))
                 if item == "big mend potion":
                     player.items.append(Item("big mend potion", "potion", 200, 200, graphics["big_mend_potion"], 0))
+                if item == "korlok ore":
+                    player.items.append(Item("korlok ore", "ore", 200, 200, graphics["ore"], 0))
+                if item == "pine log":
+                    player.items.append(Item("pine log", "log", 200, 200, graphics["log"], 0))
+                if item == "supplies":
+                    player.items.append(Item("supplies", "item", 200, 200, graphics["supply"], 0))
+                if item == "construct part":
+                    player.items.append(Item("construct part", "part", 200, 200, graphics["part"], 0))
 
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":

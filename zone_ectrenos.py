@@ -1542,13 +1542,12 @@ def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building
                     if item.name == "eldream bait":
                         pygame.mixer.find_channel(True).play(sfx_fishing_cast)
                         fishing = True
-                        interacted = False
                         fishing_timer = time.perf_counter()
                         player.items.remove(item)
                         previous_surf = player.surf
-                        # to clear popup
                         fish_caught = False
                         break
+                interacted = False
 
         if pygame.sprite.collide_rect(player, fishing_spot_2):
             interaction_popup.update(fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50,

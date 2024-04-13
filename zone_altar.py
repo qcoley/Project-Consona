@@ -51,7 +51,16 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (515, 100)
         screen.blit(interaction_info_surf, interaction_info_rect)
-        info_text_1 = "Press 'F' key to use the Altar."
+        if smelted_casing:
+            info_text_1 = "Press 'F' key to use the Altar."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+        else:
+            info_text_1 = "First go to the Forge in Korlok."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted:
             npc_tic = time.perf_counter()
@@ -67,8 +76,6 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                             artherian_2 = True
                             using_forge = True
                             task_star_artherian.update(210, 400, graphic_dict["artherian_complete_star"])
-                else:
-                    info_text_2 = "First go to the Forge in Korlok."
 
     if pygame.sprite.collide_rect(player, item_block_12):
         if not item_block_12_got:

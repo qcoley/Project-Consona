@@ -286,17 +286,13 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 info_text_2 = ""
                 info_text_3 = ""
                 info_text_4 = ""
+
         if building.name == "Apothecary":
-            if time_of_day != 0 and time_of_day != 7:
-                info_text_1 = "Press 'F' key to enter Apothecary."
-                info_text_2 = ""
-                info_text_3 = ""
-                info_text_4 = ""
-            else:
-                info_text_1 = "Apothecary only open during the day."
-                info_text_2 = ""
-                info_text_3 = ""
-                info_text_4 = ""
+            info_text_1 = "Press 'F' key to enter Apothecary."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
         if building.name == "Inn":
             info_text_1 = "Press 'F' key to enter inn."
             info_text_2 = ""
@@ -324,15 +320,14 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
             if building.name == "Apothecary":
-                if time_of_day != 0 and time_of_day != 7:
-                    in_apothecary = True
-                    pygame.mixer.find_channel(True).play(sfx_door)
-                    current_building_entering = building
-                    movement_able = False
-                    in_over_world = False
-                    over_world_song_set = False
-                    drawing_functions.loot_popup_container.clear()
-                    drawing_functions.loot_text_container.clear()
+                in_apothecary = True
+                pygame.mixer.find_channel(True).play(sfx_door)
+                current_building_entering = building
+                movement_able = False
+                in_over_world = False
+                over_world_song_set = False
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
             interacted = False
 
     if pygame.sprite.collide_rect(player, rohir_gate):

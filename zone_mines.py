@@ -168,15 +168,36 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                 info_text_3 = ""
                 info_text_4 = ""
             if player.quest_status["can't apothecary it"] and not player.quest_complete["can't apothecary it"]:
-                info_text_1 = "Press 'F' key to gather the ore."
-                info_text_2 = ""
-                info_text_3 = ""
-                info_text_4 = ""
+                if len(player.items) < 16:
+                    if player.quest_progress["can't apothecary it"] < 4:
+                        info_text_1 = "Press 'F' key to gather the ore."
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
+                    else:
+                        info_text_1 = "You've already gathered these."
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
+                else:
+                    info_text_1 = "Inventory is full."
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
                 if interacted and in_over_world and player.quest_progress["can't apothecary it"] < 4:
-                    pygame.mixer.find_channel(True).play(sfx_item)
-                    player.quest_progress["can't apothecary it"] += 1
-                    ore_pick.kill()
-                    interacted = False
+                    if len(player.items) < 16:
+                        pygame.mixer.find_channel(True).play(sfx_item)
+                        player.quest_progress["can't apothecary it"] += 1
+                        player.items.append(Item("korlok ore", "ore", 200, 200, graphic_dict["ore"], 0))
+                        ore_pick.kill()
+                        interacted = False
+                    else:
+                        info_text_1 = "Inventory is full."
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
+                        interacted = False
+
             if interacted:
                 interacted = False
 

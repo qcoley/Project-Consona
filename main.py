@@ -8922,7 +8922,7 @@ if __name__ == "__main__":
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # friendly's -------------------------------------------------------------------------------------------------------
     # classed as enemies so players can fight with them, but cannot be killed
-    stelli_a = Enemy("Stellia", "stelli", 100, 100, 3, 700, 550, True, "item", graphic_dict["stelli_a"],
+    stelli_a = Enemy("Stellia", "stelli", 100, 100, 3, 725, 550, True, "item", graphic_dict["stelli_a"],
                      UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     stelli_b = Enemy("Stellib", "stelli", 100, 100, 3, 805, 140, True, "item", graphic_dict["stelli_b"],
                      UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
@@ -9827,7 +9827,7 @@ if __name__ == "__main__":
     sfx_fighter_strike = pygame.mixer.Sound(resource_path("resources/sounds/fighter_strike.mp3"))
     sfx_fighter_strike.set_volume(0.45)
     sfx_fighter_stun = pygame.mixer.Sound(resource_path("resources/sounds/sfx_stun.mp3"))
-    sfx_fighter_stun.set_volume(0.35)
+    sfx_fighter_stun.set_volume(0.30)
     sfx_fighter_edge = pygame.mixer.Sound(resource_path("resources/sounds/sfx_fighter_edge.mp3"))
     sfx_fighter_edge.set_volume(0.35)
     sfx_scout_attack = pygame.mixer.Sound(resource_path("resources/sounds/scout_attack.mp3"))
@@ -9877,14 +9877,14 @@ if __name__ == "__main__":
     sfx_enemy_dreth_shatter.set_volume(0.25)
 
     sfx_cloaked = pygame.mixer.Sound(resource_path("resources/sounds/sfx_cloak.mp3"))
-    sfx_cloaked.set_volume(0.25)
+    sfx_cloaked.set_volume(0.20)
 
     sfx_burned = pygame.mixer.Sound(resource_path("resources/sounds/sfx_burn.mp3"))
     sfx_burned.set_volume(0.15)
     sfx_bleed = pygame.mixer.Sound(resource_path("resources/sounds/bleed.mp3"))
     sfx_bleed.set_volume(0.15)
     sfx_poison = pygame.mixer.Sound(resource_path("resources/sounds/poison.mp3"))
-    sfx_poison.set_volume(0.30)
+    sfx_poison.set_volume(0.25)
     sfx_crushed = pygame.mixer.Sound(resource_path("resources/sounds/crushed.mp3"))
     sfx_crushed.set_volume(0.20)
 
@@ -9945,7 +9945,7 @@ if __name__ == "__main__":
     sfx_rock_push = pygame.mixer.Sound(resource_path("resources/sounds/rock_push.mp3"))
     sfx_rock_push.set_volume(0.40)
     sfx_find = pygame.mixer.Sound(resource_path("resources/sounds/find.mp3"))
-    sfx_find.set_volume(0.18)
+    sfx_find.set_volume(0.15)
     sfx_ladder = pygame.mixer.Sound(resource_path("resources/sounds/ladder.mp3"))
     sfx_ladder.set_volume(0.15)
     sfx_smelting = pygame.mixer.Sound(resource_path("resources/sounds/sfx_smelting.mp3"))
@@ -15044,7 +15044,7 @@ if __name__ == "__main__":
                                                                      sfx_item_pickup, apothis_upgrade, time_of_day,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      kasper_battle_sprite, torok_battle_sprite,
-                                                                     iriana_battle_sprite)
+                                                                     iriana_battle_sprite, Item)
                     else:
                         castle_two_returned = zone_castle.castle_two(pygame, game_window, graphic_dict, player,
                                                                      castle_two_bg, over_world_song_set, castle_music,
@@ -15076,7 +15076,7 @@ if __name__ == "__main__":
                                                                      sfx_item_pickup, apothis_upgrade, time_of_day,
                                                                      kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                                      kasper_battle_sprite, torok_battle_sprite,
-                                                                     iriana_battle_sprite)
+                                                                     iriana_battle_sprite, Item)
 
                     over_world_song_set = castle_two_returned["over_world_song_set"]
                     interacted = castle_two_returned["interacted"]
@@ -15143,7 +15143,8 @@ if __name__ == "__main__":
                                                                          sfx_item_pickup, apothis_upgrade, time_of_day,
                                                                          kasper_unlocked, torok_unlocked,
                                                                          iriana_unlocked, kasper_battle_sprite,
-                                                                         torok_battle_sprite, iriana_battle_sprite)
+                                                                         torok_battle_sprite, iriana_battle_sprite,
+                                                                         Item)
                     else:
                         castle_three_returned = zone_castle.castle_three(pygame, game_window, graphic_dict, player,
                                                                          castle_three_bg, over_world_song_set,
@@ -15183,7 +15184,8 @@ if __name__ == "__main__":
                                                                          sfx_item_pickup, apothis_upgrade, time_of_day,
                                                                          kasper_unlocked, torok_unlocked,
                                                                          iriana_unlocked, kasper_battle_sprite,
-                                                                         torok_battle_sprite, iriana_battle_sprite)
+                                                                         torok_battle_sprite, iriana_battle_sprite,
+                                                                         Item)
 
                     over_world_song_set = castle_three_returned["over_world_song_set"]
                     interacted = castle_three_returned["interacted"]
@@ -21483,7 +21485,11 @@ if __name__ == "__main__":
                                 sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame, sell_items,
                                                                               SCREEN_WIDTH, SCREEN_HEIGHT)
                                 sell_return = shop_scenario.sell_items(pygame, player, sell_choice, current_sell_item,
-                                                                       sfx_shop_transaction)
+                                                                       sfx_shop_transaction,
+                                                                       player.quest_complete["can't apothecary it"],
+                                                                       player.quest_complete["village repairs"],
+                                                                       player.quest_complete["kart troubles"],
+                                                                       player.quest_complete["re recycling"])
                                 if sell_return["info 1"] != "":
                                     button_highlighted = False
                                     info_text_1 = sell_return["info 1"]
@@ -21498,7 +21504,11 @@ if __name__ == "__main__":
 
                                 # draws sell info box for info and confirmation
                                 sell_item = click_handlers.sell_event_item(event, pygame, sfx_button_inventory,
-                                                                           SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                           SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                           player.quest_complete["can't apothecary it"],
+                                                                           player.quest_complete["village repairs"],
+                                                                           player.quest_complete["kart troubles"],
+                                                                           player.quest_complete["re recycling"])
                                 if drawing_functions.sell_info_draw(sell_item, sell_items, yes_button,
                                                                     graphic_dict) is not None:
                                     current_sell_item = drawing_functions.sell_info_draw(sell_item, sell_items,
@@ -23921,23 +23931,31 @@ if __name__ == "__main__":
                         if npc_button == "quest" and not player.quest_complete["can't apothecary it"]:
                             npc_text_reset = True
                             if player.quest_progress["can't apothecary it"] == 4:
-                                if len(player.items) < 16:
-                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                    player.quest_complete["can't apothecary it"] = True
-                                    player.current_quests["can't apothecary it"] = "You completed this quest!"
-                                    info_text_1 = "You've completed Kirean's task!"
-                                    info_text_3 = ""
-                                    info_text_4 = ""
-                                    player.experience += 50
-                                    apothecary_access = True
-                                    if player.experience >= 100:
-                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                        leveled = True
-                                        level_visual = True
-                                        loot_level_tic = time.perf_counter()
-                                        level_visual_tic = time.perf_counter()
-                                        loot_timer_reset = False
-                                    player.reputation["sorae"] += 10
+                                pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                player.quest_complete["can't apothecary it"] = True
+                                player.current_quests["can't apothecary it"] = "You completed this quest!"
+                                info_text_1 = "You've completed Kirean's task!"
+                                info_text_3 = ""
+                                info_text_4 = ""
+                                player.experience += 50
+                                apothecary_access = True
+                                if player.experience >= 100:
+                                    gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                    leveled = True
+                                    level_visual = True
+                                    loot_level_tic = time.perf_counter()
+                                    level_visual_tic = time.perf_counter()
+                                    loot_timer_reset = False
+                                player.reputation["sorae"] += 10
+                                for item_1 in player.items:
+                                    if item_1.name == "korlok ore":
+                                        player.items.remove(item_1)
+                                for item_2 in player.items:
+                                    if item_2.name == "korlok ore":
+                                        player.items.remove(item_2)
+                                for item_3 in player.items:
+                                    if item_3.name == "korlok ore":
+                                        player.items.remove(item_3)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -26483,6 +26501,16 @@ if __name__ == "__main__":
                                         loot_timer_reset = False
                                     player.reputation["amuna"] += 10
                                     player.rupees += 10
+                                    for item_1 in player.items:
+                                        if item_1.name == "pine log":
+                                            player.items.remove(item_1)
+                                    for item_2 in player.items:
+                                        if item_2.name == "pine log":
+                                            player.items.remove(item_2)
+                                    for item_3 in player.items:
+                                        if item_3.name == "pine log":
+                                            player.items.remove(item_3)
+
 
                                 if not quest_clicked:
                                     if not player.quest_complete["village repairs"]:
@@ -26824,6 +26852,15 @@ if __name__ == "__main__":
                                         loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
                                     player.rupees += 30
+                                    for item_1 in player.items:
+                                        if item_1.name == "supplies":
+                                            player.items.remove(item_1)
+                                    for item_2 in player.items:
+                                        if item_2.name == "supplies":
+                                            player.items.remove(item_2)
+                                    for item_3 in player.items:
+                                        if item_3.name == "supplies":
+                                            player.items.remove(item_3)
                                 if not quest_clicked:
                                     if not player.quest_complete["kart troubles"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -27437,6 +27474,17 @@ if __name__ == "__main__":
                                         level_visual_tic = time.perf_counter()
                                         loot_timer_reset = False
                                     player.reputation["nuldar"] += 10
+                                    for item_1 in player.items:
+                                        if item_1.name == "construct part":
+                                            player.items.remove(item_1)
+                                    '''
+                                    for item_2 in player.items:
+                                        if item_2.name == "construct part":
+                                            player.items.remove(item_2)
+                                    for item_3 in player.items:
+                                        if item_3.name == "construct part":
+                                            player.items.remove(item_3)
+                                    '''
                                 if not quest_clicked:
                                     if not player.quest_complete["re recycling"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,

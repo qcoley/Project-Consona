@@ -4899,6 +4899,10 @@ def load_graphics():
     loaded_dict["bandage_wrap"] = items_sheet[45]
     loaded_dict["brace"] = items_sheet[46]
     loaded_dict["big_mend_potion"] = items_sheet[47]
+    loaded_dict["ore"] = items_sheet[48]
+    loaded_dict["log"] = items_sheet[49]
+    loaded_dict["supply"] = items_sheet[50]
+    loaded_dict["part"] = items_sheet[51]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -4952,6 +4956,10 @@ def load_graphics():
     loaded_dict["info_big_cure"] = items_info_sheet[47]
     loaded_dict["info_brace"] = items_info_sheet[48]
     loaded_dict["info_big_mend"] = items_info_sheet[49]
+    loaded_dict["info_ore"] = items_info_sheet[50]
+    loaded_dict["info_log"] = items_info_sheet[51]
+    loaded_dict["info_supply"] = items_info_sheet[52]
+    loaded_dict["info_part"] = items_info_sheet[53]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -5016,6 +5024,10 @@ def load_graphics():
     loaded_dict["s_big_cure"] = sell_items_sheet[33]
     loaded_dict["s_brace"] = sell_items_sheet[34]
     loaded_dict["s_big_mend"] = sell_items_sheet[35]
+    loaded_dict["s_ore"] = sell_items_sheet[36]
+    loaded_dict["s_log"] = sell_items_sheet[37]
+    loaded_dict["s_supply"] = sell_items_sheet[38]
+    loaded_dict["s_part"] = sell_items_sheet[39]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)

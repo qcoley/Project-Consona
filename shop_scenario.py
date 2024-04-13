@@ -105,7 +105,8 @@ def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, basic_arm
                 buy_inventory_counter = 0
 
 
-def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
+def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell, apothecary_task_complete,
+               repair_quest_complete, kart_quest_complete, recycle_quest_complete):
     sell_return = {"info 1": "", "info 2": "", "sold": False}
     if sell_choice == "yes":
         # ensures sell confirmation button can only be selected when confirmation window is drawn
@@ -435,6 +436,42 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     player.rupees = player.rupees + 10
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "korlok ore":
+                    if apothecary_task_complete:
+                        sell_return["info 1"] = "Sold Korlok Ore for 0 rupees."
+                        sell_return["info 2"] = "Korlok Ore removed from inventory."
+                        player.items.remove(current_sell_item)
+                        drawing_functions.player_items.remove(current_sell_item)
+                        pygame.mixer.find_channel(True).play(sfx_sell)
+                        sell_return["sold"] = True
+                        drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "pine log":
+                    if repair_quest_complete:
+                        sell_return["info 1"] = "Sold Pine Log for 0 rupees."
+                        sell_return["info 2"] = "Pine Logs removed from inventory."
+                        player.items.remove(current_sell_item)
+                        drawing_functions.player_items.remove(current_sell_item)
+                        pygame.mixer.find_channel(True).play(sfx_sell)
+                        sell_return["sold"] = True
+                        drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "supplies":
+                    if kart_quest_complete:
+                        sell_return["info 1"] = "Sold Supplies for 0 rupees."
+                        sell_return["info 2"] = "Supplies removed from inventory."
+                        player.items.remove(current_sell_item)
+                        drawing_functions.player_items.remove(current_sell_item)
+                        pygame.mixer.find_channel(True).play(sfx_sell)
+                        sell_return["sold"] = True
+                        drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "construct part":
+                    if recycle_quest_complete:
+                        sell_return["info 1"] = "Sold Construct Part for 0 rupees."
+                        sell_return["info 2"] = "Construct Part removed from inventory."
+                        player.items.remove(current_sell_item)
+                        drawing_functions.player_items.remove(current_sell_item)
+                        pygame.mixer.find_channel(True).play(sfx_sell)
+                        sell_return["sold"] = True
+                        drawing_functions.sell_info_window.clear()
             except AttributeError:
                 pass
     if sell_choice == "no":

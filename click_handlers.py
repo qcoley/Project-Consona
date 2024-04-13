@@ -277,7 +277,16 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
             if clicked_element[0].name == "legendary armor":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
-            if clicked_element[0].name == "temporary item":
+            if clicked_element[0].name == "korlok ore":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "pine log":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "supplies":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "construct part":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
             if clicked_element[0].name == "boss key" or clicked_element[0].name == "ramps key":
@@ -1150,7 +1159,8 @@ def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item, SCREEN_WIDTH, 
 
 
 # getting item player clicked based on it's name and return the corresponding item. for selling items
-def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
+def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT, apothecary_task_complete,
+                    repair_quest_complete, kart_quest_complete, recycle_quest_complete):
     if sell_event.type == pygame.MOUSEBUTTONUP:
 
         init_pos = list(pygame.mouse.get_pos())
@@ -1274,6 +1284,22 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
             if clicked_element[0].name == "prism":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
+            if clicked_element[0].name == "korlok ore":
+                if apothecary_task_complete:
+                    pygame.mixer.find_channel(True).play(sfx_item)
+                    return clicked_element[0]
+            if clicked_element[0].name == "pine log":
+                if repair_quest_complete:
+                    pygame.mixer.find_channel(True).play(sfx_item)
+                    return clicked_element[0]
+            if clicked_element[0].name == "supplies":
+                if kart_quest_complete:
+                    pygame.mixer.find_channel(True).play(sfx_item)
+                    return clicked_element[0]
+            if clicked_element[0].name == "construct part":
+                if recycle_quest_complete:
+                    pygame.mixer.find_channel(True).play(sfx_item)
+                    return clicked_element[0]
 
         except IndexError:
             pass

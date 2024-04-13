@@ -243,22 +243,48 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             if quest_item.name == "quest supplies":
                 if not player.quest_complete["kart troubles"]:
                     if player.quest_status["kart troubles"]:
-                        info_text_1 = "Press 'F' key to pick up the supplies."
+                        if player.quest_progress["kart troubles"] < 4:
+                            if len(player.items) < 16:
+                                info_text_1 = "Press 'F' key to pick up the supplies."
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+                            else:
+                                info_text_1 = "Inventory is full. "
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+                        else:
+                            info_text_1 = "You've already gathered these."
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
                         if interacted and in_over_world:
                             if player.quest_progress["kart troubles"] < 4:
-                                pygame.mixer.find_channel(True).play(sfx_item)
-                                player.quest_progress["kart troubles"] += 1
-                                info_text_1 = "You picked up 1 supplies."
-                                quest_item.kill()
-                                interacted = False
+                                if len(player.items) < 16:
+                                    pygame.mixer.find_channel(True).play(sfx_item)
+                                    player.quest_progress["kart troubles"] += 1
+                                    player.items.append(Item("supplies", "item", 200, 200, graphic_dict["supply"], 0))
+                                    quest_item.kill()
+                                    interacted = False
+                                else:
+                                    info_text_1 = "Inventory is full."
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    interacted = False
                             else:
                                 info_text_1 = "You've already gathered these."
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 interacted = False
                 if not player.quest_status["kart troubles"]:
                     info_text_1 = "It's someone's supplies."
                     info_text_2 = ""
                     info_text_3 = ""
                     info_text_4 = ""
+                    interacted = False
         except AttributeError:
             pass
 

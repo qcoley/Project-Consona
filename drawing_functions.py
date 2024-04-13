@@ -653,6 +653,34 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["use_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "korlok ore":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_ore"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "pine log":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_log"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "supplies":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_supply"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "construct part":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_part"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -994,6 +1022,30 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "big mend potion":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_big_mend"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "korlok ore":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_ore"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "pine log":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_log"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "supplies":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_supply"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "construct part":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_part"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
@@ -1916,6 +1968,22 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "big mend potion":
                     item_here.update(first_coord, second_coord, graphic["big_mend_potion"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "korlok ore":
+                    item_here.update(first_coord, second_coord, graphic["ore"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "pine log":
+                    item_here.update(first_coord, second_coord, graphic["log"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "supplies":
+                    item_here.update(first_coord, second_coord, graphic["supply"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "construct part":
+                    item_here.update(first_coord, second_coord, graphic["part"])
                     player_items.append(item_here)
                     inventory_counter += 1
 
