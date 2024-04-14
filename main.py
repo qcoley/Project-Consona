@@ -19590,9 +19590,12 @@ if __name__ == "__main__":
 
                                             # add all combat scenario happenings from function to message box
                                             try:
-                                                if combat_events["edge health"]:
-                                                    info_text_3 = ("Epsilons edge healed you for "
-                                                                   + str(combat_events["edge health"]) + " HP.")
+                                                try:
+                                                    if combat_events["edge health"]:
+                                                        info_text_3 = ("Epsilons edge healed you for "
+                                                                       + str(combat_events["edge health"]) + " HP.")
+                                                except KeyError:
+                                                    pass
                                             except TypeError:
                                                 pass
 
@@ -26511,7 +26514,6 @@ if __name__ == "__main__":
                                         if item_3.name == "pine log":
                                             player.items.remove(item_3)
 
-
                                 if not quest_clicked:
                                     if not player.quest_complete["village repairs"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
@@ -27477,14 +27479,13 @@ if __name__ == "__main__":
                                     for item_1 in player.items:
                                         if item_1.name == "construct part":
                                             player.items.remove(item_1)
-                                    '''
                                     for item_2 in player.items:
                                         if item_2.name == "construct part":
                                             player.items.remove(item_2)
                                     for item_3 in player.items:
                                         if item_3.name == "construct part":
                                             player.items.remove(item_3)
-                                    '''
+
                                 if not quest_clicked:
                                     if not player.quest_complete["re recycling"]:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,

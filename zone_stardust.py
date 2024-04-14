@@ -437,12 +437,12 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                     if item.name == "seldon bait":
                         pygame.mixer.find_channel(True).play(sfx_fishing_cast)
                         fishing = True
-                        interacted = False
                         fishing_timer = time.perf_counter()
                         player.items.remove(item)
                         previous_surf = player.surf
                         fish_caught = False
                         break
+                interacted = False
 
     if pygame.Rect.colliderect(player.rect, card_cave):
         interaction_popup.update(260, 88, graphic_dict["popup_interaction"])

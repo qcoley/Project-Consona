@@ -2255,7 +2255,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 damage_to_enemy = attack_dict["damage"] + attack_dict["pet damage"]
 
                 # healing from epsilons edge returned to player
-                if show_edge:
+                if show_edge and enemy_combating.name != "Dreth":
                     edge_health = random.randint(5, 10)
                     combat_event_dictionary["edge health"] = edge_health
                     player.health += edge_health
@@ -2601,7 +2601,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 # if player has unlocked trading deck, add cards if they are dropped by mob type
                 if trading_deck:
                     card_chance = random.randrange(1, 10)
-                    if card_chance > 4:
+                    if card_chance > 2:
                         # if player has initial task to collect 4 cards
                         if not trading_task_complete and any_card_counter < 4:
                             any_card_counter += 1
@@ -2849,7 +2849,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         # if player has unlocked trading deck, add cards if they are dropped by mob type
                         if trading_deck:
                             card_chance = random.randrange(1, 10)
-                            if card_chance > 4:
+                            if card_chance > 2:
                                 # if player has initial task to collect 4 cards
                                 if not trading_task_complete and any_card_counter < 4:
                                     any_card_counter += 1

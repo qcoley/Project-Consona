@@ -525,19 +525,18 @@ def castle_two(pygame, screen, graphic_dict, player, castle_two_bg, over_world_s
                         player.quest_progress["re recycling"] += 1
                         player.items.append(Item("construct part", "part", 200, 200, graphic_dict["part"], 0))
                         part_pick.kill()
-                        interacted = False
                     else:
                         info_text_1 = "Inventory is full."
                         info_text_2 = ""
                         info_text_3 = ""
                         info_text_4 = ""
-                        interacted = False
                 else:
                     if player.quest_progress["re recycling"] >= 4:
                         info_text_1 = "You've already gathered these."
                         info_text_2 = ""
                         info_text_3 = ""
                         info_text_4 = ""
+            interacted = False
 
     # --------------------------------------------------------------------------------------------------
     if not mirage_saved:
@@ -800,19 +799,18 @@ def castle_three(pygame, screen, graphic_dict, player, castle_three_bg, over_wor
                         player.quest_progress["re recycling"] += 1
                         player.items.append(Item("construct part", "part", 200, 200, graphic_dict["part"], 0))
                         part_pick.kill()
-                        interacted = False
                     else:
                         info_text_1 = "Inventory is full."
                         info_text_2 = ""
                         info_text_3 = ""
                         info_text_4 = ""
-                        interacted = False
                 else:
                     if player.quest_progress["re recycling"] >= 4:
                         info_text_1 = "You've already gathered these."
                         info_text_2 = ""
                         info_text_3 = ""
                         info_text_4 = ""
+            interacted = False
 
     # --------------------------------------------------------------------------------------------------
     if not mirage_2_saved:
@@ -1172,13 +1170,12 @@ def caldera(pygame, screen, graphic_dict, player, caldera_bg, over_world_song_se
                     if item.name == "marrow bait":
                         pygame.mixer.find_channel(True).play(sfx_fishing_cast)
                         fishing = True
-                        interacted = False
                         fishing_timer = time.perf_counter()
                         player.items.remove(item)
                         previous_surf = player.surf
-                        # to clear popup
                         fish_caught = False
                         break
+            interacted = False
 
     if pygame.sprite.collide_rect(player, item_block_10):
         if not item_block_10_got:

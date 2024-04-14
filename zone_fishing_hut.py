@@ -249,12 +249,12 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                     if item.name == "korlok bait":
                         pygame.mixer.find_channel(True).play(sfx_fishing_cast)
                         fishing = True
-                        interacted = False
                         fishing_timer = time.perf_counter()
                         player.items.remove(item)
                         previous_surf = player.surf
                         fish_caught = False
                         break
+                interacted = False
 
     if pygame.sprite.collide_rect(player, item_block):
         if not item_block_got:
