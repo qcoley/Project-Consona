@@ -24011,6 +24011,9 @@ if __name__ == "__main__":
                                 drawing_functions.quest_accept_box.append(task_accepted)
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
                                 info_text_1 = "You've accepted the task!"
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 button_highlighted = False
                                 player.quest_status["can't apothecary it"] = True
                                 player.current_quests["can't apothecary it"] = "Kirean asked you to gather ore."
@@ -24782,6 +24785,9 @@ if __name__ == "__main__":
                                 drawing_functions.quest_accept_box.append(task_accepted)
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
                                 info_text_1 = "You've accepted the task!"
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 button_highlighted = False
                                 player.quest_status["hatch 'em all"] = True
                                 player.current_quests["hatch 'em all"] = "Defeat enemies to hatch your creature."
@@ -25343,6 +25349,8 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
                                 info_text_1 = "You've accepted the task!"
                                 info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 if len(player.items) < 9:
                                     if not bait_given:
                                         for i in range(8):
@@ -25940,6 +25948,8 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
                                 info_text_1 = "You've accepted the task!"
                                 info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
    
                                 if not trading_deck:
                                     drawing_functions.extra_button_container.append(card_deck_button)
@@ -26204,6 +26214,8 @@ if __name__ == "__main__":
                             if quest_buttons == "accept":
                                 info_text_1 = "You've accepted the quest!"
                                 info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 if current_npc_interacting.name != "Garan":
                                     if current_npc_interacting.name != "Artherian":
                                         if current_npc_interacting.name != "Maydria":
@@ -26211,12 +26223,16 @@ if __name__ == "__main__":
                                         else:
                                             info_text_1 = "You've accepted the quest!"
                                             info_text_2 = ""
+                                            info_text_3 = ""
+                                            info_text_4 = ""
                                             drawing_functions.quest_accept_box.append(quest_accepted)
                                             task_star_maydria.update(860, 128, graphic_dict["maydria_progress_star"])
                                             npc_maydria.gift = True
                                     else:
                                         info_text_1 = "You've accepted the quest"
                                         info_text_2 = ""
+                                        info_text_3 = ""
+                                        info_text_4 = ""
                                         drawing_functions.quest_accept_box.append(quest_accepted)
                                         task_star_artherian.update(210, 400, graphic_dict["artherian_progress_star"])
                                         artherian_task_start = True
