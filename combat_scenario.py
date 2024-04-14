@@ -2302,7 +2302,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
             # if enemy is not dead yet this handles their turn and damage ----------------------------------------------
             if enemy_combating.health > 0:
                 if not turn_taken:
-                    attacked_enemy_string = f" You did {damage_to_enemy} damage to {enemy_combating.kind}."
+                    attacked_enemy_string = f" You did {damage_to_enemy} damage to enemy."
                     combat_event_dictionary["damage done"] = damage_to_enemy
                     combat_event_dictionary["damage done string"] = attacked_enemy_string
 
@@ -2667,7 +2667,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     # if enemy is not dead yet
                     if enemy_combating.health > 0:
                         if not turn_taken:
-                            attacked_enemy_string = f" You did {striked} damage to {enemy_combating.kind}."
+                            attacked_enemy_string = f" You did {striked} damage to enemy."
                             combat_event_dictionary["damage done"] = striked
                             # add damage to enemy to event dictionary to be returned to main loop
                             combat_event_dictionary["damage done string"] = attacked_enemy_string
@@ -2695,7 +2695,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                     combat_event_dictionary["effective enemy"] = "effective"
                             if damage_to_player > 0:
                                 attacked_player_string = f"You take {damage_to_player} damage from " \
-                                                         f"{enemy_combating.kind}."
+                                                         f"enemy."
                                 player.health = player.health - damage_to_player
                                 combat_event_dictionary["damage taken"] = damage_to_player
                                 # add damage done to player from enemy to dictionary
