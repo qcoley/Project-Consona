@@ -2353,13 +2353,13 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                         return combat_event_dictionary
                     else:
-                        enemy_miss_string = f'{enemy_combating.kind} missed.'
+                        enemy_miss_string = "Enemy missed. "
                         # add to dictionary that enemy did no damage to player
                         combat_event_dictionary["damage taken string"] = enemy_miss_string
                         return combat_event_dictionary
                 else:
                     stun_them = False
-                    enemy_stun_string = f'{enemy_combating.kind} is stunned.'
+                    enemy_stun_string = "Enemy is stunned. "
                     # add to dictionary that enemy did no damage to player
                     combat_event_dictionary["damage taken string"] = enemy_stun_string
                     combat_event_dictionary["stunned"] = stun_them
@@ -2706,13 +2706,13 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                     player.alive_status = False
                                 return combat_event_dictionary
                             else:
-                                enemy_miss_string = f'{enemy_combating.kind} missed.'
+                                enemy_miss_string = "Enemy missed."
                                 # add to dictionary that enemy did no damage to player
                                 combat_event_dictionary["damage taken string"] = enemy_miss_string
                                 return combat_event_dictionary
                         else:
                             stun_them = False
-                            enemy_stun_string = f'{enemy_combating.kind} is stunned.'
+                            enemy_stun_string = "Enemy is stunned. "
                             # add to dictionary that enemy did no damage to player
                             combat_event_dictionary["damage taken string"] = enemy_stun_string
                             combat_event_dictionary["stunned"] = stun_them

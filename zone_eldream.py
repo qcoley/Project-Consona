@@ -172,6 +172,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             flower.kill()
             info_text_1 = "You collected the Eldream Flower."
             info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
             interacted = False
 
     # resets flower surface to non-highlighted if not currently interacting

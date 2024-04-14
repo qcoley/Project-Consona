@@ -194,6 +194,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     if player.x_coordinate < 35 and 565 > player.y_coordinate > 470:
         player.current_zone = "ectrenos left"
         mini_map.update(915, 596, graphic_dict["ectrenos_mini_map_left"])
+        chroma_bridge.update(477, 493, graphic_dict["chroma_bridge"])
         in_over_world = True
         over_world_song_set = False
         player.x_coordinate = 850
@@ -918,7 +919,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    better_fish_counter, even_better_fish_counter, best_fish_counter, necrolas_highlighted,
                    necrolas_reset, apothis_gift, dawn, early_morning, morning, early_afternoon, afternoon, dusk, night,
                    time_of_day, cloaked, kasper_unlocked, torok_unlocked, iriana_unlocked, kasper_battle_sprite,
-                   torok_battle_sprite, iriana_battle_sprite, night_music):
+                   torok_battle_sprite, iriana_battle_sprite, night_music, chroma_bridge):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1102,6 +1103,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     if 85 > player.x_coordinate and player.y_coordinate < 375:
         player.current_zone = "ectrenos left"
         mini_map.update(915, 596, graphic_dict["ectrenos_mini_map_left"])
+        chroma_bridge.update(477, 493, graphic_dict["chroma_bridge"])
         in_over_world = True
         player.x_coordinate = 850
         player.y_coordinate = 530

@@ -9165,9 +9165,9 @@ if __name__ == "__main__":
     create_potion_button = UiElement("create potion", 435, 475, graphic_dict["create_potion_img"])
     potion_mix_overlay = UiElement("potion mix overlay", 150, 475, graphic_dict["apothecary_empty_potion"])
     pets_button = UiElement("potions button", 860, 680, graphic_dict["manage_pets_img"])
-    kasper_manage_button = UiElement("kasper manage", 145, 460, graphic_dict["activate_button"])
-    torok_manage_button = UiElement("torok manage", 415, 460, graphic_dict["activate_button"])
-    iriana_manage_button = UiElement("iriana manage", 685, 460, graphic_dict["activate_button"])
+    kasper_manage_button = UiElement("kasper manage", 145, 460, graphic_dict["start_seed_button"])
+    torok_manage_button = UiElement("torok manage", 415, 460, graphic_dict["start_seed_button"])
+    iriana_manage_button = UiElement("iriana manage", 685, 460, graphic_dict["start_seed_button"])
     music_toggle_button = UiElement("music toggle", 1235, 44, graphic_dict["music_button"])
     fish_button = UiElement("fish button", 860, 680, graphic_dict["fish_button_img"])
     trade_button = UiElement("card button", 860, 680, graphic_dict["trade_button_img"])
@@ -9898,7 +9898,7 @@ if __name__ == "__main__":
     sfx_level_up = pygame.mixer.Sound(resource_path("resources/sounds/level_up.mp3"))
     sfx_level_up.set_volume(0.25)
     sfx_role_level = pygame.mixer.Sound(resource_path("resources/sounds/role_level.mp3"))
-    sfx_role_level.set_volume(0.25)
+    sfx_role_level.set_volume(0.20)
 
     sfx_sheet_paper = pygame.mixer.Sound(resource_path("resources/sounds/sheet_paper.mp3"))
     sfx_sheet_paper.set_volume(0.50)
@@ -15741,7 +15741,8 @@ if __name__ == "__main__":
                                                                                torok_unlocked, iriana_unlocked,
                                                                                kasper_battle_sprite,
                                                                                torok_battle_sprite,
-                                                                               iriana_battle_sprite, night_music)
+                                                                               iriana_battle_sprite, night_music,
+                                                                               chroma_bridge)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -15796,7 +15797,8 @@ if __name__ == "__main__":
                                                                                torok_unlocked, iriana_unlocked,
                                                                                kasper_battle_sprite,
                                                                                torok_battle_sprite,
-                                                                               iriana_battle_sprite, night_music)
+                                                                               iriana_battle_sprite, night_music,
+                                                                               chroma_bridge)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -18053,7 +18055,7 @@ if __name__ == "__main__":
                                 if current_enemy_battling.kind == "bandile":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_bandile)
                                     if (turn_counter + 1) % random.randint(6, 8) == 0:
-                                        if not crushed:
+                                        if not crushed and current_enemy_battling.health > 30:
                                             crushed = True
                                             player.offense -= 1
                                             player.defense -= 1
@@ -18096,7 +18098,7 @@ if __name__ == "__main__":
                                                 burned = True
                                                 pygame.mixer.find_channel(True).play(sfx_burned)
                                         if erebyth_attack_choice == 2:
-                                            if not crushed:
+                                            if not crushed and current_enemy_battling.health > 30:
                                                 crushed = True
                                                 player.offense -= 1
                                                 player.defense -= 1
@@ -18120,7 +18122,7 @@ if __name__ == "__main__":
                                                 pygame.mixer.find_channel(True).play(sfx_bleed)
                                                 bleed_shown = False
                                         if choice == 4:
-                                            if not crushed:
+                                            if not crushed and current_enemy_battling.health > 30:
                                                 crushed = True
                                                 player.offense -= 1
                                                 player.defense -= 1
@@ -23939,6 +23941,7 @@ if __name__ == "__main__":
                                 player.quest_complete["can't apothecary it"] = True
                                 player.current_quests["can't apothecary it"] = "You completed this quest!"
                                 info_text_1 = "You've completed Kirean's task!"
+                                info_text_2 = ""
                                 info_text_3 = ""
                                 info_text_4 = ""
                                 player.experience += 50
@@ -24718,6 +24721,7 @@ if __name__ == "__main__":
                                     player.quest_complete["hatch 'em all"] = True
                                     player.current_quests["hatch 'em all"] = "You completed this task!"
                                     info_text_1 = "You've completed Aitor's task!"
+                                    info_text_2 = ""
                                     info_text_3 = ""
                                     info_text_4 = ""
                                     player.experience += 50
@@ -25311,6 +25315,9 @@ if __name__ == "__main__":
                             if basic_fish_counter >= 4:
                                 pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                 info_text_1 = "You've completed the fishing task!"
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 fishing_journal_unlocked = True
                                 player.reputation["amuna"] += 10
 
@@ -25903,6 +25910,9 @@ if __name__ == "__main__":
                             npc_text_reset = True
                             if any_card_counter >= 4 and not trading_task_complete:
                                 info_text_1 = "You've completed the collection task!"
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 trading_task_complete = True
                                 player.reputation["nuldar"] += 10
 
@@ -26358,6 +26368,7 @@ if __name__ == "__main__":
                                     player.quest_complete["sneaky snakes"] = True
                                     player.current_quests["sneaky snakes"] = "You completed this quest!"
                                     info_text_1 = "You've completed Garan's quest!"
+                                    info_text_2 = ""
                                     info_text_3 = ""
                                     info_text_4 = ""
                                     player.star_power += 1
@@ -28221,7 +28232,11 @@ if __name__ == "__main__":
                                     and player.current_zone != "marrow ramps west end"
                                     and player.current_zone != "marrow ramps east"
                                     and player.current_zone != "marrow tower east"
-                                    and player.current_zone != "marrow ramps east end" and not in_card_cave):
+                                    and player.current_zone != "marrow ramps east end"
+                                    and player.current_zone != "sub marrow" and not in_card_cave
+                                    and player.current_zone != "ectrenos"
+                                    and player.current_zone != "ectrenos alcove"
+                                    and player.current_zone != "mines"):
                                 over_world_song_set = False
                             message_box.update(173, 650, graphic_dict["message_box_dawn"])
                             pygame.mixer.find_channel(True).play(sfx_chirp)
@@ -28311,7 +28326,11 @@ if __name__ == "__main__":
                                     and player.current_zone != "marrow ramps west end"
                                     and player.current_zone != "marrow ramps east"
                                     and player.current_zone != "marrow tower east"
-                                    and player.current_zone != "marrow ramps east end"):
+                                    and player.current_zone != "marrow ramps east end"
+                                    and player.current_zone != "sub marrow" and not in_card_cave
+                                    and player.current_zone != "ectrenos"
+                                    and player.current_zone != "ectrenos alcove"
+                                    and player.current_zone != "mines"):
                                 over_world_song_set = False
                             message_box.update(173, 650, graphic_dict["message_box_night"])
                             pygame.mixer.find_channel(True).play(sfx_howl)

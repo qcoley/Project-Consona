@@ -2640,6 +2640,9 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
 
 # player attacks enemy, gets damage to enemy done based on player's role and offense
 def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cloaked, crushed):
+
+    damage = 0
+
     level_difference = mob.level - player.level
 
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False,
@@ -2896,6 +2899,9 @@ def attack_enemy(player, mob, sharp_sense_active, arrow_active, apothis_gift, cl
 
 # enemy attacks player, gets damage to player done, subtract players defense level
 def attack_player(player, mob, barrier_active, arrow_active, crushed, strike_active):
+
+    damage = 0
+
     level_difference = mob.level - player.level
 
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False}
