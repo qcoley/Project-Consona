@@ -468,7 +468,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
                           big_hp_15, big_hp_16, big_hp_17, big_hp_18, big_hp_19, big_hp_20, big_hp_21, big_hp_22,
                           big_hp_23, big_hp_24, big_hp_25):
 
-    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     in_cutscene = True
     first_viewed = False
@@ -1072,7 +1072,7 @@ def cutscenes_final_dreth(pygame, music, screen, scene_1, scene_2, scene_3, scen
 def cutscenes_credits(pygame, music, screen, scene_1, scene_2, scene_3, scene_4, scene_5, cutscene_tic,
                       SCREEN_WIDTH, SCREEN_HEIGHT, game_window):
 
-    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+    pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     in_cutscene = True
     first_viewed = False

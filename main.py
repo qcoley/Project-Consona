@@ -11660,10 +11660,13 @@ if __name__ == "__main__":
                         except TypeError:
                             pass
 
-                    if vanished:
-                        vanished_toc = time.perf_counter()
-                        if vanished_toc - vanished_tic > 2:
-                            vanished = False
+                    try:
+                        if vanished:
+                            vanished_toc = time.perf_counter()
+                            if vanished_toc - vanished_tic > 2:
+                                vanished = False
+                    except NameError:
+                        vanished = False
 
                     # update player pet position. check experience for popup
                     try:
@@ -20752,7 +20755,7 @@ if __name__ == "__main__":
                                         in_battle = False
                                         combat_cooldown = False
                                         in_over_world = True
-                                        loot_updated = False
+                                        loot_updated = True
                                         if mirror_image:
                                             if transpose_orb == 0 or transpose_orb == 1:
                                                 info_text_1 = "Gained 20 energy from Transposition."
@@ -20781,9 +20784,7 @@ if __name__ == "__main__":
                                         show_edge = False
                                         strike_active = False
                                         cleared = False
-                                        loot_timer_reset = False
                                         turn_counter = 0
-                                        loot_level_tic = time.perf_counter()
                                         first_attack = True
                                         muchador_crates_list = [muchador_crate_1, muchador_crate_2,
                                                                 muchador_crate_3, muchador_crate_4]
