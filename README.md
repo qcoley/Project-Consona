@@ -4,7 +4,7 @@ Project Consona is an adventure game in the vein of The Legend of Zelda
 with elements inspired by games like Pokémon, Final Fantasy, The Elder Scrolls, 
 Fable, Everquest, Runescape and World of Warcraft among others. 
 
-Coded in Python 3.11.2 using PyGame 2.3.0.
+Coded in Python 3.11.2 using PyGame 2.5.2.
 
 # Choose Your Character
 ![create](https://github.com/qcoley/Project-Eterna/assets/49097168/601e3ae1-0c95-4462-a4b6-9bffcc9d47fe)
